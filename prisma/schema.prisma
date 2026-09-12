@@ -1,0 +1,365 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  SUPER_ADMIN
+  ORG_OWNER
+  ORG_ADMIN
+  ORG_MEMBER
+  USER
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  CONVERTED
+  LOST
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
+
+enum CardStatus {
+  ACTIVE
+  INACTIVE
+  UNASSIGNED
+}
+
+model User {
+  id            String               @id @default(cuid())
+  email         String               @unique
+  passwordHash  String?
+  name          String
+  avatarUrl     String?
+  role          Role                 @default(USER)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  memberships   OrganizationMember[]
+}
+
+model Organization {
+  id                 String               @id @default(cuid())
+  name               String
+  slug               String               @unique
+  logoUrl            String?
+  planId             String?
+  subscriptionStatus String               @default("trial")
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+
+  members            OrganizationMember[]
+  profiles           Profile[]
+  products           Product[]
+  categories         ProductCategory[]
+  services           Service[]
+  bookings           Booking[]
+  leads              Lead[]
+  orders             Order[]
+  qrCodes            DynamicQr[]
+  nfcCards           NfcCard[]
+  blogPosts          BlogPost[]
+}
+
+model OrganizationMember {
+  id             String       @id @default(cuid())
+  organizationId String
+  userId         String
+  role           Role         @default(ORG_MEMBER)
+  createdAt      DateTime     @default(now())
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+}
+
+model Profile {
+  id             String           @id @default(cuid())
+  organizationId String
+  slug           String           @unique
+  name           String
+  designation    String?
+  company        String?
+  bio            String?
+  email          String?
+  phone          String?
+  whatsapp       String?
+  website        String?
+  address        String?
+  avatarUrl      String?
+  coverUrl       String?
+  theme          String           @default("modern-indigo")
+  customDomain   String?          @unique
+  isPublished    Boolean          @default(true)
+  viewCount      Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  sections       ProfileSection[]
+  socialLinks    SocialLink[]
+  products       Product[]
+  services       Service[]
+  bookings       Booking[]
+  leads          Lead[]
+  orders         Order[]
+  qrCodes        DynamicQr[]
+  nfcCards       NfcCard[]
+  analytics      AnalyticsEvent[]
+}
+
+model ProfileSection {
+  id          String   @id @default(cuid())
+  profileId   String
+  type        String   // hero, about, services, socials, gallery, video, products, booking, testimonials, contact, custom_links, iframes
+  title       String
+  isVisible   Boolean  @default(true)
+  order       Int      @default(0)
+  config      Json     @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  profile     Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model SocialLink {
+  id        String   @id @default(cuid())
+  profileId String
+  platform  String   // whatsapp, phone, email, linkedin, instagram, twitter, youtube, github, website, telegram, etc.
+  url       String
+  label     String?
+  order     Int      @default(0)
+
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model ProductCategory {
+  id             String    @id @default(cuid())
+  organizationId String
+  name           String
+  order          Int       @default(0)
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  products       Product[]
+}
+
+model Product {
+  id             String           @id @default(cuid())
+  organizationId String
+  profileId      String?
+  categoryId     String?
+  name           String
+  description    String?
+  price          Float
+  currency       String           @default("INR")
+  imageUrl       String?
+  sku            String?
+  isAvailable    Boolean          @default(true)
+  order          Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  profile        Profile?         @relation(fields: [profileId], references: [id], onDelete: SetNull)
+  category       ProductCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+}
+
+model Order {
+  id              String       @id @default(cuid())
+  organizationId  String
+  profileId       String?
+  customerName    String
+  customerPhone   String
+  customerAddress String?
+  totalAmount     Float
+  currency        String       @default("INR")
+  status          OrderStatus  @default(PENDING)
+  items           Json         // Array of items { productId, name, price, quantity }
+  notes           String?
+  createdAt       DateTime     @default(now())
+
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  profile         Profile?     @relation(fields: [profileId], references: [id], onDelete: SetNull)
+}
+
+model Service {
+  id              String       @id @default(cuid())
+  organizationId  String
+  profileId       String?
+  title           String
+  description     String?
+  durationMinutes Int          @default(30)
+  price           Float        @default(0)
+  currency        String       @default("INR")
+  isAvailable     Boolean      @default(true)
+  createdAt       DateTime     @default(now())
+
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  profile         Profile?     @relation(fields: [profileId], references: [id], onDelete: SetNull)
+  bookings        Booking[]
+}
+
+model Booking {
+  id             String        @id @default(cuid())
+  organizationId String
+  profileId      String?
+  serviceId      String?
+  customerName   String
+  customerEmail  String
+  customerPhone  String
+  bookingDate    DateTime
+  startTime      String
+  endTime        String
+  status         BookingStatus @default(PENDING)
+  notes          String?
+  createdAt      DateTime      @default(now())
+
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  profile        Profile?      @relation(fields: [profileId], references: [id], onDelete: SetNull)
+  service        Service?      @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+}
+
+model Lead {
+  id             String     @id @default(cuid())
+  organizationId String
+  profileId      String?
+  name           String
+  email          String
+  phone          String?
+  message        String?
+  attachmentUrl  String?
+  status         LeadStatus @default(NEW)
+  notes          String?
+  createdAt      DateTime   @default(now())
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  profile        Profile?     @relation(fields: [profileId], references: [id], onDelete: SetNull)
+}
+
+model DynamicQr {
+  id              String       @id @default(cuid())
+  code            String       @unique // Short code for /q/{code}
+  organizationId  String
+  profileId       String?
+  targetUrl       String
+  scanCount       Int          @default(0)
+  foregroundColor String       @default("#000000")
+  backgroundColor String       @default("#ffffff")
+  logoUrl         String?
+  frameType       String       @default("default")
+  createdAt       DateTime     @default(now())
+
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  profile         Profile?     @relation(fields: [profileId], references: [id], onDelete: SetNull)
+}
+
+model NfcCard {
+  id                String       @id @default(cuid())
+  cardCode          String       @unique // Short code for /nfc/{cardCode}
+  organizationId    String
+  profileId         String?
+  status            CardStatus   @default(ACTIVE)
+  serialNumber      String?
+  fulfillmentStatus String       @default("DELIVERED")
+  tapCount          Int          @default(0)
+  createdAt         DateTime     @default(now())
+
+  organization      Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  profile           Profile?     @relation(fields: [profileId], references: [id], onDelete: SetNull)
+}
+
+model AnalyticsEvent {
+  id         String   @id @default(cuid())
+  profileId  String
+  eventType  String   // profile_view, qr_scan, nfc_scan, phone_click, whatsapp_click, email_click, contact_download, website_click, social_click, product_view, cart_created, booking_created, lead_submitted
+  visitorIp  String?
+  userAgent  String?
+  referrer   String?
+  country    String?
+  city       String?
+  device     String?
+  createdAt  DateTime @default(now())
+
+  profile    Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Plan {
+  id                  String   @id @default(cuid())
+  name                String
+  slug                String   @unique
+  priceMonthly        Float
+  priceYearly         Float
+  maxProfiles         Int      @default(1)
+  maxProducts         Int      @default(5)
+  maxStorageMb        Int      @default(500)
+  customDomainAllowed Boolean  @default(false)
+  analyticsLevel      String   @default("basic")
+  features            Json     @default("[]")
+  createdAt           DateTime @default(now())
+}
+
+model BlogPost {
+  id             String        @id @default(cuid())
+  organizationId String
+  title          String
+  slug           String        @unique
+  excerpt        String
+  content        String
+  coverImage     String?
+  category       String        @default("General")
+  readTimeMinutes Int          @default(3)
+  authorName     String
+  isPublished    Boolean       @default(true)
+  tags           Json          @default("[]")
+  viewsCount     Int           @default(0)
+  publishedAt    DateTime      @default(now())
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+model Invoice {
+  id             String        @id @default(cuid())
+  invoiceNumber  String        @unique
+  organizationId String
+  userId         String?
+  planTier       String
+  amount         Float
+  currency       String        @default("INR")
+  status         String        @default("PAID")
+  gateway        String        @default("Razorpay")
+  paymentId      String?
+  orderId        String?
+  taxAmount      Float         @default(0)
+  paidAt         DateTime      @default(now())
+  createdAt      DateTime      @default(now())
+}
+
+model SystemSetting {
+  id          String   @id @default("global_config")
+  key         String   @unique
+  value       Json
+  updatedAt   DateTime @updatedAt
+}
+

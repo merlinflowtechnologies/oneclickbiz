@@ -30,8 +30,19 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files (protect all secrets, allow .env.example template)
 .env*
+!.env.example
+
+# database & dumps
+*.sql
+*.sqlite
+*.sqlite3
+legacy_backup/
+
+# archives & bundles
+*.tar.gz
+*.zip
 
 # vercel
 .vercel

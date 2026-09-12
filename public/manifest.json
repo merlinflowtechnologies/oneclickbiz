@@ -1,0 +1,17 @@
+{
+  "name": "OneClickBiz | Smart Digital Identity & WhatsApp Store",
+  "short_name": "OneClickBiz",
+  "description": "Next-Gen Smart Digital Business Cards, WhatsApp Mini-Stores, Booking Calendars & Contactless NFC Platform.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#6366f1",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "1024x408",
+      "type": "image/png"
+    }
+  ]
+}

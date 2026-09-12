@@ -1,0 +1,936 @@
+'use client';
+
+import React, { useState, useEffect, Suspense } from 'react';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { 
+  Sparkles, 
+  Lock, 
+  Mail, 
+  ArrowRight, 
+  CheckCircle2, 
+  ShieldCheck, 
+  Eye, 
+  EyeOff, 
+  AlertCircle,
+  Building,
+  User,
+  Phone,
+  CreditCard,
+  Check,
+  Crown,
+  Zap,
+  Download,
+  Receipt,
+  ArrowLeft,
+  ChevronRight,
+  Shield,
+  Smartphone
+} from 'lucide-react';
+import confetti from 'canvas-confetti';
+import { initiateCashfreePayment } from '@/lib/cashfree-client';
+import { exportInvoicePDF } from '@/lib/pdf-export';
+
+function GoogleIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24">
+      <path
+        fill="#EA4335"
+        d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"
+      />
+      <path
+        fill="#4285F4"
+        d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15.2s.7 5.5 1.9 7.9l3.7-2.9z"
+      />
+      <path
+        fill="#34A853"
+        d="M12 23.5c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 16.5C3.7 20.9 7.5 23.5 12 23.5z"
+      />
+    </svg>
+  );
+}
+
+const DEFAULT_PLANS_CONFIG = {
+  Basic: {
+    id: 'BASIC',
+    name: 'Basic Plan',
+    price: 999,
+    cards: '1 Smart Digital Card',
+    domains: 'Standard Subdomain',
+    description: 'Essential digital identity card for solo professionals & consultants.',
+    features: [
+      '1 Interactive Digital Card (/v/handle)',
+      '1-Click .VCF Direct Contact Downloader',
+      'Dynamic Editable Cloud QR Code',
+      'Social Links & Interactive Portfolio',
+      'Inbound Lead Capture Form with Alerts',
+      'Standard Visitor Analytics Dashboard'
+    ]
+  },
+  Pro: {
+    id: 'PRO',
+    name: 'Pro Plan',
+    price: 1599,
+    cards: 'Up to 3 Smart Cards',
+    domains: '1 White-Label Custom Domain',
+    description: 'Complete commercial suite for multi-service agencies and modern businesses.',
+    features: [
+      'Up to 3 Smart Digital Identity Cards',
+      '1 White-Label Custom Domain CNAME (card.yourdomain.com)',
+      'Full Interactive WhatsApp Store Catalog with Direct Checkout',
+      'Appointment & Slot Booking Engine with Auto Confirmation',
+      'Executive PDF Analytics & Lead Exporting Suite',
+      'Leads CRM Pipeline Inbox & Real-Time Sync',
+      'Priority WhatsApp & Email Support'
+    ]
+  },
+  Advanced: {
+    id: 'ADVANCED',
+    name: 'Advanced Plan',
+    price: 2199,
+    cards: 'Up to 5 Smart Cards',
+    domains: '5 White-Label Custom Domains',
+    description: 'For corporate teams, serial founders, and high-growth commercial enterprises.',
+    features: [
+      'Up to 5 Digital Cards & Team Profiles',
+      '5 White-Label Custom Domains CNAMEs',
+      'Unlimited 4K Video Uploads & High-Speed CDN',
+      'Blog Studio & Unlimited Article Publishing',
+      '50+ High-Res Portfolio Case Studies with Zoom',
+      'Dedicated Account Manager & 24/7 VIP SLA'
+    ]
+  }
+};
+
+function SignUpForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Query Params
+  const paramSlug = searchParams.get('slug') || '';
+  const paramTemplate = searchParams.get('template') || '';
+  const paramPlan = searchParams.get('plan') || '';
+
+  const [plans, setPlans] = useState(DEFAULT_PLANS_CONFIG);
+
+  useEffect(() => {
+    async function loadDynamicPricing() {
+      try {
+        const res = await fetch('/api/settings', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.config) {
+            const bPrice = Number(data.config.basicPrice) || 999;
+            const pPrice = Number(data.config.proPrice) || 1599;
+            const aPrice = Number(data.config.advancedPrice) || 2199;
+            setPlans(prev => ({
+              Basic: { ...prev.Basic, price: bPrice },
+              Pro: { ...prev.Pro, price: pPrice },
+              Advanced: { ...prev.Advanced, price: aPrice }
+            }));
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load dynamic pricing in signup:', err);
+      }
+    }
+    loadDynamicPricing();
+  }, []);
+
+  // Plan Selection (Default Pro)
+  const initialPlan = paramPlan === 'Basic' || paramPlan === 'Advanced' ? paramPlan : 'Pro';
+  const [selectedPlanKey, setSelectedPlanKey] = useState<'Basic' | 'Pro' | 'Advanced'>(initialPlan as any);
+  const activePlan = plans[selectedPlanKey];
+
+  // Wizard Step: 1 = Details & Credentials, 2 = Cashfree Payment Confirmation, 3 = Payment Success
+  const [step, setStep] = useState<1 | 2 | 3>(1);
+
+  // Form State
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [businessName, setBusinessName] = useState('');
+  const [entityType, setEntityType] = useState('Private Limited / LLC');
+  const [category, setCategory] = useState('Technology & Agency');
+  const [phone, setPhone] = useState('+91 63049 89071');
+  const [slug, setSlug] = useState(paramSlug ? paramSlug.toLowerCase() : '');
+
+  // UI / Payment States
+  const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [error, setError] = useState('');
+  const [completedOrder, setCompletedOrder] = useState<any>(null);
+
+  useEffect(() => {
+    if (paramSlug && !slug) {
+      setSlug(paramSlug.toLowerCase().replace(/[^a-z0-9-]/g, ''));
+    }
+  }, [paramSlug, slug]);
+
+  const handleNameChange = (val: string) => {
+    setFullName(val);
+    if (!slug || slug === fullName.toLowerCase().replace(/[^a-z0-9]/g, '-')) {
+      if (!paramSlug) {
+        setSlug(val.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 30));
+      }
+    }
+    if (!businessName) {
+      setBusinessName(`${val}'s Business`);
+    }
+  };
+
+  useEffect(() => {
+    // Dynamically inject Google Identity Services script
+    if (typeof window !== 'undefined' && !document.getElementById('google-gsi-script')) {
+      const script = document.createElement('script');
+      script.id = 'google-gsi-script';
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  // Google OAuth Handshake -> Moves directly to Step 2 (Cashfree Checkout)
+  const handleGoogleSignUp = () => {
+    setGoogleLoading(true);
+    setError('');
+
+    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '786059341452-g7lm4qd6upl759gft7o1ggd9n2as94ne.apps.googleusercontent.com';
+
+    if (typeof window !== 'undefined' && (window as any).google?.accounts?.oauth2) {
+      try {
+        const client = (window as any).google.accounts.oauth2.initTokenClient({
+          client_id: clientId,
+          scope: 'email profile openid',
+          callback: async (tokenResponse: any) => {
+            if (tokenResponse.error) {
+              setError(tokenResponse.error_description || 'Google sign up was cancelled.');
+              setGoogleLoading(false);
+              return;
+            }
+
+            try {
+              const res = await fetch('/api/auth/google', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ accessToken: tokenResponse.access_token }),
+              });
+
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.error || 'Google authentication failed');
+
+              setFullName(data.user.name);
+              setEmail(data.user.email);
+              const generatedBizName = businessName || `${data.user.name}'s Business`;
+              const generatedSlug = data.user.slug || data.user.name.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 25);
+              
+              setBusinessName(generatedBizName);
+              setSlug(generatedSlug);
+              setPassword('google_oauth_auth_2026');
+
+              if (typeof window !== 'undefined') {
+                localStorage.setItem('oneclickbiz_user_session', JSON.stringify({
+                  fullName: data.user.name,
+                  email: data.user.email,
+                  businessName: generatedBizName,
+                  entityType,
+                  category,
+                  designation: 'Founder / Managing Director',
+                  phone,
+                  slug: generatedSlug,
+                  plan: activePlan.id,
+                  isBusinessEntity: true,
+                  loggedIn: true
+                }));
+              }
+
+              setGoogleLoading(false);
+              // Move immediately to Cashfree Payment Step!
+              setStep(2);
+            } catch (err: any) {
+              setError(err.message || 'Failed to complete Google Sign-Up.');
+              setGoogleLoading(false);
+            }
+          },
+        });
+        client.requestAccessToken({ prompt: 'select_account' });
+      } catch (e: any) {
+        setError(e.message || 'Error opening Google account selector');
+        setGoogleLoading(false);
+      }
+    } else {
+      setError('Google Sign-In is loading, please try again in a moment.');
+      setGoogleLoading(false);
+    }
+  };
+
+  // Step 1 Submission: Validates credentials and advances to Step 2 (Cashfree Checkout)
+  const handleProceedToPaymentStep = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    if (!fullName.trim() || !email.trim() || password.length < 6) {
+      setError('Please fill in your representative name, valid email, and password (minimum 6 characters).');
+      return;
+    }
+
+    const cleanSlug = (slug || fullName.toLowerCase().replace(/[^a-z0-9]/g, '-')).toLowerCase();
+    const cleanBiz = businessName.trim() || `${fullName}'s Business`;
+
+    try {
+      // Register or ensure user exists in PostgreSQL Database
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: fullName,
+          email,
+          password,
+          businessName: cleanBiz,
+          slug: cleanSlug
+        })
+      });
+
+      const data = await res.json();
+      // If user already exists (409), that is ok, proceed to payment
+      if (!res.ok && res.status !== 409) {
+        throw new Error(data.error || 'Failed to initialize business registration');
+      }
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('oneclickbiz_user_session', JSON.stringify({
+          fullName,
+          email,
+          businessName: cleanBiz,
+          entityType,
+          category,
+          designation: 'Founder / Managing Director',
+          phone,
+          slug: cleanSlug,
+          plan: activePlan.id,
+          template: paramTemplate || undefined,
+          isBusinessEntity: true,
+          loggedIn: true
+        }));
+      }
+
+      setStep(2);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || 'Error registering account. Please try again.');
+    }
+  };
+
+  // Step 2 Action: Initiates Cashfree PG Checkout Modal Directly!
+  const handleLaunchCashfreePayment = async () => {
+    setIsProcessingPayment(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/payments/cashfree/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          planId: activePlan.id,
+          planName: activePlan.name,
+          price: activePlan.price,
+          customerName: fullName || 'OneClickBiz Customer',
+          customerEmail: email || 'billing@oneclickbiz.in',
+          customerPhone: phone || '6304989071'
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.paymentSessionId) {
+        setError(data.error || 'Failed to initialize Cashfree payment gateway.');
+        setIsProcessingPayment(false);
+        return;
+      }
+
+      // Launch Cashfree Checkout Modal
+      await initiateCashfreePayment({
+        paymentSessionId: data.paymentSessionId,
+        mode: (process.env.NEXT_PUBLIC_CASHFREE_ENV as any) || 'production',
+        onSuccess: async () => {
+          // Verify with Backend Server
+          const verifyRes = await fetch('/api/payments/cashfree/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              orderId: data.orderId,
+              planId: activePlan.id
+            })
+          });
+
+          const verifyData = await verifyRes.json();
+          if (verifyData.isPaid) {
+            setCompletedOrder({
+              orderId: data.orderId,
+              amount: `₹${activePlan.price.toLocaleString()}.00`,
+              planName: activePlan.name,
+              date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            });
+
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('oneclickbiz_user_plan', activePlan.id);
+              const savedSession = localStorage.getItem('oneclickbiz_user_session');
+              if (savedSession) {
+                const parsed = JSON.parse(savedSession);
+                parsed.plan = activePlan.id;
+                parsed.isPaid = true;
+                localStorage.setItem('oneclickbiz_user_session', JSON.stringify(parsed));
+              }
+            }
+
+            setStep(3);
+            setIsProcessingPayment(false);
+
+            confetti({
+              particleCount: 150,
+              spread: 90,
+              origin: { y: 0.6 }
+            });
+          } else {
+            setError('Payment verification pending or incomplete. Please check your bank or retry.');
+            setIsProcessingPayment(false);
+          }
+        },
+        onFailure: (err: any) => {
+          console.error('Cashfree payment failed or cancelled:', err);
+          setError('Payment was not completed or was cancelled. Please try again.');
+          setIsProcessingPayment(false);
+        },
+        onClose: () => {
+          setIsProcessingPayment(false);
+        }
+      });
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || 'Connection error with payment gateway. Please retry.');
+      setIsProcessingPayment(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-10 sm:px-6 lg:px-8 relative overflow-hidden">
+      
+      {/* Ambient Glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-r from-indigo-600/15 via-purple-600/15 to-pink-600/10 blur-[160px] pointer-events-none -z-10" />
+
+      {/* Brand Header */}
+      <div className="sm:mx-auto sm:w-full sm:max-w-2xl text-center space-y-3 px-4">
+        <Link href="/" className="inline-block group mb-2">
+          <img 
+            src="/logo.png" 
+            alt="OneClickBiz - Business Made Simpler" 
+            className="h-14 sm:h-16 w-auto max-w-[260px] sm:max-w-[300px] mx-auto object-contain transition-transform group-hover:scale-105 duration-200"
+          />
+        </Link>
+
+        {/* Live Security Notice Banner */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+          <span>Live Gateway Active • Instant Activation • Verified GST Invoices</span>
+        </div>
+
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          {step === 1 && 'Select Your Plan & Create Business Account'}
+          {step === 2 && 'Complete Annual Subscription via Cashfree PG'}
+          {step === 3 && 'Subscription Active & Paid!'}
+        </h1>
+        
+        {/* Stepper Indicator */}
+        <div className="flex items-center justify-center gap-2 pt-1 text-xs">
+          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold ${
+            step === 1 ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-slate-400 border border-slate-800'
+          }`}>
+            <span>1. Plan & Profile</span>
+          </div>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
+          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold ${
+            step === 2 ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-slate-400 border border-slate-800'
+          }`}>
+            <span>2. Cashfree Payment (₹{activePlan.price})</span>
+          </div>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
+          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold ${
+            step === 3 ? 'bg-emerald-600 text-white' : 'bg-slate-900 text-slate-400 border border-slate-800'
+          }`}>
+            <span>3. Studio Access</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Container */}
+      <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-2xl px-4 sm:px-0">
+        <div className="bg-slate-900/90 border border-slate-800 backdrop-blur-2xl py-7 px-5 sm:px-8 shadow-2xl rounded-3xl space-y-6">
+          
+          {error && (
+            <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 flex-shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          {/* STEP 1: PLAN SELECTION & CREDENTIALS */}
+          {step === 1 && (
+            <div className="space-y-5">
+              
+              {/* Plan Switcher Grid */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-bold text-slate-200 uppercase tracking-wider">
+                    Step 1: Choose Subscription Plan
+                  </label>
+                  <span className="text-[11px] text-indigo-400 font-medium">Selected: {activePlan.name} (₹{activePlan.price}/yr)</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  
+                  {/* Basic */}
+                  <div
+                    onClick={() => setSelectedPlanKey('Basic')}
+                    className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-2 relative ${
+                      selectedPlanKey === 'Basic'
+                        ? 'bg-indigo-950/40 border-indigo-500 shadow-md text-white'
+                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                    }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-bold uppercase">Basic</span>
+                      {selectedPlanKey === 'Basic' && <CheckCircle2 className="w-4 h-4 text-indigo-400" />}
+                    </div>
+                    <div>
+                      <div className="text-xl font-extrabold text-white">₹{plans.Basic.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
+                      <div className="text-[10px] text-slate-400">1 Digital Card</div>
+                    </div>
+                    <ul className="text-[10px] text-slate-400 space-y-1 pt-1 border-t border-slate-800/80">
+                      <li>• Standard QR Code</li>
+                      <li>• Direct VCF Download</li>
+                    </ul>
+                  </div>
+
+                  {/* Pro (Recommended) */}
+                  <div
+                    onClick={() => setSelectedPlanKey('Pro')}
+                    className={`p-3.5 rounded-2xl border-2 cursor-pointer transition-all space-y-2 relative ${
+                      selectedPlanKey === 'Pro'
+                        ? 'bg-gradient-to-b from-indigo-950/80 to-purple-950/60 border-indigo-500 shadow-xl shadow-indigo-500/20 text-white'
+                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                    }`}
+                  >
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-500 to-pink-500 text-[8px] font-extrabold text-white uppercase tracking-wider">
+                      ⭐ Recommended
+                    </span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-bold uppercase text-indigo-300">Pro Plan</span>
+                      {selectedPlanKey === 'Pro' && <CheckCircle2 className="w-4 h-4 text-indigo-400" />}
+                    </div>
+                    <div>
+                      <div className="text-xl font-black text-white">₹{plans.Pro.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
+                      <div className="text-[10px] text-indigo-200">Up to 3 Cards + CNAME</div>
+                    </div>
+                    <ul className="text-[10px] text-indigo-200/80 space-y-1 pt-1 border-t border-indigo-900/50">
+                      <li>• White-Label Custom Domain</li>
+                      <li>• WhatsApp Store + Booking</li>
+                    </ul>
+                  </div>
+
+                  {/* Advanced */}
+                  <div
+                    onClick={() => setSelectedPlanKey('Advanced')}
+                    className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-2 relative ${
+                      selectedPlanKey === 'Advanced'
+                        ? 'bg-rose-950/40 border-rose-500 shadow-md text-white'
+                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                    }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-bold uppercase text-rose-300">Advanced</span>
+                      {selectedPlanKey === 'Advanced' && <CheckCircle2 className="w-4 h-4 text-rose-400" />}
+                    </div>
+                    <div>
+                      <div className="text-xl font-extrabold text-white">₹{plans.Advanced.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
+                      <div className="text-[10px] text-slate-400">Up to 5 Cards & Team</div>
+                    </div>
+                    <ul className="text-[10px] text-slate-400 space-y-1 pt-1 border-t border-slate-800/80">
+                      <li>• 5 White-Label Domains</li>
+                      <li>• Video CDN & Blog Studio</li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* One-Click Google Auth */}
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={handleGoogleSignUp}
+                  disabled={googleLoading}
+                  className="w-full py-3 px-4 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-white font-semibold text-xs flex items-center justify-center gap-3 transition-all shadow-md active:scale-95 disabled:opacity-50"
+                >
+                  {googleLoading ? (
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <GoogleIcon className="w-4 h-4" />
+                      <span>Continue with Google Workspace (1-Click & Pay ₹{activePlan.price})</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Clean Divider */}
+              <div className="relative flex items-center justify-center my-1">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-slate-800" />
+                </div>
+                <div className="relative bg-slate-900 px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap select-none">
+                  Or enter company details
+                </div>
+              </div>
+
+              {/* Manual Form */}
+              <form onSubmit={handleProceedToPaymentStep} className="space-y-3.5">
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-semibold text-slate-300">
+                      Representative Name *
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                        <User className="w-3.5 h-3.5" />
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        value={fullName}
+                        onChange={(e) => handleNameChange(e.target.value)}
+                        placeholder="e.g. Adduri Sai Kishore"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-semibold text-slate-300">
+                      Official Work Email *
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                        <Mail className="w-3.5 h-3.5" />
+                      </div>
+                      <input
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="founder@oneclickbiz.in"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-semibold text-slate-300">
+                      Business / Company Name *
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                        <Building className="w-3.5 h-3.5" />
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        value={businessName}
+                        onChange={(e) => setBusinessName(e.target.value)}
+                        placeholder="e.g. Merlinflow Technologies"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-semibold text-slate-300">
+                      WhatsApp Contact Number *
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                        <Phone className="w-3.5 h-3.5" />
+                      </div>
+                      <input
+                        type="tel"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="+91 63049 89071"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-semibold text-slate-300">
+                    Account Password *
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                      <Lock className="w-3.5 h-3.5" />
+                    </div>
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      minLength={6}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Minimum 6 characters"
+                      className="w-full pl-9 pr-9 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-300"
+                    >
+                      {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Slug Handle */}
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-semibold text-slate-300">
+                    Your Digital Card Handle
+                  </label>
+                  <div className="flex items-center rounded-xl bg-slate-950 border border-slate-800 overflow-hidden focus-within:border-indigo-500">
+                    <span className="px-3 text-slate-500 text-xs font-mono select-none bg-slate-900/50 border-r border-slate-800 py-2">
+                      oneclickbiz.in/v/
+                    </span>
+                    <input
+                      type="text"
+                      required
+                      value={slug}
+                      onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
+                      placeholder="kishore-patel"
+                      className="w-full px-3 py-2 bg-transparent text-white text-xs font-mono focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-xs shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all active:scale-95"
+                >
+                  <span>Proceed to Payment Confirmation (₹{activePlan.price}.00)</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+
+              </form>
+
+            </div>
+          )}
+
+          {/* STEP 2: CASHFREE DIRECT PAYMENT CHECKOUT */}
+          {step === 2 && (
+            <div className="space-y-5 animate-in fade-in duration-200">
+              
+              {/* Order Breakdown Box */}
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                      <Receipt className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-white">{activePlan.name} (Annual Subscription)</h4>
+                      <p className="text-[10px] text-slate-400">Account: {email || fullName}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-lg font-black text-white">₹{activePlan.price}.00</span>
+                    <span className="block text-[9px] text-emerald-400 font-bold uppercase">Annual Plan Active</span>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5 text-xs text-slate-300">
+                  <div className="flex justify-between text-slate-400 text-[11px]">
+                    <span>Subscription Term</span>
+                    <span className="text-slate-200 font-medium">365 Days Full Commercial Access</span>
+                  </div>
+                  <div className="flex justify-between text-slate-400 text-[11px]">
+                    <span>Business Entity</span>
+                    <span className="text-slate-200 font-medium">{businessName || `${fullName}'s Business`}</span>
+                  </div>
+                  <div className="flex justify-between text-slate-400 text-[11px]">
+                    <span>Public URL Handle</span>
+                    <span className="text-indigo-400 font-mono">oneclickbiz.in/v/{slug || 'card'}</span>
+                  </div>
+                  <div className="flex justify-between text-slate-400 text-[11px]">
+                    <span>GST (18% Included)</span>
+                    <span className="text-slate-200 font-medium">₹0.15</span>
+                  </div>
+                  <div className="flex justify-between text-white font-bold text-xs pt-2 border-t border-slate-800">
+                    <span>Total Net Amount Payable</span>
+                    <span className="text-emerald-400 text-sm">₹{activePlan.price}.00</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Gateway Supported Modes Badge */}
+              <div className="p-3.5 rounded-2xl bg-indigo-950/30 border border-indigo-500/30 space-y-2">
+                <div className="flex items-center gap-2 text-indigo-300 text-xs font-bold">
+                  <Shield className="w-4 h-4 text-indigo-400" />
+                  <span>Official Cashfree Live Gateway Protection</span>
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed">
+                  All Indian payment methods enabled: <strong>UPI (GPay, PhonePe, Paytm), Debit/Credit Cards, and NetBanking</strong>.
+                </p>
+                <div className="flex items-center gap-2 text-[10px] text-slate-400">
+                  <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">⚡ Instant Gateway Verification</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">🔒 256-Bit Bank Encryption</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  disabled={isProcessingPayment}
+                  className="px-4 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-all disabled:opacity-50"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Back / Edit Details</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleLaunchCashfreePayment}
+                  disabled={isProcessingPayment}
+                  className="flex-1 py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 hover:from-emerald-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-600/30 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+                >
+                  {isProcessingPayment ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <span>Opening Cashfree Payment Modal...</span>
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard className="w-4 h-4" />
+                      <span>Pay ₹{activePlan.price}.00 via Cashfree PG</span>
+                      <ArrowRight className="w-4 h-4 ml-auto" />
+                    </>
+                  )}
+                </button>
+              </div>
+
+            </div>
+          )}
+
+          {/* STEP 3: PAYMENT COMPLETED & SUCCESS */}
+          {step === 3 && completedOrder && (
+            <div className="space-y-6 text-center py-4 animate-in fade-in duration-300">
+              
+              <div className="w-16 h-16 rounded-3xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto shadow-xl shadow-emerald-500/20">
+                <Check className="w-8 h-8 stroke-[3]" />
+              </div>
+
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold">
+                  <ShieldCheck className="w-3.5 h-3.5" /> Verified Paid Transaction
+                </div>
+                <h3 className="text-2xl font-black text-white">Payment Successful & Account Active!</h3>
+                <p className="text-xs text-slate-400 max-w-md mx-auto">
+                  Thank you! Your payment of <strong>{completedOrder.amount}</strong> has been received via Cashfree PG. Your {completedOrder.planName} is now active.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 max-w-md mx-auto text-left text-xs space-y-2">
+                <div className="flex justify-between text-slate-400">
+                  <span>Cashfree Order Reference</span>
+                  <span className="text-white font-mono">{completedOrder.orderId}</span>
+                </div>
+                <div className="flex justify-between text-slate-400">
+                  <span>Activated Plan</span>
+                  <span className="text-emerald-400 font-bold">{completedOrder.planName}</span>
+                </div>
+                <div className="flex justify-between text-slate-400">
+                  <span>Public Handle</span>
+                  <span className="text-indigo-400 font-mono">oneclickbiz.in/v/{slug}</span>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => exportInvoicePDF({
+                    invoiceNumber: completedOrder.orderId,
+                    date: completedOrder.date,
+                    amount: completedOrder.amount,
+                    planName: completedOrder.planName,
+                    customerName: fullName || 'Valued Client',
+                    companyName: businessName || `${fullName}'s Business`
+                  })}
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
+                >
+                  <Download className="w-3.5 h-3.5 text-indigo-400" />
+                  <span>Download GST Tax Invoice</span>
+                </button>
+
+                <button
+                  onClick={() => router.push('/dashboard')}
+                  className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/25 active:scale-95"
+                >
+                  <span>Launch Business Studio Dashboard</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
+            </div>
+          )}
+
+          {/* Switch to Login */}
+          <div className="pt-3 border-t border-slate-800 text-center text-xs text-slate-400">
+            Already have an active account?{' '}
+            <Link 
+              href="/login" 
+              className="text-indigo-400 hover:text-indigo-300 font-bold underline"
+            >
+              Sign In to Business Portal
+            </Link>
+          </div>
+
+          {/* Footer Copyright */}
+          <div className="pt-4 text-center text-[11px] text-slate-500 space-y-0.5">
+            <p>© 2026 OneClickBiz. All rights reserved.</p>
+            <p>Developed & Maintained by <span className="text-slate-400 font-medium">Merlinflow Technologies Pvt Ltd</span>.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white text-sm">
+        Loading business entity portal...
+      </div>
+    }>
+      <SignUpForm />
+    </Suspense>
+  );
+}
