@@ -57,28 +57,43 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
 export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const profile = await fetchProfileData(resolvedParams.slug);
+  const profileUrl = `https://oneclickbiz.in/v/${profile.slug}`;
 
   return {
-    title: `${profile.name} - ${profile.designation} | OneClickBiz`,
-    description: profile.bio || `Connect with ${profile.name} on OneClickBiz`,
+    title: `${profile.name} - ${profile.designation} at ${profile.company || 'OneClickBiz'}`,
+    description: profile.bio || `Connect with ${profile.name} seamlessly. Save contact directly to your phone, view WhatsApp catalog, and book appointments.`,
+    keywords: [
+      profile.name,
+      profile.designation,
+      profile.company,
+      'digital business card',
+      'vcard',
+      'smart business identity',
+      'oneclickbiz'
+    ].filter(Boolean),
+    alternates: {
+      canonical: profileUrl,
+    },
     openGraph: {
-      title: `${profile.name} - ${profile.designation}`,
-      description: profile.bio,
+      title: `${profile.name} | ${profile.designation}`,
+      description: profile.bio || `Connect with ${profile.name} on OneClickBiz`,
+      url: profileUrl,
       images: [
         {
-          url: profile.avatarUrl,
+          url: profile.avatarUrl || 'https://oneclickbiz.in/logo.png',
           width: 600,
           height: 600,
           alt: profile.name,
         },
       ],
       type: 'profile',
+      siteName: 'OneClickBiz',
     },
     twitter: {
       card: 'summary_large_image',
-      title: profile.name,
-      description: profile.bio,
-      images: [profile.avatarUrl],
+      title: `${profile.name} - ${profile.designation}`,
+      description: profile.bio || `Connect with ${profile.name} on OneClickBiz`,
+      images: [profile.avatarUrl || 'https://oneclickbiz.in/logo.png'],
     },
   };
 }
@@ -87,8 +102,35 @@ export default async function PublicProfilePage({ params }: ProfilePageProps) {
   const resolvedParams = await params;
   const profile = await fetchProfileData(resolvedParams.slug);
 
+  const jsonLdPerson = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    mainEntity: {
+      '@type': 'Person',
+      name: profile.name,
+      jobTitle: profile.designation,
+      worksFor: {
+        '@type': 'Organization',
+        name: profile.company || `${profile.name}'s Business`,
+      },
+      description: profile.bio,
+      image: profile.avatarUrl,
+      email: profile.email,
+      telephone: profile.phone,
+      url: `https://oneclickbiz.in/v/${profile.slug}`,
+      sameAs: [
+        profile.website,
+        ...(profile.sectionData?.socials?.items?.map((s) => s.url) || [])
+      ].filter(Boolean),
+    },
+  };
+
   return (
     <main className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-0 sm:py-8 font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}
+      />
       <div className="w-full max-w-md">
         <ProfileCardView profile={profile} isMockup={false} />
       </div>
