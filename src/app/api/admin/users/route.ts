@@ -66,19 +66,24 @@ export async function GET(req: NextRequest) {
         tier = 'Basic';
       }
       
+      const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
       const hasPaid = userInvoice?.status === 'PAID';
+      const invoicePaidDate = userInvoice ? userInvoice.createdAt.getTime() : 0;
+      const isWithinActiveYear = hasPaid && (Date.now() - invoicePaidDate < ONE_YEAR_MS);
       const isCancelled = orgStatus === 'CANCELLED' || orgStatus === 'SUSPENDED';
       
       let status: 'ACTIVE' | 'EXPIRED' | 'CANCELLED' = 'EXPIRED';
       if (isCancelled) {
         status = 'CANCELLED';
-      } else if (hasPaid) {
+      } else if (isWithinActiveYear) {
         status = 'ACTIVE';
       } else {
-        status = 'EXPIRED'; // STRICT: Unpaid users are strictly EXPIRED/UNPAID, never ACTIVE
+        status = 'EXPIRED'; // STRICT: Unpaid OR Expired after 365 days, strictly EXPIRED/UNPAID
       }
 
       const planCost = hasPaid ? (userInvoice!.amount || defaultTierPrices[tier]) : defaultTierPrices[tier];
+      const baseTime = userInvoice ? userInvoice.createdAt.getTime() : u.createdAt.getTime();
+      const renewalDate = new Date(baseTime + ONE_YEAR_MS).toISOString().split('T')[0];
 
       return {
         id: u.id,
@@ -92,9 +97,9 @@ export async function GET(req: NextRequest) {
         planCost,
         billingCycle: 'Annual',
         subscriptionStatus: status,
-        hasPaidInvoice: hasPaid,
+        hasPaidInvoice: isWithinActiveYear,
         joinedDate: u.createdAt.toISOString().split('T')[0],
-        renewalDate: new Date(u.createdAt.getTime() + 365*24*60*60*1000).toISOString().split('T')[0],
+        renewalDate,
         totalProfiles: org?.profiles.length || 0,
         totalTaps: 0,
         totalScans: profile?.viewCount || 0,
@@ -140,7 +145,8 @@ export async function PATCH(req: NextRequest) {
 
     const org = user.memberships[0]?.organization;
 
-    // Check if user has a verified paid online invoice
+    // Check if user has a verified paid online invoice within 365 days
+    const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
     const paidInvoice = await prisma.invoice.findFirst({
       where: {
         OR: [
@@ -148,24 +154,27 @@ export async function PATCH(req: NextRequest) {
           ...(org ? [{ organizationId: org.id }] : [])
         ],
         status: 'PAID'
-      }
+      },
+      orderBy: { createdAt: 'desc' }
     });
+
+    const isInvoiceActive = paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS);
 
     let resolvedStatus: 'ACTIVE' | 'EXPIRED' | 'CANCELLED' | undefined = undefined;
 
     // STRICT NO-BYPASS: Check requested status
-    if (status === 'ACTIVE' && !paidInvoice) {
+    if (status === 'ACTIVE' && !isInvoiceActive) {
       return NextResponse.json({ 
-        error: 'Strict Policy Violation: Cannot activate account manually. The user must complete online payment via oneclickbiz.in.' 
+        error: 'Strict Policy Violation: Cannot activate account manually. The subscription is either unpaid or has expired. The member must renew their plan online via Cashfree.' 
       }, { status: 400 });
     }
 
     if (status === 'CANCELLED' || status === 'SUSPENDED') {
       resolvedStatus = 'CANCELLED';
     } else if (status === 'UNBLOCK' || status === 'RESTORE') {
-      // Unblocking restores to ACTIVE only if paid, otherwise remains EXPIRED/UNPAID
-      resolvedStatus = paidInvoice ? 'ACTIVE' : 'EXPIRED';
-    } else if (status === 'ACTIVE' && paidInvoice) {
+      // Unblocking restores to ACTIVE only if within active paid year, otherwise remains EXPIRED/UNPAID
+      resolvedStatus = isInvoiceActive ? 'ACTIVE' : 'EXPIRED';
+    } else if (status === 'ACTIVE' && isInvoiceActive) {
       resolvedStatus = 'ACTIVE';
     }
 

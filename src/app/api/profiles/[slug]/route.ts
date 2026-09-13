@@ -33,16 +33,18 @@ export async function GET(
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
     }
 
+    const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
     const paidInvoice = await prisma.invoice.findFirst({
       where: {
         status: 'PAID',
         organizationId: profile.organizationId
-      }
+      },
+      orderBy: { createdAt: 'desc' }
     });
 
+    const isPaidActive = paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS);
     const isCancelled = profile.organization?.subscriptionStatus === 'CANCELLED';
-    const isPaid = !!paidInvoice;
-    const subscriptionStatus = isCancelled ? 'CANCELLED' : (isPaid ? 'ACTIVE' : 'EXPIRED');
+    const subscriptionStatus = isCancelled ? 'CANCELLED' : (isPaidActive ? 'ACTIVE' : 'EXPIRED');
     const isExpired = subscriptionStatus !== 'ACTIVE';
 
     // Increment views asynchronously
