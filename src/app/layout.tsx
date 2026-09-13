@@ -1,17 +1,11 @@
 import type { Metadata, Viewport } from 'next';
-import { Plus_Jakarta_Sans, Outfit } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',
   weight: ['300', '400', '500', '600', '700', '800'],
-});
-
-const outfit = Outfit({
-  subsets: ['latin'],
-  variable: '--font-outfit',
-  weight: ['400', '500', '600', '700', '800', '900'],
 });
 
 export const viewport: Viewport = {
@@ -189,7 +183,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${jakarta.variable} ${outfit.variable} h-full antialiased dark`} suppressHydrationWarning>
+    <html lang="en" className={`${jakarta.variable} h-full antialiased dark`} suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />

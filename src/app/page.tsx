@@ -330,8 +330,8 @@ export default function LandingPage() {
                 <span>Next-Gen Smart Identity & Commerce SaaS</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.12]">
-                Your Complete <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(99,102,241,0.35)]">Digital Identity</span> In One Click.
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold font-serif tracking-tight text-white leading-[1.15]">
+                Your Complete <span className="italic font-serif bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">Digital Identity</span> In One Click.
               </h1>
 
               <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed font-normal">
