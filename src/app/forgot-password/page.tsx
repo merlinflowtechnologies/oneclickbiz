@@ -150,14 +150,13 @@ export default function ForgotPasswordPage() {
       <div className="absolute bottom-10 right-10 w-[350px] h-[250px] bg-emerald-500/10 blur-[120px] pointer-events-none -z-10" />
 
       {/* Brand Header */}
-      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center mb-8">
-        <Link href="/" className="inline-flex items-center gap-2 group mb-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-pink-500 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform">
-            <Sparkles className="w-5 h-5" />
-          </div>
-          <span className="text-xl font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-            OneClickBiz
-          </span>
+      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center mb-6">
+        <Link href="/" className="inline-block group mb-2">
+          <img 
+            src="/logo.png" 
+            alt="OneClickBiz - Business Made Simpler" 
+            className="h-14 sm:h-16 w-auto max-w-[260px] sm:max-w-[300px] mx-auto object-contain transition-transform group-hover:scale-105 duration-200"
+          />
         </Link>
         
         <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
