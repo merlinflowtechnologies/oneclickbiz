@@ -169,11 +169,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           const defaultList: UserCardSummary[] = [
             {
               id: `card_${initialProfile.slug || 'primary'}`,
-              slug: initialProfile.slug || 'alex',
+              slug: initialProfile.slug || 'kishore',
               title: initialProfile.name ? `${initialProfile.name}'s vCard` : 'Primary Business Card',
-              name: initialProfile.name || 'Alex Rivera',
-              company: initialProfile.company || 'Apex Digital Studio',
-              designation: initialProfile.designation || 'Founder & Director',
+              name: initialProfile.name || 'Kishore Patel',
+              company: initialProfile.company || 'Himastech Digital Reality',
+              designation: initialProfile.designation || 'Founder & Managing Director',
               templateId: 'vcard39',
               theme: initialProfile.theme || 'modern-indigo',
               avatarUrl: initialProfile.avatarUrl,
@@ -404,8 +404,8 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
       setProfile(prev => ({
         ...preset,
         slug: prev.slug || preset.slug,
-        name: (prev.name && prev.name !== 'Alex Rivera') ? prev.name : preset.name,
-        company: (prev.company && prev.company !== 'Apex Digital Studio') ? prev.company : preset.company,
+        name: (prev.name && prev.name !== 'Kishore Patel') ? prev.name : preset.name,
+        company: (prev.company && prev.company !== 'Himastech Digital Reality') ? prev.company : preset.company,
         phone: prev.phone || preset.phone,
         whatsapp: prev.whatsapp || preset.whatsapp,
         email: prev.email || preset.email,
@@ -1254,7 +1254,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     <input 
                       type="text" 
                       value={profile.name}
-                      placeholder="e.g. Alex Rivera"
+                      placeholder="e.g. Kishore Patel"
                       onChange={e => handleFieldChange('name', e.target.value)}
                       className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 shadow-inner"
                     />
@@ -1264,7 +1264,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     <input 
                       type="text" 
                       value={profile.designation}
-                      placeholder="e.g. Founder & Creative Director"
+                      placeholder="e.g. Founder & Managing Director"
                       onChange={e => handleFieldChange('designation', e.target.value)}
                       className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 shadow-inner"
                     />
@@ -1277,7 +1277,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     <input 
                       type="text" 
                       value={profile.company}
-                      placeholder="e.g. Apex Digital Studio"
+                      placeholder="e.g. Himastech Digital Reality"
                       onChange={e => handleFieldChange('company', e.target.value)}
                       className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 shadow-inner"
                     />
@@ -3092,7 +3092,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     type="text"
                     value={newCardName}
                     onChange={e => setNewCardName(e.target.value)}
-                    placeholder="Alex Rivera"
+                    placeholder="Kishore Patel"
                     className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500"
                   />
                 </div>
@@ -3102,7 +3102,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     type="text"
                     value={newCardDesignation}
                     onChange={e => setNewCardDesignation(e.target.value)}
-                    placeholder="e.g. Sales Specialist"
+                    placeholder="e.g. Managing Director"
                     className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500"
                   />
                 </div>
@@ -3114,7 +3114,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   type="text"
                   value={newCardCompany}
                   onChange={e => setNewCardCompany(e.target.value)}
-                  placeholder="Apex Digital Studio"
+                  placeholder="Himastech Digital Reality"
                   className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500"
                 />
               </div>

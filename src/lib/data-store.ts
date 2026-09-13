@@ -4,20 +4,20 @@ export const INITIAL_BLOGS: BlogPostItem[] = [];
 
 export const INITIAL_PROFILES: DigitalProfile[] = [
   {
-    id: 'prof_alex_1',
-    organizationId: 'org_apex_1',
-    slug: 'alex',
-    name: 'Alex Rivera',
-    designation: 'Creative Director & Founder',
-    company: 'Apex Digital Studio',
-    bio: 'Helping high-growth brands scale with modern UI/UX design, custom web platforms, and automated marketing funnels.',
-    email: 'alex@apexstudio.design',
-    phone: '+91 63049 89071',
-    whatsapp: '916304989071',
-    website: 'https://apexstudio.design',
-    address: 'Indiranagar, Bangalore, India',
-    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
-    coverUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
+    id: 'prof_kishore_1',
+    organizationId: 'org_himastech_1',
+    slug: 'kishore',
+    name: 'Kishore Patel',
+    designation: 'Founder & Managing Director',
+    company: 'Himastech Digital Reality',
+    bio: 'Empowering real estate developers, commercial builders, and modern enterprises with high-ROI digital reality marketing, 3D immersive virtual walkthroughs, and automated buyer lead funnels.',
+    email: 'kishore@himastech.com',
+    phone: '+91 98765 43210',
+    whatsapp: '919876543210',
+    website: 'https://himastech.com',
+    address: 'Road No. 36, Jubilee Hills, Hyderabad, Telangana, India',
+    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
     theme: 'modern-indigo',
     isPublished: true,
     sections: [
@@ -36,39 +36,39 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
     ],
     sectionData: {
       about: {
-        content: 'With over 9 years of design & engineering leadership, I craft digital experiences that convert. We have partnered with 80+ startups and Fortune 500 brands to build bespoke web applications, mobile apps, and brand identities.'
+        content: 'With over 12 years of specialized leadership in real estate digital marketing and interactive reality solutions, Himastech Digital Reality partners with leading property developers, architects, and enterprise brands to scale qualified buyer inquiries and build commanding digital authority.'
       },
       socials: {
         items: [
-          { id: 'soc_1', platform: 'whatsapp', url: 'https://wa.me/916304989071', label: 'WhatsApp' },
-          { id: 'soc_2', platform: 'linkedin', url: 'https://linkedin.com/in/alexrivera', label: 'LinkedIn' },
-          { id: 'soc_3', platform: 'instagram', url: 'https://instagram.com/alexrivera.design', label: 'Instagram' },
-          { id: 'soc_4', platform: 'twitter', url: 'https://twitter.com/alexrivera', label: 'X (Twitter)' },
-          { id: 'soc_5', platform: 'github', url: 'https://github.com/alexrivera', label: 'GitHub' },
+          { id: 'soc_1', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp' },
+          { id: 'soc_2', platform: 'linkedin', url: 'https://linkedin.com/in/kishorepatel', label: 'LinkedIn' },
+          { id: 'soc_3', platform: 'instagram', url: 'https://instagram.com/himastech.reality', label: 'Instagram' },
+          { id: 'soc_4', platform: 'twitter', url: 'https://twitter.com/himastech', label: 'X (Twitter)' },
+          { id: 'soc_5', platform: 'website', url: 'https://himastech.com', label: 'Website' },
         ]
       },
       services: {
         items: [
           {
             id: 'srv_1',
-            title: 'Fullstack Web & Mobile App Development',
-            description: 'Next.js, React, Node.js, and iOS/Android applications built for production scale.',
+            title: 'Real Estate Performance Marketing & Buyer Lead Generation',
+            description: 'Targeted Google, Meta, and LinkedIn advertising campaigns delivering verified, high-intent property investors and home buyers.',
             durationMinutes: 45,
             price: 49999,
             currency: '₹'
           },
           {
             id: 'srv_2',
-            title: 'Brand Identity & Design System',
-            description: 'Complete visual identity, logo system, typography, and responsive component library.',
-            durationMinutes: 30,
-            price: 24999,
+            title: 'Immersive 3D Digital Walkthroughs & VR Tours',
+            description: 'Photorealistic interactive 3D virtual site tours accessible seamlessly from any smartphone, tablet, or web browser.',
+            durationMinutes: 60,
+            price: 34999,
             currency: '₹'
           },
           {
             id: 'srv_3',
-            title: '1-on-1 Product & Growth Strategy Call',
-            description: 'Direct deep-dive audit of your SaaS architecture, UI/UX, and marketing funnel.',
+            title: 'Real Estate Launch Strategy & Growth Consultation',
+            description: 'Direct 1-on-1 strategy session to audit project positioning, sales collateral, and digital marketing funnels.',
             durationMinutes: 60,
             price: 4999,
             currency: '₹'
@@ -79,35 +79,35 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
         items: [
           {
             id: 'prod_1',
-            name: 'Apex UI Kit & Figma Design System Pro',
-            description: '500+ prebuilt components, tokens, and 45 responsive page templates.',
-            price: 2999,
+            name: 'Real Estate High-Conversion Sales Landing Page & CRM Funnel',
+            description: 'Complete sales funnel with automated WhatsApp lead alerts, interactive floor plans, and EMI calculator.',
+            price: 14999,
             currency: '₹',
             imageUrl: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
             category: 'Digital Goods',
-            sku: 'AUI-001',
+            sku: 'HIMAS-RE-01',
             isAvailable: true
           },
           {
             id: 'prod_2',
-            name: 'Custom Smart Digital Business Card Setup',
-            description: 'Custom luxury digital visiting card layout with dynamic QR code linking to your profile.',
-            price: 1499,
+            name: 'Smart Digital vCard & Dynamic QR Suite for Sales Teams',
+            description: 'Luxury digital visiting cards with instant 1-tap contact saving, catalog browsing, and WhatsApp booking.',
+            price: 1999,
             currency: '₹',
             imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80',
             category: 'Digital Goods',
-            sku: 'VC-PRO',
+            sku: 'VC-HIMAS',
             isAvailable: true
           },
           {
             id: 'prod_3',
-            name: 'Website Performance & SEO Audit Pack',
-            description: 'Comprehensive Core Web Vitals, technical SEO, and accessibility report with action plan.',
-            price: 7999,
+            name: 'Virtual Reality Architectural 3D Asset Master Kit',
+            description: 'Production-ready 3D architectural models, interior lighting presets, and ultra-high-resolution aerial renders.',
+            price: 8999,
             currency: '₹',
-            imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
+            imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
             category: 'Services',
-            sku: 'AUD-SEO',
+            sku: 'VR-ASSET-01',
             isAvailable: true
           }
         ]
@@ -116,25 +116,25 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
         items: [
           {
             id: 'vid_1',
-            title: 'Apex Brand Reel & Design System Showcase',
+            title: 'Himastech Digital Reality 2026 Architectural Showreel',
             url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
             type: 'youtube',
             embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            caption: 'Watch how we designed and engineered high-converting SaaS interfaces for 40+ brands.'
+            caption: 'Watch how we created high-converting 3D walkthroughs and marketing campaigns for 50+ real estate builders.'
           },
           {
             id: 'vid_2',
-            title: 'Behind the Scenes: Digital Business Card Creation Walkthrough',
+            title: 'Behind the Scenes: 3D Virtual Villa Interactive Walkthrough',
             url: 'https://www.instagram.com/reel/C8qL_XYZ123/',
             type: 'instagram',
-            caption: 'Exclusive studio demonstration of our premium digital cards.'
+            caption: 'Exclusive demonstration of our ultra-realistic interactive property tours.'
           },
           {
             id: 'vid_3',
-            title: 'Client Case Study: 300% Conversion Uplift',
+            title: 'Client Success Case Study: 350% Qualified Buyer Inquiry Surge',
             url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
             type: 'direct',
-            caption: 'Deep-dive walkthrough of the architecture overhaul and UI redesign.'
+            caption: 'Deep-dive walkthrough of property launch campaign results.'
           }
         ]
       },
@@ -142,24 +142,24 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
         items: [
           { 
             id: 'gal_1', 
-            imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80', 
-            title: 'Fintech Dashboard & Analytics Web App',
-            category: 'UI/UX Design',
-            description: 'Modern dark-mode analytics platform with live data widgets and responsive charts.'
+            imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80', 
+            title: 'Luxury High-Rise Residential Tower Launch',
+            category: 'Real Estate Marketing',
+            description: 'Multi-channel digital marketing campaign resulting in 80% phase-1 inventory bookings.'
           },
           { 
             id: 'gal_2', 
-            imageUrl: 'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=800&q=80', 
-            title: 'Luxury E-commerce Mobile App',
-            category: 'Mobile Apps',
-            description: 'iOS and Android shopping app with 1-click Apple Pay & instant WhatsApp checkout.'
+            imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', 
+            title: 'Interactive 3D Virtual Villa Walkthrough',
+            category: 'VR Reality',
+            description: 'Photorealistic real-time 3D walkthrough accessible on mobile & VR headsets.'
           },
           { 
             id: 'gal_3', 
-            imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80', 
-            title: 'SaaS Marketing Funnel & Brand Identity',
+            imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80', 
+            title: 'Commercial Tech Park Digital Campaign & Brand Identity',
             category: 'Branding',
-            description: 'High-converting landing page with 3D illustration and interactive product demos.'
+            description: 'Comprehensive digital brand identity and dynamic broker sales enablement suite.'
           }
         ]
       },
@@ -167,20 +167,20 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
         items: [
           {
             id: 'tst_1',
-            clientName: 'Sarah Jenkins',
-            clientRole: 'VP of Marketing',
-            clientCompany: 'CloudScale AI',
-            clientAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
-            content: 'Alex transformed our brand identity and delivered a stunning high-converting digital presence in record time. Phenomenal work!',
+            clientName: 'Rajesh Varma',
+            clientRole: 'Managing Director',
+            clientCompany: 'Prestige Urban Spaces',
+            clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+            content: 'Himastech Digital Reality delivered a 350% surge in verified site-visit bookings for our luxury villa project within the first 30 days. Their 3D walkthroughs are best-in-class!',
             rating: 5
           },
           {
             id: 'tst_2',
-            clientName: 'Rahul Verma',
-            clientRole: 'Co-Founder & CEO',
-            clientCompany: 'NeoFin Global',
-            clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-            content: 'The digital business card and WhatsApp store integration brought us 3x more qualified client meetings directly from networking events.',
+            clientName: 'Sneha Kulkarni',
+            clientRole: 'Head of Sales',
+            clientCompany: 'Skyline Infra Projects',
+            clientAvatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
+            content: 'The smart digital business cards and WhatsApp automation simplified our on-site property sales workflow completely. Every buyer now has our direct contact and brochures saved in one click.',
             rating: 5
           }
         ]
@@ -190,9 +190,9 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
       },
       customLinks: {
         items: [
-          { id: 'cl_1', title: 'View Design Portfolio & Case Studies', url: 'https://behance.net', highlight: true },
-          { id: 'cl_2', title: 'Download 2026 Agency Rate Card (PDF)', url: '#' },
-          { id: 'cl_3', title: 'Listen to my Podcast on Spotify', url: 'https://spotify.com' }
+          { id: 'cl_1', title: 'Explore Live 3D Real Estate Projects & Showreel', url: 'https://himastech.com', highlight: true },
+          { id: 'cl_2', title: 'Download 2026 Himastech Digital Reality Brochure (PDF)', url: '#' },
+          { id: 'cl_3', title: 'Book an On-Site VR Walkthrough Demonstration', url: 'https://wa.me/919876543210' }
         ]
       },
       contact: {
@@ -204,15 +204,15 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
         allowInquiries: true
       }
     },
-    qrCodeId: 'qr_alex_01',
-    nfcCardId: 'nfc_alex_01',
+    qrCodeId: 'qr_kishore_01',
+    nfcCardId: 'nfc_kishore_01',
     stats: {
-      views: 1842,
-      qrScans: 620,
-      nfcTaps: 418,
-      whatsappClicks: 289,
-      callClicks: 147,
-      vcfDownloads: 395
+      views: 2420,
+      qrScans: 890,
+      nfcTaps: 512,
+      whatsappClicks: 410,
+      callClicks: 195,
+      vcfDownloads: 480
     }
   }
 ];
@@ -223,7 +223,10 @@ import { VCARD_TEMPLATES_CATALOG } from '@/data/vcardTemplates';
 export function getProfileBySlug(rawSlug: string): DigitalProfile {
   const cleanSlug = (rawSlug || '').toLowerCase().trim();
   
-  // 1. Check in initial profiles
+  // 1. Check in initial profiles or aliases
+  if (['kishore', 'kishore-patel', 'alex', 'demo'].includes(cleanSlug)) {
+    return INITIAL_PROFILES[0];
+  }
   const found = INITIAL_PROFILES.find(p => p.slug.toLowerCase() === cleanSlug);
   if (found) return found;
 

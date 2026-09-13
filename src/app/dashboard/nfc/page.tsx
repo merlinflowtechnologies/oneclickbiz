@@ -21,7 +21,7 @@ export default function NfcHardwarePage() {
   const [cards, setCards] = useState<NfcCardItem[]>(INITIAL_NFC_CARDS);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [orderQuantity, setOrderQuantity] = useState(1);
-  const [engravedName, setEngravedName] = useState('Alex Rivera');
+  const [engravedName, setEngravedName] = useState('Kishore Patel');
   const [engravedRole, setEngravedRole] = useState('Creative Director');
   const [shippingAddress, setShippingAddress] = useState('Indiranagar 100ft Road, Bangalore - 560038');
   const [orderPlaced, setOrderPlaced] = useState(false);

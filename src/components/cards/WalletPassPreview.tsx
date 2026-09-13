@@ -46,7 +46,7 @@ export default function WalletPassPreview({ profile, onClose }: WalletPassPrevie
         labelColor: "rgb(148, 163, 184)",
         generic: {
           primaryFields: [
-            { key: "name", label: "CARDHOLDER", value: profile.fullName || "Alex Rivera" }
+            { key: "name", label: "CARDHOLDER", value: profile.fullName || "Kishore Patel" }
           ],
           secondaryFields: [
             { key: "role", label: "ROLE", value: profile.designation || "Executive" },
@@ -136,7 +136,7 @@ export default function WalletPassPreview({ profile, onClose }: WalletPassPrevie
 
           <div className="min-w-0">
             <h3 className="text-lg font-bold text-white truncate">
-              {profile.fullName || 'Alex Rivera'}
+              {profile.fullName || 'Kishore Patel'}
             </h3>
             <p className="text-xs text-indigo-300 font-semibold truncate">
               {profile.designation || 'Founder & CEO'}

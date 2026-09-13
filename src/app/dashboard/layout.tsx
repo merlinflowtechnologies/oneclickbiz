@@ -76,16 +76,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             console.error('Session check error:', e);
           }
 
-          // 2. Check local admin token
+          // Check if Super Admin is logged in
           const adminAuth = localStorage.getItem('oneclickbiz_admin_auth');
           const saved = localStorage.getItem('oneclickbiz_user_session');
 
           if (saved) {
             const parsed = JSON.parse(saved);
+
             if (parsed.email === 'admin@oneclickbiz.in' || parsed.role === 'SUPER_ADMIN') {
               if (isMounted) {
                 setIsSuperAdmin(true);
-                setIsAuthenticated(false);
+                setUserSession({
+                  slug: 'admin',
+                  businessName: 'Super Admin Portal',
+                  fullName: 'System Administrator',
+                  plan: 'ADVANCED'
+                });
+                setIsAuthenticated(true);
               }
               return;
             }
@@ -93,9 +100,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             if (parsed.loggedIn) {
               if (isMounted) {
                 setUserSession({
-                  slug: parsed.slug || 'alex',
-                  businessName: parsed.businessName || 'Apex Digital Studio',
-                  fullName: parsed.fullName || 'Alex Rivera',
+                  slug: parsed.slug || 'kishore',
+                  businessName: parsed.businessName || 'Himastech Digital Reality',
+                  fullName: parsed.fullName || 'Kishore Patel',
                   plan: detectedPlan
                 });
                 setIsAuthenticated(true);
@@ -130,14 +137,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const handleDemoLogin = () => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('oneclickbiz_user_session', JSON.stringify({
-        fullName: 'Alex Rivera',
-        email: 'alex@apexstudio.design',
-        businessName: 'Apex Digital Studio',
+        fullName: 'Kishore Patel',
+        email: 'kishore@himastech.com',
+        businessName: 'Himastech Digital Reality',
         entityType: 'Private Limited / LLC',
-        category: 'Technology & Agency',
-        designation: 'Founder & Creative Director',
+        category: 'Real Estate & Marketing',
+        designation: 'Founder & Managing Director',
         phone: '+91 98765 43210',
-        slug: 'alex',
+        slug: 'kishore',
         plan: 'PRO',
         isBusinessEntity: true,
         loggedIn: true
@@ -145,9 +152,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       localStorage.setItem('oneclickbiz_user_plan', 'PRO');
       setUserPlanTier('PRO');
       setUserSession({
-        slug: 'alex',
-        businessName: 'Apex Digital Studio',
-        fullName: 'Alex Rivera',
+        slug: 'kishore',
+        businessName: 'Himastech Digital Reality',
+        fullName: 'Kishore Patel',
         plan: 'PRO'
       });
       setIsAuthenticated(true);

@@ -143,16 +143,16 @@ export default function VisitingCardStudio() {
 
   // Card Content State
   const [cardData, setCardData] = useState<CardData>({
-    fullName: 'Alex Rivera',
-    designation: 'Creative Director & Founder',
-    companyName: 'Apex Digital Studio',
-    tagline: 'Design • Engineering • Growth',
+    fullName: 'Kishore Patel',
+    designation: 'Founder & Managing Director',
+    companyName: 'Himastech Digital Reality',
+    tagline: 'Immersive 3D Tours • Performance Marketing',
     phone: '+91 98765 43210',
-    email: 'alex@apexstudio.design',
-    website: 'apexstudio.design',
-    address: 'Indiranagar, Bangalore, India',
-    slug: 'alex',
-    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+    email: 'kishore@himastech.com',
+    website: 'himastech.com',
+    address: 'Jubilee Hills, Hyderabad, India',
+    slug: 'kishore',
+    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
     logoUrl: '',
     logoShape: 'rounded',
     logoSize: 'medium',
@@ -385,7 +385,7 @@ export default function VisitingCardStudio() {
           
           ctx.fillStyle = '#ffffff';
           ctx.font = 'bold 44px sans-serif';
-          ctx.fillText((cardData.companyName || 'Apex Digital Studio').toUpperCase(), 60, 100);
+          ctx.fillText((cardData.companyName || 'Himastech Digital Reality').toUpperCase(), 60, 100);
           
           if (cardData.tagline) {
             ctx.font = 'normal 24px sans-serif';
@@ -395,11 +395,11 @@ export default function VisitingCardStudio() {
           
           ctx.fillStyle = '#ffffff';
           ctx.font = 'bold 52px sans-serif';
-          ctx.fillText(cardData.fullName || 'Alex Rivera', 60, 260);
+          ctx.fillText(cardData.fullName || 'Kishore Patel', 60, 260);
           
           ctx.font = 'normal 30px sans-serif';
           ctx.fillStyle = '#818cf8';
-          ctx.fillText(cardData.designation || 'Founder & Director', 60, 310);
+          ctx.fillText(cardData.designation || 'Founder & Managing Director', 60, 310);
           
           ctx.font = 'normal 24px sans-serif';
           ctx.fillStyle = '#cbd5e1';

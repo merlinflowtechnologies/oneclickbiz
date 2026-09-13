@@ -112,10 +112,10 @@ export default function EmailSignaturePage() {
     ${avatarImg}
     <td style="vertical-align: top;">
       <div style="font-size: 16px; font-weight: bold; color: #0f172a; margin-bottom: 2px;">
-        ${profile.fullName || 'Alex Rivera'}
+        ${profile.fullName || 'Kishore Patel'}
       </div>
       <div style="font-size: 12px; color: ${accentColor}; font-weight: 600; margin-bottom: 8px;">
-        ${profile.designation || 'Founder & CEO'} • ${profile.businessName || 'OneClickBiz'}
+        ${profile.designation || 'Founder & Managing Director'} • ${profile.businessName || 'Himastech Digital Reality'}
       </div>
       <table cellpadding="0" cellspacing="0" border="0" style="font-size: 11px; color: #475569;">
         ${showPhone && profile.phone ? `<tr><td style="padding: 1px 0;">📞 <a href="tel:${profile.phone}" style="color: #475569; text-decoration: none;">${profile.phone}</a></td></tr>` : ''}

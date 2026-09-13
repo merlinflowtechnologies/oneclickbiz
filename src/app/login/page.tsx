@@ -99,14 +99,14 @@ function LoginForm() {
       if (res.ok && data.success) {
         if (typeof window !== 'undefined') {
           const session = {
-            fullName: data.user.name || 'Alex Rivera',
+            fullName: data.user.name || 'Kishore Patel',
             email: data.user.email,
-            businessName: data.user.businessName || 'Apex Digital Studio',
+            businessName: data.user.businessName || 'Himastech Digital Reality',
             entityType: 'Private Limited / LLC',
-            category: 'Technology & Agency',
-            designation: 'Founder & Director',
+            category: 'Real Estate & Marketing',
+            designation: 'Founder & Managing Director',
             phone: '+91 98765 43210',
-            slug: data.user.slug || 'alex',
+            slug: data.user.slug || 'kishore',
             plan: 'Pro',
             isBusinessEntity: true,
             loggedIn: true
@@ -123,15 +123,15 @@ function LoginForm() {
           const existing = localStorage.getItem('oneclickbiz_user_session');
           if (!existing) {
             localStorage.setItem('oneclickbiz_user_session', JSON.stringify({
-              fullName: cleanEmail.includes('alex') ? 'Alex Rivera' : 'Sarah Chen',
+              fullName: cleanEmail.includes('kishore') || cleanEmail.includes('alex') ? 'Kishore Patel' : 'Rahul Sharma',
               email: cleanEmail,
-              businessName: cleanEmail.includes('alex') ? 'Apex Digital Studio' : 'InnovateTech Labs',
+              businessName: cleanEmail.includes('kishore') || cleanEmail.includes('alex') ? 'Himastech Digital Reality' : 'InnovateTech Labs',
               entityType: 'Private Limited / LLC',
-              category: 'Technology & Agency',
-              designation: cleanEmail.includes('alex') ? 'Founder & Creative Director' : 'Chief Technology Officer',
+              category: 'Real Estate & Marketing',
+              designation: cleanEmail.includes('kishore') || cleanEmail.includes('alex') ? 'Founder & Managing Director' : 'Chief Technology Officer',
               phone: '+91 98765 43210',
-              slug: cleanEmail.includes('alex') ? 'alex' : 'sarah-chen',
-              plan: cleanEmail.includes('alex') ? 'Pro' : 'Advanced',
+              slug: cleanEmail.includes('kishore') || cleanEmail.includes('alex') ? 'kishore' : 'rahul-sharma',
+              plan: 'Pro',
               isBusinessEntity: true,
               loggedIn: true
             }));

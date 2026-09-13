@@ -235,7 +235,7 @@ export default function QRScannerPage() {
             </span>
             <div className="flex flex-wrap items-center justify-center gap-2">
               {[
-                { name: 'Alex Rivera (CEO)', slug: 'alex' },
+                { name: 'Kishore Patel (MD)', slug: 'kishore' },
                 { name: 'Aravind Reddy (Enterprise)', slug: 'aravind-md' },
                 { name: 'Creative Designer', slug: 'vcard39' },
                 { name: 'Corporate Executive', slug: 'vcard13' }

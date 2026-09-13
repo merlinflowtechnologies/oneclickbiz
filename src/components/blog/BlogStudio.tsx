@@ -44,9 +44,9 @@ export default function BlogStudio() {
     businessName: string;
     fullName: string;
   }>({
-    slug: 'alex',
-    businessName: 'Apex Digital Studio',
-    fullName: 'Alex Rivera'
+    slug: 'kishore',
+    businessName: 'Himastech Digital Reality',
+    fullName: 'Kishore Patel'
   });
 
   // Editor Modal State

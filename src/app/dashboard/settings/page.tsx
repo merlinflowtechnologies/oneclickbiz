@@ -114,8 +114,8 @@ function SettingsContent() {
   const searchParams = useSearchParams();
 
   const [tiers, setTiers] = useState<PlanTier[]>(DEFAULT_PLAN_TIERS);
-  const [orgName, setOrgName] = useState('Apex Digital Studio');
-  const [customDomain, setCustomDomain] = useState('cards.apexstudio.design');
+  const [orgName, setOrgName] = useState('Himastech Digital Reality');
+  const [customDomain, setCustomDomain] = useState('cards.himastech.com');
   const [isSaved, setIsSaved] = useState(false);
   const [currentPlan, setCurrentPlan] = useState<'BASIC' | 'PRO' | 'ADVANCED'>('PRO');
   
@@ -123,12 +123,12 @@ function SettingsContent() {
   const [checkoutPlan, setCheckoutPlan] = useState<{ id: 'BASIC' | 'PRO' | 'ADVANCED'; name: string; price: number } | null>(null);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
-  const [billingName, setBillingName] = useState('Alex Rivera');
-  const [billingEmail, setBillingEmail] = useState('alex@apexstudio.design');
+  const [billingName, setBillingName] = useState('Kishore Patel');
+  const [billingEmail, setBillingEmail] = useState('kishore@himastech.com');
   const [billingPhone, setBillingPhone] = useState('+91 98765 43210');
   const [billingGst, setBillingGst] = useState('29ABCDE1234F1Z5');
   const [accountAvatar, setAccountAvatar] = useState('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80');
-  const [accountDesignation, setAccountDesignation] = useState('Founder & Creative Director');
+  const [accountDesignation, setAccountDesignation] = useState('Founder & Managing Director');
   const [showAvatarPresets, setShowAvatarPresets] = useState(false);
   const avatarFileInputRef = React.useRef<HTMLInputElement | null>(null);
 

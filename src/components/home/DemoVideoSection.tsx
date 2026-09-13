@@ -89,9 +89,9 @@ const TUTORIAL_MODES: TutorialMode[] = [
         time: '00:00',
         seconds: 0,
         title: '1. Create Account & Claim Link',
-        action: 'Signing up & reserving "oneclickbiz.in/v/alex-rivera"',
+        action: 'Signing up & reserving "oneclickbiz.in/v/kishore"',
         narration: 'Sign up in seconds with your name & email, then lock in your custom branded link.',
-        dynamicIslandText: '⚡ Account: Alex Rivera',
+        dynamicIslandText: '⚡ Account: Kishore Patel',
         mockupType: 'account'
       },
       {
@@ -100,7 +100,7 @@ const TUTORIAL_MODES: TutorialMode[] = [
         title: '2. Build Smart Profile & Bio',
         action: 'Uploading avatar photo, title & connecting social icons',
         narration: 'Upload your photo, set your executive title & bio, and connect verified WhatsApp & LinkedIn buttons.',
-        dynamicIslandText: '👤 Profile Saved: Alex Rivera',
+        dynamicIslandText: '👤 Profile Saved: Kishore Patel',
         mockupType: 'profile'
       },
       {
@@ -291,8 +291,8 @@ export default function DemoVideoSection() {
   const [cartCount, setCartCount] = useState<number>(1);
   const [selectedThemeName, setSelectedThemeName] = useState<string>('Obsidian Cyberpunk');
   const [nfcTapped, setNfcTapped] = useState<boolean>(false);
-  const [typedEmail, setTypedEmail] = useState<string>('alex@apexstudio.in');
-  const [typedName, setTypedName] = useState<string>('Alex Rivera');
+  const [typedEmail, setTypedEmail] = useState<string>('kishore@himastech.com');
+  const [typedName, setTypedName] = useState<string>('Kishore Patel');
   const [contactSaved, setContactSaved] = useState<boolean>(false);
 
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -370,11 +370,11 @@ export default function DemoVideoSection() {
     const elapsed = currentTime - chap.seconds;
 
     if (chap.mockupType === 'account') {
-      const fullEmail = 'alex@apexstudio.in';
+      const fullEmail = 'kishore@himastech.com';
       const offset = elapsed % 6;
       if (offset < 3) {
         setTypedEmail(fullEmail.slice(0, Math.min(fullEmail.length, Math.floor((offset / 3) * fullEmail.length) + 5)));
-        setTypedName('Alex Rivera');
+        setTypedName('Kishore Patel');
       } else {
         setTypedEmail(fullEmail);
       }
@@ -601,7 +601,7 @@ export default function DemoVideoSection() {
                           <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center gap-3">
                             <div className="relative">
                               <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-black text-sm shadow">
-                                AR
+                                KP
                               </div>
                               <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[8px] font-black shadow border border-slate-950">
                                 ✓
@@ -609,10 +609,10 @@ export default function DemoVideoSection() {
                             </div>
                             <div className="min-w-0 flex-1 space-y-0.5">
                               <p className="text-xs font-bold text-white flex items-center gap-1">
-                                Alex Rivera <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
+                                Kishore Patel <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
                               </p>
-                              <p className="text-[9px] text-pink-400 font-semibold">Founder & Creative Director</p>
-                              <p className="text-[8px] text-slate-400">Apex Design Studio • Hyderabad</p>
+                              <p className="text-[9px] text-pink-400 font-semibold">Founder & Managing Director</p>
+                              <p className="text-[8px] text-slate-400">Himastech Digital Reality • Hyderabad</p>
                             </div>
                           </div>
 
@@ -767,7 +767,7 @@ export default function DemoVideoSection() {
                             {contactSaved && (
                               <div className="p-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[9px] font-bold text-center animate-in fade-in flex items-center justify-center gap-1">
                                 <Check className="w-3 h-3 text-emerald-400" />
-                                <span>Saved Alex Rivera to Phone Address Book!</span>
+                                <span>Saved Kishore Patel to Phone Address Book!</span>
                               </div>
                             )}
                           </div>

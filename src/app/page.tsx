@@ -391,7 +391,7 @@ export default function LandingPage() {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link 
-                  href="/v/alex-rivera"
+                  href="/v/kishore"
                   className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm"
                 >
                   <span>Explore Live Card Demo</span>
@@ -1087,7 +1087,7 @@ export default function LandingPage() {
                 </ul>
               </div>
               <div className="flex flex-wrap items-center gap-3 pt-2">
-                <Link href="/v/alex-rivera" target="_blank" className="px-3.5 py-2 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold hover:bg-purple-600/30 flex items-center gap-1.5 transition">
+                <Link href="/v/kishore" target="_blank" className="px-3.5 py-2 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-300 text-xs font-semibold hover:bg-purple-600/30 flex items-center gap-1.5 transition">
                   <span>Try Live Card Booking</span>
                   <ExternalLink className="w-3 h-3 text-purple-400" />
                 </Link>
@@ -1410,7 +1410,7 @@ export default function LandingPage() {
                         required
                         value={contactForm.name}
                         onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                        placeholder="e.g. Alex Rivera"
+                        placeholder="e.g. Kishore Patel"
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
                       />
                     </div>
@@ -1421,7 +1421,7 @@ export default function LandingPage() {
                         required
                         value={contactForm.email}
                         onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                        placeholder="alex@company.com"
+                        placeholder="kishore@himastech.com"
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
                       />
                     </div>

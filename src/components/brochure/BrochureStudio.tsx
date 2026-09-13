@@ -114,58 +114,58 @@ export default function BrochureStudio() {
   const [data, setData] = useState<BrochureData>({
     format: 'tri-fold',
     theme: 'luxury-onyx',
-    companyName: 'Apex Digital Studio',
-    tagline: 'Design • Engineering • Growth',
-    headline: 'Transforming Brands Into Industry Leaders',
-    subheadline: 'Bespoke UI/UX Design, Web Platforms & High-Conversion Growth Systems',
-    aboutText: 'We partner with visionary founders and ambitious enterprises to craft world-class digital experiences. From initial brand identity to robust scalable applications, we engineer solutions that generate measurable revenue.',
-    missionText: 'Our mission is to eliminate digital friction and elevate modern businesses through cutting-edge technology and unmistakable design excellence.',
+    companyName: 'Himastech Digital Reality',
+    tagline: 'Immersive 3D Tours • Real Estate Marketing',
+    headline: 'Accelerating Property Sales Through Immersive Reality',
+    subheadline: 'Photorealistic 3D Virtual Walkthroughs & High-ROI Real Estate Performance Marketing',
+    aboutText: 'Himastech Digital Reality partners with visionary real estate developers and modern architectural builders to craft immersive digital sales experiences. We turn digital viewers into verified site-visit property buyers.',
+    missionText: 'Our mission is to eliminate physical barriers in real estate buying through cutting-edge 3D interactive technology and data-driven marketing campaigns.',
     logoUrl: '',
     coverImageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80',
-    featureImageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80',
+    featureImageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1000&q=80',
     phone: '+91 98765 43210',
-    email: 'alex@apexstudio.design',
-    website: 'apexstudio.design',
-    address: '100 Feet Rd, Indiranagar, Bangalore, Karnataka 560038',
-    slug: 'alex',
+    email: 'kishore@himastech.com',
+    website: 'himastech.com',
+    address: 'Road No. 36, Jubilee Hills, Hyderabad, Telangana 500033',
+    slug: 'kishore',
     stats: {
-      stat1Number: '80+',
-      stat1Label: 'Projects Delivered',
-      stat2Number: '99.4%',
+      stat1Number: '150+',
+      stat1Label: 'Real Estate Projects',
+      stat2Number: '99.6%',
       stat2Label: 'Client Satisfaction',
-      stat3Number: '₹12Cr+',
-      stat3Label: 'Client Revenue Generated'
+      stat3Number: '₹85Cr+',
+      stat3Label: 'Property Value Marketed'
     },
     services: [
       {
         id: 's1',
-        title: 'Fullstack App & Web Platforms',
-        description: 'Next.js, React, Node.js, and Mobile apps engineered for blistering speed and enterprise reliability.',
+        title: 'Real Estate Performance Ad Campaigns',
+        description: 'Targeted high-intent home buyer generation across Meta, Google, and LinkedIn with CRM automation.',
         price: 'Starting ₹49,999'
       },
       {
         id: 's2',
-        title: 'Brand Identity & Design Systems',
-        description: 'Complete visual identity, logo design, typography guidelines, and scalable UI component libraries.',
-        price: 'Starting ₹29,999'
+        title: 'Photorealistic 3D Virtual Walkthroughs',
+        description: 'Interactive architectural 3D site tours accessible seamlessly on smartphones and VR headsets.',
+        price: 'Starting ₹34,999'
       },
       {
         id: 's3',
-        title: 'WhatsApp Automation & Stores',
-        description: 'Direct-to-chat automated checkout funnels, payment routing, and real-time CRM integration.',
+        title: 'Smart Digital Sales Enablement Suite',
+        description: 'Dynamic digital business cards, instant WhatsApp catalog checkout, and lead tracking for sales reps.',
         price: 'Starting ₹19,999'
       }
     ],
     whyChooseUs: [
-      'Guaranteed On-Time Milestone Delivery',
-      'Direct Access to Senior Lead Engineers',
-      'Built-in SEO & High-Performance Optimization',
-      'Post-Launch 24/7 Dedicated Support'
+      'Verified High-Intent Buyer Lead Qualification',
+      'Ultra-Realistic 3D Architectural Renders',
+      'Instant 1-Click WhatsApp Lead Routing',
+      'Proven 350% Surge in Site Visit Bookings'
     ],
     testimonial: {
-      quote: 'Apex Digital revolutionized our brand presence. Inquiries skyrocketed by 240% within 3 weeks of launching our digital profile and catalog.',
-      author: 'Vikram Mehta',
-      role: 'Founder & CEO, Horizon Ventures'
+      quote: 'Himastech Digital Reality transformed our real estate project launch. Qualified buyer site visits surged by 350% within 3 weeks of launching our 3D walkthrough.',
+      author: 'Rajesh Varma',
+      role: 'Managing Director, Prestige Urban Spaces'
     }
   });
 

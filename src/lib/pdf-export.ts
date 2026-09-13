@@ -53,7 +53,7 @@ export function savePDF(doc: jsPDF, filename: string) {
 /**
  * Generates & downloads a formatted PDF report for Bookings & Appointments
  */
-export function exportBookingsPDF(bookings: BookingSlot[], businessName: string = 'Alex Rivera - Apex Digital Studio') {
+export function exportBookingsPDF(bookings: BookingSlot[], businessName: string = 'Kishore Patel - Himastech Digital Reality') {
   const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
 
   // 1. Header Banner
@@ -162,7 +162,7 @@ export function exportBookingsPDF(bookings: BookingSlot[], businessName: string 
 /**
  * Generates & downloads a formatted PDF report for Inquiries & Leads Pipeline
  */
-export function exportLeadsPDF(leads: LeadItem[], businessName: string = 'Alex Rivera - Apex Digital Studio') {
+export function exportLeadsPDF(leads: LeadItem[], businessName: string = 'Kishore Patel - Himastech Digital Reality') {
   const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
 
   // 1. Header Banner
@@ -260,7 +260,7 @@ export function exportLeadsPDF(leads: LeadItem[], businessName: string = 'Alex R
 /**
  * Generates & downloads a formatted PDF report for WhatsApp Store Catalog
  */
-export function exportStoreCatalogPDF(products: ProductItem[], businessName: string = 'Alex Rivera - Apex Digital Studio') {
+export function exportStoreCatalogPDF(products: ProductItem[], businessName: string = 'Kishore Patel - Himastech Digital Reality') {
   const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
 
   // 1. Header Banner
@@ -479,8 +479,8 @@ export function exportInvoicePDF({
   date = 'August 15, 2026',
   planName = 'Pro Professional Plan (Annual Subscription)',
   amount = 'Rs. 1,599.00',
-  customerName = 'Alex Rivera',
-  companyName = 'Apex Digital Studio',
+  customerName = 'Kishore Patel',
+  companyName = 'Himastech Digital Reality',
   gstNumber = '29ABCDE1234F1Z5'
 }: {
   invoiceNumber?: string;
@@ -623,7 +623,7 @@ export async function exportVisitingCardPDF(card: {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
-  const compLines = doc.splitTextToSize((card.companyName || 'Apex Digital Studio').toUpperCase(), width - 70);
+  const compLines = doc.splitTextToSize((card.companyName || 'Himastech Digital Reality').toUpperCase(), width - 70);
   doc.text(compLines, 16, 20);
 
   if (card.tagline) {
@@ -637,12 +637,12 @@ export async function exportVisitingCardPDF(card: {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
-  doc.text(card.fullName || 'Alex Rivera', 16, 56);
+  doc.text(card.fullName || 'Kishore Patel', 16, 56);
 
   doc.setFontSize(6.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(129, 140, 248); // indigo-300
-  doc.text(card.designation || 'Founder & Creative Director', 16, 67);
+  doc.text(card.designation || 'Founder & Managing Director', 16, 67);
 
   // Contact Details Grid
   doc.setFontSize(5.5);
@@ -760,12 +760,12 @@ export async function exportBrochurePDF(brochure: {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(22);
   doc.setFont('helvetica', 'bold');
-  doc.text((brochure.companyName || 'Apex Digital Studio').toUpperCase(), 40, 52);
+  doc.text((brochure.companyName || 'Himastech Digital Reality').toUpperCase(), 40, 52);
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(148, 163, 184);
-  doc.text(brochure.tagline || 'Design | Engineering | High-Growth Systems', 40, 72);
+  doc.text(brochure.tagline || 'Immersive 3D Tours | Real Estate Marketing', 40, 72);
 
   doc.setTextColor(52, 211, 153);
   doc.setFontSize(9);
@@ -917,7 +917,7 @@ export async function exportBrochurePDF(brochure: {
   doc.setFontSize(8.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(52, 211, 153);
-  doc.text(`${brochure.companyName || 'Apex Digital Studio'} | Page 2 of 2`, pageWidth - 40, 36, { align: 'right' });
+  doc.text(`${brochure.companyName || 'Himastech Digital Reality'} | Page 2 of 2`, pageWidth - 40, 36, { align: 'right' });
 
   // Services Table
   const servicesData = (brochure.services || [
