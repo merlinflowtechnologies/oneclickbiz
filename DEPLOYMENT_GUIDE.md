@@ -180,6 +180,7 @@ Certbot will automatically configure auto-renewal via systemd timers.
 | **Check App Logs** | `pm2 logs oneclickbiz-app` |
 | **Restart App** | `pm2 reload oneclickbiz-app` |
 | **Monitor Performance**| `pm2 monit` |
+| **1-Click Pull & Update** | `cd /var/www/oneclickbiz && git pull origin main && npm run build && pm2 restart all` |
 | **Database Backup** | `pg_dump -U oneclickbiz_user -d oneclickbiz_db -F c -b -v -f backup_$(date +%F).dump` |
 | **Database Restore**| `pg_restore -U oneclickbiz_user -d oneclickbiz_db -v backup_file.dump` |
 | **Prisma Studio (GUI)**| `npx prisma studio --port 5555` |
