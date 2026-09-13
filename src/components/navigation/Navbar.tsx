@@ -35,7 +35,7 @@ export default function Navbar() {
             <img 
               src="/logo.png" 
               alt="OneClickBiz - Business Made Simpler" 
-              className="h-12 sm:h-14 w-auto max-w-[210px] sm:max-w-[260px] object-contain transition-transform group-hover:scale-105 duration-200"
+              className="h-12 sm:h-14 w-auto max-w-[210px] sm:max-w-[260px] object-contain mix-blend-screen transition-transform group-hover:scale-105 duration-200"
             />
           </Link>
 
