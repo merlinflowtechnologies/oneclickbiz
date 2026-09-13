@@ -15,7 +15,9 @@ import {
   KeyRound,
   ShieldCheck,
   RotateCcw,
-  ArrowLeft
+  ArrowLeft,
+  Phone,
+  Shield
 } from 'lucide-react';
 
 export default function ForgotPasswordPage() {
@@ -155,7 +157,7 @@ export default function ForgotPasswordPage() {
           <img 
             src="/logo.png" 
             alt="OneClickBiz - Business Made Simpler" 
-            className="h-14 sm:h-16 w-auto max-w-[260px] sm:max-w-[300px] mx-auto object-contain transition-transform group-hover:scale-105 duration-200"
+            className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] mx-auto object-contain mix-blend-screen transition-transform group-hover:scale-105 duration-200"
           />
         </Link>
         
@@ -390,16 +392,60 @@ export default function ForgotPasswordPage() {
 
           {/* Back to Login Footer */}
           {step !== 'success' && (
-            <div className="mt-6 pt-6 border-t border-slate-800/80 text-center">
-              <p className="text-xs text-slate-400">
+            <div className="mt-6 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+              <p>
                 Remember your password?{' '}
                 <Link href="/login" className="font-semibold text-indigo-400 hover:text-indigo-300 transition-colors">
                   Sign in
                 </Link>
               </p>
+              <a 
+                href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Support%2C%20I%20need%20help%20resetting%20my%20password." 
+                target="_blank" 
+                rel="noreferrer"
+                className="text-emerald-400 hover:text-emerald-300 font-medium inline-flex items-center gap-1 transition-colors"
+              >
+                <Phone className="w-3 h-3" />
+                <span>Support Desk</span>
+              </a>
             </div>
           )}
 
+          {/* Trust Row */}
+          <div className="mt-5 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-3 text-[10px] text-slate-400">
+            <span className="flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span>256-Bit SSL Encrypted</span>
+            </span>
+            <span className="text-slate-700">•</span>
+            <span className="flex items-center gap-1">
+              <KeyRound className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+              <span>Encrypted OTP Protection</span>
+            </span>
+            <span className="text-slate-700">•</span>
+            <span>🇮🇳 Made in India</span>
+          </div>
+
+        </div>
+
+        {/* Outer Legal & Company Footer */}
+        <div className="mt-6 text-center space-y-3 pb-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-400">
+            <Link href="/" className="hover:text-white transition-colors">← Main Website</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/refund" className="hover:text-white transition-colors">Refund Policy</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact Support</Link>
+          </div>
+
+          <div className="text-[11px] text-slate-500 space-y-0.5">
+            <p>© 2026 OneClickBiz. All rights reserved.</p>
+            <p>Developed & Maintained by <span className="text-slate-400 font-medium">Merlinflow Technologies Pvt Ltd</span> • Hyderabad, India</p>
+          </div>
         </div>
       </div>
 

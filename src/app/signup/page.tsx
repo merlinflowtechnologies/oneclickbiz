@@ -430,7 +430,7 @@ function SignUpForm() {
           <img 
             src="/logo.png" 
             alt="OneClickBiz - Business Made Simpler" 
-            className="h-14 sm:h-16 w-auto max-w-[260px] sm:max-w-[300px] mx-auto object-contain transition-transform group-hover:scale-105 duration-200"
+            className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] mx-auto object-contain mix-blend-screen transition-transform group-hover:scale-105 duration-200"
           />
         </Link>
 
@@ -728,6 +728,15 @@ function SignUpForm() {
                   </div>
                 </div>
 
+                <div className="text-[11px] text-slate-400 text-center px-1">
+                  By proceeding, you agree to OneClickBiz{' '}
+                  <Link href="/terms" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Terms of Service</Link>
+                  {', '}
+                  <Link href="/privacy" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Privacy Policy</Link>
+                  {' and '}
+                  <Link href="/refund" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Refund Policy</Link>.
+                </div>
+
                 <button
                   type="submit"
                   className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-xs shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all active:scale-95"
@@ -899,23 +908,70 @@ function SignUpForm() {
             </div>
           )}
 
-          {/* Switch to Login */}
-          <div className="pt-3 border-t border-slate-800 text-center text-xs text-slate-400">
-            Already have an active account?{' '}
-            <Link 
-              href="/login" 
-              className="text-indigo-400 hover:text-indigo-300 font-bold underline"
+          {/* Switch to Login & Help */}
+          <div className="pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+            <div>
+              Already have an active account?{' '}
+              <Link 
+                href="/login" 
+                className="text-indigo-400 hover:text-indigo-300 font-bold underline"
+              >
+                Sign In to Business Portal
+              </Link>
+            </div>
+            <a 
+              href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Support%2C%20I%20need%20help%20with%20registration." 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-emerald-400 hover:text-emerald-300 font-medium inline-flex items-center gap-1 transition-colors"
             >
-              Sign In to Business Portal
-            </Link>
+              <Phone className="w-3 h-3" />
+              <span>Need Help? Desk (+91 63049 89071)</span>
+            </a>
           </div>
 
-          {/* Footer Copyright */}
-          <div className="pt-4 text-center text-[11px] text-slate-500 space-y-0.5">
+          {/* Trust Row */}
+          <div className="pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-3 text-[10px] text-slate-400">
+            <span className="flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span>Cashfree Verified Merchant</span>
+            </span>
+            <span className="text-slate-700">•</span>
+            <span className="flex items-center gap-1">
+              <Shield className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+              <span>256-Bit SSL Encrypted</span>
+            </span>
+            <span className="text-slate-700">•</span>
+            <span className="flex items-center gap-1">
+              <Receipt className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+              <span>Instant GST Tax Invoice</span>
+            </span>
+            <span className="text-slate-700">•</span>
+            <span>🇮🇳 Made in India</span>
+          </div>
+
+        </div>
+
+        {/* Outer Legal & Company Footer */}
+        <div className="mt-6 text-center space-y-3 pb-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-400">
+            <Link href="/" className="hover:text-white transition-colors">← Main Website</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/refund" className="hover:text-white transition-colors">Refund Policy</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/shipping" className="hover:text-white transition-colors">Shipping Policy</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact Support</Link>
+          </div>
+
+          <div className="text-[11px] text-slate-500 space-y-0.5">
             <p>© 2026 OneClickBiz. All rights reserved.</p>
-            <p>Developed & Maintained by <span className="text-slate-400 font-medium">Merlinflow Technologies Pvt Ltd</span>.</p>
+            <p>Developed & Maintained by <span className="text-slate-400 font-medium">Merlinflow Technologies Pvt Ltd</span> • Hyderabad, India</p>
           </div>
-
         </div>
       </div>
 

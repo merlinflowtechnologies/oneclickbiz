@@ -92,7 +92,7 @@ export default function AdminLoginPage() {
           <img 
             src="/logo.png" 
             alt="OneClickBiz - Business Made Simpler" 
-            className="h-14 sm:h-16 w-auto max-w-[260px] sm:max-w-[300px] object-contain transition-transform group-hover:scale-105 duration-200"
+            className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] object-contain mix-blend-screen transition-transform group-hover:scale-105 duration-200"
           />
           <span className="text-[10px] uppercase font-extrabold tracking-widest text-rose-400 bg-rose-500/10 px-3 py-1 rounded-full border border-rose-500/20">
             Super Admin Console
@@ -209,18 +209,45 @@ export default function AdminLoginPage() {
 
           </form>
 
-          <div className="pt-2 text-center">
-            <Link href="/" className="text-xs text-slate-400 hover:text-white transition-colors">
+          <div className="pt-2 flex items-center justify-between text-xs text-slate-500">
+            <Link href="/" className="hover:text-slate-300 transition-colors">
               ← Return to Main Website
+            </Link>
+            <Link href="/login" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors">
+              Business User Portal →
             </Link>
           </div>
 
-          {/* Footer Copyright */}
-          <div className="pt-4 border-t border-slate-800 text-center text-[11px] text-slate-500 space-y-0.5">
-            <p>© 2026 OneClickBiz. All rights reserved.</p>
-            <p>Developed & Maintained by <span className="text-slate-400 font-medium">Merlinflow Technologies Pvt Ltd</span>.</p>
+          {/* Trust Row */}
+          <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-3 text-[10px] text-slate-400">
+            <span className="flex items-center gap-1">
+              <KeyRound className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+              <span>Restricted Root Console</span>
+            </span>
+            <span className="text-slate-700">•</span>
+            <span>256-Bit SSL Encrypted</span>
+            <span className="text-slate-700">•</span>
+            <span>🇮🇳 Made in India</span>
           </div>
 
+        </div>
+
+        {/* Outer Legal & Company Footer */}
+        <div className="mt-6 text-center space-y-3 pb-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-400">
+            <Link href="/" className="hover:text-white transition-colors">Main Website</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/refund" className="hover:text-white transition-colors">Refund Policy</Link>
+          </div>
+
+          <div className="text-[11px] text-slate-500 space-y-0.5">
+            <p>© 2026 OneClickBiz. All rights reserved.</p>
+            <p>Developed & Maintained by <span className="text-slate-400 font-medium">Merlinflow Technologies Pvt Ltd</span> • Hyderabad, India</p>
+          </div>
         </div>
       </div>
 
