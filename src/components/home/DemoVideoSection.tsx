@@ -118,7 +118,7 @@ const TUTORIAL_MODES: TutorialMode[] = [
         title: '4. Publish Live & Dynamic QR',
         action: 'Pushing card live globally & generating branded QR code',
         narration: 'Hit publish to go live globally. Your dynamic QR code updates automatically whenever you edit.',
-        dynamicIslandText: '🚀 Published: /v/alex-rivera',
+        dynamicIslandText: '🚀 Published: /v/kishore',
         mockupType: 'publish-qr'
       },
       {
@@ -161,7 +161,7 @@ const TUTORIAL_MODES: TutorialMode[] = [
         time: '00:30',
         seconds: 30,
         title: 'Reserve Custom Handle',
-        action: 'Checking availability for /v/alex-rivera',
+        action: 'Checking availability for /v/kishore',
         narration: 'Choose your unique vanity link that will stay with you forever.',
         dynamicIslandText: '✅ Handle Verified',
         mockupType: 'account'
@@ -443,28 +443,32 @@ export default function DemoVideoSection() {
         </div>
 
         {/* Tutorial Mode Selector Pills */}
-        <div className="flex items-center justify-start lg:justify-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
-          {TUTORIAL_MODES.map((mode) => {
-            const IconComponent = mode.icon;
-            const isActive = activeModeId === mode.id;
-            return (
-              <button
-                key={mode.id}
-                onClick={() => handleModeChange(mode.id)}
-                className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 border ${
-                  isActive
-                    ? 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white border-indigo-400/40 shadow-lg shadow-indigo-500/25 scale-[1.02]'
-                    : 'bg-slate-900/90 text-slate-400 hover:text-white hover:bg-slate-850 border-slate-800'
-                }`}
-              >
-                <IconComponent className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
-                <span>{mode.shortTitle}</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400'}`}>
-                  {mode.duration}
-                </span>
-              </button>
-            );
-          })}
+        <div className="relative mb-8">
+          <div className="flex items-center justify-start lg:justify-center gap-2 overflow-x-auto pb-2 scrollbar-none px-1">
+            {TUTORIAL_MODES.map((mode) => {
+              const IconComponent = mode.icon;
+              const isActive = activeModeId === mode.id;
+              return (
+                <button
+                  key={mode.id}
+                  onClick={() => handleModeChange(mode.id)}
+                  className={`px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 shrink-0 border ${
+                    isActive
+                      ? 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white border-indigo-400/40 shadow-lg shadow-indigo-500/25 scale-[1.02]'
+                      : 'bg-slate-900/90 text-slate-400 hover:text-white hover:bg-slate-850 border-slate-800'
+                  }`}
+                >
+                  <IconComponent className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                  <span>{mode.shortTitle}</span>
+                  <span className={`text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400'}`}>
+                    {mode.duration}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          {/* Right edge fade gradient hint on mobile */}
+          <div className="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-slate-950 to-transparent pointer-events-none sm:hidden" />
         </div>
 
         {/* Main Video Cinema Showcase Grid */}
@@ -497,43 +501,43 @@ export default function DemoVideoSection() {
               </div>
 
               {/* Video Screen / Animated Simulated Phone Studio */}
-              <div className="relative aspect-[16/10] sm:aspect-video w-full bg-slate-950 overflow-hidden flex items-center justify-center p-3 sm:p-6">
+              <div className="relative min-h-[460px] sm:min-h-0 sm:aspect-[16/10] lg:aspect-video w-full bg-slate-950 overflow-hidden flex items-center justify-center p-2 sm:p-6 pt-12 sm:pt-6">
                 
                 {/* Background Ambient Radial Glow */}
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-950/40 via-slate-950 to-black pointer-events-none" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e1e3810_1px,transparent_1px),linear-gradient(to_bottom,#1e1e3810_1px,transparent_1px)] bg-[size:1.75rem_1.75rem] pointer-events-none" />
 
                 {/* Top Chapter Status Pill */}
-                <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between gap-2 pointer-events-none">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-slate-900/90 border border-slate-700/80 backdrop-blur-md shadow-lg">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                    <span className="text-[11px] font-bold text-white">
+                <div className="absolute top-2.5 sm:top-4 left-2.5 sm:left-4 right-2.5 sm:right-4 z-20 flex items-center justify-between gap-1.5 pointer-events-none">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-900/90 border border-slate-700/80 backdrop-blur-md shadow-lg max-w-[65%] sm:max-w-none">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0" />
+                    <span className="text-[10px] sm:text-[11px] font-bold text-white truncate">
                       {currentChapter.title}
                     </span>
-                    <span className="text-[10px] text-indigo-400 font-mono">
+                    <span className="text-[9px] sm:text-[10px] text-indigo-400 font-mono shrink-0">
                       ({currentChapter.time})
                     </span>
                   </div>
 
                   {/* Equalizer Waveform Bars when Playing */}
-                  <div className="flex items-center gap-1 bg-slate-900/90 border border-slate-700/80 px-2.5 py-1 rounded-xl backdrop-blur-md">
+                  <div className="flex items-center gap-1 bg-slate-900/90 border border-slate-700/80 px-2 py-1 rounded-xl backdrop-blur-md shrink-0">
                     <span className={`w-0.5 bg-indigo-400 rounded-full transition-all ${isPlaying ? 'h-3 animate-pulse' : 'h-1.5'}`} />
                     <span className={`w-0.5 bg-pink-400 rounded-full transition-all ${isPlaying ? 'h-4.5 animate-pulse delay-75' : 'h-2'}`} />
                     <span className={`w-0.5 bg-purple-400 rounded-full transition-all ${isPlaying ? 'h-3 animate-pulse delay-150' : 'h-1.5'}`} />
                     <span className={`w-0.5 bg-emerald-400 rounded-full transition-all ${isPlaying ? 'h-4 animate-pulse delay-100' : 'h-2'}`} />
-                    <span className="text-[9px] text-slate-400 ml-1 font-mono">{isMuted ? 'Muted' : 'Sound On'}</span>
+                    <span className="text-[9px] text-slate-400 ml-1 font-mono hidden sm:inline-block">{isMuted ? 'Muted' : 'Sound On'}</span>
                   </div>
                 </div>
 
                 {/* Simulated iPhone 16 Pro Device Frame Container */}
-                <div className="relative w-full max-w-[340px] sm:max-w-[370px] h-[95%] rounded-[36px] bg-slate-900 p-2.5 border-2 border-slate-700/90 shadow-2xl shadow-indigo-950/80 flex flex-col justify-between overflow-hidden ring-1 ring-white/15 transition-all">
+                <div className="relative w-full max-w-[310px] sm:max-w-[360px] h-[410px] sm:h-[450px] lg:h-[95%] rounded-[28px] sm:rounded-[36px] bg-slate-900 p-2 sm:p-2.5 border-2 border-slate-700/90 shadow-2xl shadow-indigo-950/80 flex flex-col justify-between overflow-hidden ring-1 ring-white/15 transition-all">
                   
                   {/* Dynamic Island Header */}
-                  <div className="w-full bg-slate-950 rounded-t-[28px] pt-2 pb-1.5 px-4 flex items-center justify-between text-[10px] text-slate-300 font-semibold border-b border-slate-800 shrink-0">
+                  <div className="w-full bg-slate-950 rounded-t-[24px] sm:rounded-t-[28px] pt-2 pb-1.5 px-3 sm:px-4 flex items-center justify-between text-[10px] text-slate-300 font-semibold border-b border-slate-800 shrink-0">
                     <span>9:41</span>
-                    <div className="px-3 py-1 rounded-full bg-black border border-slate-800 text-[9px] text-indigo-300 font-bold flex items-center gap-1.5 shadow-inner transition-all">
+                    <div className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-black border border-slate-800 text-[8px] sm:text-[9px] text-indigo-300 font-bold flex items-center gap-1.5 shadow-inner transition-all">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                      <span className="truncate max-w-[140px]">{currentChapter.dynamicIslandText}</span>
+                      <span className="truncate max-w-[120px] sm:max-w-[140px]">{currentChapter.dynamicIslandText}</span>
                     </div>
                     <div className="flex items-center gap-1 text-slate-400">
                       <Wifi className="w-3 h-3" />
@@ -542,40 +546,40 @@ export default function DemoVideoSection() {
                   </div>
 
                   {/* Device Screen Content (Dynamically transitions based on chapter) */}
-                  <div className="flex-1 bg-slate-950 overflow-hidden relative p-3 flex flex-col justify-between text-left">
+                  <div className="flex-1 bg-slate-950 overflow-hidden relative p-2 sm:p-3 flex flex-col justify-between text-left">
                     
                     {/* SCENE 1: CREATE ACCOUNT & CLAIM LINK */}
                     {currentChapter.mockupType === 'account' && (
-                      <div className="space-y-2.5 animate-in fade-in zoom-in-95 duration-300">
-                        <div className="p-3 rounded-2xl bg-indigo-950/60 border border-indigo-500/40 space-y-2.5 shadow-xl">
+                      <div className="space-y-2 animate-in fade-in zoom-in-95 duration-300">
+                        <div className="p-2.5 sm:p-3 rounded-2xl bg-indigo-950/60 border border-indigo-500/40 space-y-2 sm:space-y-2.5 shadow-xl">
                           <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                            <span className="text-[9.5px] sm:text-[10px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
                               <UserCheck className="w-3 h-3" /> Step 1 • Create Account
                             </span>
-                            <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">100% Free</span>
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[8px] sm:text-[9px] font-bold">100% Free</span>
                           </div>
 
-                          <div className="space-y-1.5 text-[10px]">
-                            <div className="p-2 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-between">
+                          <div className="space-y-1.5 text-[9.5px] sm:text-[10px]">
+                            <div className="p-1.5 sm:p-2 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-between">
                               <span className="text-slate-400">Full Name:</span>
-                              <span className="font-bold text-white">{typedName}</span>
+                              <span className="font-bold text-white truncate ml-1">{typedName}</span>
                             </div>
 
-                            <div className="p-2 rounded-xl bg-slate-900 border border-indigo-500/40 flex items-center justify-between">
+                            <div className="p-1.5 sm:p-2 rounded-xl bg-slate-900 border border-indigo-500/40 flex items-center justify-between">
                               <span className="text-slate-400">Email:</span>
-                              <span className="font-mono text-indigo-300 font-bold">{typedEmail}<span className="animate-pulse">|</span></span>
+                              <span className="font-mono text-indigo-300 font-bold truncate ml-1 text-[9px] sm:text-[10px]">{typedEmail}<span className="animate-pulse">|</span></span>
                             </div>
 
-                            <div className="p-2 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex items-center justify-between text-xs">
-                              <span className="font-mono text-[10px] text-white font-bold">oneclickbiz.in/v/<span className="text-emerald-400">alex-rivera</span></span>
-                              <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[8px] font-bold flex items-center gap-1">
+                            <div className="p-1.5 sm:p-2 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex items-center justify-between">
+                              <span className="font-mono text-[9px] sm:text-[10px] text-white font-bold truncate mr-1">oneclickbiz.in/v/<span className="text-emerald-400">kishore</span></span>
+                              <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[8px] font-bold flex items-center gap-1 shrink-0">
                                 <Check className="w-2.5 h-2.5 text-emerald-400" /> Available
                               </span>
                             </div>
                           </div>
 
                           <div className="relative">
-                            <button className="w-full py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xs shadow flex items-center justify-center gap-1.5">
+                            <button className="w-full py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-[11px] sm:text-xs shadow flex items-center justify-center gap-1.5">
                               <span>Sign Up & Claim My Card Free</span>
                               <ArrowRight className="w-3 h-3" />
                             </button>
@@ -588,36 +592,36 @@ export default function DemoVideoSection() {
 
                     {/* SCENE 2: BUILD PROFILE STUDIO & SOCIALS */}
                     {currentChapter.mockupType === 'profile' && (
-                      <div className="space-y-2.5 animate-in fade-in zoom-in-95 duration-300">
-                        <div className="p-3 rounded-2xl bg-slate-900/95 border border-indigo-500/30 space-y-2 shadow-xl">
+                      <div className="space-y-2 animate-in fade-in zoom-in-95 duration-300">
+                        <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-900/95 border border-indigo-500/30 space-y-2 shadow-xl">
                           <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
-                              <Sliders className="w-3 h-3" /> Step 2 • Profile Builder Studio
+                            <span className="text-[9.5px] sm:text-[10px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                              <Sliders className="w-3 h-3" /> Step 2 • Profile Studio
                             </span>
-                            <span className="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">Live Sync</span>
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[8px] sm:text-[9px] font-bold">Live Sync</span>
                           </div>
 
                           {/* Profile Header Editor */}
-                          <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center gap-3">
-                            <div className="relative">
-                              <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-black text-sm shadow">
+                          <div className="p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center gap-2.5">
+                            <div className="relative shrink-0">
+                              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-black text-xs sm:text-sm shadow">
                                 KP
                               </div>
-                              <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[8px] font-black shadow border border-slate-950">
+                              <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[7px] font-black shadow border border-slate-950">
                                 ✓
                               </div>
                             </div>
                             <div className="min-w-0 flex-1 space-y-0.5">
-                              <p className="text-xs font-bold text-white flex items-center gap-1">
-                                Kishore Patel <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
+                              <p className="text-[11px] sm:text-xs font-bold text-white flex items-center gap-1 truncate">
+                                Kishore Patel <ShieldCheck className="w-3 h-3 text-indigo-400 shrink-0" />
                               </p>
-                              <p className="text-[9px] text-pink-400 font-semibold">Founder & Managing Director</p>
-                              <p className="text-[8px] text-slate-400">Himastech Digital Reality • Hyderabad</p>
+                              <p className="text-[8.5px] sm:text-[9px] text-pink-400 font-semibold truncate">Founder & Managing Director</p>
+                              <p className="text-[8px] text-slate-400 truncate">Himastech Digital Reality • Hyderabad</p>
                             </div>
                           </div>
 
                           {/* Connected Quick Action Buttons */}
-                          <div className="grid grid-cols-4 gap-1 pt-1 text-center text-[8px] font-bold">
+                          <div className="grid grid-cols-4 gap-1 pt-0.5 text-center text-[7.5px] sm:text-[8px] font-bold">
                             <div className="p-1 rounded-lg bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 flex flex-col items-center gap-0.5">
                               <MessageCircle className="w-3 h-3 text-emerald-400" /> WhatsApp
                             </div>
@@ -632,7 +636,12 @@ export default function DemoVideoSection() {
                             </div>
                           </div>
 
-                          <div className="p-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 text-[9px] font-medium flex items-center justify-between">
+                          {/* Bio / Services snippet */}
+                          <div className="p-1.5 rounded-lg bg-slate-950/80 border border-slate-800 text-[8px] sm:text-[8.5px] text-slate-300 leading-snug line-clamp-2">
+                            &ldquo;NFC smart digital business cards, interactive WhatsApp catalogs & 1-tap contact sharing.&rdquo;
+                          </div>
+
+                          <div className="p-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 text-[8.5px] sm:text-[9px] font-medium flex items-center justify-between">
                             <span>Autosaved to Cloud DB</span>
                             <span className="font-bold text-emerald-400 flex items-center gap-1">
                               <Check className="w-2.5 h-2.5" /> 100% Synced
@@ -644,23 +653,23 @@ export default function DemoVideoSection() {
 
                     {/* SCENE 3: THEME PICKER & WHATSAPP MINI-STORE */}
                     {currentChapter.mockupType === 'theme-store' && (
-                      <div className="space-y-2.5 animate-in fade-in zoom-in-95 duration-300">
-                        <div className="p-3 rounded-2xl bg-gradient-to-tr from-emerald-950/60 via-slate-900 to-indigo-950/60 border border-emerald-500/40 space-y-2 shadow-xl">
+                      <div className="space-y-2 animate-in fade-in zoom-in-95 duration-300">
+                        <div className="p-2.5 sm:p-3 rounded-2xl bg-gradient-to-tr from-emerald-950/60 via-slate-900 to-indigo-950/60 border border-emerald-500/40 space-y-2 shadow-xl">
                           <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
-                              <ShoppingBag className="w-3 h-3" /> Step 3 • Themes & Mini-Store
+                            <span className="text-[9.5px] sm:text-[10px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+                              <ShoppingBag className="w-3 h-3" /> Step 3 • Themes & Store
                             </span>
-                            <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">0% Fees</span>
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[8px] sm:text-[9px] font-bold">0% Fees</span>
                           </div>
 
                           {/* Mini Store Item */}
-                          <div className="p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                            <div className="space-y-0.5">
-                              <p className="text-[11px] font-bold text-white">UltraSmart Matte NFC Card</p>
-                              <p className="text-[9px] text-emerald-400 font-bold">₹999 <span className="line-through text-slate-500 font-normal">₹1,999</span></p>
+                          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+                            <div className="space-y-0.5 min-w-0 flex-1 mr-2">
+                              <p className="text-[10px] sm:text-[11px] font-bold text-white truncate">UltraSmart Matte NFC Card</p>
+                              <p className="text-[8.5px] sm:text-[9px] text-emerald-400 font-bold">₹999 <span className="line-through text-slate-500 font-normal">₹1,999</span></p>
                             </div>
-                            <div className="relative">
-                              <button className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[9px] flex items-center gap-1 shadow">
+                            <div className="relative shrink-0">
+                              <button className="px-2 sm:px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[8.5px] sm:text-[9px] flex items-center gap-1 shadow">
                                 <Plus className="w-2.5 h-2.5" />
                                 <span>Add to Cart</span>
                               </button>
@@ -669,22 +678,22 @@ export default function DemoVideoSection() {
                           </div>
 
                           {/* Instant WhatsApp Order Bar */}
-                          <div className="p-2 rounded-xl bg-emerald-900/50 border border-emerald-500/40 flex items-center justify-between text-[10px] text-emerald-200">
-                            <span className="flex items-center gap-1 font-semibold">
-                              <ShoppingCart className="w-3 h-3 text-emerald-400" />
+                          <div className="p-1.5 sm:p-2 rounded-xl bg-emerald-900/50 border border-emerald-500/40 flex items-center justify-between text-[9px] sm:text-[10px] text-emerald-200">
+                            <span className="flex items-center gap-1 font-semibold truncate">
+                              <ShoppingCart className="w-3 h-3 text-emerald-400 shrink-0" />
                               <span>{cartCount} in Cart (₹{cartCount * 999})</span>
                             </span>
-                            <span className="font-bold underline flex items-center gap-1 text-white">
-                              Order on WhatsApp <Send className="w-2.5 h-2.5 text-emerald-300" />
+                            <span className="font-bold underline flex items-center gap-1 text-white shrink-0 ml-1">
+                              WhatsApp Order <Send className="w-2.5 h-2.5 text-emerald-300" />
                             </span>
                           </div>
 
                           {/* Theme Chips */}
-                          <div className="flex items-center justify-center gap-1 pt-0.5">
-                            {['Obsidian', 'Emerald', 'Royal Gold', 'Minimal'].map((theme, i) => (
+                          <div className="flex items-center justify-center gap-1 pt-0.5 overflow-x-auto scrollbar-none">
+                            {['Obsidian', 'Emerald', 'Gold', 'Minimal'].map((theme, i) => (
                               <span
                                 key={i}
-                                className={`px-2 py-0.5 rounded-full text-[8px] font-bold border ${
+                                className={`px-1.5 sm:px-2 py-0.5 rounded-full text-[7.5px] sm:text-[8px] font-bold border shrink-0 ${
                                   selectedThemeName.includes(theme)
                                     ? 'bg-emerald-600 text-white border-emerald-400 shadow'
                                     : 'bg-slate-900 text-slate-400 border-slate-800'
@@ -700,32 +709,32 @@ export default function DemoVideoSection() {
 
                     {/* SCENE 4: PUBLISH LIVE & DYNAMIC QR */}
                     {currentChapter.mockupType === 'publish-qr' && (
-                      <div className="space-y-2.5 animate-in fade-in zoom-in-95 duration-300">
-                        <div className="p-3 rounded-2xl bg-indigo-950/60 border border-indigo-500/40 space-y-2.5 shadow-xl text-center">
+                      <div className="space-y-2 animate-in fade-in zoom-in-95 duration-300">
+                        <div className="p-2.5 sm:p-3 rounded-2xl bg-indigo-950/60 border border-indigo-500/40 space-y-2 shadow-xl text-center">
                           <div className="flex items-center justify-between text-left">
-                            <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
+                            <span className="text-[9.5px] sm:text-[10px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">
                               <QrCode className="w-3 h-3" /> Step 4 • Published & Dynamic QR
                             </span>
-                            <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">Live Online</span>
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[8px] sm:text-[9px] font-bold">Live Online</span>
                           </div>
 
                           {/* Dynamic QR Display with Centered Avatar Logo */}
-                          <div className="p-3 rounded-2xl bg-white mx-auto w-32 h-32 flex flex-col items-center justify-center relative shadow-2xl ring-4 ring-indigo-500/30">
+                          <div className="p-2 sm:p-2.5 rounded-2xl bg-white mx-auto w-24 h-24 sm:w-28 sm:h-28 flex flex-col items-center justify-center relative shadow-2xl ring-4 ring-indigo-500/30">
                             {/* Realistic QR Pattern Grid Simulation */}
-                            <div className="w-full h-full bg-[radial-gradient(#000_2px,transparent_2px)] [background-size:6px_6px] rounded-lg relative flex items-center justify-center">
+                            <div className="w-full h-full bg-[radial-gradient(#000_2px,transparent_2px)] [background-size:5px_5px] rounded-lg relative flex items-center justify-center">
                               {/* 3 Corner Anchor Boxes */}
-                              <div className="absolute top-0.5 left-0.5 w-5 h-5 border-2 border-black p-0.5"><div className="w-full h-full bg-black rounded-xs" /></div>
-                              <div className="absolute top-0.5 right-0.5 w-5 h-5 border-2 border-black p-0.5"><div className="w-full h-full bg-black rounded-xs" /></div>
-                              <div className="absolute bottom-0.5 left-0.5 w-5 h-5 border-2 border-black p-0.5"><div className="w-full h-full bg-black rounded-xs" /></div>
+                              <div className="absolute top-0.5 left-0.5 w-4 h-4 border-2 border-black p-0.5"><div className="w-full h-full bg-black rounded-xs" /></div>
+                              <div className="absolute top-0.5 right-0.5 w-4 h-4 border-2 border-black p-0.5"><div className="w-full h-full bg-black rounded-xs" /></div>
+                              <div className="absolute bottom-0.5 left-0.5 w-4 h-4 border-2 border-black p-0.5"><div className="w-full h-full bg-black rounded-xs" /></div>
                               {/* Centered Avatar Logo */}
-                              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 to-pink-500 text-white font-black text-[9px] flex items-center justify-center border-2 border-white shadow-md z-10">
-                                AR
+                              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-indigo-600 to-pink-500 text-white font-black text-[8px] sm:text-[9px] flex items-center justify-center border-2 border-white shadow-md z-10">
+                                KP
                               </div>
                             </div>
                           </div>
 
-                          <div className="p-1.5 rounded-xl bg-slate-900 border border-slate-700 text-[10px] text-white font-mono font-bold flex items-center justify-center gap-1.5">
-                            <span>oneclickbiz.in/v/alex-rivera</span>
+                          <div className="p-1.5 rounded-xl bg-slate-900 border border-slate-700 text-[9px] sm:text-[10px] text-white font-mono font-bold flex items-center justify-center gap-1.5">
+                            <span>oneclickbiz.in/v/kishore</span>
                             <ExternalLink className="w-3 h-3 text-indigo-400" />
                           </div>
                         </div>
@@ -734,23 +743,23 @@ export default function DemoVideoSection() {
 
                     {/* SCENE 5: SHARING ACROSS USERS (NFC TAP & 1-CLICK .VCF) */}
                     {currentChapter.mockupType === 'share-nfc' && (
-                      <div className="space-y-2.5 animate-in fade-in zoom-in-95 duration-300">
-                        <div className="p-3 rounded-2xl bg-amber-950/60 border border-amber-500/40 space-y-2.5 shadow-xl">
+                      <div className="space-y-2 animate-in fade-in zoom-in-95 duration-300">
+                        <div className="p-2.5 sm:p-3 rounded-2xl bg-amber-950/60 border border-amber-500/40 space-y-2 shadow-xl">
                           <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
-                              <Zap className="w-3 h-3 text-amber-400" /> Step 5 • Sharing Across Users
+                            <span className="text-[9.5px] sm:text-[10px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
+                              <Zap className="w-3 h-3 text-amber-400" /> Step 5 • Contactless Sharing
                             </span>
-                            <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">iOS & Android</span>
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[8px] sm:text-[9px] font-bold">iOS & Android</span>
                           </div>
 
                           {/* Contactless Tap Banner */}
-                          <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-3 relative overflow-hidden">
-                            <div className="w-10 h-7 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-center text-[8px] font-black text-slate-950 shadow">
+                          <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-2.5 relative overflow-hidden">
+                            <div className="w-9 h-7 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-center text-[8px] font-black text-slate-950 shadow shrink-0">
                               NFC
                             </div>
                             <div className="min-w-0 flex-1">
-                              <p className="text-[11px] font-bold text-white">Contactless NFC Card Tap</p>
-                              <p className="text-[9px] text-slate-400">Zero App Required • Opens Live in Safari/Chrome</p>
+                              <p className="text-[10px] sm:text-[11px] font-bold text-white truncate">Contactless NFC Card Tap</p>
+                              <p className="text-[8px] sm:text-[9px] text-slate-400 truncate">Zero App Required • Opens in Safari/Chrome</p>
                             </div>
                             {nfcTapped && (
                               <div className="absolute inset-0 bg-amber-500/15 animate-pulse flex items-center justify-center" />
@@ -759,15 +768,15 @@ export default function DemoVideoSection() {
 
                           {/* 1-Click .VCF Download Action */}
                           <div className="space-y-1.5">
-                            <button className="w-full py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold text-center shadow-lg flex items-center justify-center gap-1.5 transition">
+                            <button className="w-full py-1.5 sm:py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-[9.5px] sm:text-[10px] font-bold text-center shadow-lg flex items-center justify-center gap-1.5 transition">
                               <UserCheck className="w-3 h-3 text-emerald-300" />
                               <span>Save Contact to Phone (.VCF)</span>
                             </button>
 
                             {contactSaved && (
-                              <div className="p-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[9px] font-bold text-center animate-in fade-in flex items-center justify-center gap-1">
+                              <div className="p-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[8px] sm:text-[9px] font-bold text-center animate-in fade-in flex items-center justify-center gap-1">
                                 <Check className="w-3 h-3 text-emerald-400" />
-                                <span>Saved Kishore Patel to Phone Address Book!</span>
+                                <span className="truncate">Saved Kishore Patel to Address Book!</span>
                               </div>
                             )}
                           </div>
@@ -776,9 +785,9 @@ export default function DemoVideoSection() {
                     )}
 
                     {/* Live Voiceover Subtitle Banner */}
-                    <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-[10px] text-slate-300 flex items-start gap-2 shadow-md">
+                    <div className="shrink-0 p-2 sm:p-2.5 rounded-xl bg-slate-900/95 border border-slate-800 text-[9.5px] sm:text-[10px] text-slate-300 flex items-start gap-2 shadow-md">
                       <Sparkles className="w-3.5 h-3.5 text-indigo-400 shrink-0 mt-0.5" />
-                      <p className="leading-tight">
+                      <p className="leading-tight line-clamp-2">
                         <strong className="text-white font-semibold">{currentChapter.title}:</strong> {currentChapter.narration}
                       </p>
                     </div>
@@ -794,7 +803,7 @@ export default function DemoVideoSection() {
                   aria-label={isPlaying ? 'Pause Demo' : 'Play Demo'}
                 >
                   <div className={`w-16 h-16 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white flex items-center justify-center shadow-2xl shadow-indigo-500/50 border border-white/20 transition-all duration-300 ${
-                    isPlaying ? 'opacity-0 group-hover/overlay:opacity-100 scale-90 group-hover/overlay:scale-100' : 'opacity-100 scale-100'
+                    isPlaying ? 'opacity-0 sm:group-hover/overlay:opacity-100 scale-90 sm:group-hover/overlay:scale-100 pointer-events-none sm:pointer-events-auto' : 'opacity-100 scale-100 pointer-events-auto'
                   }`}>
                     {isPlaying ? <Pause className="w-7 h-7" /> : <Play className="w-7 h-7 ml-1" />}
                   </div>
@@ -803,7 +812,7 @@ export default function DemoVideoSection() {
               </div>
 
               {/* Video Scrubber & Playback Controls Bar */}
-              <div className="p-4 bg-slate-950/95 border-t border-slate-800 space-y-3">
+              <div className="p-3 sm:p-4 bg-slate-950/95 border-t border-slate-800 space-y-2.5 sm:space-y-3">
                 
                 {/* Progress Bar Track with Clickable Seek */}
                 <div 
@@ -836,27 +845,29 @@ export default function DemoVideoSection() {
                 </div>
 
                 {/* Controls Row */}
-                <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div className="flex items-center justify-between gap-2 text-xs">
                   
                   {/* Left Controls: Play/Pause, Restart, Time */}
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <button
                       onClick={() => setIsPlaying(!isPlaying)}
-                      className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 transition shadow"
+                      className="p-1.5 sm:p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 transition shadow"
                       title={isPlaying ? 'Pause' : 'Play'}
+                      aria-label={isPlaying ? 'Pause' : 'Play'}
                     >
                       {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                     </button>
 
                     <button
                       onClick={() => handleSeek(0)}
-                      className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition"
+                      className="p-1.5 sm:p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition"
                       title="Restart Video"
+                      aria-label="Restart Video"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
                     </button>
 
-                    <div className="font-mono text-slate-300 text-xs flex items-center gap-1.5">
+                    <div className="font-mono text-slate-300 text-[11px] sm:text-xs flex items-center gap-1 sm:gap-1.5">
                       <span className="text-white font-bold">{formatSeconds(currentTime)}</span>
                       <span className="text-slate-500">/</span>
                       <span className="text-slate-400">{activeMode.duration}</span>
@@ -864,9 +875,23 @@ export default function DemoVideoSection() {
                   </div>
 
                   {/* Right Controls: Speed, Volume, Fullscreen */}
-                  <div className="flex items-center gap-2">
-                    {/* Playback Speed Pill */}
-                    <div className="flex items-center bg-slate-900 border border-slate-800 rounded-xl p-0.5">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    
+                    {/* Speed Toggle for Mobile (compact 1-button cycle) */}
+                    <button
+                      onClick={() => {
+                        const speeds = [1, 1.25, 1.5, 2];
+                        const next = speeds[(speeds.indexOf(playbackSpeed) + 1) % speeds.length];
+                        setPlaybackSpeed(next);
+                      }}
+                      className="px-2 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-[10px] font-bold text-indigo-300 hover:text-white sm:hidden transition"
+                      title="Tap to change speed"
+                    >
+                      {playbackSpeed}x
+                    </button>
+
+                    {/* Playback Speed Pill for Tablets & Desktop */}
+                    <div className="hidden sm:flex items-center bg-slate-900 border border-slate-800 rounded-xl p-0.5">
                       {[1, 1.25, 1.5, 2].map((spd) => (
                         <button
                           key={spd}
@@ -885,8 +910,9 @@ export default function DemoVideoSection() {
                     {/* Mute Button */}
                     <button
                       onClick={() => setIsMuted(!isMuted)}
-                      className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition"
+                      className="p-1.5 sm:p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition"
                       title={isMuted ? 'Unmute' : 'Mute'}
+                      aria-label={isMuted ? 'Unmute' : 'Mute'}
                     >
                       {isMuted ? <VolumeX className="w-3.5 h-3.5 text-rose-400" /> : <Volume2 className="w-3.5 h-3.5 text-emerald-400" />}
                     </button>
@@ -896,6 +922,7 @@ export default function DemoVideoSection() {
                       onClick={() => setIsModalOpen(true)}
                       className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition hidden sm:flex items-center gap-1"
                       title="Expand Cinema View"
+                      aria-label="Expand Cinema View"
                     >
                       <Maximize2 className="w-3.5 h-3.5" />
                     </button>
@@ -918,7 +945,7 @@ export default function DemoVideoSection() {
 
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <Link
-                  href="/v/alex-rivera"
+                  href="/v/kishore"
                   target="_blank"
                   className="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition"
                 >
@@ -1102,7 +1129,7 @@ export default function DemoVideoSection() {
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
-                    href="/v/alex-rivera"
+                    href="/v/kishore"
                     target="_blank"
                     className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-semibold"
                   >
