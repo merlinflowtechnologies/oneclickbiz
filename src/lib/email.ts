@@ -1,10 +1,18 @@
 import nodemailer from 'nodemailer';
 import { Resend } from 'resend';
 
+export interface EmailSendResult {
+  success: boolean;
+  messageId?: string;
+  error?: string;
+  isSandboxRestricted?: boolean;
+  otpCode?: string;
+}
+
 /**
  * Sends a real password reset OTP email to the user's inbox
  */
-export async function sendPasswordResetEmail(toEmail: string, otpCode: string): Promise<{ success: boolean; messageId?: string; error?: string }> {
+export async function sendPasswordResetEmail(toEmail: string, otpCode: string): Promise<EmailSendResult> {
   try {
     const htmlContent = `
       <!DOCTYPE html>
@@ -99,77 +107,97 @@ export async function sendPasswordResetEmail(toEmail: string, otpCode: string): 
     // -------------------------------------------------------------
     // PRIORITY 1: RESEND API (HTTP API - Fast & 100% Free)
     // -------------------------------------------------------------
+    let resendErrorMsg = '';
     const resendApiKey = process.env.RESEND_API_KEY;
     if (resendApiKey) {
-      const resend = new Resend(resendApiKey);
-      const configuredFrom = process.env.RESEND_FROM || process.env.SMTP_FROM || 'OneClickBiz <support@oneclickbiz.in>';
-      
-      let sendResult = await resend.emails.send({
-        from: configuredFrom,
-        to: [toEmail],
-        subject: subject,
-        text: textContent,
-        html: htmlContent,
-      });
-
-      // If custom domain is still verifying and fails, try test sender fallback
-      if (sendResult.error && configuredFrom.includes('oneclickbiz.in')) {
-        console.warn(`[RESEND_DOMAIN_PENDING] Custom domain not fully propagated yet: ${sendResult.error.message}. Retrying with test sender...`);
-        sendResult = await resend.emails.send({
-          from: 'OneClickBiz <onboarding@resend.dev>',
+      try {
+        const resend = new Resend(resendApiKey);
+        // Ensure verified custom domain support@oneclickbiz.in is preferred over sandbox onboarding@resend.dev
+        const envFrom = process.env.RESEND_FROM || process.env.SMTP_FROM || '';
+        const configuredFrom = (envFrom && !envFrom.includes('resend.dev'))
+          ? envFrom
+          : 'OneClickBiz Security <support@oneclickbiz.in>';
+        
+        let sendResult = await resend.emails.send({
+          from: configuredFrom,
           to: [toEmail],
           subject: subject,
           text: textContent,
           html: htmlContent,
         });
-      }
 
-      if (sendResult.error) {
-        console.error('[RESEND_API_ERROR]', sendResult.error);
-        throw new Error(sendResult.error.message);
-      }
+        // If custom domain fails, try test sender fallback
+        if (sendResult.error && configuredFrom.includes('oneclickbiz.in')) {
+          console.warn(`[RESEND_DOMAIN_PENDING] Custom domain delivery failed: ${sendResult.error.message}. Retrying with test sender...`);
+          sendResult = await resend.emails.send({
+            from: 'OneClickBiz <onboarding@resend.dev>',
+            to: [toEmail],
+            subject: subject,
+            text: textContent,
+            html: htmlContent,
+          });
+        }
 
-      console.log(`[RESEND_EMAIL_SUCCESS] Verification email sent to ${toEmail}. ID: ${sendResult.data?.id}`);
-      return { success: true, messageId: sendResult.data?.id };
+        if (sendResult.error) {
+          resendErrorMsg = sendResult.error.message || 'Resend delivery failed';
+          console.error('[RESEND_API_ERROR]', sendResult.error);
+        } else if (sendResult.data?.id) {
+          console.log(`[RESEND_EMAIL_SUCCESS] Verification email sent to ${toEmail}. ID: ${sendResult.data.id}`);
+          return { success: true, messageId: sendResult.data.id };
+        }
+      } catch (err: any) {
+        resendErrorMsg = err.message || 'Resend exception';
+        console.error('[RESEND_API_EXCEPTION]', err);
+      }
     }
 
     // -------------------------------------------------------------
-    // PRIORITY 2: STANDARD SMTP (Gmail / Custom SMTP / Brevo)
+    // PRIORITY 2: STANDARD SMTP (Gmail / Google Workspace / Brevo)
     // -------------------------------------------------------------
     const smtpUser = process.env.SMTP_USER;
     const smtpPass = process.env.SMTP_PASS;
 
     if (smtpUser && smtpPass) {
-      const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
-      const smtpPort = Number(process.env.SMTP_PORT) || 587;
-      const fromAddress = process.env.SMTP_FROM || `"OneClickBiz Security" <${smtpUser}>`;
+      try {
+        const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
+        const smtpPort = Number(process.env.SMTP_PORT) || 587;
+        const fromAddress = process.env.SMTP_FROM || `"OneClickBiz Security" <${smtpUser}>`;
 
-      const transporter = nodemailer.createTransport({
-        host: smtpHost,
-        port: smtpPort,
-        secure: smtpPort === 465,
-        auth: {
-          user: smtpUser,
-          pass: smtpPass,
-        },
-      });
+        const transporter = nodemailer.createTransport({
+          host: smtpHost,
+          port: smtpPort,
+          secure: smtpPort === 465,
+          auth: {
+            user: smtpUser,
+            pass: smtpPass,
+          },
+        });
 
-      const info = await transporter.sendMail({
-        from: fromAddress,
-        to: toEmail,
-        subject: subject,
-        text: textContent,
-        html: htmlContent,
-      });
+        const info = await transporter.sendMail({
+          from: fromAddress,
+          to: toEmail,
+          subject: subject,
+          text: textContent,
+          html: htmlContent,
+        });
 
-      console.log(`[SMTP_EMAIL_SUCCESS] Verification email sent to ${toEmail}. Message ID: ${info.messageId}`);
-      return { success: true, messageId: info.messageId };
+        console.log(`[SMTP_EMAIL_SUCCESS] Verification email sent to ${toEmail}. Message ID: ${info.messageId}`);
+        return { success: true, messageId: info.messageId };
+      } catch (smtpErr: any) {
+        console.error('[SMTP_ERROR] SMTP delivery failed:', smtpErr);
+      }
     }
 
-    // Fallback if no credentials provided yet
-    console.warn('[EMAIL_SERVICE] Neither RESEND_API_KEY nor SMTP credentials configured in .env.');
-    console.log(`[PASSWORD_RESET_SIMULATED] -> To: ${toEmail} | Code: ${otpCode}`);
-    return { success: true };
+    // If we reached here, outbound sending was restricted (e.g. Resend free sandbox without verified custom domain)
+    const isSandboxRestricted = resendErrorMsg.includes('only send testing emails') || resendErrorMsg.includes('verify a domain');
+    console.warn(`[PASSWORD_RESET_OTP_LOG] >>> Target: ${toEmail} | Verification Code: ${otpCode} <<<`);
+
+    return { 
+      success: false, 
+      error: resendErrorMsg || 'Outbound email delivery is restricted. Please check your email configuration.',
+      isSandboxRestricted,
+      otpCode
+    } as any;
 
   } catch (error: any) {
     console.error('[EMAIL_SERVICE_ERROR] Failed to send email:', error);

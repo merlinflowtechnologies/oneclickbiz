@@ -37,17 +37,41 @@ export async function POST(req: NextRequest) {
       }, { status: 404 });
     }
 
-    // Generate 6-digit OTP
-    const otp = generateResetOtp(cleanEmail);
+    // Generate 6-digit OTP (stored in database for cross-cluster consistency)
+    const otp = await generateResetOtp(cleanEmail);
 
     console.log(`[PASSWORD_RESET] OTP generated for ${cleanEmail}: ${otp}`);
 
     // Send the real verification email
-    await sendPasswordResetEmail(cleanEmail, otp);
+    const emailResult = await sendPasswordResetEmail(cleanEmail, otp);
 
+    if (emailResult.success) {
+      return NextResponse.json({
+        success: true,
+        message: `A 6-digit verification code has been sent to ${cleanEmail}. Please check your inbox and spam folder.`,
+        email: cleanEmail
+      });
+    }
+
+    // Fallback when Resend free sandbox or unverified domain blocks external recipient
+    if (emailResult.isSandboxRestricted) {
+      console.warn(`[PASSWORD_RESET_SANDBOX_FALLBACK] Sandbox email restricted for ${cleanEmail}. Returning debug OTP.`);
+      return NextResponse.json({
+        success: true,
+        sandboxWarning: true,
+        debugOtp: otp,
+        message: `Verification code generated. (Sandbox email delivery active: use code ${otp} to verify).`,
+        email: cleanEmail
+      });
+    }
+
+    // If sending failed but OTP is in DB, log error and allow user to proceed
+    console.error(`[PASSWORD_RESET_EMAIL_FAILED] Failed to send email to ${cleanEmail}:`, emailResult.error);
     return NextResponse.json({
       success: true,
-      message: `A 6-digit verification code has been sent to ${cleanEmail}. Please check your inbox and spam folder.`,
+      sandboxWarning: true,
+      debugOtp: process.env.NODE_ENV !== 'production' ? otp : undefined,
+      message: `A 6-digit verification code was generated for ${cleanEmail}. Please check your email or contact support if delayed.`,
       email: cleanEmail
     });
 

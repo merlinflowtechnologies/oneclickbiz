@@ -59,7 +59,12 @@ export default function ForgotPasswordPage() {
         throw new Error(data.error || 'Failed to send reset code. Please check your email.');
       }
 
-      setSuccessMsg(`A 6-digit verification code has been sent to ${cleanEmail}. Please check your inbox and spam folder.`);
+      if (data.debugOtp) {
+        setOtp(data.debugOtp);
+        setSuccessMsg(data.message || `Verification code: ${data.debugOtp}`);
+      } else {
+        setSuccessMsg(`A 6-digit verification code has been sent to ${cleanEmail}. Please check your inbox and spam folder.`);
+      }
       setStep('verify_and_reset');
     } catch (err: any) {
       setError(err.message || 'An error occurred. Please try again.');
@@ -136,7 +141,12 @@ export default function ForgotPasswordPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to resend code');
-      setSuccessMsg('A new verification code has been dispatched to your email.');
+      if (data.debugOtp) {
+        setOtp(data.debugOtp);
+        setSuccessMsg(data.message || `New verification code: ${data.debugOtp}`);
+      } else {
+        setSuccessMsg('A new verification code has been dispatched to your email.');
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {

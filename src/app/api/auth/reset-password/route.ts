@@ -22,8 +22,8 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // Verify OTP code
-    const verification = verifyResetOtp(cleanEmail, otp);
+    // Verify OTP code (checked against PostgreSQL database and memory)
+    const verification = await verifyResetOtp(cleanEmail, otp);
     if (!verification.valid) {
       return NextResponse.json({ 
         error: verification.error || 'Invalid or expired verification code' 
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Clear the OTP so it cannot be reused
-    clearResetOtp(cleanEmail);
+    await clearResetOtp(cleanEmail);
 
     return NextResponse.json({
       success: true,
