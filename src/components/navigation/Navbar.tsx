@@ -9,6 +9,7 @@ import {
   X,
   ExternalLink
 } from 'lucide-react';
+import ThemeToggle from '@/components/theme/ThemeToggle';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -26,7 +27,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-2xl border-b border-slate-800/80 transition-all">
+    <nav className="sticky top-0 z-50 dark:bg-slate-950/90 bg-white/90 backdrop-blur-2xl border-b dark:border-slate-800/80 border-slate-200/80 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
@@ -44,16 +45,16 @@ export default function Navbar() {
             <Link 
               href="/#demo" 
               onClick={(e) => handleAnchorClick(e, 'demo')}
-              className="px-3 py-1.5 rounded-lg text-xs font-semibold text-indigo-400 hover:text-indigo-300 hover:bg-indigo-500/10 transition-all flex items-center gap-1"
+              className="px-3 py-1.5 rounded-lg text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 bg-indigo-50 dark:bg-indigo-500/10 transition-all flex items-center gap-1"
             >
               <span>How It Works</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400 animate-pulse" />
             </Link>
 
             <Link 
               href="/#templates" 
               onClick={(e) => handleAnchorClick(e, 'templates')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900/80 transition-all"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/80 transition-all"
             >
               Templates
             </Link>
@@ -61,7 +62,7 @@ export default function Navbar() {
             <Link 
               href="/#features" 
               onClick={(e) => handleAnchorClick(e, 'features')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900/80 transition-all"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/80 transition-all"
             >
               Features
             </Link>
@@ -69,7 +70,7 @@ export default function Navbar() {
             <Link 
               href="/#about" 
               onClick={(e) => handleAnchorClick(e, 'about')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900/80 transition-all"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/80 transition-all"
             >
               About
             </Link>
@@ -77,16 +78,16 @@ export default function Navbar() {
             <Link 
               href="/#services" 
               onClick={(e) => handleAnchorClick(e, 'services')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900/80 transition-all"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/80 transition-all"
             >
               Services
             </Link>
 
-            {/* Direct Products Link (No Dropdown) */}
+            {/* Direct Products Link */}
             <Link
               href="/#products"
               onClick={(e) => handleAnchorClick(e, 'products')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900/80 transition-all"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/80 transition-all"
             >
               Products
             </Link>
@@ -94,7 +95,7 @@ export default function Navbar() {
             <Link 
               href="/#pricing" 
               onClick={(e) => handleAnchorClick(e, 'pricing')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900/80 transition-all"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/80 transition-all"
             >
               Pricing
             </Link>
@@ -102,7 +103,7 @@ export default function Navbar() {
             <Link 
               href="/#contact" 
               onClick={(e) => handleAnchorClick(e, 'contact')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900/80 transition-all"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/80 transition-all"
             >
               Contact
             </Link>
@@ -111,20 +112,22 @@ export default function Navbar() {
             <Link 
               href="/v/alex-rivera" 
               target="_blank"
-              className="ml-1.5 px-3 py-1 rounded-full text-xs font-semibold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 flex items-center gap-1.5 transition-all shadow-sm group"
+              className="ml-1.5 px-3 py-1 rounded-full text-xs font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-500/10 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 border border-emerald-200 dark:border-emerald-500/30 flex items-center gap-1.5 transition-all shadow-sm group"
               title="Open Live Demo Business Card"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
               <span>Live Demo</span>
-              <ExternalLink className="w-3 h-3 text-emerald-400/80 group-hover:text-emerald-300 transition-colors" />
+              <ExternalLink className="w-3 h-3 text-emerald-600 dark:text-emerald-400/80 group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition-colors" />
             </Link>
           </div>
 
-          {/* Desktop Right Action CTAs */}
+          {/* Desktop Right Action CTAs + Theme Toggle */}
           <div className="hidden sm:flex items-center space-x-2">
+            <ThemeToggle />
+
             <Link 
               href="/login"
-              className="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-900/80 border border-transparent hover:border-slate-800 transition-all"
+              className="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/80 border border-slate-200 dark:border-slate-800 transition-all"
             >
               Sign In
             </Link>
@@ -138,11 +141,12 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile menu trigger */}
-          <div className="flex lg:hidden items-center">
+          {/* Mobile menu trigger & ThemeToggle */}
+          <div className="flex lg:hidden items-center gap-2">
+            <ThemeToggle />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl text-slate-400 hover:text-white bg-slate-900 border border-slate-800"
+              className="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -154,60 +158,60 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-slate-800 bg-slate-950/95 backdrop-blur-2xl px-5 pt-3 pb-6 space-y-2 animate-in fade-in slide-in-from-top-3">
+        <div className="lg:hidden border-b dark:border-slate-800 border-slate-200 dark:bg-slate-950/95 bg-white/95 backdrop-blur-2xl px-5 pt-3 pb-6 space-y-2 animate-in fade-in slide-in-from-top-3">
           <Link 
             href="/#demo" 
             onClick={(e) => handleAnchorClick(e, 'demo')}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-indigo-400 hover:text-indigo-300 bg-indigo-500/10 border border-indigo-500/20"
+            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20"
           >
             🎬 How It Works & Demo Video
           </Link>
           <Link 
             href="/#templates" 
             onClick={(e) => handleAnchorClick(e, 'templates')}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
+            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900"
           >
             Templates
           </Link>
           <Link 
             href="/#features" 
             onClick={(e) => handleAnchorClick(e, 'features')}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
+            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900"
           >
             Features
           </Link>
           <Link 
             href="/#about" 
             onClick={(e) => handleAnchorClick(e, 'about')}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
+            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900"
           >
             About
           </Link>
           <Link 
             href="/#services" 
             onClick={(e) => handleAnchorClick(e, 'services')}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
+            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900"
           >
             Services
           </Link>
           <Link 
             href="/#products" 
             onClick={(e) => handleAnchorClick(e, 'products')}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
+            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900"
           >
             Products
           </Link>
           <Link 
             href="/#pricing" 
             onClick={(e) => handleAnchorClick(e, 'pricing')}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
+            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900"
           >
             Pricing
           </Link>
           <Link 
             href="/#contact" 
             onClick={(e) => handleAnchorClick(e, 'contact')}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
+            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900"
           >
             Contact
           </Link>
@@ -215,16 +219,16 @@ export default function Navbar() {
             href="/v/alex-rivera" 
             target="_blank"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-emerald-400 bg-emerald-950/30 border border-emerald-500/20"
+            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/20"
           >
             ✨ Explore Live Demo Card (/v/alex-rivera)
           </Link>
 
-          <div className="pt-3 flex flex-col sm:flex-row gap-2 border-t border-slate-800/80">
+          <div className="pt-3 flex flex-col sm:flex-row gap-2 border-t dark:border-slate-800/80 border-slate-200/80">
             <Link 
               href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-white hover:bg-slate-850 transition"
+              className="w-full text-center py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800 transition"
             >
               <span>Sign In</span>
             </Link>

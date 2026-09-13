@@ -254,6 +254,13 @@ function LoginForm() {
       <div className="w-full max-w-md">
         <div className="bg-slate-900/90 border border-slate-800 backdrop-blur-2xl p-6 sm:p-8 shadow-2xl rounded-3xl space-y-5 relative">
           
+          {searchParams.get('reset') === 'success' && !error && (
+            <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2.5 animate-in fade-in">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+              <span>Password updated successfully! Please sign in with your new password.</span>
+            </div>
+          )}
+
           {error && (
             <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs space-y-2.5">
               <div className="flex items-start gap-2.5">
@@ -330,9 +337,9 @@ function LoginForm() {
                 <label className="block text-xs font-semibold text-slate-300">
                   Password
                 </label>
-                <a href="#" className="text-[11px] text-indigo-400 hover:text-indigo-300 font-medium">
+                <Link href="/forgot-password" className="text-[11px] text-indigo-400 hover:text-indigo-300 font-medium transition-colors">
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">

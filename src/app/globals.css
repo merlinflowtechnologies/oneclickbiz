@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
 :root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+}
+
+.dark {
   --background: #020617;
   --foreground: #f8fafc;
 }
@@ -14,8 +19,6 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
-  background-color: #020617;
-  color-scheme: dark;
 }
 
 body {
@@ -24,6 +27,7 @@ body {
   font-family: var(--font-jakarta), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 0;
   padding: 0;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .vcard-template-img {

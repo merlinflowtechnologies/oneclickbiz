@@ -102,6 +102,8 @@ export const metadata: Metadata = {
 
 import Script from 'next/script';
 
+import { ThemeProvider } from '@/components/theme/ThemeProvider';
+
 export default function RootLayout({
   children,
 }: {
@@ -114,10 +116,14 @@ export default function RootLayout({
     legalName: 'Merlinflow Technologies Pvt Ltd',
     url: 'https://oneclickbiz.in',
     logo: 'https://oneclickbiz.in/logo.png',
-    description: 'Next-Generation Digital Identity, WhatsApp Mini-Stores, Booking Calendars & Cloud SaaS Platform.',
+    description: 'Smart Digital Business Cards, Contactless NFC Solutions, WhatsApp Mini-Store & Blog Publishing Studio.',
+    founder: {
+      '@type': 'Person',
+      name: 'Merlinflow Technologies Team',
+    },
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Nagole, Hyderabad',
+      addressLocality: 'Hyderabad',
       addressRegion: 'Telangana',
       addressCountry: 'IN',
     },
@@ -125,29 +131,26 @@ export default function RootLayout({
       '@type': 'ContactPoint',
       telephone: '+91-6304989071',
       contactType: 'customer service',
-      email: 'support@oneclickbiz.in',
       areaServed: 'IN',
       availableLanguage: ['English', 'Hindi', 'Telugu'],
     },
     sameAs: [
-      'https://oneclickbiz.in',
       'https://twitter.com/oneclickbiz',
-      'https://linkedin.com/company/oneclickbiz'
+      'https://linkedin.com/company/oneclickbiz',
+      'https://instagram.com/oneclickbiz.in',
     ],
   };
 
   const jsonLdSoftwareApp = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'OneClickBiz Smart Identity Platform',
-    operatingSystem: 'All (iOS, Android, Web, Desktop)',
+    name: 'OneClickBiz Digital vCard & WhatsApp Commerce Suite',
+    operatingSystem: 'All (Web, iOS, Android)',
     applicationCategory: 'BusinessApplication',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.9',
-      reviewCount: '1420',
-      bestRating: '5',
-      worstRating: '1',
+      reviewCount: '520',
     },
     offers: {
       '@type': 'AggregateOffer',
@@ -182,7 +185,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${jakarta.variable} h-full antialiased dark`}>
+    <html lang="en" className={`${jakarta.variable} h-full antialiased dark`} suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -199,8 +202,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSoftwareApp) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans">
-        {children}
+      <body className="min-h-full flex flex-col dark:bg-slate-950 dark:text-slate-100 bg-white text-slate-900 font-sans transition-colors duration-200">
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
