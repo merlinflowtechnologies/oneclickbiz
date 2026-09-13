@@ -35,7 +35,6 @@ export default function ForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
-  const [debugOtp, setDebugOtp] = useState<string | null>(null);
 
   // Handle Step 1: Request OTP
   const handleRequestCode = async (e: React.FormEvent) => {
@@ -58,11 +57,7 @@ export default function ForgotPasswordPage() {
         throw new Error(data.error || 'Failed to send reset code. Please check your email.');
       }
 
-      setSuccessMsg(`A 6-digit verification code has been generated for ${cleanEmail}.`);
-      if (data.debugOtp) {
-        setDebugOtp(data.debugOtp);
-        setOtp(data.debugOtp); // Autofill for convenience
-      }
+      setSuccessMsg(`A 6-digit verification code has been sent to ${cleanEmail}. Please check your inbox and spam folder.`);
       setStep('verify_and_reset');
     } catch (err: any) {
       setError(err.message || 'An error occurred. Please try again.');
@@ -139,11 +134,7 @@ export default function ForgotPasswordPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to resend code');
-      if (data.debugOtp) {
-        setDebugOtp(data.debugOtp);
-        setOtp(data.debugOtp);
-      }
-      setSuccessMsg('New verification code sent!');
+      setSuccessMsg('A new verification code has been dispatched to your email.');
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -174,7 +165,7 @@ export default function ForgotPasswordPage() {
         </h2>
         <p className="text-xs sm:text-sm text-slate-400 mt-2">
           {step === 'request' && 'Enter your registered email address and we will send you a verification code.'}
-          {step === 'verify_and_reset' && 'Enter the 6-digit code and choose your new secure password.'}
+          {step === 'verify_and_reset' && `Enter the 6-digit code sent to ${email} and choose your new password.`}
           {step === 'success' && 'Your account security has been updated with your new password.'}
         </p>
       </div>
@@ -195,14 +186,7 @@ export default function ForgotPasswordPage() {
           {successMsg && step !== 'success' && (
             <div className="mb-5 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs flex items-start gap-2.5 animate-in fade-in">
               <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
-              <div className="space-y-1">
-                <span className="leading-relaxed">{successMsg}</span>
-                {debugOtp && (
-                  <div className="pt-1 text-[11px] text-emerald-300 font-mono font-bold">
-                    Verification Code: <span className="underline tracking-widest">{debugOtp}</span>
-                  </div>
-                )}
-              </div>
+              <span className="leading-relaxed">{successMsg}</span>
             </div>
           )}
 

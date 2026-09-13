@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { generateResetOtp } from '@/lib/reset-tokens';
+import { sendPasswordResetEmail } from '@/lib/email';
 
 export async function POST(req: NextRequest) {
   try {
@@ -41,11 +42,13 @@ export async function POST(req: NextRequest) {
 
     console.log(`[PASSWORD_RESET] OTP generated for ${cleanEmail}: ${otp}`);
 
+    // Send the real verification email
+    await sendPasswordResetEmail(cleanEmail, otp);
+
     return NextResponse.json({
       success: true,
-      message: `A 6-digit verification code has been sent to ${cleanEmail}. (Code: ${otp})`,
-      email: cleanEmail,
-      debugOtp: process.env.NODE_ENV !== 'production' ? otp : otp // Provided for immediate friction-free testing
+      message: `A 6-digit verification code has been sent to ${cleanEmail}. Please check your inbox and spam folder.`,
+      email: cleanEmail
     });
 
   } catch (error: any) {
