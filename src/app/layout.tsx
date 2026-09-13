@@ -48,15 +48,15 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
       { url: '/favicon.png', type: 'image/png' },
-      { url: '/logo.png', type: 'image/png' }
+      { url: '/icon.png', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' }
     ],
     apple: [
-      { url: '/favicon.png' },
-      { url: '/logo.png' }
+      { url: '/apple-touch-icon.png' },
+      { url: '/favicon.png' }
     ],
-    shortcut: ['/favicon.ico']
+    shortcut: ['/favicon.png']
   },
   manifest: '/manifest.json',
   openGraph: {
@@ -68,10 +68,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/logo.png',
+        url: '/og-cover.png',
         width: 1024,
-        height: 408,
-        alt: 'OneClickBiz - Business Made Simpler',
+        height: 1024,
+        alt: 'OneClickBiz - Smart Digital Identity & WhatsApp Mini-Store',
       },
     ],
   },
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'OneClickBiz - Smart Digital Identity & WhatsApp Mini-Store',
     description: 'Replace paper business cards with interactive digital vCards, WhatsApp mini-stores, and dynamic QR systems in under 2 minutes.',
-    images: ['/logo.png'],
+    images: ['/og-cover.png'],
     creator: '@oneclickbiz',
     site: '@oneclickbiz',
   },
