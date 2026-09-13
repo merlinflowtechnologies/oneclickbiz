@@ -57,13 +57,21 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      // Update Organization Plan if organization exists
+      // Update Organization Plan if organization exists and publish profile
       if (orgId) {
         await prisma.organization.update({
           where: { id: orgId },
           data: {
             planId: targetPlan,
             subscriptionStatus: 'ACTIVE'
+          }
+        });
+
+        // Publish all profiles in this organization upon verified payment
+        await prisma.profile.updateMany({
+          where: { organizationId: orgId },
+          data: {
+            isPublished: true
           }
         });
       }

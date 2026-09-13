@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
         data: {
           name: businessName || `${name}'s Business`,
           slug: `${cleanSlug}-${Date.now().toString(36)}`,
+          subscriptionStatus: 'UNPAID',
           members: {
             create: {
               userId: user.id,
@@ -63,7 +64,7 @@ export async function POST(req: NextRequest) {
           company: businessName || `${name}'s Business`,
           email: cleanEmail,
           theme: 'modern-indigo',
-          isPublished: true,
+          isPublished: false,
         }
       });
 

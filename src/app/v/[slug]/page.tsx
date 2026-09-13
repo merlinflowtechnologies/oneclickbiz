@@ -24,10 +24,30 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
         socialLinks: { orderBy: { order: 'asc' } },
         products: { where: { isAvailable: true }, orderBy: { order: 'asc' } },
         services: { where: { isAvailable: true } },
+        organization: true
       }
     });
 
     if (dbProfile) {
+      const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+      const paidInvoice = await prisma.invoice.findFirst({
+        where: {
+          organizationId: dbProfile.organizationId,
+          status: 'PAID'
+        },
+        orderBy: { createdAt: 'desc' }
+      });
+      const hasActivePaidPlan = Boolean(
+        paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS)
+      );
+      const orgStatus = dbProfile.organization?.subscriptionStatus;
+      const isCancelled = orgStatus === 'CANCELLED' || orgStatus === 'SUSPENDED';
+      const subscriptionStatus: 'CANCELLED' | 'ACTIVE' | 'UNPAID' | 'EXPIRED' = isCancelled 
+        ? 'CANCELLED' 
+        : (hasActivePaidPlan ? 'ACTIVE' : 'UNPAID');
+      const isExpired = !hasActivePaidPlan || subscriptionStatus !== 'ACTIVE';
+      const isPublished = Boolean(dbProfile.isPublished && hasActivePaidPlan);
+
       const fallback = getProfileBySlug(cleanSlug);
       return {
         ...fallback,
@@ -45,13 +65,26 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
         theme: (dbProfile.theme as any) || fallback.theme,
         avatarUrl: dbProfile.avatarUrl || fallback.avatarUrl,
         coverUrl: dbProfile.coverUrl || fallback.coverUrl,
-        isPublished: dbProfile.isPublished
+        isPublished,
+        isExpired,
+        subscriptionStatus
       };
     }
   } catch (err) {
     console.error('Database profile lookup error:', err);
   }
-  return getProfileBySlug(cleanSlug);
+
+  const isOfficialDemo = ['kishore', 'kishore-patel', 'alex', 'demo'].includes(cleanSlug) || cleanSlug.startsWith('vcard');
+  const fallback = getProfileBySlug(cleanSlug);
+  if (!isOfficialDemo) {
+    return {
+      ...fallback,
+      isPublished: false,
+      isExpired: true,
+      subscriptionStatus: 'UNPAID'
+    };
+  }
+  return fallback;
 }
 
 export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {
@@ -109,9 +142,9 @@ export default async function PublicProfilePage({
   const resolvedQuery = searchParams ? await searchParams : {};
   const profile = await fetchProfileData(resolvedParams.slug);
 
-  // Real Analytics Tracking: increment viewCount and log event in DB
+  // Real Analytics Tracking: increment viewCount and log event in DB only if card is active
   try {
-    if (profile.id) {
+    if (profile.id && profile.isPublished && !profile.isExpired) {
       const eventType = resolvedQuery.src === 'qr' 
         ? 'qr_scan' 
         : resolvedQuery.src === 'nfc' 

@@ -161,8 +161,10 @@ export default function ProfileCardView({
 
   if (!profile) return null;
 
-  // If card's annual subscription is expired or cancelled, show the Expired Screen
-  if (!isMockup && (profile.isExpired || profile.subscriptionStatus === 'EXPIRED' || profile.subscriptionStatus === 'CANCELLED')) {
+  // If card's annual subscription is unpaid, expired, cancelled, or unpublished, show the Inactive/Expired Screen
+  if (!isMockup && (profile.isExpired || profile.subscriptionStatus === 'EXPIRED' || profile.subscriptionStatus === 'CANCELLED' || profile.subscriptionStatus === 'UNPAID' || profile.isPublished === false)) {
+    const isUnpaid = profile.subscriptionStatus === 'UNPAID' || profile.isPublished === false;
+
     return (
       <div className="w-full max-w-md mx-auto p-6 rounded-3xl bg-slate-900/95 border border-rose-500/30 shadow-2xl backdrop-blur-xl text-center space-y-6 animate-in fade-in duration-300">
         <div className="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-rose-500/40 shadow-lg relative">
@@ -174,7 +176,7 @@ export default function ProfileCardView({
 
         <div className="space-y-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-bold uppercase tracking-wider">
-            Card Inactive • Annual Cycle Ended
+            {isUnpaid ? 'Card Inactive • Plan Payment Required' : 'Card Inactive • Annual Cycle Ended'}
           </div>
           <h2 className="text-xl font-extrabold text-white">{profile.name}</h2>
           <p className="text-xs text-slate-400 font-medium">{profile.designation} • {profile.company}</p>
@@ -183,10 +185,12 @@ export default function ProfileCardView({
         <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300 space-y-2 text-left">
           <p className="font-semibold text-white flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-amber-400 flex-shrink-0" />
-            1-Year Subscription Concluded
+            {isUnpaid ? 'Annual Plan Activation Required' : '1-Year Subscription Concluded'}
           </p>
           <p className="text-slate-400 leading-relaxed text-[11px]">
-            This digital business card has completed its annual cycle. All profile interactions, lead capture, and NFC links are temporarily paused until renewed.
+            {isUnpaid
+              ? 'This digital business card has not been activated. A verified annual plan payment processed via Cashfree is strictly required before this profile, WhatsApp store, and NFC links can go live.'
+              : 'This digital business card has completed its annual cycle. All profile interactions, lead capture, and NFC links are temporarily paused until renewed.'}
           </p>
         </div>
 
@@ -194,19 +198,21 @@ export default function ProfileCardView({
         <div className="p-5 rounded-2xl bg-gradient-to-b from-indigo-950/40 to-slate-950 border border-indigo-500/30 space-y-3">
           <span className="text-xs font-bold text-indigo-300 block">Are you the card owner?</span>
           <p className="text-[11px] text-slate-400">
-            Log in to your dashboard to renew your 1-Year subscription via our secure online payment gateway for immediate reactivation.
+            {isUnpaid
+              ? 'Sign in to your account and select your preferred plan (Basic, Pro, Advanced) to complete payment via Cashfree for immediate card publishing.'
+              : 'Log in to your dashboard to renew your 1-Year subscription via our secure online payment gateway for immediate reactivation.'}
           </p>
           <a
-            href="/dashboard"
+            href={isUnpaid ? '/login?redirect=/dashboard/settings?checkout=true' : '/dashboard'}
             className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600 hover:from-rose-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-rose-600/25 flex items-center justify-center gap-2 transition-all active:scale-95"
           >
             <CreditCard className="w-4 h-4" />
-            <span>Renew Subscription Online</span>
+            <span>{isUnpaid ? 'Activate Plan Online' : 'Renew Subscription Online'}</span>
           </a>
         </div>
 
         <p className="text-[10px] text-slate-500">
-          Strict Policy: All renewals must be processed directly on oneclickbiz.in. Offline and direct payments are strictly prohibited.
+          Strict Online Payment Policy: All annual plans and renewals must be processed directly on oneclickbiz.in. Offline and direct payments are strictly prohibited.
         </p>
       </div>
     );

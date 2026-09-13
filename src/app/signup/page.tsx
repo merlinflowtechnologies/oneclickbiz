@@ -114,6 +114,10 @@ function SignUpForm() {
   const paramSlug = searchParams.get('slug') || '';
   const paramTemplate = searchParams.get('template') || '';
   const paramPlan = searchParams.get('plan') || '';
+  const paramEmail = searchParams.get('email') || '';
+  const paramName = searchParams.get('name') || '';
+  const paramStep = searchParams.get('step') || '';
+  const paramUnpaid = searchParams.get('unpaid') === 'true';
 
   const [plans, setPlans] = useState(DEFAULT_PLANS_CONFIG);
 
@@ -147,14 +151,14 @@ function SignUpForm() {
   const activePlan = plans[selectedPlanKey];
 
   // Wizard Step: 1 = Details & Credentials, 2 = Cashfree Payment Confirmation, 3 = Payment Success
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [step, setStep] = useState<1 | 2 | 3>(paramStep === '2' || paramUnpaid ? 2 : 1);
 
   // Form State
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState(paramName || '');
+  const [email, setEmail] = useState(paramEmail || '');
+  const [password, setPassword] = useState('google_oauth_auth_2026');
   const [showPassword, setShowPassword] = useState(false);
-  const [businessName, setBusinessName] = useState('');
+  const [businessName, setBusinessName] = useState(paramName ? `${paramName}'s Business` : '');
   const [entityType, setEntityType] = useState('Private Limited / LLC');
   const [category, setCategory] = useState('Technology & Agency');
   const [phone, setPhone] = useState('+91 63049 89071');
@@ -164,7 +168,11 @@ function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(
+    paramUnpaid 
+      ? 'Annual Plan Activation Required: Please choose your preferred plan and complete payment via Cashfree to activate your smart card.' 
+      : ''
+  );
   const [completedOrder, setCompletedOrder] = useState<any>(null);
 
   useEffect(() => {

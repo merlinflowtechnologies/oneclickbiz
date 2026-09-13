@@ -151,7 +151,7 @@ export interface DigitalProfile {
   sectionData: ProfileSectionConfig;
   qrCodeId?: string;
   nfcCardId?: string;
-  subscriptionStatus?: 'ACTIVE' | 'EXPIRED' | 'TRIAL' | 'CANCELLED';
+  subscriptionStatus?: 'ACTIVE' | 'EXPIRED' | 'TRIAL' | 'CANCELLED' | 'UNPAID';
   isExpired?: boolean;
   renewalDate?: string;
   stats: {

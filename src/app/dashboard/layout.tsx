@@ -75,11 +75,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
                 // Normal authenticated business user - set real profile details
                 if (isMounted) {
+                  const isUserPaid = Boolean(meData.user?.hasActivePaidPlan);
                   setUserSession({
                     slug: meData.user.slug || 'profile',
                     businessName: meData.user.businessName || meData.user.name || 'My Business',
                     fullName: meData.user.name || 'User',
-                    plan: (meData.user.planTier || detectedPlan || 'PRO').toUpperCase()
+                    plan: isUserPaid ? (meData.user.planTier || detectedPlan || 'PRO').toUpperCase() : 'UNPAID'
                   });
                   setIsAuthenticated(true);
                 }
@@ -388,14 +389,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Right Header Actions */}
         <div className="flex items-center space-x-3">
           
-          <Link 
-            href={`/v/${userSession.slug}`} 
-            target="_blank"
-            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 flex items-center gap-1.5 border border-slate-700 transition-all hover:border-indigo-500/50"
-          >
-            <span className="font-mono">Live Card: /v/{userSession.slug}</span>
-            <ExternalLink className="w-3 h-3 text-indigo-400" />
-          </Link>
+          {userSession.plan === 'UNPAID' ? (
+            <Link 
+              href="/dashboard/settings?checkout=true" 
+              className="px-3 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 text-xs font-semibold text-rose-300 flex items-center gap-1.5 border border-rose-500/30 transition-all shadow-sm"
+              title="Card Inactive - Click to Activate via Cashfree"
+            >
+              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+              <span>Card Inactive (Activate Plan)</span>
+            </Link>
+          ) : (
+            <Link 
+              href={`/v/${userSession.slug}`} 
+              target="_blank"
+              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 flex items-center gap-1.5 border border-slate-700 transition-all hover:border-indigo-500/50"
+            >
+              <span className="font-mono">Live Card: /v/{userSession.slug}</span>
+              <ExternalLink className="w-3 h-3 text-indigo-400" />
+            </Link>
+          )}
 
           <button
             onClick={async () => {
@@ -500,6 +512,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Main Content Area */}
         <main className={`flex-1 bg-slate-950 flex flex-col min-h-0 ${pathname === '/dashboard/builder' ? 'overflow-y-auto md:overflow-hidden' : 'overflow-y-auto'}`}>
+          {userSession.plan === 'UNPAID' && (
+            <div className="bg-gradient-to-r from-amber-500/15 via-rose-500/15 to-purple-500/15 border-b border-amber-500/30 px-4 py-2.5 text-xs text-amber-200 flex flex-col sm:flex-row items-center justify-between gap-2 shrink-0">
+              <div className="flex items-center gap-2 text-center sm:text-left">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping shrink-0" />
+                <span><strong>Annual Plan Inactive:</strong> Your smart card is currently unpublished and offline. Complete your annual subscription payment via Cashfree to activate your card.</span>
+              </div>
+              <Link 
+                href="/dashboard/settings?checkout=true"
+                className="px-3.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-rose-500 hover:opacity-95 text-slate-950 font-bold text-xs shrink-0 shadow transition active:scale-95"
+              >
+                Pay & Activate Card
+              </Link>
+            </div>
+          )}
           {children}
         </main>
 

@@ -101,6 +101,7 @@ export async function POST(req: NextRequest) {
                 create: {
                   name: `${name || 'My'} Business`,
                   slug: uniqueSlug,
+                  subscriptionStatus: 'UNPAID',
                   profiles: {
                     create: {
                       name: name || 'Business Professional',
@@ -111,7 +112,7 @@ export async function POST(req: NextRequest) {
                       email,
                       avatarUrl: picture,
                       theme: 'emerald-dark',
-                      isPublished: true,
+                      isPublished: false,
                     },
                   },
                 },
@@ -136,6 +137,37 @@ export async function POST(req: NextRequest) {
     const defaultOrg = activeUser.memberships[0]?.organization;
     const defaultProfile = defaultOrg?.profiles[0];
 
+    // Check if the user has an active PAID invoice within 365 days
+    const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+    const paidInvoice = await prisma.invoice.findFirst({
+      where: {
+        OR: [
+          { userId: activeUser.id },
+          { organizationId: defaultOrg?.id }
+        ],
+        status: 'PAID'
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    const hasActivePaidPlan = Boolean(
+      paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS)
+    );
+
+    const isCancelled = defaultOrg?.subscriptionStatus === 'CANCELLED' || defaultOrg?.subscriptionStatus === 'SUSPENDED';
+    const subscriptionStatus = isCancelled 
+      ? defaultOrg.subscriptionStatus 
+      : (hasActivePaidPlan ? 'ACTIVE' : 'UNPAID');
+    const planTier = (paidInvoice?.planTier || defaultOrg?.planId || 'BASIC').toUpperCase();
+
+    // STRICT: If user has not paid or subscription has expired, ensure profile is unpublished in DB
+    if (!hasActivePaidPlan && defaultProfile?.isPublished) {
+      await prisma.profile.update({
+        where: { id: defaultProfile.id },
+        data: { isPublished: false }
+      }).catch(() => {});
+    }
+
     const token = signToken({
       userId: activeUser.id,
       email: activeUser.email,
@@ -145,13 +177,21 @@ export async function POST(req: NextRequest) {
 
     const response = NextResponse.json({
       success: true,
+      hasActivePaidPlan,
+      subscriptionStatus,
+      planTier,
+      isNewUser: !existingUser,
       user: {
         id: activeUser.id,
         name: activeUser.name,
         email: activeUser.email,
         role: activeUser.role,
         organizationId: defaultOrg?.id,
+        businessName: defaultOrg?.name,
         slug: defaultProfile?.slug || 'profile',
+        subscriptionStatus,
+        hasActivePaidPlan,
+        planTier
       },
     });
 

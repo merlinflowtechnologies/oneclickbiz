@@ -99,22 +99,34 @@ function LoginForm() {
       }
 
       if (res.ok && data.success) {
+        const hasPaid = Boolean(data.hasActivePaidPlan);
+        const userPlan = hasPaid ? (data.planTier || 'PRO') : 'UNPAID';
+        const userStatus = data.subscriptionStatus || (hasPaid ? 'ACTIVE' : 'UNPAID');
+
         if (typeof window !== 'undefined') {
           const session = {
-            fullName: data.user.name || 'Kishore Patel',
+            fullName: data.user.name || cleanEmail.split('@')[0],
             email: data.user.email,
-            businessName: data.user.businessName || 'Himastech Digital Reality',
+            businessName: data.user.businessName || `${data.user.name || cleanEmail.split('@')[0]}'s Business`,
             entityType: 'Private Limited / LLC',
-            category: 'Real Estate & Marketing',
-            designation: 'Founder & Managing Director',
+            category: 'Technology & Agency',
+            designation: 'Founder / Managing Director',
             phone: '+91 98765 43210',
-            slug: data.user.slug || 'kishore',
-            plan: 'Pro',
+            slug: data.user.slug || 'card',
+            plan: userPlan,
+            subscriptionStatus: userStatus,
+            hasActivePaidPlan: hasPaid,
             isBusinessEntity: true,
             loggedIn: true
           };
           localStorage.setItem('oneclickbiz_user_session', JSON.stringify(session));
-          window.location.href = redirectTarget;
+          localStorage.setItem('oneclickbiz_user_plan', userPlan);
+
+          if (!hasPaid) {
+            window.location.href = `/signup?email=${encodeURIComponent(data.user.email)}&name=${encodeURIComponent(data.user.name || '')}&slug=${encodeURIComponent(data.user.slug || '')}&step=2&plan=Pro&unpaid=true`;
+          } else {
+            window.location.href = redirectTarget;
+          }
         }
         return;
       }
@@ -189,23 +201,36 @@ function LoginForm() {
               const data = await res.json();
               if (!res.ok) throw new Error(data.error || 'Google authentication failed');
 
+              const hasPaid = Boolean(data.hasActivePaidPlan);
+              const userPlan = hasPaid ? (data.planTier || 'PRO') : 'UNPAID';
+              const userStatus = data.subscriptionStatus || (hasPaid ? 'ACTIVE' : 'UNPAID');
+
               if (typeof window !== 'undefined') {
                 localStorage.setItem('oneclickbiz_user_session', JSON.stringify({
                   fullName: data.user.name,
                   email: data.user.email,
-                  businessName: `${data.user.name}'s Business`,
+                  businessName: data.user.businessName || `${data.user.name}'s Business`,
                   entityType: 'Private Limited / LLC',
                   category: 'Technology & Agency',
                   designation: 'Founder / Managing Director',
                   phone: '+91 98765 43210',
                   slug: data.user.slug || 'card',
-                  plan: 'Pro',
+                  plan: userPlan,
+                  subscriptionStatus: userStatus,
+                  hasActivePaidPlan: hasPaid,
                   isBusinessEntity: true,
                   loggedIn: true
                 }));
+                localStorage.setItem('oneclickbiz_user_plan', userPlan);
               }
 
-              router.push(redirectTarget);
+              // STRICT POLICY: If user has not paid for an annual plan, DO NOT open active profile/dashboard!
+              // Redirect immediately to payment confirmation via Cashfree.
+              if (!hasPaid) {
+                router.push(`/signup?email=${encodeURIComponent(data.user.email)}&name=${encodeURIComponent(data.user.name)}&slug=${encodeURIComponent(data.user.slug || '')}&step=2&plan=Pro&unpaid=true`);
+              } else {
+                router.push(redirectTarget);
+              }
             } catch (err: any) {
               setError(err.message || 'Failed to complete Google Sign-In.');
               setGoogleLoading(false);

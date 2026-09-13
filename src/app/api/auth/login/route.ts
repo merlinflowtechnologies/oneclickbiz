@@ -123,6 +123,37 @@ export async function POST(req: NextRequest) {
     const defaultOrg = user.memberships[0]?.organization;
     const defaultProfile = defaultOrg?.profiles[0];
 
+    // Check if the user has an active PAID invoice within 365 days
+    const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+    const paidInvoice = await prisma.invoice.findFirst({
+      where: {
+        OR: [
+          { userId: user.id },
+          { organizationId: defaultOrg?.id }
+        ],
+        status: 'PAID'
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    const hasActivePaidPlan = Boolean(
+      paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS)
+    );
+
+    const isCancelled = defaultOrg?.subscriptionStatus === 'CANCELLED' || defaultOrg?.subscriptionStatus === 'SUSPENDED';
+    const subscriptionStatus = isCancelled 
+      ? defaultOrg.subscriptionStatus 
+      : (hasActivePaidPlan ? 'ACTIVE' : 'UNPAID');
+    const planTier = (paidInvoice?.planTier || defaultOrg?.planId || 'BASIC').toUpperCase();
+
+    // STRICT: If unpaid or expired, ensure profile is unpublished in DB
+    if (!hasActivePaidPlan && defaultProfile?.isPublished) {
+      await prisma.profile.update({
+        where: { id: defaultProfile.id },
+        data: { isPublished: false }
+      }).catch(() => {});
+    }
+
     const token = signToken({
       userId: user.id,
       email: user.email,
@@ -132,13 +163,20 @@ export async function POST(req: NextRequest) {
 
     const response = NextResponse.json({
       success: true,
+      hasActivePaidPlan,
+      subscriptionStatus,
+      planTier,
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
         organizationId: defaultOrg?.id,
-        slug: defaultProfile?.slug || 'profile'
+        businessName: defaultOrg?.name,
+        slug: defaultProfile?.slug || 'profile',
+        subscriptionStatus,
+        hasActivePaidPlan,
+        planTier
       }
     });
 
