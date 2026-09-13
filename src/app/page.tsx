@@ -325,16 +325,16 @@ export default function LandingPage() {
             {/* Left Hero Content */}
             <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
               
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold tracking-wide">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/15 via-purple-500/15 to-pink-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-semibold tracking-wide shadow-[0_0_20px_rgba(99,102,241,0.15)]">
+                <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
                 <span>Next-Gen Smart Identity & Commerce SaaS</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
-                Your Complete <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">Digital Identity</span> In One Click.
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.12]">
+                Your Complete <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(99,102,241,0.35)]">Digital Identity</span> In One Click.
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed font-normal">
                 Replace outdated paper business cards with dynamic vCards, 1-click WhatsApp mini-stores, appointment booking calendars, and blog publishing studios.
               </p>
 
