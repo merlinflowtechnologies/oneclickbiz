@@ -102,23 +102,35 @@ export async function sendPasswordResetEmail(toEmail: string, otpCode: string): 
     const resendApiKey = process.env.RESEND_API_KEY;
     if (resendApiKey) {
       const resend = new Resend(resendApiKey);
-      const resendFrom = process.env.RESEND_FROM || process.env.SMTP_FROM || 'OneClickBiz <onboarding@resend.dev>';
+      const configuredFrom = process.env.RESEND_FROM || process.env.SMTP_FROM || 'OneClickBiz <support@oneclickbiz.in>';
       
-      const { data, error } = await resend.emails.send({
-        from: resendFrom,
+      let sendResult = await resend.emails.send({
+        from: configuredFrom,
         to: [toEmail],
         subject: subject,
         text: textContent,
         html: htmlContent,
       });
 
-      if (error) {
-        console.error('[RESEND_API_ERROR]', error);
-        throw new Error(error.message);
+      // If custom domain is still verifying and fails, try test sender fallback
+      if (sendResult.error && configuredFrom.includes('oneclickbiz.in')) {
+        console.warn(`[RESEND_DOMAIN_PENDING] Custom domain not fully propagated yet: ${sendResult.error.message}. Retrying with test sender...`);
+        sendResult = await resend.emails.send({
+          from: 'OneClickBiz <onboarding@resend.dev>',
+          to: [toEmail],
+          subject: subject,
+          text: textContent,
+          html: htmlContent,
+        });
       }
 
-      console.log(`[RESEND_EMAIL_SUCCESS] Verification email sent to ${toEmail}. ID: ${data?.id}`);
-      return { success: true, messageId: data?.id };
+      if (sendResult.error) {
+        console.error('[RESEND_API_ERROR]', sendResult.error);
+        throw new Error(sendResult.error.message);
+      }
+
+      console.log(`[RESEND_EMAIL_SUCCESS] Verification email sent to ${toEmail}. ID: ${sendResult.data?.id}`);
+      return { success: true, messageId: sendResult.data?.id };
     }
 
     // -------------------------------------------------------------
