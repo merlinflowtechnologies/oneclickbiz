@@ -30,17 +30,17 @@ export default function Footer() {
   };
 
   return (
-    <footer className="dark:bg-slate-950 bg-slate-50 border-t dark:border-slate-800 border-slate-200 dark:text-slate-400 text-slate-600 text-xs transition-colors duration-200">
+    <footer className="bg-slate-950 border-t border-slate-800 text-slate-400 text-xs">
       
       {/* Top Banner / Newsletter */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-b dark:border-slate-800/60 border-slate-200">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center dark:bg-gradient-to-r dark:from-indigo-950/40 dark:via-purple-950/20 dark:to-slate-900/50 bg-gradient-to-r from-indigo-50 via-purple-50 to-orange-50 p-6 sm:p-8 rounded-3xl border dark:border-indigo-500/10 border-indigo-200/80 shadow-sm">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-b border-slate-800/60">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center bg-gradient-to-r from-indigo-950/40 via-purple-950/20 to-slate-900/50 p-6 sm:p-8 rounded-3xl border border-indigo-500/10 shadow-sm">
           <div>
-            <h3 className="text-xl font-bold dark:text-white text-slate-900 tracking-tight">
+            <h3 className="text-xl font-bold text-white tracking-tight">
               Ready to Upgrade Your Professional Identity?
             </h3>
-            <p className="dark:text-slate-300 text-slate-600 mt-1 text-xs sm:text-sm">
-              Create your dynamic vCard with WhatsApp store & brochure studio in under 2 minutes.
+            <p className="text-slate-300 mt-1 text-xs sm:text-sm">
+              Create your dynamic vCard with WhatsApp store &amp; brochure studio in under 2 minutes.
             </p>
           </div>
           <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-2.5">
@@ -50,7 +50,7 @@ export default function Footer() {
               value={newsletterEmail}
               onChange={(e) => setNewsletterEmail(e.target.value)}
               placeholder="Enter your work email" 
-              className="px-4 py-3 rounded-xl dark:bg-slate-950 bg-white border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-indigo-500 flex-1 shadow-sm"
+              className="px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500 flex-1 shadow-sm"
             />
             <button 
               type="submit"

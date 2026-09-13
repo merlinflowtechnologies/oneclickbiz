@@ -102,8 +102,6 @@ export const metadata: Metadata = {
 
 import Script from 'next/script';
 
-import { ThemeProvider } from '@/components/theme/ThemeProvider';
-
 export default function RootLayout({
   children,
 }: {
@@ -202,10 +200,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSoftwareApp) }}
         />
       </head>
-      <body className="min-h-full flex flex-col dark:bg-slate-950 dark:text-slate-100 bg-white text-slate-900 font-sans transition-colors duration-200">
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans">
+        {children}
       </body>
     </html>
   );

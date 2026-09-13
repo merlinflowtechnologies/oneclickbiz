@@ -307,7 +307,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen dark:bg-slate-950 dark:text-slate-100 bg-slate-50 text-slate-900 font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-200">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
