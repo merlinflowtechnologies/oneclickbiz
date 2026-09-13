@@ -48,15 +48,17 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.png', type: 'image/png' },
-      { url: '/icon.png', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
       { url: '/favicon.ico', sizes: 'any' }
     ],
     apple: [
-      { url: '/apple-touch-icon.png' },
-      { url: '/favicon.png' }
+      { url: '/apple-icon-180x180.png', sizes: '180x180', type: 'image/png' },
+      { url: '/apple-touch-icon.png' }
     ],
-    shortcut: ['/favicon.png']
+    shortcut: ['/favicon-32x32.png']
   },
   manifest: '/manifest.json',
   openGraph: {
@@ -182,9 +184,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakarta.variable} h-full antialiased dark`}>
       <head>
-        <link rel="icon" type="image/png" href="/favicon.png?v=2" />
-        <link rel="shortcut icon" type="image/png" href="/favicon.png?v=2" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+        <link rel="shortcut icon" href="/favicon-32x32.png" />
         <Script src="https://sdk.cashfree.com/js/v3/cashfree.js" strategy="lazyOnload" id="cashfree-sdk" />
         <script
           type="application/ld+json"
