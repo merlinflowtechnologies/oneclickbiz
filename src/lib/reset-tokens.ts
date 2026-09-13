@@ -24,6 +24,8 @@ export async function generateResetOtp(email: string): Promise<string> {
   const cleanEmail = email.toLowerCase().trim();
   const code = Math.floor(100000 + Math.random() * 900000).toString();
   const expiresAt = Date.now() + 15 * 60 * 1000; // 15 minutes
+  const key = `otp_reset_${cleanEmail}`;
+  const recordId = `otp_${cleanEmail.replace(/[^a-zA-Z0-9]/g, '_')}`;
 
   // 1. In-memory cache
   resetTokenStore.set(cleanEmail, {
@@ -35,17 +37,19 @@ export async function generateResetOtp(email: string): Promise<string> {
   // 2. Database persistence (cross-worker cluster safe)
   try {
     await prisma.systemSetting.upsert({
-      where: { key: `otp_reset_${cleanEmail}` },
+      where: { key },
       update: {
         value: { code, expiresAt, attempts: 0 }
       },
       create: {
-        key: `otp_reset_${cleanEmail}`,
+        id: recordId,
+        key,
         value: { code, expiresAt, attempts: 0 }
       }
     });
+    console.log(`[OTP_STORE] Successfully saved OTP to DB for ${cleanEmail}`);
   } catch (err) {
-    console.warn('[OTP_STORE] DB persistence warning, relying on in-memory store:', err);
+    console.error('[OTP_STORE] DB persistence error:', err);
   }
 
   return code;
@@ -56,21 +60,23 @@ export async function generateResetOtp(email: string): Promise<string> {
  */
 export async function verifyResetOtp(email: string, code: string): Promise<{ valid: boolean; error?: string }> {
   const cleanEmail = email.toLowerCase().trim();
+  const key = `otp_reset_${cleanEmail}`;
   let entry = resetTokenStore.get(cleanEmail);
 
   // Check database first if available
   try {
     const dbRecord = await prisma.systemSetting.findUnique({
-      where: { key: `otp_reset_${cleanEmail}` }
+      where: { key }
     });
     if (dbRecord && dbRecord.value) {
-      entry = dbRecord.value as unknown as ResetEntry;
+      const val = typeof dbRecord.value === 'string' ? JSON.parse(dbRecord.value) : dbRecord.value;
+      entry = val as ResetEntry;
     }
   } catch (err) {
-    console.warn('[OTP_STORE] DB lookup warning, checking memory store:', err);
+    console.error('[OTP_STORE] DB lookup error:', err);
   }
 
-  if (!entry) {
+  if (!entry || !entry.code) {
     return { valid: false, error: 'No password reset request found for this email. Please request a new code.' };
   }
 
@@ -89,7 +95,7 @@ export async function verifyResetOtp(email: string, code: string): Promise<{ val
     resetTokenStore.set(cleanEmail, { ...entry, attempts: nextAttempts });
     try {
       await prisma.systemSetting.update({
-        where: { key: `otp_reset_${cleanEmail}` },
+        where: { key },
         data: { value: { ...entry, attempts: nextAttempts } as any }
       });
     } catch {}
@@ -104,10 +110,11 @@ export async function verifyResetOtp(email: string, code: string): Promise<{ val
  */
 export async function clearResetOtp(email: string): Promise<void> {
   const cleanEmail = email.toLowerCase().trim();
+  const key = `otp_reset_${cleanEmail}`;
   resetTokenStore.delete(cleanEmail);
   try {
     await prisma.systemSetting.delete({
-      where: { key: `otp_reset_${cleanEmail}` }
+      where: { key }
     });
   } catch {}
 }
