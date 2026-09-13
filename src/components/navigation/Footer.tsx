@@ -232,8 +232,8 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2 text-slate-400 text-xs">
                 <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-white transition">Dynamic vCard</Link></li>
-                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-white transition">WhatsApp Store</Link></li>
-                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-white transition">Dynamic QR Studio</Link></li>
+                <li><Link href="/#whatsapp-store" onClick={(e) => handleAnchorClick(e, 'whatsapp-store')} className="hover:text-white transition">WhatsApp Store</Link></li>
+                <li><Link href="/scan" className="hover:text-white transition">Dynamic QR Studio</Link></li>
                 <li><Link href="/#products" onClick={(e) => handleAnchorClick(e, 'products')} className="hover:text-white transition">NFC Smart Cards</Link></li>
                 <li><Link href="/#templates" onClick={(e) => handleAnchorClick(e, 'templates')} className="hover:text-white transition">Brochure Studio</Link></li>
                 <li><Link href="/vcard-templates" className="hover:text-white transition text-indigo-400 font-medium flex items-center gap-1">Templates Gallery</Link></li>
@@ -252,7 +252,7 @@ export default function Footer() {
                 <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-white transition">For Retail &amp; Dining</Link></li>
                 <li><Link href="/#services" onClick={(e) => handleAnchorClick(e, 'services')} className="hover:text-white transition">Corporate Teams</Link></li>
                 <li><Link href="/#demo" onClick={(e) => handleAnchorClick(e, 'demo')} className="hover:text-white transition">1-Click .VCF Save</Link></li>
-                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-white transition">Booking Engine</Link></li>
+                <li><Link href="/#booking" onClick={(e) => handleAnchorClick(e, 'booking')} className="hover:text-white transition">Booking Engine</Link></li>
               </ul>
             </div>
 
