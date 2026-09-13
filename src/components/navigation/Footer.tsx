@@ -76,50 +76,50 @@ export default function Footer() {
                 className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] object-contain transition-transform group-hover:scale-105 duration-200"
               />
             </Link>
-            <p className="dark:text-slate-400 text-slate-600 leading-relaxed text-xs">
+            <p className="text-slate-400 leading-relaxed text-xs">
               Next-generation digital business identity, interactive mini stores, appointment booking, and dynamic vCard sharing for modern businesses.
             </p>
-            <div className="space-y-1.5 pt-1 text-xs dark:text-slate-400 text-slate-600">
-              <div className="flex items-center gap-2 dark:text-slate-300 text-slate-700">
-                <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">Contact:</span>
-                <span className="dark:text-white text-slate-900 font-medium">Adduri Sai Kishore</span>
-                <span className="font-mono dark:text-slate-400 text-slate-500">(+91 63049 89071)</span>
+            <div className="space-y-1.5 pt-1 text-xs text-slate-400">
+              <div className="flex items-center gap-2 text-slate-300">
+                <span className="text-[11px] font-semibold text-emerald-400">Contact:</span>
+                <span className="text-white font-medium">Adduri Sai Kishore</span>
+                <span className="font-mono text-slate-400">(+91 63049 89071)</span>
               </div>
-              <div className="flex flex-wrap items-center gap-1.5 dark:text-slate-400 text-slate-600 text-[11px]">
-                <span className="text-indigo-600 dark:text-indigo-400 font-semibold">Email:</span>
-                <a href="mailto:support@oneclickbiz.in" className="hover:text-indigo-600 dark:hover:text-white transition">support@oneclickbiz.in</a>
+              <div className="flex flex-wrap items-center gap-1.5 text-slate-400 text-[11px]">
+                <span className="text-indigo-400 font-semibold">Email:</span>
+                <a href="mailto:support@oneclickbiz.in" className="hover:text-white transition">support@oneclickbiz.in</a>
                 <span>•</span>
-                <a href="mailto:contact@oneclickbiz.in" className="hover:text-indigo-600 dark:hover:text-white transition">contact@oneclickbiz.in</a>
+                <a href="mailto:contact@oneclickbiz.in" className="hover:text-white transition">contact@oneclickbiz.in</a>
               </div>
-              <div className="flex items-start gap-1.5 dark:text-slate-400 text-slate-600 text-[11px]">
-                <MapPin className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />
+              <div className="flex items-start gap-1.5 text-slate-400 text-[11px]">
+                <MapPin className="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5" />
                 <span>Nagole, Hyderabad, Telangana, India</span>
               </div>
             </div>
 
-            <div className="pt-2 flex items-center space-x-2.5 dark:text-slate-400 text-slate-600">
+            <div className="pt-2 flex items-center space-x-2.5 text-slate-400">
               <a 
                 href="https://wa.me/916304989071?text=Hi%20Adduri%20Sai%20Kishore%2C%20I%20have%20an%20inquiry%20regarding%20OneClickBiz." 
                 target="_blank" 
                 rel="noreferrer" 
-                className="p-2 rounded-lg dark:bg-slate-900 bg-white hover:text-emerald-600 dark:hover:text-emerald-400 border dark:border-slate-800 border-slate-200 shadow-sm transition"
+                className="p-2 rounded-lg bg-slate-900 hover:text-emerald-400 border border-slate-800 shadow-sm transition"
                 title="Chat on WhatsApp (+91 63049 89071)"
               >
                 <MessageCircle className="w-4 h-4" />
               </a>
               <a 
                 href="mailto:support@oneclickbiz.in" 
-                className="p-2 rounded-lg dark:bg-slate-900 bg-white hover:text-indigo-600 dark:hover:text-indigo-400 border dark:border-slate-800 border-slate-200 shadow-sm transition"
+                className="p-2 rounded-lg bg-slate-900 hover:text-indigo-400 border border-slate-800 shadow-sm transition"
                 title="Email Support Desk (support@oneclickbiz.in)"
               >
                 <Mail className="w-4 h-4" />
               </a>
               <a 
                 href="mailto:contact@oneclickbiz.in" 
-                className="p-2 rounded-lg dark:bg-slate-900 bg-white hover:text-indigo-600 dark:hover:text-indigo-400 border dark:border-slate-800 border-slate-200 shadow-sm transition"
+                className="p-2 rounded-lg bg-slate-900 hover:text-indigo-400 border border-slate-800 shadow-sm transition"
                 title="Email Contact Desk (contact@oneclickbiz.in)"
               >
-                <Mail className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                <Mail className="w-4 h-4 text-indigo-400" />
               </a>
             </div>
           </div>
@@ -128,42 +128,42 @@ export default function Footer() {
           <div className="grid grid-cols-2 gap-10 sm:gap-16 w-full md:w-auto">
             {/* Col 1: Company */}
             <div className="space-y-2.5">
-              <h4 className="font-bold dark:text-white text-slate-900 uppercase text-[11px] tracking-wider">Company</h4>
-              <ul className="space-y-2">
-                <li><Link href="/#demo" onClick={(e) => handleAnchorClick(e, 'demo')} className="dark:hover:text-white hover:text-indigo-600 transition text-indigo-600 dark:text-indigo-400 font-medium">How It Works (Demo)</Link></li>
-                <li><Link href="/#about" onClick={(e) => handleAnchorClick(e, 'about')} className="dark:hover:text-white hover:text-indigo-600 transition">About Us</Link></li>
-                <li><Link href="/#pricing" onClick={(e) => handleAnchorClick(e, 'pricing')} className="dark:hover:text-white hover:text-indigo-600 transition">Pricing & Plans</Link></li>
-                <li><Link href="/#services" onClick={(e) => handleAnchorClick(e, 'services')} className="dark:hover:text-white hover:text-indigo-600 transition">Enterprise</Link></li>
-                <li><Link href="/contact" className="dark:hover:text-white hover:text-indigo-600 transition">Contact Us</Link></li>
+              <h4 className="font-bold text-white uppercase text-[11px] tracking-wider">Company</h4>
+              <ul className="space-y-2 text-slate-400">
+                <li><Link href="/#demo" onClick={(e) => handleAnchorClick(e, 'demo')} className="hover:text-white transition text-indigo-400 font-medium">How It Works (Demo)</Link></li>
+                <li><Link href="/#about" onClick={(e) => handleAnchorClick(e, 'about')} className="hover:text-white transition">About Us</Link></li>
+                <li><Link href="/#pricing" onClick={(e) => handleAnchorClick(e, 'pricing')} className="hover:text-white transition">Pricing & Plans</Link></li>
+                <li><Link href="/#services" onClick={(e) => handleAnchorClick(e, 'services')} className="hover:text-white transition">Enterprise</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition">Contact Us</Link></li>
               </ul>
             </div>
 
             {/* Col 2: Legal */}
             <div className="space-y-2.5">
-              <h4 className="font-bold dark:text-white text-slate-900 uppercase text-[11px] tracking-wider flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <h4 className="font-bold text-white uppercase text-[11px] tracking-wider flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Legal</span>
               </h4>
-              <ul className="space-y-2">
+              <ul className="space-y-2 text-slate-400">
                 <li>
-                  <Link href="/privacy" className="dark:hover:text-white hover:text-indigo-600 transition flex items-center gap-1.5">
+                  <Link href="/privacy" className="hover:text-white transition flex items-center gap-1.5">
                     <span>Privacy Policy</span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 font-medium">Zero-Ads</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-medium">Zero-Ads</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/terms" className="dark:hover:text-white hover:text-indigo-600 transition flex items-center gap-1.5">
+                  <Link href="/terms" className="hover:text-white transition flex items-center gap-1.5">
                     <span>Terms & Conditions</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/refund" className="dark:hover:text-white hover:text-indigo-600 transition flex items-center gap-1.5">
+                  <Link href="/refund" className="hover:text-white transition flex items-center gap-1.5">
                     <span>Refund / Cancellation Policy</span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 font-medium">Final Sale</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 font-medium">Final Sale</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/cookies" className="dark:hover:text-white hover:text-indigo-600 transition flex items-center gap-1.5">
+                  <Link href="/cookies" className="hover:text-white transition flex items-center gap-1.5">
                     <span>Cookie Policy</span>
                   </Link>
                 </li>
@@ -174,50 +174,50 @@ export default function Footer() {
         </div>
 
         {/* High-Impact Trust & Security Strip */}
-        <div className="mt-10 pt-6 border-t dark:border-slate-900/80 border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-          <div className="flex items-center gap-2.5 p-3 rounded-xl dark:bg-slate-900/50 bg-white border dark:border-slate-800/60 border-slate-200 shadow-sm">
-            <div className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+        <div className="mt-10 pt-6 border-t border-slate-900/80 grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 border border-slate-800/60 shadow-sm">
+            <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0">
               <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-[11px] font-bold dark:text-slate-200 text-slate-800">256-Bit SSL</p>
-              <p className="text-[10px] dark:text-slate-500 text-slate-500">Bank-grade encryption</p>
+              <p className="text-[11px] font-bold text-slate-200">256-Bit SSL</p>
+              <p className="text-[10px] text-slate-500">Bank-grade encryption</p>
             </div>
           </div>
-          <div className="flex items-center gap-2.5 p-3 rounded-xl dark:bg-slate-900/50 bg-white border dark:border-slate-800/60 border-slate-200 shadow-sm">
-            <div className="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 border border-slate-800/60 shadow-sm">
+            <div className="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center shrink-0">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-[11px] font-bold dark:text-slate-200 text-slate-800">99.9% Uptime</p>
-              <p className="text-[10px] dark:text-slate-500 text-slate-500">Global edge CDN</p>
+              <p className="text-[11px] font-bold text-slate-200">99.9% Uptime</p>
+              <p className="text-[10px] text-slate-500">Global edge CDN</p>
             </div>
           </div>
-          <div className="flex items-center gap-2.5 p-3 rounded-xl dark:bg-slate-900/50 bg-white border dark:border-slate-800/60 border-slate-200 shadow-sm">
-            <div className="w-7 h-7 rounded-lg bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 border border-slate-800/60 shadow-sm">
+            <div className="w-7 h-7 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center shrink-0">
               <Zap className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-[11px] font-bold dark:text-slate-200 text-slate-800">Instant Provisioning</p>
-              <p className="text-[10px] dark:text-slate-500 text-slate-500">Immediate cloud setup</p>
+              <p className="text-[11px] font-bold text-slate-200">Instant Provisioning</p>
+              <p className="text-[10px] text-slate-500">Immediate cloud setup</p>
             </div>
           </div>
-          <div className="flex items-center gap-2.5 p-3 rounded-xl dark:bg-slate-900/50 bg-white border dark:border-slate-800/60 border-slate-200 shadow-sm">
-            <div className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 border border-slate-800/60 shadow-sm">
+            <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0">
               <MessageCircle className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-[11px] font-bold dark:text-slate-200 text-slate-800">Direct Support</p>
-              <p className="text-[10px] dark:text-slate-500 text-slate-500">WhatsApp & Helpdesk</p>
+              <p className="text-[11px] font-bold text-slate-200">Direct Support</p>
+              <p className="text-[10px] text-slate-500">WhatsApp & Helpdesk</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t dark:border-slate-900 border-slate-200 py-6 text-center dark:text-slate-500 text-slate-500 text-[11px] bg-slate-100/50 dark:bg-transparent">
+      <div className="border-t border-slate-900 py-6 text-center text-slate-500 text-[11px] bg-transparent">
         <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p>© {new Date().getFullYear()} OneClickBiz. All rights reserved. Developed & Maintained by <span className="dark:text-slate-300 text-slate-800 font-semibold">Merlinflow Technologies Pvt Ltd</span>.</p>
+          <p>© {new Date().getFullYear()} OneClickBiz. All rights reserved. Developed & Maintained by <span className="text-slate-300 font-semibold">Merlinflow Technologies Pvt Ltd</span>.</p>
           <p className="flex items-center gap-1">
             Engineered with <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> for modern enterprise growth.
           </p>

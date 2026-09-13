@@ -215,16 +215,16 @@ export default function Navbar() {
             href="/v/alex-rivera" 
             target="_blank"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/20"
+            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-emerald-400 bg-emerald-950/30 border border-emerald-500/20"
           >
             ✨ Explore Live Demo Card (/v/alex-rivera)
           </Link>
 
-          <div className="pt-3 flex flex-col sm:flex-row gap-2 border-t dark:border-slate-800/80 border-slate-200/80">
+          <div className="pt-3 flex flex-col sm:flex-row gap-2 border-t border-slate-800/80">
             <Link 
               href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800 transition"
+              className="w-full text-center py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-white hover:bg-slate-800 transition"
             >
               <span>Sign In</span>
             </Link>
