@@ -1,35 +1,11 @@
 import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 /**
  * Sends a real password reset OTP email to the user's inbox
  */
 export async function sendPasswordResetEmail(toEmail: string, otpCode: string): Promise<{ success: boolean; messageId?: string; error?: string }> {
   try {
-    // 1. Check for custom or free SMTP configuration
-    const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
-    const smtpPort = Number(process.env.SMTP_PORT) || 587;
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-    const fromAddress = process.env.SMTP_FROM || `"OneClickBiz Security" <${smtpUser || 'support@oneclickbiz.in'}>`;
-
-    if (!smtpUser || !smtpPass) {
-      console.warn('[EMAIL_SERVICE] SMTP_USER or SMTP_PASS not set in .env. Email dispatch simulated.');
-      console.log(`[PASSWORD_RESET_EMAIL] -> To: ${toEmail} | OTP Code: ${otpCode}`);
-      return { success: true };
-    }
-
-    // 2. Create Nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpPort === 465,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-    });
-
-    // 3. Beautiful branded HTML email template
     const htmlContent = `
       <!DOCTYPE html>
       <html>
@@ -117,20 +93,74 @@ export async function sendPasswordResetEmail(toEmail: string, otpCode: string): 
       </html>
     `;
 
-    // 4. Send the mail
-    const info = await transporter.sendMail({
-      from: fromAddress,
-      to: toEmail,
-      subject: `Your OneClickBiz Password Reset Code is ${otpCode}`,
-      text: `Your OneClickBiz password reset verification code is: ${otpCode}. This code will expire in 15 minutes. If you did not request this, please ignore this email.`,
-      html: htmlContent,
-    });
+    const subject = `Your OneClickBiz Password Reset Code is ${otpCode}`;
+    const textContent = `Your OneClickBiz password reset verification code is: ${otpCode}. This code will expire in 15 minutes. If you did not request this, please ignore this email.`;
 
-    console.log(`[EMAIL_SERVICE] Real email successfully sent to ${toEmail}. Message ID: ${info.messageId}`);
-    return { success: true, messageId: info.messageId };
+    // -------------------------------------------------------------
+    // PRIORITY 1: RESEND API (HTTP API - Fast & 100% Free)
+    // -------------------------------------------------------------
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (resendApiKey) {
+      const resend = new Resend(resendApiKey);
+      const resendFrom = process.env.RESEND_FROM || process.env.SMTP_FROM || 'OneClickBiz <onboarding@resend.dev>';
+      
+      const { data, error } = await resend.emails.send({
+        from: resendFrom,
+        to: [toEmail],
+        subject: subject,
+        text: textContent,
+        html: htmlContent,
+      });
+
+      if (error) {
+        console.error('[RESEND_API_ERROR]', error);
+        throw new Error(error.message);
+      }
+
+      console.log(`[RESEND_EMAIL_SUCCESS] Verification email sent to ${toEmail}. ID: ${data?.id}`);
+      return { success: true, messageId: data?.id };
+    }
+
+    // -------------------------------------------------------------
+    // PRIORITY 2: STANDARD SMTP (Gmail / Custom SMTP / Brevo)
+    // -------------------------------------------------------------
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+
+    if (smtpUser && smtpPass) {
+      const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
+      const smtpPort = Number(process.env.SMTP_PORT) || 587;
+      const fromAddress = process.env.SMTP_FROM || `"OneClickBiz Security" <${smtpUser}>`;
+
+      const transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port: smtpPort,
+        secure: smtpPort === 465,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass,
+        },
+      });
+
+      const info = await transporter.sendMail({
+        from: fromAddress,
+        to: toEmail,
+        subject: subject,
+        text: textContent,
+        html: htmlContent,
+      });
+
+      console.log(`[SMTP_EMAIL_SUCCESS] Verification email sent to ${toEmail}. Message ID: ${info.messageId}`);
+      return { success: true, messageId: info.messageId };
+    }
+
+    // Fallback if no credentials provided yet
+    console.warn('[EMAIL_SERVICE] Neither RESEND_API_KEY nor SMTP credentials configured in .env.');
+    console.log(`[PASSWORD_RESET_SIMULATED] -> To: ${toEmail} | Code: ${otpCode}`);
+    return { success: true };
 
   } catch (error: any) {
-    console.error('[EMAIL_SERVICE_ERROR] Failed to send email via SMTP:', error);
+    console.error('[EMAIL_SERVICE_ERROR] Failed to send email:', error);
     return { success: false, error: error.message };
   }
 }
