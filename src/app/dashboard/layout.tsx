@@ -59,15 +59,29 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           const detectedPlan = getCurrentUserPlan();
           setUserPlanTier(detectedPlan);
 
-          // 1. Check if user is Super Admin via server API
+          // 1. Check authenticated user via server API
           try {
             const meRes = await fetch('/api/auth/me');
             if (meRes.ok) {
               const meData = await meRes.json();
-              if (meData.authenticated && meData.user?.role === 'SUPER_ADMIN') {
+              if (meData.authenticated) {
+                if (meData.user?.role === 'SUPER_ADMIN') {
+                  if (isMounted) {
+                    setIsSuperAdmin(true);
+                    setIsAuthenticated(false);
+                  }
+                  return;
+                }
+
+                // Normal authenticated business user - set real profile details
                 if (isMounted) {
-                  setIsSuperAdmin(true);
-                  setIsAuthenticated(false);
+                  setUserSession({
+                    slug: meData.user.slug || 'profile',
+                    businessName: meData.user.businessName || meData.user.name || 'My Business',
+                    fullName: meData.user.name || 'User',
+                    plan: (meData.user.planTier || detectedPlan || 'PRO').toUpperCase()
+                  });
+                  setIsAuthenticated(true);
                 }
                 return;
               }

@@ -28,29 +28,48 @@ export default function DashboardOverviewPage() {
   const [copied, setCopied] = React.useState(false);
   const [copiedUrl, setCopiedUrl] = React.useState('');
 
+  const [stats, setStats] = React.useState({
+    views: 0,
+    qrScans: 0,
+    nfcTaps: 0,
+    whatsappClicks: 0,
+    callClicks: 0,
+    vcfDownloads: 0
+  });
+  const [leads, setLeads] = React.useState<any[]>([]);
+  const [bookings, setBookings] = React.useState<any[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
+    async function loadRealAnalytics() {
       try {
-        const savedSession = localStorage.getItem('oneclickbiz_user_session');
-        if (savedSession) {
-          const parsed = JSON.parse(savedSession);
-          if (parsed.slug) {
+        const res = await fetch('/api/analytics');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            if (data.stats) setStats(data.stats);
+            if (Array.isArray(data.leads)) setLeads(data.leads);
+            if (Array.isArray(data.bookings)) setBookings(data.bookings);
             setProfile(prev => ({
               ...prev,
-              name: parsed.fullName || prev.name,
-              company: parsed.businessName || prev.company,
-              slug: parsed.slug || prev.slug,
+              name: data.userName || prev.name,
+              company: data.businessName || prev.company,
+              slug: data.slug || prev.slug,
+              stats: data.stats || prev.stats
             }));
           }
         }
       } catch (err) {
-        console.error(err);
+        console.error('Failed to load real analytics:', err);
+      } finally {
+        setIsLoading(false);
       }
     }
+    loadRealAnalytics();
   }, []);
 
   const handleCopy = () => {
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://oneclickbiz.in';
     const fullUrl = `${origin}/v/${profile.slug}`;
     navigator.clipboard.writeText(fullUrl);
     setCopiedUrl(fullUrl);
@@ -62,12 +81,12 @@ export default function DashboardOverviewPage() {
   };
 
   const statCards = [
-    { label: 'Total Profile Views', value: profile.stats.views.toLocaleString(), icon: Eye, change: '+18.4%', color: 'text-indigo-400', bg: 'bg-indigo-500/10' },
-    { label: 'Dynamic QR Scans', value: profile.stats.qrScans.toLocaleString(), icon: QrCode, change: '+24.2%', color: 'text-pink-400', bg: 'bg-pink-500/10' },
-    { label: 'Direct Profile Visits', value: profile.stats.nfcTaps.toLocaleString(), icon: CreditCard, change: '+32.1%', color: 'text-amber-400', bg: 'bg-amber-500/10' },
-    { label: 'WhatsApp Inquiries', value: profile.stats.whatsappClicks.toLocaleString(), icon: MessageCircle, change: '+12.5%', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
-    { label: 'Direct Phone Calls', value: profile.stats.callClicks.toLocaleString(), icon: Phone, change: '+9.8%', color: 'text-sky-400', bg: 'bg-sky-500/10' },
-    { label: 'VCF Contacts Saved', value: profile.stats.vcfDownloads.toLocaleString(), icon: Download, change: '+27.6%', color: 'text-purple-400', bg: 'bg-purple-500/10' },
+    { label: 'Total Profile Views', value: stats.views.toLocaleString(), icon: Eye, color: 'text-indigo-400', bg: 'bg-indigo-500/10' },
+    { label: 'Dynamic QR Scans', value: stats.qrScans.toLocaleString(), icon: QrCode, color: 'text-pink-400', bg: 'bg-pink-500/10' },
+    { label: 'Direct Profile Visits', value: stats.nfcTaps.toLocaleString(), icon: CreditCard, color: 'text-amber-400', bg: 'bg-amber-500/10' },
+    { label: 'WhatsApp Inquiries', value: stats.whatsappClicks.toLocaleString(), icon: MessageCircle, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
+    { label: 'Direct Phone Calls', value: stats.callClicks.toLocaleString(), icon: Phone, color: 'text-sky-400', bg: 'bg-sky-500/10' },
+    { label: 'VCF Contacts Saved', value: stats.vcfDownloads.toLocaleString(), icon: Download, color: 'text-purple-400', bg: 'bg-purple-500/10' },
   ];
 
   return (
@@ -93,12 +112,12 @@ export default function DashboardOverviewPage() {
             <Sparkles className="w-3 h-3" /> Digital Card Active
           </div>
           <h1 className="text-xl font-bold text-white">Welcome back, {profile.name}!</h1>
-          <p className="text-xs text-slate-400">Your smart profile and WhatsApp store are live and tracking interactions.</p>
+          <p className="text-xs text-slate-400">Your smart profile and WhatsApp store are live and tracking interactions in real time.</p>
         </div>
 
         <div className="flex items-center flex-wrap gap-2">
           <button 
-            onClick={() => exportExecutiveSummaryPDF({ profile, bookings: INITIAL_BOOKINGS, leads: INITIAL_LEADS })}
+            onClick={() => exportExecutiveSummaryPDF({ profile, bookings: bookings.length > 0 ? bookings : INITIAL_BOOKINGS, leads: leads.length > 0 ? leads : INITIAL_LEADS })}
             className="px-3 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-95"
             title="Download complete business analytics, bookings & leads PDF report"
           >
@@ -215,8 +234,9 @@ export default function DashboardOverviewPage() {
                 <div className={`p-2 rounded-xl ${stat.bg} ${stat.color}`}>
                   <Icon className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">
-                  {stat.change}
+                <span className="text-[10px] font-medium text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Live
                 </span>
               </div>
               <div>
@@ -254,21 +274,42 @@ export default function DashboardOverviewPage() {
           </div>
 
           <div className="space-y-3">
-            {INITIAL_LEADS.map(lead => (
-              <div key={lead.id} className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-white">{lead.name}</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-semibold">
-                    {lead.status}
-                  </span>
+            {leads.length > 0 ? (
+              leads.map((lead: any) => (
+                <div key={lead.id} className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-white">{lead.name}</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-semibold">
+                      {lead.status}
+                    </span>
+                  </div>
+                  {lead.message && (
+                    <p className="text-[11px] text-slate-400 line-clamp-2">{lead.message}</p>
+                  )}
+                  <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1">
+                    <span>{lead.email}</span>
+                    <span>{lead.phone || 'No phone'}</span>
+                  </div>
                 </div>
-                <p className="text-[11px] text-slate-400 line-clamp-2">{lead.message}</p>
-                <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1">
-                  <span>{lead.email}</span>
-                  <span>{lead.phone}</span>
+              ))
+            ) : (
+              <div className="py-8 px-4 text-center rounded-2xl bg-slate-950/40 border border-dashed border-slate-800 space-y-2">
+                <div className="w-10 h-10 rounded-full bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto">
+                  <Users className="w-5 h-5" />
                 </div>
+                <p className="text-xs font-bold text-white">No Inquiries Yet</p>
+                <p className="text-[11px] text-slate-400 max-w-xs mx-auto">
+                  When visitors submit inquiry forms on your digital card, they will appear here in real-time.
+                </p>
+                <button 
+                  onClick={handleCopy} 
+                  className="text-[11px] text-indigo-400 hover:text-indigo-300 font-semibold inline-flex items-center gap-1 pt-1"
+                >
+                  <span>Share Card Link to Capture Leads</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </button>
               </div>
-            ))}
+            )}
           </div>
         </div>
 
@@ -285,21 +326,40 @@ export default function DashboardOverviewPage() {
           </div>
 
           <div className="space-y-3">
-            {INITIAL_BOOKINGS.map(bk => (
-              <div key={bk.id} className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-white">{bk.customerName}</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
-                    {bk.date} @ {bk.time}
-                  </span>
+            {bookings.length > 0 ? (
+              bookings.map((bk: any) => (
+                <div key={bk.id} className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-white">{bk.customerName}</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+                      {new Date(bk.bookingDate).toLocaleDateString()} @ {bk.startTime || bk.time}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-indigo-300 font-medium">{bk.service?.title || bk.serviceTitle || 'General Consultation'}</p>
+                  <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1">
+                    <span>{bk.customerEmail}</span>
+                    <span className="text-emerald-400 font-semibold">{bk.status}</span>
+                  </div>
                 </div>
-                <p className="text-[11px] text-indigo-300 font-medium">{bk.serviceTitle}</p>
-                <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1">
-                  <span>{bk.customerEmail}</span>
-                  <span className="text-emerald-400 font-semibold">{bk.status}</span>
+              ))
+            ) : (
+              <div className="py-8 px-4 text-center rounded-2xl bg-slate-950/40 border border-dashed border-slate-800 space-y-2">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
+                  <Calendar className="w-5 h-5" />
                 </div>
+                <p className="text-xs font-bold text-white">No Appointments Scheduled</p>
+                <p className="text-[11px] text-slate-400 max-w-xs mx-auto">
+                  Clients can book meetings or consultation calls with you directly from your card's appointment section.
+                </p>
+                <Link 
+                  href="/dashboard/bookings" 
+                  className="text-[11px] text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center gap-1 pt-1"
+                >
+                  <span>Set Up Appointment Slots</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </Link>
               </div>
-            ))}
+            )}
           </div>
         </div>
 

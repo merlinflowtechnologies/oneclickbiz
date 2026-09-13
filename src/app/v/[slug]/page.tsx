@@ -98,9 +98,48 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
   };
 }
 
-export default async function PublicProfilePage({ params }: ProfilePageProps) {
+export default async function PublicProfilePage({ 
+  params,
+  searchParams 
+}: { 
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ src?: string }>;
+}) {
   const resolvedParams = await params;
+  const resolvedQuery = searchParams ? await searchParams : {};
   const profile = await fetchProfileData(resolvedParams.slug);
+
+  // Real Analytics Tracking: increment viewCount and log event in DB
+  try {
+    if (profile.id) {
+      const eventType = resolvedQuery.src === 'qr' 
+        ? 'qr_scan' 
+        : resolvedQuery.src === 'nfc' 
+        ? 'nfc_scan' 
+        : 'profile_view';
+
+      await prisma.profile.update({
+        where: { slug: profile.slug },
+        data: { viewCount: { increment: 1 } }
+      }).catch(() => {});
+
+      const dbProfile = await prisma.profile.findUnique({
+        where: { slug: profile.slug },
+        select: { id: true }
+      });
+
+      if (dbProfile) {
+        await prisma.analyticsEvent.create({
+          data: {
+            profileId: dbProfile.id,
+            eventType
+          }
+        }).catch(() => {});
+      }
+    }
+  } catch (err) {
+    console.warn('Analytics tracking warning:', err);
+  }
 
   const jsonLdPerson = {
     '@context': 'https://schema.org',

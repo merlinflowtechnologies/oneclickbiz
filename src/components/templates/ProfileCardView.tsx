@@ -270,6 +270,18 @@ export default function ProfileCardView({
     setIsShareModalOpen(true);
   };
 
+  const trackAction = (eventType: string) => {
+    if (profile.slug && !isMockup && typeof window !== 'undefined') {
+      try {
+        fetch('/api/analytics', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug: profile.slug, eventType })
+        }).catch(() => {});
+      } catch {}
+    }
+  };
+
   const handleBookingConfirm = (e: React.FormEvent) => {
     e.preventDefault();
     if (!bookingService) return;
@@ -448,7 +460,10 @@ export default function ProfileCardView({
           {/* Action CTA Buttons: Save Contact & WhatsApp */}
           <div className="grid grid-cols-2 gap-2.5 w-full mt-5">
             <button 
-              onClick={() => downloadVcfFile(profile)}
+              onClick={() => {
+                trackAction('contact_download');
+                downloadVcfFile(profile);
+              }}
               className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl ${theme.buttonPrimary} shadow-lg font-medium text-xs transition-all active:scale-95`}
             >
               <Download className="w-4 h-4" />
@@ -458,6 +473,7 @@ export default function ProfileCardView({
               href={`https://wa.me/${profile.whatsapp.replace(/\D/g, '')}?text=Hi%20${encodeURIComponent(profile.name)},%20I%20came%20across%20your%20OneClickBiz%20profile!`}
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackAction('whatsapp_click')}
               className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg font-medium text-xs transition-all active:scale-95"
             >
               <SocialIcon platform="whatsapp" size={16} colored={false} className="text-white" />
@@ -468,7 +484,11 @@ export default function ProfileCardView({
           {/* Quick Contact Chips */}
           <div className="grid grid-cols-4 gap-2 w-full mt-3">
             {profile.phone && (
-              <a href={`tel:${profile.phone}`} className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.card} hover:scale-105 transition-all text-xs text-slate-300`}>
+              <a 
+                href={`tel:${profile.phone}`} 
+                onClick={() => trackAction('phone_click')}
+                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.card} hover:scale-105 transition-all text-xs text-slate-300`}
+              >
                 <Phone className="w-4 h-4 mb-1 text-sky-400" />
                 <span className="text-[10px]">Call</span>
               </a>
@@ -480,7 +500,13 @@ export default function ProfileCardView({
               </a>
             )}
             {profile.website && (
-              <a href={profile.website} target="_blank" rel="noreferrer" className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.card} hover:scale-105 transition-all text-xs text-slate-300`}>
+              <a 
+                href={profile.website} 
+                target="_blank" 
+                rel="noreferrer" 
+                onClick={() => trackAction('website_click')}
+                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.card} hover:scale-105 transition-all text-xs text-slate-300`}
+              >
                 <Globe className="w-4 h-4 mb-1 text-emerald-400" />
                 <span className="text-[10px]">Web</span>
               </a>
