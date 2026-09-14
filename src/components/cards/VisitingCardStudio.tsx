@@ -39,7 +39,10 @@ import {
   X
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { exportVisitingCardPDF } from '@/lib/pdf-export';
+import { toPng } from 'html-to-image';
+import jsPDF from 'jspdf';
+import QRCode from 'qrcode';
+import { savePDF, exportVisitingCardPDF } from '@/lib/pdf-export';
 
 export type CardTemplateId = 
   | 'matte-onyx'
@@ -167,6 +170,25 @@ export default function VisitingCardStudio() {
   });
 
   const logoFileInputRef = useRef<HTMLInputElement | null>(null);
+  const frontCardExportRef = useRef<HTMLDivElement | null>(null);
+  const backCardExportRef = useRef<HTMLDivElement | null>(null);
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>('');
+
+  // Generate crisp local QR code dataURL to avoid CORS/network issues during canvas export
+  useEffect(() => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://oneclickbiz.in';
+    const targetUrl = `${origin}/v/${cardData.slug || 'card'}`;
+    QRCode.toDataURL(targetUrl, {
+      width: 320,
+      margin: 1,
+      color: {
+        dark: '#0f172a',
+        light: '#ffffff'
+      }
+    }).then(setQrCodeDataUrl).catch(err => {
+      console.error('QR code generation error:', err);
+    });
+  }, [cardData.slug]);
 
   // Load from session if exists
   useEffect(() => {
@@ -323,9 +345,91 @@ export default function VisitingCardStudio() {
   const currentTemplate = templates.find(t => t.id === selectedTemplate) || templates[0];
   const isLight = selectedTemplate === 'minimal-white';
 
+  /**
+   * Flattens computed styles onto all descendant elements in a cloned DOM tree.
+   * This prevents html-to-image from failing on Tailwind v4's oklch() / lab() CSS color functions
+   * which the library's CSS parser does not support.
+   */
+  const flattenStyles = (original: HTMLElement, clone: HTMLElement) => {
+    const sourceEls = Array.from(original.querySelectorAll('*')) as HTMLElement[];
+    const cloneEls = Array.from(clone.querySelectorAll('*')) as HTMLElement[];
+    const props = [
+      'color', 'background-color', 'border-color', 'border-top-color',
+      'border-right-color', 'border-bottom-color', 'border-left-color',
+      'outline-color', 'text-decoration-color', 'fill', 'stroke',
+      'background', 'background-image',
+    ];
+    sourceEls.forEach((el, i) => {
+      const computed = window.getComputedStyle(el);
+      const target = cloneEls[i] as HTMLElement;
+      if (!target) return;
+      props.forEach(prop => {
+        const val = computed.getPropertyValue(prop);
+        if (val) {
+          (target.style as any)[prop.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase())] = val;
+        }
+      });
+      // Also flatten gradient backgrounds
+      const bg = computed.getPropertyValue('background-image');
+      if (bg && bg !== 'none') {
+        target.style.backgroundImage = bg;
+      }
+    });
+    // Flatten the clone root itself
+    const rootComputed = window.getComputedStyle(original);
+    props.forEach(prop => {
+      const val = rootComputed.getPropertyValue(prop);
+      if (val) {
+        (clone.style as any)[prop.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase())] = val;
+      }
+    });
+  };
+
+  /**
+   * Captures a DOM element to a PNG data URL, safe against oklch/lab color parse errors.
+   * Pre-processes the element by reading computed styles (which resolve oklch -> rgb)
+   * and applying them as inline styles, then restores them after capture.
+   */
+  const captureToPng = async (el: HTMLElement): Promise<string> => {
+    // Collect all elements
+    const allEls = [el, ...Array.from(el.querySelectorAll('*'))] as HTMLElement[];
+    const COLOR_PROPS: (keyof CSSStyleDeclaration)[] = [
+      'color', 'backgroundColor', 'borderColor', 'borderTopColor',
+      'borderRightColor', 'borderBottomColor', 'borderLeftColor',
+      'outlineColor', 'textDecorationColor', 'fill', 'stroke'
+    ];
+    // Save originals and apply resolved computed values
+    const saved: Array<{ el: HTMLElement; prop: keyof CSSStyleDeclaration; prev: string }> = [];
+    allEls.forEach(node => {
+      const cs = window.getComputedStyle(node);
+      COLOR_PROPS.forEach(prop => {
+        const resolved = cs[prop] as string;
+        if (resolved && resolved !== '') {
+          saved.push({ el: node, prop, prev: (node.style as any)[prop] ?? '' });
+          (node.style as any)[prop] = resolved;
+        }
+      });
+      // Handle background-image (gradients using oklch)
+      const bgImg = cs.backgroundImage;
+      if (bgImg && bgImg !== 'none') {
+        saved.push({ el: node, prop: 'backgroundImage', prev: node.style.backgroundImage });
+        node.style.backgroundImage = bgImg;
+      }
+    });
+    try {
+      return await toPng(el, { pixelRatio: 2, cacheBust: true });
+    } finally {
+      // Restore original inline styles
+      saved.forEach(({ el: node, prop, prev }) => {
+        (node.style as any)[prop] = prev;
+      });
+    }
+  };
+
   const handlePreview = async () => {
     setIsExporting(true);
     try {
+      // Use the pure-jsPDF path for preview — no HTML rendering, no CSS color issues
       const res = await exportVisitingCardPDF({
         fullName: cardData.fullName,
         designation: cardData.designation,
@@ -338,10 +442,11 @@ export default function VisitingCardStudio() {
         slug: cardData.slug,
         accentColor: cardData.accentColor,
         orientation: cardData.orientation,
-        finish: cardData.finish
+        finish: cardData.finish,
       });
       if (res && res.blobUrl) {
-        setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename: res.filename });
+        const filename = `oneclickbiz-visiting-card-${(cardData.slug || 'card').toLowerCase()}.pdf`;
+        setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename });
       }
     } catch (err) {
       console.error('Visiting card preview error:', err);
@@ -353,7 +458,19 @@ export default function VisitingCardStudio() {
   const handleExport = async (type: 'pdf' | 'png-front' | 'png-back') => {
     setIsExporting(true);
     try {
-      if (type === 'pdf') {
+      if (type === 'png-front' || type === 'png-back') {
+        // PNG export via html-to-image with computed-style flattening
+        const ref = type === 'png-front' ? frontCardExportRef.current : backCardExportRef.current;
+        if (!ref) throw new Error('Card export ref not initialized');
+        const dataUrl = await captureToPng(ref);
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `oneclickbiz-card-${type === 'png-front' ? 'front' : 'back'}-${cardData.slug || 'card'}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else if (type === 'pdf') {
+        // PDF export via pure jsPDF — no CSS color parsing, guaranteed to work
         const res = await exportVisitingCardPDF({
           fullName: cardData.fullName,
           designation: cardData.designation,
@@ -366,54 +483,13 @@ export default function VisitingCardStudio() {
           slug: cardData.slug,
           accentColor: cardData.accentColor,
           orientation: cardData.orientation,
-          finish: cardData.finish
+          finish: cardData.finish,
         });
         if (res && res.blobUrl) {
           setLastExportedPdf({ url: res.blobUrl, filename: res.filename });
         }
-      } else {
-        // High-Resolution PNG export (300 DPI equivalent)
-        const canvas = document.createElement('canvas');
-        canvas.width = 1050; // 3.5 in * 300 DPI
-        canvas.height = 600;  // 2.0 in * 300 DPI
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.fillStyle = '#0f172a';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          ctx.fillStyle = cardData.accentColor || '#6366f1';
-          ctx.fillRect(0, 0, 16, canvas.height);
-          
-          ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 44px sans-serif';
-          ctx.fillText((cardData.companyName || 'Himastech Digital Reality').toUpperCase(), 60, 100);
-          
-          if (cardData.tagline) {
-            ctx.font = 'normal 24px sans-serif';
-            ctx.fillStyle = '#94a3b8';
-            ctx.fillText(cardData.tagline, 60, 140);
-          }
-          
-          ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 52px sans-serif';
-          ctx.fillText(cardData.fullName || 'Kishore Patel', 60, 260);
-          
-          ctx.font = 'normal 30px sans-serif';
-          ctx.fillStyle = '#818cf8';
-          ctx.fillText(cardData.designation || 'Founder & Managing Director', 60, 310);
-          
-          ctx.font = 'normal 24px sans-serif';
-          ctx.fillStyle = '#cbd5e1';
-          let y = 390;
-          if (cardData.phone) { ctx.fillText(`📞 ${cardData.phone}`, 60, y); y += 42; }
-          if (cardData.email) { ctx.fillText(`✉️ ${cardData.email}`, 60, y); y += 42; }
-          if (cardData.website) { ctx.fillText(`🌐 ${cardData.website}`, 60, y); }
-          
-          const a = document.createElement('a');
-          a.href = canvas.toDataURL('image/png');
-          a.download = `oneclickbiz-card-${type}-${cardData.slug || 'card'}.png`;
-          a.click();
-        }
       }
+
       setExportSuccess(true);
       confetti({
         particleCount: 80,
@@ -718,7 +794,7 @@ export default function VisitingCardStudio() {
                     <div className="col-span-5 flex flex-col items-center">
                       <div className="p-2 rounded-xl bg-white shadow-xl">
                         <img 
-                          src={`https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(typeof window !== 'undefined' ? `${window.location.origin}/v/${cardData.slug}` : `https://oneclickbiz.in/v/${cardData.slug}`)}&color=0f172a`} 
+                          src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(typeof window !== 'undefined' ? `${window.location.origin}/v/${cardData.slug}` : `https://oneclickbiz.in/v/${cardData.slug}`)}&color=0f172a`} 
                           alt="Card QR"
                           className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
                         />
@@ -1372,6 +1448,182 @@ export default function VisitingCardStudio() {
           </div>
         </div>
       )}
+
+      {/* DEDICATED OFF-SCREEN HIGH-RESOLUTION EXPORT STAGE FOR HTML2CANVAS */}
+      <div 
+        style={{ 
+          position: 'fixed', 
+          left: '-9999px', 
+          top: 0, 
+          width: '1200px',
+          pointerEvents: 'none', 
+          zIndex: -9999,
+          opacity: 1
+        }}
+      >
+        {/* FRONT CARD EXPORT STAGE */}
+        <div
+          ref={frontCardExportRef}
+          style={{ 
+            width: cardData.orientation === 'vertical' ? '600px' : '1050px', 
+            height: cardData.orientation === 'vertical' ? '1050px' : '600px' 
+          }}
+          className={`rounded-3xl p-12 relative overflow-hidden flex flex-col justify-between select-none shadow-none ${currentTemplate.bgFront} ${currentTemplate.border}`}
+        >
+          {/* Finish overlays */}
+          {cardData.finish === 'matte-black' && (
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/5 pointer-events-none" />
+          )}
+          {cardData.finish === 'gold-foil' && (
+            <div className="absolute -top-24 -right-24 w-80 h-80 bg-gradient-to-br from-amber-400/20 via-yellow-200/10 to-transparent rounded-full blur-2xl pointer-events-none" />
+          )}
+
+          {/* Top Header */}
+          <div className="flex items-start justify-between relative z-10">
+            <div className="flex items-center space-x-5">
+              {cardData.showLogo && (
+                <div className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center border shadow-xl ${
+                  isLight ? 'border-slate-300 bg-white' : 'border-white/20 bg-slate-900/80'
+                }`}>
+                  {cardData.logoUrl ? (
+                    <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain p-2" />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center text-3xl font-black text-slate-950">
+                      {cardData.companyName.charAt(0) || 'O'}
+                    </div>
+                  )}
+                </div>
+              )}
+              <div>
+                <h4 className={`text-2xl font-extrabold tracking-tight ${isLight ? 'text-slate-950' : 'text-white'}`}>
+                  {cardData.companyName}
+                </h4>
+                <p className={`text-sm uppercase tracking-widest ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                  {cardData.tagline}
+                </p>
+              </div>
+            </div>
+
+            {cardData.showNfcIcon && (
+              <div className="flex items-center space-x-2 opacity-85">
+                <Wifi className={`w-7 h-7 rotate-90 ${isLight ? 'text-slate-600' : 'text-amber-400'}`} />
+                <span className={`text-sm font-mono uppercase tracking-wider font-bold ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+                  NFC Tap
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Center Identity */}
+          <div className="my-auto space-y-2 relative z-10">
+            <h2 className={`text-4xl font-black tracking-tight ${isLight ? 'text-slate-950' : currentTemplate.textPrimary}`}>
+              {cardData.fullName}
+            </h2>
+            <p className={`text-lg font-semibold uppercase tracking-wider ${isLight ? 'text-indigo-600' : 'text-slate-300'}`}>
+              {cardData.designation}
+            </p>
+          </div>
+
+          {/* Bottom Footer */}
+          <div className="flex items-center justify-between border-t pt-5 border-white/10 text-base relative z-10">
+            <div className="flex items-center gap-6">
+              <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.phone}</span>
+              <span className="opacity-40">•</span>
+              <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.email}</span>
+            </div>
+            <span className={`font-mono font-bold ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
+              oneclickbiz.in/v/{cardData.slug}
+            </span>
+          </div>
+        </div>
+
+        {/* BACK CARD EXPORT STAGE */}
+        <div
+          ref={backCardExportRef}
+          style={{ 
+            width: cardData.orientation === 'vertical' ? '600px' : '1050px', 
+            height: cardData.orientation === 'vertical' ? '1050px' : '600px',
+            marginTop: '40px'
+          }}
+          className={`rounded-3xl p-12 relative overflow-hidden flex flex-col justify-between select-none shadow-none ${currentTemplate.bgBack} ${currentTemplate.border}`}
+        >
+          {/* Finish overlays */}
+          {cardData.finish === 'matte-black' && (
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/5 pointer-events-none" />
+          )}
+          {cardData.finish === 'gold-foil' && (
+            <div className="absolute -top-24 -right-24 w-80 h-80 bg-gradient-to-br from-amber-400/20 via-yellow-200/10 to-transparent rounded-full blur-2xl pointer-events-none" />
+          )}
+
+          {/* Top Bar */}
+          <div className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
+            <div className="flex items-center gap-3">
+              {cardData.showLogo && (
+                <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center">
+                  {cardData.logoUrl ? (
+                    <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain" />
+                  ) : (
+                    <div className="w-full h-full bg-amber-500 rounded flex items-center justify-center text-base font-black text-slate-950">
+                      {cardData.companyName.charAt(0) || 'O'}
+                    </div>
+                  )}
+                </div>
+              )}
+              <span className={`text-base font-bold uppercase tracking-widest ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
+                {cardData.companyName}
+              </span>
+            </div>
+            <span className={`text-base font-mono ${isLight ? 'text-indigo-600 font-bold' : 'text-amber-400'}`}>
+              cards.oneclickbiz.in/v/{cardData.slug}
+            </span>
+          </div>
+
+          {/* Center: QR and Details */}
+          <div className="grid grid-cols-12 gap-8 items-center my-auto relative z-10">
+            <div className="col-span-5 flex flex-col items-center">
+              <div className="p-4 rounded-2xl bg-white shadow-2xl">
+                <img 
+                  src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(typeof window !== 'undefined' ? `${window.location.origin}/v/${cardData.slug}` : `https://oneclickbiz.in/v/${cardData.slug}`)}&color=0f172a`} 
+                  alt="Card QR"
+                  className="w-44 h-44 object-contain"
+                />
+              </div>
+              <p className={`text-xs uppercase tracking-wider font-bold mt-3 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                Scan with Camera
+              </p>
+            </div>
+
+            <div className="col-span-7 space-y-4 text-base">
+              <div className="flex items-center gap-3">
+                <Phone className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.phone}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.email}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Globe className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.website}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <MapPin className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.address}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom NFC Footer */}
+          <div className="flex items-center justify-between border-t border-white/10 pt-4 text-xs relative z-10">
+            <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
+              Tap NFC chip to smartphone for instant vCard save
+            </span>
+            <span className={`font-bold uppercase ${isLight ? 'text-slate-950' : 'text-white'}`}>
+              Contactless NFC
+            </span>
+          </div>
+        </div>
+      </div>
 
     </div>
   );

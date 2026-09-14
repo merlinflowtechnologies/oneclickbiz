@@ -23,27 +23,28 @@ function getFormattedDateTime(): string {
 export function savePDF(doc: jsPDF, filename: string) {
   if (typeof window === 'undefined') return { doc, blobUrl: '', filename };
 
-  const blob = doc.output('blob');
-  const blobUrl = URL.createObjectURL(blob);
-
-  // Method 1: HTML5 standard download anchor
+  let blobUrl = '';
   try {
-    const link = document.createElement('a');
-    link.href = blobUrl;
-    link.download = filename;
-    link.setAttribute('download', filename);
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    setTimeout(() => {
-      if (document.body.contains(link)) document.body.removeChild(link);
-    }, 2500);
+    const blob = doc.output('blob');
+    blobUrl = URL.createObjectURL(blob);
+  } catch (e) {
+    console.warn('Could not create blobUrl', e);
+  }
+
+  try {
+    // doc.save is the official, battle-tested jsPDF download mechanism
+    doc.save(filename);
   } catch (err) {
-    console.warn('Anchor download fallback to doc.save', err);
-    try {
-      doc.save(filename);
-    } catch (e) {
-      console.error('doc.save failed', e);
+    console.warn('doc.save failed, falling back to anchor click', err);
+    if (blobUrl) {
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => {
+        if (document.body.contains(link)) document.body.removeChild(link);
+      }, 1000);
     }
   }
 

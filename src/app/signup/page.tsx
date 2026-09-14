@@ -145,9 +145,12 @@ function SignUpForm() {
     loadDynamicPricing();
   }, []);
 
-  // Plan Selection (Default Pro)
-  const initialPlan = paramPlan === 'Basic' || paramPlan === 'Advanced' ? paramPlan : 'Pro';
-  const [selectedPlanKey, setSelectedPlanKey] = useState<'Basic' | 'Pro' | 'Advanced'>(initialPlan as any);
+  // Plan Selection: Support Basic, Pro, or Advanced from query params (default Pro)
+  const normalizedParamPlan = (paramPlan || '').toLowerCase();
+  const initialPlan: 'Basic' | 'Pro' | 'Advanced' = 
+    normalizedParamPlan === 'basic' ? 'Basic' :
+    normalizedParamPlan === 'advanced' ? 'Advanced' : 'Pro';
+  const [selectedPlanKey, setSelectedPlanKey] = useState<'Basic' | 'Pro' | 'Advanced'>(initialPlan);
   const activePlan = plans[selectedPlanKey];
 
   // Wizard Step: 1 = Details & Credentials, 2 = Cashfree Payment Confirmation, 3 = Payment Success
@@ -168,12 +171,27 @@ function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-  const [error, setError] = useState(
-    paramUnpaid 
-      ? 'Annual Plan Activation Required: Please choose your preferred plan and complete payment via Cashfree to activate your smart card.' 
-      : ''
-  );
+  const [error, setError] = useState('');
   const [completedOrder, setCompletedOrder] = useState<any>(null);
+
+  // Restore stored session if arriving directly at payment step without query params
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const savedSession = localStorage.getItem('oneclickbiz_user_session');
+        if (savedSession) {
+          const parsed = JSON.parse(savedSession);
+          if (parsed.email && !email) setEmail(parsed.email);
+          if (parsed.fullName && !fullName) setFullName(parsed.fullName);
+          if (parsed.businessName && !businessName) setBusinessName(parsed.businessName);
+          if (parsed.slug && !slug) setSlug(parsed.slug);
+          if (parsed.phone && (!phone || phone === '+91 63049 89071')) setPhone(parsed.phone);
+        }
+      } catch (e) {
+        console.error('Failed to parse local session:', e);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (paramSlug && !slug) {
@@ -480,6 +498,18 @@ function SignUpForm() {
       <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-2xl px-4 sm:px-0">
         <div className="bg-slate-900/90 border border-slate-800 backdrop-blur-2xl py-7 px-5 sm:px-8 shadow-2xl rounded-3xl space-y-6">
           
+          {paramUnpaid && (
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-950/60 via-purple-950/40 to-slate-900 border border-indigo-500/40 text-indigo-200 text-xs flex items-start gap-3 shadow-xl shadow-indigo-950/40">
+              <Sparkles className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+              <div className="space-y-0.5">
+                <p className="font-bold text-white text-xs">Annual Plan Activation</p>
+                <p className="text-[11px] text-slate-300">
+                  Please choose your preferred annual plan below to activate your digital smart card and commercial studio access. You can select between Basic, Pro, or Advanced at any time.
+                </p>
+              </div>
+            </div>
+          )}
+
           {error && (
             <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
@@ -762,6 +792,101 @@ function SignUpForm() {
           {step === 2 && (
             <div className="space-y-5 animate-in fade-in duration-200">
               
+              {/* Step 2 Plan Selection Grid: Customer's Choice */}
+              <div className="space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-bold text-slate-200 uppercase tracking-wider">
+                    Select Your Preferred Plan
+                  </label>
+                  <span className="text-[11px] text-indigo-400 font-medium">
+                    Chosen: <strong className="text-white font-bold">{activePlan.name}</strong> (₹{activePlan.price}/yr)
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {/* Basic Plan */}
+                  <div
+                    onClick={() => setSelectedPlanKey('Basic')}
+                    className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-2 relative ${
+                      selectedPlanKey === 'Basic'
+                        ? 'bg-indigo-950/50 border-indigo-500 shadow-lg shadow-indigo-500/15 text-white ring-2 ring-indigo-500/50'
+                        : 'bg-slate-950/80 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-900/40'
+                    }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-bold uppercase tracking-wider text-slate-300">Basic</span>
+                      {selectedPlanKey === 'Basic' ? (
+                        <CheckCircle2 className="w-4 h-4 text-indigo-400" />
+                      ) : (
+                        <span className="w-3.5 h-3.5 rounded-full border border-slate-700" />
+                      )}
+                    </div>
+                    <div>
+                      <div className="text-xl font-extrabold text-white">₹{plans.Basic.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
+                      <div className="text-[10px] text-slate-400 font-medium">1 Digital Card • Standard QR</div>
+                    </div>
+                    <div className="text-[10px] text-slate-400 pt-1.5 border-t border-slate-800/80">
+                      Direct VCF Download & Leads
+                    </div>
+                  </div>
+
+                  {/* Pro Plan (Most Popular) */}
+                  <div
+                    onClick={() => setSelectedPlanKey('Pro')}
+                    className={`p-3.5 rounded-2xl border-2 cursor-pointer transition-all space-y-2 relative ${
+                      selectedPlanKey === 'Pro'
+                        ? 'bg-gradient-to-b from-indigo-950/80 to-purple-950/60 border-indigo-500 shadow-xl shadow-indigo-500/25 text-white ring-2 ring-indigo-500/50'
+                        : 'bg-slate-950/80 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-900/40'
+                    }`}
+                  >
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-500 to-pink-500 text-[8px] font-extrabold text-white uppercase tracking-wider shadow-sm whitespace-nowrap">
+                      ⭐ Most Popular
+                    </span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">Pro</span>
+                      {selectedPlanKey === 'Pro' ? (
+                        <CheckCircle2 className="w-4 h-4 text-indigo-400" />
+                      ) : (
+                        <span className="w-3.5 h-3.5 rounded-full border border-slate-700" />
+                      )}
+                    </div>
+                    <div>
+                      <div className="text-xl font-black text-white">₹{plans.Pro.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
+                      <div className="text-[10px] text-indigo-200 font-medium">Up to 3 Cards • Custom Domain</div>
+                    </div>
+                    <div className="text-[10px] text-indigo-200/80 pt-1.5 border-t border-indigo-900/50">
+                      WhatsApp Store + Lead Engine
+                    </div>
+                  </div>
+
+                  {/* Advanced Plan */}
+                  <div
+                    onClick={() => setSelectedPlanKey('Advanced')}
+                    className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-2 relative ${
+                      selectedPlanKey === 'Advanced'
+                        ? 'bg-rose-950/40 border-rose-500 shadow-lg shadow-rose-500/15 text-white ring-2 ring-rose-500/50'
+                        : 'bg-slate-950/80 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-900/40'
+                    }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-bold uppercase tracking-wider text-rose-300">Advanced</span>
+                      {selectedPlanKey === 'Advanced' ? (
+                        <CheckCircle2 className="w-4 h-4 text-rose-400" />
+                      ) : (
+                        <span className="w-3.5 h-3.5 rounded-full border border-slate-700" />
+                      )}
+                    </div>
+                    <div>
+                      <div className="text-xl font-extrabold text-white">₹{plans.Advanced.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
+                      <div className="text-[10px] text-slate-400 font-medium">Up to 5 Cards • 5 Domains</div>
+                    </div>
+                    <div className="text-[10px] text-slate-400 pt-1.5 border-t border-slate-800/80">
+                      4K Video CDN & Priority SLA
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Order Breakdown Box */}
               <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
@@ -795,7 +920,7 @@ function SignUpForm() {
                   </div>
                   <div className="flex justify-between text-slate-400 text-[11px]">
                     <span>GST (18% Included)</span>
-                    <span className="text-slate-200 font-medium">₹0.15</span>
+                    <span className="text-slate-200 font-medium">₹{(activePlan.price - (activePlan.price / 1.18)).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-white font-bold text-xs pt-2 border-t border-slate-800">
                     <span>Total Net Amount Payable</span>

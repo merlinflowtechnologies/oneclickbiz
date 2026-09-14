@@ -41,7 +41,10 @@ import {
   X
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { exportBrochurePDF } from '@/lib/pdf-export';
+import { toPng } from 'html-to-image';
+import jsPDF from 'jspdf';
+import QRCode from 'qrcode';
+import { savePDF, exportBrochurePDF } from '@/lib/pdf-export';
 import { getCurrentUserPlan, PlanTierType } from '@/lib/plan-guards';
 import PlanLockGate from '@/components/common/PlanLockGate';
 
@@ -109,6 +112,9 @@ export default function BrochureStudio() {
   const logoFileRef = useRef<HTMLInputElement | null>(null);
   const coverImageFileRef = useRef<HTMLInputElement | null>(null);
   const featureImageFileRef = useRef<HTMLInputElement | null>(null);
+  const outerSpreadExportRef = useRef<HTMLDivElement | null>(null);
+  const innerSpreadExportRef = useRef<HTMLDivElement | null>(null);
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>('');
 
   // Brochure State
   const [data, setData] = useState<BrochureData>({
@@ -168,6 +174,22 @@ export default function BrochureStudio() {
       role: 'Managing Director, Prestige Urban Spaces'
     }
   });
+
+  // Generate crisp local QR code dataURL for offline/reliable canvas export
+  useEffect(() => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://oneclickbiz.in';
+    const targetUrl = `${origin}/v/${data.slug || 'alex'}`;
+    QRCode.toDataURL(targetUrl, {
+      width: 300,
+      margin: 1,
+      color: {
+        dark: '#0f172a',
+        light: '#ffffff'
+      }
+    }).then(setQrCodeDataUrl).catch(err => {
+      console.error('QR code generation error:', err);
+    });
+  }, [data.slug]);
 
   // Load Session Data
   useEffect(() => {
@@ -297,9 +319,81 @@ export default function BrochureStudio() {
   const currentTheme = themes.find(t => t.id === selectedTheme) || themes[0];
   const isLight = selectedTheme === 'minimal-white';
 
+  /**
+   * Flattens computed styles onto all descendant elements in a cloned DOM tree.
+   * Prevents html-to-image from failing on Tailwind v4's oklch() / lab() CSS color functions.
+   */
+  const flattenStyles = (original: HTMLElement, clone: HTMLElement) => {
+    const sourceEls = Array.from(original.querySelectorAll('*')) as HTMLElement[];
+    const cloneEls = Array.from(clone.querySelectorAll('*')) as HTMLElement[];
+    const props = [
+      'color', 'background-color', 'border-color', 'border-top-color',
+      'border-right-color', 'border-bottom-color', 'border-left-color',
+      'outline-color', 'text-decoration-color', 'fill', 'stroke',
+      'background', 'background-image',
+    ];
+    sourceEls.forEach((el, i) => {
+      const computed = window.getComputedStyle(el);
+      const target = cloneEls[i] as HTMLElement;
+      if (!target) return;
+      props.forEach(prop => {
+        const val = computed.getPropertyValue(prop);
+        if (val) {
+          (target.style as any)[prop.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase())] = val;
+        }
+      });
+      const bg = computed.getPropertyValue('background-image');
+      if (bg && bg !== 'none') target.style.backgroundImage = bg;
+    });
+    const rootComputed = window.getComputedStyle(original);
+    props.forEach(prop => {
+      const val = rootComputed.getPropertyValue(prop);
+      if (val) {
+        (clone.style as any)[prop.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase())] = val;
+      }
+    });
+  };
+
+  /** Captures a DOM element to PNG, safe against oklch/lab color parse errors.
+   * Pre-processes the element's computed styles inline so html-to-image doesn't
+   * choke on Tailwind v4 oklch() / lab() color functions.
+   */
+  const captureToPng = async (el: HTMLElement): Promise<string> => {
+    const allEls = [el, ...Array.from(el.querySelectorAll('*'))] as HTMLElement[];
+    const COLOR_PROPS: (keyof CSSStyleDeclaration)[] = [
+      'color', 'backgroundColor', 'borderColor', 'borderTopColor',
+      'borderRightColor', 'borderBottomColor', 'borderLeftColor',
+      'outlineColor', 'textDecorationColor', 'fill', 'stroke'
+    ];
+    const saved: Array<{ el: HTMLElement; prop: keyof CSSStyleDeclaration; prev: string }> = [];
+    allEls.forEach(node => {
+      const cs = window.getComputedStyle(node);
+      COLOR_PROPS.forEach(prop => {
+        const resolved = cs[prop] as string;
+        if (resolved && resolved !== '') {
+          saved.push({ el: node, prop, prev: (node.style as any)[prop] ?? '' });
+          (node.style as any)[prop] = resolved;
+        }
+      });
+      const bgImg = cs.backgroundImage;
+      if (bgImg && bgImg !== 'none') {
+        saved.push({ el: node, prop: 'backgroundImage', prev: node.style.backgroundImage });
+        node.style.backgroundImage = bgImg;
+      }
+    });
+    try {
+      return await toPng(el, { pixelRatio: 2, cacheBust: true });
+    } finally {
+      saved.forEach(({ el: node, prop, prev }) => {
+        (node.style as any)[prop] = prev;
+      });
+    }
+  };
+
   const handlePreview = async () => {
     setIsExporting(true);
     try {
+      // Use pure-jsPDF brochure export — no HTML rendering, no CSS color issues
       const res = await exportBrochurePDF({
         companyName: data.companyName,
         tagline: data.tagline,
@@ -315,10 +409,11 @@ export default function BrochureStudio() {
         stats: data.stats,
         services: data.services,
         whyChooseUs: data.whyChooseUs,
-        testimonial: data.testimonial
+        testimonial: data.testimonial,
       });
       if (res && res.blobUrl) {
-        setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename: res.filename });
+        const filename = `oneclickbiz-brochure-${selectedFormat}-${(data.slug || 'brochure').toLowerCase()}.pdf`;
+        setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename });
       }
     } catch (err) {
       console.error('Brochure preview error:', err);
@@ -330,7 +425,26 @@ export default function BrochureStudio() {
   const handleExport = async (type: 'pdf' | 'png-outer' | 'png-inner') => {
     setIsExporting(true);
     try {
-      if (type === 'pdf') {
+      if (type === 'png-outer') {
+        if (!outerSpreadExportRef.current) throw new Error('Export reference not ready');
+        const dataUrl = await captureToPng(outerSpreadExportRef.current);
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `oneclickbiz-brochure-outer-${selectedFormat}-${data.slug || 'brochure'}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else if (type === 'png-inner') {
+        if (!innerSpreadExportRef.current) throw new Error('Inner spread not available for flyer');
+        const dataUrl = await captureToPng(innerSpreadExportRef.current);
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `oneclickbiz-brochure-inner-${selectedFormat}-${data.slug || 'brochure'}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else if (type === 'pdf') {
+        // Pure jsPDF export — no CSS color parsing, guaranteed to work
         const res = await exportBrochurePDF({
           companyName: data.companyName,
           tagline: data.tagline,
@@ -346,45 +460,13 @@ export default function BrochureStudio() {
           stats: data.stats,
           services: data.services,
           whyChooseUs: data.whyChooseUs,
-          testimonial: data.testimonial
+          testimonial: data.testimonial,
         });
         if (res && res.blobUrl) {
           setLastExportedPdf({ url: res.blobUrl, filename: res.filename });
         }
-      } else {
-        // High-res PNG export (300 DPI equivalent)
-        const canvas = document.createElement('canvas');
-        canvas.width = 1200;
-        canvas.height = 800;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.fillStyle = '#0f172a';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          ctx.fillStyle = '#6366f1';
-          ctx.fillRect(0, 0, canvas.width, 16);
-          
-          ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 44px sans-serif';
-          ctx.fillText((data.companyName || 'Apex Digital Studio').toUpperCase(), 60, 100);
-          
-          ctx.font = 'normal 24px sans-serif';
-          ctx.fillStyle = '#94a3b8';
-          ctx.fillText(data.tagline || 'Design • Engineering • High-Growth Systems', 60, 145);
-          
-          ctx.font = 'bold 36px sans-serif';
-          ctx.fillStyle = '#ffffff';
-          ctx.fillText(data.headline || 'Transforming Brands Into Industry Leaders', 60, 240);
-          
-          ctx.font = 'normal 22px sans-serif';
-          ctx.fillStyle = '#cbd5e1';
-          ctx.fillText((data.aboutText || '').slice(0, 100) + '...', 60, 310);
-          
-          const a = document.createElement('a');
-          a.href = canvas.toDataURL('image/png');
-          a.download = `oneclickbiz-brochure-${type}-${data.slug || 'brochure'}.png`;
-          a.click();
-        }
       }
+
       setExportSuccess(true);
       confetti({
         particleCount: 90,
@@ -694,7 +776,7 @@ export default function BrochureStudio() {
                       <div className="flex flex-col items-center my-auto">
                         <div className="p-2 rounded-xl bg-white shadow-xl">
                           <img 
-                            src={`https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(`http://localhost:3000/v/${data.slug}`)}&color=0f172a`} 
+                            src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(`https://oneclickbiz.in/v/${data.slug}`)}&color=0f172a`} 
                             alt="Brochure QR"
                             className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
                           />
@@ -918,7 +1000,7 @@ export default function BrochureStudio() {
                       <div className="flex flex-col items-center my-auto">
                         <div className="p-3 rounded-2xl bg-white shadow-2xl">
                           <img 
-                            src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(`http://localhost:3000/v/${data.slug}`)}&color=0f172a`} 
+                            src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(`https://oneclickbiz.in/v/${data.slug}`)}&color=0f172a`} 
                             alt="BiFold QR"
                             className="w-24 h-24 sm:w-28 sm:h-28 object-contain"
                           />
@@ -1172,7 +1254,7 @@ export default function BrochureStudio() {
                   <div className="flex items-center gap-2">
                     <div className="p-1 rounded-lg bg-white shadow">
                       <img 
-                        src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(`http://localhost:3000/v/${data.slug}`)}&color=0f172a`} 
+                        src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(`https://oneclickbiz.in/v/${data.slug}`)}&color=0f172a`} 
                         alt="Flyer QR" 
                         className="w-10 h-10 object-contain"
                       />
@@ -1766,6 +1848,593 @@ export default function BrochureStudio() {
           </div>
         </div>
       )}
+
+      {/* ========================================================================= */}
+      {/* OFF-SCREEN HIGH-RESOLUTION EXPORT STAGE FOR html2canvas & jsPDF           */}
+      {/* Renders exact user content, styles, templates, colors, logos & QR codes  */}
+      {/* ========================================================================= */}
+      <div 
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          left: -9999,
+          top: 0,
+          pointerEvents: 'none',
+          zIndex: -9999,
+          opacity: 1
+        }}
+      >
+        {selectedFormat === 'tri-fold' && (
+          <>
+            {/* TRI-FOLD: OUTER SPREAD (1188px x 840px, A4 Landscape) */}
+            <div
+              ref={outerSpreadExportRef}
+              style={{ width: 1188, height: 840 }}
+              className={`select-none flex overflow-hidden border-0 ${currentTheme.bgPrimary}`}
+            >
+              <div className="w-full h-full grid grid-cols-3 divide-x divide-white/10 relative z-10">
+                {/* PANEL 1: INSIDE FLAP */}
+                <div className={`p-8 flex flex-col justify-between ${currentTheme.bgSecondary}`}>
+                  <div className="space-y-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-bold uppercase tracking-wider text-slate-300">
+                      <Award className="w-4 h-4 text-amber-400" /> Why Choose Us
+                    </div>
+                    <h3 className={`text-xl font-extrabold leading-snug ${currentTheme.textPrimary}`}>
+                      Built for Performance, Speed & Real Results
+                    </h3>
+                    <p className={`text-sm leading-relaxed ${currentTheme.textSecondary}`}>
+                      {data.aboutText}
+                    </p>
+                    <div className="space-y-2.5 pt-2">
+                      {data.whyChooseUs.map((item, idx) => (
+                        <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                          <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${currentTheme.accentColor}`} />
+                          <span className="leading-tight">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Customer Review */}
+                  <div className={`p-4 rounded-2xl ${currentTheme.cardBg} space-y-2`}>
+                    <div className="flex items-center gap-1 text-amber-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-amber-400" />
+                      ))}
+                    </div>
+                    <p className={`text-xs italic leading-relaxed ${currentTheme.textSecondary}`}>
+                      &ldquo;{data.testimonial.quote}&rdquo;
+                    </p>
+                    <p className="text-xs font-bold text-white">
+                      {data.testimonial.author} <span className="opacity-60">({data.testimonial.role})</span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* PANEL 2: BACK COVER */}
+                <div className={`p-8 flex flex-col justify-between items-center text-center ${currentTheme.bgPrimary}`}>
+                  <div className="space-y-2 w-full flex flex-col items-center">
+                    <span className={`text-xs font-bold uppercase tracking-widest ${currentTheme.accentColor}`}>
+                      Connect With Us
+                    </span>
+                    <h4 className={`text-xl font-extrabold ${currentTheme.textPrimary}`}>
+                      {data.companyName}
+                    </h4>
+                    <p className={`text-xs max-w-xs ${currentTheme.textSecondary}`}>
+                      Scan QR code to access our interactive digital vCard & start instant WhatsApp chat.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col items-center my-auto">
+                    <div className="p-4 rounded-2xl bg-white shadow-2xl">
+                      {qrCodeDataUrl ? (
+                        <img 
+                          src={qrCodeDataUrl} 
+                          alt="Brochure QR"
+                          className="w-36 h-36 object-contain"
+                        />
+                      ) : (
+                        <div className="w-36 h-36 bg-slate-100 flex items-center justify-center text-slate-800 text-xs font-mono">
+                          QR Code
+                        </div>
+                      )}
+                    </div>
+                    <span className="text-xs font-mono font-bold text-indigo-400 mt-2">
+                      oneclickbiz.in/v/{data.slug}
+                    </span>
+                  </div>
+
+                  <div className="w-full space-y-2 text-xs border-t border-white/10 pt-4">
+                    <div className="flex items-center justify-center gap-2 text-slate-300">
+                      <Phone className={`w-4 h-4 shrink-0 ${currentTheme.accentColor}`} />
+                      <span>{data.phone}</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 text-slate-300">
+                      <Mail className={`w-4 h-4 shrink-0 ${currentTheme.accentColor}`} />
+                      <span className="truncate">{data.email}</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 text-slate-300">
+                      <MapPin className={`w-4 h-4 shrink-0 ${currentTheme.accentColor}`} />
+                      <span className="truncate max-w-xs">{data.address}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* PANEL 3: FRONT COVER */}
+                <div className={`p-8 flex flex-col justify-between relative overflow-hidden ${currentTheme.bgSecondary}`}>
+                  {data.coverImageUrl && (
+                    <div 
+                      className="absolute inset-0 opacity-20 bg-cover bg-center pointer-events-none"
+                      style={{ backgroundImage: `url(${data.coverImageUrl})` }}
+                    />
+                  )}
+
+                  <div className="relative z-10 flex items-center gap-3">
+                    {data.logoUrl ? (
+                      <div className="w-12 h-12 rounded-xl bg-slate-900 border border-white/20 p-1.5 flex items-center justify-center overflow-hidden shrink-0 shadow">
+                        <img src={data.logoUrl} alt="Logo" className="w-full h-full object-contain" />
+                      </div>
+                    ) : (
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-tr ${currentTheme.gradientBadge} flex items-center justify-center font-black text-base shadow`}>
+                        {data.companyName.charAt(0)}
+                      </div>
+                    )}
+                    <div>
+                      <h4 className={`text-base font-black tracking-tight ${currentTheme.textPrimary}`}>
+                        {data.companyName}
+                      </h4>
+                      <p className={`text-xs uppercase tracking-wider ${currentTheme.textSecondary}`}>
+                        {data.tagline}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="relative z-10 space-y-3 my-auto">
+                    <div className="w-10 h-1 bg-amber-400 rounded-full" />
+                    <h2 className={`text-2xl font-black leading-tight tracking-tight ${currentTheme.textPrimary}`}>
+                      {data.headline}
+                    </h2>
+                    <p className={`text-xs leading-relaxed ${currentTheme.textSecondary}`}>
+                      {data.subheadline}
+                    </p>
+                  </div>
+
+                  <div className="relative z-10 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
+                    <span className={`font-semibold uppercase tracking-wider ${currentTheme.accentColor}`}>
+                      Tri-Fold Print Catalog
+                    </span>
+                    <span className="text-slate-400 font-mono">
+                      {new Date().getFullYear()} Edition
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* TRI-FOLD: INNER SPREAD (1188px x 840px, A4 Landscape) */}
+            <div
+              ref={innerSpreadExportRef}
+              style={{ width: 1188, height: 840 }}
+              className={`select-none flex overflow-hidden border-0 ${currentTheme.bgPrimary}`}
+            >
+              <div className="w-full h-full grid grid-cols-3 divide-x divide-white/10 relative z-10">
+                {/* INNER PANEL 1 */}
+                <div className={`p-8 flex flex-col justify-between ${currentTheme.bgSecondary}`}>
+                  <div className="space-y-3.5">
+                    <div className="flex items-center gap-2">
+                      <Briefcase className={`w-5 h-5 ${currentTheme.accentColor}`} />
+                      <span className={`text-xs font-bold uppercase tracking-wider ${currentTheme.textPrimary}`}>
+                        About Our Studio
+                      </span>
+                    </div>
+                    <h3 className={`text-lg font-extrabold ${currentTheme.textPrimary}`}>
+                      Driven by Innovation
+                    </h3>
+                    <p className={`text-xs leading-relaxed ${currentTheme.textSecondary}`}>
+                      {data.aboutText}
+                    </p>
+                    <p className={`text-xs leading-relaxed italic ${currentTheme.textSecondary}`}>
+                      &ldquo;{data.missionText}&rdquo;
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 pt-3 border-t border-white/10 text-center">
+                    <div className={`p-2.5 rounded-xl ${currentTheme.cardBg}`}>
+                      <p className={`text-base font-black ${currentTheme.accentColor}`}>{data.stats.stat1Number}</p>
+                      <p className="text-[10px] text-slate-400 truncate">{data.stats.stat1Label}</p>
+                    </div>
+                    <div className={`p-2.5 rounded-xl ${currentTheme.cardBg}`}>
+                      <p className={`text-base font-black ${currentTheme.accentColor}`}>{data.stats.stat2Number}</p>
+                      <p className="text-[10px] text-slate-400 truncate">{data.stats.stat2Label}</p>
+                    </div>
+                    <div className={`p-2.5 rounded-xl ${currentTheme.cardBg}`}>
+                      <p className={`text-base font-black ${currentTheme.accentColor}`}>{data.stats.stat3Number}</p>
+                      <p className="text-[10px] text-slate-400 truncate">{data.stats.stat3Label}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* INNER PANEL 2 */}
+                <div className={`p-8 flex flex-col justify-between ${currentTheme.bgPrimary}`}>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className={`text-xs font-bold uppercase tracking-wider ${currentTheme.accentColor}`}>
+                        Services & Offerings
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-medium">Bespoke</span>
+                    </div>
+
+                    <div className="space-y-3">
+                      {data.services.slice(0, 3).map(srv => (
+                        <div key={srv.id} className={`p-3.5 rounded-2xl ${currentTheme.cardBg} space-y-1.5`}>
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-xs font-bold text-white truncate max-w-[180px]">
+                              {srv.title}
+                            </h4>
+                            <span className={`text-[10px] font-bold font-mono px-2 py-0.5 rounded bg-amber-500/10 ${currentTheme.accentColor}`}>
+                              {srv.price}
+                            </span>
+                          </div>
+                          <p className={`text-[11px] line-clamp-2 leading-snug ${currentTheme.textSecondary}`}>
+                            {srv.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs text-slate-400 border-t border-white/10 pt-3">
+                    <span>Transparent Rates</span>
+                    <span className={`font-semibold ${currentTheme.accentColor}`}>100% Guaranteed</span>
+                  </div>
+                </div>
+
+                {/* INNER PANEL 3 */}
+                <div className={`p-8 flex flex-col justify-between ${currentTheme.bgSecondary}`}>
+                  <div className="space-y-3">
+                    <span className={`text-xs font-bold uppercase tracking-wider ${currentTheme.textPrimary}`}>
+                      Featured Portfolio
+                    </span>
+
+                    <div className="w-full h-36 rounded-2xl overflow-hidden relative shadow-md">
+                      <img 
+                        src={data.featureImageUrl} 
+                        alt="Portfolio Showcase" 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-3">
+                        <p className="text-xs font-bold text-white">Award-Winning Digital Ecosystems</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5 pt-1">
+                      {data.whyChooseUs.map((pt, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-xs text-slate-300">
+                          <Zap className={`w-3.5 h-3.5 shrink-0 ${currentTheme.accentColor}`} />
+                          <span className="truncate">{pt}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className={`p-3 rounded-2xl ${currentTheme.accentBg} flex items-center justify-between shadow`}>
+                    <div className="leading-tight">
+                      <p className="text-xs font-black">Ready to Start?</p>
+                      <p className="text-[10px] opacity-80">30-Min Strategy Consultation</p>
+                    </div>
+                    <div className="px-3 py-1.5 rounded-xl bg-black/20 text-xs font-bold">
+                      WhatsApp Us
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {selectedFormat === 'bi-fold' && (
+          <>
+            {/* BI-FOLD: OUTER SPREAD (1188px x 840px, A4 Landscape) */}
+            <div
+              ref={outerSpreadExportRef}
+              style={{ width: 1188, height: 840 }}
+              className={`select-none flex overflow-hidden border-0 ${currentTheme.bgPrimary}`}
+            >
+              <div className="w-full h-full grid grid-cols-2 divide-x divide-white/10 relative z-10">
+                {/* PAGE 4: BACK COVER */}
+                <div className={`p-10 flex flex-col justify-between items-center text-center ${currentTheme.bgPrimary}`}>
+                  <div className="space-y-2.5 w-full flex flex-col items-center">
+                    <span className={`text-xs font-bold uppercase tracking-widest ${currentTheme.accentColor}`}>
+                      Corporate Headquarters
+                    </span>
+                    <h3 className={`text-2xl font-extrabold ${currentTheme.textPrimary}`}>
+                      {data.companyName}
+                    </h3>
+                    <p className={`text-xs max-w-sm ${currentTheme.textSecondary}`}>
+                      Scan QR Code to save full contact vCard & launch WhatsApp chat.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col items-center my-auto">
+                    <div className="p-4 rounded-2xl bg-white shadow-2xl">
+                      {qrCodeDataUrl ? (
+                        <img 
+                          src={qrCodeDataUrl} 
+                          alt="BiFold QR"
+                          className="w-40 h-40 object-contain"
+                        />
+                      ) : (
+                        <div className="w-40 h-40 bg-slate-100 flex items-center justify-center text-slate-800 text-xs font-mono">
+                          QR Code
+                        </div>
+                      )}
+                    </div>
+                    <span className="text-xs font-mono font-bold text-indigo-400 mt-2.5">
+                      oneclickbiz.in/v/{data.slug}
+                    </span>
+                  </div>
+
+                  <div className="w-full space-y-2 text-xs border-t border-white/10 pt-4">
+                    <div className="flex items-center justify-center gap-2 text-slate-300">
+                      <Phone className={`w-4 h-4 ${currentTheme.accentColor}`} />
+                      <span>{data.phone}</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 text-slate-300">
+                      <Mail className={`w-4 h-4 ${currentTheme.accentColor}`} />
+                      <span>{data.email}</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 text-slate-300">
+                      <MapPin className={`w-4 h-4 ${currentTheme.accentColor}`} />
+                      <span className="truncate max-w-sm">{data.address}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* PAGE 1: FRONT COVER */}
+                <div className={`p-10 flex flex-col justify-between relative overflow-hidden ${currentTheme.bgSecondary}`}>
+                  {data.coverImageUrl && (
+                    <div 
+                      className="absolute inset-0 opacity-25 bg-cover bg-center pointer-events-none"
+                      style={{ backgroundImage: `url(${data.coverImageUrl})` }}
+                    />
+                  )}
+
+                  <div className="relative z-10 flex items-center gap-3.5">
+                    {data.logoUrl ? (
+                      <div className="w-14 h-14 rounded-2xl bg-slate-900 border border-white/20 p-2 flex items-center justify-center overflow-hidden shrink-0 shadow-lg">
+                        <img src={data.logoUrl} alt="Logo" className="w-full h-full object-contain" />
+                      </div>
+                    ) : (
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${currentTheme.gradientBadge} flex items-center justify-center font-black text-lg shadow-lg`}>
+                        {data.companyName.charAt(0)}
+                      </div>
+                    )}
+                    <div>
+                      <h3 className={`text-lg font-black tracking-tight ${currentTheme.textPrimary}`}>
+                        {data.companyName}
+                      </h3>
+                      <p className={`text-xs uppercase tracking-wider ${currentTheme.textSecondary}`}>
+                        {data.tagline}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="relative z-10 space-y-4 my-auto">
+                    <div className="w-12 h-1.5 bg-amber-400 rounded-full" />
+                    <h1 className={`text-3xl font-black leading-tight tracking-tight ${currentTheme.textPrimary}`}>
+                      {data.headline}
+                    </h1>
+                    <p className={`text-sm leading-relaxed ${currentTheme.textSecondary}`}>
+                      {data.subheadline}
+                    </p>
+                  </div>
+
+                  <div className="relative z-10 flex items-center justify-between border-t border-white/10 pt-4 text-xs">
+                    <span className={`font-bold uppercase tracking-wider ${currentTheme.accentColor}`}>
+                      Bi-Fold Executive Pamphlet
+                    </span>
+                    <span className="text-slate-400 font-mono">
+                      {new Date().getFullYear()} Edition
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* BI-FOLD: INNER SPREAD (1188px x 840px, A4 Landscape) */}
+            <div
+              ref={innerSpreadExportRef}
+              style={{ width: 1188, height: 840 }}
+              className={`select-none flex overflow-hidden border-0 ${currentTheme.bgPrimary}`}
+            >
+              <div className="w-full h-full grid grid-cols-2 divide-x divide-white/10 relative z-10">
+                {/* PAGE 2: ABOUT */}
+                <div className={`p-10 flex flex-col justify-between ${currentTheme.bgSecondary}`}>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2.5">
+                      <Briefcase className={`w-5 h-5 ${currentTheme.accentColor}`} />
+                      <span className={`text-xs font-bold uppercase tracking-wider ${currentTheme.textPrimary}`}>
+                        Company Overview
+                      </span>
+                    </div>
+                    <h3 className={`text-xl font-extrabold ${currentTheme.textPrimary}`}>
+                      Leading Innovation & Digital Craftsmanship
+                    </h3>
+                    <p className={`text-sm leading-relaxed ${currentTheme.textSecondary}`}>
+                      {data.aboutText}
+                    </p>
+                    <div className={`p-4 rounded-2xl ${currentTheme.cardBg}`}>
+                      <p className={`text-xs italic leading-relaxed ${currentTheme.textSecondary}`}>
+                        &ldquo;{data.missionText}&rdquo;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-center">
+                    <div className={`p-3 rounded-2xl ${currentTheme.cardBg}`}>
+                      <p className={`text-lg font-black ${currentTheme.accentColor}`}>{data.stats.stat1Number}</p>
+                      <p className="text-xs text-slate-400 truncate">{data.stats.stat1Label}</p>
+                    </div>
+                    <div className={`p-3 rounded-2xl ${currentTheme.cardBg}`}>
+                      <p className={`text-lg font-black ${currentTheme.accentColor}`}>{data.stats.stat2Number}</p>
+                      <p className="text-xs text-slate-400 truncate">{data.stats.stat2Label}</p>
+                    </div>
+                    <div className={`p-3 rounded-2xl ${currentTheme.cardBg}`}>
+                      <p className={`text-lg font-black ${currentTheme.accentColor}`}>{data.stats.stat3Number}</p>
+                      <p className="text-xs text-slate-400 truncate">{data.stats.stat3Label}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* PAGE 3: SERVICES */}
+                <div className={`p-10 flex flex-col justify-between ${currentTheme.bgPrimary}`}>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className={`text-xs font-bold uppercase tracking-wider ${currentTheme.accentColor}`}>
+                        Core Services & Pricing
+                      </span>
+                      <span className="text-xs text-slate-400 font-mono">Custom Delivery</span>
+                    </div>
+
+                    <div className="space-y-3">
+                      {data.services.map(srv => (
+                        <div key={srv.id} className={`p-4 rounded-2xl ${currentTheme.cardBg} space-y-1.5`}>
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-sm font-bold text-white truncate max-w-xs">
+                              {srv.title}
+                            </h4>
+                            <span className={`text-xs font-bold font-mono px-2.5 py-0.5 rounded bg-amber-500/10 ${currentTheme.accentColor}`}>
+                              {srv.price}
+                            </span>
+                          </div>
+                          <p className={`text-xs leading-relaxed ${currentTheme.textSecondary}`}>
+                            {srv.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className={`p-4 rounded-2xl ${currentTheme.accentBg} flex items-center justify-between shadow-lg`}>
+                    <div>
+                      <p className="text-sm font-black">Ready to Elevate Your Brand?</p>
+                      <p className="text-xs opacity-85">Connect for Instant Proposal</p>
+                    </div>
+                    <div className="px-4 py-2 rounded-xl bg-black/25 text-xs font-bold">
+                      Chat on WhatsApp
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {selectedFormat === 'flyer-a4' && (
+          /* FLYER: A4 PORTRAIT (840px x 1188px) */
+          <div
+            ref={outerSpreadExportRef}
+            style={{ width: 840, height: 1188 }}
+            className={`select-none p-10 flex flex-col justify-between border-0 overflow-hidden ${currentTheme.bgPrimary}`}
+          >
+            {/* TOP HEADER */}
+            <div className="flex items-center justify-between border-b border-white/10 pb-5">
+              <div className="flex items-center gap-4">
+                {data.logoUrl ? (
+                  <div className="w-14 h-14 rounded-2xl bg-slate-900 border border-white/20 p-2 flex items-center justify-center overflow-hidden shrink-0 shadow">
+                    <img src={data.logoUrl} alt="Logo" className="w-full h-full object-contain" />
+                  </div>
+                ) : (
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${currentTheme.gradientBadge} flex items-center justify-center font-black text-lg shadow`}>
+                    {data.companyName.charAt(0)}
+                  </div>
+                )}
+                <div>
+                  <h3 className={`text-lg font-black tracking-tight ${currentTheme.textPrimary}`}>
+                    {data.companyName}
+                  </h3>
+                  <p className={`text-xs uppercase tracking-wider ${currentTheme.textSecondary}`}>
+                    {data.tagline}
+                  </p>
+                </div>
+              </div>
+
+              <span className={`text-xs font-bold font-mono px-3 py-1.5 rounded-full bg-white/10 ${currentTheme.accentColor}`}>
+                {data.phone}
+              </span>
+            </div>
+
+            {/* HERO SECTION */}
+            <div className="space-y-4 my-4">
+              <div className="space-y-2">
+                <h1 className={`text-2xl font-black tracking-tight leading-tight ${currentTheme.textPrimary}`}>
+                  {data.headline}
+                </h1>
+                <p className={`text-xs leading-relaxed ${currentTheme.textSecondary}`}>
+                  {data.subheadline}
+                </p>
+              </div>
+
+              {/* Feature Image */}
+              <div className="w-full h-56 rounded-2xl overflow-hidden relative shadow-md">
+                <img 
+                  src={data.coverImageUrl} 
+                  alt="Hero" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-4">
+                  <p className="text-xs font-bold text-white">Delivering World-Class Digital Solutions Across 80+ Brands</p>
+                </div>
+              </div>
+            </div>
+
+            {/* SERVICES GRID */}
+            <div className="space-y-3">
+              <span className={`text-xs font-bold uppercase tracking-wider ${currentTheme.accentColor}`}>
+                Featured Services
+              </span>
+              <div className="grid grid-cols-3 gap-3">
+                {data.services.slice(0, 3).map(srv => (
+                  <div key={srv.id} className={`p-4 rounded-2xl ${currentTheme.cardBg} space-y-1`}>
+                    <h4 className="text-xs font-bold text-white truncate">{srv.title}</h4>
+                    <p className={`text-[10px] line-clamp-3 leading-tight ${currentTheme.textSecondary}`}>{srv.description}</p>
+                    <p className={`text-xs font-bold font-mono ${currentTheme.accentColor} pt-1`}>{srv.price}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* BOTTOM QR & FOOTER */}
+            <div className="flex items-center justify-between border-t border-white/10 pt-5">
+              <div className="space-y-1 text-xs">
+                <p className="font-bold text-white">{data.companyName}</p>
+                <p className={currentTheme.textSecondary}>{data.email} • {data.phone}</p>
+                <p className="text-slate-400 truncate max-w-sm">{data.address}</p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-xl bg-white shadow">
+                  {qrCodeDataUrl ? (
+                    <img 
+                      src={qrCodeDataUrl} 
+                      alt="Flyer QR" 
+                      className="w-16 h-16 object-contain"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 bg-slate-100 flex items-center justify-center text-slate-800 text-[9px] font-mono">
+                      QR Code
+                    </div>
+                  )}
+                </div>
+                <div className="text-left">
+                  <p className="text-xs font-bold text-white">Scan for vCard</p>
+                  <p className="text-[10px] text-indigo-400 font-mono">oneclickbiz.in/v/{data.slug}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
     </div>
   );

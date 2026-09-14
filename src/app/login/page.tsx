@@ -123,7 +123,7 @@ function LoginForm() {
           localStorage.setItem('oneclickbiz_user_plan', userPlan);
 
           if (!hasPaid) {
-            window.location.href = `/signup?email=${encodeURIComponent(data.user.email)}&name=${encodeURIComponent(data.user.name || '')}&slug=${encodeURIComponent(data.user.slug || '')}&step=2&plan=Pro&unpaid=true`;
+            window.location.href = `/signup?email=${encodeURIComponent(data.user.email)}&name=${encodeURIComponent(data.user.name || '')}&slug=${encodeURIComponent(data.user.slug || '')}&step=2&unpaid=true`;
           } else {
             window.location.href = redirectTarget;
           }
@@ -227,7 +227,7 @@ function LoginForm() {
               // STRICT POLICY: If user has not paid for an annual plan, DO NOT open active profile/dashboard!
               // Redirect immediately to payment confirmation via Cashfree.
               if (!hasPaid) {
-                router.push(`/signup?email=${encodeURIComponent(data.user.email)}&name=${encodeURIComponent(data.user.name)}&slug=${encodeURIComponent(data.user.slug || '')}&step=2&plan=Pro&unpaid=true`);
+                router.push(`/signup?email=${encodeURIComponent(data.user.email)}&name=${encodeURIComponent(data.user.name)}&slug=${encodeURIComponent(data.user.slug || '')}&step=2&unpaid=true`);
               } else {
                 router.push(redirectTarget);
               }
