@@ -63,7 +63,9 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
         website: dbProfile.website || fallback.website,
         address: dbProfile.address || fallback.address,
         theme: (dbProfile.theme as any) || fallback.theme,
-        avatarUrl: dbProfile.avatarUrl || fallback.avatarUrl,
+        avatarUrl: (['kishore', 'kishore-patel'].includes(cleanSlug) && (!dbProfile.avatarUrl || dbProfile.avatarUrl.includes('unsplash')))
+          ? fallback.avatarUrl
+          : (dbProfile.avatarUrl || fallback.avatarUrl),
         coverUrl: dbProfile.coverUrl || fallback.coverUrl,
         isPublished,
         isExpired,
