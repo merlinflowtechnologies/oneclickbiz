@@ -4,6 +4,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import QRCode from 'qrcode';
 import { BookingSlot, LeadItem, ProductItem, DigitalProfile } from '@/lib/types';
+import { downloadBlob } from '@/lib/download-utils';
 
 // Helper to format date
 function getFormattedDateTime(): string {
@@ -18,7 +19,8 @@ function getFormattedDateTime(): string {
 }
 
 /**
- * Saves the PDF directly to the user's computer/Downloads folder
+ * Saves the PDF directly to the user's computer/Downloads folder.
+ * Uses downloadBlob — the most reliable cross-browser method with no popup blockers.
  */
 export function savePDF(doc: jsPDF, filename: string) {
   if (typeof window === 'undefined') return { doc, blobUrl: '', filename };
@@ -26,25 +28,13 @@ export function savePDF(doc: jsPDF, filename: string) {
   let blobUrl = '';
   try {
     const blob = doc.output('blob');
-    blobUrl = URL.createObjectURL(blob);
+    blobUrl = downloadBlob(blob, filename);
   } catch (e) {
-    console.warn('Could not create blobUrl', e);
-  }
-
-  try {
-    // doc.save is the official, battle-tested jsPDF download mechanism
-    doc.save(filename);
-  } catch (err) {
-    console.warn('doc.save failed, falling back to anchor click', err);
-    if (blobUrl) {
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      setTimeout(() => {
-        if (document.body.contains(link)) document.body.removeChild(link);
-      }, 1000);
+    console.error('savePDF blob download error, attempting doc.save fallback:', e);
+    try {
+      doc.save(filename);
+    } catch (fallbackErr) {
+      console.error('savePDF doc.save fallback also failed:', fallbackErr);
     }
   }
 
@@ -575,20 +565,23 @@ export function exportInvoicePDF({
 /**
  * Generates & downloads a 300 DPI Print-Ready Visiting Card PDF (Front & Back)
  */
-export async function exportVisitingCardPDF(card: {
-  fullName?: string;
-  designation?: string;
-  companyName?: string;
-  tagline?: string;
-  phone?: string;
-  email?: string;
-  website?: string;
-  address?: string;
-  slug?: string;
-  accentColor?: string;
-  orientation?: 'horizontal' | 'vertical';
-  finish?: string;
-}) {
+export async function exportVisitingCardPDF(
+  card: {
+    fullName?: string;
+    designation?: string;
+    companyName?: string;
+    tagline?: string;
+    phone?: string;
+    email?: string;
+    website?: string;
+    address?: string;
+    slug?: string;
+    accentColor?: string;
+    orientation?: 'horizontal' | 'vertical';
+    finish?: string;
+  },
+  options: { shouldDownload?: boolean } = { shouldDownload: true }
+) {
   // ISO Business Card dimensions in pt (3.5 in x 2.0 in = 252 x 144 pt)
   const isHorizontal = card.orientation !== 'vertical';
   const width = isHorizontal ? 252 : 144;
@@ -715,36 +708,45 @@ export async function exportVisitingCardPDF(card: {
 
   // Save the PDF and open on screen
   const filename = `oneclickbiz-visiting-card-${(card.slug || 'card').toLowerCase()}.pdf`;
+  if (options.shouldDownload === false) {
+    const blob = doc.output('blob');
+    const blobUrl = URL.createObjectURL(blob);
+    return { doc, blobUrl, filename };
+  }
   return savePDF(doc, filename);
 }
 
 /**
  * Generates & downloads a formatted Multi-Page Print Brochure PDF
  */
-export async function exportBrochurePDF(brochure: {
-  companyName?: string;
-  tagline?: string;
-  headline?: string;
-  subheadline?: string;
-  aboutText?: string;
-  missionText?: string;
-  phone?: string;
-  email?: string;
-  website?: string;
-  address?: string;
-  slug?: string;
-  stats?: {
-    stat1Number?: string;
-    stat1Label?: string;
-    stat2Number?: string;
-    stat2Label?: string;
-    stat3Number?: string;
-    stat3Label?: string;
-  };
-  services?: Array<{ title: string; description: string; price: string }>;
-  whyChooseUs?: string[];
-  testimonial?: { quote: string; author: string; role: string };
-}) {
+export async function exportBrochurePDF(
+  brochure: {
+    companyName?: string;
+    tagline?: string;
+    headline?: string;
+    subheadline?: string;
+    aboutText?: string;
+    missionText?: string;
+    phone?: string;
+    email?: string;
+    website?: string;
+    address?: string;
+    slug?: string;
+    format?: string;
+    stats?: {
+      stat1Number?: string;
+      stat1Label?: string;
+      stat2Number?: string;
+      stat2Label?: string;
+      stat3Number?: string;
+      stat3Label?: string;
+    };
+    services?: Array<{ title: string; description: string; price: string }>;
+    whyChooseUs?: string[];
+    testimonial?: { quote: string; author: string; role: string };
+  },
+  options: { shouldDownload?: boolean } = { shouldDownload: true }
+) {
   const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
@@ -967,7 +969,13 @@ export async function exportBrochurePDF(brochure: {
   doc.setTextColor(148, 163, 184);
   doc.text('Created & Published with OneClickBiz Digital Card & Brochure Suite | https://oneclickbiz.in', pageWidth / 2, pageHeight - 30, { align: 'center' });
 
-  const filename = `oneclickbiz-brochure-${(brochure.slug || 'brochure').toLowerCase()}.pdf`;
+  const formatPrefix = brochure.format ? `${brochure.format}-` : '';
+  const filename = `oneclickbiz-brochure-${formatPrefix}${(brochure.slug || 'brochure').toLowerCase()}.pdf`;
+  if (options.shouldDownload === false) {
+    const blob = doc.output('blob');
+    const blobUrl = URL.createObjectURL(blob);
+    return { doc, blobUrl, filename };
+  }
   return savePDF(doc, filename);
 }
 

@@ -43,6 +43,7 @@ import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 import QRCode from 'qrcode';
 import { savePDF, exportVisitingCardPDF } from '@/lib/pdf-export';
+import { downloadDataUrl } from '@/lib/download-utils';
 
 export type CardTemplateId = 
   | 'matte-onyx'
@@ -142,7 +143,7 @@ export default function VisitingCardStudio() {
   const [exportSuccess, setExportSuccess] = useState(false);
   const [customLogoPreset, setCustomLogoPreset] = useState<string>('crest-crown');
   const [pdfPreviewModal, setPdfPreviewModal] = useState<{ isOpen: boolean; url: string; filename: string } | null>(null);
-  const [lastExportedPdf, setLastExportedPdf] = useState<{ url: string; filename: string } | null>(null);
+  const [lastExportedFile, setLastExportedFile] = useState<{ url: string; filename: string; fileType: 'PDF' | 'PNG' } | null>(null);
 
   // Card Content State
   const [cardData, setCardData] = useState<CardData>({
@@ -417,7 +418,7 @@ export default function VisitingCardStudio() {
       }
     });
     try {
-      return await toPng(el, { pixelRatio: 2, cacheBust: true });
+      return await toPng(el, { pixelRatio: 2, cacheBust: true, skipFonts: true });
     } finally {
       // Restore original inline styles
       saved.forEach(({ el: node, prop, prev }) => {
@@ -443,7 +444,7 @@ export default function VisitingCardStudio() {
         accentColor: cardData.accentColor,
         orientation: cardData.orientation,
         finish: cardData.finish,
-      });
+      }, { shouldDownload: false });
       if (res && res.blobUrl) {
         const filename = `oneclickbiz-visiting-card-${(cardData.slug || 'card').toLowerCase()}.pdf`;
         setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename });
@@ -459,18 +460,13 @@ export default function VisitingCardStudio() {
     setIsExporting(true);
     try {
       if (type === 'png-front' || type === 'png-back') {
-        // PNG export via html-to-image with computed-style flattening
         const ref = type === 'png-front' ? frontCardExportRef.current : backCardExportRef.current;
         if (!ref) throw new Error('Card export ref not initialized');
         const dataUrl = await captureToPng(ref);
-        const a = document.createElement('a');
-        a.href = dataUrl;
-        a.download = `oneclickbiz-card-${type === 'png-front' ? 'front' : 'back'}-${cardData.slug || 'card'}.png`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        const filename = `oneclickbiz-visiting-card-${type === 'png-front' ? 'front' : 'back'}-${(cardData.slug || 'card').toLowerCase()}.png`;
+        const blobUrl = downloadDataUrl(dataUrl, filename);
+        setLastExportedFile({ url: blobUrl || dataUrl, filename, fileType: 'PNG' });
       } else if (type === 'pdf') {
-        // PDF export via pure jsPDF — no CSS color parsing, guaranteed to work
         const res = await exportVisitingCardPDF({
           fullName: cardData.fullName,
           designation: cardData.designation,
@@ -484,21 +480,24 @@ export default function VisitingCardStudio() {
           accentColor: cardData.accentColor,
           orientation: cardData.orientation,
           finish: cardData.finish,
-        });
+        }, { shouldDownload: true });
         if (res && res.blobUrl) {
-          setLastExportedPdf({ url: res.blobUrl, filename: res.filename });
+          setLastExportedFile({ url: res.blobUrl, filename: res.filename, fileType: 'PDF' });
+        } else {
+          throw new Error('PDF generation returned no file');
         }
       }
 
       setExportSuccess(true);
       confetti({
         particleCount: 80,
-        spread: 60,
+        spread: 70,
         origin: { y: 0.6 }
       });
-      setTimeout(() => setExportSuccess(false), 3000);
-    } catch (e) {
-      console.error('Export error:', e);
+      setTimeout(() => setExportSuccess(false), 7000);
+    } catch (err) {
+      console.error('Visiting card export error:', err);
+      alert(`Download failed: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setIsExporting(false);
     }
@@ -1367,22 +1366,14 @@ export default function VisitingCardStudio() {
                   <ExternalLink className="w-3.5 h-3.5 text-indigo-400" />
                   <span>Open in New Tab</span>
                 </button>
-                <button
-                  onClick={() => {
-                    const link = document.createElement('a');
-                    link.href = pdfPreviewModal.url;
-                    link.download = pdfPreviewModal.filename;
-                    document.body.appendChild(link);
-                    link.click();
-                    setTimeout(() => {
-                      if (document.body.contains(link)) document.body.removeChild(link);
-                    }, 1500);
-                  }}
-                  className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow active:scale-95"
+                <a
+                  href={pdfPreviewModal.url}
+                  download={pdfPreviewModal.filename}
+                  className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow active:scale-95"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Save File</span>
-                </button>
+                  <span>Download / Save File</span>
+                </a>
                 <button
                   onClick={() => setPdfPreviewModal(null)}
                   className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition"
@@ -1422,23 +1413,33 @@ export default function VisitingCardStudio() {
       )}
 
       {/* FLOATING SUCCESS & QUICK OPEN TOAST BAR */}
-      {exportSuccess && lastExportedPdf && (
+      {exportSuccess && lastExportedFile && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-5 fade-in duration-300">
           <div className="flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-slate-900/95 border border-emerald-500/50 shadow-2xl backdrop-blur-md text-white">
             <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
               <CheckCircle2 className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-bold text-white">Visiting Card PDF Downloaded!</p>
-              <p className="text-[11px] text-slate-400">Saved as <span className="text-emerald-400 font-mono font-medium">{lastExportedPdf.filename}</span> in your Downloads folder</p>
+              <p className="text-xs font-bold text-white">Visiting Card {lastExportedFile.fileType} Ready!</p>
+              <p className="text-[11px] text-slate-400">Saved as <span className="text-emerald-400 font-mono font-medium">{lastExportedFile.filename}</span></p>
             </div>
-            <button
-              onClick={() => setPdfPreviewModal({ isOpen: true, url: lastExportedPdf.url, filename: lastExportedPdf.filename })}
-              className="ml-2 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow active:scale-95 flex items-center gap-1.5"
+            <a
+              href={lastExportedFile.url}
+              download={lastExportedFile.filename}
+              className="ml-2 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow active:scale-95 flex items-center gap-1.5"
             >
-              <Eye className="w-3.5 h-3.5" />
-              <span>Open / View PDF</span>
-            </button>
+              <Download className="w-3.5 h-3.5" />
+              <span>Download File</span>
+            </a>
+            {lastExportedFile.fileType === 'PDF' && (
+              <button
+                onClick={() => setPdfPreviewModal({ isOpen: true, url: lastExportedFile.url, filename: lastExportedFile.filename })}
+                className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow active:scale-95 flex items-center gap-1.5"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                <span>Open / View</span>
+              </button>
+            )}
             <button
               onClick={() => setExportSuccess(false)}
               className="p-1 text-slate-400 hover:text-white"
