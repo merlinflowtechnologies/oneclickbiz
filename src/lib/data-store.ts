@@ -16,7 +16,7 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
     whatsapp: '919876543210',
     website: 'https://himastech.com',
     address: 'Road No. 36, Jubilee Hills, Hyderabad, Telangana, India',
-    avatarUrl: '/kishore-patel.png',
+    avatarUrl: '/kishore-profile-v2.png',
     coverUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
     theme: 'modern-indigo',
     isPublished: true,

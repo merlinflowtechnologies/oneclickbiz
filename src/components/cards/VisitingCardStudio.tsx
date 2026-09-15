@@ -156,7 +156,7 @@ export default function VisitingCardStudio() {
     website: 'himastech.com',
     address: 'Jubilee Hills, Hyderabad, India',
     slug: 'kishore',
-    avatarUrl: '/kishore-patel.png',
+    avatarUrl: '/kishore-profile-v2.png',
     logoUrl: '',
     logoShape: 'rounded',
     logoSize: 'medium',

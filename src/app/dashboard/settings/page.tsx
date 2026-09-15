@@ -127,7 +127,7 @@ function SettingsContent() {
   const [billingEmail, setBillingEmail] = useState('kishore@himastech.com');
   const [billingPhone, setBillingPhone] = useState('+91 98765 43210');
   const [billingGst, setBillingGst] = useState('29ABCDE1234F1Z5');
-  const [accountAvatar, setAccountAvatar] = useState('/kishore-patel.png');
+  const [accountAvatar, setAccountAvatar] = useState('/kishore-profile-v2.png');
   const [accountDesignation, setAccountDesignation] = useState('Founder & Managing Director');
   const [showAvatarPresets, setShowAvatarPresets] = useState(false);
   const avatarFileInputRef = React.useRef<HTMLInputElement | null>(null);
@@ -615,7 +615,7 @@ function SettingsContent() {
               <span className="text-[11px] font-semibold text-indigo-300">Choose a Professional Avatar Preset:</span>
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
                 {[
-                  '/kishore-patel.png',
+                  '/kishore-profile-v2.png',
                   'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
                   'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
                   'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
