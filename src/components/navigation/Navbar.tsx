@@ -30,15 +30,13 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Brand Logo with Dark Acrylic Capsule for Logo Pop */}
+          {/* Brand Logo with Transparent Background matching Light Theme */}
           <Link href="/" className="flex items-center group flex-shrink-0 py-1">
-            <div className="px-3 py-1.5 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-sm group-hover:border-indigo-500/30 transition-all flex items-center">
-              <img 
-                src="/logo.png" 
-                alt="OneClickBiz - Business Made Simpler" 
-                className="h-9 sm:h-11 w-auto max-w-[190px] sm:max-w-[240px] object-contain transition-transform group-hover:scale-105 duration-200"
-              />
-            </div>
+            <img 
+              src="/logo-light.png" 
+              alt="OneClickBiz - Business Made Simpler" 
+              className="h-9 sm:h-11 w-auto max-w-[190px] sm:max-w-[240px] object-contain transition-transform group-hover:scale-105 duration-200"
+            />
           </Link>
 
           {/* Desktop Navigation Links */}

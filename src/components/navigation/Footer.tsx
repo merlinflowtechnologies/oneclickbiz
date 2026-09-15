@@ -106,15 +106,13 @@ export default function Footer() {
           {/* Brand & Verified Contact Card Column (5 Cols on LG) */}
           <div className="lg:col-span-5 space-y-4">
             
-            {/* Logo with clean dark capsule for pristine branding contrast */}
+            {/* Logo with transparent background matching Light Theme */}
             <Link href="/" className="inline-block group py-0.5">
-              <div className="px-3 py-1.5 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-sm group-hover:border-indigo-500/30 transition-all inline-flex items-center">
-                <img 
-                  src="/logo.png" 
-                  alt="OneClickBiz - Business Made Simpler" 
-                  className="h-9 sm:h-10 w-auto max-w-[180px] sm:max-w-[210px] object-contain transition-transform group-hover:scale-105 duration-200"
-                />
-              </div>
+              <img 
+                src="/logo-light.png" 
+                alt="OneClickBiz - Business Made Simpler" 
+                className="h-9 sm:h-10 w-auto max-w-[180px] sm:max-w-[210px] object-contain transition-transform group-hover:scale-105 duration-200"
+              />
             </Link>
 
             <p className="text-slate-600 leading-relaxed text-xs max-w-md">
