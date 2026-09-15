@@ -4,7 +4,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import QRCode from 'qrcode';
 import { BookingSlot, LeadItem, ProductItem, DigitalProfile } from '@/lib/types';
-import { downloadBlob } from '@/lib/download-utils';
+import { downloadBlob, serverDownload } from '@/lib/download-utils';
 
 // Helper to format date
 function getFormattedDateTime(): string {
@@ -20,7 +20,7 @@ function getFormattedDateTime(): string {
 
 /**
  * Saves the PDF directly to the user's computer/Downloads folder.
- * Uses downloadBlob — the most reliable cross-browser method with no popup blockers.
+ * Uses both server-backed Content-Disposition attachment stream and client downloadBlob.
  */
 export function savePDF(doc: jsPDF, filename: string) {
   if (typeof window === 'undefined') return { doc, blobUrl: '', filename };
@@ -28,14 +28,26 @@ export function savePDF(doc: jsPDF, filename: string) {
   let blobUrl = '';
   try {
     const blob = doc.output('blob');
-    blobUrl = downloadBlob(blob, filename);
+    blobUrl = URL.createObjectURL(blob);
   } catch (e) {
-    console.error('savePDF blob download error, attempting doc.save fallback:', e);
-    try {
-      doc.save(filename);
-    } catch (fallbackErr) {
-      console.error('savePDF doc.save fallback also failed:', fallbackErr);
+    console.warn('savePDF blob creation warning:', e);
+  }
+
+  // 1. Primary: Server-backed HTTP attachment download (100% cross-browser guarantee, no popup block)
+  try {
+    const dataUri = doc.output('datauristring');
+    serverDownload(dataUri, filename, 'application/pdf');
+  } catch (serverErr) {
+    console.warn('savePDF serverDownload error, using client stream:', serverErr);
+  }
+
+  // 2. Also trigger direct client download anchor
+  try {
+    if (blobUrl) {
+      downloadBlob(doc.output('blob'), filename);
     }
+  } catch (clientErr) {
+    console.warn('savePDF downloadBlob fallback:', clientErr);
   }
 
   return { doc, blobUrl, filename };

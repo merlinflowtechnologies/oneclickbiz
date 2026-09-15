@@ -43,7 +43,7 @@ import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 import QRCode from 'qrcode';
 import { savePDF, exportVisitingCardPDF } from '@/lib/pdf-export';
-import { downloadDataUrl } from '@/lib/download-utils';
+import { downloadDataUrl, serverDownload } from '@/lib/download-utils';
 
 export type CardTemplateId = 
   | 'matte-onyx'
@@ -464,6 +464,7 @@ export default function VisitingCardStudio() {
         if (!ref) throw new Error('Card export ref not initialized');
         const dataUrl = await captureToPng(ref);
         const filename = `oneclickbiz-visiting-card-${type === 'png-front' ? 'front' : 'back'}-${(cardData.slug || 'card').toLowerCase()}.png`;
+        serverDownload(dataUrl, filename, 'image/png');
         const blobUrl = downloadDataUrl(dataUrl, filename);
         setLastExportedFile({ url: blobUrl || dataUrl, filename, fileType: 'PNG' });
       } else if (type === 'pdf') {

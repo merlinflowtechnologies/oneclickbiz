@@ -45,7 +45,7 @@ import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 import QRCode from 'qrcode';
 import { savePDF, exportBrochurePDF } from '@/lib/pdf-export';
-import { downloadDataUrl } from '@/lib/download-utils';
+import { downloadDataUrl, serverDownload } from '@/lib/download-utils';
 import { getCurrentUserPlan, PlanTierType } from '@/lib/plan-guards';
 import PlanLockGate from '@/components/common/PlanLockGate';
 
@@ -430,12 +430,14 @@ export default function BrochureStudio() {
         if (!outerSpreadExportRef.current) throw new Error('Export reference not ready');
         const dataUrl = await captureToPng(outerSpreadExportRef.current);
         const filename = `oneclickbiz-brochure-outer-${selectedFormat}-${(data.slug || 'brochure').toLowerCase()}.png`;
+        serverDownload(dataUrl, filename, 'image/png');
         const blobUrl = downloadDataUrl(dataUrl, filename);
         setLastExportedFile({ url: blobUrl || dataUrl, filename, fileType: 'PNG' });
       } else if (type === 'png-inner') {
         if (!innerSpreadExportRef.current) throw new Error('Inner spread not available for flyer');
         const dataUrl = await captureToPng(innerSpreadExportRef.current);
         const filename = `oneclickbiz-brochure-inner-${selectedFormat}-${(data.slug || 'brochure').toLowerCase()}.png`;
+        serverDownload(dataUrl, filename, 'image/png');
         const blobUrl = downloadDataUrl(dataUrl, filename);
         setLastExportedFile({ url: blobUrl || dataUrl, filename, fileType: 'PNG' });
       } else if (type === 'pdf') {

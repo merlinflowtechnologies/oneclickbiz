@@ -52,6 +52,51 @@ export function downloadBlob(blob: Blob, filename: string): string {
 }
 
 /**
+ * Triggers a 100% reliable server-side file download via /api/download.
+ * Uses a temporary hidden <form method="POST" action="/api/download"> submit.
+ * When the browser receives the HTTP response with `Content-Disposition: attachment`,
+ * the browser's native download manager downloads the file directly to ~/Downloads
+ * without navigating away from the current page and without triggering popup blockers.
+ */
+export function serverDownload(base64Data: string, filename: string, contentType: string = 'application/pdf'): void {
+  if (typeof window === 'undefined') return;
+
+  try {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/api/download';
+    form.style.display = 'none';
+
+    const fnInput = document.createElement('input');
+    fnInput.type = 'hidden';
+    fnInput.name = 'filename';
+    fnInput.value = filename;
+    form.appendChild(fnInput);
+
+    const ctInput = document.createElement('input');
+    ctInput.type = 'hidden';
+    ctInput.name = 'contentType';
+    ctInput.value = contentType;
+    form.appendChild(ctInput);
+
+    const dataInput = document.createElement('input');
+    dataInput.type = 'hidden';
+    dataInput.name = 'base64';
+    dataInput.value = base64Data;
+    form.appendChild(dataInput);
+
+    document.body.appendChild(form);
+    form.submit();
+
+    setTimeout(() => {
+      if (document.body.contains(form)) document.body.removeChild(form);
+    }, 2000);
+  } catch (err) {
+    console.error('serverDownload form submit error:', err);
+  }
+}
+
+/**
  * Downloads a direct URL (e.g. an existing blob URL or data URL) by appending an <a> tag
  * and invoking native .click() directly.
  */
