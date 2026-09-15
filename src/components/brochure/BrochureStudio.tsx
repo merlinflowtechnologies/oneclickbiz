@@ -435,28 +435,35 @@ export default function BrochureStudio() {
   const handlePreview = async () => {
     setIsExporting(true);
     try {
-      // Use pure-jsPDF brochure export — no HTML rendering, no CSS color issues
-      const res = await exportBrochurePDF({
-        companyName: data.companyName,
-        tagline: data.tagline,
-        headline: data.headline,
-        subheadline: data.subheadline,
-        aboutText: data.aboutText,
-        missionText: data.missionText,
-        phone: data.phone,
-        email: data.email,
-        website: data.website,
-        address: data.address,
-        slug: data.slug,
-        format: selectedFormat,
-        stats: data.stats,
-        services: data.services,
-        whyChooseUs: data.whyChooseUs,
-        testimonial: data.testimonial,
-      }, { shouldDownload: false });
-      if (res && res.blobUrl) {
-        setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename: res.filename });
+      const outerRef = outerSpreadExportRef.current;
+      if (!outerRef) throw new Error('Brochure export reference not ready');
+
+      // Capture exact visual spreads from the high-res export stages
+      const outerDataUrl = await captureToPng(outerRef);
+      let innerDataUrl: string | null = null;
+      if (innerSpreadExportRef.current && selectedFormat !== 'flyer-a4') {
+        innerDataUrl = await captureToPng(innerSpreadExportRef.current);
       }
+
+      const isLandscape = selectedFormat !== 'flyer-a4';
+      const doc = new jsPDF({
+        orientation: isLandscape ? 'landscape' : 'portrait',
+        unit: 'pt',
+        format: 'a4'
+      });
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+
+      doc.addImage(outerDataUrl, 'PNG', 0, 0, pageWidth, pageHeight);
+      if (innerDataUrl) {
+        doc.addPage('a4', isLandscape ? 'landscape' : 'portrait');
+        doc.addImage(innerDataUrl, 'PNG', 0, 0, pageWidth, pageHeight);
+      }
+
+      const filename = `oneclickbiz-brochure-${selectedFormat}-${(data.slug || 'brochure').toLowerCase()}.pdf`;
+      const blob = doc.output('blob');
+      const blobUrl = URL.createObjectURL(blob);
+      setPdfPreviewModal({ isOpen: true, url: blobUrl, filename });
     } catch (err) {
       console.error('Brochure preview error:', err);
     } finally {
@@ -480,26 +487,36 @@ export default function BrochureStudio() {
         const blobUrl = downloadDataUrl(dataUrl, filename);
         setLastExportedFile({ url: blobUrl || dataUrl, filename, fileType: 'PNG' });
       } else if (type === 'pdf') {
-        // Pure jsPDF export — no CSS color parsing, guaranteed to work
-        const res = await exportBrochurePDF({
-          companyName: data.companyName,
-          tagline: data.tagline,
-          headline: data.headline,
-          subheadline: data.subheadline,
-          aboutText: data.aboutText,
-          missionText: data.missionText,
-          phone: data.phone,
-          email: data.email,
-          website: data.website,
-          address: data.address,
-          slug: data.slug,
-          format: selectedFormat,
-          stats: data.stats,
-          services: data.services,
-          whyChooseUs: data.whyChooseUs,
-          testimonial: data.testimonial,
-          qrCodeDataUrl: qrCodeDataUrl || undefined,
-        }, { shouldDownload: true });
+        const outerRef = outerSpreadExportRef.current;
+        if (!outerRef) throw new Error('Brochure export reference not ready');
+
+        // Capture exact visual spreads from the high-res export stages
+        const outerDataUrl = await captureToPng(outerRef);
+        let innerDataUrl: string | null = null;
+        if (innerSpreadExportRef.current && selectedFormat !== 'flyer-a4') {
+          innerDataUrl = await captureToPng(innerSpreadExportRef.current);
+        }
+
+        const isLandscape = selectedFormat !== 'flyer-a4';
+        const doc = new jsPDF({
+          orientation: isLandscape ? 'landscape' : 'portrait',
+          unit: 'pt',
+          format: 'a4'
+        });
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+
+        // Page 1: Exact Outer Spread
+        doc.addImage(outerDataUrl, 'PNG', 0, 0, pageWidth, pageHeight);
+
+        // Page 2: Exact Inner Spread (if Tri-Fold / Bi-Fold)
+        if (innerDataUrl) {
+          doc.addPage('a4', isLandscape ? 'landscape' : 'portrait');
+          doc.addImage(innerDataUrl, 'PNG', 0, 0, pageWidth, pageHeight);
+        }
+
+        const filename = `oneclickbiz-brochure-${selectedFormat}-${(data.slug || 'brochure').toLowerCase()}.pdf`;
+        const res = savePDF(doc, filename);
         if (res && res.blobUrl) {
           setLastExportedFile({ url: res.blobUrl, filename: res.filename, fileType: 'PDF' });
           setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename: res.filename });

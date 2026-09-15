@@ -455,25 +455,35 @@ export default function VisitingCardStudio() {
   const handlePreview = async () => {
     setIsExporting(true);
     try {
-      // Use the pure-jsPDF path for preview — no HTML rendering, no CSS color issues
-      const res = await exportVisitingCardPDF({
-        fullName: cardData.fullName,
-        designation: cardData.designation,
-        companyName: cardData.companyName,
-        tagline: cardData.tagline,
-        phone: cardData.phone,
-        email: cardData.email,
-        website: cardData.website,
-        address: cardData.address,
-        slug: cardData.slug,
-        accentColor: cardData.accentColor,
-        orientation: cardData.orientation,
-        finish: cardData.finish,
-      }, { shouldDownload: false });
-      if (res && res.blobUrl) {
-        const filename = `oneclickbiz-visiting-card-${(cardData.slug || 'card').toLowerCase()}.pdf`;
-        setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename });
-      }
+      const frontRef = frontCardExportRef.current;
+      const backRef = backCardExportRef.current;
+      if (!frontRef || !backRef) throw new Error('Card export references not ready');
+
+      // Capture exact pixel-perfect visual design from front and back export stages
+      const frontDataUrl = await captureToPng(frontRef);
+      const backDataUrl = await captureToPng(backRef);
+
+      const isHorizontal = cardData.orientation !== 'vertical';
+      const width = isHorizontal ? 252 : 144;
+      const height = isHorizontal ? 144 : 252;
+
+      const doc = new jsPDF({
+        orientation: isHorizontal ? 'landscape' : 'portrait',
+        unit: 'pt',
+        format: [width, height]
+      });
+
+      // Page 1: Exact Front Design
+      doc.addImage(frontDataUrl, 'PNG', 0, 0, width, height);
+
+      // Page 2: Exact Back Design (QR & Details)
+      doc.addPage([width, height], isHorizontal ? 'landscape' : 'portrait');
+      doc.addImage(backDataUrl, 'PNG', 0, 0, width, height);
+
+      const filename = `oneclickbiz-visiting-card-${(cardData.slug || 'card').toLowerCase()}.pdf`;
+      const blob = doc.output('blob');
+      const blobUrl = URL.createObjectURL(blob);
+      setPdfPreviewModal({ isOpen: true, url: blobUrl, filename });
     } catch (err) {
       console.error('Visiting card preview error:', err);
     } finally {
@@ -492,21 +502,33 @@ export default function VisitingCardStudio() {
         const blobUrl = downloadDataUrl(dataUrl, filename);
         setLastExportedFile({ url: blobUrl || dataUrl, filename, fileType: 'PNG' });
       } else if (type === 'pdf') {
-        const res = await exportVisitingCardPDF({
-          fullName: cardData.fullName,
-          designation: cardData.designation,
-          companyName: cardData.companyName,
-          tagline: cardData.tagline,
-          phone: cardData.phone,
-          email: cardData.email,
-          website: cardData.website,
-          address: cardData.address,
-          slug: cardData.slug,
-          accentColor: cardData.accentColor,
-          orientation: cardData.orientation,
-          finish: cardData.finish,
-          qrCodeDataUrl: qrCodeDataUrl || undefined,
-        }, { shouldDownload: true });
+        const frontRef = frontCardExportRef.current;
+        const backRef = backCardExportRef.current;
+        if (!frontRef || !backRef) throw new Error('Card export references not ready');
+
+        // Capture exact pixel-perfect visual design from front and back export stages
+        const frontDataUrl = await captureToPng(frontRef);
+        const backDataUrl = await captureToPng(backRef);
+
+        const isHorizontal = cardData.orientation !== 'vertical';
+        const width = isHorizontal ? 252 : 144;
+        const height = isHorizontal ? 144 : 252;
+
+        const doc = new jsPDF({
+          orientation: isHorizontal ? 'landscape' : 'portrait',
+          unit: 'pt',
+          format: [width, height]
+        });
+
+        // Page 1: Exact Front Design
+        doc.addImage(frontDataUrl, 'PNG', 0, 0, width, height);
+
+        // Page 2: Exact Back Design (QR & Details)
+        doc.addPage([width, height], isHorizontal ? 'landscape' : 'portrait');
+        doc.addImage(backDataUrl, 'PNG', 0, 0, width, height);
+
+        const filename = `oneclickbiz-visiting-card-${(cardData.slug || 'card').toLowerCase()}.pdf`;
+        const res = savePDF(doc, filename);
         if (res && res.blobUrl) {
           setLastExportedFile({ url: res.blobUrl, filename: res.filename, fileType: 'PDF' });
           setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename: res.filename });
@@ -1496,7 +1518,7 @@ export default function VisitingCardStudio() {
             width: cardData.orientation === 'vertical' ? '600px' : '1050px', 
             height: cardData.orientation === 'vertical' ? '1050px' : '600px' 
           }}
-          className={`rounded-3xl p-12 relative overflow-hidden flex flex-col justify-between select-none shadow-none ${currentTemplate.bgFront} ${currentTemplate.border}`}
+          className={`rounded-none p-12 relative overflow-hidden flex flex-col justify-between select-none shadow-none ${currentTemplate.bgFront} ${currentTemplate.border}`}
         >
           {/* Finish overlays */}
           {cardData.finish === 'matte-black' && (
@@ -1511,15 +1533,19 @@ export default function VisitingCardStudio() {
             <div className="flex items-center space-x-5">
               {cardData.showLogo && (
                 <div className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center border shadow-xl ${
-                  isLight ? 'border-slate-300 bg-white' : 'border-white/20 bg-slate-900/80'
+                  cardData.logoShape === 'transparent' ? 'border-transparent' : (isLight ? 'border-slate-300 bg-white' : 'border-white/20 bg-slate-900/80')
                 }`}>
                   {cardData.logoUrl ? (
                     <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain p-2" />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center text-3xl font-black text-slate-950">
-                      {cardData.companyName.charAt(0) || 'O'}
-                    </div>
-                  )}
+                  ) : (() => {
+                    const preset = PRESET_LOGOS.find(p => p.id === customLogoPreset) || PRESET_LOGOS[0];
+                    const IconComp = preset.icon;
+                    return (
+                      <div className={`w-full h-full ${isLight ? 'bg-slate-900 text-white' : `bg-gradient-to-tr ${preset.bg} ${preset.color}`} flex items-center justify-center`}>
+                        <IconComp className="w-10 h-10" />
+                      </div>
+                    );
+                  })()}
                 </div>
               )}
               <div>
@@ -1573,7 +1599,7 @@ export default function VisitingCardStudio() {
             height: cardData.orientation === 'vertical' ? '1050px' : '600px',
             marginTop: '40px'
           }}
-          className={`rounded-3xl p-12 relative overflow-hidden flex flex-col justify-between select-none shadow-none ${currentTemplate.bgBack} ${currentTemplate.border}`}
+          className={`rounded-none p-12 relative overflow-hidden flex flex-col justify-between select-none shadow-none ${currentTemplate.bgBack} ${currentTemplate.border}`}
         >
           {/* Finish overlays */}
           {cardData.finish === 'matte-black' && (
@@ -1587,14 +1613,18 @@ export default function VisitingCardStudio() {
           <div className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
             <div className="flex items-center gap-3">
               {cardData.showLogo && (
-                <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl overflow-hidden flex items-center justify-center">
                   {cardData.logoUrl ? (
                     <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain" />
-                  ) : (
-                    <div className="w-full h-full bg-amber-500 rounded flex items-center justify-center text-base font-black text-slate-950">
-                      {cardData.companyName.charAt(0) || 'O'}
-                    </div>
-                  )}
+                  ) : (() => {
+                    const preset = PRESET_LOGOS.find(p => p.id === customLogoPreset) || PRESET_LOGOS[0];
+                    const IconComp = preset.icon;
+                    return (
+                      <div className={`w-full h-full ${isLight ? 'bg-slate-900 text-white' : `bg-gradient-to-tr ${preset.bg} ${preset.color}`} flex items-center justify-center`}>
+                        <IconComp className="w-6 h-6" />
+                      </div>
+                    );
+                  })()}
                 </div>
               )}
               <span className={`text-base font-bold uppercase tracking-widest ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
