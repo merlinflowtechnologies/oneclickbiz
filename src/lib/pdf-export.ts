@@ -34,10 +34,12 @@ export function savePDF(doc: jsPDF, filename: string) {
     console.warn('savePDF blob creation warning:', e);
   }
 
-  // 2. Direct binary octet-stream download (forces Chrome/Safari to save to disk, bypassing tab viewer)
+  // 2. Direct binary download (uses native application/pdf in Safari to avoid unknown-file quarantine)
   try {
+    const isSafari = typeof navigator !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const rawBuffer = doc.output('arraybuffer');
-    const downloadBlobObj = new Blob([rawBuffer], { type: 'application/octet-stream' });
+    const mime = isSafari ? 'application/pdf' : 'application/octet-stream';
+    const downloadBlobObj = new Blob([rawBuffer], { type: mime });
     downloadBlob(downloadBlobObj, filename);
   } catch (err) {
     console.warn('savePDF arraybuffer export failed, using blob fallback:', err);

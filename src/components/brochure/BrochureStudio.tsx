@@ -217,6 +217,22 @@ export default function BrochureStudio() {
     }
   }, []);
 
+  // Pre-generate crisp local QR code dataURL to ensure synchronous PDF export and eliminate Safari gesture expiry
+  useEffect(() => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://oneclickbiz.in';
+    const targetUrl = `${origin}/v/${data.slug || 'alex'}`;
+    QRCode.toDataURL(targetUrl, {
+      width: 320,
+      margin: 1,
+      color: {
+        dark: '#0f172a',
+        light: '#ffffff'
+      }
+    }).then(setQrCodeDataUrl).catch(err => {
+      console.warn('Brochure QR code generation warning:', err);
+    });
+  }, [data.slug]);
+
   const themes: {
     id: BrochureThemeId;
     name: string;
@@ -486,6 +502,7 @@ export default function BrochureStudio() {
         }, { shouldDownload: true });
         if (res && res.blobUrl) {
           setLastExportedFile({ url: res.blobUrl, filename: res.filename, fileType: 'PDF' });
+          setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename: res.filename });
         } else {
           throw new Error('Brochure PDF generation returned no file');
         }
@@ -1795,9 +1812,6 @@ export default function BrochureStudio() {
                 <a
                   href={pdfPreviewModal.url}
                   download={pdfPreviewModal.filename}
-                  onClick={(e) => {
-                    downloadUrl(pdfPreviewModal.url, pdfPreviewModal.filename);
-                  }}
                   className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow active:scale-95 cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -1815,12 +1829,12 @@ export default function BrochureStudio() {
             {/* PDF Object/Iframe Viewer */}
             <div className="flex-1 bg-slate-950 p-2 overflow-hidden flex flex-col">
               <object
-                data={`${pdfPreviewModal.url}#toolbar=1&navpanes=0`}
+                data={pdfPreviewModal.url}
                 type="application/pdf"
                 className="w-full h-full rounded-2xl border-0 bg-white"
               >
                 <iframe
-                  src={`${pdfPreviewModal.url}#toolbar=1&navpanes=0`}
+                  src={pdfPreviewModal.url}
                   className="w-full h-full rounded-2xl border-0 bg-white"
                   title="PDF Document Preview"
                 >

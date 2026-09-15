@@ -509,6 +509,7 @@ export default function VisitingCardStudio() {
         }, { shouldDownload: true });
         if (res && res.blobUrl) {
           setLastExportedFile({ url: res.blobUrl, filename: res.filename, fileType: 'PDF' });
+          setPdfPreviewModal({ isOpen: true, url: res.blobUrl, filename: res.filename });
         } else {
           throw new Error('PDF generation returned no file');
         }
@@ -1395,9 +1396,6 @@ export default function VisitingCardStudio() {
                 <a
                   href={pdfPreviewModal.url}
                   download={pdfPreviewModal.filename}
-                  onClick={(e) => {
-                    downloadUrl(pdfPreviewModal.url, pdfPreviewModal.filename);
-                  }}
                   className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow active:scale-95 cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -1415,12 +1413,12 @@ export default function VisitingCardStudio() {
             {/* PDF Object/Iframe Viewer */}
             <div className="flex-1 bg-slate-950 p-2 overflow-hidden flex flex-col">
               <object
-                data={`${pdfPreviewModal.url}#toolbar=1&navpanes=0`}
+                data={pdfPreviewModal.url}
                 type="application/pdf"
                 className="w-full h-full rounded-2xl border-0 bg-white"
               >
                 <iframe
-                  src={`${pdfPreviewModal.url}#toolbar=1&navpanes=0`}
+                  src={pdfPreviewModal.url}
                   className="w-full h-full rounded-2xl border-0 bg-white"
                   title="Visiting Card PDF Preview"
                 >

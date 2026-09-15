@@ -27,7 +27,12 @@ export function downloadBlob(blob: Blob, filename: string): string {
     // In Safari, keep the native MIME type (application/pdf or image/png)
     // In Chromium, use application/octet-stream to prevent tab interception
     let streamBlob = blob;
-    if (!isSafari && blob.type !== 'application/octet-stream') {
+    if (isSafari) {
+      const safariMime = filename.toLowerCase().endsWith('.pdf') ? 'application/pdf' : 'image/png';
+      if (blob.type !== safariMime) {
+        streamBlob = new Blob([blob], { type: safariMime });
+      }
+    } else if (blob.type !== 'application/octet-stream') {
       streamBlob = new Blob([blob], { type: 'application/octet-stream' });
     }
 
@@ -36,19 +41,15 @@ export function downloadBlob(blob: Blob, filename: string): string {
     link.href = url;
     link.download = filename;
     link.setAttribute('download', filename);
-    link.style.position = 'fixed';
-    link.style.left = '-9999px';
-    link.style.top = '-9999px';
-    link.style.opacity = '0';
-    link.style.pointerEvents = 'none';
+    link.style.display = 'none';
     document.body.appendChild(link);
 
-    // Safari WebKit requires MouseEvent dispatch for reliable download triggering
+    // Direct native click for standard browser action
     try {
+      link.click();
+    } catch {
       const evt = new MouseEvent('click', { bubbles: true, cancelable: true, view: window });
       link.dispatchEvent(evt);
-    } catch {
-      link.click();
     }
 
     // Clean up anchor element after 1.5 seconds
@@ -89,7 +90,11 @@ export function downloadDataUrl(dataUrl: string, filename: string): string {
     for (let i = 0; i < len; i++) {
       buffer[i] = binary.charCodeAt(i);
     }
-    const blob = new Blob([buffer], { type: 'application/octet-stream' });
+    const isSafari = typeof navigator !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const mime = isSafari
+      ? (filename.toLowerCase().endsWith('.pdf') ? 'application/pdf' : 'image/png')
+      : 'application/octet-stream';
+    const blob = new Blob([buffer], { type: mime });
     return downloadBlob(blob, filename);
   } catch (err) {
     console.error('Error converting dataUrl to blob, using fallback link:', err);
