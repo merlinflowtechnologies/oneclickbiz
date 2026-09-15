@@ -44,7 +44,8 @@ import {
   Palette,
   Eye,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Wifi
 } from 'lucide-react';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/navigation/Footer';
@@ -644,71 +645,221 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            {/* Bento Card 1: 1-Click VCF */}
-            <div className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/40 shadow-xl transition-all space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
-                <Download className="w-6 h-6" />
+            {/* Feature 1: Smart Visiting Card Studio */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 group-hover:scale-110 transition-transform">
+                  <CreditCard className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                  300 DPI Print
+                </span>
               </div>
-              <h4 className="text-lg font-bold text-white">1-Click VCF Contact Saving</h4>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
+                Smart Visiting Card Studio
+              </h4>
               <p className="text-xs leading-relaxed text-slate-400">
-                Instantly saves your phone, email, job title, company, profile photo, and website directly into the client&apos;s phone contacts with zero typing.
+                Design luxury business cards with 6 premium templates, 3D interactive flip preview, custom company logos, and download print-ready 300 DPI front & back PDFs.
               </p>
             </div>
 
-            {/* Bento Card 2: WhatsApp Mini Store */}
-            <div className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 shadow-xl transition-all space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-                <ShoppingBag className="w-6 h-6" />
+            {/* Feature 2: Contactless NFC */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20 group-hover:scale-110 transition-transform">
+                  <Wifi className="w-6 h-6 rotate-90" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
+                  Zero App Needed
+                </span>
               </div>
-              <h4 className="text-lg font-bold text-white">WhatsApp Mini Store</h4>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
+                Contactless NFC Smart Tap
+              </h4>
               <p className="text-xs leading-relaxed text-slate-400">
-                Showcase products or service packages. Customers add items to their cart and checkout with a pre-formatted order directly on your WhatsApp.
+                Tap your smart physical NFC card to any iPhone or Android phone. Transfers complete business info, social matrix, and vCard contact in under 0.2 seconds.
               </p>
             </div>
 
-            {/* Bento Card 3: Appointment Booking */}
-            <div className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/40 shadow-xl transition-all space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center">
-                <Calendar className="w-6 h-6" />
+            {/* Feature 3: WhatsApp Mini Store */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 group-hover:scale-110 transition-transform">
+                  <ShoppingBag className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                  Instant Orders
+                </span>
               </div>
-              <h4 className="text-lg font-bold text-white">Integrated Slot Booking</h4>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
+                WhatsApp Mini Storefront
+              </h4>
               <p className="text-xs leading-relaxed text-slate-400">
-                Publish available consultation slots with duration and price. Clients book directly on your card without back-and-forth messaging.
+                Showcase products or services with high-res photos and prices. Customers add to cart and checkout with automated pre-formatted orders directly on WhatsApp.
               </p>
             </div>
 
-            {/* Bento Card 4: Dynamic QR */}
-            <div className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-pink-500/40 shadow-xl transition-all space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-pink-500/10 text-pink-400 flex items-center justify-center">
-                <QrCode className="w-6 h-6" />
+            {/* Feature 4: Slot Booking */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/20 group-hover:scale-110 transition-transform">
+                  <Calendar className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">
+                  Calendar Sync
+                </span>
               </div>
-              <h4 className="text-lg font-bold text-white">Dynamic Branded QR Codes</h4>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+                Integrated Appointment Booking
+              </h4>
               <p className="text-xs leading-relaxed text-slate-400">
-                Generate high-resolution PNG/SVG vector QR codes with your brand logo. Change target URLs anytime without re-printing.
+                Publish available consultation slots with duration and fee structure. Clients book directly on your profile with automated calendar and reminder alerts.
               </p>
             </div>
 
-            {/* Bento Card 5: Blog & Brochure Studio */}
-            <div className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/40 shadow-xl transition-all space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
-                <BookOpen className="w-6 h-6" />
+            {/* Feature 5: Brochure Studio */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-sky-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-sky-500/10 text-sky-400 flex items-center justify-center border border-sky-500/20 group-hover:scale-110 transition-transform">
+                  <BookOpen className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/15 text-sky-300 border border-sky-500/30">
+                  Tri-Fold & Flyers
+                </span>
               </div>
-              <h4 className="text-lg font-bold text-white">Blog & Brochure Studio</h4>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-sky-300 transition-colors">
+                Brochure & Catalog Studio
+              </h4>
               <p className="text-xs leading-relaxed text-slate-400">
-                Publish rich SEO articles, design luxury digital visiting cards, and download print-ready 300 DPI PDF brochures instantly.
+                Design tri-fold, bi-fold, and A4 promo brochures with rich multi-page layouts, service pricing, QR codes, and export vector 300 DPI PDFs.
               </p>
             </div>
 
-            {/* Bento Card 6: Analytics */}
-            <div className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-sky-500/40 shadow-xl transition-all space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-sky-500/10 text-sky-400 flex items-center justify-center">
-                <TrendingUp className="w-6 h-6" />
+            {/* Feature 6: Blog Studio */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-pink-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-pink-500/10 text-pink-400 flex items-center justify-center border border-pink-500/20 group-hover:scale-110 transition-transform">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-pink-500/15 text-pink-300 border border-pink-500/30">
+                  SEO Ranked
+                </span>
               </div>
-              <h4 className="text-lg font-bold text-white">Event-Driven Analytics</h4>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-pink-300 transition-colors">
+                SEO Blog & Articles Studio
+              </h4>
               <p className="text-xs leading-relaxed text-slate-400">
-                Track dynamic QR scans, unique visitors, WhatsApp clicks, call buttons, and contact download conversions in real time.
+                Write and publish industry articles, company news, and case studies. Includes automatic schema markup, social preview cards, and Google search indexing.
+              </p>
+            </div>
+
+            {/* Feature 7: 1-Click VCF */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-teal-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-teal-500/10 text-teal-400 flex items-center justify-center border border-teal-500/20 group-hover:scale-110 transition-transform">
+                  <Download className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-teal-500/15 text-teal-300 border border-teal-500/30">
+                  Universal .VCF
+                </span>
+              </div>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-teal-300 transition-colors">
+                1-Click Phonebook VCF Save
+              </h4>
+              <p className="text-xs leading-relaxed text-slate-400">
+                Saves your phone number, email, designation, company, website, address, and profile photo straight into your customer&apos;s native mobile phonebook.
+              </p>
+            </div>
+
+            {/* Feature 8: Dynamic Branded QR */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20 group-hover:scale-110 transition-transform">
+                  <QrCode className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+                  Dynamic URL
+                </span>
+              </div>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
+                Dynamic Branded QR Engine
+              </h4>
+              <p className="text-xs leading-relaxed text-slate-400">
+                Generate high-resolution PNG & SVG vector QR codes with your custom logo. Update your digital landing page anytime without reprinting your materials.
+              </p>
+            </div>
+
+            {/* Feature 9: Analytics */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-violet-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-violet-500/10 text-violet-400 flex items-center justify-center border border-violet-500/20 group-hover:scale-110 transition-transform">
+                  <TrendingUp className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-violet-500/15 text-violet-300 border border-violet-500/30">
+                  Live Insights
+                </span>
+              </div>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-violet-300 transition-colors">
+                Real-Time Event & Lead Analytics
+              </h4>
+              <p className="text-xs leading-relaxed text-slate-400">
+                Track dynamic QR scans, unique visitors, WhatsApp inquiries, phone dials, and contact save conversion rates with detailed visual analytics.
+              </p>
+            </div>
+
+            {/* Feature 10: 12 Industry Templates */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-rose-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-400 flex items-center justify-center border border-rose-500/20 group-hover:scale-110 transition-transform">
+                  <Layers className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-300 border border-rose-500/30">
+                  50+ Templates
+                </span>
+              </div>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-rose-300 transition-colors">
+                12 Industry Categories &amp; Presets
+              </h4>
+              <p className="text-xs leading-relaxed text-slate-400">
+                Instant turnkey templates for Real Estate, Doctors, Fashion Boutiques, Salons, Institutes, Car Dealers, Lawyers, and Chartered Accountants.
+              </p>
+            </div>
+
+            {/* Feature 11: Automated Invoicing */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-orange-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-400 flex items-center justify-center border border-orange-500/20 group-hover:scale-110 transition-transform">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-orange-500/15 text-orange-300 border border-orange-500/30">
+                  Cashfree &amp; GST
+                </span>
+              </div>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-orange-300 transition-colors">
+                Instant Invoicing &amp; Security
+              </h4>
+              <p className="text-xs leading-relaxed text-slate-400">
+                Secure Cashfree payment gateway integration with instant automated GST invoice PDF downloads, transaction history, and encrypted cloud storage.
+              </p>
+            </div>
+
+            {/* Feature 12: Multi-Card Management */}
+            <div className="p-7 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-blue-500/50 shadow-xl transition-all space-y-3.5 group hover:-translate-y-1 duration-300">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
+                  <Smartphone className="w-6 h-6" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30">
+                  Custom Vanity URL
+                </span>
+              </div>
+              <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-blue-300 transition-colors">
+                Multi-Card Portfolio Hub
+              </h4>
+              <p className="text-xs leading-relaxed text-slate-400">
+                Create and manage multiple distinct digital cards under one centralized account with custom vanity URLs (<code className="text-blue-300 font-mono">/v/your-brand</code>).
               </p>
             </div>
 
