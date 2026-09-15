@@ -360,6 +360,31 @@ export default function BrochureStudio() {
    * choke on Tailwind v4 oklch() / lab() color functions.
    */
   const captureToPng = async (el: HTMLElement): Promise<string> => {
+    // Helper to sanitize any modern CSS color function (lab, oklch, etc.) into standard rgb/rgba
+    const sanitizeColorString = (val: string): string => {
+      if (!val || (!val.includes('lab(') && !val.includes('oklch('))) return val;
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1;
+        canvas.height = 1;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return val;
+        return val.replace(/(?:lab|oklch)\([^)]+\)/g, (match) => {
+          try {
+            ctx.clearRect(0, 0, 1, 1);
+            ctx.fillStyle = match;
+            ctx.fillRect(0, 0, 1, 1);
+            const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+            return `rgba(${r}, ${g}, ${b}, ${(a / 255).toFixed(2)})`;
+          } catch {
+            return match;
+          }
+        });
+      } catch {
+        return val;
+      }
+    };
+
     const allEls = [el, ...Array.from(el.querySelectorAll('*'))] as HTMLElement[];
     const COLOR_PROPS: (keyof CSSStyleDeclaration)[] = [
       'color', 'backgroundColor', 'borderColor', 'borderTopColor',
@@ -373,13 +398,13 @@ export default function BrochureStudio() {
         const resolved = cs[prop] as string;
         if (resolved && resolved !== '') {
           saved.push({ el: node, prop, prev: (node.style as any)[prop] ?? '' });
-          (node.style as any)[prop] = resolved;
+          (node.style as any)[prop] = sanitizeColorString(resolved);
         }
       });
       const bgImg = cs.backgroundImage;
       if (bgImg && bgImg !== 'none') {
         saved.push({ el: node, prop: 'backgroundImage', prev: node.style.backgroundImage });
-        node.style.backgroundImage = bgImg;
+        node.style.backgroundImage = sanitizeColorString(bgImg);
       }
     });
     try {
