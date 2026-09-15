@@ -45,7 +45,7 @@ import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 import QRCode from 'qrcode';
 import { savePDF, exportBrochurePDF } from '@/lib/pdf-export';
-import { downloadDataUrl, serverDownload } from '@/lib/download-utils';
+import { downloadDataUrl, downloadUrl, downloadBlob } from '@/lib/download-utils';
 import { getCurrentUserPlan, PlanTierType } from '@/lib/plan-guards';
 import PlanLockGate from '@/components/common/PlanLockGate';
 
@@ -430,14 +430,12 @@ export default function BrochureStudio() {
         if (!outerSpreadExportRef.current) throw new Error('Export reference not ready');
         const dataUrl = await captureToPng(outerSpreadExportRef.current);
         const filename = `oneclickbiz-brochure-outer-${selectedFormat}-${(data.slug || 'brochure').toLowerCase()}.png`;
-        serverDownload(dataUrl, filename, 'image/png');
         const blobUrl = downloadDataUrl(dataUrl, filename);
         setLastExportedFile({ url: blobUrl || dataUrl, filename, fileType: 'PNG' });
       } else if (type === 'png-inner') {
         if (!innerSpreadExportRef.current) throw new Error('Inner spread not available for flyer');
         const dataUrl = await captureToPng(innerSpreadExportRef.current);
         const filename = `oneclickbiz-brochure-inner-${selectedFormat}-${(data.slug || 'brochure').toLowerCase()}.png`;
-        serverDownload(dataUrl, filename, 'image/png');
         const blobUrl = downloadDataUrl(dataUrl, filename);
         setLastExportedFile({ url: blobUrl || dataUrl, filename, fileType: 'PNG' });
       } else if (type === 'pdf') {
@@ -1771,7 +1769,10 @@ export default function BrochureStudio() {
                 <a
                   href={pdfPreviewModal.url}
                   download={pdfPreviewModal.filename}
-                  className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow active:scale-95"
+                  onClick={(e) => {
+                    downloadUrl(pdfPreviewModal.url, pdfPreviewModal.filename);
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow active:scale-95 cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>Download / Save File</span>
@@ -1828,7 +1829,10 @@ export default function BrochureStudio() {
             <a
               href={lastExportedFile.url}
               download={lastExportedFile.filename}
-              className="ml-2 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow active:scale-95 flex items-center gap-1.5"
+              onClick={(e) => {
+                downloadUrl(lastExportedFile.url, lastExportedFile.filename);
+              }}
+              className="ml-2 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow active:scale-95 flex items-center gap-1.5 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download File</span>

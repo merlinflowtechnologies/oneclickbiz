@@ -3,96 +3,89 @@
 /**
  * Download Utilities for OneClickBiz
  * 
- * Provides robust, cross-browser file downloads that prevent:
- * 1. Popup-blocker suppression (caused by async window.open or target='_blank')
- * 2. Silent download failures on HTTPS
- * 3. Browser data URL length limit issues (>2MB) by converting to binary Blob
- * 4. Early URL revocation bugs where the download stream is cut off before completion
+ * Provides 100% reliable, cross-browser, client-side file downloads:
+ * 1. Converts payloads to binary Blobs with 'application/octet-stream' MIME type.
+ *    This prevents Chromium (Chrome, Edge, Brave, Opera) from intercepting PDFs
+ *    in its built-in tab viewer and forces direct saving to ~/Downloads.
+ * 2. Employs a hidden, isolated <a> tag with explicit `download` attribute and
+ *    NO `rel="noopener"` or `target="_blank"` that could trigger new tabs or popup blocks.
+ * 3. Operates entirely in memory without server network roundtrips (immune to Nginx
+ *    request-body limits, Cloudflare WAF blocks, or server 404s).
+ * 4. Preserves Object URLs for 2 minutes to ensure the browser download stream completes.
  */
 
 /**
  * Triggers an instant, reliable browser download of a Blob.
- * - Appends a hidden <a> tag
- * - Sets download attribute and object URL
- * - Uses native link.click() which triggers the browser's download manager
- * - Retains blob URL for 60 seconds so browser download manager has ample time to stream
+ * Wraps in application/octet-stream to guarantee direct OS saving.
  */
 export function downloadBlob(blob: Blob, filename: string): string {
   if (typeof window === 'undefined') return '';
 
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename;
-  link.rel = 'noopener';
-  link.style.position = 'fixed';
-  link.style.left = '-9999px';
-  link.style.top = '-9999px';
-  link.style.opacity = '0';
-  document.body.appendChild(link);
+  try {
+    // Force application/octet-stream so Chrome does NOT open PDFs in an internal tab
+    const streamBlob = blob.type === 'application/octet-stream'
+      ? blob
+      : new Blob([blob], { type: 'application/octet-stream' });
 
-  // Directly call .click() on the DOM element — this is what triggers native download in Blink, WebKit, and Gecko
-  link.click();
+    const url = URL.createObjectURL(streamBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.setAttribute('download', filename);
+    // Explicitly NO target or rel attributes — those trigger popup warnings or tab navigations
+    link.style.position = 'fixed';
+    link.style.left = '-9999px';
+    link.style.top = '-9999px';
+    link.style.opacity = '0';
+    link.style.pointerEvents = 'none';
+    document.body.appendChild(link);
 
-  // Defer removal of link from DOM
-  setTimeout(() => {
-    if (document.body.contains(link)) {
-      document.body.removeChild(link);
-    }
-  }, 1000);
+    // Trigger download
+    link.click();
 
-  // Keep the blob URL alive for 60 seconds to ensure the browser download stream finishes
-  setTimeout(() => {
-    try {
-      URL.revokeObjectURL(url);
-    } catch {}
-  }, 60000);
+    // Clean up anchor element after 1 second
+    setTimeout(() => {
+      if (document.body.contains(link)) {
+        document.body.removeChild(link);
+      }
+    }, 1000);
 
-  return url;
+    // Keep Object URL alive for 2 minutes to allow browser download stream to complete
+    setTimeout(() => {
+      try {
+        URL.revokeObjectURL(url);
+      } catch {}
+    }, 120000);
+
+    return url;
+  } catch (err) {
+    console.error('downloadBlob error:', err);
+    return '';
+  }
 }
 
 /**
- * Triggers a 100% reliable server-side file download via /api/download.
- * Uses a temporary hidden <form method="POST" action="/api/download"> submit.
- * When the browser receives the HTTP response with `Content-Disposition: attachment`,
- * the browser's native download manager downloads the file directly to ~/Downloads
- * without navigating away from the current page and without triggering popup blockers.
+ * Downloads a data URL (e.g. from canvas or html-to-image) reliably by
+ * converting it to a binary Blob in memory first. This completely avoids URL-length
+ * restrictions (>2MB) that cause image downloads to silently fail in Chromium/Safari.
  */
-export function serverDownload(base64Data: string, filename: string, contentType: string = 'application/pdf'): void {
-  if (typeof window === 'undefined') return;
+export function downloadDataUrl(dataUrl: string, filename: string): string {
+  if (typeof window === 'undefined') return '';
 
   try {
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '/api/download';
-    form.style.display = 'none';
-
-    const fnInput = document.createElement('input');
-    fnInput.type = 'hidden';
-    fnInput.name = 'filename';
-    fnInput.value = filename;
-    form.appendChild(fnInput);
-
-    const ctInput = document.createElement('input');
-    ctInput.type = 'hidden';
-    ctInput.name = 'contentType';
-    ctInput.value = contentType;
-    form.appendChild(ctInput);
-
-    const dataInput = document.createElement('input');
-    dataInput.type = 'hidden';
-    dataInput.name = 'base64';
-    dataInput.value = base64Data;
-    form.appendChild(dataInput);
-
-    document.body.appendChild(form);
-    form.submit();
-
-    setTimeout(() => {
-      if (document.body.contains(form)) document.body.removeChild(form);
-    }, 2000);
+    const parts = dataUrl.split(',');
+    const base64 = parts[1];
+    const binary = atob(base64);
+    const len = binary.length;
+    const buffer = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      buffer[i] = binary.charCodeAt(i);
+    }
+    const blob = new Blob([buffer], { type: 'application/octet-stream' });
+    return downloadBlob(blob, filename);
   } catch (err) {
-    console.error('serverDownload form submit error:', err);
+    console.error('Error converting dataUrl to blob, using fallback link:', err);
+    return downloadUrl(dataUrl, filename);
   }
 }
 
@@ -100,51 +93,53 @@ export function serverDownload(base64Data: string, filename: string, contentType
  * Downloads a direct URL (e.g. an existing blob URL or data URL) by appending an <a> tag
  * and invoking native .click() directly.
  */
-export function downloadUrl(url: string, filename: string): void {
-  if (typeof window === 'undefined') return;
-
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename;
-  link.setAttribute('download', filename);
-  link.rel = 'noopener';
-  link.style.display = 'none';
-  document.body.appendChild(link);
-  link.click();
-  setTimeout(() => {
-    if (document.body.contains(link)) document.body.removeChild(link);
-  }, 1000);
-}
-
-/**
- * Downloads a data URL (e.g. from canvas or html-to-image) reliably by
- * converting it to a binary Blob in memory first. This avoids URL-length restrictions
- * that cause large image downloads (>2MB) to silently fail in Chromium/Safari.
- */
-export function downloadDataUrl(dataUrl: string, filename: string): string {
+export function downloadUrl(url: string, filename: string): string {
   if (typeof window === 'undefined') return '';
 
   try {
-    const parts = dataUrl.split(',');
-    const mime = parts[0].match(/:(.*?);/)?.[1] || 'image/png';
-    const binary = atob(parts[1]);
-    const len = binary.length;
-    const buffer = new Uint8Array(len);
-    for (let i = 0; i < len; i++) {
-      buffer[i] = binary.charCodeAt(i);
-    }
-    const blob = new Blob([buffer], { type: mime });
-    return downloadBlob(blob, filename);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.setAttribute('download', filename);
+    link.style.position = 'fixed';
+    link.style.left = '-9999px';
+    link.style.top = '-9999px';
+    link.style.opacity = '0';
+    link.style.pointerEvents = 'none';
+    document.body.appendChild(link);
+
+    link.click();
+
+    setTimeout(() => {
+      if (document.body.contains(link)) {
+        document.body.removeChild(link);
+      }
+    }, 1000);
   } catch (err) {
-    console.error('Error converting dataUrl to blob, using fallback link:', err);
-    downloadUrl(dataUrl, filename);
-    return dataUrl;
+    console.error('downloadUrl error:', err);
+  }
+
+  return url;
+}
+
+/**
+ * Backward compatibility stub for serverDownload.
+ * Now routes directly to client download to prevent destructive page navigations.
+ */
+export function serverDownload(base64Data: string, filename: string, contentType: string = 'application/pdf'): void {
+  if (typeof window === 'undefined') return;
+  // If base64Data is a data URL or raw base64, route through client downloadDataUrl
+  if (base64Data.startsWith('data:')) {
+    downloadDataUrl(base64Data, filename);
+  } else {
+    downloadDataUrl(`data:${contentType};base64,${base64Data}`, filename);
   }
 }
 
-// Ensure window.saveAs uses our direct link.click() mechanism if called by jsPDF
+// Ensure window.saveAs uses our direct octet-stream downloadBlob mechanism if called by jsPDF
 if (typeof window !== 'undefined') {
   (window as any).saveAs = (blob: Blob, name: string) => {
     downloadBlob(blob, name);
   };
 }
+

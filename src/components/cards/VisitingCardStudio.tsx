@@ -43,7 +43,7 @@ import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 import QRCode from 'qrcode';
 import { savePDF, exportVisitingCardPDF } from '@/lib/pdf-export';
-import { downloadDataUrl, serverDownload } from '@/lib/download-utils';
+import { downloadDataUrl, downloadUrl, downloadBlob } from '@/lib/download-utils';
 
 export type CardTemplateId = 
   | 'matte-onyx'
@@ -464,7 +464,6 @@ export default function VisitingCardStudio() {
         if (!ref) throw new Error('Card export ref not initialized');
         const dataUrl = await captureToPng(ref);
         const filename = `oneclickbiz-visiting-card-${type === 'png-front' ? 'front' : 'back'}-${(cardData.slug || 'card').toLowerCase()}.png`;
-        serverDownload(dataUrl, filename, 'image/png');
         const blobUrl = downloadDataUrl(dataUrl, filename);
         setLastExportedFile({ url: blobUrl || dataUrl, filename, fileType: 'PNG' });
       } else if (type === 'pdf') {
@@ -1370,7 +1369,10 @@ export default function VisitingCardStudio() {
                 <a
                   href={pdfPreviewModal.url}
                   download={pdfPreviewModal.filename}
-                  className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow active:scale-95"
+                  onClick={(e) => {
+                    downloadUrl(pdfPreviewModal.url, pdfPreviewModal.filename);
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow active:scale-95 cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>Download / Save File</span>
@@ -1427,7 +1429,10 @@ export default function VisitingCardStudio() {
             <a
               href={lastExportedFile.url}
               download={lastExportedFile.filename}
-              className="ml-2 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow active:scale-95 flex items-center gap-1.5"
+              onClick={(e) => {
+                downloadUrl(lastExportedFile.url, lastExportedFile.filename);
+              }}
+              className="ml-2 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow active:scale-95 flex items-center gap-1.5 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download File</span>

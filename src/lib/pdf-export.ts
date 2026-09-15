@@ -20,34 +20,33 @@ function getFormattedDateTime(): string {
 
 /**
  * Saves the PDF directly to the user's computer/Downloads folder.
- * Uses both server-backed Content-Disposition attachment stream and client downloadBlob.
+ * Uses client-side binary octet-stream to guarantee immediate saving to disk.
  */
 export function savePDF(doc: jsPDF, filename: string) {
   if (typeof window === 'undefined') return { doc, blobUrl: '', filename };
 
   let blobUrl = '';
   try {
-    const blob = doc.output('blob');
-    blobUrl = URL.createObjectURL(blob);
+    // 1. Standard application/pdf blob for UI modal previewing
+    const previewBlob = doc.output('blob');
+    blobUrl = URL.createObjectURL(previewBlob);
   } catch (e) {
     console.warn('savePDF blob creation warning:', e);
   }
 
-  // 1. Primary: Server-backed HTTP attachment download (100% cross-browser guarantee, no popup block)
+  // 2. Direct binary octet-stream download (forces Chrome/Safari to save to disk, bypassing tab viewer)
   try {
-    const dataUri = doc.output('datauristring');
-    serverDownload(dataUri, filename, 'application/pdf');
-  } catch (serverErr) {
-    console.warn('savePDF serverDownload error, using client stream:', serverErr);
-  }
-
-  // 2. Also trigger direct client download anchor
-  try {
-    if (blobUrl) {
-      downloadBlob(doc.output('blob'), filename);
+    const rawBuffer = doc.output('arraybuffer');
+    const downloadBlobObj = new Blob([rawBuffer], { type: 'application/octet-stream' });
+    downloadBlob(downloadBlobObj, filename);
+  } catch (err) {
+    console.warn('savePDF arraybuffer export failed, using blob fallback:', err);
+    try {
+      const fallbackBlob = doc.output('blob');
+      downloadBlob(fallbackBlob, filename);
+    } catch (fallbackErr) {
+      console.error('savePDF download failed:', fallbackErr);
     }
-  } catch (clientErr) {
-    console.warn('savePDF downloadBlob fallback:', clientErr);
   }
 
   return { doc, blobUrl, filename };
