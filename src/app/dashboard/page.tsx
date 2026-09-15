@@ -90,7 +90,7 @@ export default function DashboardOverviewPage() {
   ];
 
   return (
-    <div className="p-6 lg:p-8 space-y-8 max-w-7xl mx-auto relative">
+    <div className="p-3.5 sm:p-6 lg:p-8 space-y-5 sm:space-y-8 max-w-7xl mx-auto relative">
       
       {/* Copied Toast Banner */}
       {copied && (
@@ -106,57 +106,74 @@ export default function DashboardOverviewPage() {
       )}
 
       {/* Top Banner / Welcome */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-indigo-950/60 via-purple-950/40 to-slate-900 border border-indigo-500/20 shadow-xl">
-        <div className="space-y-1.5 max-w-xl">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[11px] font-semibold">
-            <Sparkles className="w-3 h-3" /> Digital Card Active
+      <div className="p-4 sm:p-6 rounded-3xl bg-gradient-to-r from-indigo-950/70 via-purple-950/50 to-slate-900 border border-indigo-500/25 shadow-xl space-y-4">
+        
+        {/* Header Row */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[11px] font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Digital Card Active
+            </div>
+            <h1 className="text-lg sm:text-2xl font-black text-white tracking-tight break-words">
+              Welcome back, {profile.name}!
+            </h1>
+            <p className="text-xs text-slate-400">
+              Your smart profile and WhatsApp store are live and tracking interactions in real time.
+            </p>
           </div>
-          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight break-words">
-            Welcome back, {profile.name}!
-          </h1>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Your smart profile and WhatsApp store are live and tracking interactions in real time.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-2 sm:flex sm:items-center sm:flex-wrap gap-2 sm:gap-2.5 w-full lg:w-auto">
           <button 
             onClick={() => exportExecutiveSummaryPDF({ profile, bookings: bookings.length > 0 ? bookings : INITIAL_BOOKINGS, leads: leads.length > 0 ? leads : INITIAL_LEADS })}
-            className="col-span-2 sm:col-auto px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all shadow-md active:scale-95"
+            className="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold text-xs flex items-center gap-2 transition-all shadow-md active:scale-95 shrink-0"
             title="Download complete business analytics, bookings & leads PDF report"
           >
             <Download className="w-3.5 h-3.5 shrink-0" />
             <span>Export Report (PDF)</span>
           </button>
-          
-          <button 
-            onClick={handleCopy}
-            className="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-medium text-slate-200 flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95"
-          >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
-            <span>{copied ? 'Copied' : 'Copy Link'}</span>
-          </button>
-          
-          <Link 
-            href={`/v/${profile.slug}`}
-            target="_blank"
-            className="px-3 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-750 border border-slate-700 text-xs font-medium text-indigo-300 hover:text-white flex items-center justify-center gap-1.5 transition-all"
-          >
-            <span>Live Profile</span>
-            <ExternalLink className="w-3.5 h-3.5 shrink-0 text-indigo-400" />
-          </Link>
-          
+        </div>
+
+        {/* Live URL & Quick Actions Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-xs text-slate-400 font-medium hidden sm:inline">Profile Link:</span>
+            <span className="text-xs font-mono text-indigo-300 truncate bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+              oneclickbiz.in/v/{profile.slug}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap">
+            <button 
+              onClick={handleCopy}
+              className="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-850 border border-slate-700 text-xs font-medium text-slate-200 flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95"
+            >
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
+              <span>{copied ? 'Copied' : 'Copy Link'}</span>
+            </button>
+            
+            <Link 
+              href={`/v/${profile.slug}`}
+              target="_blank"
+              className="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-medium text-indigo-300 hover:text-white flex items-center justify-center gap-1.5 transition-all"
+            >
+              <span>Live Profile</span>
+              <ExternalLink className="w-3.5 h-3.5 shrink-0 text-indigo-400" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Studios Shortcuts Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
           <Link 
             href="/dashboard/visiting-cards"
-            className="px-3 py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 hover:text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-1.5"
+            className="p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 hover:text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-2"
           >
             <CreditCard className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-            <span>Cards Studio</span>
+            <span>Visiting Cards</span>
           </Link>
           
           <Link 
             href="/dashboard/brochures"
-            className="px-3 py-2.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 text-sky-300 hover:text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-1.5"
+            className="p-2.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 text-sky-300 hover:text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-2"
           >
             <BookOpen className="w-3.5 h-3.5 text-sky-400 shrink-0" />
             <span>Brochures</span>
@@ -164,7 +181,7 @@ export default function DashboardOverviewPage() {
 
           <Link 
             href="/dashboard/blogs"
-            className="px-3 py-2.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 text-purple-300 hover:text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-1.5"
+            className="p-2.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 text-purple-300 hover:text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-2"
           >
             <BookOpen className="w-3.5 h-3.5 text-purple-400 shrink-0" />
             <span>Blog Studio</span>
@@ -172,11 +189,12 @@ export default function DashboardOverviewPage() {
           
           <Link 
             href="/dashboard/builder"
-            className="px-3.5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-all shadow-md flex items-center justify-center gap-1.5"
+            className="p-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-all shadow-md flex items-center justify-center gap-2"
           >
-            Edit Studio
+            <span>Edit Profile</span>
           </Link>
         </div>
+
       </div>
 
       {/* Studios Row: Visiting Card Studio & Brochure Studio */}

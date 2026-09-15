@@ -360,34 +360,35 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       
       {/* Top App Header */}
       <header className="h-16 bg-slate-900 border-b border-slate-800 px-4 sm:px-6 flex items-center justify-between shrink-0 sticky top-0 z-40">
-        
-        <div className="flex items-center space-x-3">
-          <button 
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-lg text-slate-400 hover:text-white lg:hidden"
+        {/* Left Brand Header */}
+        <div className="flex items-center space-x-2 sm:space-x-4 min-w-0">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-850 lg:hidden transition shrink-0"
+            aria-label="Toggle Menu"
           >
-            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
-          <Link href="/" className="flex items-center group py-0.5">
+          <Link href="/" className="flex items-center group py-0.5 shrink-0">
             <img 
               src="/logo.png" 
               alt="OneClickBiz - Business Made Simpler" 
-              className="h-9 sm:h-11 w-auto max-w-[180px] sm:max-w-[210px] object-contain mix-blend-screen transition-transform group-hover:scale-105 duration-200"
+              className="h-7 sm:h-11 w-auto max-w-[125px] sm:max-w-[210px] object-contain mix-blend-screen transition-transform group-hover:scale-105 duration-200"
             />
           </Link>
 
           {/* Org Selector Badge */}
-          <div className="hidden sm:flex items-center space-x-2 pl-4 border-l border-slate-800">
-            <div className="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold flex items-center gap-1.5">
-              <span>{userSession.businessName}</span>
-              <span className="text-[10px] px-1 rounded bg-indigo-500/20 text-indigo-300 font-bold">{userSession.plan.toUpperCase()}</span>
+          <div className="hidden sm:flex items-center space-x-2 pl-4 border-l border-slate-800 min-w-0">
+            <div className="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold flex items-center gap-1.5 truncate">
+              <span className="truncate">{userSession.businessName}</span>
+              <span className="text-[10px] px-1 rounded bg-indigo-500/20 text-indigo-300 font-bold shrink-0">{userSession.plan.toUpperCase()}</span>
             </div>
           </div>
         </div>
 
         {/* Right Header Actions */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
           
           {userSession.plan === 'UNPAID' ? (
             <Link 
@@ -397,17 +398,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             >
               <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" />
               <span className="hidden sm:inline">Card Inactive (Activate Plan)</span>
-              <span className="sm:hidden">Activate</span>
+              <span className="sm:hidden text-[11px]">Activate</span>
             </Link>
           ) : (
             <Link 
               href={`/v/${userSession.slug}`} 
               target="_blank"
-              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-xs font-medium text-slate-200 flex items-center gap-1.5 border border-slate-700 transition-all hover:border-indigo-500/50 max-w-[155px] sm:max-w-[260px] shrink-0"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-750 text-xs font-medium text-slate-200 flex items-center gap-1.5 border border-slate-700 transition-all hover:border-indigo-500/50 shrink-0"
               title={`Live Card: /v/${userSession.slug}`}
             >
-              <span className="font-mono text-[11px] sm:text-xs truncate">
-                <span className="hidden sm:inline text-slate-400">Live Card: </span>/v/{userSession.slug}
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+              <span className="sm:hidden font-bold text-emerald-400 text-[11px]">Live Card</span>
+              <span className="hidden sm:inline font-mono text-xs truncate max-w-[200px]">
+                /v/{userSession.slug}
               </span>
               <ExternalLink className="w-3 h-3 text-indigo-400 shrink-0" />
             </Link>
