@@ -116,25 +116,19 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
         items: [
           {
             id: 'vid_1',
-            title: 'Himastech Digital Reality 2026 Architectural Showreel',
-            url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            title: 'OneClickBiz - Next-Gen Smart Business Card & NFC Showcase',
+            url: 'https://youtu.be/F1wdT1CA5gA',
             type: 'youtube',
-            embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            caption: 'Watch how we created high-converting 3D walkthroughs and marketing campaigns for 50+ real estate builders.'
+            embedUrl: 'https://www.youtube.com/embed/F1wdT1CA5gA',
+            caption: 'Watch how OneClickBiz transforms physical networking into dynamic leads, instant WhatsApp sales, and automated appointment bookings.'
           },
           {
             id: 'vid_2',
-            title: 'Behind the Scenes: 3D Virtual Villa Interactive Walkthrough',
-            url: 'https://www.instagram.com/reel/C8qL_XYZ123/',
-            type: 'instagram',
-            caption: 'Exclusive demonstration of our ultra-realistic interactive property tours.'
-          },
-          {
-            id: 'vid_3',
-            title: 'Client Success Case Study: 350% Qualified Buyer Inquiry Surge',
-            url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-            type: 'direct',
-            caption: 'Deep-dive walkthrough of property launch campaign results.'
+            title: 'Himastech Digital Reality - Immersive Virtual Walkthrough & Marketing Demo',
+            url: 'https://youtu.be/jI_19Wuno9M',
+            type: 'youtube',
+            embedUrl: 'https://www.youtube.com/embed/jI_19Wuno9M',
+            caption: 'Explore our high-converting 3D architectural reality marketing walkthroughs and client project case studies.'
           }
         ]
       },
