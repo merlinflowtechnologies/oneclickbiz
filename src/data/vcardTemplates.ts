@@ -62,7 +62,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Builders & Developers vCard',
     category: 'Real Estate',
     subCategory: 'Builders & Developers',
-    imgUrl: 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=800&q=80',
+    imgUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
     badge: 'Top Choice',
     tagline: 'Construction firms, residential & commercial builders',
     features: ['Ongoing project blueprints', 'Floor plan downloads', 'Brochure PDF link', 'RERA registration badge']
@@ -625,7 +625,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Bridal Mehendi Artist vCard',
     category: 'Events & Creative',
     subCategory: 'Mehendi Artists',
-    imgUrl: 'https://images.unsplash.com/photo-1584282479905-1a85e49c7fc1?auto=format&fit=crop&w=800&q=80',
+    imgUrl: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
     badge: 'Artisan',
     tagline: 'Arabic, Rajasthani, portrait & organic bridal henna',
     features: ['Henna design lookbook', 'Bridal package rates', 'Advance date booking form', '100% organic henna badge']

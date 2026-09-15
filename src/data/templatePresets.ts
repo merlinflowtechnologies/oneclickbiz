@@ -24,6 +24,40 @@ export interface TemplatePresetConfig {
 }
 
 export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>> = {
+  're-builders': {
+    name: 'Vikramaditya Roy',
+    designation: 'Managing Director & Chief Infrastructure Officer',
+    company: 'Skyline Landmark Developers & Builders',
+    bio: 'Crafting landmark residential towers, RERA-approved gated luxury townships, and next-generation commercial IT business parks. Over 2.5 million sq.ft of on-time delivered excellence.',
+    theme: 'modern-indigo',
+    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
+    email: 'projects@skylinedevelopers.com',
+    phone: '+91 98765 44001',
+    whatsapp: '919876544001',
+    website: 'https://skylinedevelopers.com',
+    address: 'Skyline Tower One, Financial District, Hyderabad, India',
+    services: [
+      { id: 's_bld_1', title: 'Schedule VIP Site Visit & Sample Flat Tour', description: 'Personalized private chauffeured tour of model apartments and clubhouse amenities.', durationMinutes: 60, price: 0, currency: '₹' },
+      { id: 's_bld_2', title: 'Architectural Blueprint & Floor Plan Consultation', description: 'Customization options, vastu compliance review, and carpet area breakdown.', durationMinutes: 45, price: 0, currency: '₹' },
+      { id: 's_bld_3', title: 'Home Loan Pre-Approval & Financial Advisory', description: 'Zero-processing fee partner bank tie-ups with SBI, HDFC & ICICI.', durationMinutes: 30, price: 0, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_bld_1', name: 'Skyline Imperia 3 & 4 BHK Luxury Residences', description: 'High-rise ultra luxury towers with 40,000 sq.ft sky-deck clubhouse. RERA Approved.', price: 18500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', category: 'Residential Towers', isAvailable: true },
+      { id: 'p_bld_2', name: 'Skyline Business Hub Commercial Office Suites', description: 'Grade-A tech park office spaces with 100% power backup and metro connectivity.', price: 9500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80', category: 'Commercial Suites', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_bld_1', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80', title: 'Skyline Imperia Exterior View', category: 'Completed Projects' },
+      { id: 'g_bld_2', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', title: 'Sample Luxury Living Room', category: 'Interiors' },
+      { id: 'g_bld_3', imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80', title: 'On-Site Construction Progress', category: 'Ongoing Projects' }
+    ],
+    socials: [
+      { id: 'soc_bld_wa', platform: 'whatsapp', url: 'https://wa.me/919876544001', label: 'Sales WhatsApp' },
+      { id: 'soc_bld_ph', platform: 'phone', url: 'tel:+919876544001', label: 'Call Desk' },
+      { id: 'soc_bld_in', platform: 'instagram', url: 'https://instagram.com/skylinedevelopers', label: 'Instagram' },
+      { id: 'soc_bld_li', platform: 'linkedin', url: 'https://linkedin.com/company/skyline-developers', label: 'LinkedIn' }
+    ]
+  },
   vcard39: {
     name: 'Richard Madden',
     designation: 'Senior Investigative Reporter & Media Correspondent',
