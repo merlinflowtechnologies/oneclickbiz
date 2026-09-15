@@ -22,17 +22,20 @@ export function downloadBlob(blob: Blob, filename: string): string {
   if (typeof window === 'undefined') return '';
 
   try {
-    // Force application/octet-stream so Chrome does NOT open PDFs in an internal tab
-    const streamBlob = blob.type === 'application/octet-stream'
-      ? blob
-      : new Blob([blob], { type: 'application/octet-stream' });
+    const isSafari = typeof navigator !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+    // In Safari, keep the native MIME type (application/pdf or image/png)
+    // In Chromium, use application/octet-stream to prevent tab interception
+    let streamBlob = blob;
+    if (!isSafari && blob.type !== 'application/octet-stream') {
+      streamBlob = new Blob([blob], { type: 'application/octet-stream' });
+    }
 
     const url = URL.createObjectURL(streamBlob);
     const link = document.createElement('a');
     link.href = url;
     link.download = filename;
     link.setAttribute('download', filename);
-    // Explicitly NO target or rel attributes — those trigger popup warnings or tab navigations
     link.style.position = 'fixed';
     link.style.left = '-9999px';
     link.style.top = '-9999px';
@@ -40,15 +43,20 @@ export function downloadBlob(blob: Blob, filename: string): string {
     link.style.pointerEvents = 'none';
     document.body.appendChild(link);
 
-    // Trigger download
-    link.click();
+    // Safari WebKit requires MouseEvent dispatch for reliable download triggering
+    try {
+      const evt = new MouseEvent('click', { bubbles: true, cancelable: true, view: window });
+      link.dispatchEvent(evt);
+    } catch {
+      link.click();
+    }
 
-    // Clean up anchor element after 1 second
+    // Clean up anchor element after 1.5 seconds
     setTimeout(() => {
       if (document.body.contains(link)) {
         document.body.removeChild(link);
       }
-    }, 1000);
+    }, 1500);
 
     // Keep Object URL alive for 2 minutes to allow browser download stream to complete
     setTimeout(() => {

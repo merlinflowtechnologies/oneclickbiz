@@ -590,6 +590,7 @@ export async function exportVisitingCardPDF(
     accentColor?: string;
     orientation?: 'horizontal' | 'vertical';
     finish?: string;
+    qrCodeDataUrl?: string;
   },
   options: { shouldDownload?: boolean } = { shouldDownload: true }
 ) {
@@ -683,14 +684,17 @@ export async function exportVisitingCardPDF(
   doc.setLineWidth(0.75);
   doc.roundedRect(6, 6, width - 12, height - 12, 4, 4, 'D');
 
-  // Generate crisp QR code
+  // Generate or reuse precomputed QR code
   try {
-    const qrUrl = `https://oneclickbiz.in/v/${card.slug || 'alex'}`;
-    const qrDataUrl = await QRCode.toDataURL(qrUrl, {
-      margin: 1,
-      width: 160,
-      color: { dark: '#ffffff', light: '#0f172a' }
-    });
+    let qrDataUrl = card.qrCodeDataUrl;
+    if (!qrDataUrl) {
+      const qrUrl = `https://oneclickbiz.in/v/${card.slug || 'alex'}`;
+      qrDataUrl = await QRCode.toDataURL(qrUrl, {
+        margin: 1,
+        width: 160,
+        color: { dark: '#ffffff', light: '#0f172a' }
+      });
+    }
     doc.addImage(qrDataUrl, 'PNG', 16, (height - 64) / 2, 64, 64);
   } catch (err) {
     console.error('QR code generation error:', err);
@@ -755,6 +759,7 @@ export async function exportBrochurePDF(
     services?: Array<{ title: string; description: string; price: string }>;
     whyChooseUs?: string[];
     testimonial?: { quote: string; author: string; role: string };
+    qrCodeDataUrl?: string;
   },
   options: { shouldDownload?: boolean } = { shouldDownload: true }
 ) {
@@ -788,12 +793,15 @@ export async function exportBrochurePDF(
 
   // QR Code on Cover
   try {
-    const qrUrl = `https://oneclickbiz.in/v/${brochure.slug || 'alex'}`;
-    const qrDataUrl = await QRCode.toDataURL(qrUrl, {
-      margin: 1,
-      width: 180,
-      color: { dark: '#ffffff', light: '#0f172a' }
-    });
+    let qrDataUrl = brochure.qrCodeDataUrl;
+    if (!qrDataUrl) {
+      const qrUrl = `https://oneclickbiz.in/v/${brochure.slug || 'alex'}`;
+      qrDataUrl = await QRCode.toDataURL(qrUrl, {
+        margin: 1,
+        width: 180,
+        color: { dark: '#ffffff', light: '#0f172a' }
+      });
+    }
     doc.addImage(qrDataUrl, 'PNG', pageWidth - 110, 25, 70, 70);
     doc.setTextColor(203, 213, 225);
     doc.setFontSize(6.5);

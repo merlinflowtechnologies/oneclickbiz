@@ -505,6 +505,7 @@ export default function VisitingCardStudio() {
           accentColor: cardData.accentColor,
           orientation: cardData.orientation,
           finish: cardData.finish,
+          qrCodeDataUrl: qrCodeDataUrl || undefined,
         }, { shouldDownload: true });
         if (res && res.blobUrl) {
           setLastExportedFile({ url: res.blobUrl, filename: res.filename, fileType: 'PDF' });
@@ -1449,26 +1450,23 @@ export default function VisitingCardStudio() {
             </div>
             <div>
               <p className="text-xs font-bold text-white">Visiting Card {lastExportedFile.fileType} Ready!</p>
-              <p className="text-[11px] text-slate-400">Saved as <span className="text-emerald-400 font-mono font-medium">{lastExportedFile.filename}</span></p>
+              <p className="text-[11px] text-slate-300">File: <span className="text-emerald-400 font-mono font-medium">{lastExportedFile.filename}</span></p>
             </div>
             <a
               href={lastExportedFile.url}
               download={lastExportedFile.filename}
-              onClick={(e) => {
-                downloadUrl(lastExportedFile.url, lastExportedFile.filename);
-              }}
-              className="ml-2 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow active:scale-95 flex items-center gap-1.5 cursor-pointer"
+              className="ml-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white text-xs font-extrabold shadow-lg active:scale-95 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download File</span>
+              <Download className="w-4 h-4" />
+              <span>Save to Downloads</span>
             </a>
             {lastExportedFile.fileType === 'PDF' && (
               <button
                 onClick={() => setPdfPreviewModal({ isOpen: true, url: lastExportedFile.url, filename: lastExportedFile.filename })}
-                className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow active:scale-95 flex items-center gap-1.5"
+                className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition border border-slate-700 active:scale-95 flex items-center gap-1.5 whitespace-nowrap"
               >
                 <Eye className="w-3.5 h-3.5" />
-                <span>Open / View</span>
+                <span>Open Preview</span>
               </button>
             )}
             <button
