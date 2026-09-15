@@ -392,20 +392,24 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {userSession.plan === 'UNPAID' ? (
             <Link 
               href="/dashboard/settings?checkout=true" 
-              className="px-3 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 text-xs font-semibold text-rose-300 flex items-center gap-1.5 border border-rose-500/30 transition-all shadow-sm"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-xs font-semibold text-rose-300 flex items-center gap-1.5 border border-rose-500/30 transition-all shadow-sm shrink-0"
               title="Card Inactive - Click to Activate via Cashfree"
             >
-              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-              <span>Card Inactive (Activate Plan)</span>
+              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" />
+              <span className="hidden sm:inline">Card Inactive (Activate Plan)</span>
+              <span className="sm:hidden">Activate</span>
             </Link>
           ) : (
             <Link 
               href={`/v/${userSession.slug}`} 
               target="_blank"
-              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 flex items-center gap-1.5 border border-slate-700 transition-all hover:border-indigo-500/50"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-xs font-medium text-slate-200 flex items-center gap-1.5 border border-slate-700 transition-all hover:border-indigo-500/50 max-w-[155px] sm:max-w-[260px] shrink-0"
+              title={`Live Card: /v/${userSession.slug}`}
             >
-              <span className="font-mono">Live Card: /v/{userSession.slug}</span>
-              <ExternalLink className="w-3 h-3 text-indigo-400" />
+              <span className="font-mono text-[11px] sm:text-xs truncate">
+                <span className="hidden sm:inline text-slate-400">Live Card: </span>/v/{userSession.slug}
+              </span>
+              <ExternalLink className="w-3 h-3 text-indigo-400 shrink-0" />
             </Link>
           )}
 
@@ -422,7 +426,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 window.location.href = '/login';
               }
             }}
-            className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] text-slate-400 hover:text-rose-400 border border-slate-800 transition"
+            className="px-2 sm:px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-[11px] text-slate-400 hover:text-rose-400 border border-slate-800 transition whitespace-nowrap shrink-0"
             title="Sign Out"
           >
             Sign Out
