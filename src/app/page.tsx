@@ -1001,36 +1001,140 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            {/* Service 1: Blog & Brochure Studio */}
-            <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-sky-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
+            {/* Service 1: Custom NFC Hardware */}
+            <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
               <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-sky-500/10 text-sky-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <BookOpen className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform border border-amber-500/20">
+                  <Wifi className="w-6 h-6 rotate-90" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-sky-400">Publishing & Content</span>
-                  <h3 className="text-base font-bold text-white">Blog & Brochure Studios</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">Hardware & Production</span>
+                  <h3 className="text-base font-bold text-white">Custom NFC & Laser Engraving</h3>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Author search-optimized blog posts with custom categories and featured covers. Generate multi-page business brochures with PDF download suites.
+                  Precision-crafted Matte PVC, Brushed Metal, and Eco-Bamboo NFC smart cards customized with your brand logo, employee name, and dynamic NFC chip encoding.
                 </p>
                 <ul className="space-y-1.5 text-[11px] text-slate-300 pt-2 border-t border-slate-800">
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" /> Rich blog post editor with tags</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" /> 300 DPI print-ready PDF export</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" /> 1-Click WhatsApp & social sharing</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Matte Black, Gold Metal & Wood</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> High-speed NTAG216 contactless chip</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Waterproof & scratch-resistant build</li>
                 </ul>
               </div>
               <div className="pt-2 border-t border-slate-800/80">
-                <span className="text-[11px] font-semibold text-sky-400 flex items-center gap-1.5">
-                  <BadgeCheck className="w-3.5 h-3.5" /> Full Studio Publishing
+                <span className="text-[11px] font-semibold text-amber-400 flex items-center gap-1.5">
+                  <BadgeCheck className="w-3.5 h-3.5" /> Physical Hardware Delivery
                 </span>
               </div>
             </div>
 
-            {/* Service 2: White Label Setup */}
+            {/* Service 2: Smart Visiting Card Studio */}
+            <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-sky-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-sky-500/10 text-sky-400 flex items-center justify-center group-hover:scale-110 transition-transform border border-sky-500/20">
+                  <CreditCard className="w-6 h-6" />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-sky-400">Graphic & Print Design</span>
+                  <h3 className="text-base font-bold text-white">Visiting Card Studio & 300 DPI PDF</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Design luxury business cards with real-time 3D interactive flip view, custom finishes (Gold, Matte, Neo-Glass), and download vector print-ready front & back PDFs.
+                </p>
+                <ul className="space-y-1.5 text-[11px] text-slate-300 pt-2 border-t border-slate-800">
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" /> 6 Luxury print presets & themes</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" /> 300 DPI CMYK commercial print ready</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" /> Dual-sided interactive 3D preview</li>
+                </ul>
+              </div>
+              <div className="pt-2 border-t border-slate-800/80">
+                <span className="text-[11px] font-semibold text-sky-400 flex items-center gap-1.5">
+                  <BadgeCheck className="w-3.5 h-3.5" /> High-Resolution Vector Export
+                </span>
+              </div>
+            </div>
+
+            {/* Service 3: WhatsApp Store Onboarding */}
+            <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-emerald-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform border border-emerald-500/20">
+                  <ShoppingBag className="w-6 h-6" />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Conversational Commerce</span>
+                  <h3 className="text-base font-bold text-white">WhatsApp Store Onboarding</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Our e-commerce team formats your product catalogs, configures tiered pricing, formats high-res images, and connects direct in-card WhatsApp cart checkout.
+                </p>
+                <ul className="space-y-1.5 text-[11px] text-slate-300 pt-2 border-t border-slate-800">
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" /> High-res product photo formatting</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" /> Pre-filled structured WhatsApp orders</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" /> In-card checkout cart integration</li>
+                </ul>
+              </div>
+              <div className="pt-2 border-t border-slate-800/80">
+                <span className="text-[11px] font-semibold text-emerald-400 flex items-center gap-1.5">
+                  <BadgeCheck className="w-3.5 h-3.5" /> Ready-to-Sell Catalog Setup
+                </span>
+              </div>
+            </div>
+
+            {/* Service 4: Appointment & Booking */}
+            <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform border border-purple-500/20">
+                  <Calendar className="w-6 h-6" />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400">Scheduling Engine</span>
+                  <h3 className="text-base font-bold text-white">Appointment & Booking Setup</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Set up consultation booking slots with automated calendar sync, buffer times, custom appointment durations, and automated client notifications.
+                </p>
+                <ul className="space-y-1.5 text-[11px] text-slate-300 pt-2 border-t border-slate-800">
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" /> Time slot availability matrix</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" /> Double-booking protection engine</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" /> Instant WhatsApp & Email alerts</li>
+                </ul>
+              </div>
+              <div className="pt-2 border-t border-slate-800/80">
+                <span className="text-[11px] font-semibold text-purple-400 flex items-center gap-1.5">
+                  <BadgeCheck className="w-3.5 h-3.5" /> Zero Double-Bookings Guaranteed
+                </span>
+              </div>
+            </div>
+
+            {/* Service 5: Blog & Brochure Studio */}
+            <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition-transform border border-cyan-500/20">
+                  <BookOpen className="w-6 h-6" />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-400">Publishing & Collateral</span>
+                  <h3 className="text-base font-bold text-white">SEO Blog & Brochure Studios</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Author search-optimized blog posts with custom categories and featured covers. Automatically generate multi-page business brochures with PDF download suites.
+                </p>
+                <ul className="space-y-1.5 text-[11px] text-slate-300 pt-2 border-t border-slate-800">
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-cyan-500 flex-shrink-0" /> Rich blog post editor with tags</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-cyan-500 flex-shrink-0" /> 300 DPI print-ready PDF export</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-cyan-500 flex-shrink-0" /> 1-Click WhatsApp & social sharing</li>
+                </ul>
+              </div>
+              <div className="pt-2 border-t border-slate-800/80">
+                <span className="text-[11px] font-semibold text-cyan-400 flex items-center gap-1.5">
+                  <BadgeCheck className="w-3.5 h-3.5" /> Full Content Publishing
+                </span>
+              </div>
+            </div>
+
+            {/* Service 6: White Label & Custom Domains */}
             <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-indigo-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
               <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform border border-indigo-500/20">
                   <Globe2 className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
@@ -1053,54 +1157,54 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Service 3: WhatsApp Store Onboarding */}
-            <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-emerald-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
+            {/* Service 7: Dynamic QR Engine */}
+            <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-pink-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
               <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <ShoppingBag className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-pink-500/10 text-pink-400 flex items-center justify-center group-hover:scale-110 transition-transform border border-pink-500/20">
+                  <QrCode className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Conversational Commerce</span>
-                  <h3 className="text-base font-bold text-white">WhatsApp Store Onboarding</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-pink-400">QR Engineering</span>
+                  <h3 className="text-base font-bold text-white">Dynamic Branded QR Systems</h3>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Our e-commerce experts format your product catalogs, set up tiered pricing, configure inventory, and connect direct WhatsApp cart routing so your business is ready to take orders instantly.
+                  Generate high-contrast vector QR codes with your company logo embedded. Change redirect URLs and campaign targets anytime in the cloud without reprinting materials.
                 </p>
                 <ul className="space-y-1.5 text-[11px] text-slate-300 pt-2 border-t border-slate-800">
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" /> High-res product photo formatting</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" /> Pre-filled structured order messages</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" /> In-card checkout cart integration</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-pink-500 flex-shrink-0" /> High-res SVG & PNG vector export</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-pink-500 flex-shrink-0" /> Real-time cloud target redirecting</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-pink-500 flex-shrink-0" /> Custom logo centering & color tuning</li>
                 </ul>
               </div>
               <div className="pt-2 border-t border-slate-800/80">
-                <span className="text-[11px] font-semibold text-emerald-400 flex items-center gap-1.5">
-                  <BadgeCheck className="w-3.5 h-3.5" /> Ready-to-Sell Catalog Setup
+                <span className="text-[11px] font-semibold text-pink-400 flex items-center gap-1.5">
+                  <BadgeCheck className="w-3.5 h-3.5" /> Zero Reprinting Required
                 </span>
               </div>
             </div>
 
-            {/* Service 4: Appointment & Booking */}
-            <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
+            {/* Service 8: Real-Time Event & Lead Analytics */}
+            <div className="p-7 rounded-3xl bg-slate-900 border border-slate-800 hover:border-violet-500/40 shadow-sm hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
               <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Calendar className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-violet-500/10 text-violet-400 flex items-center justify-center group-hover:scale-110 transition-transform border border-violet-500/20">
+                  <TrendingUp className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400">Scheduling Engine</span>
-                  <h3 className="text-base font-bold text-white">Appointment & Booking Automation</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-violet-400">Business Intelligence</span>
+                  <h3 className="text-base font-bold text-white">Lead Capture & Live Analytics</h3>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Set up consultation booking slots with automated calendar sync, buffer times, custom appointment durations, and automated client notifications for doctors, lawyers, and agencies.
+                  Real-time conversion tracking for dynamic QR scans, unique profile visitors, phone calls, WhatsApp inquiries, and 1-click contact save conversion rates.
                 </p>
                 <ul className="space-y-1.5 text-[11px] text-slate-300 pt-2 border-t border-slate-800">
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" /> Time slot availability matrix</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" /> Double-booking protection engine</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" /> Instant WhatsApp & Email alerts</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-violet-500 flex-shrink-0" /> Real-time scan & click telemetry</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-violet-500 flex-shrink-0" /> 1-Click contact save rate tracking</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-violet-500 flex-shrink-0" /> Exportable CSV & PDF lead summaries</li>
                 </ul>
               </div>
               <div className="pt-2 border-t border-slate-800/80">
-                <span className="text-[11px] font-semibold text-purple-400 flex items-center gap-1.5">
-                  <BadgeCheck className="w-3.5 h-3.5" /> Zero Double-Bookings Guaranteed
+                <span className="text-[11px] font-semibold text-violet-400 flex items-center gap-1.5">
+                  <BadgeCheck className="w-3.5 h-3.5" /> Live Data Insights
                 </span>
               </div>
             </div>
