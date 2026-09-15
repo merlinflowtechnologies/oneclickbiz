@@ -83,6 +83,12 @@ function getEmbedUrl(item: VideoItem): string {
     const v = url.split('loom.com/share/')[1]?.split('?')[0];
     if (v) return `https://www.loom.com/embed/${v}`;
   }
+  // Instagram Reels
+  if (url.includes('instagram.com/reel/') || url.includes('instagram.com/p/')) {
+    const cleanReel = url.split('instagram.com/reel/')[1]?.split('/')[0]?.split('?')[0] || 
+                      url.split('instagram.com/p/')[1]?.split('/')[0]?.split('?')[0];
+    if (cleanReel) return `https://www.instagram.com/reel/${cleanReel}/embed`;
+  }
   // Google Drive
   if (url.includes('drive.google.com/file/d/')) {
     const v = url.split('/d/')[1]?.split('/')[0];
@@ -707,20 +713,34 @@ export default function ProfileCardView({
                           )}
 
                           {vid.type === 'instagram' && (
-                            <div className="p-4 bg-gradient-to-br from-purple-950/40 via-pink-950/30 to-slate-950 border-b border-slate-800 flex flex-col items-center text-center space-y-2">
-                              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 flex items-center justify-center text-white shadow-lg">
-                                <Film className="w-5 h-5" />
+                            <div className="relative w-full bg-slate-950 flex flex-col items-center">
+                              {embedSrc.includes('instagram.com') ? (
+                                <div className="w-full aspect-[9/16] max-h-[460px] bg-slate-950 overflow-hidden relative">
+                                  <iframe
+                                    src={embedSrc}
+                                    title={vid.title}
+                                    className="w-full h-full border-0"
+                                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                                    allowFullScreen
+                                    loading="lazy"
+                                  />
+                                </div>
+                              ) : null}
+                              <div className="w-full p-3 bg-gradient-to-r from-purple-950/40 via-pink-950/30 to-slate-950 border-t border-slate-800 flex items-center justify-between px-4">
+                                <span className="text-xs text-pink-300 font-semibold flex items-center gap-1.5">
+                                  <Film className="w-3.5 h-3.5 text-pink-400" />
+                                  Instagram Reel
+                                </span>
+                                <a 
+                                  href={vid.url} 
+                                  target="_blank" 
+                                  rel="noreferrer"
+                                  className="px-3 py-1 rounded-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white text-[11px] font-semibold flex items-center gap-1.5 transition-all shadow-md active:scale-95"
+                                >
+                                  <span>Watch on Instagram</span>
+                                  <ExternalLink className="w-3 h-3" />
+                                </a>
                               </div>
-                              <p className="text-xs font-semibold text-white">{vid.title}</p>
-                              <a 
-                                href={vid.url} 
-                                target="_blank" 
-                                rel="noreferrer"
-                                className="px-3 py-1.5 rounded-full bg-pink-600 hover:bg-pink-500 text-white text-[11px] font-medium flex items-center gap-1.5 transition-all shadow"
-                              >
-                                <span>Watch on Instagram Reel</span>
-                                <ExternalLink className="w-3 h-3" />
-                              </a>
                             </div>
                           )}
 

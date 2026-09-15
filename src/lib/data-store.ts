@@ -129,6 +129,22 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
             type: 'youtube',
             embedUrl: 'https://www.youtube.com/embed/jI_19Wuno9M',
             caption: 'Explore our high-converting 3D architectural reality marketing walkthroughs and client project case studies.'
+          },
+          {
+            id: 'vid_ig_1',
+            title: 'OneClickBiz Smart NFC Card in Action',
+            url: 'https://www.instagram.com/reel/Dboeh4BTscY/',
+            type: 'instagram',
+            embedUrl: 'https://www.instagram.com/reel/Dboeh4BTscY/embed',
+            caption: 'Watch real-time contactless NFC tapping and instant digital profile sharing in action.'
+          },
+          {
+            id: 'vid_ig_2',
+            title: 'Next-Gen Business Identity & Networking Experience',
+            url: 'https://www.instagram.com/reel/DbNGzEmRwlb/',
+            type: 'instagram',
+            embedUrl: 'https://www.instagram.com/reel/DbNGzEmRwlb/embed',
+            caption: 'Empower your business with smart digital visiting cards, WhatsApp catalog, and instant contact saving.'
           }
         ]
       },
