@@ -316,12 +316,12 @@ export default function LandingPage() {
       <Navbar />
 
       {/* Hero Section with Vibrant Light Ambient Aurora Mesh */}
-      <section className="relative pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden bg-gradient-to-b from-indigo-50/80 via-purple-50/50 to-sky-50/70 border-b border-indigo-100/60">
+      <section className="relative pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden bg-gradient-to-b from-indigo-100/95 via-purple-100/70 to-sky-100/90 border-b border-indigo-200/80">
         
-        {/* Multi-layered Soft Ambient Pastel Glows */}
-        <div className="absolute top-10 left-1/4 w-[650px] h-[450px] bg-gradient-to-tr from-indigo-400/25 via-purple-300/30 to-pink-300/25 blur-[140px] -z-10 pointer-events-none" />
-        <div className="absolute top-1/3 right-10 w-[550px] h-[400px] bg-gradient-to-br from-sky-300/25 via-cyan-200/30 to-emerald-300/20 blur-[130px] -z-10 pointer-events-none" />
-        <div className="absolute -bottom-10 left-1/3 w-[500px] h-[350px] bg-gradient-to-r from-pink-300/20 to-amber-200/25 blur-[120px] -z-10 pointer-events-none" />
+        {/* Multi-layered Vibrant Ambient Pastel Glows */}
+        <div className="absolute top-5 left-1/4 w-[750px] h-[500px] bg-gradient-to-tr from-indigo-400/45 via-purple-400/40 to-pink-400/35 blur-[130px] -z-10 pointer-events-none" />
+        <div className="absolute top-1/3 right-5 w-[650px] h-[450px] bg-gradient-to-br from-sky-400/40 via-cyan-300/40 to-emerald-300/35 blur-[120px] -z-10 pointer-events-none" />
+        <div className="absolute -bottom-10 left-1/3 w-[600px] h-[400px] bg-gradient-to-r from-pink-400/35 to-amber-300/40 blur-[110px] -z-10 pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -454,10 +454,10 @@ export default function LandingPage() {
       </section>
 
       {/* VCARD TEMPLATES SHOWCASE SECTION with Ambient Lavender-Sky Tint */}
-      <section id="templates" className="py-20 bg-gradient-to-b from-sky-50/80 via-indigo-50/70 to-purple-50/80 backdrop-blur-xl border-b border-indigo-100/80 relative overflow-hidden scroll-mt-20">
+      <section id="templates" className="py-20 bg-gradient-to-b from-sky-100/90 via-indigo-100/80 to-purple-100/90 backdrop-blur-xl border-b border-indigo-200/80 relative overflow-hidden scroll-mt-20">
         {/* Colorful Glow Background Accents */}
-        <div className="absolute top-1/2 left-1/4 w-[600px] h-[350px] bg-gradient-to-r from-sky-300/25 via-indigo-300/30 to-purple-300/25 blur-[150px] pointer-events-none -z-10" />
-        <div className="absolute bottom-10 right-10 w-[500px] h-[300px] bg-gradient-to-l from-pink-300/25 to-purple-300/20 blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute top-1/2 left-1/4 w-[700px] h-[400px] bg-gradient-to-r from-sky-400/35 via-indigo-400/40 to-purple-400/35 blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute bottom-10 right-10 w-[600px] h-[350px] bg-gradient-to-l from-pink-400/35 to-purple-400/30 blur-[120px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -634,10 +634,10 @@ export default function LandingPage() {
       <DemoVideoSection />
 
       {/* Bento Grid Feature Matrix with Soft Rose-Amber Ambient Background */}
-      <section id="features" className="py-24 bg-gradient-to-b from-purple-50/60 via-pink-50/50 to-amber-50/40 backdrop-blur-xl border-y border-purple-100/80 relative scroll-mt-20 overflow-hidden">
+      <section id="features" className="py-24 bg-gradient-to-b from-violet-100/90 via-pink-100/80 to-amber-100/75 backdrop-blur-xl border-y border-purple-200/80 relative scroll-mt-20 overflow-hidden">
         {/* Soft Ambient Floating Blurs */}
-        <div className="absolute top-10 left-10 w-[500px] h-[350px] bg-gradient-to-r from-purple-300/20 via-pink-300/25 to-rose-200/20 blur-[130px] pointer-events-none -z-10" />
-        <div className="absolute bottom-10 right-10 w-[550px] h-[400px] bg-gradient-to-l from-amber-200/25 via-orange-200/20 to-yellow-100/30 blur-[140px] pointer-events-none -z-10" />
+        <div className="absolute top-10 left-10 w-[600px] h-[400px] bg-gradient-to-r from-purple-400/35 via-pink-400/40 to-rose-300/35 blur-[120px] pointer-events-none -z-10" />
+        <div className="absolute bottom-10 right-10 w-[650px] h-[450px] bg-gradient-to-l from-amber-300/35 via-orange-300/30 to-yellow-200/40 blur-[130px] pointer-events-none -z-10" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
@@ -876,10 +876,10 @@ export default function LandingPage() {
       </section>
 
       {/* DETAILED ABOUT ONECLICKBIZ SECTION with Warm Amber-Indigo Glow */}
-      <section id="about" className="py-24 bg-gradient-to-b from-amber-50/50 via-indigo-50/60 to-sky-50/50 border-y border-indigo-100/70 relative overflow-hidden scroll-mt-24">
+      <section id="about" className="py-24 bg-gradient-to-b from-amber-100/80 via-indigo-100/85 to-sky-100/85 border-y border-indigo-200/80 relative overflow-hidden scroll-mt-24">
         
         {/* Glow Background Accent */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-r from-amber-200/25 via-purple-300/25 to-pink-300/20 blur-[150px] pointer-events-none -z-10" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[550px] bg-gradient-to-r from-amber-300/35 via-purple-400/35 to-pink-400/30 blur-[130px] pointer-events-none -z-10" />
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
@@ -991,10 +991,10 @@ export default function LandingPage() {
       </section>
 
       {/* SERVICES OFFERED SECTION with Soft Sky-Teal-Indigo Gradient */}
-      <section id="services" className="py-24 bg-gradient-to-b from-sky-50/80 via-teal-50/50 to-indigo-50/70 backdrop-blur-xl border-y border-sky-100/80 relative scroll-mt-24 overflow-hidden">
+      <section id="services" className="py-24 bg-gradient-to-b from-sky-100/90 via-teal-100/75 to-indigo-100/85 backdrop-blur-xl border-y border-sky-200/80 relative scroll-mt-24 overflow-hidden">
         {/* Floating Glowing Mesh Orbs */}
-        <div className="absolute top-10 right-10 w-[550px] h-[350px] bg-gradient-to-l from-sky-300/25 via-teal-200/20 to-indigo-200/25 blur-[140px] pointer-events-none -z-10" />
-        <div className="absolute bottom-10 left-10 w-[500px] h-[300px] bg-gradient-to-r from-indigo-300/20 via-purple-200/20 to-pink-200/20 blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute top-10 right-10 w-[650px] h-[400px] bg-gradient-to-l from-sky-400/35 via-teal-300/30 to-indigo-300/35 blur-[120px] pointer-events-none -z-10" />
+        <div className="absolute bottom-10 left-10 w-[600px] h-[350px] bg-gradient-to-r from-indigo-400/30 via-purple-300/30 to-pink-300/30 blur-[120px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -1256,9 +1256,9 @@ export default function LandingPage() {
       </section>
 
       {/* PRODUCTS & SOLUTIONS SHOWCASE SECTION with Indigo-Purple-Pink Aurora Mesh */}
-      <section id="products" className="py-24 bg-gradient-to-b from-indigo-50/70 via-purple-50/60 to-pink-50/60 backdrop-blur-xl border-b border-indigo-100/80 relative scroll-mt-24 overflow-hidden">
+      <section id="products" className="py-24 bg-gradient-to-b from-indigo-100/90 via-purple-100/80 to-pink-100/80 backdrop-blur-xl border-b border-indigo-200/80 relative scroll-mt-24 overflow-hidden">
         {/* Glowing Orbs */}
-        <div className="absolute top-1/3 left-1/4 w-[600px] h-[400px] bg-gradient-to-r from-indigo-300/25 via-purple-300/25 to-pink-300/25 blur-[150px] pointer-events-none -z-10" />
+        <div className="absolute top-1/3 left-1/4 w-[700px] h-[450px] bg-gradient-to-r from-indigo-400/35 via-purple-400/35 to-pink-400/35 blur-[130px] pointer-events-none -z-10" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -1438,9 +1438,9 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section with Soft Pastel Rose-Indigo Gradient */}
-      <section id="pricing" className="py-24 bg-gradient-to-b from-pink-50/50 via-indigo-50/70 to-purple-50/60 border-y border-indigo-100/80 relative scroll-mt-24 overflow-hidden">
+      <section id="pricing" className="py-24 bg-gradient-to-b from-pink-100/85 via-indigo-100/90 to-purple-100/85 border-y border-indigo-200/80 relative scroll-mt-24 overflow-hidden">
         {/* Glowing Background Orbs */}
-        <div className="absolute top-10 left-1/3 w-[650px] h-[450px] bg-gradient-to-r from-pink-300/25 via-purple-300/25 to-indigo-300/25 blur-[150px] pointer-events-none -z-10" />
+        <div className="absolute top-10 left-1/3 w-[750px] h-[500px] bg-gradient-to-r from-pink-400/35 via-purple-400/35 to-indigo-400/35 blur-[130px] pointer-events-none -z-10" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
@@ -1547,8 +1547,8 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ Accordion with Soft Lavender-Sky Background */}
-      <section id="faq" className="py-24 bg-gradient-to-b from-purple-50/70 via-slate-50/80 to-sky-50/70 backdrop-blur-xl border-t border-indigo-100/80 scroll-mt-20 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-r from-purple-200/30 to-sky-200/30 blur-[140px] pointer-events-none -z-10" />
+      <section id="faq" className="py-24 bg-gradient-to-b from-purple-100/90 via-slate-100/90 to-sky-100/90 backdrop-blur-xl border-t border-indigo-200/80 scroll-mt-20 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-purple-300/40 to-sky-300/40 blur-[120px] pointer-events-none -z-10" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 space-y-3">
             <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-600">FAQ</h2>
@@ -1580,8 +1580,8 @@ export default function LandingPage() {
       </section>
 
       {/* Contact Support Section with Sky-Indigo-Pink Light Background */}
-      <section id="contact" className="py-24 bg-gradient-to-b from-sky-50/70 via-indigo-50/60 to-pink-50/50 border-t border-slate-200/80 relative overflow-hidden scroll-mt-20">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-200/20 via-purple-100/15 to-transparent pointer-events-none" />
+      <section id="contact" className="py-24 bg-gradient-to-b from-sky-100/90 via-indigo-100/80 to-pink-100/80 border-t border-slate-300/80 relative overflow-hidden scroll-mt-20">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-300/30 via-purple-200/25 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
