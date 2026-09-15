@@ -418,11 +418,11 @@ export default function DemoVideoSection() {
   const progressPercent = Math.min(100, (currentTime / activeMode.totalSeconds) * 100);
 
   return (
-    <section id="demo" className="py-24 bg-slate-50/70 backdrop-blur-md border-y border-slate-200/80 relative overflow-hidden scroll-mt-20 select-none">
+    <section id="demo" className="py-24 bg-gradient-to-b from-purple-50/70 via-indigo-50/60 to-sky-50/70 backdrop-blur-md border-y border-indigo-100/80 relative overflow-hidden scroll-mt-20 select-none">
       
       {/* Dynamic Ambient Neon Glows */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[950px] h-[550px] bg-gradient-to-r from-indigo-300/25 via-purple-300/25 to-pink-300/20 blur-[170px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-10 w-[500px] h-[350px] bg-emerald-300/20 blur-[150px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[950px] h-[550px] bg-gradient-to-r from-indigo-300/30 via-purple-300/30 to-pink-300/25 blur-[170px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[500px] h-[350px] bg-gradient-to-l from-emerald-300/25 to-sky-300/25 blur-[150px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
