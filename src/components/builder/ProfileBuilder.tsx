@@ -669,7 +669,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               activeTab === 'templates' ? 'bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-md' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Templates (28)
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Templates ({VCARD_TEMPLATES_CATALOG.length})
           </button>
           <button 
             onClick={() => setActiveTab('theme')}
@@ -1367,7 +1367,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             </div>
           )}
 
-          {/* TAB: VCARD TEMPLATES (28 CURATED PRESETS) */}
+          {/* TAB: VCARD TEMPLATES LIBRARY */}
           {activeTab === 'templates' && (
             <div className="space-y-5 max-w-2xl">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-800">
@@ -1375,7 +1375,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <div className="flex items-center gap-2">
                     <h3 className="text-sm font-bold text-white">vCard Templates Library</h3>
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                      28 Templates
+                      {VCARD_TEMPLATES_CATALOG.length} Templates
                     </span>
                   </div>
                   <p className="text-xs text-slate-400 mt-0.5">
@@ -1401,30 +1401,37 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   type="text"
                   value={templateSearch}
                   onChange={e => setTemplateSearch(e.target.value)}
-                  placeholder="Search 28 templates (e.g. Reporter, Doctor, Flower, Lawyer, Gym)..."
+                  placeholder={`Search ${VCARD_TEMPLATES_CATALOG.length} templates (e.g. Boutique, Doctor, Saree, Real Estate, Hotel)...`}
                   className="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                 />
 
                 <div className="flex flex-wrap items-center gap-1.5">
                   {[
-                    { id: 'all', label: 'All (28)' },
-                    { id: 'Creative', label: 'Creative' },
-                    { id: 'Corporate', label: 'Corporate' },
-                    { id: 'Services', label: 'Services' },
-                    { id: 'Healthcare', label: 'Healthcare' },
-                    { id: 'Real Estate', label: 'Real Estate' },
-                    { id: 'Tech', label: 'Tech' },
+                    { id: 'all', label: `All (${VCARD_TEMPLATES_CATALOG.length})`, icon: '✨' },
+                    { id: 'Real Estate', label: 'Real Estate', icon: '🏠' },
+                    { id: 'Fashion & Clothing', label: 'Fashion', icon: '👗' },
+                    { id: 'Beauty & Personal Care', label: 'Beauty', icon: '💄' },
+                    { id: 'Food Business', label: 'Food', icon: '🍽️' },
+                    { id: 'Healthcare', label: 'Health', icon: '🏥' },
+                    { id: 'Education', label: 'Education', icon: '🎓' },
+                    { id: 'Home & Professional Services', label: 'Home Services', icon: '🛠️' },
+                    { id: 'Automobile', label: 'Auto', icon: '🚗' },
+                    { id: 'Events & Creative', label: 'Events', icon: '📸' },
+                    { id: 'Professional Services', label: 'Professional', icon: '💼' },
+                    { id: 'Retail & Local Shops', label: 'Retail', icon: '🛍️' },
+                    { id: 'Travel & Hospitality', label: 'Travel', icon: '✈️' },
                   ].map(cat => (
                     <button
                       key={cat.id}
                       onClick={() => setTemplateCategory(cat.id)}
-                      className={`px-3 py-1 rounded-lg text-[11px] font-semibold transition-all ${
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all flex items-center gap-1 ${
                         templateCategory === cat.id
                           ? 'bg-indigo-600 text-white shadow-sm'
                           : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
                       }`}
                     >
-                      {cat.label}
+                      <span>{cat.icon}</span>
+                      <span>{cat.label}</span>
                     </button>
                   ))}
                 </div>
@@ -1435,9 +1442,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 {VCARD_TEMPLATES_CATALOG
                   .filter(t => {
                     const matchCat = templateCategory === 'all' || t.category === templateCategory;
-                    const matchSearch = t.name.toLowerCase().includes(templateSearch.toLowerCase()) ||
-                      t.tagline.toLowerCase().includes(templateSearch.toLowerCase()) ||
-                      t.features.some(f => f.toLowerCase().includes(templateSearch.toLowerCase()));
+                    const q = templateSearch.toLowerCase();
+                    const matchSearch = t.name.toLowerCase().includes(q) ||
+                      t.tagline.toLowerCase().includes(q) ||
+                      (t.subCategory && t.subCategory.toLowerCase().includes(q)) ||
+                      t.features.some(f => f.toLowerCase().includes(q));
                     return matchCat && matchSearch;
                   })
                   .map(tpl => (

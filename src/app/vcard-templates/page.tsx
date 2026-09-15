@@ -31,23 +31,31 @@ export default function VCardTemplatesPage() {
   const [previewTemplate, setPreviewTemplate] = useState<VCardTemplateItem | null>(null);
 
   const categories = [
-    { id: 'all', label: `All Templates (${VCARD_TEMPLATES_CATALOG.length})` },
-    { id: 'Creative', label: 'Creative & Media' },
-    { id: 'Corporate', label: 'Corporate & Legal' },
-    { id: 'Services', label: 'Services & Lifestyle' },
-    { id: 'Healthcare', label: 'Healthcare & Wellness' },
-    { id: 'Real Estate', label: 'Real Estate & Retail' },
-    { id: 'Tech', label: 'Tech & Engineering' },
+    { id: 'all', label: `All Templates (${VCARD_TEMPLATES_CATALOG.length})`, icon: '✨' },
+    { id: 'Real Estate', label: 'Real Estate', icon: '🏠' },
+    { id: 'Fashion & Clothing', label: 'Fashion & Clothing', icon: '👗' },
+    { id: 'Beauty & Personal Care', label: 'Beauty & Care', icon: '💄' },
+    { id: 'Food Business', label: 'Food Business', icon: '🍽️' },
+    { id: 'Healthcare', label: 'Healthcare', icon: '🏥' },
+    { id: 'Education', label: 'Education', icon: '🎓' },
+    { id: 'Home & Professional Services', label: 'Home Services', icon: '🛠️' },
+    { id: 'Automobile', label: 'Automobile', icon: '🚗' },
+    { id: 'Events & Creative', label: 'Events & Creative', icon: '📸' },
+    { id: 'Professional Services', label: 'Professional', icon: '💼' },
+    { id: 'Retail & Local Shops', label: 'Retail & Shops', icon: '🛍️' },
+    { id: 'Travel & Hospitality', label: 'Travel & Hotels', icon: '✈️' },
   ];
 
   const filteredTemplates = useMemo(() => {
     return VCARD_TEMPLATES_CATALOG.filter((item) => {
       const matchesCategory =
         selectedCategory === 'all' || item.category === selectedCategory;
+      const q = searchQuery.toLowerCase();
       const matchesSearch =
-        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.features.some((f) => f.toLowerCase().includes(searchQuery.toLowerCase()));
+        item.name.toLowerCase().includes(q) ||
+        item.tagline.toLowerCase().includes(q) ||
+        (item.subCategory && item.subCategory.toLowerCase().includes(q)) ||
+        item.features.some((f) => f.toLowerCase().includes(q));
       return matchesCategory && matchesSearch;
     });
   }, [selectedCategory, searchQuery]);
@@ -65,7 +73,7 @@ export default function VCardTemplatesPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-primary-500/10 via-accent-500/10 to-indigo-500/10 border border-primary-500/20 text-primary-400 text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5 text-primary-400" />
-              Official OneClickBiz Templates
+              12 Industry Categories &bull; {VCARD_TEMPLATES_CATALOG.length}+ Designer Templates
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white">
@@ -75,8 +83,8 @@ export default function VCardTemplatesPage() {
               </span>
             </h1>
 
-            <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-400 leading-relaxed">
-              Explore 28+ designer-curated digital business card templates crafted for consultants, doctors, real estate agencies, creative artists, and modern enterprises.
+            <p className="max-w-3xl mx-auto text-base sm:text-lg text-slate-400 leading-relaxed">
+              Explore {VCARD_TEMPLATES_CATALOG.length}+ industry-crafted digital visiting card templates for Real Estate, Doctors, Boutiques, Restaurants, Salons, Institutes, Car Dealers, and Professional Consultants.
             </p>
 
             {/* Search and Filters Bar */}
@@ -87,7 +95,7 @@ export default function VCardTemplatesPage() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search templates (e.g. Reporter, Doctor, Real Estate, Architect)..."
+                  placeholder="Search by business (e.g. Boutique, Doctor, Saree, Bakery, CA, Hotel)..."
                   className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all shadow-xl"
                 />
                 {searchQuery && (
@@ -107,13 +115,14 @@ export default function VCardTemplatesPage() {
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                  className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
                     selectedCategory === cat.id
-                      ? 'bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-lg shadow-primary-500/25 scale-105 font-bold'
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/25 scale-105 font-bold'
                       : 'bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
                   }`}
                 >
-                  {cat.label}
+                  <span>{cat.icon}</span>
+                  <span>{cat.label}</span>
                 </button>
               ))}
             </div>

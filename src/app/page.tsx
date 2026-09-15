@@ -462,23 +462,38 @@ export default function LandingPage() {
               vCard Templates
             </h2>
             <p className="text-sm sm:text-base text-slate-400">
-              Select from 28+ professional digital business cards engineered for rapid networking, instant 1-click contact downloads, and integrated WhatsApp orders.
+              Select from {VCARD_TEMPLATES_CATALOG.length}+ professional digital business cards engineered across 12 major industries for rapid networking, instant 1-click contact downloads, and integrated WhatsApp orders.
             </p>
           </div>
 
           {/* Interactive Category Filter Pills */}
           <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-            {['all', 'Creative', 'Corporate', 'Services', 'Healthcare', 'Real Estate', 'Tech'].map((cat) => (
+            {[
+              { id: 'all', label: `All (${VCARD_TEMPLATES_CATALOG.length})`, icon: '✨' },
+              { id: 'Real Estate', label: 'Real Estate', icon: '🏠' },
+              { id: 'Fashion & Clothing', label: 'Fashion', icon: '👗' },
+              { id: 'Beauty & Personal Care', label: 'Beauty', icon: '💄' },
+              { id: 'Food Business', label: 'Food', icon: '🍽️' },
+              { id: 'Healthcare', label: 'Healthcare', icon: '🏥' },
+              { id: 'Education', label: 'Education', icon: '🎓' },
+              { id: 'Home & Professional Services', label: 'Home Services', icon: '🛠️' },
+              { id: 'Automobile', label: 'Automobile', icon: '🚗' },
+              { id: 'Events & Creative', label: 'Events', icon: '📸' },
+              { id: 'Professional Services', label: 'Professional', icon: '💼' },
+              { id: 'Retail & Local Shops', label: 'Retail', icon: '🛍️' },
+              { id: 'Travel & Hospitality', label: 'Travel', icon: '✈️' },
+            ].map((cat) => (
               <button
-                key={cat}
-                onClick={() => setTemplateFilter(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                  templateFilter === cat
+                key={cat.id}
+                onClick={() => setTemplateFilter(cat.id)}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  templateFilter === cat.id
                     ? 'bg-gradient-to-r from-indigo-600 to-pink-500 text-white shadow-lg shadow-indigo-500/25 scale-105'
                     : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
                 }`}
               >
-                {cat === 'all' ? `All Templates (${VCARD_TEMPLATES_CATALOG.length})` : cat}
+                <span>{cat.icon}</span>
+                <span>{cat.label}</span>
               </button>
             ))}
           </div>

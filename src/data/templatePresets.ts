@@ -250,7 +250,22 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
   const designation = custom.designation || meta.tagline;
   const company = custom.company || `${name} ${meta.category} Practice`;
   const bio = custom.bio || `Welcome to ${company}. Providing top-tier ${meta.category.toLowerCase()} solutions, digital contact exchange, and seamless customer service.`;
-  const theme = custom.theme || (meta.category === 'Creative' ? 'glassmorphic' : meta.category === 'Healthcare' ? 'emerald-pro' : meta.category === 'Services' ? 'sunset-gold' : 'modern-indigo');
+  const getCategoryTheme = (cat: string): ThemeType => {
+    switch (cat) {
+      case 'Healthcare': return 'emerald-pro';
+      case 'Beauty & Personal Care':
+      case 'Fashion & Clothing':
+      case 'Events & Creative': return 'glassmorphic';
+      case 'Real Estate':
+      case 'Professional Services': return 'dark-onyx';
+      case 'Food Business': return 'sunset-gold';
+      case 'Automobile': return 'cyber-neon';
+      case 'Education': return 'modern-indigo';
+      case 'Travel & Hospitality': return 'modern-indigo';
+      default: return 'modern-indigo';
+    }
+  };
+  const theme = custom.theme || getCategoryTheme(meta.category);
   
   const avatarUrl = custom.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';
   const coverUrl = custom.coverUrl || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80';
