@@ -106,25 +106,25 @@ export default function DashboardOverviewPage() {
       )}
 
       {/* Top Banner / Welcome */}
-      <div className="p-4 sm:p-6 rounded-3xl bg-gradient-to-r from-indigo-950/70 via-purple-950/50 to-slate-900 border border-indigo-500/25 shadow-xl space-y-4">
+      <div className="p-4 sm:p-6 rounded-3xl bg-gradient-to-r from-indigo-50/90 via-purple-50/80 to-pink-50/80 border border-indigo-200/80 shadow-lg space-y-4">
         
         {/* Header Row */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[11px] font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Digital Card Active
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-[11px] font-bold shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Digital Card Active
             </div>
-            <h1 className="text-lg sm:text-2xl font-black text-white tracking-tight break-words">
+            <h1 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight break-words">
               Welcome back, {profile.name}!
             </h1>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-600">
               Your smart profile and WhatsApp store are live and tracking interactions in real time.
             </p>
           </div>
 
           <button 
             onClick={() => exportExecutiveSummaryPDF({ profile, bookings: bookings.length > 0 ? bookings : INITIAL_BOOKINGS, leads: leads.length > 0 ? leads : INITIAL_LEADS })}
-            className="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold text-xs flex items-center gap-2 transition-all shadow-md active:scale-95 shrink-0"
+            className="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold text-xs flex items-center gap-2 transition-all shadow-md active:scale-95 shrink-0 cursor-pointer"
             title="Download complete business analytics, bookings & leads PDF report"
           >
             <Download className="w-3.5 h-3.5 shrink-0" />
@@ -133,10 +133,10 @@ export default function DashboardOverviewPage() {
         </div>
 
         {/* Live URL & Quick Actions Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl bg-white/90 border border-slate-200 shadow-xs">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-xs text-slate-400 font-medium hidden sm:inline">Profile Link:</span>
-            <span className="text-xs font-mono text-indigo-300 truncate bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+            <span className="text-xs text-slate-600 font-medium hidden sm:inline">Profile Link:</span>
+            <span className="text-xs font-mono text-indigo-700 font-semibold truncate bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-200">
               oneclickbiz.in/v/{profile.slug}
             </span>
           </div>
@@ -144,19 +144,19 @@ export default function DashboardOverviewPage() {
           <div className="flex items-center gap-2 flex-wrap">
             <button 
               onClick={handleCopy}
-              className="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-850 border border-slate-700 text-xs font-medium text-slate-200 flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95"
+              className="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 flex items-center justify-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
               <span>{copied ? 'Copied' : 'Copy Link'}</span>
             </button>
             
             <Link 
               href={`/v/${profile.slug}`}
               target="_blank"
-              className="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-xs font-medium text-indigo-300 hover:text-white flex items-center justify-center gap-1.5 transition-all"
+              className="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-xs font-semibold text-indigo-700 flex items-center justify-center gap-1.5 transition-all shadow-xs"
             >
               <span>Live Profile</span>
-              <ExternalLink className="w-3.5 h-3.5 shrink-0 text-indigo-400" />
+              <ExternalLink className="w-3.5 h-3.5 shrink-0 text-indigo-600" />
             </Link>
           </div>
         </div>
@@ -165,31 +165,31 @@ export default function DashboardOverviewPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
           <Link 
             href="/dashboard/visiting-cards"
-            className="p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 hover:text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-2"
+            className="p-2.5 rounded-xl bg-white hover:bg-amber-50 border border-amber-200 text-amber-800 font-semibold text-xs transition-all shadow-xs flex items-center justify-center gap-2"
           >
-            <CreditCard className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <CreditCard className="w-3.5 h-3.5 text-amber-600 shrink-0" />
             <span>Visiting Cards</span>
           </Link>
           
           <Link 
             href="/dashboard/brochures"
-            className="p-2.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 text-sky-300 hover:text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-2"
+            className="p-2.5 rounded-xl bg-white hover:bg-sky-50 border border-sky-200 text-sky-800 font-semibold text-xs transition-all shadow-xs flex items-center justify-center gap-2"
           >
-            <BookOpen className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+            <BookOpen className="w-3.5 h-3.5 text-sky-600 shrink-0" />
             <span>Brochures</span>
           </Link>
 
           <Link 
             href="/dashboard/blogs"
-            className="p-2.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 text-purple-300 hover:text-white font-semibold text-xs transition-all shadow-sm flex items-center justify-center gap-2"
+            className="p-2.5 rounded-xl bg-white hover:bg-purple-50 border border-purple-200 text-purple-800 font-semibold text-xs transition-all shadow-xs flex items-center justify-center gap-2"
           >
-            <BookOpen className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+            <BookOpen className="w-3.5 h-3.5 text-purple-600 shrink-0" />
             <span>Blog Studio</span>
           </Link>
           
           <Link 
             href="/dashboard/builder"
-            className="p-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-all shadow-md flex items-center justify-center gap-2"
+            className="p-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-semibold text-xs transition-all shadow-md flex items-center justify-center gap-2"
           >
             <span>Edit Profile</span>
           </Link>
@@ -201,24 +201,24 @@ export default function DashboardOverviewPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* Visiting Card Studio Card */}
-        <div className="p-6 rounded-3xl bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-900 border border-amber-500/20 flex flex-col justify-between gap-4 shadow-xl">
+        <div className="p-6 rounded-3xl bg-white/90 border border-amber-200/80 flex flex-col justify-between gap-4 shadow-lg shadow-amber-950/5">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0 text-amber-400 shadow-inner">
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0 text-amber-600 shadow-xs">
               <CreditCard className="w-6 h-6" />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-white">Smart Visiting Card Studio</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold uppercase tracking-wider">New</span>
+                <span className="text-sm font-bold text-slate-900">Smart Visiting Card Studio</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold uppercase tracking-wider">New</span>
               </div>
-              <p className="text-xs text-slate-400">
-                Design laser-printed & digital visiting cards with 6 luxury templates, 3D flip preview, dynamic QR & 300 DPI print export.
+              <p className="text-xs text-slate-600">
+                Design laser-printed & digital visiting cards with luxury templates, 3D flip preview, dynamic QR & 300 DPI print export.
               </p>
             </div>
           </div>
           <Link
             href="/dashboard/visiting-cards"
-            className="self-end px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs transition-all shadow-md flex items-center gap-1.5"
+            className="self-end px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs transition-all shadow-md flex items-center gap-1.5"
           >
             <span>Design Visiting Cards</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -226,24 +226,24 @@ export default function DashboardOverviewPage() {
         </div>
 
         {/* Brochure & Catalog Studio Card */}
-        <div className="p-6 rounded-3xl bg-gradient-to-br from-sky-950/40 via-slate-900 to-indigo-950/40 border border-sky-500/20 flex flex-col justify-between gap-4 shadow-xl">
+        <div className="p-6 rounded-3xl bg-white/90 border border-sky-200/80 flex flex-col justify-between gap-4 shadow-lg shadow-sky-950/5">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center shrink-0 text-sky-400 shadow-inner">
+            <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 flex items-center justify-center shrink-0 text-sky-600 shadow-xs">
               <BookOpen className="w-6 h-6" />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-white">Brochure & Catalog Studio</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-bold uppercase tracking-wider">New</span>
+                <span className="text-sm font-bold text-slate-900">Brochure & Catalog Studio</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 font-bold uppercase tracking-wider">New</span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-600">
                 Create tri-fold, bi-fold, and promo flyer brochures with high-res 300 DPI print export, custom logos, service pricing & QR codes.
               </p>
             </div>
           </div>
           <Link
             href="/dashboard/brochures"
-            className="self-end px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-xs transition-all shadow-md flex items-center gap-1.5"
+            className="self-end px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-bold text-xs transition-all shadow-md flex items-center gap-1.5"
           >
             <span>Design Brochures</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -257,19 +257,19 @@ export default function DashboardOverviewPage() {
         {statCards.map((stat, idx) => {
           const Icon = stat.icon;
           return (
-            <div key={idx} className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
+            <div key={idx} className="p-4 rounded-2xl bg-white/90 border border-slate-200/80 shadow-xs space-y-2">
               <div className="flex items-center justify-between">
                 <div className={`p-2 rounded-xl ${stat.bg} ${stat.color}`}>
                   <Icon className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-medium text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   Live
                 </span>
               </div>
               <div>
-                <h3 className="text-lg font-extrabold text-white">{stat.value}</h3>
-                <p className="text-[10px] text-slate-400 leading-tight mt-0.5">{stat.label}</p>
+                <h3 className="text-lg font-extrabold text-slate-900">{stat.value}</h3>
+                <p className="text-[10px] text-slate-500 leading-tight mt-0.5 font-medium">{stat.label}</p>
               </div>
             </div>
           );
@@ -290,13 +290,13 @@ export default function DashboardOverviewPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         {/* Recent Inquiries & Leads */}
-        <div className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-4">
+        <div className="p-6 rounded-3xl bg-white/90 border border-slate-200/80 shadow-lg space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-indigo-400" />
-              <h2 className="text-sm font-bold text-white">Recent Leads & Inquiries</h2>
+              <Users className="w-4 h-4 text-indigo-600" />
+              <h2 className="text-sm font-bold text-slate-900">Recent Leads & Inquiries</h2>
             </div>
-            <Link href="/dashboard/leads" className="text-xs text-indigo-400 hover:underline flex items-center gap-1 font-medium">
+            <Link href="/dashboard/leads" className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1 font-semibold">
               View All <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -304,15 +304,15 @@ export default function DashboardOverviewPage() {
           <div className="space-y-3">
             {leads.length > 0 ? (
               leads.map((lead: any) => (
-                <div key={lead.id} className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-1.5">
+                <div key={lead.id} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-white">{lead.name}</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-semibold">
+                    <span className="text-xs font-bold text-slate-900">{lead.name}</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold">
                       {lead.status}
                     </span>
                   </div>
                   {lead.message && (
-                    <p className="text-[11px] text-slate-400 line-clamp-2">{lead.message}</p>
+                    <p className="text-[11px] text-slate-600 line-clamp-2">{lead.message}</p>
                   )}
                   <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1">
                     <span>{lead.email}</span>
@@ -321,17 +321,17 @@ export default function DashboardOverviewPage() {
                 </div>
               ))
             ) : (
-              <div className="py-8 px-4 text-center rounded-2xl bg-slate-950/40 border border-dashed border-slate-800 space-y-2">
-                <div className="w-10 h-10 rounded-full bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto">
+              <div className="py-8 px-4 text-center rounded-2xl bg-slate-50 border border-dashed border-slate-200 space-y-2">
+                <div className="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto">
                   <Users className="w-5 h-5" />
                 </div>
-                <p className="text-xs font-bold text-white">No Inquiries Yet</p>
-                <p className="text-[11px] text-slate-400 max-w-xs mx-auto">
+                <p className="text-xs font-bold text-slate-900">No Inquiries Yet</p>
+                <p className="text-[11px] text-slate-500 max-w-xs mx-auto">
                   When visitors submit inquiry forms on your digital card, they will appear here in real-time.
                 </p>
                 <button 
                   onClick={handleCopy} 
-                  className="text-[11px] text-indigo-400 hover:text-indigo-300 font-semibold inline-flex items-center gap-1 pt-1"
+                  className="text-[11px] text-indigo-600 hover:text-indigo-800 font-semibold inline-flex items-center gap-1 pt-1 cursor-pointer"
                 >
                   <span>Share Card Link to Capture Leads</span>
                   <ArrowUpRight className="w-3 h-3" />
@@ -342,13 +342,13 @@ export default function DashboardOverviewPage() {
         </div>
 
         {/* Upcoming Appointments */}
-        <div className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-4">
+        <div className="p-6 rounded-3xl bg-white/90 border border-slate-200/80 shadow-lg space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-emerald-400" />
-              <h2 className="text-sm font-bold text-white">Upcoming Appointments</h2>
+              <Calendar className="w-4 h-4 text-emerald-600" />
+              <h2 className="text-sm font-bold text-slate-900">Upcoming Appointments</h2>
             </div>
-            <Link href="/dashboard/bookings" className="text-xs text-emerald-400 hover:underline flex items-center gap-1 font-medium">
+            <Link href="/dashboard/bookings" className="text-xs text-emerald-600 hover:text-emerald-800 flex items-center gap-1 font-semibold">
               View Calendar <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -356,32 +356,32 @@ export default function DashboardOverviewPage() {
           <div className="space-y-3">
             {bookings.length > 0 ? (
               bookings.map((bk: any) => (
-                <div key={bk.id} className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-1.5">
+                <div key={bk.id} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-white">{bk.customerName}</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+                    <span className="text-xs font-bold text-slate-900">{bk.customerName}</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold">
                       {new Date(bk.bookingDate).toLocaleDateString()} @ {bk.startTime || bk.time}
                     </span>
                   </div>
-                  <p className="text-[11px] text-indigo-300 font-medium">{bk.service?.title || bk.serviceTitle || 'General Consultation'}</p>
+                  <p className="text-[11px] text-indigo-700 font-medium">{bk.service?.title || bk.serviceTitle || 'General Consultation'}</p>
                   <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1">
                     <span>{bk.customerEmail}</span>
-                    <span className="text-emerald-400 font-semibold">{bk.status}</span>
+                    <span className="text-emerald-600 font-semibold">{bk.status}</span>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="py-8 px-4 text-center rounded-2xl bg-slate-950/40 border border-dashed border-slate-800 space-y-2">
-                <div className="w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
+              <div className="py-8 px-4 text-center rounded-2xl bg-slate-50 border border-dashed border-slate-200 space-y-2">
+                <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
                   <Calendar className="w-5 h-5" />
                 </div>
-                <p className="text-xs font-bold text-white">No Appointments Scheduled</p>
-                <p className="text-[11px] text-slate-400 max-w-xs mx-auto">
+                <p className="text-xs font-bold text-slate-900">No Appointments Scheduled</p>
+                <p className="text-[11px] text-slate-500 max-w-xs mx-auto">
                   Clients can book meetings or consultation calls with you directly from your card's appointment section.
                 </p>
                 <Link 
                   href="/dashboard/bookings" 
-                  className="text-[11px] text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center gap-1 pt-1"
+                  className="text-[11px] text-emerald-600 hover:text-emerald-800 font-semibold inline-flex items-center gap-1 pt-1"
                 >
                   <span>Set Up Appointment Slots</span>
                   <ArrowUpRight className="w-3 h-3" />

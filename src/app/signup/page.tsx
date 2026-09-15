@@ -445,28 +445,29 @@ function SignUpForm() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-10 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100/95 via-purple-100/80 to-pink-100/90 text-slate-800 flex flex-col justify-center py-10 sm:px-6 lg:px-8 relative overflow-hidden">
       
       {/* Ambient Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-r from-indigo-600/15 via-purple-600/15 to-pink-600/10 blur-[160px] pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[750px] h-[550px] bg-gradient-to-r from-indigo-400/40 via-purple-400/40 to-pink-400/35 blur-[160px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[450px] h-[350px] bg-gradient-to-l from-emerald-400/30 to-sky-400/30 blur-[130px] pointer-events-none -z-10" />
 
       {/* Brand Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-2xl text-center space-y-3 px-4">
         <Link href="/" className="inline-block group mb-2">
           <img 
-            src="/logo.png" 
+            src="/logo-light.png" 
             alt="OneClickBiz - Business Made Simpler" 
-            className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] mx-auto object-contain mix-blend-screen transition-transform group-hover:scale-105 duration-200"
+            className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] mx-auto object-contain transition-transform group-hover:scale-105 duration-200"
           />
         </Link>
 
         {/* Live Security Notice Banner */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold shadow-xs">
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
           <span>Live Gateway Active • Instant Activation • Verified GST Invoices</span>
         </div>
 
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
           {step === 1 && 'Select Your Plan & Create Business Account'}
           {step === 2 && 'Complete Annual Subscription via Cashfree PG'}
           {step === 3 && 'Subscription Active & Paid!'}
@@ -474,20 +475,20 @@ function SignUpForm() {
         
         {/* Stepper Indicator */}
         <div className="flex items-center justify-center gap-2 pt-1 text-xs">
-          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold ${
-            step === 1 ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-slate-400 border border-slate-800'
+          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold shadow-xs ${
+            step === 1 ? 'bg-indigo-600 text-white' : 'bg-white text-slate-600 border border-slate-200'
           }`}>
             <span>1. Plan & Profile</span>
           </div>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
-          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold ${
-            step === 2 ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-slate-400 border border-slate-800'
+          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold shadow-xs ${
+            step === 2 ? 'bg-indigo-600 text-white' : 'bg-white text-slate-600 border border-slate-200'
           }`}>
             <span>2. Cashfree Payment (₹{activePlan.price})</span>
           </div>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
-          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold ${
-            step === 3 ? 'bg-emerald-600 text-white' : 'bg-slate-900 text-slate-400 border border-slate-800'
+          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold shadow-xs ${
+            step === 3 ? 'bg-emerald-600 text-white' : 'bg-white text-slate-600 border border-slate-200'
           }`}>
             <span>3. Studio Access</span>
           </div>
@@ -496,14 +497,14 @@ function SignUpForm() {
 
       {/* Main Container */}
       <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-2xl px-4 sm:px-0">
-        <div className="bg-slate-900/90 border border-slate-800 backdrop-blur-2xl py-7 px-5 sm:px-8 shadow-2xl rounded-3xl space-y-6">
+        <div className="bg-white/90 border border-white/90 backdrop-blur-2xl py-7 px-5 sm:px-8 shadow-2xl shadow-indigo-950/10 rounded-3xl space-y-6">
           
           {paramUnpaid && (
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-950/60 via-purple-950/40 to-slate-900 border border-indigo-500/40 text-indigo-200 text-xs flex items-start gap-3 shadow-xl shadow-indigo-950/40">
-              <Sparkles className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border border-indigo-200 text-indigo-900 text-xs flex items-start gap-3 shadow-sm">
+              <Sparkles className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
               <div className="space-y-0.5">
-                <p className="font-bold text-white text-xs">Annual Plan Activation</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="font-bold text-slate-900 text-xs">Annual Plan Activation</p>
+                <p className="text-[11px] text-slate-600">
                   Please choose your preferred annual plan below to activate your digital smart card and commercial studio access. You can select between Basic, Pro, or Advanced at any time.
                 </p>
               </div>
@@ -511,8 +512,8 @@ function SignUpForm() {
           )}
 
           {error && (
-            <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0" />
               <span>{error}</span>
             </div>
           )}
@@ -524,10 +525,10 @@ function SignUpForm() {
               {/* Plan Switcher Grid */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <label className="block text-xs font-bold text-slate-200 uppercase tracking-wider">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Step 1: Choose Subscription Plan
                   </label>
-                  <span className="text-[11px] text-indigo-400 font-medium">Selected: {activePlan.name} (₹{activePlan.price}/yr)</span>
+                  <span className="text-[11px] text-indigo-600 font-semibold">Selected: {activePlan.name} (₹{activePlan.price}/yr)</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -537,19 +538,19 @@ function SignUpForm() {
                     onClick={() => setSelectedPlanKey('Basic')}
                     className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-2 relative ${
                       selectedPlanKey === 'Basic'
-                        ? 'bg-indigo-950/40 border-indigo-500 shadow-md text-white'
-                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                        ? 'bg-indigo-50/90 border-2 border-indigo-600 shadow-md text-slate-900'
+                        : 'bg-slate-50/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white'
                     }`}
                   >
                     <div className="flex justify-between items-center">
                       <span className="text-xs font-bold uppercase">Basic</span>
-                      {selectedPlanKey === 'Basic' && <CheckCircle2 className="w-4 h-4 text-indigo-400" />}
+                      {selectedPlanKey === 'Basic' && <CheckCircle2 className="w-4 h-4 text-indigo-600" />}
                     </div>
                     <div>
-                      <div className="text-xl font-extrabold text-white">₹{plans.Basic.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
-                      <div className="text-[10px] text-slate-400">1 Digital Card</div>
+                      <div className="text-xl font-extrabold text-slate-900">₹{plans.Basic.price}<span className="text-[10px] font-normal text-slate-500">/yr</span></div>
+                      <div className="text-[10px] text-slate-500">1 Digital Card</div>
                     </div>
-                    <ul className="text-[10px] text-slate-400 space-y-1 pt-1 border-t border-slate-800/80">
+                    <ul className="text-[10px] text-slate-500 space-y-1 pt-1 border-t border-slate-200">
                       <li>• Standard QR Code</li>
                       <li>• Direct VCF Download</li>
                     </ul>
@@ -560,22 +561,22 @@ function SignUpForm() {
                     onClick={() => setSelectedPlanKey('Pro')}
                     className={`p-3.5 rounded-2xl border-2 cursor-pointer transition-all space-y-2 relative ${
                       selectedPlanKey === 'Pro'
-                        ? 'bg-gradient-to-b from-indigo-950/80 to-purple-950/60 border-indigo-500 shadow-xl shadow-indigo-500/20 text-white'
-                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                        ? 'bg-gradient-to-b from-indigo-50 to-purple-50 border-indigo-600 shadow-xl shadow-indigo-500/10 text-slate-900'
+                        : 'bg-slate-50/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white'
                     }`}
                   >
-                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-500 to-pink-500 text-[8px] font-extrabold text-white uppercase tracking-wider">
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-pink-600 text-[8px] font-extrabold text-white uppercase tracking-wider shadow-xs">
                       ⭐ Recommended
                     </span>
                     <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold uppercase text-indigo-300">Pro Plan</span>
-                      {selectedPlanKey === 'Pro' && <CheckCircle2 className="w-4 h-4 text-indigo-400" />}
+                      <span className="text-xs font-bold uppercase text-indigo-700">Pro Plan</span>
+                      {selectedPlanKey === 'Pro' && <CheckCircle2 className="w-4 h-4 text-indigo-600" />}
                     </div>
                     <div>
-                      <div className="text-xl font-black text-white">₹{plans.Pro.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
-                      <div className="text-[10px] text-indigo-200">Up to 3 Cards + CNAME</div>
+                      <div className="text-xl font-black text-slate-900">₹{plans.Pro.price}<span className="text-[10px] font-normal text-slate-500">/yr</span></div>
+                      <div className="text-[10px] text-indigo-700 font-medium">Up to 3 Cards + CNAME</div>
                     </div>
-                    <ul className="text-[10px] text-indigo-200/80 space-y-1 pt-1 border-t border-indigo-900/50">
+                    <ul className="text-[10px] text-slate-600 space-y-1 pt-1 border-t border-indigo-100">
                       <li>• White-Label Custom Domain</li>
                       <li>• WhatsApp Store + Booking</li>
                     </ul>
@@ -586,19 +587,19 @@ function SignUpForm() {
                     onClick={() => setSelectedPlanKey('Advanced')}
                     className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-2 relative ${
                       selectedPlanKey === 'Advanced'
-                        ? 'bg-rose-950/40 border-rose-500 shadow-md text-white'
-                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                        ? 'bg-rose-50/90 border-2 border-rose-600 shadow-md text-slate-900'
+                        : 'bg-slate-50/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white'
                     }`}
                   >
                     <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold uppercase text-rose-300">Advanced</span>
-                      {selectedPlanKey === 'Advanced' && <CheckCircle2 className="w-4 h-4 text-rose-400" />}
+                      <span className="text-xs font-bold uppercase text-rose-700">Advanced</span>
+                      {selectedPlanKey === 'Advanced' && <CheckCircle2 className="w-4 h-4 text-rose-600" />}
                     </div>
                     <div>
-                      <div className="text-xl font-extrabold text-white">₹{plans.Advanced.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
-                      <div className="text-[10px] text-slate-400">Up to 5 Cards & Team</div>
+                      <div className="text-xl font-extrabold text-slate-900">₹{plans.Advanced.price}<span className="text-[10px] font-normal text-slate-500">/yr</span></div>
+                      <div className="text-[10px] text-slate-500">Up to 5 Cards & Team</div>
                     </div>
-                    <ul className="text-[10px] text-slate-400 space-y-1 pt-1 border-t border-slate-800/80">
+                    <ul className="text-[10px] text-slate-500 space-y-1 pt-1 border-t border-slate-200">
                       <li>• 5 White-Label Domains</li>
                       <li>• Video CDN & Blog Studio</li>
                     </ul>
@@ -613,10 +614,10 @@ function SignUpForm() {
                   type="button"
                   onClick={handleGoogleSignUp}
                   disabled={googleLoading}
-                  className="w-full py-3 px-4 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-white font-semibold text-xs flex items-center justify-center gap-3 transition-all shadow-md active:scale-95 disabled:opacity-50"
+                  className="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold text-xs flex items-center justify-center gap-3 transition-all shadow-sm active:scale-95 disabled:opacity-50"
                 >
                   {googleLoading ? (
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-slate-400 border-t-indigo-600 rounded-full animate-spin" />
                   ) : (
                     <>
                       <GoogleIcon className="w-4 h-4" />
@@ -629,9 +630,9 @@ function SignUpForm() {
               {/* Clean Divider */}
               <div className="relative flex items-center justify-center my-1">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-800" />
+                  <div className="w-full border-t border-slate-200" />
                 </div>
-                <div className="relative bg-slate-900 px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap select-none">
+                <div className="relative bg-white/95 px-3 text-[10px] font-bold uppercase tracking-wider text-slate-500 whitespace-nowrap select-none">
                   Or enter company details
                 </div>
               </div>
@@ -641,11 +642,11 @@ function SignUpForm() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-semibold text-slate-300">
+                    <label className="block text-[11px] font-semibold text-slate-700">
                       Representative Name *
                     </label>
                     <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                         <User className="w-3.5 h-3.5" />
                       </div>
                       <input
@@ -654,17 +655,17 @@ function SignUpForm() {
                         value={fullName}
                         onChange={(e) => handleNameChange(e.target.value)}
                         placeholder="e.g. Adduri Sai Kishore"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50/90 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-semibold text-slate-300">
+                    <label className="block text-[11px] font-semibold text-slate-700">
                       Official Work Email *
                     </label>
                     <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                         <Mail className="w-3.5 h-3.5" />
                       </div>
                       <input
@@ -673,7 +674,7 @@ function SignUpForm() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="founder@oneclickbiz.in"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50/90 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                       />
                     </div>
                   </div>
@@ -681,11 +682,11 @@ function SignUpForm() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-semibold text-slate-300">
+                    <label className="block text-[11px] font-semibold text-slate-700">
                       Business / Company Name *
                     </label>
                     <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                         <Building className="w-3.5 h-3.5" />
                       </div>
                       <input
@@ -694,17 +695,17 @@ function SignUpForm() {
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
                         placeholder="e.g. Merlinflow Technologies"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50/90 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block text-[11px] font-semibold text-slate-300">
+                    <label className="block text-[11px] font-semibold text-slate-700">
                       WhatsApp Contact Number *
                     </label>
                     <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                         <Phone className="w-3.5 h-3.5" />
                       </div>
                       <input
@@ -713,18 +714,18 @@ function SignUpForm() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+91 63049 89071"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50/90 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                       />
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block text-[11px] font-semibold text-slate-300">
+                  <label className="block text-[11px] font-semibold text-slate-700">
                     Account Password *
                   </label>
                   <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                       <Lock className="w-3.5 h-3.5" />
                     </div>
                     <input
@@ -734,12 +735,12 @@ function SignUpForm() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Minimum 6 characters"
-                      className="w-full pl-9 pr-9 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                      className="w-full pl-9 pr-9 py-2 rounded-xl bg-slate-50/90 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-300"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
                     >
                       {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                     </button>
@@ -748,11 +749,11 @@ function SignUpForm() {
 
                 {/* Slug Handle */}
                 <div className="space-y-1">
-                  <label className="block text-[11px] font-semibold text-slate-300">
+                  <label className="block text-[11px] font-semibold text-slate-700">
                     Your Digital Card Handle
                   </label>
-                  <div className="flex items-center rounded-xl bg-slate-950 border border-slate-800 overflow-hidden focus-within:border-indigo-500">
-                    <span className="px-3 text-slate-500 text-xs font-mono select-none bg-slate-900/50 border-r border-slate-800 py-2">
+                  <div className="flex items-center rounded-xl bg-slate-50/90 border border-slate-200 overflow-hidden focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20">
+                    <span className="px-3 text-slate-500 text-xs font-mono select-none bg-slate-100 border-r border-slate-200 py-2">
                       oneclickbiz.in/v/
                     </span>
                     <input
@@ -761,23 +762,23 @@ function SignUpForm() {
                       value={slug}
                       onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
                       placeholder="kishore-patel"
-                      className="w-full px-3 py-2 bg-transparent text-white text-xs font-mono focus:outline-none"
+                      className="w-full px-3 py-2 bg-transparent text-slate-900 text-xs font-mono focus:outline-none"
                     />
                   </div>
                 </div>
 
-                <div className="text-[11px] text-slate-400 text-center px-1">
+                <div className="text-[11px] text-slate-600 text-center px-1">
                   By proceeding, you agree to OneClickBiz{' '}
-                  <Link href="/terms" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Terms of Service</Link>
+                  <Link href="/terms" target="_blank" className="text-indigo-600 hover:text-indigo-800 underline font-medium">Terms of Service</Link>
                   {', '}
-                  <Link href="/privacy" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Privacy Policy</Link>
+                  <Link href="/privacy" target="_blank" className="text-indigo-600 hover:text-indigo-800 underline font-medium">Privacy Policy</Link>
                   {' and '}
-                  <Link href="/refund" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Refund Policy</Link>.
+                  <Link href="/refund" target="_blank" className="text-indigo-600 hover:text-indigo-800 underline font-medium">Refund Policy</Link>.
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-xs shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all active:scale-95"
+                  className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-700 hover:to-pink-600 text-white font-bold text-xs shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
                 >
                   <span>Proceed to Payment Confirmation (₹{activePlan.price}.00)</span>
                   <ArrowRight className="w-4 h-4" />
@@ -795,11 +796,11 @@ function SignUpForm() {
               {/* Step 2 Plan Selection Grid: Customer's Choice */}
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <label className="block text-xs font-bold text-slate-200 uppercase tracking-wider">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Select Your Preferred Plan
                   </label>
-                  <span className="text-[11px] text-indigo-400 font-medium">
-                    Chosen: <strong className="text-white font-bold">{activePlan.name}</strong> (₹{activePlan.price}/yr)
+                  <span className="text-[11px] text-indigo-600 font-medium">
+                    Chosen: <strong className="text-slate-900 font-bold">{activePlan.name}</strong> (₹{activePlan.price}/yr)
                   </span>
                 </div>
 
@@ -809,23 +810,23 @@ function SignUpForm() {
                     onClick={() => setSelectedPlanKey('Basic')}
                     className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-2 relative ${
                       selectedPlanKey === 'Basic'
-                        ? 'bg-indigo-950/50 border-indigo-500 shadow-lg shadow-indigo-500/15 text-white ring-2 ring-indigo-500/50'
-                        : 'bg-slate-950/80 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-900/40'
+                        ? 'bg-indigo-50 border-2 border-indigo-600 shadow-md text-slate-900'
+                        : 'bg-slate-50/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white'
                     }`}
                   >
                     <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold uppercase tracking-wider text-slate-300">Basic</span>
+                      <span className="text-xs font-bold uppercase tracking-wider text-slate-700">Basic</span>
                       {selectedPlanKey === 'Basic' ? (
-                        <CheckCircle2 className="w-4 h-4 text-indigo-400" />
+                        <CheckCircle2 className="w-4 h-4 text-indigo-600" />
                       ) : (
-                        <span className="w-3.5 h-3.5 rounded-full border border-slate-700" />
+                        <span className="w-3.5 h-3.5 rounded-full border border-slate-300" />
                       )}
                     </div>
                     <div>
-                      <div className="text-xl font-extrabold text-white">₹{plans.Basic.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
-                      <div className="text-[10px] text-slate-400 font-medium">1 Digital Card • Standard QR</div>
+                      <div className="text-xl font-extrabold text-slate-900">₹{plans.Basic.price}<span className="text-[10px] font-normal text-slate-500">/yr</span></div>
+                      <div className="text-[10px] text-slate-500 font-medium">1 Digital Card • Standard QR</div>
                     </div>
-                    <div className="text-[10px] text-slate-400 pt-1.5 border-t border-slate-800/80">
+                    <div className="text-[10px] text-slate-500 pt-1.5 border-t border-slate-200">
                       Direct VCF Download & Leads
                     </div>
                   </div>
@@ -835,26 +836,26 @@ function SignUpForm() {
                     onClick={() => setSelectedPlanKey('Pro')}
                     className={`p-3.5 rounded-2xl border-2 cursor-pointer transition-all space-y-2 relative ${
                       selectedPlanKey === 'Pro'
-                        ? 'bg-gradient-to-b from-indigo-950/80 to-purple-950/60 border-indigo-500 shadow-xl shadow-indigo-500/25 text-white ring-2 ring-indigo-500/50'
-                        : 'bg-slate-950/80 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-900/40'
+                        ? 'bg-gradient-to-b from-indigo-50 to-purple-50 border-indigo-600 shadow-xl shadow-indigo-500/10 text-slate-900'
+                        : 'bg-slate-50/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white'
                     }`}
                   >
-                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-500 to-pink-500 text-[8px] font-extrabold text-white uppercase tracking-wider shadow-sm whitespace-nowrap">
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-pink-600 text-[8px] font-extrabold text-white uppercase tracking-wider shadow-xs whitespace-nowrap">
                       ⭐ Most Popular
                     </span>
                     <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">Pro</span>
+                      <span className="text-xs font-bold uppercase tracking-wider text-indigo-700">Pro</span>
                       {selectedPlanKey === 'Pro' ? (
-                        <CheckCircle2 className="w-4 h-4 text-indigo-400" />
+                        <CheckCircle2 className="w-4 h-4 text-indigo-600" />
                       ) : (
-                        <span className="w-3.5 h-3.5 rounded-full border border-slate-700" />
+                        <span className="w-3.5 h-3.5 rounded-full border border-slate-300" />
                       )}
                     </div>
                     <div>
-                      <div className="text-xl font-black text-white">₹{plans.Pro.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
-                      <div className="text-[10px] text-indigo-200 font-medium">Up to 3 Cards • Custom Domain</div>
+                      <div className="text-xl font-black text-slate-900">₹{plans.Pro.price}<span className="text-[10px] font-normal text-slate-500">/yr</span></div>
+                      <div className="text-[10px] text-indigo-700 font-medium">Up to 3 Cards • Custom Domain</div>
                     </div>
-                    <div className="text-[10px] text-indigo-200/80 pt-1.5 border-t border-indigo-900/50">
+                    <div className="text-[10px] text-slate-600 pt-1.5 border-t border-indigo-100">
                       WhatsApp Store + Lead Engine
                     </div>
                   </div>
@@ -864,23 +865,23 @@ function SignUpForm() {
                     onClick={() => setSelectedPlanKey('Advanced')}
                     className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-2 relative ${
                       selectedPlanKey === 'Advanced'
-                        ? 'bg-rose-950/40 border-rose-500 shadow-lg shadow-rose-500/15 text-white ring-2 ring-rose-500/50'
-                        : 'bg-slate-950/80 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-900/40'
+                        ? 'bg-rose-50 border-2 border-rose-600 shadow-md text-slate-900'
+                        : 'bg-slate-50/80 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white'
                     }`}
                   >
                     <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold uppercase tracking-wider text-rose-300">Advanced</span>
+                      <span className="text-xs font-bold uppercase tracking-wider text-rose-700">Advanced</span>
                       {selectedPlanKey === 'Advanced' ? (
-                        <CheckCircle2 className="w-4 h-4 text-rose-400" />
+                        <CheckCircle2 className="w-4 h-4 text-rose-600" />
                       ) : (
-                        <span className="w-3.5 h-3.5 rounded-full border border-slate-700" />
+                        <span className="w-3.5 h-3.5 rounded-full border border-slate-300" />
                       )}
                     </div>
                     <div>
-                      <div className="text-xl font-extrabold text-white">₹{plans.Advanced.price}<span className="text-[10px] font-normal text-slate-400">/yr</span></div>
-                      <div className="text-[10px] text-slate-400 font-medium">Up to 5 Cards • 5 Domains</div>
+                      <div className="text-xl font-extrabold text-slate-900">₹{plans.Advanced.price}<span className="text-[10px] font-normal text-slate-500">/yr</span></div>
+                      <div className="text-[10px] text-slate-500 font-medium">Up to 5 Cards • 5 Domains</div>
                     </div>
-                    <div className="text-[10px] text-slate-400 pt-1.5 border-t border-slate-800/80">
+                    <div className="text-[10px] text-slate-500 pt-1.5 border-t border-slate-200">
                       4K Video CDN & Priority SLA
                     </div>
                   </div>
@@ -888,59 +889,59 @@ function SignUpForm() {
               </div>
 
               {/* Order Breakdown Box */}
-              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-2.5">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center">
                       <Receipt className="w-4 h-4" />
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-white">{activePlan.name} (Annual Subscription)</h4>
-                      <p className="text-[10px] text-slate-400">Account: {email || fullName}</p>
+                      <h4 className="text-xs font-bold text-slate-900">{activePlan.name} (Annual Subscription)</h4>
+                      <p className="text-[10px] text-slate-500">Account: {email || fullName}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-lg font-black text-white">₹{activePlan.price}.00</span>
-                    <span className="block text-[9px] text-emerald-400 font-bold uppercase">Annual Plan Active</span>
+                    <span className="text-lg font-black text-slate-900">₹{activePlan.price}.00</span>
+                    <span className="block text-[9px] text-emerald-600 font-bold uppercase">Annual Plan Active</span>
                   </div>
                 </div>
 
-                <div className="space-y-1.5 text-xs text-slate-300">
-                  <div className="flex justify-between text-slate-400 text-[11px]">
+                <div className="space-y-1.5 text-xs text-slate-600">
+                  <div className="flex justify-between text-slate-500 text-[11px]">
                     <span>Subscription Term</span>
-                    <span className="text-slate-200 font-medium">365 Days Full Commercial Access</span>
+                    <span className="text-slate-800 font-medium">365 Days Full Commercial Access</span>
                   </div>
-                  <div className="flex justify-between text-slate-400 text-[11px]">
+                  <div className="flex justify-between text-slate-500 text-[11px]">
                     <span>Business Entity</span>
-                    <span className="text-slate-200 font-medium">{businessName || `${fullName}'s Business`}</span>
+                    <span className="text-slate-800 font-medium">{businessName || `${fullName}'s Business`}</span>
                   </div>
-                  <div className="flex justify-between text-slate-400 text-[11px]">
+                  <div className="flex justify-between text-slate-500 text-[11px]">
                     <span>Public URL Handle</span>
-                    <span className="text-indigo-400 font-mono">oneclickbiz.in/v/{slug || 'card'}</span>
+                    <span className="text-indigo-600 font-mono">oneclickbiz.in/v/{slug || 'card'}</span>
                   </div>
-                  <div className="flex justify-between text-slate-400 text-[11px]">
+                  <div className="flex justify-between text-slate-500 text-[11px]">
                     <span>GST (18% Included)</span>
-                    <span className="text-slate-200 font-medium">₹{(activePlan.price - (activePlan.price / 1.18)).toFixed(2)}</span>
+                    <span className="text-slate-800 font-medium">₹{(activePlan.price - (activePlan.price / 1.18)).toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-white font-bold text-xs pt-2 border-t border-slate-800">
+                  <div className="flex justify-between text-slate-900 font-bold text-xs pt-2 border-t border-slate-200">
                     <span>Total Net Amount Payable</span>
-                    <span className="text-emerald-400 text-sm">₹{activePlan.price}.00</span>
+                    <span className="text-emerald-600 text-sm">₹{activePlan.price}.00</span>
                   </div>
                 </div>
               </div>
 
               {/* Gateway Supported Modes Badge */}
-              <div className="p-3.5 rounded-2xl bg-indigo-950/30 border border-indigo-500/30 space-y-2">
-                <div className="flex items-center gap-2 text-indigo-300 text-xs font-bold">
-                  <Shield className="w-4 h-4 text-indigo-400" />
+              <div className="p-3.5 rounded-2xl bg-indigo-50/80 border border-indigo-200 space-y-2">
+                <div className="flex items-center gap-2 text-indigo-800 text-xs font-bold">
+                  <Shield className="w-4 h-4 text-indigo-600" />
                   <span>Official Cashfree Live Gateway Protection</span>
                 </div>
-                <p className="text-[11px] text-slate-300 leading-relaxed">
+                <p className="text-[11px] text-slate-600 leading-relaxed">
                   All Indian payment methods enabled: <strong>UPI (GPay, PhonePe, Paytm), Debit/Credit Cards, and NetBanking</strong>.
                 </p>
-                <div className="flex items-center gap-2 text-[10px] text-slate-400">
-                  <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">⚡ Instant Gateway Verification</span>
-                  <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">🔒 256-Bit Bank Encryption</span>
+                <div className="flex items-center gap-2 text-[10px] text-slate-600">
+                  <span className="px-2 py-0.5 rounded bg-white border border-slate-200 shadow-xs">⚡ Instant Gateway Verification</span>
+                  <span className="px-2 py-0.5 rounded bg-white border border-slate-200 shadow-xs">🔒 256-Bit Bank Encryption</span>
                 </div>
               </div>
 
@@ -950,7 +951,7 @@ function SignUpForm() {
                   type="button"
                   onClick={() => setStep(1)}
                   disabled={isProcessingPayment}
-                  className="px-4 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-all disabled:opacity-50"
+                  className="px-4 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-all disabled:opacity-50 cursor-pointer shadow-xs"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Back / Edit Details</span>
@@ -960,7 +961,7 @@ function SignUpForm() {
                   type="button"
                   onClick={handleLaunchCashfreePayment}
                   disabled={isProcessingPayment}
-                  className="flex-1 py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 hover:from-emerald-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-600/30 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+                  className="flex-1 py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 hover:from-emerald-700 hover:to-indigo-700 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-600/25 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
                 >
                   {isProcessingPayment ? (
                     <>
@@ -984,32 +985,32 @@ function SignUpForm() {
           {step === 3 && completedOrder && (
             <div className="space-y-6 text-center py-4 animate-in fade-in duration-300">
               
-              <div className="w-16 h-16 rounded-3xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto shadow-xl shadow-emerald-500/20">
+              <div className="w-16 h-16 rounded-3xl bg-emerald-100 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto shadow-xl">
                 <Check className="w-8 h-8 stroke-[3]" />
               </div>
 
               <div className="space-y-1">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
                   <ShieldCheck className="w-3.5 h-3.5" /> Verified Paid Transaction
                 </div>
-                <h3 className="text-2xl font-black text-white">Payment Successful & Account Active!</h3>
-                <p className="text-xs text-slate-400 max-w-md mx-auto">
+                <h3 className="text-2xl font-black text-slate-900">Payment Successful & Account Active!</h3>
+                <p className="text-xs text-slate-600 max-w-md mx-auto">
                   Thank you! Your payment of <strong>{completedOrder.amount}</strong> has been received via Cashfree PG. Your {completedOrder.planName} is now active.
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 max-w-md mx-auto text-left text-xs space-y-2">
-                <div className="flex justify-between text-slate-400">
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 max-w-md mx-auto text-left text-xs space-y-2">
+                <div className="flex justify-between text-slate-500">
                   <span>Cashfree Order Reference</span>
-                  <span className="text-white font-mono">{completedOrder.orderId}</span>
+                  <span className="text-slate-900 font-mono font-bold">{completedOrder.orderId}</span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-slate-500">
                   <span>Activated Plan</span>
-                  <span className="text-emerald-400 font-bold">{completedOrder.planName}</span>
+                  <span className="text-emerald-600 font-bold">{completedOrder.planName}</span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-slate-500">
                   <span>Public Handle</span>
-                  <span className="text-indigo-400 font-mono">oneclickbiz.in/v/{slug}</span>
+                  <span className="text-indigo-600 font-mono">oneclickbiz.in/v/{slug}</span>
                 </div>
               </div>
 
@@ -1023,15 +1024,15 @@ function SignUpForm() {
                     customerName: fullName || 'Valued Client',
                     companyName: businessName || `${fullName}'s Business`
                   })}
-                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-semibold text-xs flex items-center justify-center gap-2 transition-all shadow-xs"
                 >
-                  <Download className="w-3.5 h-3.5 text-indigo-400" />
+                  <Download className="w-3.5 h-3.5 text-indigo-600" />
                   <span>Download GST Tax Invoice</span>
                 </button>
 
                 <button
                   onClick={() => router.push('/dashboard')}
-                  className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/25 active:scale-95"
+                  className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/25 active:scale-95 cursor-pointer"
                 >
                   <span>Launch Business Studio Dashboard</span>
                   <ArrowRight className="w-4 h-4" />
@@ -1042,12 +1043,12 @@ function SignUpForm() {
           )}
 
           {/* Switch to Login & Help */}
-          <div className="pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+          <div className="pt-3 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-600">
             <div>
               Already have an active account?{' '}
               <Link 
                 href="/login" 
-                className="text-indigo-400 hover:text-indigo-300 font-bold underline"
+                className="text-indigo-600 hover:text-indigo-800 font-bold underline"
               >
                 Sign In to Business Portal
               </Link>
@@ -1056,7 +1057,7 @@ function SignUpForm() {
               href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Support%2C%20I%20need%20help%20with%20registration." 
               target="_blank" 
               rel="noreferrer"
-              className="text-emerald-400 hover:text-emerald-300 font-medium inline-flex items-center gap-1 transition-colors"
+              className="text-emerald-600 hover:text-emerald-700 font-semibold inline-flex items-center gap-1 transition-colors"
             >
               <Phone className="w-3 h-3" />
               <span>Need Help? Desk (+91 63049 89071)</span>
@@ -1064,22 +1065,22 @@ function SignUpForm() {
           </div>
 
           {/* Trust Row */}
-          <div className="pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-3 text-[10px] text-slate-400">
+          <div className="pt-3 border-t border-slate-200 flex flex-wrap items-center justify-center gap-3 text-[10px] text-slate-500 font-medium">
             <span className="flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
               <span>Cashfree Verified Merchant</span>
             </span>
-            <span className="text-slate-700">•</span>
+            <span className="text-slate-300">•</span>
             <span className="flex items-center gap-1">
-              <Shield className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+              <Shield className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
               <span>256-Bit SSL Encrypted</span>
             </span>
-            <span className="text-slate-700">•</span>
+            <span className="text-slate-300">•</span>
             <span className="flex items-center gap-1">
-              <Receipt className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+              <Receipt className="w-3.5 h-3.5 text-teal-600 shrink-0" />
               <span>Instant GST Tax Invoice</span>
             </span>
-            <span className="text-slate-700">•</span>
+            <span className="text-slate-300">•</span>
             <span>🇮🇳 Made in India</span>
           </div>
 
@@ -1087,23 +1088,23 @@ function SignUpForm() {
 
         {/* Outer Legal & Company Footer */}
         <div className="mt-6 text-center space-y-3 pb-6">
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-400">
-            <Link href="/" className="hover:text-white transition-colors">← Main Website</Link>
-            <span className="text-slate-700">•</span>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-            <span className="text-slate-700">•</span>
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <span className="text-slate-700">•</span>
-            <Link href="/refund" className="hover:text-white transition-colors">Refund Policy</Link>
-            <span className="text-slate-700">•</span>
-            <Link href="/shipping" className="hover:text-white transition-colors">Shipping Policy</Link>
-            <span className="text-slate-700">•</span>
-            <Link href="/contact" className="hover:text-white transition-colors">Contact Support</Link>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-600">
+            <Link href="/" className="hover:text-indigo-600 transition-colors">← Main Website</Link>
+            <span className="text-slate-300">•</span>
+            <Link href="/terms" className="hover:text-indigo-600 transition-colors">Terms of Service</Link>
+            <span className="text-slate-300">•</span>
+            <Link href="/privacy" className="hover:text-indigo-600 transition-colors">Privacy Policy</Link>
+            <span className="text-slate-300">•</span>
+            <Link href="/refund" className="hover:text-indigo-600 transition-colors">Refund Policy</Link>
+            <span className="text-slate-300">•</span>
+            <Link href="/shipping" className="hover:text-indigo-600 transition-colors">Shipping Policy</Link>
+            <span className="text-slate-300">•</span>
+            <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact Support</Link>
           </div>
 
           <div className="text-[11px] text-slate-500 space-y-0.5">
             <p>© 2026 OneClickBiz. All rights reserved.</p>
-            <p>Developed & Maintained by <span className="text-slate-400 font-medium">Merlinflow Technologies Pvt Ltd</span> • Hyderabad, India</p>
+            <p>Developed & Maintained by <span className="text-slate-700 font-medium">Merlinflow Technologies Pvt Ltd</span> • Hyderabad, India</p>
           </div>
         </div>
       </div>
@@ -1115,7 +1116,7 @@ function SignUpForm() {
 export default function SignUpPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white text-sm">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center text-slate-700 text-sm">
         Loading business entity portal...
       </div>
     }>

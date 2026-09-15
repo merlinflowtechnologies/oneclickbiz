@@ -190,30 +190,30 @@ export default function SubscriptionRenewalWidget({
   };
 
   return (
-    <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-6 relative overflow-hidden shadow-2xl">
+    <div className="p-6 sm:p-8 rounded-3xl bg-white/90 border border-slate-200/80 space-y-6 relative overflow-hidden shadow-lg">
       
       {/* Background Ambient Aura */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-indigo-500/10 via-purple-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-indigo-200/20 via-purple-200/15 to-transparent rounded-full blur-3xl pointer-events-none" />
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[11px] font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-[11px] font-bold uppercase tracking-wider mb-2 shadow-xs">
             <ShieldCheck className="w-3.5 h-3.5" /> Annual Subscription Lifecycle
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
             1-Year Plan Renewal Center
           </h2>
-          <p className="text-xs sm:text-sm text-slate-400">
+          <p className="text-xs sm:text-sm text-slate-600">
             Keep your digital business cards, NFC taps, and online WhatsApp store active 24/7.
           </p>
         </div>
 
         {/* Current Status Pill */}
-        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-slate-950 border border-slate-800">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-slate-50 border border-slate-200 shadow-xs">
           <div className={`w-2.5 h-2.5 rounded-full ${isExpired ? 'bg-rose-500 animate-ping' : 'bg-emerald-500'}`} />
-          <div className="text-xs font-semibold text-slate-300">
-            Status: <span className={isExpired ? 'text-rose-400 font-bold' : 'text-emerald-400 font-bold'}>
+          <div className="text-xs font-semibold text-slate-700">
+            Status: <span className={isExpired ? 'text-rose-600 font-bold' : 'text-emerald-600 font-bold'}>
               {isExpired ? 'Expired • Renewal Required' : `Active (Renews: ${renewalDate})`}
             </span>
           </div>
@@ -222,19 +222,19 @@ export default function SubscriptionRenewalWidget({
 
       {/* Success Notification */}
       {paymentSuccess && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-3 animate-in fade-in">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-3 animate-in fade-in">
+          <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
           <div>
-            <p className="font-bold text-white">Annual Renewal Successful!</p>
-            <p className="text-[11px] text-emerald-400">Your profile has been extended for +365 days. Reloading dashboard...</p>
+            <p className="font-bold text-slate-900">Annual Renewal Successful!</p>
+            <p className="text-[11px] text-emerald-700">Your profile has been extended for +365 days. Reloading dashboard...</p>
           </div>
         </div>
       )}
 
       {/* Error Notification */}
       {error && (
-        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold flex items-center gap-3">
-          <AlertTriangle className="w-5 h-5 text-rose-400 flex-shrink-0" />
+        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-3">
+          <AlertTriangle className="w-5 h-5 text-rose-600 flex-shrink-0" />
           <span>{error}</span>
         </div>
       )}
@@ -251,35 +251,35 @@ export default function SubscriptionRenewalWidget({
               onClick={() => setSelectedTier(tierKey)}
               className={`p-5 rounded-2xl border cursor-pointer transition-all space-y-3 relative ${
                 isSelected
-                  ? 'bg-gradient-to-b from-indigo-950/40 to-slate-950 border-indigo-500 shadow-lg shadow-indigo-500/10 scale-[1.02]'
-                  : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                  ? 'bg-indigo-50/80 border-2 border-indigo-600 shadow-md scale-[1.02]'
+                  : 'bg-slate-50/80 border-slate-200 hover:border-slate-300 hover:bg-white'
               }`}
             >
               {plan.recommended && (
-                <span className="absolute -top-2.5 right-4 px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-rose-600 text-white shadow-md">
+                <span className="absolute -top-2.5 right-4 px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-xs">
                   Most Popular
                 </span>
               )}
 
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-white">{plan.name}</span>
+                <span className="text-xs font-bold text-slate-900">{plan.name}</span>
                 <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                  isSelected ? 'border-indigo-500 bg-indigo-500 text-white' : 'border-slate-700'
+                  isSelected ? 'border-indigo-600 bg-indigo-600 text-white' : 'border-slate-300'
                 }`}>
                   {isSelected && <Check className="w-3 h-3" />}
                 </div>
               </div>
 
               <div className="space-y-0.5">
-                <div className="text-2xl font-black text-white">
-                  ₹{plan.price.toLocaleString()} <span className="text-xs font-normal text-slate-400">/ yr</span>
+                <div className="text-2xl font-black text-slate-900">
+                  ₹{plan.price.toLocaleString()} <span className="text-xs font-normal text-slate-500">/ yr</span>
                 </div>
-                <div className="text-[11px] text-slate-400">
+                <div className="text-[11px] text-slate-600">
                   {plan.cards}
                 </div>
               </div>
 
-              <div className="text-[10px] text-slate-500 pt-2 border-t border-slate-800/80">
+              <div className="text-[10px] text-slate-500 pt-2 border-t border-slate-200">
                 Covers 365 days 24/7 cloud hosting &amp; lead engine
               </div>
             </div>
@@ -288,14 +288,14 @@ export default function SubscriptionRenewalWidget({
       </div>
 
       {/* Action Area & Strict Policy Notice */}
-      <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         
         <div className="space-y-1 max-w-lg">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700">
             <Lock className="w-3.5 h-3.5" />
             <span>Strict Online Payment Policy</span>
           </div>
-          <p className="text-[11px] text-slate-400 leading-relaxed">
+          <p className="text-[11px] text-slate-600 leading-relaxed">
             All 1-year annual plan renewals must be processed through this automated online website portal. Direct and offline payments are strictly prohibited to ensure instant automated verification.
           </p>
         </div>
@@ -303,7 +303,7 @@ export default function SubscriptionRenewalWidget({
         <button
           onClick={handleOnlineRenewal}
           disabled={loading}
-          className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600 hover:from-rose-500 hover:to-indigo-500 text-white font-bold text-xs shadow-xl shadow-rose-600/25 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50 whitespace-nowrap"
+          className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600 hover:from-rose-700 hover:to-indigo-700 text-white font-bold text-xs shadow-xl shadow-rose-600/25 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50 whitespace-nowrap cursor-pointer"
         >
           {loading ? (
             <>

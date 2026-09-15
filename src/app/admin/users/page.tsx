@@ -253,8 +253,8 @@ export default function AdminUsersPage() {
       
       {/* Toast */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-2 shadow-2xl backdrop-blur-xl">
-          <Check className="w-4 h-4" />
+        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2 shadow-2xl backdrop-blur-xl">
+          <Check className="w-4 h-4 text-emerald-600" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -262,13 +262,13 @@ export default function AdminUsersPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[11px] font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 border border-indigo-200 text-indigo-700 text-[11px] font-bold uppercase tracking-wider mb-2 shadow-sm">
             <Users className="w-3.5 h-3.5" /> Member Registry
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             Members &amp; Smart Profile Directory
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400">
+          <p className="text-xs sm:text-sm text-slate-600">
             Manage all registered business identities, inspect public URLs, log in as member (impersonate), and oversee user subscription plans.
           </p>
         </div>
@@ -277,10 +277,10 @@ export default function AdminUsersPage() {
           <button
             onClick={handlePurgeUnpaid}
             disabled={purging}
-            className="px-4 py-2 rounded-xl bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 border border-rose-500/30 text-xs font-bold shadow-md flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+            className="px-4 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold shadow-sm flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50"
             title="Permanently remove test accounts who have not paid online"
           >
-            <Trash2 className="w-3.5 h-3.5 text-rose-400" />
+            <Trash2 className="w-3.5 h-3.5 text-rose-600" />
             <span>{purging ? 'Purging Unpaid...' : 'Purge Unpaid Accounts'}</span>
           </button>
 
@@ -296,27 +296,27 @@ export default function AdminUsersPage() {
 
           <button
             onClick={exportCSV}
-            className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 text-xs font-semibold flex items-center gap-2 transition-all"
+            className="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-sm"
           >
-            <Download className="w-3.5 h-3.5 text-indigo-400" />
+            <Download className="w-3.5 h-3.5 text-indigo-600" />
             <span>Export CSV</span>
           </button>
         </div>
       </div>
 
       {/* Directory Table Container */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-6">
+      <div className="p-6 sm:p-8 rounded-3xl bg-white/90 border border-slate-200/80 shadow-md space-y-6 backdrop-blur-xl">
         
         {/* Filters */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="relative flex-1 max-w-md">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search by name, email, business name, or unique slug..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-rose-500 focus:bg-white"
             />
           </div>
 
@@ -325,7 +325,7 @@ export default function AdminUsersPage() {
             <select
               value={tierFilter}
               onChange={(e) => setTierFilter(e.target.value)}
-              className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 focus:outline-none focus:border-indigo-500"
+              className="px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 focus:bg-white"
             >
               <option value="ALL">All Plans</option>
               <option value="BASIC">Basic Plan (₹999 - 1 Card)</option>
@@ -337,7 +337,7 @@ export default function AdminUsersPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 focus:outline-none focus:border-indigo-500"
+              className="px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 focus:bg-white"
             >
               <option value="ALL">All Statuses</option>
               <option value="ACTIVE">Active</option>
@@ -349,10 +349,10 @@ export default function AdminUsersPage() {
         </div>
 
         {/* Directory Table */}
-        <div className="overflow-x-auto rounded-2xl border border-slate-800">
+        <div className="overflow-x-auto rounded-2xl border border-slate-200">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-950 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              <tr className="border-b border-slate-200 bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                 <th className="py-3.5 px-4">Member Info</th>
                 <th className="py-3.5 px-4">Business Identity &amp; Slug</th>
                 <th className="py-3.5 px-4">Plan &amp; Cards</th>
@@ -362,13 +362,13 @@ export default function AdminUsersPage() {
                 <th className="py-3.5 px-4 text-right">Admin Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-xs">
+            <tbody className="divide-y divide-slate-100 text-xs">
               {filtered.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="py-12 px-4 text-center text-slate-400">
                     <div className="flex flex-col items-center justify-center space-y-2">
-                      <Users className="w-8 h-8 text-slate-600 mb-1" />
-                      <span className="font-bold text-slate-300">No Member Accounts Registered Yet</span>
+                      <Users className="w-8 h-8 text-slate-400 mb-1" />
+                      <span className="font-bold text-slate-700">No Member Accounts Registered Yet</span>
                       <span className="text-xs text-slate-500">
                         When users register their business or create digital business cards, they will appear in this directory.
                       </span>
@@ -377,7 +377,7 @@ export default function AdminUsersPage() {
                 </tr>
               ) : (
                 filtered.map((user) => (
-                <tr key={user.id} className="hover:bg-slate-800/40 transition-colors">
+                <tr key={user.id} className="hover:bg-slate-50/80 transition-colors">
                   
                   {/* Member Info */}
                   <td className="py-4 px-4">
@@ -385,15 +385,15 @@ export default function AdminUsersPage() {
                       <img
                         src={user.avatarUrl}
                         alt={user.name}
-                        className="w-10 h-10 rounded-full object-cover border border-slate-700 flex-shrink-0"
+                        className="w-10 h-10 rounded-full object-cover border border-slate-200 flex-shrink-0"
                       />
                       <div className="flex flex-col">
-                        <span className="font-bold text-white text-sm">{user.name}</span>
-                        <span className="text-[11px] text-slate-400 flex items-center gap-1">
-                          <Mail className="w-3 h-3 text-slate-500" />
+                        <span className="font-bold text-slate-900 text-sm">{user.name}</span>
+                        <span className="text-[11px] text-slate-600 flex items-center gap-1">
+                          <Mail className="w-3 h-3 text-slate-400" />
                           {user.email}
                         </span>
-                        <span className="text-[10px] text-slate-500">Joined: {user.joinedDate}</span>
+                        <span className="text-[10px] text-slate-400">Joined: {user.joinedDate}</span>
                       </div>
                     </div>
                   </td>
@@ -401,11 +401,11 @@ export default function AdminUsersPage() {
                   {/* Business & Slug */}
                   <td className="py-4 px-4">
                     <div className="space-y-1">
-                      <div className="font-semibold text-slate-200">{user.businessName}</div>
+                      <div className="font-semibold text-slate-800">{user.businessName}</div>
                       <Link
                         href={`/v/${user.slug}`}
                         target="_blank"
-                        className="inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-indigo-400 hover:text-indigo-300 bg-indigo-950/40 px-2 py-0.5 rounded border border-indigo-500/20"
+                        className="inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200"
                       >
                         <span>/v/{user.slug}</span>
                         <ExternalLink className="w-3 h-3" />
@@ -418,14 +418,14 @@ export default function AdminUsersPage() {
                     <div className="space-y-1">
                       <span className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase border ${
                         user.planTier === 'Advanced'
-                          ? 'bg-rose-500/10 text-rose-300 border-rose-500/30'
+                          ? 'bg-rose-50 text-rose-700 border-rose-200'
                           : user.planTier === 'Pro'
-                          ? 'bg-purple-500/10 text-purple-300 border-purple-500/30'
-                          : 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30'
+                          ? 'bg-purple-50 text-purple-700 border-purple-200'
+                          : 'bg-indigo-50 text-indigo-700 border-indigo-200'
                       }`}>
                         {user.planTier}
                       </span>
-                      <p className="text-[10px] text-slate-400">
+                      <p className="text-[10px] text-slate-500">
                         {user.planTier === 'Advanced' ? 'Up to 5 Cards' : user.planTier === 'Pro' ? 'Up to 3 Cards' : '1 Card'}
                       </p>
                     </div>
@@ -433,10 +433,10 @@ export default function AdminUsersPage() {
 
                   {/* Plan Cost */}
                   <td className="py-4 px-4">
-                    <div className="font-extrabold text-white text-sm">
-                      <span className="text-emerald-400">₹{user.planCost.toLocaleString()}<span className="text-[10px] text-slate-400 font-normal">/yr</span></span>
+                    <div className="font-extrabold text-slate-900 text-sm">
+                      <span className="text-emerald-700">₹{user.planCost.toLocaleString()}<span className="text-[10px] text-slate-500 font-normal">/yr</span></span>
                     </div>
-                    <div className="text-[10px] text-slate-500">
+                    <div className="text-[10px] text-slate-400">
                       Cycle: {user.billingCycle}
                     </div>
                   </td>
@@ -444,10 +444,10 @@ export default function AdminUsersPage() {
                   {/* Activity */}
                   <td className="py-4 px-4">
                     <div className="space-y-0.5">
-                      <div className="font-semibold text-white">
+                      <div className="font-semibold text-slate-900">
                         {(user.totalTaps + user.totalScans).toLocaleString()} taps &amp; scans
                       </div>
-                      <div className="text-[10px] text-slate-400">
+                      <div className="text-[10px] text-slate-500">
                         {user.totalOrders} store orders • {user.totalBookings} bookings
                       </div>
                     </div>
@@ -457,10 +457,10 @@ export default function AdminUsersPage() {
                   <td className="py-4 px-4">
                     <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold inline-flex items-center gap-1 ${
                       user.subscriptionStatus === 'ACTIVE'
-                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                         : user.subscriptionStatus === 'CANCELLED'
-                        ? 'bg-rose-500/10 text-rose-400 border border-rose-500/30'
-                        : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
+                        ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                        : 'bg-amber-50 text-amber-700 border border-amber-200'
                     }`}>
                       {user.subscriptionStatus === 'ACTIVE' ? (
                         <CheckCircle2 className="w-3 h-3" />
@@ -481,7 +481,7 @@ export default function AdminUsersPage() {
                       <button
                         onClick={() => handleImpersonateUser(user)}
                         title="Log in directly as this member"
-                        className="px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/30 text-xs font-semibold flex items-center gap-1 transition-all active:scale-95"
+                        className="px-2.5 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white border border-indigo-200 text-xs font-semibold flex items-center gap-1 transition-all active:scale-95 shadow-sm"
                       >
                         <LogIn className="w-3 h-3" />
                         <span>Login as User</span>
@@ -491,28 +491,28 @@ export default function AdminUsersPage() {
                       <button
                         onClick={() => setEditingUser({ ...user })}
                         title="Edit Plan Tier / Subscription"
-                        className="p-1.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition"
+                        className="p-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200 transition shadow-sm"
                       >
-                        <Edit2 className="w-3.5 h-3.5 text-amber-400" />
+                        <Edit2 className="w-3.5 h-3.5 text-amber-600" />
                       </button>
 
                       {/* Export Single User PDF */}
                       <button
                         onClick={() => handleExportSingleMemberPDF(user)}
                         title="Extract Individual Member Dossier PDF"
-                        className="p-1.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-indigo-400 border border-slate-800 transition"
+                        className="p-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-indigo-700 border border-slate-200 transition shadow-sm"
                       >
-                        <Download className="w-3.5 h-3.5 text-indigo-400" />
+                        <Download className="w-3.5 h-3.5 text-indigo-600" />
                       </button>
 
                       {/* Suspend / Unblock */}
                       <button
                         onClick={() => handleToggleSuspend(user)}
                         title={user.subscriptionStatus === 'CANCELLED' ? 'Unblock Account' : 'Suspend / Block Account'}
-                        className={`p-1.5 rounded-xl border transition ${
+                        className={`p-1.5 rounded-xl border transition shadow-sm ${
                           user.subscriptionStatus === 'CANCELLED'
-                            ? 'bg-emerald-950/40 border-emerald-800/50 text-emerald-400 hover:bg-emerald-900/50'
-                            : 'bg-rose-950/40 border-rose-800/50 text-rose-400 hover:bg-rose-900/50'
+                            ? 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100'
+                            : 'bg-rose-50 border-rose-200 text-rose-700 hover:bg-rose-100'
                         }`}
                       >
                         <Ban className="w-3.5 h-3.5" />
@@ -531,24 +531,24 @@ export default function AdminUsersPage() {
 
       {/* EDIT MEMBER MODAL */}
       {editingUser && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl animate-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="w-full max-w-lg bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl animate-in zoom-in-95">
             
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-4">
               <div className="flex items-center gap-3">
                 <img
                   src={editingUser.avatarUrl}
                   alt={editingUser.name}
-                  className="w-10 h-10 rounded-full object-cover border border-slate-700"
+                  className="w-10 h-10 rounded-full object-cover border border-slate-200"
                 />
                 <div>
-                  <h3 className="text-base font-bold text-white">Edit Subscription &amp; Tier</h3>
-                  <p className="text-xs text-slate-400">{editingUser.name} • {editingUser.email}</p>
+                  <h3 className="text-base font-bold text-slate-900">Edit Subscription &amp; Tier</h3>
+                  <p className="text-xs text-slate-500">{editingUser.name} • {editingUser.email}</p>
                 </div>
               </div>
               <button
                 onClick={() => setEditingUser(null)}
-                className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800"
+                className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -557,37 +557,37 @@ export default function AdminUsersPage() {
             <form onSubmit={handleSaveUserChanges} className="space-y-4">
               
               {/* Strict Policy Banner */}
-              <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 space-y-1">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
-                  <ShieldCheck className="w-3.5 h-3.5" />
+              <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 space-y-1">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-amber-800">
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
                   <span>Strict Online Payment Policy</span>
                 </div>
-                <p className="text-[11px] text-slate-400 leading-relaxed">
+                <p className="text-[11px] text-slate-600 leading-relaxed">
                   All 1-year annual plan renewals must be processed through this automated online website portal. Direct and offline payments are strictly prohibited.
                 </p>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Plan Tier (Payment Verified)</label>
-                <div className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white font-mono flex items-center justify-between">
+                <label className="text-xs font-semibold text-slate-700">Plan Tier (Payment Verified)</label>
+                <div className="px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono flex items-center justify-between">
                   <span>{editingUser.planTier} Plan</span>
-                  <span className="text-emerald-400 font-bold">₹{editingUser.planCost} / yr</span>
+                  <span className="text-emerald-700 font-bold">₹{editingUser.planCost} / yr</span>
                 </div>
-                <p className="text-[10px] text-slate-500">Plan tiers are tied directly to verified Cashfree gateway invoices.</p>
+                <p className="text-[10px] text-slate-400">Plan tiers are tied directly to verified Cashfree gateway invoices.</p>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Subscription Status (Payment-Locked)</label>
-                <div className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs flex items-center justify-between">
+                <label className="text-xs font-semibold text-slate-700">Subscription Status (Payment-Locked)</label>
+                <div className="px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className={`w-2 h-2 rounded-full ${
                       editingUser.subscriptionStatus === 'ACTIVE'
-                        ? 'bg-emerald-400'
+                        ? 'bg-emerald-500'
                         : editingUser.subscriptionStatus === 'CANCELLED'
-                        ? 'bg-rose-400'
-                        : 'bg-amber-400'
+                        ? 'bg-rose-500'
+                        : 'bg-amber-500'
                     }`} />
-                    <span className="font-bold text-white">
+                    <span className="font-bold text-slate-900">
                       {editingUser.subscriptionStatus === 'ACTIVE'
                         ? 'ACTIVE (Verified via Cashfree PG)'
                         : editingUser.subscriptionStatus === 'CANCELLED'
@@ -596,17 +596,17 @@ export default function AdminUsersPage() {
                     </span>
                   </div>
                   <span className="text-[10px] text-slate-500 font-mono flex items-center gap-1">
-                    <Lock className="w-3 h-3 text-amber-400" /> Strict Policy
+                    <Lock className="w-3 h-3 text-amber-600" /> Strict Policy
                   </span>
                 </div>
-                <p className="text-[10px] text-slate-500">Status cannot be changed to Active manually. Strict online checkout required.</p>
+                <p className="text-[10px] text-slate-400">Status cannot be changed to Active manually. Strict online checkout required.</p>
               </div>
 
               {/* Moderation Block/Unblock Action */}
-              <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                 <div>
-                  <span className="text-xs font-bold text-white block">Account Moderation</span>
-                  <span className="text-[11px] text-slate-400">Suspend or block account for policy violations.</span>
+                  <span className="text-xs font-bold text-slate-900 block">Account Moderation</span>
+                  <span className="text-[11px] text-slate-500">Suspend or block account for policy violations.</span>
                 </div>
                 <button
                   type="button"
@@ -616,10 +616,10 @@ export default function AdminUsersPage() {
                       : 'CANCELLED';
                     setEditingUser({ ...editingUser, subscriptionStatus: newStatus });
                   }}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-sm ${
                     editingUser.subscriptionStatus === 'CANCELLED'
-                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30'
-                      : 'bg-rose-500/20 text-rose-300 border border-rose-500/40 hover:bg-rose-500/30'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'
+                      : 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'
                   }`}
                 >
                   {editingUser.subscriptionStatus === 'CANCELLED' ? 'Unblock Account' : 'Suspend / Block'}
@@ -627,21 +627,21 @@ export default function AdminUsersPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Business Name</label>
+                <label className="text-xs font-semibold text-slate-700">Business Name</label>
                 <input
                   type="text"
                   value={editingUser.businessName}
                   onChange={(e) => setEditingUser({ ...editingUser, businessName: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-rose-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-rose-500 focus:bg-white"
                   required
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200">
                 <button
                   type="button"
                   onClick={() => setEditingUser(null)}
-                  className="px-4 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-300 text-xs font-semibold transition"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition"
                 >
                   Cancel
                 </button>
@@ -662,3 +662,4 @@ export default function AdminUsersPage() {
     </div>
   );
 }
+

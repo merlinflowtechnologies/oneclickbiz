@@ -358,8 +358,8 @@ function SettingsContent() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="px-3.5 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4" />
+          <span className="px-3.5 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1.5 shadow-sm">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             Active Plan: {currentPlan === 'BASIC' ? `Basic (₹${tiers.find((p) => p.id === 'BASIC')?.price || 999}/yr)` : currentPlan === 'PRO' ? `Pro (₹${tiers.find((p) => p.id === 'PRO')?.price || 1599}/yr)` : `Advanced (₹${tiers.find((p) => p.id === 'ADVANCED')?.price || 2199}/yr)`}
           </span>
         </div>
@@ -368,19 +368,19 @@ function SettingsContent() {
       {/* ============================================================== */}
       {/* SECTION 1: UPGRADE & MANAGE PLANS COMPARISON                   */}
       {/* ============================================================== */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-6 shadow-2xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="p-6 sm:p-8 rounded-3xl bg-white/90 border border-slate-200/80 space-y-6 shadow-md backdrop-blur-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 text-[10px] font-bold uppercase tracking-wider mb-1">
-              <Zap className="w-3 h-3" /> Annual Membership Tiers
+            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold uppercase tracking-wider mb-1">
+              <Zap className="w-3 h-3 text-amber-600" /> Annual Membership Tiers
             </div>
-            <h2 className="text-lg font-bold text-white">Choose Your Annual Plan</h2>
-            <p className="text-xs text-slate-400">All plans are billed annually with zero transaction fees and instant activation.</p>
+            <h2 className="text-lg font-bold text-slate-900">Choose Your Annual Plan</h2>
+            <p className="text-xs text-slate-500">All plans are billed annually with zero transaction fees and instant activation.</p>
           </div>
 
           {/* Annual Billing Guarantee Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold self-start sm:self-auto shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold self-start sm:self-auto shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
             <span>100% Transparent Annual Pricing</span>
           </div>
         </div>
@@ -395,41 +395,41 @@ function SettingsContent() {
                 key={tier.id}
                 className={`rounded-3xl p-6 flex flex-col justify-between transition-all relative ${
                   tier.popular 
-                    ? 'bg-gradient-to-b from-indigo-950/60 via-slate-900 to-slate-900 border-2 border-indigo-500 shadow-2xl ring-2 ring-indigo-500/20' 
-                    : 'bg-slate-950/80 border border-slate-800 hover:border-slate-700'
+                    ? 'bg-gradient-to-b from-indigo-50/80 via-white to-white border-2 border-indigo-600 shadow-xl ring-2 ring-indigo-500/20' 
+                    : 'bg-white border border-slate-200 hover:border-slate-300 shadow-sm'
                 }`}
               >
                 {tier.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-indigo-600 text-white text-[10px] font-bold uppercase tracking-wider shadow-lg">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-indigo-600 text-white text-[10px] font-bold uppercase tracking-wider shadow-md">
                     {tier.badge}
                   </span>
                 )}
 
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-base font-bold text-white flex items-center gap-2">
-                      {tier.id === 'ADVANCED' && <Crown className="w-4 h-4 text-amber-400" />}
+                    <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                      {tier.id === 'ADVANCED' && <Crown className="w-4 h-4 text-amber-500" />}
                       {tier.name}
                     </h3>
-                    <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">{tier.tagline}</p>
+                    <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">{tier.tagline}</p>
                   </div>
 
                   <div className="pt-2 pb-1">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-extrabold text-white">
+                      <span className="text-3xl font-extrabold text-slate-900">
                         ₹{tier.price.toLocaleString()}
                       </span>
-                      <span className="text-xs text-slate-400 font-medium">/ year</span>
+                      <span className="text-xs text-slate-500 font-medium">/ year</span>
                     </div>
-                    <p className="text-[10px] text-emerald-400 font-semibold mt-0.5">Billed annually • Inclusive of all updates</p>
+                    <p className="text-[10px] text-emerald-700 font-semibold mt-0.5">Billed annually • Inclusive of all updates</p>
                   </div>
 
                   {/* Features List */}
-                  <div className="space-y-2 pt-2 border-t border-slate-800">
+                  <div className="space-y-2 pt-2 border-t border-slate-100">
                     <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Included Features:</p>
                     {tier.features.map((feat, i) => (
-                      <div key={i} className="flex items-start gap-2 text-xs text-slate-300">
-                        <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                      <div key={i} className="flex items-start gap-2 text-xs text-slate-600">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                         <span className="leading-snug">{feat}</span>
                       </div>
                     ))}
@@ -437,12 +437,12 @@ function SettingsContent() {
                 </div>
 
                 {/* Action CTA Button */}
-                <div className="pt-6 mt-4 border-t border-slate-800">
+                <div className="pt-6 mt-4 border-t border-slate-100">
                   {isCurrent ? (
                     <button
                       type="button"
                       disabled
-                      className="w-full py-2.5 rounded-xl bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 cursor-default"
+                      className="w-full py-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-xs flex items-center justify-center gap-1.5 cursor-default"
                     >
                       <Check className="w-4 h-4" />
                       Current Active Plan
@@ -454,7 +454,7 @@ function SettingsContent() {
                       className={`w-full py-2.5 rounded-xl font-bold text-xs transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-md ${
                         tier.popular
                           ? 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white'
-                          : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
+                          : 'bg-slate-900 hover:bg-slate-800 text-white'
                       }`}
                     >
                       <span>Switch to {tier.name}</span>
@@ -474,59 +474,59 @@ function SettingsContent() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* Video storage quota */}
-        <div className="p-5 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-2.5 shadow">
+        <div className="p-5 rounded-3xl bg-white/90 border border-slate-200/80 space-y-2.5 shadow-sm backdrop-blur-xl">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-300">Cloud Video Storage</span>
-            <span className="text-[10px] font-bold text-indigo-400">
+            <span className="text-xs font-semibold text-slate-700">Cloud Video Storage</span>
+            <span className="text-[10px] font-bold text-indigo-700">
               {currentPlan === 'BASIC' ? '3 / 3 Used' : currentPlan === 'PRO' ? '3 / 10 Used' : '3 / Unlimited (4K)'}
             </span>
           </div>
-          <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
-            <div className="bg-indigo-500 h-full rounded-full w-[30%]" />
+          <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200">
+            <div className="bg-indigo-600 h-full rounded-full w-[30%]" />
           </div>
-          <p className="text-[10px] text-slate-500">YouTube, Reels & Direct MP4</p>
+          <p className="text-[10px] text-slate-400">YouTube, Reels &amp; Direct MP4</p>
         </div>
 
         {/* Portfolio gallery quota */}
-        <div className="p-5 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-2.5 shadow">
+        <div className="p-5 rounded-3xl bg-white/90 border border-slate-200/80 space-y-2.5 shadow-sm backdrop-blur-xl">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-300">Portfolio Showcase</span>
-            <span className="text-[10px] font-bold text-pink-400">
+            <span className="text-xs font-semibold text-slate-700">Portfolio Showcase</span>
+            <span className="text-[10px] font-bold text-pink-700">
               {currentPlan === 'BASIC' ? '4 / 5 Projects' : currentPlan === 'PRO' ? '4 / 25 Projects' : '4 / 50+ Projects'}
             </span>
           </div>
-          <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
-            <div className="bg-pink-500 h-full rounded-full w-[16%]" />
+          <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200">
+            <div className="bg-pink-600 h-full rounded-full w-[16%]" />
           </div>
-          <p className="text-[10px] text-slate-500">High-Res Lightbox Galleries</p>
+          <p className="text-[10px] text-slate-400">High-Res Lightbox Galleries</p>
         </div>
 
         {/* WhatsApp Store items */}
-        <div className="p-5 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-2.5 shadow">
+        <div className="p-5 rounded-3xl bg-white/90 border border-slate-200/80 space-y-2.5 shadow-sm backdrop-blur-xl">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-300">WhatsApp Catalog</span>
-            <span className="text-[10px] font-bold text-emerald-400">
+            <span className="text-xs font-semibold text-slate-700">WhatsApp Catalog</span>
+            <span className="text-[10px] font-bold text-emerald-700">
               {currentPlan === 'BASIC' ? 'Standard' : 'Unlimited'}
             </span>
           </div>
-          <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
-            <div className="bg-emerald-500 h-full rounded-full w-full" />
+          <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200">
+            <div className="bg-emerald-600 h-full rounded-full w-full" />
           </div>
-          <p className="text-[10px] text-slate-500">Direct WhatsApp 1-Click Orders</p>
+          <p className="text-[10px] text-slate-400">Direct WhatsApp 1-Click Orders</p>
         </div>
 
         {/* Custom Domain status */}
-        <div className="p-5 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-2.5 shadow">
+        <div className="p-5 rounded-3xl bg-white/90 border border-slate-200/80 space-y-2.5 shadow-sm backdrop-blur-xl">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-300">White-Label Domain</span>
-            <span className="text-[10px] font-bold text-amber-400">
+            <span className="text-xs font-semibold text-slate-700">White-Label Domain</span>
+            <span className="text-[10px] font-bold text-amber-800">
               {currentPlan === 'BASIC' ? 'Subdomain Only' : currentPlan === 'PRO' ? '1 / 1 Active' : '5 Domains Active'}
             </span>
           </div>
-          <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+          <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200">
             <div className="bg-amber-500 h-full rounded-full w-full" />
           </div>
-          <p className="text-[10px] text-slate-500">SSL Provisioned & Active</p>
+          <p className="text-[10px] text-slate-400">SSL Provisioned &amp; Active</p>
         </div>
 
       </div>
@@ -537,39 +537,39 @@ function SettingsContent() {
       <form onSubmit={handleSave} className="space-y-6">
         
         {/* Personal Profile & Headshot Photo */}
-        <div className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-5 shadow-lg">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div className="p-6 rounded-3xl bg-white/90 border border-slate-200/80 space-y-5 shadow-md backdrop-blur-xl">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div className="flex items-center gap-2">
-              <User className="w-4 h-4 text-indigo-400" />
-              <h2 className="text-sm font-bold text-white">Account Profile & Headshot Photo</h2>
+              <User className="w-4 h-4 text-indigo-600" />
+              <h2 className="text-sm font-bold text-slate-900">Account Profile &amp; Headshot Photo</h2>
             </div>
-            <span className="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+            <span className="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
               Synced Across Dashboard
             </span>
           </div>
 
           {/* Photo Uploader Row */}
-          <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div 
                 onClick={() => avatarFileInputRef.current?.click()}
-                className="relative w-16 h-16 rounded-full ring-4 ring-indigo-500/30 overflow-hidden cursor-pointer group bg-slate-800 shrink-0 shadow-md"
+                className="relative w-16 h-16 rounded-full ring-4 ring-indigo-500/20 overflow-hidden cursor-pointer group bg-slate-200 shrink-0 shadow-md"
                 title="Click to change photo"
               >
                 {accountAvatar ? (
                   <img src={accountAvatar} alt="Profile" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-white font-bold">{billingName.charAt(0)}</div>
+                  <div className="w-full h-full flex items-center justify-center text-slate-700 font-bold">{billingName.charAt(0)}</div>
                 )}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white">
                   <Camera className="w-4 h-4" />
                 </div>
               </div>
 
               <div>
-                <h3 className="text-xs font-bold text-white">Profile Photo</h3>
-                <p className="text-[11px] text-slate-400 mt-0.5">Used across your vCard, email signature, and dashboard account.</p>
-                <p className="text-[10px] text-slate-500 mt-0.5">PNG, JPG or WebP up to 10MB</p>
+                <h3 className="text-xs font-bold text-slate-900">Profile Photo</h3>
+                <p className="text-[11px] text-slate-500 mt-0.5">Used across your vCard, email signature, and dashboard account.</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">PNG, JPG or WebP up to 10MB</p>
               </div>
             </div>
 
@@ -601,9 +601,9 @@ function SettingsContent() {
               <button
                 type="button"
                 onClick={() => setShowAvatarPresets(!showAvatarPresets)}
-                className="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition"
+                className="px-3 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition shadow-sm"
               >
-                <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+                <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
                 <span>Presets</span>
               </button>
             </div>
@@ -611,8 +611,8 @@ function SettingsContent() {
 
           {/* Avatar Presets Grid */}
           {showAvatarPresets && (
-            <div className="p-3 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2 animate-in fade-in">
-              <span className="text-[11px] font-semibold text-indigo-300">Choose a Professional Avatar Preset:</span>
+            <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 animate-in fade-in">
+              <span className="text-[11px] font-semibold text-indigo-700">Choose a Professional Avatar Preset:</span>
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
                 {[
                   '/kishore-profile-v2.png',
@@ -631,7 +631,7 @@ function SettingsContent() {
                       setShowAvatarPresets(false);
                     }}
                     className={`aspect-square rounded-xl overflow-hidden cursor-pointer border-2 transition ${
-                      accountAvatar === url ? 'border-indigo-500 ring-2 ring-indigo-500/40 scale-105' : 'border-slate-800 hover:border-indigo-500/60'
+                      accountAvatar === url ? 'border-indigo-600 ring-2 ring-indigo-500/40 scale-105' : 'border-slate-200 hover:border-indigo-500'
                     }`}
                   >
                     <img src={url} alt="Preset" className="w-full h-full object-cover" />
@@ -644,95 +644,95 @@ function SettingsContent() {
           {/* Personal Info Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-slate-400">Your Full Name</label>
+              <label className="text-xs font-semibold text-slate-700">Your Full Name</label>
               <input 
                 type="text" 
                 value={billingName}
                 onChange={e => setBillingName(e.target.value)}
-                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500"
+                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 focus:bg-white"
               />
             </div>
             <div>
-              <label className="text-xs text-slate-400">Designation / Role</label>
+              <label className="text-xs font-semibold text-slate-700">Designation / Role</label>
               <input 
                 type="text" 
                 value={accountDesignation}
                 onChange={e => setAccountDesignation(e.target.value)}
-                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500"
+                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 focus:bg-white"
               />
             </div>
             <div>
-              <label className="text-xs text-slate-400">Account Email Address</label>
+              <label className="text-xs font-semibold text-slate-700">Account Email Address</label>
               <input 
                 type="email" 
                 value={billingEmail}
                 onChange={e => setBillingEmail(e.target.value)}
-                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500"
+                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 focus:bg-white"
               />
             </div>
             <div>
-              <label className="text-xs text-slate-400">Mobile Contact Number</label>
+              <label className="text-xs font-semibold text-slate-700">Mobile Contact Number</label>
               <input 
                 type="text" 
                 value={billingPhone}
                 onChange={e => setBillingPhone(e.target.value)}
-                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500"
+                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 focus:bg-white"
               />
             </div>
           </div>
         </div>
 
         {/* Organization Information */}
-        <div className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-4">
-          <div className="flex items-center gap-2 pb-3 border-b border-slate-800">
-            <Building2 className="w-4 h-4 text-indigo-400" />
-            <h2 className="text-sm font-bold text-white">Organization Details</h2>
+        <div className="p-6 rounded-3xl bg-white/90 border border-slate-200/80 space-y-4 shadow-md backdrop-blur-xl">
+          <div className="flex items-center gap-2 pb-3 border-b border-slate-200">
+            <Building2 className="w-4 h-4 text-indigo-600" />
+            <h2 className="text-sm font-bold text-slate-900">Organization Details</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-slate-400">Company / Organization Name</label>
+              <label className="text-xs font-semibold text-slate-700">Company / Organization Name</label>
               <input 
                 type="text" 
                 value={orgName}
                 onChange={e => setOrgName(e.target.value)}
-                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white"
+                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 focus:bg-white"
               />
             </div>
             <div>
-              <label className="text-xs text-slate-400">Organization Slug</label>
+              <label className="text-xs font-semibold text-slate-700">Organization Slug</label>
               <input 
                 type="text" 
                 value="apex-studio"
                 disabled
-                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-950/50 border border-slate-800 text-xs text-slate-500 font-mono"
+                className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-500 font-mono"
               />
             </div>
           </div>
         </div>
 
         {/* Custom Domain Configuration */}
-        <div className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div className="p-6 rounded-3xl bg-white/90 border border-slate-200/80 space-y-4 shadow-md backdrop-blur-xl">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div className="flex items-center gap-2">
-              <Globe className="w-4 h-4 text-emerald-400" />
-              <h2 className="text-sm font-bold text-white">Custom Domain (White-Label CNAME)</h2>
+              <Globe className="w-4 h-4 text-emerald-600" />
+              <h2 className="text-sm font-bold text-slate-900">Custom Domain (White-Label CNAME)</h2>
             </div>
             {currentPlan === 'BASIC' ? (
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold flex items-center gap-1">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200 font-bold flex items-center gap-1">
                 <Lock className="w-3 h-3" /> Pro / Advanced Only
               </span>
             ) : (
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
                 {currentPlan === 'ADVANCED' ? '5 Domains Allowed' : '1 Domain Allowed'}
               </span>
             )}
           </div>
 
           {currentPlan === 'BASIC' ? (
-            <div className="p-4 rounded-2xl bg-slate-950/60 border border-amber-500/20 space-y-3">
-              <p className="text-xs text-slate-300">
-                White-label custom domains (e.g. <code className="text-indigo-400 font-mono">card.yourcompany.com</code>) with automated SSL certificates are available on the <strong>Pro Plan (1 Domain)</strong> and <strong>Advanced Plan (5 Domains)</strong>.
+            <div className="p-4 rounded-2xl bg-slate-50 border border-amber-200 space-y-3">
+              <p className="text-xs text-slate-700">
+                White-label custom domains (e.g. <code className="text-indigo-600 font-mono">card.yourcompany.com</code>) with automated SSL certificates are available on the <strong>Pro Plan (1 Domain)</strong> and <strong>Advanced Plan (5 Domains)</strong>.
               </p>
               <button
                 type="button"
@@ -746,19 +746,19 @@ function SettingsContent() {
           ) : (
             <>
               <div>
-                <label className="text-xs text-slate-400">Custom Domain Name (CNAME to oneclickbiz.in)</label>
+                <label className="text-xs font-semibold text-slate-700">Custom Domain Name (CNAME to oneclickbiz.in)</label>
                 <input 
                   type="text" 
                   value={customDomain}
                   onChange={e => setCustomDomain(e.target.value)}
                   placeholder="e.g. cards.yourcompany.com"
-                  className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                  className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono focus:outline-none focus:border-indigo-500 focus:bg-white"
                 />
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 text-xs space-y-2">
-                <p className="font-semibold text-slate-300">DNS Configuration Instructions:</p>
-                <div className="font-mono text-[11px] bg-slate-900 p-2.5 rounded-xl border border-slate-800 text-indigo-300">
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-2">
+                <p className="font-semibold text-slate-700">DNS Configuration Instructions:</p>
+                <div className="font-mono text-[11px] bg-white p-2.5 rounded-xl border border-slate-200 text-indigo-700 shadow-sm">
                   Type: CNAME &nbsp;|&nbsp; Host: cards &nbsp;|&nbsp; Target: cname.oneclickbiz.in
                 </div>
                 <p className="text-[10px] text-slate-500">SSL certificates are provisioned automatically within 10 minutes of DNS verification.</p>
@@ -770,26 +770,26 @@ function SettingsContent() {
         {/* ============================================================== */}
         {/* SECTION 4: BILLING INVOICES & TAX RECEIPTS                     */}
         {/* ============================================================== */}
-        <div className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div className="p-6 rounded-3xl bg-white/90 border border-slate-200/80 space-y-4 shadow-md backdrop-blur-xl">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div className="flex items-center gap-2">
-              <Receipt className="w-4 h-4 text-pink-400" />
-              <h2 className="text-sm font-bold text-white">Billing History & GST Tax Invoices</h2>
+              <Receipt className="w-4 h-4 text-pink-600" />
+              <h2 className="text-sm font-bold text-slate-900">Billing History &amp; GST Tax Invoices</h2>
             </div>
-            <span className="text-[11px] text-slate-400">Download official tax receipts</span>
+            <span className="text-[11px] text-slate-500">Download official tax receipts</span>
           </div>
 
           <div className="space-y-3">
             {invoices.map((inv) => (
-              <div key={inv.id} className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div key={inv.id} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="space-y-0.5">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-white font-mono">{inv.id}</span>
-                    <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-bold">
+                    <span className="text-xs font-bold text-slate-900 font-mono">{inv.id}</span>
+                    <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold">
                       {inv.status}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-300">{inv.plan}</p>
+                  <p className="text-xs text-slate-700">{inv.plan}</p>
                   <p className="text-[11px] text-slate-500">{inv.date} • {inv.amount}</p>
                 </div>
 
@@ -803,9 +803,9 @@ function SettingsContent() {
                     customerName: billingName,
                     companyName: orgName
                   })}
-                  className="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 transition-all self-start sm:self-auto shadow-sm"
+                  className="px-3 py-2 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 flex items-center gap-1.5 transition-all self-start sm:self-auto shadow-sm"
                 >
-                  <Download className="w-3.5 h-3.5 text-indigo-400" />
+                  <Download className="w-3.5 h-3.5 text-indigo-600" />
                   <span>Download Invoice (PDF)</span>
                 </button>
               </div>
@@ -830,25 +830,25 @@ function SettingsContent() {
       {/* BILLING & PAYMENT CHECKOUT MODAL                               */}
       {/* ============================================================== */}
       {checkoutPlan && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-hidden animate-in fade-in duration-200">
-          <div className="w-full max-w-4xl max-h-[92vh] flex flex-col bg-slate-900 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-hidden animate-in fade-in duration-200">
+          <div className="w-full max-w-4xl max-h-[92vh] flex flex-col bg-white border border-slate-200 rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
             
             {/* Fixed Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-950/60 shrink-0">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50 shrink-0">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-md">
                   <CreditCard className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm sm:text-base text-white tracking-tight">Checkout & Plan Activation</h3>
-                  <p className="text-[11px] text-slate-400">Upgrade to {checkoutPlan.name} • 365 Days Access</p>
+                  <h3 className="font-bold text-sm sm:text-base text-slate-900 tracking-tight">Checkout &amp; Plan Activation</h3>
+                  <p className="text-[11px] text-slate-500">Upgrade to {checkoutPlan.name} • 365 Days Access</p>
                 </div>
               </div>
 
               <button 
                 type="button"
                 onClick={() => setCheckoutPlan(null)} 
-                className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -857,14 +857,14 @@ function SettingsContent() {
             {paymentSuccess ? (
               /* Success State */
               <div className="p-8 text-center space-y-5 animate-in fade-in my-auto">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 mx-auto flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 mx-auto flex items-center justify-center shadow-lg">
                   <Check className="w-8 h-8" />
                 </div>
 
                 <div className="space-y-1.5 max-w-md mx-auto">
-                  <h4 className="text-xl font-bold text-white">Subscription Activated!</h4>
-                  <p className="text-xs text-slate-300">
-                    You have successfully upgraded to the <span className="text-emerald-400 font-bold">{checkoutPlan.name} (₹{checkoutPlan.price.toLocaleString()}/year)</span>. All premium storage and White-Label features are now active.
+                  <h4 className="text-xl font-bold text-slate-900">Subscription Activated!</h4>
+                  <p className="text-xs text-slate-600">
+                    You have successfully upgraded to the <span className="text-emerald-700 font-bold">{checkoutPlan.name} (₹{checkoutPlan.price.toLocaleString()}/year)</span>. All premium storage and White-Label features are now active.
                   </p>
                 </div>
 
@@ -890,16 +890,16 @@ function SettingsContent() {
                         companyName: orgName
                       });
                     }}
-                    className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white flex items-center gap-2 border border-slate-700 transition shadow"
+                    className="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 flex items-center gap-2 border border-slate-200 transition shadow-sm"
                   >
-                    <Download className="w-4 h-4 text-indigo-400" />
+                    <Download className="w-4 h-4 text-indigo-600" />
                     <span>Download Tax Invoice</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setCheckoutPlan(null)}
-                    className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-800 transition"
+                    className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs border border-slate-200 transition"
                   >
                     Stay on Settings
                   </button>
@@ -919,8 +919,8 @@ function SettingsContent() {
                       
                       {/* Interactive Plan Selector Switcher */}
                       <div className="space-y-1.5">
-                        <label className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Select Subscription Tier:</label>
-                        <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800">
+                        <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Select Subscription Tier:</label>
+                        <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-100 border border-slate-200">
                           {tiers.map((tier) => (
                             <button
                               key={tier.id}
@@ -929,7 +929,7 @@ function SettingsContent() {
                               className={`py-2 px-1 rounded-lg text-center transition-all flex flex-col items-center justify-center ${
                                 checkoutPlan.id === tier.id
                                   ? 'bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-md font-bold'
-                                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 text-xs'
+                                  : 'text-slate-600 hover:text-slate-900 hover:bg-white text-xs'
                               }`}
                             >
                               <span className="text-[11px] font-bold">{tier.name}</span>
@@ -940,48 +940,48 @@ function SettingsContent() {
                       </div>
 
                       {/* Plan Summary Box */}
-                      <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-950/80 via-slate-950 to-purple-950/60 border border-indigo-500/30 space-y-2.5">
+                      <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-50 via-white to-purple-50 border border-indigo-200 space-y-2.5 shadow-sm">
                         <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[10px] font-bold uppercase tracking-wider">
+                          <span className="px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 text-[10px] font-bold uppercase tracking-wider">
                             Annual Plan
                           </span>
-                          <span className="text-[10px] font-semibold text-emerald-400">365 Days Access</span>
+                          <span className="text-[10px] font-semibold text-emerald-700">365 Days Access</span>
                         </div>
                         <div>
-                          <h4 className="text-base font-bold text-white flex items-center gap-1.5">
-                            {checkoutPlan.id === 'ADVANCED' && <Crown className="w-4 h-4 text-amber-400" />}
+                          <h4 className="text-base font-bold text-slate-900 flex items-center gap-1.5">
+                            {checkoutPlan.id === 'ADVANCED' && <Crown className="w-4 h-4 text-amber-500" />}
                             {checkoutPlan.name}
                           </h4>
                           <div className="flex items-baseline gap-1 mt-0.5">
-                            <span className="text-2xl font-black text-white">₹{checkoutPlan.price.toLocaleString()}</span>
-                            <span className="text-xs text-slate-400 font-medium">/ year</span>
+                            <span className="text-2xl font-black text-slate-900">₹{checkoutPlan.price.toLocaleString()}</span>
+                            <span className="text-xs text-slate-500 font-medium">/ year</span>
                           </div>
-                          <p className="text-[10px] text-emerald-400 font-semibold mt-0.5">Inclusive of 18% GST • No hidden gateway charges</p>
+                          <p className="text-[10px] text-emerald-700 font-semibold mt-0.5">Inclusive of 18% GST • No hidden gateway charges</p>
                         </div>
 
                         {/* Tier Features Preview */}
-                        <div className="pt-2 border-t border-slate-800/80 space-y-1">
-                          <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Included in this upgrade:</p>
-                          <ul className="space-y-1 text-[11px] text-slate-300">
+                        <div className="pt-2 border-t border-slate-200 space-y-1">
+                          <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Included in this upgrade:</p>
+                          <ul className="space-y-1 text-[11px] text-slate-700">
                             {checkoutPlan.id === 'BASIC' && (
                               <>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-400 shrink-0" /> 1 Digital Profile & vCard</li>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-400 shrink-0" /> Dynamic QR Code & Tracking</li>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-400 shrink-0" /> Direct VCF Contact Download</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-600 shrink-0" /> 1 Digital Profile &amp; vCard</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-600 shrink-0" /> Dynamic QR Code &amp; Tracking</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-600 shrink-0" /> Direct VCF Contact Download</li>
                               </>
                             )}
                             {checkoutPlan.id === 'PRO' && (
                               <>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-400 shrink-0" /> White-Label Custom Domain CNAME</li>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-400 shrink-0" /> WhatsApp Catalog Store & CRM</li>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-400 shrink-0" /> PDF Data Reports & Priority Support</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-600 shrink-0" /> White-Label Custom Domain CNAME</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-600 shrink-0" /> WhatsApp Catalog Store &amp; CRM</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-600 shrink-0" /> PDF Data Reports &amp; Priority Support</li>
                               </>
                             )}
                             {checkoutPlan.id === 'ADVANCED' && (
                               <>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-amber-400 shrink-0" /> 5 White-Label Custom Domains</li>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-amber-400 shrink-0" /> Unlimited 4K Videos & 50+ Showcase</li>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-amber-400 shrink-0" /> 5 Staff Profiles & Blog Studio</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-amber-500 shrink-0" /> 5 White-Label Custom Domains</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-amber-500 shrink-0" /> Unlimited 4K Videos &amp; 50+ Showcase</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-amber-500 shrink-0" /> 5 Staff Profiles &amp; Blog Studio</li>
                               </>
                             )}
                           </ul>
@@ -989,52 +989,52 @@ function SettingsContent() {
                       </div>
 
                       {/* Billing Information Input Group */}
-                      <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-3">
+                      <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
                         <div className="flex items-center justify-between">
-                          <p className="text-xs font-bold text-slate-300">Billing Details</p>
+                          <p className="text-xs font-bold text-slate-800">Billing Details</p>
                           <span className="text-[10px] text-slate-500">For GST Tax Invoice</span>
                         </div>
 
                         <div className="space-y-2.5">
                           <div>
-                            <label className="text-[10px] text-slate-400 font-semibold">Full Name *</label>
+                            <label className="text-[10px] text-slate-600 font-semibold">Full Name *</label>
                             <input
                               type="text"
                               required
                               value={billingName}
                               onChange={e => setBillingName(e.target.value)}
-                              className="w-full mt-1 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                              className="w-full mt-1 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500"
                             />
                           </div>
                           <div>
-                            <label className="text-[10px] text-slate-400 font-semibold">Email Address *</label>
+                            <label className="text-[10px] text-slate-600 font-semibold">Email Address *</label>
                             <input
                               type="email"
                               required
                               value={billingEmail}
                               onChange={e => setBillingEmail(e.target.value)}
-                              className="w-full mt-1 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                              className="w-full mt-1 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500"
                             />
                           </div>
                           <div className="grid grid-cols-2 gap-2">
                             <div>
-                              <label className="text-[10px] text-slate-400 font-semibold">Phone *</label>
+                              <label className="text-[10px] text-slate-600 font-semibold">Phone *</label>
                               <input
                                 type="text"
                                 required
                                 value={billingPhone}
                                 onChange={e => setBillingPhone(e.target.value)}
-                                className="w-full mt-1 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                                className="w-full mt-1 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500"
                               />
                             </div>
                             <div>
-                              <label className="text-[10px] text-slate-400 font-semibold">GSTIN (Optional)</label>
+                              <label className="text-[10px] text-slate-600 font-semibold">GSTIN (Optional)</label>
                               <input
                                 type="text"
                                 value={billingGst}
                                 onChange={e => setBillingGst(e.target.value)}
                                 placeholder="29ABCDE1234F1Z5"
-                                className="w-full mt-1 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white uppercase font-mono placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                                className="w-full mt-1 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 uppercase font-mono placeholder-slate-400 focus:outline-none focus:border-indigo-500"
                               />
                             </div>
                           </div>
@@ -1042,8 +1042,8 @@ function SettingsContent() {
                       </div>
 
                       {/* Security Trust Mini Badge */}
-                      <div className="p-3 rounded-xl bg-slate-950/40 border border-slate-800/80 flex items-center gap-2.5 text-[11px] text-slate-400">
-                        <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5 text-[11px] text-slate-600">
+                        <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                         <span>256-bit SSL encrypted checkout. GST Tax Invoice issued immediately.</span>
                       </div>
                     </div>
@@ -1052,65 +1052,65 @@ function SettingsContent() {
                     <div className="lg:col-span-7 space-y-4">
                       
                       {/* Cashfree Gateway Hero Card */}
-                      <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/70 via-slate-950 to-indigo-950/60 border border-emerald-500/40 space-y-4 shadow-xl">
+                      <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-50 via-white to-indigo-50 border border-emerald-200 space-y-4 shadow-sm">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <div className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                            <div className="p-1.5 rounded-lg bg-emerald-100 text-emerald-700 border border-emerald-200">
                               <Sparkles className="w-4 h-4" />
                             </div>
                             <div>
-                              <span className="text-xs font-extrabold text-white tracking-wide block">Automated Payment Gateway</span>
-                              <span className="text-[10px] text-slate-400">Powered by Cashfree Payments India</span>
+                              <span className="text-xs font-extrabold text-slate-900 tracking-wide block">Automated Payment Gateway</span>
+                              <span className="text-[10px] text-slate-500">Powered by Cashfree Payments India</span>
                             </div>
                           </div>
-                          <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
+                          <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200">
                             Auto-Verifies in 0.5s
                           </span>
                         </div>
 
-                        <p className="text-xs text-slate-300 leading-relaxed">
+                        <p className="text-xs text-slate-600 leading-relaxed">
                           Secure instant checkout with real-time automated verification. All Indian payment modes supported inside the official gateway:
                         </p>
 
                         {/* Supported Payment Grid */}
                         <div className="grid grid-cols-2 gap-2.5">
-                          <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-2.5">
-                            <div className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 shrink-0">
+                          <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-2.5 shadow-xs">
+                            <div className="p-1.5 rounded-lg bg-indigo-50 text-indigo-600 shrink-0">
                               <Smartphone className="w-4 h-4" />
                             </div>
                             <div>
-                              <p className="text-xs font-bold text-white">Instant UPI & QR</p>
-                              <p className="text-[10px] text-slate-400">Google Pay, PhonePe, Paytm, BHIM & Dynamic QR</p>
+                              <p className="text-xs font-bold text-slate-900">Instant UPI &amp; QR</p>
+                              <p className="text-[10px] text-slate-500">Google Pay, PhonePe, Paytm, BHIM &amp; Dynamic QR</p>
                             </div>
                           </div>
 
-                          <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-2.5">
-                            <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 shrink-0">
+                          <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-2.5 shadow-xs">
+                            <div className="p-1.5 rounded-lg bg-purple-50 text-purple-600 shrink-0">
                               <CreditCard className="w-4 h-4" />
                             </div>
                             <div>
-                              <p className="text-xs font-bold text-white">Cards & EMI</p>
-                              <p className="text-[10px] text-slate-400">RuPay, Visa, Mastercard, Maestro & Amex</p>
+                              <p className="text-xs font-bold text-slate-900">Cards &amp; EMI</p>
+                              <p className="text-[10px] text-slate-500">RuPay, Visa, Mastercard, Maestro &amp; Amex</p>
                             </div>
                           </div>
 
-                          <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-2.5">
-                            <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 shrink-0">
+                          <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-2.5 shadow-xs">
+                            <div className="p-1.5 rounded-lg bg-blue-50 text-blue-600 shrink-0">
                               <Building2 className="w-4 h-4" />
                             </div>
                             <div>
-                              <p className="text-xs font-bold text-white">Net Banking</p>
-                              <p className="text-[10px] text-slate-400">50+ Banks (HDFC, SBI, ICICI, Axis, Kotak...)</p>
+                              <p className="text-xs font-bold text-slate-900">Net Banking</p>
+                              <p className="text-[10px] text-slate-500">50+ Banks (HDFC, SBI, ICICI, Axis, Kotak...)</p>
                             </div>
                           </div>
 
-                          <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-2.5">
-                            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 shrink-0">
+                          <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-2.5 shadow-xs">
+                            <div className="p-1.5 rounded-lg bg-emerald-50 text-emerald-600 shrink-0">
                               <Zap className="w-4 h-4" />
                             </div>
                             <div>
-                              <p className="text-xs font-bold text-white">Instant Activation</p>
-                              <p className="text-[10px] text-slate-400">Automated webhook unlocks account in 0.5s</p>
+                              <p className="text-xs font-bold text-slate-900">Instant Activation</p>
+                              <p className="text-[10px] text-slate-500">Automated webhook unlocks account in 0.5s</p>
                             </div>
                           </div>
                         </div>
@@ -1120,7 +1120,7 @@ function SettingsContent() {
                           type="button"
                           onClick={handlePayWithCashfree}
                           disabled={isProcessingPayment}
-                          className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-emerald-950/60 flex items-center justify-center gap-2 transition active:scale-95 disabled:opacity-50"
+                          className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 hover:from-emerald-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 transition active:scale-95 disabled:opacity-50"
                         >
                           {isProcessingPayment ? (
                             <>
@@ -1138,13 +1138,13 @@ function SettingsContent() {
                       </div>
 
                       {/* Security Trust Features */}
-                      <div className="p-3.5 rounded-xl bg-slate-950/40 border border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                      <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-[11px] text-slate-600">
                         <div className="flex items-center gap-2">
-                          <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                          <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                           <span>RBI Authorized Payment System</span>
                         </div>
                         <div className="flex items-center gap-1 text-slate-500">
-                          <Lock className="w-3 h-3 text-indigo-400" />
+                          <Lock className="w-3 h-3 text-indigo-600" />
                           <span>256-bit Bank Grade Security</span>
                         </div>
                       </div>
@@ -1156,18 +1156,18 @@ function SettingsContent() {
                 </div>
 
                 {/* Fixed Bottom Action Footer */}
-                <div className="px-6 py-3.5 border-t border-slate-800 bg-slate-950/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
+                <div className="px-6 py-3.5 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-400">Total Payable:</span>
-                    <span className="text-xl font-extrabold text-white font-mono">₹{checkoutPlan.price.toLocaleString()}</span>
-                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-bold border border-emerald-500/20">All-Inclusive (18% GST)</span>
+                    <span className="text-xs text-slate-500">Total Payable:</span>
+                    <span className="text-xl font-extrabold text-slate-900 font-mono">₹{checkoutPlan.price.toLocaleString()}</span>
+                    <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200">All-Inclusive (18% GST)</span>
                   </div>
 
                   <div className="flex items-center gap-2.5">
                     <button
                       type="button"
                       onClick={() => setCheckoutPlan(null)}
-                      className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 transition"
+                      className="px-4 py-2 rounded-xl bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 border border-slate-200 transition"
                     >
                       Cancel
                     </button>
@@ -1175,7 +1175,7 @@ function SettingsContent() {
                     <button
                       type="submit"
                       disabled={isProcessingPayment}
-                      className="px-6 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-lg shadow-emerald-950/60 transition-all active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-6 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/25 transition-all active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isProcessingPayment ? (
                         <>
