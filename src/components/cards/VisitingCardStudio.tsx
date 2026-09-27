@@ -990,9 +990,6 @@ export default function VisitingCardStudio() {
                             </>
                           )}
                         </div>
-                        <span className={`font-mono font-semibold whitespace-nowrap truncate shrink-0 max-w-[150px] text-right ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
-                          oneclickbiz.in/v/{cardData.slug}
-                        </span>
                       </div>
                     </div>
                   )}
@@ -1755,9 +1752,6 @@ export default function VisitingCardStudio() {
                     </>
                   )}
                 </div>
-                <span className={`font-mono font-bold whitespace-nowrap shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
-                  oneclickbiz.in/v/{cardData.slug}
-                </span>
               </div>
             </>
           )}
