@@ -1,6 +1,7 @@
-import { DigitalProfile, BookingSlot, LeadItem, StoreOrder, DynamicQrConfig, NfcCardItem, BlogPostItem } from './types';
+import { DigitalProfile, BookingSlot, LeadItem, StoreOrder, DynamicQrConfig, NfcCardItem, BlogPostItem, ThemeType } from './types';
+import { SAMPLE_BLOG_POSTS } from './blog-data';
 
-export const INITIAL_BLOGS: BlogPostItem[] = [];
+export const INITIAL_BLOGS: BlogPostItem[] = SAMPLE_BLOG_POSTS;
 
 export const INITIAL_PROFILES: DigitalProfile[] = [
   {
@@ -234,22 +235,78 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
   const cleanSlug = (rawSlug || '').toLowerCase().trim();
   
   // 1. Check in initial profiles or aliases
-  if (['kishore', 'kishore-patel', 'alex', 'demo'].includes(cleanSlug)) {
-    return INITIAL_PROFILES[0];
+  if (['kishore', 'kishore-patel', 'alex', 'demo', 'preview', 'sample'].includes(cleanSlug)) {
+    return {
+      ...INITIAL_PROFILES[0],
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
   }
   const found = INITIAL_PROFILES.find(p => p.slug.toLowerCase() === cleanSlug);
-  if (found) return found;
-
-  // 2. Check if slug matches any of the 28 vCard templates (e.g. vcard39, vcard38, vcard13)
-  const matchedTemplate = VCARD_TEMPLATES_CATALOG.find(
-    t => t.id.toLowerCase() === cleanSlug || t.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === cleanSlug
-  );
-  if (matchedTemplate || cleanSlug.startsWith('vcard')) {
-    const templateId = matchedTemplate?.id || (cleanSlug.startsWith('vcard') ? cleanSlug : 'vcard39');
-    return getTemplateProfile(templateId);
+  if (found) {
+    return {
+      ...found,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
   }
 
-  // 3. Format a friendly name from slug e.g. "rahul-sharma" -> "Rahul Sharma"
+  // 2. Check if slug matches any theme type directly
+  const knownThemes: ThemeType[] = [
+    'modern-indigo', 'dark-onyx', 'glassmorphic', 'emerald-pro', 
+    'sunset-gold', 'cyber-neon'
+  ];
+  if (knownThemes.includes(cleanSlug as ThemeType)) {
+    const base = getTemplateProfile('re-builders');
+    return {
+      ...base,
+      id: `prof_${cleanSlug}`,
+      slug: cleanSlug,
+      theme: cleanSlug as ThemeType,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
+  // 3. Check if slug matches any catalog template (by id or normalized name)
+  const matchedTemplate = VCARD_TEMPLATES_CATALOG.find(
+    t => t.id.toLowerCase() === cleanSlug || 
+         t.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === cleanSlug ||
+         t.name.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanSlug.replace(/[^a-z0-9]/g, '')
+  );
+
+  const isTemplatePattern = matchedTemplate || 
+    cleanSlug.startsWith('vcard') || 
+    cleanSlug.startsWith('re-') || 
+    cleanSlug.startsWith('fashion-') || 
+    cleanSlug.startsWith('food-') || 
+    cleanSlug.startsWith('med-') || 
+    cleanSlug.startsWith('beauty-') || 
+    cleanSlug.startsWith('auto-') || 
+    cleanSlug.startsWith('edu-') || 
+    cleanSlug.startsWith('prof-') || 
+    cleanSlug.startsWith('tech-') || 
+    cleanSlug.startsWith('art-') || 
+    cleanSlug.startsWith('travel-') || 
+    cleanSlug.startsWith('retail-') || 
+    cleanSlug.startsWith('salon-');
+
+  if (isTemplatePattern) {
+    const templateId = matchedTemplate?.id || (cleanSlug.startsWith('vcard') ? cleanSlug : 're-builders');
+    const tProf = getTemplateProfile(templateId);
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
+  // 4. Format a friendly name from slug e.g. "rahul-sharma" -> "Rahul Sharma"
   const formattedName = cleanSlug
     ? cleanSlug
         .split(/[-_]+/)

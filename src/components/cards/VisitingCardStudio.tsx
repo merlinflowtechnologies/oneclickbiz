@@ -36,7 +36,8 @@ import {
   Compass,
   Zap,
   BookOpen,
-  X
+  X,
+  ArrowRight
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { toPng } from 'html-to-image';
@@ -44,6 +45,7 @@ import jsPDF from 'jspdf';
 import QRCode from 'qrcode';
 import { savePDF, exportVisitingCardPDF } from '@/lib/pdf-export';
 import { downloadDataUrl, downloadUrl, downloadBlob } from '@/lib/download-utils';
+import CanvaAdobeStudioModal, { CanvaAdobeArtworkConfig } from './CanvaAdobeStudioModal';
 
 export type CardTemplateId = 
   | 'matte-onyx'
@@ -51,10 +53,17 @@ export type CardTemplateId =
   | 'indigo-cyber'
   | 'royal-navy'
   | 'emerald-sage'
-  | 'sunset-velvet';
+  | 'sunset-velvet'
+  | 'obsidian-gold'
+  | 'frosted-glass'
+  | 'tokyo-neon'
+  | 'monaco-emerald'
+  | 'champagne-silk'
+  | 'swiss-minimalist'
+  | 'custom-canva';
 
 export type CardOrientation = 'horizontal' | 'vertical';
-export type CardFinish = 'matte-black' | 'glossy-uv' | 'gold-foil' | 'frosted-acrylic';
+export type CardFinish = 'matte-black' | 'glossy-uv' | 'gold-foil' | 'frosted-acrylic' | 'carbon-fiber';
 export type LogoShape = 'square' | 'rounded' | 'circle' | 'transparent';
 export type LogoSize = 'small' | 'medium' | 'large';
 export type LogoPlacement = 'top-left' | 'top-right' | 'center' | 'both';
@@ -138,12 +147,24 @@ const PRESET_LOGOS = [
 export default function VisitingCardStudio() {
   const [activeSide, setActiveSide] = useState<'front' | 'back'>('front');
   const [selectedTemplate, setSelectedTemplate] = useState<CardTemplateId>('matte-onyx');
-  const [activeTab, setActiveTab] = useState<'template' | 'logo' | 'details' | 'finish' | 'qr'>('template');
+  const [activeTab, setActiveTab] = useState<'template' | 'canva' | 'logo' | 'details' | 'finish' | 'qr'>('template');
   const [isExporting, setIsExporting] = useState(false);
   const [exportSuccess, setExportSuccess] = useState(false);
   const [customLogoPreset, setCustomLogoPreset] = useState<string>('crest-crown');
   const [pdfPreviewModal, setPdfPreviewModal] = useState<{ isOpen: boolean; url: string; filename: string } | null>(null);
   const [lastExportedFile, setLastExportedFile] = useState<{ url: string; filename: string; fileType: 'PDF' | 'PNG' } | null>(null);
+  const [isCanvaModalOpen, setIsCanvaModalOpen] = useState(false);
+
+  // Canva / Adobe Express Artwork State
+  const [canvaArtworkConfig, setCanvaArtworkConfig] = useState<CanvaAdobeArtworkConfig>({
+    frontArtworkUrl: '',
+    backArtworkUrl: '',
+    isCustomArtworkActive: false,
+    qrPosition: 'bottom-right',
+    qrSize: 'medium',
+    showNfcBadge: true,
+    artworkSource: 'canva'
+  });
 
   // Card Content State
   const [cardData, setCardData] = useState<CardData>({
@@ -191,7 +212,7 @@ export default function VisitingCardStudio() {
     });
   }, [cardData.slug]);
 
-  // Load from session if exists
+  // Load from session & local storage if exists
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -209,11 +230,36 @@ export default function VisitingCardStudio() {
             logoUrl: parsed.logoUrl || prev.logoUrl,
           }));
         }
+        const savedArtwork = localStorage.getItem('oneclickbiz_custom_artwork');
+        if (savedArtwork) {
+          const parsedArt = JSON.parse(savedArtwork);
+          setCanvaArtworkConfig(prev => ({ ...prev, ...parsedArt }));
+          if (parsedArt.isCustomArtworkActive) {
+            setSelectedTemplate('custom-canva');
+          }
+        }
       } catch (err) {
         console.error(err);
       }
     }
   }, []);
+
+  const handleUpdateArtworkConfig = (newCfg: Partial<CanvaAdobeArtworkConfig>) => {
+    setCanvaArtworkConfig(prev => {
+      const updated = { ...prev, ...newCfg };
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('oneclickbiz_custom_artwork', JSON.stringify(updated));
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      if (updated.isCustomArtworkActive) {
+        setSelectedTemplate('custom-canva');
+      }
+      return updated;
+    });
+  };
 
   // Sync logo changes to local session
   const updateLogoUrl = (url: string) => {
@@ -268,7 +314,21 @@ export default function VisitingCardStudio() {
     textSecondary: string;
     accent: string;
     border: string;
+    isPro?: boolean;
   }[] = [
+    {
+      id: 'custom-canva',
+      name: '🎨 Canva & Adobe Artwork',
+      description: 'Upload custom 1050x600px front & back artwork from Canva or Adobe Express.',
+      previewGradient: 'from-cyan-500 via-purple-600 to-pink-500',
+      bgFront: 'bg-slate-950',
+      bgBack: 'bg-slate-950',
+      textPrimary: 'text-white font-bold',
+      textSecondary: 'text-slate-300',
+      accent: 'border-cyan-500/40 text-cyan-400',
+      border: 'border-cyan-500/40 ring-2 ring-cyan-500/30',
+      isPro: true
+    },
     {
       id: 'matte-onyx',
       name: 'Matte Onyx & Gold',
@@ -280,6 +340,18 @@ export default function VisitingCardStudio() {
       textSecondary: 'text-zinc-400',
       accent: 'border-amber-500/40 text-amber-400',
       border: 'border-amber-500/25 ring-1 ring-amber-500/20'
+    },
+    {
+      id: 'obsidian-gold',
+      name: 'Obsidian & 24K Gold',
+      description: 'Deep black marble texture with gilded gold border accents & micro-sheen.',
+      previewGradient: 'from-slate-950 via-amber-950/80 to-slate-950',
+      bgFront: 'bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-950/40 via-zinc-950 to-slate-950',
+      bgBack: 'bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-zinc-950 via-amber-950/30 to-zinc-950',
+      textPrimary: 'text-amber-200 font-bold tracking-wide',
+      textSecondary: 'text-amber-100/70',
+      accent: 'border-amber-400/50 text-amber-300',
+      border: 'border-amber-400/40 shadow-amber-500/10'
     },
     {
       id: 'minimal-white',
@@ -294,6 +366,18 @@ export default function VisitingCardStudio() {
       border: 'border-slate-300 shadow-xl'
     },
     {
+      id: 'frosted-glass',
+      name: 'Frosted Titanium Glass',
+      description: 'Futuristic glassmorphism with subtle blur, cyber borders & glowing badges.',
+      previewGradient: 'from-slate-800/80 via-slate-900/90 to-indigo-950',
+      bgFront: 'bg-gradient-to-br from-slate-900/90 via-slate-950 to-indigo-950/80 backdrop-blur-xl',
+      bgBack: 'bg-gradient-to-br from-indigo-950/80 via-slate-950 to-slate-900/90 backdrop-blur-xl',
+      textPrimary: 'text-white font-extrabold',
+      textSecondary: 'text-slate-300/80',
+      accent: 'border-indigo-400/40 text-indigo-300',
+      border: 'border-white/20 shadow-2xl ring-1 ring-white/10'
+    },
+    {
       id: 'indigo-cyber',
       name: 'Indigo Cyber Glow',
       description: 'Modern tech gradient with glassmorphism badge and vibrant cyber neon accents.',
@@ -304,6 +388,18 @@ export default function VisitingCardStudio() {
       textSecondary: 'text-indigo-300/70',
       accent: 'border-indigo-500/40 text-indigo-400',
       border: 'border-indigo-500/30 ring-1 ring-purple-500/20 shadow-indigo-500/10'
+    },
+    {
+      id: 'tokyo-neon',
+      name: 'Tokyo Cyberpunk',
+      description: 'High-energy ultraviolet & electric cyan highlights for next-gen founders.',
+      previewGradient: 'from-fuchsia-950 via-purple-950 to-cyan-950',
+      bgFront: 'bg-gradient-to-tr from-slate-950 via-purple-950 to-slate-950',
+      bgBack: 'bg-gradient-to-bl from-slate-950 via-cyan-950/80 to-slate-950',
+      textPrimary: 'text-cyan-300 font-black',
+      textSecondary: 'text-fuchsia-300/80',
+      accent: 'border-cyan-400/50 text-cyan-400',
+      border: 'border-cyan-400/30 ring-1 ring-fuchsia-500/30'
     },
     {
       id: 'royal-navy',
@@ -318,6 +414,18 @@ export default function VisitingCardStudio() {
       border: 'border-sky-500/30'
     },
     {
+      id: 'monaco-emerald',
+      name: 'Monaco Emerald & Brass',
+      description: 'Prestigious deep emerald marble look with brushed brass typography.',
+      previewGradient: 'from-emerald-950 via-teal-950 to-amber-950',
+      bgFront: 'bg-gradient-to-br from-emerald-950 via-zinc-950 to-teal-950',
+      bgBack: 'bg-gradient-to-br from-zinc-950 via-emerald-950 to-amber-950/40',
+      textPrimary: 'text-emerald-200 font-bold',
+      textSecondary: 'text-emerald-300/70',
+      accent: 'border-emerald-400/40 text-emerald-300',
+      border: 'border-emerald-500/30'
+    },
+    {
       id: 'emerald-sage',
       name: 'Emerald Botanical',
       description: 'Earthy organic dark emerald for sustainability, wellness, and boutique studios.',
@@ -330,6 +438,18 @@ export default function VisitingCardStudio() {
       border: 'border-emerald-500/30'
     },
     {
+      id: 'champagne-silk',
+      name: 'Champagne Rose Silk',
+      description: 'Glamorous rose gold and warm velvet cream for luxury beauty, fashion & salons.',
+      previewGradient: 'from-rose-950 via-stone-900 to-amber-950',
+      bgFront: 'bg-gradient-to-br from-rose-950 via-stone-950 to-amber-950/60',
+      bgBack: 'bg-gradient-to-br from-stone-950 via-rose-950/80 to-stone-950',
+      textPrimary: 'text-rose-200 font-bold',
+      textSecondary: 'text-amber-100/70',
+      accent: 'border-rose-400/40 text-rose-300',
+      border: 'border-rose-400/30'
+    },
+    {
       id: 'sunset-velvet',
       name: 'Sunset Velvet Ruby',
       description: 'Warm creative agency aesthetic with rose-gold gradients and subtle glows.',
@@ -340,59 +460,29 @@ export default function VisitingCardStudio() {
       textSecondary: 'text-rose-300/70',
       accent: 'border-rose-500/40 text-rose-400',
       border: 'border-rose-500/30'
+    },
+    {
+      id: 'swiss-minimalist',
+      name: 'Zurich Swiss Monochrome',
+      description: 'Hyper-structured Swiss grid layout with stark black & white contrast.',
+      previewGradient: 'from-zinc-900 via-black to-zinc-900',
+      bgFront: 'bg-black',
+      bgBack: 'bg-zinc-950',
+      textPrimary: 'text-white font-mono font-bold tracking-tight',
+      textSecondary: 'text-zinc-400 font-mono',
+      accent: 'border-white text-white',
+      border: 'border-zinc-700 shadow-2xl'
     }
   ];
 
   const currentTemplate = templates.find(t => t.id === selectedTemplate) || templates[0];
   const isLight = selectedTemplate === 'minimal-white';
+  const isCustomArtwork = selectedTemplate === 'custom-canva' || canvaArtworkConfig.isCustomArtworkActive;
 
   /**
-   * Flattens computed styles onto all descendant elements in a cloned DOM tree.
-   * This prevents html-to-image from failing on Tailwind v4's oklch() / lab() CSS color functions
-   * which the library's CSS parser does not support.
-   */
-  const flattenStyles = (original: HTMLElement, clone: HTMLElement) => {
-    const sourceEls = Array.from(original.querySelectorAll('*')) as HTMLElement[];
-    const cloneEls = Array.from(clone.querySelectorAll('*')) as HTMLElement[];
-    const props = [
-      'color', 'background-color', 'border-color', 'border-top-color',
-      'border-right-color', 'border-bottom-color', 'border-left-color',
-      'outline-color', 'text-decoration-color', 'fill', 'stroke',
-      'background', 'background-image',
-    ];
-    sourceEls.forEach((el, i) => {
-      const computed = window.getComputedStyle(el);
-      const target = cloneEls[i] as HTMLElement;
-      if (!target) return;
-      props.forEach(prop => {
-        const val = computed.getPropertyValue(prop);
-        if (val) {
-          (target.style as any)[prop.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase())] = val;
-        }
-      });
-      // Also flatten gradient backgrounds
-      const bg = computed.getPropertyValue('background-image');
-      if (bg && bg !== 'none') {
-        target.style.backgroundImage = bg;
-      }
-    });
-    // Flatten the clone root itself
-    const rootComputed = window.getComputedStyle(original);
-    props.forEach(prop => {
-      const val = rootComputed.getPropertyValue(prop);
-      if (val) {
-        (clone.style as any)[prop.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase())] = val;
-      }
-    });
-  };
-
-  /**
-   * Captures a DOM element to a PNG data URL, safe against oklch/lab color parse errors.
-   * Pre-processes the element by reading computed styles (which resolve oklch -> rgb)
-   * and applying them as inline styles, then restores them after capture.
+   * Captures a DOM element to a PNG data URL safe against modern CSS color parse errors
    */
   const captureToPng = async (el: HTMLElement): Promise<string> => {
-    // Helper to sanitize any modern CSS color function (lab, oklch, etc.) into standard rgb/rgba
     const sanitizeColorString = (val: string): string => {
       if (!val || (!val.includes('lab(') && !val.includes('oklch('))) return val;
       try {
@@ -417,14 +507,12 @@ export default function VisitingCardStudio() {
       }
     };
 
-    // Collect all elements
     const allEls = [el, ...Array.from(el.querySelectorAll('*'))] as HTMLElement[];
     const COLOR_PROPS: (keyof CSSStyleDeclaration)[] = [
       'color', 'backgroundColor', 'borderColor', 'borderTopColor',
       'borderRightColor', 'borderBottomColor', 'borderLeftColor',
       'outlineColor', 'textDecorationColor', 'fill', 'stroke'
     ];
-    // Save originals and apply resolved computed values
     const saved: Array<{ el: HTMLElement; prop: keyof CSSStyleDeclaration; prev: string }> = [];
     allEls.forEach(node => {
       const cs = window.getComputedStyle(node);
@@ -435,7 +523,6 @@ export default function VisitingCardStudio() {
           (node.style as any)[prop] = sanitizeColorString(resolved);
         }
       });
-      // Handle background-image (gradients using oklch or lab)
       const bgImg = cs.backgroundImage;
       if (bgImg && bgImg !== 'none') {
         saved.push({ el: node, prop: 'backgroundImage', prev: node.style.backgroundImage });
@@ -445,7 +532,6 @@ export default function VisitingCardStudio() {
     try {
       return await toPng(el, { pixelRatio: 2, cacheBust: true, skipFonts: true });
     } finally {
-      // Restore original inline styles
       saved.forEach(({ el: node, prop, prev }) => {
         (node.style as any)[prop] = prev;
       });
@@ -459,7 +545,6 @@ export default function VisitingCardStudio() {
       const backRef = backCardExportRef.current;
       if (!frontRef || !backRef) throw new Error('Card export references not ready');
 
-      // Capture exact pixel-perfect visual design from front and back export stages
       const frontDataUrl = await captureToPng(frontRef);
       const backDataUrl = await captureToPng(backRef);
 
@@ -473,10 +558,7 @@ export default function VisitingCardStudio() {
         format: [width, height]
       });
 
-      // Page 1: Exact Front Design
       doc.addImage(frontDataUrl, 'PNG', 0, 0, width, height);
-
-      // Page 2: Exact Back Design (QR & Details)
       doc.addPage([width, height], isHorizontal ? 'landscape' : 'portrait');
       doc.addImage(backDataUrl, 'PNG', 0, 0, width, height);
 
@@ -506,7 +588,6 @@ export default function VisitingCardStudio() {
         const backRef = backCardExportRef.current;
         if (!frontRef || !backRef) throw new Error('Card export references not ready');
 
-        // Capture exact pixel-perfect visual design from front and back export stages
         const frontDataUrl = await captureToPng(frontRef);
         const backDataUrl = await captureToPng(backRef);
 
@@ -520,10 +601,7 @@ export default function VisitingCardStudio() {
           format: [width, height]
         });
 
-        // Page 1: Exact Front Design
         doc.addImage(frontDataUrl, 'PNG', 0, 0, width, height);
-
-        // Page 2: Exact Back Design (QR & Details)
         doc.addPage([width, height], isHorizontal ? 'landscape' : 'portrait');
         doc.addImage(backDataUrl, 'PNG', 0, 0, width, height);
 
@@ -556,7 +634,6 @@ export default function VisitingCardStudio() {
   const renderLogoElement = (isBack: boolean = false) => {
     if (!cardData.showLogo) return null;
 
-    // Dimensions based on logoSize
     const sizeClasses = {
       small: 'w-7 h-7',
       medium: 'w-9 h-9 sm:w-10 sm:h-10',
@@ -570,7 +647,6 @@ export default function VisitingCardStudio() {
       transparent: 'rounded-none bg-transparent shadow-none border-0'
     }[cardData.logoShape];
 
-    // If user uploaded a custom logo image
     if (cardData.logoUrl) {
       return (
         <div 
@@ -596,7 +672,6 @@ export default function VisitingCardStudio() {
       );
     }
 
-    // Preset / Default Monogram or Vector Badge
     const preset = PRESET_LOGOS.find(p => p.id === customLogoPreset) || PRESET_LOGOS[0];
     const IconComp = preset.icon;
 
@@ -614,6 +689,23 @@ export default function VisitingCardStudio() {
     );
   };
 
+  // Helper for QR Overlay Position in custom artwork mode
+  const getQrPositionClasses = () => {
+    switch (canvaArtworkConfig.qrPosition) {
+      case 'center':
+        return 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20';
+      case 'top-right':
+        return 'absolute top-4 right-4 z-20';
+      case 'bottom-left':
+        return 'absolute bottom-4 left-4 z-20';
+      case 'none':
+        return 'hidden';
+      case 'bottom-right':
+      default:
+        return 'absolute bottom-4 right-4 z-20';
+    }
+  };
+
   return (
     <div className="min-h-[calc(100vh-80px)] bg-slate-950 text-slate-100 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-8">
       
@@ -626,6 +718,16 @@ export default function VisitingCardStudio() {
         className="hidden" 
       />
 
+      {/* Canva / Adobe Studio Modal */}
+      <CanvaAdobeStudioModal
+        isOpen={isCanvaModalOpen}
+        onClose={() => setIsCanvaModalOpen(false)}
+        config={canvaArtworkConfig}
+        onUpdateConfig={handleUpdateArtworkConfig}
+        cardSlug={cardData.slug}
+        companyName={cardData.companyName}
+      />
+
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-3xl bg-gradient-to-r from-indigo-950/60 via-purple-950/40 to-slate-900 border border-indigo-500/20 shadow-xl">
         <div className="space-y-1">
@@ -633,14 +735,24 @@ export default function VisitingCardStudio() {
             <Sparkles className="w-3.5 h-3.5" /> Smart Business Card Studio
           </div>
           <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            Design Your Smart Visiting Cards
+            Design &amp; Print Smart Visiting Cards
           </h1>
           <p className="text-xs text-slate-400">
-            Upload your official business logo, customize templates, and generate 300 DPI print PDFs with dynamic QR & NFC.
+            Import custom Canva/Adobe Express artwork or customize luxury 300 DPI vector templates with dynamic QR &amp; NFC.
           </p>
         </div>
 
         <div className="flex items-center flex-wrap gap-2">
+          
+          {/* Canva & Adobe Express Launcher Button */}
+          <button
+            onClick={() => setIsCanvaModalOpen(true)}
+            className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-md active:scale-95"
+          >
+            <Palette className="w-3.5 h-3.5" />
+            <span>Canva &amp; Adobe Import</span>
+          </button>
+
           <button
             onClick={() => handleExport('pdf')}
             disabled={isExporting}
@@ -656,16 +768,8 @@ export default function VisitingCardStudio() {
             className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-emerald-400 flex items-center gap-1.5 transition-all active:scale-95"
           >
             <Eye className="w-3.5 h-3.5" />
-            <span>Preview &amp; Open PDF</span>
+            <span>Preview PDF</span>
           </button>
-
-          <Link
-            href="/dashboard/brochures"
-            className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-pink-400 flex items-center gap-1.5 transition-all"
-          >
-            <BookOpen className="w-3.5 h-3.5 text-pink-400" />
-            <span>Open Brochure Studio</span>
-          </Link>
         </div>
       </div>
 
@@ -696,17 +800,17 @@ export default function VisitingCardStudio() {
                     : 'text-slate-400 hover:text-white hover:bg-slate-800'
                 }`}
               >
-                Back View (QR & NFC)
+                Back View (QR &amp; NFC)
               </button>
             </div>
 
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setActiveTab('logo')}
-                className="px-2.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-xs font-semibold flex items-center gap-1.5 border border-amber-500/30 transition-all"
+                onClick={() => setIsCanvaModalOpen(true)}
+                className="px-2.5 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 text-xs font-semibold flex items-center gap-1.5 border border-cyan-500/30 transition-all"
               >
-                <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
-                <span>{cardData.logoUrl ? 'Change Logo' : 'Upload Logo'}</span>
+                <Palette className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Canva Artwork</span>
               </button>
 
               <button
@@ -724,165 +828,239 @@ export default function VisitingCardStudio() {
             
             {/* Ambient Shadow Glow */}
             <div className={`absolute w-72 h-44 blur-3xl opacity-20 pointer-events-none rounded-full ${
-              selectedTemplate === 'matte-onyx' ? 'bg-amber-500' :
-              selectedTemplate === 'indigo-cyber' ? 'bg-indigo-500' :
+              selectedTemplate === 'matte-onyx' || selectedTemplate === 'obsidian-gold' ? 'bg-amber-500' :
+              selectedTemplate === 'indigo-cyber' || selectedTemplate === 'frosted-glass' ? 'bg-indigo-500' :
               selectedTemplate === 'royal-navy' ? 'bg-sky-500' :
-              selectedTemplate === 'emerald-sage' ? 'bg-emerald-500' :
-              selectedTemplate === 'sunset-velvet' ? 'bg-rose-500' : 'bg-slate-400'
+              selectedTemplate === 'emerald-sage' || selectedTemplate === 'monaco-emerald' ? 'bg-emerald-500' :
+              selectedTemplate === 'tokyo-neon' ? 'bg-fuchsia-500' :
+              selectedTemplate === 'champagne-silk' || selectedTemplate === 'sunset-velvet' ? 'bg-rose-500' : 'bg-slate-400'
             }`} />
 
             {/* CARD CANVAS (3.5in x 2in Proportion: 560px x 320px) */}
             <div 
               className={`
-                w-full max-w-[480px] sm:max-w-[520px] aspect-[1.75/1] rounded-2xl p-6 sm:p-7 relative transition-all duration-500 transform hover:scale-[1.02] shadow-2xl overflow-hidden flex flex-col justify-between select-none
-                ${activeSide === 'front' ? currentTemplate.bgFront : currentTemplate.bgBack}
-                ${currentTemplate.border}
+                w-full max-w-[480px] sm:max-w-[520px] aspect-[1.75/1] rounded-2xl relative transition-all duration-500 transform hover:scale-[1.02] shadow-2xl overflow-hidden flex flex-col justify-between select-none
+                ${isCustomArtwork ? 'bg-slate-950 border border-slate-700' : (activeSide === 'front' ? currentTemplate.bgFront : currentTemplate.bgBack)}
+                ${!isCustomArtwork ? currentTemplate.border : ''}
               `}
             >
               
               {/* Finish Overlay Accents (Metallic / Glossy effect) */}
               {cardData.finish === 'matte-black' && (
-                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/5 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/5 pointer-events-none z-10" />
               )}
               {cardData.finish === 'gold-foil' && (
-                <div className="absolute -top-12 -right-12 w-40 h-40 bg-gradient-to-br from-amber-400/15 via-yellow-200/10 to-transparent rounded-full blur-xl pointer-events-none" />
+                <div className="absolute -top-12 -right-12 w-40 h-40 bg-gradient-to-br from-amber-400/15 via-yellow-200/10 to-transparent rounded-full blur-xl pointer-events-none z-10" />
               )}
 
-              {/* ===================== FRONT SIDE ===================== */}
-              {activeSide === 'front' && (
-                <div className="h-full flex flex-col justify-between relative z-10">
-                  
-                  {/* Top Header: Business Logo + Company Brand + NFC Wave */}
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center space-x-3">
-                      
-                      {/* Logo Element */}
-                      {renderLogoElement(false)}
-
-                      <div>
-                        <h4 className={`text-sm sm:text-base font-extrabold tracking-tight ${isLight ? 'text-slate-950' : 'text-white'}`}>
-                          {cardData.companyName}
-                        </h4>
-                        <p className={`text-[10px] uppercase tracking-widest ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                          {cardData.tagline}
-                        </p>
-                      </div>
+              {/* ===================== MODE 1: CUSTOM CANVA / ADOBE ARTWORK ===================== */}
+              {isCustomArtwork && (
+                <div className="w-full h-full relative">
+                  {/* Front Side Custom Artwork */}
+                  {activeSide === 'front' && (
+                    <div className="w-full h-full relative">
+                      {canvaArtworkConfig.frontArtworkUrl ? (
+                        <img 
+                          src={canvaArtworkConfig.frontArtworkUrl} 
+                          alt="Custom Front Artwork"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div 
+                          onClick={() => setIsCanvaModalOpen(true)}
+                          className="w-full h-full flex flex-col items-center justify-center p-6 text-center cursor-pointer bg-gradient-to-br from-slate-900 to-indigo-950/60 hover:bg-slate-900/90 transition-colors"
+                        >
+                          <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-2">
+                            <Upload className="w-6 h-6" />
+                          </div>
+                          <h4 className="text-sm font-bold text-white">Upload Front Card Artwork</h4>
+                          <p className="text-xs text-slate-400 mt-1">Click to upload your 1050x600px Canva design</p>
+                        </div>
+                      )}
                     </div>
+                  )}
 
-                    {cardData.showNfcIcon && (
-                      <div className="flex items-center space-x-1 opacity-75">
-                        <Wifi className={`w-4 h-4 rotate-90 ${isLight ? 'text-slate-600' : 'text-amber-400'}`} />
-                        <span className={`text-[9px] font-mono uppercase tracking-wider font-semibold ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                          NFC Tap
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                  {/* Back Side Custom Artwork */}
+                  {activeSide === 'back' && (
+                    <div className="w-full h-full relative">
+                      {canvaArtworkConfig.backArtworkUrl ? (
+                        <img 
+                          src={canvaArtworkConfig.backArtworkUrl} 
+                          alt="Custom Back Artwork"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div 
+                          onClick={() => setIsCanvaModalOpen(true)}
+                          className="w-full h-full flex flex-col items-center justify-center p-6 text-center cursor-pointer bg-gradient-to-br from-slate-900 to-purple-950/60 hover:bg-slate-900/90 transition-colors"
+                        >
+                          <div className="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center mb-2">
+                            <Upload className="w-6 h-6" />
+                          </div>
+                          <h4 className="text-sm font-bold text-white">Upload Back Card Artwork</h4>
+                          <p className="text-xs text-slate-400 mt-1">Click to upload your 1050x600px Canva back design</p>
+                        </div>
+                      )}
 
-                  {/* Middle / Center: Person Identity */}
-                  <div className="my-auto space-y-1">
-                    <h2 className={`text-xl sm:text-2xl font-black tracking-tight ${
-                      isLight ? 'text-slate-950' : currentTemplate.textPrimary
-                    }`}>
-                      {cardData.fullName}
-                    </h2>
-                    <p className={`text-xs font-semibold uppercase tracking-wider ${
-                      isLight ? 'text-indigo-600' : 'text-slate-300'
-                    }`}>
-                      {cardData.designation}
-                    </p>
-                  </div>
+                      {/* Smart Dynamic QR Code Overlay on Back */}
+                      {canvaArtworkConfig.qrPosition !== 'none' && (
+                        <div className={getQrPositionClasses()}>
+                          <div className={`p-1.5 rounded-xl bg-white shadow-2xl border border-slate-200 ${
+                            canvaArtworkConfig.qrSize === 'small' ? 'w-16 h-16' :
+                            canvaArtworkConfig.qrSize === 'large' ? 'w-24 h-24' : 'w-20 h-20'
+                          }`}>
+                            <img 
+                              src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(typeof window !== 'undefined' ? `${window.location.origin}/v/${cardData.slug}` : `https://oneclickbiz.in/v/${cardData.slug}`)}&color=0f172a`} 
+                              alt="Card QR"
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                        </div>
+                      )}
 
-                  {/* Bottom Footer Info */}
-                  <div className="flex items-center justify-between border-t pt-3 border-white/10 text-[10px]">
-                    <div className="flex items-center gap-3">
-                      <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.phone}</span>
-                      <span className="opacity-40">•</span>
-                      <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.email}</span>
+                      {/* NFC Wave Badge Overlay */}
+                      {canvaArtworkConfig.showNfcBadge && (
+                        <div className="absolute top-3 right-3 z-20 px-2 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/20 flex items-center gap-1.5 text-amber-300">
+                          <Wifi className="w-3.5 h-3.5 rotate-90" />
+                          <span className="text-[9px] font-mono font-bold tracking-wider uppercase">NFC</span>
+                        </div>
+                      )}
                     </div>
-                    <span className={`font-mono font-semibold ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
-                      oneclickbiz.in/v/{cardData.slug}
-                    </span>
-                  </div>
-
+                  )}
                 </div>
               )}
 
-              {/* ===================== BACK SIDE ===================== */}
-              {activeSide === 'back' && (
-                <div className="h-full flex flex-col justify-between relative z-10">
+              {/* ===================== MODE 2: BUILT-IN TEMPLATES ===================== */}
+              {!isCustomArtwork && (
+                <div className="w-full h-full p-6 sm:p-7 flex flex-col justify-between relative z-10">
                   
-                  {/* Top Bar: Brand Logo & Target URL */}
-                  <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                    <div className="flex items-center gap-2">
-                      {cardData.showLogo && (
-                        <div className="w-5 h-5 rounded-md overflow-hidden flex items-center justify-center">
-                          {cardData.logoUrl ? (
-                            <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain" />
-                          ) : (
-                            <div className="w-full h-full bg-amber-500 rounded flex items-center justify-center text-[9px] font-black text-slate-950">
-                              {cardData.companyName.charAt(0)}
+                  {/* FRONT SIDE */}
+                  {activeSide === 'front' && (
+                    <div className="h-full flex flex-col justify-between">
+                      {/* Top Header: Business Logo + Company Brand + NFC Wave */}
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center space-x-3">
+                          {renderLogoElement(false)}
+                          <div>
+                            <h4 className={`text-sm sm:text-base font-extrabold tracking-tight ${isLight ? 'text-slate-950' : 'text-white'}`}>
+                              {cardData.companyName}
+                            </h4>
+                            <p className={`text-[10px] uppercase tracking-widest ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                              {cardData.tagline}
+                            </p>
+                          </div>
+                        </div>
+
+                        {cardData.showNfcIcon && (
+                          <div className="flex items-center space-x-1 opacity-75">
+                            <Wifi className={`w-4 h-4 rotate-90 ${isLight ? 'text-slate-600' : 'text-amber-400'}`} />
+                            <span className={`text-[9px] font-mono uppercase tracking-wider font-semibold ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                              NFC Tap
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Middle Identity */}
+                      <div className="my-auto space-y-1">
+                        <h2 className={`text-xl sm:text-2xl font-black tracking-tight ${
+                          isLight ? 'text-slate-950' : currentTemplate.textPrimary
+                        }`}>
+                          {cardData.fullName}
+                        </h2>
+                        <p className={`text-xs font-semibold uppercase tracking-wider ${
+                          isLight ? 'text-indigo-600' : 'text-slate-300'
+                        }`}>
+                          {cardData.designation}
+                        </p>
+                      </div>
+
+                      {/* Bottom Footer Info */}
+                      <div className="flex items-center justify-between border-t pt-3 border-white/10 text-[10px]">
+                        <div className="flex items-center gap-3">
+                          <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.phone}</span>
+                          <span className="opacity-40">•</span>
+                          <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.email}</span>
+                        </div>
+                        <span className={`font-mono font-semibold ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
+                          oneclickbiz.in/v/{cardData.slug}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* BACK SIDE */}
+                  {activeSide === 'back' && (
+                    <div className="h-full flex flex-col justify-between">
+                      {/* Top Bar */}
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                        <div className="flex items-center gap-2">
+                          {cardData.showLogo && (
+                            <div className="w-5 h-5 rounded-md overflow-hidden flex items-center justify-center">
+                              {cardData.logoUrl ? (
+                                <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain" />
+                              ) : (
+                                <div className="w-full h-full bg-amber-500 rounded flex items-center justify-center text-[9px] font-black text-slate-950">
+                                  {cardData.companyName.charAt(0)}
+                                </div>
+                              )}
                             </div>
                           )}
+                          <span className={`text-[10px] font-bold uppercase tracking-widest ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
+                            {cardData.companyName}
+                          </span>
                         </div>
-                      )}
-                      <span className={`text-[10px] font-bold uppercase tracking-widest ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
-                        {cardData.companyName}
-                      </span>
+                        <span className={`text-[10px] font-mono ${isLight ? 'text-indigo-600 font-bold' : 'text-amber-400'}`}>
+                          cards.oneclickbiz.in/v/{cardData.slug}
+                        </span>
+                      </div>
+
+                      {/* Center Content: QR Code + Full Contact Info */}
+                      <div className="grid grid-cols-12 gap-3 items-center my-auto">
+                        <div className="col-span-5 flex flex-col items-center">
+                          <div className="p-2 rounded-xl bg-white shadow-xl">
+                            <img 
+                              src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(typeof window !== 'undefined' ? `${window.location.origin}/v/${cardData.slug}` : `https://oneclickbiz.in/v/${cardData.slug}`)}&color=0f172a`} 
+                              alt="Card QR"
+                              className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
+                            />
+                          </div>
+                          <p className={`text-[8px] uppercase tracking-wider font-bold mt-1.5 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                            Scan with Camera
+                          </p>
+                        </div>
+
+                        <div className="col-span-7 space-y-2 text-[10px]">
+                          <div className="flex items-center gap-2">
+                            <Phone className={`w-3.5 h-3.5 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                            <span className={`truncate ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.phone}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Mail className={`w-3.5 h-3.5 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                            <span className={`truncate ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.email}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Globe className={`w-3.5 h-3.5 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                            <span className={`truncate ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.website}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <MapPin className={`w-3.5 h-3.5 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                            <span className={`truncate ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.address}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Bottom Footer */}
+                      <div className="flex items-center justify-between border-t border-white/10 pt-2 text-[9px]">
+                        <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
+                          Tap NFC chip to smartphone for instant vCard save
+                        </span>
+                        <span className={`font-bold uppercase ${isLight ? 'text-slate-950' : 'text-white'}`}>
+                          Contactless NFC
+                        </span>
+                      </div>
                     </div>
-                    <span className={`text-[10px] font-mono ${isLight ? 'text-indigo-600 font-bold' : 'text-amber-400'}`}>
-                      cards.oneclickbiz.in/v/{cardData.slug}
-                    </span>
-                  </div>
-
-                  {/* Center Content: QR Code + Full Contact Info */}
-                  <div className="grid grid-cols-12 gap-3 items-center my-auto">
-                    
-                    {/* QR Code Container */}
-                    <div className="col-span-5 flex flex-col items-center">
-                      <div className="p-2 rounded-xl bg-white shadow-xl">
-                        <img 
-                          src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(typeof window !== 'undefined' ? `${window.location.origin}/v/${cardData.slug}` : `https://oneclickbiz.in/v/${cardData.slug}`)}&color=0f172a`} 
-                          alt="Card QR"
-                          className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
-                        />
-                      </div>
-                      <p className={`text-[8px] uppercase tracking-wider font-bold mt-1.5 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                        Scan with Camera
-                      </p>
-                    </div>
-
-                    {/* Contact Details List */}
-                    <div className="col-span-7 space-y-2 text-[10px]">
-                      <div className="flex items-center gap-2">
-                        <Phone className={`w-3.5 h-3.5 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
-                        <span className={`truncate ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.phone}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Mail className={`w-3.5 h-3.5 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
-                        <span className={`truncate ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.email}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Globe className={`w-3.5 h-3.5 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
-                        <span className={`truncate ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.website}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className={`w-3.5 h-3.5 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
-                        <span className={`truncate ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.address}</span>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  {/* Bottom Footer: NFC Tagline */}
-                  <div className="flex items-center justify-between border-t border-white/10 pt-2 text-[9px]">
-                    <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
-                      Tap NFC chip to smartphone for instant vCard save
-                    </span>
-                    <span className={`font-bold uppercase ${isLight ? 'text-slate-950' : 'text-white'}`}>
-                      Contactless NFC
-                    </span>
-                  </div>
+                  )}
 
                 </div>
               )}
@@ -933,6 +1111,14 @@ export default function VisitingCardStudio() {
             >
               <Palette className="w-3.5 h-3.5" /> Templates
             </button>
+
+            <button
+              onClick={() => setIsCanvaModalOpen(true)}
+              className="text-xs font-bold pb-2 transition-all border-b-2 border-transparent text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 shrink-0"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-cyan-400" /> Canva / Adobe
+            </button>
+
             <button
               onClick={() => setActiveTab('logo')}
               className={`text-xs font-bold pb-2 transition-all border-b-2 flex items-center gap-1.5 shrink-0 ${
@@ -941,8 +1127,9 @@ export default function VisitingCardStudio() {
                   : 'text-slate-400 border-transparent hover:text-white'
               }`}
             >
-              <ImageIcon className="w-3.5 h-3.5" /> Brand Logo
+              <ImageIcon className="w-3.5 h-3.5" /> Logo
             </button>
+
             <button
               onClick={() => setActiveTab('details')}
               className={`text-xs font-bold pb-2 transition-all border-b-2 flex items-center gap-1.5 shrink-0 ${
@@ -951,8 +1138,9 @@ export default function VisitingCardStudio() {
                   : 'text-slate-400 border-transparent hover:text-white'
               }`}
             >
-              <Type className="w-3.5 h-3.5" /> Card Info
+              <Type className="w-3.5 h-3.5" /> Info
             </button>
+
             <button
               onClick={() => setActiveTab('finish')}
               className={`text-xs font-bold pb-2 transition-all border-b-2 flex items-center gap-1.5 shrink-0 ${
@@ -963,6 +1151,7 @@ export default function VisitingCardStudio() {
             >
               <Layers className="w-3.5 h-3.5" /> Finish
             </button>
+
             <button
               onClick={() => setActiveTab('qr')}
               className={`text-xs font-bold pb-2 transition-all border-b-2 flex items-center gap-1.5 shrink-0 ${
@@ -983,11 +1172,40 @@ export default function VisitingCardStudio() {
                 <p className="text-xs text-slate-400">Select a layout designed specifically for modern founders, creative studios, and executives.</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 pt-2">
+              {/* CANVA BANNER CARD */}
+              <div 
+                onClick={() => setIsCanvaModalOpen(true)}
+                className="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/60 via-purple-950/40 to-slate-900 border border-cyan-500/40 hover:border-cyan-400 cursor-pointer transition-all shadow-lg flex items-center justify-between group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform">
+                    <Palette className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-white flex items-center gap-2">
+                      <span>Import Canva / Adobe Artwork</span>
+                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">100% Custom</span>
+                    </h4>
+                    <p className="text-[11px] text-slate-400 mt-0.5">Upload front &amp; back images with dynamic QR overlay</p>
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 transition-transform" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 pt-2 max-h-[460px] overflow-y-auto pr-1">
                 {templates.map(tmpl => (
                   <div
                     key={tmpl.id}
-                    onClick={() => setSelectedTemplate(tmpl.id)}
+                    onClick={() => {
+                      if (tmpl.id === 'custom-canva') {
+                        setIsCanvaModalOpen(true);
+                      } else {
+                        setSelectedTemplate(tmpl.id);
+                        if (canvaArtworkConfig.isCustomArtworkActive) {
+                          handleUpdateArtworkConfig({ isCustomArtworkActive: false });
+                        }
+                      }
+                    }}
                     className={`p-3.5 rounded-2xl border cursor-pointer transition-all duration-200 relative space-y-2 ${
                       selectedTemplate === tmpl.id
                         ? 'bg-indigo-950/40 border-indigo-500 ring-2 ring-indigo-500/30 shadow-lg'
@@ -995,7 +1213,7 @@ export default function VisitingCardStudio() {
                     }`}
                   >
                     <div className={`w-full h-14 rounded-xl bg-gradient-to-r ${tmpl.previewGradient} shadow-inner border border-white/10 flex items-center justify-center`}>
-                      <span className="text-[10px] font-bold text-white uppercase tracking-wider drop-shadow">
+                      <span className="text-[10px] font-bold text-white uppercase tracking-wider drop-shadow text-center px-2">
                         {tmpl.name}
                       </span>
                     </div>
@@ -1048,98 +1266,66 @@ export default function VisitingCardStudio() {
                       <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain" />
                     </div>
                     <div className="flex-1 text-left space-y-1">
-                      <span className="text-xs font-bold text-white">Custom Logo Active</span>
-                      <p className="text-[10px] text-emerald-400 font-medium">Applied to front and back visiting cards</p>
-                      <div className="flex items-center gap-2 pt-1">
-                        <button
-                          onClick={() => logoFileInputRef.current?.click()}
-                          className="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-200 transition-all"
-                        >
-                          Replace File
-                        </button>
-                        <button
-                          onClick={() => updateLogoUrl('')}
-                          className="px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-[11px] font-semibold text-rose-400 transition-all flex items-center gap-1"
-                        >
-                          <Trash2 className="w-3 h-3" /> Remove
-                        </button>
-                      </div>
+                      <p className="text-xs font-bold text-white">Custom Business Logo Uploaded</p>
+                      <p className="text-[10px] text-slate-400">Ready for front &amp; back card integration.</p>
+                      <button
+                        onClick={() => logoFileInputRef.current?.click()}
+                        className="text-[11px] text-amber-400 hover:text-amber-300 font-semibold"
+                      >
+                        Replace Image
+                      </button>
                     </div>
                   </div>
                 ) : (
                   <>
-                    <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                      <Upload className="w-6 h-6" />
+                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                      <Upload className="w-5 h-5" />
                     </div>
-                    <div className="space-y-1">
+                    <div>
                       <p className="text-xs font-bold text-white">Upload Your Business Logo</p>
-                      <p className="text-[10px] text-slate-400">Supports transparent PNG, SVG, JPG, or WEBP</p>
+                      <p className="text-[10px] text-slate-400">PNG, SVG, JPG or WebP (Transparent recommended)</p>
                     </div>
                     <button
                       onClick={() => logoFileInputRef.current?.click()}
-                      className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-all shadow-md active:scale-95 flex items-center gap-1.5"
+                      className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold shadow-md transition-all active:scale-95"
                     >
-                      <Upload className="w-3.5 h-3.5" />
-                      <span>Choose Image File</span>
+                      Browse Image
                     </button>
                   </>
                 )}
               </div>
 
-              {/* Paste Image URL Fallback */}
-              <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-slate-300">Or Paste Direct Logo URL</label>
-                <div className="flex gap-2">
-                  <input
-                    type="url"
-                    placeholder="https://example.com/logo.png"
-                    value={cardData.logoUrl}
-                    onChange={e => updateLogoUrl(e.target.value)}
-                    className="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white"
-                  />
-                  {cardData.logoUrl && (
-                    <button
-                      onClick={() => updateLogoUrl('')}
-                      className="px-3 py-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white text-xs"
-                    >
-                      Clear
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {/* Preset Badges Selector (If no custom image or for quick icon replacement) */}
-              <div className="space-y-2">
-                <label className="text-[11px] font-semibold text-slate-300">Or Select a Luxury Preset Emblem</label>
+              {/* Logo Presets */}
+              <div className="space-y-2 pt-2">
+                <label className="text-[11px] font-semibold text-slate-300">Or Select a Luxury Monogram Emblem</label>
                 <div className="grid grid-cols-3 gap-2">
-                  {PRESET_LOGOS.map(preset => {
-                    const Icon = preset.icon;
-                    const isSelected = !cardData.logoUrl && customLogoPreset === preset.id;
+                  {PRESET_LOGOS.map(p => {
+                    const IconC = p.icon;
                     return (
                       <button
-                        key={preset.id}
+                        key={p.id}
                         onClick={() => {
-                          updateLogoUrl('');
-                          setCustomLogoPreset(preset.id);
+                          setCustomLogoPreset(p.id);
+                          setCardData(prev => ({ ...prev, logoUrl: '', showLogo: true }));
                         }}
-                        className={`p-2.5 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all ${
-                          isSelected
-                            ? 'bg-amber-500/15 border-amber-500 ring-1 ring-amber-500/40 text-amber-300'
-                            : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                        className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all ${
+                          !cardData.logoUrl && customLogoPreset === p.id
+                            ? 'bg-amber-500/10 border-amber-500/50 text-amber-300'
+                            : 'bg-slate-950/60 border-slate-800 hover:border-slate-700 text-slate-400'
                         }`}
                       >
-                        <div className={`w-7 h-7 rounded-lg bg-gradient-to-tr ${preset.bg} ${preset.color} flex items-center justify-center shadow-sm`}>
-                          <Icon className="w-3.5 h-3.5" />
+                        <div className={`w-7 h-7 rounded-lg bg-gradient-to-tr ${p.bg} ${p.color} flex items-center justify-center shrink-0`}>
+                          <IconC className="w-4 h-4" />
                         </div>
-                        <span className="text-[9px] font-bold text-center leading-tight truncate w-full">{preset.name}</span>
+                        <span className="text-[10px] font-semibold truncate">{p.name}</span>
                       </button>
                     );
                   })}
                 </div>
               </div>
 
-              {/* Logo Display Options: Shape & Size */}
-              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-800">
+              {/* Logo Options */}
+              <div className="grid grid-cols-2 gap-3 pt-2">
                 <div>
                   <label className="text-[11px] font-semibold text-slate-300">Logo Shape</label>
                   <select
@@ -1175,7 +1361,7 @@ export default function VisitingCardStudio() {
           {activeTab === 'details' && (
             <div className="space-y-4">
               <div className="space-y-1">
-                <h3 className="text-sm font-bold text-white">Card Typography & Details</h3>
+                <h3 className="text-sm font-bold text-white">Card Typography &amp; Details</h3>
                 <p className="text-xs text-slate-400">Personalize your name, designation, company, and contact channels.</p>
               </div>
 
@@ -1271,7 +1457,7 @@ export default function VisitingCardStudio() {
           {activeTab === 'finish' && (
             <div className="space-y-4">
               <div className="space-y-1">
-                <h3 className="text-sm font-bold text-white">Physical Card Finish & Materials</h3>
+                <h3 className="text-sm font-bold text-white">Physical Card Finish &amp; Materials</h3>
                 <p className="text-xs text-slate-400">Choose luxury print coatings applied during production.</p>
               </div>
 
@@ -1280,7 +1466,8 @@ export default function VisitingCardStudio() {
                   { id: 'matte-black', name: 'Laser-Engraved Matte Black', desc: 'Soft-touch velvet finish with high scratch resistance.' },
                   { id: 'gold-foil', name: 'Metallic Gold Foil Stamp', desc: 'Reflective gold metallic foil stamped on text & logo.' },
                   { id: 'glossy-uv', name: 'Spot Gloss UV Texture', desc: 'Elevated glossy UV coating over typography for tactile feel.' },
-                  { id: 'frosted-acrylic', name: 'Frosted Translucent Acrylic', desc: 'Semi-transparent frosted PVC card with waterproof NFC.' }
+                  { id: 'frosted-acrylic', name: 'Frosted Translucent Acrylic', desc: 'Semi-transparent frosted PVC card with waterproof NFC.' },
+                  { id: 'carbon-fiber', name: 'Carbon Fiber Weave Texture', desc: 'Ultra-modern textured weave for automotive & tech executives.' }
                 ].map(f => (
                   <div
                     key={f.id}
@@ -1308,7 +1495,7 @@ export default function VisitingCardStudio() {
           {activeTab === 'qr' && (
             <div className="space-y-4">
               <div className="space-y-1">
-                <h3 className="text-sm font-bold text-white">Dynamic QR & Contactless NFC</h3>
+                <h3 className="text-sm font-bold text-white">Dynamic QR &amp; Contactless NFC</h3>
                 <p className="text-xs text-slate-400">Configure how clients connect when scanning or tapping your card.</p>
               </div>
 
@@ -1378,43 +1565,6 @@ export default function VisitingCardStudio() {
               </div>
 
               <div className="flex items-center gap-2">
-                <button
-                  onClick={() => {
-                    const win = window.open('', '_blank');
-                    if (win) {
-                      win.document.write(`
-                        <!DOCTYPE html>
-                        <html>
-                          <head>
-                            <title>${pdfPreviewModal.filename}</title>
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <style>
-                              body, html { margin:0; padding:0; height:100%; width:100%; overflow:hidden; background:#0f172a; display:flex; flex-direction:column; }
-                              .header { background:#020617; color:#fff; padding:10px 20px; font-family:sans-serif; font-size:13px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e293b; }
-                              .btn { background:#4f46e5; color:#fff; border:none; padding:6px 14px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer; text-decoration:none; display:inline-block; }
-                              .btn:hover { background:#4338ca; }
-                              iframe { flex:1; width:100%; border:none; }
-                            </style>
-                          </head>
-                          <body>
-                            <div class="header">
-                              <span><strong>OneClickBiz</strong> | ${pdfPreviewModal.filename}</span>
-                              <a class="btn" href="${pdfPreviewModal.url}" download="${pdfPreviewModal.filename}">Download PDF</a>
-                            </div>
-                            <iframe src="${pdfPreviewModal.url}#toolbar=1" allow="fullscreen"></iframe>
-                          </body>
-                        </html>
-                      `);
-                      win.document.close();
-                    } else {
-                      window.open(pdfPreviewModal.url, '_blank');
-                    }
-                  }}
-                  className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center gap-1.5 transition border border-slate-700 active:scale-95"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>Open in New Tab</span>
-                </button>
                 <a
                   href={pdfPreviewModal.url}
                   download={pdfPreviewModal.filename}
@@ -1499,7 +1649,7 @@ export default function VisitingCardStudio() {
         </div>
       )}
 
-      {/* DEDICATED OFF-SCREEN HIGH-RESOLUTION EXPORT STAGE FOR HTML2CANVAS */}
+      {/* DEDICATED OFF-SCREEN HIGH-RESOLUTION EXPORT STAGE FOR HTML2CANVAS & PDF */}
       <div 
         style={{ 
           position: 'fixed', 
@@ -1518,77 +1668,87 @@ export default function VisitingCardStudio() {
             width: cardData.orientation === 'vertical' ? '600px' : '1050px', 
             height: cardData.orientation === 'vertical' ? '1050px' : '600px' 
           }}
-          className={`rounded-none p-12 relative overflow-hidden flex flex-col justify-between select-none shadow-none ${currentTemplate.bgFront} ${currentTemplate.border}`}
+          className={`rounded-none p-12 relative overflow-hidden flex flex-col justify-between select-none shadow-none ${isCustomArtwork ? 'bg-slate-950 p-0' : `${currentTemplate.bgFront} ${currentTemplate.border}`}`}
         >
-          {/* Finish overlays */}
-          {cardData.finish === 'matte-black' && (
-            <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/5 pointer-events-none" />
-          )}
-          {cardData.finish === 'gold-foil' && (
-            <div className="absolute -top-24 -right-24 w-80 h-80 bg-gradient-to-br from-amber-400/20 via-yellow-200/10 to-transparent rounded-full blur-2xl pointer-events-none" />
-          )}
-
-          {/* Top Header */}
-          <div className="flex items-start justify-between relative z-10">
-            <div className="flex items-center space-x-5">
-              {cardData.showLogo && (
-                <div className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center border shadow-xl ${
-                  cardData.logoShape === 'transparent' ? 'border-transparent' : (isLight ? 'border-slate-300 bg-white' : 'border-white/20 bg-slate-900/80')
-                }`}>
-                  {cardData.logoUrl ? (
-                    <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain p-2" />
-                  ) : (() => {
-                    const preset = PRESET_LOGOS.find(p => p.id === customLogoPreset) || PRESET_LOGOS[0];
-                    const IconComp = preset.icon;
-                    return (
-                      <div className={`w-full h-full ${isLight ? 'bg-slate-900 text-white' : `bg-gradient-to-tr ${preset.bg} ${preset.color}`} flex items-center justify-center`}>
-                        <IconComp className="w-10 h-10" />
-                      </div>
-                    );
-                  })()}
-                </div>
+          {isCustomArtwork && canvaArtworkConfig.frontArtworkUrl ? (
+            <img 
+              src={canvaArtworkConfig.frontArtworkUrl} 
+              alt="Front Graphic" 
+              className="w-full h-full object-cover" 
+            />
+          ) : (
+            <>
+              {/* Finish overlays */}
+              {cardData.finish === 'matte-black' && (
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/5 pointer-events-none" />
               )}
-              <div>
-                <h4 className={`text-2xl font-extrabold tracking-tight ${isLight ? 'text-slate-950' : 'text-white'}`}>
-                  {cardData.companyName}
-                </h4>
-                <p className={`text-sm uppercase tracking-widest ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                  {cardData.tagline}
+              {cardData.finish === 'gold-foil' && (
+                <div className="absolute -top-24 -right-24 w-80 h-80 bg-gradient-to-br from-amber-400/20 via-yellow-200/10 to-transparent rounded-full blur-2xl pointer-events-none" />
+              )}
+
+              {/* Top Header */}
+              <div className="flex items-start justify-between relative z-10">
+                <div className="flex items-center space-x-5">
+                  {cardData.showLogo && (
+                    <div className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center border shadow-xl ${
+                      cardData.logoShape === 'transparent' ? 'border-transparent' : (isLight ? 'border-slate-300 bg-white' : 'border-white/20 bg-slate-900/80')
+                    }`}>
+                      {cardData.logoUrl ? (
+                        <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain p-2" />
+                      ) : (() => {
+                        const preset = PRESET_LOGOS.find(p => p.id === customLogoPreset) || PRESET_LOGOS[0];
+                        const IconComp = preset.icon;
+                        return (
+                          <div className={`w-full h-full ${isLight ? 'bg-slate-900 text-white' : `bg-gradient-to-tr ${preset.bg} ${preset.color}`} flex items-center justify-center`}>
+                            <IconComp className="w-10 h-10" />
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
+                  <div>
+                    <h4 className={`text-2xl font-extrabold tracking-tight ${isLight ? 'text-slate-950' : 'text-white'}`}>
+                      {cardData.companyName}
+                    </h4>
+                    <p className={`text-sm uppercase tracking-widest ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                      {cardData.tagline}
+                    </p>
+                  </div>
+                </div>
+
+                {cardData.showNfcIcon && (
+                  <div className="flex items-center space-x-2 opacity-85">
+                    <Wifi className={`w-7 h-7 rotate-90 ${isLight ? 'text-slate-600' : 'text-amber-400'}`} />
+                    <span className={`text-sm font-mono uppercase tracking-wider font-bold ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+                      NFC Tap
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Center Identity */}
+              <div className="my-auto space-y-2 relative z-10">
+                <h2 className={`text-4xl font-black tracking-tight ${isLight ? 'text-slate-950' : currentTemplate.textPrimary}`}>
+                  {cardData.fullName}
+                </h2>
+                <p className={`text-lg font-semibold uppercase tracking-wider ${isLight ? 'text-indigo-600' : 'text-slate-300'}`}>
+                  {cardData.designation}
                 </p>
               </div>
-            </div>
 
-            {cardData.showNfcIcon && (
-              <div className="flex items-center space-x-2 opacity-85">
-                <Wifi className={`w-7 h-7 rotate-90 ${isLight ? 'text-slate-600' : 'text-amber-400'}`} />
-                <span className={`text-sm font-mono uppercase tracking-wider font-bold ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
-                  NFC Tap
+              {/* Bottom Footer */}
+              <div className="flex items-center justify-between border-t pt-5 border-white/10 text-base relative z-10">
+                <div className="flex items-center gap-6">
+                  <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.phone}</span>
+                  <span className="opacity-40">•</span>
+                  <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.email}</span>
+                </div>
+                <span className={`font-mono font-bold ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
+                  oneclickbiz.in/v/{cardData.slug}
                 </span>
               </div>
-            )}
-          </div>
-
-          {/* Center Identity */}
-          <div className="my-auto space-y-2 relative z-10">
-            <h2 className={`text-4xl font-black tracking-tight ${isLight ? 'text-slate-950' : currentTemplate.textPrimary}`}>
-              {cardData.fullName}
-            </h2>
-            <p className={`text-lg font-semibold uppercase tracking-wider ${isLight ? 'text-indigo-600' : 'text-slate-300'}`}>
-              {cardData.designation}
-            </p>
-          </div>
-
-          {/* Bottom Footer */}
-          <div className="flex items-center justify-between border-t pt-5 border-white/10 text-base relative z-10">
-            <div className="flex items-center gap-6">
-              <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.phone}</span>
-              <span className="opacity-40">•</span>
-              <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.email}</span>
-            </div>
-            <span className={`font-mono font-bold ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
-              oneclickbiz.in/v/{cardData.slug}
-            </span>
-          </div>
+            </>
+          )}
         </div>
 
         {/* BACK CARD EXPORT STAGE */}
@@ -1599,87 +1759,114 @@ export default function VisitingCardStudio() {
             height: cardData.orientation === 'vertical' ? '1050px' : '600px',
             marginTop: '40px'
           }}
-          className={`rounded-none p-12 relative overflow-hidden flex flex-col justify-between select-none shadow-none ${currentTemplate.bgBack} ${currentTemplate.border}`}
+          className={`rounded-none p-12 relative overflow-hidden flex flex-col justify-between select-none shadow-none ${isCustomArtwork ? 'bg-slate-950 p-0' : `${currentTemplate.bgBack} ${currentTemplate.border}`}`}
         >
-          {/* Finish overlays */}
-          {cardData.finish === 'matte-black' && (
-            <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/5 pointer-events-none" />
-          )}
-          {cardData.finish === 'gold-foil' && (
-            <div className="absolute -top-24 -right-24 w-80 h-80 bg-gradient-to-br from-amber-400/20 via-yellow-200/10 to-transparent rounded-full blur-2xl pointer-events-none" />
-          )}
-
-          {/* Top Bar */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
-            <div className="flex items-center gap-3">
-              {cardData.showLogo && (
-                <div className="w-12 h-12 rounded-xl overflow-hidden flex items-center justify-center">
-                  {cardData.logoUrl ? (
-                    <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain" />
-                  ) : (() => {
-                    const preset = PRESET_LOGOS.find(p => p.id === customLogoPreset) || PRESET_LOGOS[0];
-                    const IconComp = preset.icon;
-                    return (
-                      <div className={`w-full h-full ${isLight ? 'bg-slate-900 text-white' : `bg-gradient-to-tr ${preset.bg} ${preset.color}`} flex items-center justify-center`}>
-                        <IconComp className="w-6 h-6" />
-                      </div>
-                    );
-                  })()}
+          {isCustomArtwork && canvaArtworkConfig.backArtworkUrl ? (
+            <div className="w-full h-full relative">
+              <img 
+                src={canvaArtworkConfig.backArtworkUrl} 
+                alt="Back Graphic" 
+                className="w-full h-full object-cover" 
+              />
+              {canvaArtworkConfig.qrPosition !== 'none' && (
+                <div className={`absolute ${
+                  canvaArtworkConfig.qrPosition === 'center' ? 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' :
+                  canvaArtworkConfig.qrPosition === 'top-right' ? 'top-10 right-10' :
+                  canvaArtworkConfig.qrPosition === 'bottom-left' ? 'bottom-10 left-10' : 'bottom-10 right-10'
+                } z-20`}>
+                  <div className="p-3 bg-white rounded-2xl shadow-2xl">
+                    <img 
+                      src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(typeof window !== 'undefined' ? `${window.location.origin}/v/${cardData.slug}` : `https://oneclickbiz.in/v/${cardData.slug}`)}&color=0f172a`} 
+                      alt="Card QR"
+                      className="w-36 h-36 object-contain"
+                    />
+                  </div>
                 </div>
               )}
-              <span className={`text-base font-bold uppercase tracking-widest ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
-                {cardData.companyName}
-              </span>
             </div>
-            <span className={`text-base font-mono ${isLight ? 'text-indigo-600 font-bold' : 'text-amber-400'}`}>
-              cards.oneclickbiz.in/v/{cardData.slug}
-            </span>
-          </div>
+          ) : (
+            <>
+              {/* Finish overlays */}
+              {cardData.finish === 'matte-black' && (
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/5 pointer-events-none" />
+              )}
+              {cardData.finish === 'gold-foil' && (
+                <div className="absolute -top-24 -right-24 w-80 h-80 bg-gradient-to-br from-amber-400/20 via-yellow-200/10 to-transparent rounded-full blur-2xl pointer-events-none" />
+              )}
 
-          {/* Center: QR and Details */}
-          <div className="grid grid-cols-12 gap-8 items-center my-auto relative z-10">
-            <div className="col-span-5 flex flex-col items-center">
-              <div className="p-4 rounded-2xl bg-white shadow-2xl">
-                <img 
-                  src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(typeof window !== 'undefined' ? `${window.location.origin}/v/${cardData.slug}` : `https://oneclickbiz.in/v/${cardData.slug}`)}&color=0f172a`} 
-                  alt="Card QR"
-                  className="w-44 h-44 object-contain"
-                />
+              {/* Top Bar */}
+              <div className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
+                <div className="flex items-center gap-3">
+                  {cardData.showLogo && (
+                    <div className="w-12 h-12 rounded-xl overflow-hidden flex items-center justify-center">
+                      {cardData.logoUrl ? (
+                        <img src={cardData.logoUrl} alt="Logo" className="w-full h-full object-contain" />
+                      ) : (() => {
+                        const preset = PRESET_LOGOS.find(p => p.id === customLogoPreset) || PRESET_LOGOS[0];
+                        const IconComp = preset.icon;
+                        return (
+                          <div className={`w-full h-full ${isLight ? 'bg-slate-900 text-white' : `bg-gradient-to-tr ${preset.bg} ${preset.color}`} flex items-center justify-center`}>
+                            <IconComp className="w-6 h-6" />
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
+                  <span className={`text-base font-bold uppercase tracking-widest ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
+                    {cardData.companyName}
+                  </span>
+                </div>
+                <span className={`text-base font-mono ${isLight ? 'text-indigo-600 font-bold' : 'text-amber-400'}`}>
+                  cards.oneclickbiz.in/v/{cardData.slug}
+                </span>
               </div>
-              <p className={`text-xs uppercase tracking-wider font-bold mt-3 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                Scan with Camera
-              </p>
-            </div>
 
-            <div className="col-span-7 space-y-4 text-base">
-              <div className="flex items-center gap-3">
-                <Phone className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
-                <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.phone}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
-                <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.email}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Globe className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
-                <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.website}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <MapPin className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
-                <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.address}</span>
-              </div>
-            </div>
-          </div>
+              {/* Center: QR and Details */}
+              <div className="grid grid-cols-12 gap-8 items-center my-auto relative z-10">
+                <div className="col-span-5 flex flex-col items-center">
+                  <div className="p-4 rounded-2xl bg-white shadow-2xl">
+                    <img 
+                      src={qrCodeDataUrl || `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(typeof window !== 'undefined' ? `${window.location.origin}/v/${cardData.slug}` : `https://oneclickbiz.in/v/${cardData.slug}`)}&color=0f172a`} 
+                      alt="Card QR"
+                      className="w-44 h-44 object-contain"
+                    />
+                  </div>
+                  <p className={`text-xs uppercase tracking-wider font-bold mt-3 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                    Scan with Camera
+                  </p>
+                </div>
 
-          {/* Bottom NFC Footer */}
-          <div className="flex items-center justify-between border-t border-white/10 pt-4 text-xs relative z-10">
-            <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
-              Tap NFC chip to smartphone for instant vCard save
-            </span>
-            <span className={`font-bold uppercase ${isLight ? 'text-slate-950' : 'text-white'}`}>
-              Contactless NFC
-            </span>
-          </div>
+                <div className="col-span-7 space-y-4 text-base">
+                  <div className="flex items-center gap-3">
+                    <Phone className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                    <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.phone}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Mail className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                    <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.email}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Globe className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                    <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.website}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <MapPin className={`w-6 h-6 shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`} />
+                    <span className={`truncate font-medium ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>{cardData.address}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom NFC Footer */}
+              <div className="flex items-center justify-between border-t border-white/10 pt-4 text-xs relative z-10">
+                <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
+                  Tap NFC chip to smartphone for instant vCard save
+                </span>
+                <span className={`font-bold uppercase ${isLight ? 'text-slate-950' : 'text-white'}`}>
+                  Contactless NFC
+                </span>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

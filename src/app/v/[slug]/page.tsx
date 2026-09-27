@@ -76,17 +76,13 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
     console.error('Database profile lookup error:', err);
   }
 
-  const isOfficialDemo = ['kishore', 'kishore-patel', 'alex', 'demo'].includes(cleanSlug) || cleanSlug.startsWith('vcard');
   const fallback = getProfileBySlug(cleanSlug);
-  if (!isOfficialDemo) {
-    return {
-      ...fallback,
-      isPublished: false,
-      isExpired: true,
-      subscriptionStatus: 'UNPAID'
-    };
-  }
-  return fallback;
+  return {
+    ...fallback,
+    isPublished: true,
+    isExpired: false,
+    subscriptionStatus: 'ACTIVE'
+  };
 }
 
 export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {

@@ -103,5 +103,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-  return [...staticPages, ...dynamicProfiles, ...fallbackProfiles];
+  // 4. Blog listing page
+  const blogStaticPages: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+  ];
+
+  // 5. Dynamic Blog Post Pages
+  let dynamicBlogPosts: MetadataRoute.Sitemap = [];
+  if (process.env.DATABASE_URL) {
+    try {
+      const posts = await prisma.blogPost.findMany({
+        where: { isPublished: true },
+        select: { slug: true, updatedAt: true },
+        orderBy: { publishedAt: 'desc' },
+        take: 500,
+      });
+
+      dynamicBlogPosts = posts.map((p) => ({
+        url: `${BASE_URL}/blog/${p.slug}`,
+        lastModified: p.updatedAt || currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      }));
+    } catch (error) {
+      // Graceful fallback if DB is offline during build
+    }
+  }
+
+  return [...staticPages, ...blogStaticPages, ...dynamicProfiles, ...fallbackProfiles, ...dynamicBlogPosts];
 }

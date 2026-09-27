@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getSessionUser } from '@/lib/auth';
+import { SAMPLE_BLOG_POSTS } from '@/lib/blog-data';
 
 // GET all blog articles (public or filtered by user org)
 export async function GET(req: NextRequest) {
@@ -10,34 +11,62 @@ export async function GET(req: NextRequest) {
     const slug = searchParams.get('slug');
 
     if (slug) {
-      const article = await prisma.blogPost.findUnique({
-        where: { slug }
-      });
+      let article: any = null;
+      try {
+        article = await prisma.blogPost.findUnique({
+          where: { slug }
+        });
+      } catch (dbErr) {
+        console.warn('DB lookup failed, checking fallback:', dbErr);
+      }
+
+      if (!article) {
+        article = SAMPLE_BLOG_POSTS.find((b) => b.slug === slug);
+      }
+
       if (!article) return NextResponse.json({ error: 'Article not found' }, { status: 404 });
       
-      // Increment views
-      prisma.blogPost.update({
-        where: { id: article.id },
-        data: { viewsCount: { increment: 1 } }
-      }).catch(err => console.error(err));
+      // Increment views if DB post
+      if (article.id && !article.id.startsWith('blog_')) {
+        prisma.blogPost.update({
+          where: { id: article.id },
+          data: { viewsCount: { increment: 1 } }
+        }).catch(err => console.error(err));
+      }
 
       return NextResponse.json({ success: true, article });
     }
 
-    const where: any = { isPublished: true };
-    if (category && category !== 'all') {
-      where.category = category;
+    let articles: any[] = [];
+    try {
+      const where: any = { isPublished: true };
+      if (category && category.toLowerCase() !== 'all') {
+        where.category = { equals: category, mode: 'insensitive' };
+      }
+
+      articles = await prisma.blogPost.findMany({
+        where,
+        orderBy: { publishedAt: 'desc' }
+      });
+    } catch (dbErr) {
+      console.warn('DB fetch failed, falling back to curated posts:', dbErr);
     }
 
-    const articles = await prisma.blogPost.findMany({
-      where,
-      orderBy: { publishedAt: 'desc' }
-    });
+    // If database has 0 articles, fallback to curated high-value articles
+    if (articles.length === 0) {
+      if (category && category.toLowerCase() !== 'all') {
+        articles = SAMPLE_BLOG_POSTS.filter(
+          (b) => b.category.toLowerCase() === category.toLowerCase()
+        );
+      } else {
+        articles = SAMPLE_BLOG_POSTS;
+      }
+    }
 
     return NextResponse.json({ success: true, articles });
   } catch (error: any) {
     console.error('Fetch blogs error:', error);
-    return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ success: true, articles: SAMPLE_BLOG_POSTS });
   }
 }
 
