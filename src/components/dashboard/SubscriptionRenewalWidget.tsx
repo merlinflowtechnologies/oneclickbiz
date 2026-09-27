@@ -13,8 +13,10 @@ import {
   RefreshCw,
   QrCode,
   Zap,
-  Check
+  Check,
+  Tag
 } from 'lucide-react';
+import { validateAndCalculateCoupon, CouponApplicationResult } from '@/lib/coupons';
 
 interface SubscriptionRenewalWidgetProps {
   currentPlan?: 'Basic' | 'Pro' | 'Advanced' | string;
@@ -79,6 +81,54 @@ export default function SubscriptionRenewalWidget({
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Coupon state
+  const [couponInput, setCouponInput] = useState('ONECLICK300');
+  const [appliedCoupon, setAppliedCoupon] = useState<CouponApplicationResult | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+
+  // Automatically validate coupon when tier changes if a coupon was active or default
+  React.useEffect(() => {
+    const targetPlan = plans[selectedTier];
+    if (appliedCoupon?.coupon?.code) {
+      const revalidated = validateAndCalculateCoupon(appliedCoupon.coupon.code, targetPlan.price, targetPlan.id);
+      if (revalidated.valid) {
+        setAppliedCoupon(revalidated);
+        setCouponError(null);
+      } else {
+        setAppliedCoupon(null);
+        setCouponError(revalidated.error || null);
+      }
+    } else if (couponInput) {
+      const res = validateAndCalculateCoupon(couponInput, targetPlan.price, targetPlan.id);
+      if (res.valid) {
+        setAppliedCoupon(res);
+      }
+    }
+  }, [selectedTier, plans]);
+
+  const handleApplyCoupon = (codeToApply?: string) => {
+    const code = (codeToApply !== undefined ? codeToApply : couponInput).trim();
+    if (!code) {
+      setCouponError('Please enter a coupon code.');
+      setAppliedCoupon(null);
+      return;
+    }
+    const targetPlan = plans[selectedTier];
+    const res = validateAndCalculateCoupon(code, targetPlan.price, targetPlan.id);
+    if (res.valid) {
+      setAppliedCoupon(res);
+      setCouponError(null);
+    } else {
+      setAppliedCoupon(null);
+      setCouponError(res.error || 'Invalid coupon code.');
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponError(null);
+  };
+
   React.useEffect(() => {
     async function loadDynamicPricing() {
       try {
@@ -117,6 +167,7 @@ export default function SubscriptionRenewalWidget({
           planId: targetPlan.id,
           planName: targetPlan.name,
           price: targetPlan.price,
+          couponCode: appliedCoupon?.valid ? appliedCoupon.coupon?.code : undefined,
           customerName: userName,
           customerEmail: userEmail,
           customerPhone: userPhone || '9999999999'
@@ -287,6 +338,93 @@ export default function SubscriptionRenewalWidget({
         })}
       </div>
 
+      {/* Promo & Coupon Discount Box */}
+      <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-50/70 via-white to-orange-50/50 border border-amber-200 space-y-2.5 shadow-xs">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-amber-950">
+            <Tag className="w-3.5 h-3.5 text-amber-600" />
+            <span>Have a Promo or Referral Coupon?</span>
+          </div>
+          {appliedCoupon?.valid && (
+            <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px] border border-emerald-200 flex items-center gap-1">
+              <Check className="w-3 h-3 text-emerald-600" />
+              Saved ₹{appliedCoupon.discountAmount}
+            </span>
+          )}
+        </div>
+
+        {appliedCoupon?.valid ? (
+          <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+            <div>
+              <div className="flex items-center gap-1.5">
+                <span className="font-mono font-bold text-xs text-emerald-900">{appliedCoupon.coupon?.code}</span>
+                <span className="text-[10px] text-emerald-700">({appliedCoupon.coupon?.description})</span>
+              </div>
+              <p className="text-[10px] text-emerald-600 mt-0.5 font-semibold">
+                Instant ₹{appliedCoupon.discountAmount} discount applied! Net payable: ₹{appliedCoupon.finalPrice.toLocaleString()}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={handleRemoveCoupon}
+              className="text-[10px] font-bold text-rose-600 hover:text-rose-800 bg-white px-2 py-1 rounded border border-rose-200"
+            >
+              Remove
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <div className="flex gap-2">
+              <input
+                type="text"
+                placeholder="Enter coupon (e.g. ONECLICK300)"
+                value={couponInput}
+                onChange={e => setCouponInput(e.target.value.toUpperCase())}
+                className="flex-1 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 font-mono uppercase placeholder-slate-400 focus:outline-none focus:border-amber-500"
+              />
+              <button
+                type="button"
+                onClick={() => handleApplyCoupon()}
+                className="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition active:scale-95 shadow-sm"
+              >
+                Apply
+              </button>
+            </div>
+
+            {couponError && (
+              <p className="text-[10px] text-rose-600 font-semibold">{couponError}</p>
+            )}
+
+            {/* Quick Clickable Coupon Suggestions */}
+            <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+              <span className="text-[10px] text-slate-500">Available:</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setCouponInput('ONECLICK300');
+                  handleApplyCoupon('ONECLICK300');
+                }}
+                className="px-2 py-0.5 rounded-lg bg-amber-100/80 hover:bg-amber-200 text-amber-900 font-mono font-bold text-[10px] border border-amber-300 transition"
+              >
+                🏷️ ONECLICK300 (-₹300)
+              </button>
+              {selectedTier !== 'Basic' && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCouponInput('VIP500');
+                    handleApplyCoupon('VIP500');
+                  }}
+                  className="px-2 py-0.5 rounded-lg bg-indigo-100/80 hover:bg-indigo-200 text-indigo-900 font-mono font-bold text-[10px] border border-indigo-300 transition"
+                >
+                  🏷️ VIP500 (-₹500)
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Action Area & Strict Policy Notice */}
       <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         
@@ -313,7 +451,13 @@ export default function SubscriptionRenewalWidget({
           ) : (
             <>
               <CreditCard className="w-4 h-4" />
-              <span>Renew {plans[selectedTier].name} Online (₹{plans[selectedTier].price.toLocaleString()})</span>
+              <span>
+                {appliedCoupon?.valid ? (
+                  <>Renew {plans[selectedTier].name} (₹{appliedCoupon.finalPrice.toLocaleString()} <span className="line-through text-slate-300 text-[10px]">₹{plans[selectedTier].price.toLocaleString()}</span>)</>
+                ) : (
+                  <>Renew {plans[selectedTier].name} Online (₹{plans[selectedTier].price.toLocaleString()})</>
+                )}
+              </span>
             </>
           )}
         </button>

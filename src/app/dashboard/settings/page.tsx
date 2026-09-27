@@ -34,11 +34,14 @@ import {
   AlertCircle,
   User,
   Camera,
-  Upload
+  Upload,
+  Tag,
+  Gift
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { exportInvoicePDF } from '@/lib/pdf-export';
 import { initiateCashfreePayment } from '@/lib/cashfree-client';
+import { validateAndCalculateCoupon, PLATFORM_COUPONS, CouponApplicationResult } from '@/lib/coupons';
 
 interface InvoiceItem {
   id: string;
@@ -249,11 +252,48 @@ function SettingsContent() {
     setTimeout(() => setIsSaved(false), 2500);
   };
 
+  // Coupon State
+  const [couponInput, setCouponInput] = useState('ONECLICK300');
+  const [appliedCoupon, setAppliedCoupon] = useState<CouponApplicationResult | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+
   // Open Billing Checkout Modal
   const handleInitiateSwitch = (plan: { id: 'BASIC' | 'PRO' | 'ADVANCED'; name: string; price: number }) => {
     setCheckoutPlan(plan);
     setPaymentSuccess(false);
     setIsProcessingPayment(false);
+    setCouponError(null);
+    // Auto apply ONECLICK300 promo on checkout open
+    const defaultRes = validateAndCalculateCoupon('ONECLICK300', plan.price, plan.id);
+    if (defaultRes.valid) {
+      setAppliedCoupon(defaultRes);
+    } else {
+      setAppliedCoupon(null);
+    }
+  };
+
+  const handleApplyCustomCoupon = (codeToApply?: string) => {
+    const code = (codeToApply !== undefined ? codeToApply : couponInput).trim();
+    if (!code) {
+      setCouponError('Please enter a coupon code.');
+      setAppliedCoupon(null);
+      return;
+    }
+    if (!checkoutPlan) return;
+    const res = validateAndCalculateCoupon(code, checkoutPlan.price, checkoutPlan.id);
+    if (res.valid) {
+      setAppliedCoupon(res);
+      setCouponError(null);
+      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+    } else {
+      setAppliedCoupon(null);
+      setCouponError(res.error || 'Invalid or expired coupon code.');
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponError(null);
   };
 
   // Launch Cashfree Automated Checkout Modal
@@ -261,6 +301,9 @@ function SettingsContent() {
     if (e) e.preventDefault();
     if (!checkoutPlan) return;
     setIsProcessingPayment(true);
+
+    const finalPayablePrice = appliedCoupon?.valid ? appliedCoupon.finalPrice : checkoutPlan.price;
+
     try {
       const res = await fetch('/api/payments/cashfree/create-order', {
         method: 'POST',
@@ -269,6 +312,7 @@ function SettingsContent() {
           planId: checkoutPlan.id,
           planName: checkoutPlan.name,
           price: checkoutPlan.price,
+          couponCode: appliedCoupon?.valid ? appliedCoupon.coupon?.code : undefined,
           customerName: billingName,
           customerEmail: billingEmail,
           customerPhone: billingPhone
@@ -979,13 +1023,98 @@ function SettingsContent() {
                             )}
                             {checkoutPlan.id === 'ADVANCED' && (
                               <>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-amber-500 shrink-0" /> 5 White-Label Custom Domains</li>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-amber-500 shrink-0" /> Unlimited 4K Videos &amp; 50+ Showcase</li>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-amber-500 shrink-0" /> 5 Staff Profiles &amp; Blog Studio</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 text-amber-500 shrink-0" /> 5 White-Label Custom Domains</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 text-amber-500 shrink-0" /> Unlimited 4K Videos &amp; 50+ Showcase</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 text-amber-500 shrink-0" /> 5 Staff Profiles &amp; Blog Studio</li>
                               </>
                             )}
                           </ul>
                         </div>
+                      </div>
+
+                      {/* Coupon Code Input & Application Box */}
+                      <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-50/70 via-white to-orange-50/50 border border-amber-200 space-y-2.5 shadow-xs">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1.5 text-xs font-bold text-amber-950">
+                            <Tag className="w-3.5 h-3.5 text-amber-600" />
+                            <span>Promo &amp; Referral Coupon</span>
+                          </div>
+                          {appliedCoupon?.valid && (
+                            <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px] border border-emerald-200 flex items-center gap-1">
+                              <Check className="w-3 h-3 text-emerald-600" />
+                              Saved ₹{appliedCoupon.discountAmount}
+                            </span>
+                          )}
+                        </div>
+
+                        {appliedCoupon?.valid ? (
+                          <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+                            <div>
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-mono font-bold text-xs text-emerald-900">{appliedCoupon.coupon?.code}</span>
+                                <span className="text-[10px] text-emerald-700">({appliedCoupon.coupon?.description})</span>
+                              </div>
+                              <p className="text-[10px] text-emerald-600 mt-0.5 font-semibold">
+                                Discount of ₹{appliedCoupon.discountAmount} applied! Final: ₹{appliedCoupon.finalPrice.toLocaleString()}
+                              </p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handleRemoveCoupon}
+                              className="text-[10px] font-bold text-rose-600 hover:text-rose-800 bg-white px-2 py-1 rounded border border-rose-200"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="space-y-2">
+                            <div className="flex gap-2">
+                              <input
+                                type="text"
+                                placeholder="Enter coupon (e.g. ONECLICK300)"
+                                value={couponInput}
+                                onChange={e => setCouponInput(e.target.value.toUpperCase())}
+                                className="flex-1 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 font-mono uppercase placeholder-slate-400 focus:outline-none focus:border-amber-500"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleApplyCustomCoupon()}
+                                className="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition active:scale-95 shadow-sm"
+                              >
+                                Apply
+                              </button>
+                            </div>
+
+                            {couponError && (
+                              <p className="text-[10px] text-rose-600 font-semibold">{couponError}</p>
+                            )}
+
+                            {/* Quick Clickable Coupon Suggestions */}
+                            <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                              <span className="text-[10px] text-slate-500">Available:</span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setCouponInput('ONECLICK300');
+                                  handleApplyCustomCoupon('ONECLICK300');
+                                }}
+                                className="px-2 py-0.5 rounded-lg bg-amber-100/80 hover:bg-amber-200 text-amber-900 text-[10px] font-bold border border-amber-300/80 transition"
+                              >
+                                🏷️ ONECLICK300 (-₹300)
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setCouponInput('VIP500');
+                                  handleApplyCustomCoupon('VIP500');
+                                }}
+                                className="px-2 py-0.5 rounded-lg bg-purple-100/80 hover:bg-purple-200 text-purple-900 text-[10px] font-bold border border-purple-300/80 transition"
+                              >
+                                🏷️ VIP500 (-₹500)
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       {/* Billing Information Input Group */}
@@ -1068,6 +1197,26 @@ function SettingsContent() {
                           </span>
                         </div>
 
+                        {/* Price Summary Breakdown */}
+                        <div className="p-3.5 rounded-xl bg-white border border-slate-200 space-y-1.5">
+                          <div className="flex items-center justify-between text-xs text-slate-600">
+                            <span>Plan Subscription ({checkoutPlan.name})</span>
+                            <span className="font-mono font-semibold">₹{checkoutPlan.price.toLocaleString()}</span>
+                          </div>
+                          {appliedCoupon?.valid && (
+                            <div className="flex items-center justify-between text-xs text-emerald-700 font-semibold">
+                              <span>Coupon Discount ({appliedCoupon.coupon?.code})</span>
+                              <span className="font-mono">-₹{appliedCoupon.discountAmount.toLocaleString()}</span>
+                            </div>
+                          )}
+                          <div className="pt-2 border-t border-slate-200 flex items-center justify-between text-sm font-bold text-slate-900">
+                            <span>Total Payable Amount</span>
+                            <span className="text-emerald-700 font-mono text-base font-black">
+                              ₹{(appliedCoupon?.valid ? appliedCoupon.finalPrice : checkoutPlan.price).toLocaleString()}
+                            </span>
+                          </div>
+                        </div>
+
                         <p className="text-xs text-slate-600 leading-relaxed">
                           Secure instant checkout with real-time automated verification. All Indian payment modes supported inside the official gateway:
                         </p>
@@ -1130,7 +1279,7 @@ function SettingsContent() {
                           ) : (
                             <>
                               <Lock className="w-3.5 h-3.5 text-white" />
-                              <span>Pay ₹{checkoutPlan.price.toLocaleString()} via Cashfree</span>
+                              <span>Pay ₹{(appliedCoupon?.valid ? appliedCoupon.finalPrice : checkoutPlan.price).toLocaleString()} via Cashfree</span>
                               <ArrowRight className="w-3.5 h-3.5 ml-1" />
                             </>
                           )}
@@ -1159,8 +1308,17 @@ function SettingsContent() {
                 <div className="px-6 py-3.5 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-slate-500">Total Payable:</span>
-                    <span className="text-xl font-extrabold text-slate-900 font-mono">₹{checkoutPlan.price.toLocaleString()}</span>
-                    <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200">All-Inclusive (18% GST)</span>
+                    {appliedCoupon?.valid && (
+                      <span className="text-xs text-slate-400 line-through font-mono">
+                        ₹{checkoutPlan.price.toLocaleString()}
+                      </span>
+                    )}
+                    <span className="text-xl font-extrabold text-emerald-700 font-mono">
+                      ₹{(appliedCoupon?.valid ? appliedCoupon.finalPrice : checkoutPlan.price).toLocaleString()}
+                    </span>
+                    <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200">
+                      {appliedCoupon?.valid ? `Saved ₹${appliedCoupon.discountAmount} (18% GST Incl)` : 'All-Inclusive (18% GST)'}
+                    </span>
                   </div>
 
                   <div className="flex items-center gap-2.5">
@@ -1179,13 +1337,13 @@ function SettingsContent() {
                     >
                       {isProcessingPayment ? (
                         <>
-                          <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
-                          <span>Authorizing Gateway...</span>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Processing...</span>
                         </>
                       ) : (
                         <>
                           <Lock className="w-3.5 h-3.5" />
-                          <span>Pay ₹{checkoutPlan.price.toLocaleString()} with Cashfree</span>
+                          <span>Pay ₹{(appliedCoupon?.valid ? appliedCoupon.finalPrice : checkoutPlan.price).toLocaleString()} Now</span>
                         </>
                       )}
                     </button>

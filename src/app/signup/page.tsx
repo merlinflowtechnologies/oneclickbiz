@@ -25,11 +25,13 @@ import {
   ArrowLeft,
   ChevronRight,
   Shield,
-  Smartphone
+  Smartphone,
+  Tag
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { initiateCashfreePayment } from '@/lib/cashfree-client';
 import { exportInvoicePDF } from '@/lib/pdf-export';
+import { validateAndCalculateCoupon, CouponApplicationResult } from '@/lib/coupons';
 
 function GoogleIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -173,6 +175,53 @@ function SignUpForm() {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [error, setError] = useState('');
   const [completedOrder, setCompletedOrder] = useState<any>(null);
+
+  // Coupon State
+  const [couponInput, setCouponInput] = useState('ONECLICK300');
+  const [appliedCoupon, setAppliedCoupon] = useState<CouponApplicationResult | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+
+  // Auto-validate coupon when plan or step changes
+  useEffect(() => {
+    if (appliedCoupon?.coupon?.code) {
+      const revalidated = validateAndCalculateCoupon(appliedCoupon.coupon.code, activePlan.price, activePlan.id);
+      if (revalidated.valid) {
+        setAppliedCoupon(revalidated);
+        setCouponError(null);
+      } else {
+        setAppliedCoupon(null);
+        setCouponError(revalidated.error || null);
+      }
+    } else if (couponInput) {
+      const res = validateAndCalculateCoupon(couponInput, activePlan.price, activePlan.id);
+      if (res.valid) {
+        setAppliedCoupon(res);
+      }
+    }
+  }, [selectedPlanKey, plans]);
+
+  const handleApplyCoupon = (codeToApply?: string) => {
+    const code = (codeToApply !== undefined ? codeToApply : couponInput).trim();
+    if (!code) {
+      setCouponError('Please enter a coupon code.');
+      setAppliedCoupon(null);
+      return;
+    }
+    const res = validateAndCalculateCoupon(code, activePlan.price, activePlan.id);
+    if (res.valid) {
+      setAppliedCoupon(res);
+      setCouponError(null);
+      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+    } else {
+      setAppliedCoupon(null);
+      setCouponError(res.error || 'Invalid coupon code.');
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponError(null);
+  };
 
   // Restore stored session if arriving directly at payment step without query params
   useEffect(() => {
@@ -359,6 +408,8 @@ function SignUpForm() {
     setIsProcessingPayment(true);
     setError('');
 
+    const finalPayable = appliedCoupon?.valid ? appliedCoupon.finalPrice : activePlan.price;
+
     try {
       const res = await fetch('/api/payments/cashfree/create-order', {
         method: 'POST',
@@ -367,6 +418,7 @@ function SignUpForm() {
           planId: activePlan.id,
           planName: activePlan.name,
           price: activePlan.price,
+          couponCode: appliedCoupon?.valid ? appliedCoupon.coupon?.code : undefined,
           customerName: fullName || 'OneClickBiz Customer',
           customerEmail: email || 'billing@oneclickbiz.in',
           customerPhone: phone || '6304989071'
@@ -399,8 +451,10 @@ function SignUpForm() {
           if (verifyData.isPaid) {
             setCompletedOrder({
               orderId: data.orderId,
-              amount: `₹${activePlan.price.toLocaleString()}.00`,
+              amount: `₹${finalPayable.toLocaleString()}.00`,
               planName: activePlan.name,
+              discountApplied: appliedCoupon?.valid ? `₹${appliedCoupon.discountAmount}` : undefined,
+              couponCode: appliedCoupon?.valid ? appliedCoupon.coupon?.code : undefined,
               date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
             });
 
@@ -888,6 +942,93 @@ function SignUpForm() {
                 </div>
               </div>
 
+              {/* Promo & Coupon Discount Box */}
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-50/70 via-white to-orange-50/50 border border-amber-200 space-y-2.5 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-amber-950">
+                    <Tag className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Have a Promo or Referral Coupon?</span>
+                  </div>
+                  {appliedCoupon?.valid && (
+                    <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px] border border-emerald-200 flex items-center gap-1">
+                      <Check className="w-3 h-3 text-emerald-600" />
+                      Saved ₹{appliedCoupon.discountAmount}
+                    </span>
+                  )}
+                </div>
+
+                {appliedCoupon?.valid ? (
+                  <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-mono font-bold text-xs text-emerald-900">{appliedCoupon.coupon?.code}</span>
+                        <span className="text-[10px] text-emerald-700">({appliedCoupon.coupon?.description})</span>
+                      </div>
+                      <p className="text-[10px] text-emerald-600 mt-0.5 font-semibold">
+                        Instant ₹{appliedCoupon.discountAmount} discount applied! Net payable: ₹{appliedCoupon.finalPrice.toLocaleString()}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleRemoveCoupon}
+                      className="text-[10px] font-bold text-rose-600 hover:text-rose-800 bg-white px-2 py-1 rounded border border-rose-200"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder="Enter coupon (e.g. ONECLICK300)"
+                        value={couponInput}
+                        onChange={e => setCouponInput(e.target.value.toUpperCase())}
+                        className="flex-1 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 font-mono uppercase placeholder-slate-400 focus:outline-none focus:border-amber-500"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleApplyCoupon()}
+                        className="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition active:scale-95 shadow-sm"
+                      >
+                        Apply
+                      </button>
+                    </div>
+
+                    {couponError && (
+                      <p className="text-[10px] text-rose-600 font-semibold">{couponError}</p>
+                    )}
+
+                    {/* Quick Clickable Coupon Suggestions */}
+                    <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                      <span className="text-[10px] text-slate-500">Available:</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setCouponInput('ONECLICK300');
+                          handleApplyCoupon('ONECLICK300');
+                        }}
+                        className="px-2 py-0.5 rounded-lg bg-amber-100/80 hover:bg-amber-200 text-amber-900 font-mono font-bold text-[10px] border border-amber-300 transition"
+                      >
+                        🏷️ ONECLICK300 (-₹300)
+                      </button>
+                      {selectedPlanKey !== 'Basic' && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setCouponInput('VIP500');
+                            handleApplyCoupon('VIP500');
+                          }}
+                          className="px-2 py-0.5 rounded-lg bg-indigo-100/80 hover:bg-indigo-200 text-indigo-900 font-mono font-bold text-[10px] border border-indigo-300 transition"
+                        >
+                          🏷️ VIP500 (-₹500)
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+
               {/* Order Breakdown Box */}
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
                 <div className="flex items-center justify-between border-b border-slate-200 pb-2.5">
@@ -901,8 +1042,17 @@ function SignUpForm() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-lg font-black text-slate-900">₹{activePlan.price}.00</span>
-                    <span className="block text-[9px] text-emerald-600 font-bold uppercase">Annual Plan Active</span>
+                    {appliedCoupon?.valid ? (
+                      <div>
+                        <span className="text-lg font-black text-emerald-600">₹{appliedCoupon.finalPrice.toLocaleString()}.00</span>
+                        <span className="block text-[10px] text-slate-400 line-through">₹{activePlan.price}.00</span>
+                      </div>
+                    ) : (
+                      <div>
+                        <span className="text-lg font-black text-slate-900">₹{activePlan.price}.00</span>
+                        <span className="block text-[9px] text-emerald-600 font-bold uppercase">Annual Plan</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -920,12 +1070,26 @@ function SignUpForm() {
                     <span className="text-indigo-600 font-mono">oneclickbiz.in/v/{slug || 'card'}</span>
                   </div>
                   <div className="flex justify-between text-slate-500 text-[11px]">
+                    <span>Plan Price</span>
+                    <span className="text-slate-800 font-medium">₹{activePlan.price}.00</span>
+                  </div>
+                  {appliedCoupon?.valid && (
+                    <div className="flex justify-between text-emerald-700 text-[11px] font-semibold">
+                      <span>Promo Coupon ({appliedCoupon.coupon?.code})</span>
+                      <span>-₹{appliedCoupon.discountAmount}.00</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between text-slate-500 text-[11px]">
                     <span>GST (18% Included)</span>
-                    <span className="text-slate-800 font-medium">₹{(activePlan.price - (activePlan.price / 1.18)).toFixed(2)}</span>
+                    <span className="text-slate-800 font-medium">
+                      ₹{(((appliedCoupon?.valid ? appliedCoupon.finalPrice : activePlan.price) - ((appliedCoupon?.valid ? appliedCoupon.finalPrice : activePlan.price) / 1.18))).toFixed(2)}
+                    </span>
                   </div>
                   <div className="flex justify-between text-slate-900 font-bold text-xs pt-2 border-t border-slate-200">
                     <span>Total Net Amount Payable</span>
-                    <span className="text-emerald-600 text-sm">₹{activePlan.price}.00</span>
+                    <span className="text-emerald-600 text-sm">
+                      ₹{(appliedCoupon?.valid ? appliedCoupon.finalPrice : activePlan.price).toLocaleString()}.00
+                    </span>
                   </div>
                 </div>
               </div>
@@ -971,7 +1135,9 @@ function SignUpForm() {
                   ) : (
                     <>
                       <CreditCard className="w-4 h-4" />
-                      <span>Pay ₹{activePlan.price}.00 via Cashfree PG</span>
+                      <span>
+                        Pay ₹{(appliedCoupon?.valid ? appliedCoupon.finalPrice : activePlan.price).toLocaleString()}.00 via Cashfree PG
+                      </span>
                       <ArrowRight className="w-4 h-4 ml-auto" />
                     </>
                   )}

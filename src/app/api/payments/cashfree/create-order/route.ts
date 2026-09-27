@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSessionUser } from '@/lib/auth';
+import { validateAndCalculateCoupon } from '@/lib/coupons';
 
 const CASHFREE_APP_ID = process.env.CASHFREE_APP_ID || '';
 const CASHFREE_SECRET_KEY = process.env.CASHFREE_SECRET_KEY || '';
@@ -13,10 +14,22 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getSessionUser(req);
     const body = await req.json();
-    const { planId, planName, price, customerName, customerEmail, customerPhone } = body;
+    const { planId, planName, price, customerName, customerEmail, customerPhone, couponCode } = body;
 
     if (!planId || !price) {
       return NextResponse.json({ error: 'Missing required plan details' }, { status: 400 });
+    }
+
+    // Secure server-side coupon calculation
+    let finalOrderAmount = Number(price);
+    let appliedCouponMessage: string | undefined = undefined;
+
+    if (couponCode) {
+      const couponResult = validateAndCalculateCoupon(couponCode, Number(price), planId);
+      if (couponResult.valid) {
+        finalOrderAmount = couponResult.finalPrice;
+        appliedCouponMessage = `Coupon ${couponResult.coupon?.code} applied (-₹${couponResult.discountAmount})`;
+      }
     }
 
     const orderId = `order_${(planId || 'pro').toLowerCase()}_${Date.now()}`;
@@ -36,7 +49,7 @@ export async function POST(req: NextRequest) {
 
     const orderPayload: Record<string, any> = {
       order_id: orderId,
-      order_amount: Number(price),
+      order_amount: finalOrderAmount,
       order_currency: 'INR',
       customer_details: {
         customer_id: cleanCustomerId,
@@ -48,7 +61,7 @@ export async function POST(req: NextRequest) {
         return_url: `${appUrl}/dashboard/settings?cashfree_order_id={order_id}&status={order_status}`,
         notify_url: `${appUrl}/api/payments/cashfree/webhook`
       },
-      order_note: `OneClickBiz ${planName || planId} Plan Subscription`
+      order_note: `OneClickBiz ${planName || planId} Plan Subscription ${appliedCouponMessage ? `(${appliedCouponMessage})` : ''}`
     };
 
     // If Easy Split Vendor is activated in Cashfree, attach automatic split instruction
