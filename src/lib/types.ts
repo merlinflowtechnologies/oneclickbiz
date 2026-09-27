@@ -155,7 +155,9 @@ export interface DigitalProfile {
   nfcCardId?: string;
   subscriptionStatus?: 'ACTIVE' | 'EXPIRED' | 'TRIAL' | 'CANCELLED' | 'UNPAID';
   isExpired?: boolean;
-  renewalDate?: string;
+  upiId?: string;
+  upiQrUrl?: string;
+  googleReviewUrl?: string;
   stats: {
     views: number;
     qrScans: number;
