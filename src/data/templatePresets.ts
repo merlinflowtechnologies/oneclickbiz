@@ -270,6 +270,177 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
     products: [
       { id: 'p_gym_1', name: 'IronPeak Hydro Whey Protein (2kg)', description: 'Ultra-pure grass-fed whey isolate with 27g protein per scoop.', price: 4499, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&w=600&q=80', category: 'Supplements', isAvailable: true }
     ]
+  },
+
+  // ========================================================
+  // 1. 🎪 EVENTS & WEDDING PLANNER
+  // ========================================================
+  'events-planner': {
+    name: 'Shreya Reddy & Srikanth Varma',
+    designation: 'Founder & Principal Wedding Architect',
+    company: 'Grandeur Luxury Events & Destination Weddings',
+    bio: 'Curating royal destination weddings, experiential Sangeet stages, celebrity corporate galas, and thematic birthday celebrations across Hyderabad, Udaipur, Goa & Dubai.',
+    theme: 'glassmorphic',
+    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80',
+    email: 'events@grandeurexperiences.com',
+    phone: '+91 98765 77088',
+    whatsapp: '919876577088',
+    website: 'https://grandeurevents.in',
+    address: 'Road No. 36, Jubilee Hills, Hyderabad, India',
+    services: [
+      { id: 's_eve_1', title: '3-Day Destination Wedding Design & Coordination', description: 'End-to-end decor, bridal entry FX, hospitality, artist lineup, and guest logistics.', durationMinutes: 120, price: 150000, currency: '₹' },
+      { id: 's_eve_2', title: 'Grand Floral Mandap & Reception Stage Setup', description: 'Custom thematic structure with imported Dutch florals, fairy lighting & LED walls.', durationMinutes: 90, price: 85000, currency: '₹' },
+      { id: 's_eve_3', title: 'Sangeet & Haldi Carnival Concept Designing', description: 'Vibrant neon DJ consoles, photo-booths, interactive folk artists, and sound engineering.', durationMinutes: 60, price: 65000, currency: '₹' },
+      { id: 's_eve_4', title: 'Corporate Annual Gala & Tech Summit Production', description: 'Keynote staging, AV projection mapping, award trophies & executive catering.', durationMinutes: 90, price: 95000, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_eve_1', name: 'Royal Palace Mandap Decor Package', description: 'Handcrafted crystal chandeliers, royal floral dome, and traditional brass brassieres.', price: 125000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80', category: 'Wedding Packages', isAvailable: true },
+      { id: 'p_eve_2', name: 'Haldi & Mehendi Yellow Floral Decor Kit', description: 'Marigold cascades, brass urlis, photobooth auto-rickshaw, and customized seating.', price: 45000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80', category: 'Pre-Wedding', isAvailable: true },
+      { id: 'p_eve_3', name: 'Celebrity DJ & Intelligent Lighting Rig', description: 'Line array sound system with cold pyros, smoke jets, and intelligent moving beams.', price: 55000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80', category: 'Entertainment', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_eve_1', imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80', title: 'Udaipur Lake Palace Destination Wedding', category: 'Weddings' },
+      { id: 'g_eve_2', imageUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80', title: 'Grand Floral Mandap with Water Body', category: 'Mandap' },
+      { id: 'g_eve_3', imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80', title: 'High-Energy Neon Sangeet Night', category: 'Sangeet' }
+    ],
+    testimonials: [
+      { id: 't_eve_1', clientName: 'Dr. Akhil & Sneha Rao', clientRole: 'Goa Destination Wedding', content: 'Shreya and her team made our wedding dreamlike. The Mandap design at sunset took everyone’s breath away!', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_eve_2', clientName: 'Kishore Narang', clientRole: 'VP Operations, FinTech India', content: 'Flawless execution for our 1200-employee annual tech awards. The AV setup and lighting were world-class.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_eve_wa', platform: 'whatsapp', url: 'https://wa.me/919876577088', label: 'Book on WhatsApp' },
+      { id: 'soc_eve_in', platform: 'instagram', url: 'https://instagram.com/grandeur_weddings', label: 'Wedding Reels' },
+      { id: 'soc_eve_yt', platform: 'youtube', url: 'https://youtube.com/@grandeur_events', label: '4K Films' },
+      { id: 'soc_eve_ph', platform: 'phone', url: 'tel:+919876577088', label: 'Call Desk' }
+    ]
+  },
+
+  // ========================================================
+  // 2. 💻 SOFTWARE ENGINEER & TECH PORTFOLIO
+  // ========================================================
+  'tech-portfolio': {
+    name: 'Sai Charan Teja',
+    designation: 'Staff Full-Stack & AI Systems Architect',
+    company: 'Ex-Lead TechLabs • Open Source Contributor',
+    bio: 'Crafting high-throughput microservices, Next.js 15 enterprise web platforms, and production LLM multi-agent systems. Built systems serving 10M+ MAUs. GitHub 4.8k+ stars.',
+    theme: 'cyber-neon',
+    avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
+    email: 'charan.teja@devstack.io',
+    phone: '+91 98765 22099',
+    whatsapp: '919876522099',
+    website: 'https://charan-teja.dev',
+    address: 'Hitec City, Cyber Towers, Hyderabad, India',
+    services: [
+      { id: 's_tech_1', title: '1-on-1 System Architecture & Tech Strategy', description: 'Scalability roadmap, DB sharding, cloud cost reduction & high availability review.', durationMinutes: 60, price: 4999, currency: '₹' },
+      { id: 's_tech_2', title: 'Full-Stack MVP Rapid Prototyping (Next.js + AI)', description: 'Turn product specs into a functional production-grade MVP in 2 weeks.', durationMinutes: 90, price: 45000, currency: '₹' },
+      { id: 's_tech_3', title: 'Senior Developer Resume & Tech Interview Prep', description: 'Mock system design interview, resume overhaul & salary negotiation strategy.', durationMinutes: 45, price: 2999, currency: '₹' },
+      { id: 's_tech_4', title: 'Codebase Security, Performance & INP Audit', description: 'Comprehensive audit for Next.js, React, Node.js, and PostgreSQL query optimizations.', durationMinutes: 60, price: 12500, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_tech_1', name: 'Next.js 15 SaaS Turbo Production Starter', description: 'Includes Auth, Prisma, Stripe/Cashfree, AI LLM routes, and Tailwind v4 UI.', price: 3499, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80', category: 'Boilerplates', isAvailable: true },
+      { id: 'p_tech_2', name: 'System Design Interview Playbook (PDF + Videos)', description: '50+ real-world tech architectures explained with diagrams and microservice patterns.', price: 1499, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80', category: 'E-Books', isAvailable: true },
+      { id: 'p_tech_3', name: 'Multi-Agent AI Automation Workflows Kit', description: 'LangChain & AutoGen templates for autonomous web scraping, CRM data enrichment, and email automation.', price: 2499, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80', category: 'AI Scripts', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_tech_1', imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80', title: 'Real-Time Analytics Microservices Dashboard', category: 'Web Apps' },
+      { id: 'g_tech_2', imageUrl: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80', title: 'High-Concurrency Distributed Cloud Architecture', category: 'Cloud' },
+      { id: 'g_tech_3', imageUrl: 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=800&q=80', title: 'Open-Source DevTools UI Kit (5k+ Stars)', category: 'Open Source' }
+    ],
+    socials: [
+      { id: 'soc_gh', platform: 'github', url: 'https://github.com/charan-teja', label: 'GitHub (5k+ Stars)' },
+      { id: 'soc_li_dev', platform: 'linkedin', url: 'https://linkedin.com/in/charan-teja-dev', label: 'LinkedIn' },
+      { id: 'soc_tw_dev', platform: 'twitter', url: 'https://x.com/charanteja_tech', label: 'X (Tech Threads)' },
+      { id: 'soc_wa_dev', platform: 'whatsapp', url: 'https://wa.me/919876522099', label: 'WhatsApp Chat' }
+    ]
+  },
+
+  // ========================================================
+  // 3. 🍽️ RESTAURANT DIGITAL DINING MENU
+  // ========================================================
+  'restaurant-menu': {
+    name: 'The Spice Route Kitchen & Rooftop Bar',
+    designation: 'Executive Chef Vikram Simha',
+    company: 'The Spice Route Kitchen & Lounge',
+    bio: 'Authentic Hyderabadi Dum Biryanis, Slow-Cooked Tandoor Platters, Chettinad Curries, and Artisan Craft Mocktails. Order for dine-in table ordering, takeaway, or book your weekend table.',
+    theme: 'sunset-gold',
+    avatarUrl: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+    email: 'dine@spiceroutekitchen.in',
+    phone: '+91 98765 88044',
+    whatsapp: '919876588044',
+    website: 'https://spiceroutekitchen.in',
+    address: 'Plot 42, Rooftop Lounge, Gachibowli, Hyderabad, India',
+    services: [
+      { id: 's_res_1', title: 'Reserve VIP Table / Candlelight Dinner', description: 'Reserved premium terrace table with complimentary chef welcome dessert.', durationMinutes: 90, price: 500, currency: '₹' },
+      { id: 's_res_2', title: 'Private Party Banquet Booking (30-150 Guests)', description: 'Dedicated air-conditioned hall with customized buffet menu & sound system.', durationMinutes: 180, price: 25000, currency: '₹' },
+      { id: 's_res_3', title: 'Outdoor Live Catering for Weddings & Events', description: 'Live tandoor, chaat counters, dum biryani handis, and beverage bars.', durationMinutes: 180, price: 45000, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_res_1', name: 'Special Hyderabadi Mutton Dum Biryani (Serves 2)', description: 'Slow-cooked succulent tender goat meat with long-grain basmati, served with Mirchi ka Salan & Raita.', price: 420, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80', category: 'Biryanis', isAvailable: true },
+      { id: 'p_res_2', name: 'Chicken Ghee Roast & Butter Garlic Naan Combo', description: 'Mangalorean spice infused boneless chicken roasted in pure desi ghee with 2 naans.', price: 340, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80', category: 'Starters & Curries', isAvailable: true },
+      { id: 'p_res_3', name: 'Paneer Tikka Angara Platter (8 Pcs)', description: 'Clay oven charred cottage cheese cubes marinated in Kashmiri chili and mustard oil.', price: 280, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=600&q=80', category: 'Vegetarian Delights', isAvailable: true },
+      { id: 'p_res_4', name: 'Artisan Blue Ocean Mocktail & Virgin Mojito', description: 'Refreshing blend of blue curacao, fresh mint, crushed ice, lime, and sparkling soda.', price: 160, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80', category: 'Beverages', isAvailable: true },
+      { id: 'p_res_5', name: 'Sizzling Chocolate Brownie with Vanilla Ice Cream', description: 'Gooey dark chocolate walnut brownie on hot sizzler plate with Belgian chocolate drizzle.', price: 190, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80', category: 'Desserts', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_res_1', imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80', title: 'Open Rooftop Terrace Seating', category: 'Ambiance' },
+      { id: 'g_res_2', imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', title: 'Signature Hyderabadi Dum Biryani', category: 'Specialties' },
+      { id: 'g_res_3', imageUrl: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', title: 'Craft Cocktails & Mocktails Bar', category: 'Beverages' }
+    ],
+    testimonials: [
+      { id: 't_res_1', clientName: 'Naveen Kumar', clientRole: 'Food Blogger & Connoisseur', content: 'The Mutton Dum Biryani is 10/10 authentic. Scanning the QR on the table to order on WhatsApp made everything super easy!', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_res_wa', platform: 'whatsapp', url: 'https://wa.me/919876588044', label: 'Order on WhatsApp' },
+      { id: 'soc_res_in', platform: 'instagram', url: 'https://instagram.com/spiceroute_kitchen', label: 'Instagram Menu' },
+      { id: 'soc_res_ph', platform: 'phone', url: 'tel:+919876588044', label: 'Call for Table' }
+    ]
+  },
+
+  // ========================================================
+  // 4. 🌶️ HOMEMADE PICKLES, SWEETS & SNACKS STORE
+  // ========================================================
+  'pickles-snacks': {
+    name: 'Sri Lakshmi Traditional Pickles & Sweets',
+    designation: 'Master Pickle Artisan & Proprietor',
+    company: 'Sri Lakshmi Authentic Andhra Foods',
+    bio: '100% Traditional homemade Godavari & Rayalaseema pickles, pure ghee sweets, and crispy hot savory snacks. Prepared in traditional wood-pressed oils & authentic stone-ground spices. Zero preservatives. Worldwide courier delivery available!',
+    theme: 'obsidian-gold',
+    avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=1200&q=80',
+    email: 'orders@srilakshmipickles.com',
+    phone: '+91 98765 33011',
+    whatsapp: '919876533011',
+    website: 'https://srilakshmipickles.com',
+    address: 'Main Bazaar, Godavari Delta Road, Rajahmundry & Hyderabad, India',
+    services: [
+      { id: 's_pic_1', title: 'Worldwide NRI Parcel Packing & Courier', description: 'Air-tight 3-layer leak-proof vacuum tin packing with international DHL/FedEx delivery.', durationMinutes: 30, price: 0, currency: '₹' },
+      { id: 's_pic_2', title: 'Custom Spice Level & Oil Selection Order', description: 'Customize your pickle batch with low salt, olive oil, or extra spicy Guntur chili.', durationMinutes: 30, price: 100, currency: '₹' },
+      { id: 's_pic_3', title: 'Wedding & Return Gift Hampers (Bulk)', description: 'Traditional brass containers & gift boxes with assorted sweets & savory snacks.', durationMinutes: 45, price: 5000, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_pic_1', name: 'Authentic Andhra Avakaya Mango Pickle (500g Jar)', description: 'Made with raw Totapuri/Neelam mangoes, ground mustard powder, cold-pressed sesame oil, and Guntur red chili.', price: 320, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80', category: 'Veg Pickles', isAvailable: true },
+      { id: 'p_pic_2', name: 'Boneless Andhra Chicken Pickle (500g Jar)', description: 'Tender country chicken chunks roasted in aromatic ginger-garlic paste and traditional roasted spices.', price: 480, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80', category: 'Non-Veg Pickles', isAvailable: true },
+      { id: 'p_pic_3', name: 'Gongura Mutton & Prawns Pickle (500g)', description: 'Fresh Godavari river prawns and mutton tossed in tangy sorrel (Gongura) leaves & spice blend.', price: 650, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80', category: 'Non-Veg Pickles', isAvailable: true },
+      { id: 'p_pic_4', name: 'Traditional Bellam Pootharekulu (Pack of 10)', description: 'Paper-thin rice starch edible wraps rolled with pure ghee, organic jaggery, and crushed dry fruits.', price: 380, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80', category: 'Ghee Sweets', isAvailable: true },
+      { id: 'p_pic_5', name: 'Hot Ribbon Murukulu & Kakinada Mixture (500g)', description: 'Crispy crunchy savory snacks fried in pure refined groundnut oil with roasted peanuts & curry leaves.', price: 220, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80', category: 'Snacks', isAvailable: true },
+      { id: 'p_pic_6', name: 'Godavari Pure Ghee Sunnundalu (Pack of 12)', description: 'Roasted urad dal flour blended with organic jaggery powder and generous melted desi ghee.', price: 340, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80', category: 'Ghee Sweets', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_pic_1', imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80', title: 'Traditional Sun-Dried Clay Pot Pickle Making', category: 'Kitchen Process' },
+      { id: 'g_pic_2', imageUrl: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=80', title: 'Non-Veg Specialty Pickles', category: 'Products' },
+      { id: 'g_pic_3', imageUrl: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80', title: 'Hot Fresh Snacks & Sweets Assortment', category: 'Sweets' }
+    ],
+    testimonials: [
+      { id: 't_pic_1', clientName: 'Sujatha V.', clientRole: 'Dallas, Texas (NRI Order)', content: 'The Avakaya and Boneless Chicken pickles arrived in the USA with zero leaks! Tastes exactly like my grandmother’s recipe.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_pic_wa', platform: 'whatsapp', url: 'https://wa.me/919876533011', label: 'Order on WhatsApp' },
+      { id: 'soc_pic_ph', platform: 'phone', url: 'tel:+919876533011', label: 'Direct Call' },
+      { id: 'soc_pic_in', platform: 'instagram', url: 'https://instagram.com/srilakshmipickles', label: 'Instagram Store' }
+    ]
   }
 };
 

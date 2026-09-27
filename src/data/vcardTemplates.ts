@@ -43,8 +43,52 @@ export const VCARD_CATEGORY_LIST: { id: VCardCategory; name: string; icon: strin
 
 export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   // ==========================================
-  // 1. 🏠 REAL ESTATE
+  // ⭐ FEATURED CLIENT TEMPLATES
   // ==========================================
+  {
+    id: 'events-planner',
+    templateNumber: 901,
+    name: 'Luxury Events & Wedding Planner vCard',
+    category: 'Events & Creative',
+    subCategory: 'Wedding & Event Planners',
+    imgUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+    badge: 'Featured',
+    tagline: 'Destination weddings, floral Mandap decor & corporate summit setups',
+    features: ['Event decor package store', 'Book wedding date consultation', '4K video teaser reel', 'WhatsApp quotation desk']
+  },
+  {
+    id: 'tech-portfolio',
+    templateNumber: 1001,
+    name: 'Full-Stack Software Engineer & Tech Portfolio',
+    category: 'Professional Services',
+    subCategory: 'Software Developers',
+    imgUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=800&q=80',
+    badge: 'Tech Pro',
+    tagline: 'Staff Full-Stack & AI Systems Architect | Next.js, Microservices & LLMs',
+    features: ['GitHub 5k+ stars showcase', 'Resume & tech consultation booking', 'Downloadable SaaS boilerplate store', '1-Click vCard save']
+  },
+  {
+    id: 'restaurant-menu',
+    templateNumber: 401,
+    name: 'Interactive Restaurant & Cafe Digital Dining Menu',
+    category: 'Food Business',
+    subCategory: 'Restaurants & Lounges',
+    imgUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
+    badge: 'Best Seller',
+    tagline: 'Hyderabadi dum biryanis, tandoor starters, rooftop cocktails & dessert menu',
+    features: ['Interactive digital food menu with photos', 'Table & candlelight dinner reservation', '1-Click WhatsApp table takeaway order', 'Google review QR scan']
+  },
+  {
+    id: 'pickles-snacks',
+    templateNumber: 405,
+    name: 'Homemade Pickles, Ghee Sweets & Snacks Store',
+    category: 'Food Business',
+    subCategory: 'Homemade Pickles & Sweets',
+    imgUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80',
+    badge: 'Authentic Andhra',
+    tagline: 'Avakaya, chicken/mutton non-veg pickles, Pootharekulu & hot savory snacks',
+    features: ['Complete pickle weight & jar catalog', 'Direct WhatsApp order with itemized cart', 'NRI worldwide parcel delivery badge', 'Instant UPI payment collection']
+  },
   {
     id: 're-agents',
     templateNumber: 101,
