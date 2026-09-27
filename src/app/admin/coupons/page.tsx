@@ -23,15 +23,21 @@ import {
   Share2,
   CheckCircle2,
   TrendingUp,
-  Clock
+  Clock,
+  Crown,
+  Zap,
+  Filter
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Coupon } from '@/lib/coupons';
+
+type PlanTargetType = 'ALL' | 'BASIC' | 'PRO' | 'ADVANCED' | 'PRO_AND_ADVANCED';
 
 export default function AdminCouponsPage() {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [planFilter, setPlanFilter] = useState<'ALL' | 'BASIC' | 'PRO' | 'ADVANCED'>('ALL');
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [metrics, setMetrics] = useState({
     totalCoupons: 0,
@@ -51,7 +57,7 @@ export default function AdminCouponsPage() {
   const [discountType, setDiscountType] = useState<'FLAT' | 'PERCENTAGE'>('FLAT');
   const [discountValue, setDiscountValue] = useState('300');
   const [description, setDescription] = useState('Exclusive ₹300 Instant Discount');
-  const [applicablePlan, setApplicablePlan] = useState<'ALL' | 'BASIC' | 'PRO' | 'ADVANCED'>('ALL');
+  const [applicablePlan, setApplicablePlan] = useState<PlanTargetType>('PRO');
   const [assignedName, setAssignedName] = useState('');
   const [assignedEmail, setAssignedEmail] = useState('');
   const [assignedPhone, setAssignedPhone] = useState('');
@@ -86,9 +92,36 @@ export default function AdminCouponsPage() {
     loadCoupons();
   }, []);
 
-  const handleGenerateRandomCode = (prefix = 'BIZ300') => {
+  const handleSelectPlanType = (type: PlanTargetType) => {
+    setApplicablePlan(type);
     const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
-    setCode(`${prefix}-${rand}`);
+
+    if (type === 'PRO') {
+      setCode(`PRO300-${rand}`);
+      setDiscountType('FLAT');
+      setDiscountValue('300');
+      setDescription('Special ₹300 OFF on Pro Plan Subscription (₹1,599 → ₹1,299)');
+    } else if (type === 'ADVANCED') {
+      setCode(`VIP500-${rand}`);
+      setDiscountType('FLAT');
+      setDiscountValue('500');
+      setDescription('Elite ₹500 OFF on Advanced Plan (₹2,199 → ₹1,699)');
+    } else if (type === 'BASIC') {
+      setCode(`BASIC200-${rand}`);
+      setDiscountType('FLAT');
+      setDiscountValue('200');
+      setDescription('₹200 Discount on Basic Starter Plan (₹999 → ₹799)');
+    } else if (type === 'PRO_AND_ADVANCED') {
+      setCode(`GROWTH350-${rand}`);
+      setDiscountType('FLAT');
+      setDiscountValue('350');
+      setDescription('₹350 OFF on Pro & Advanced Commercial Plans');
+    } else {
+      setCode(`ONECLICK300-${rand}`);
+      setDiscountType('FLAT');
+      setDiscountValue('300');
+      setDescription('Universal ₹300 Discount on Any Annual Plan');
+    }
   };
 
   const handleCreateCoupon = async (e: React.FormEvent) => {
@@ -116,12 +149,18 @@ export default function AdminCouponsPage() {
       expiryDate = d.toISOString();
     }
 
+    let plansArray: string[] | undefined = undefined;
+    if (applicablePlan === 'BASIC') plansArray = ['BASIC'];
+    else if (applicablePlan === 'PRO') plansArray = ['PRO'];
+    else if (applicablePlan === 'ADVANCED') plansArray = ['ADVANCED'];
+    else if (applicablePlan === 'PRO_AND_ADVANCED') plansArray = ['PRO', 'ADVANCED'];
+
     const payload = {
       code: code.trim().toUpperCase(),
       discountType,
       discountValue: Number(discountValue),
       description: description.trim() || `Special promotional discount`,
-      applicablePlans: applicablePlan === 'ALL' ? undefined : [applicablePlan],
+      applicablePlans: plansArray,
       assignedName: assignedName.trim() || undefined,
       assignedEmail: assignedEmail.trim() || undefined,
       assignedPhone: assignedPhone.trim() || undefined,
@@ -222,12 +261,27 @@ export default function AdminCouponsPage() {
     }
   };
 
-  const filteredCoupons = coupons.filter(c => 
-    c.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    c.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (c.assignedName && c.assignedName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (c.assignedEmail && c.assignedEmail.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const filteredCoupons = coupons.filter(c => {
+    const matchSearch = 
+      c.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (c.assignedName && c.assignedName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (c.assignedEmail && c.assignedEmail.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    if (!matchSearch) return false;
+
+    if (planFilter === 'PRO') {
+      return c.applicablePlans && c.applicablePlans.includes('PRO');
+    }
+    if (planFilter === 'ADVANCED') {
+      return c.applicablePlans && c.applicablePlans.includes('ADVANCED');
+    }
+    if (planFilter === 'BASIC') {
+      return c.applicablePlans && c.applicablePlans.includes('BASIC');
+    }
+
+    return true;
+  });
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
@@ -239,23 +293,23 @@ export default function AdminCouponsPage() {
             <Tag className="w-3.5 h-3.5 text-rose-400" /> Super Admin Coupon Engine
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Promotional Coupons &amp; Discount Manager
+            Plan-Wise Promotional Coupons &amp; Discount Hub
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-            Generate custom discount codes (e.g., ₹300 OFF, VIP500), assign them to specific clients, set 1-time usage limits, and share directly via WhatsApp with 1-click pre-applied links.
+            Generate custom coupons tailored to specific subscription plans (Basic, Pro, Advanced) or universal codes. Share directly with specific clients via WhatsApp with 1-click pre-applied checkout links.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
             onClick={() => {
-              handleGenerateRandomCode('ONECLICK300');
+              handleSelectPlanType('PRO');
               setShowCreateModal(true);
             }}
             className="px-5 py-3 rounded-2xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600 hover:from-rose-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-rose-600/30 flex items-center gap-2 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
           >
             <Plus className="w-4 h-4" />
-            <span>Generate New Coupon</span>
+            <span>Generate Plan Coupon</span>
           </button>
         </div>
       </div>
@@ -284,7 +338,7 @@ export default function AdminCouponsPage() {
             </div>
           </div>
           <div className="text-2xl font-black text-slate-900">{metrics.activeCoupons} <span className="text-xs text-slate-400 font-normal">/ {metrics.totalCoupons} total</span></div>
-          <p className="text-[11px] text-emerald-600 font-semibold">Active for public &amp; VIP checkout</p>
+          <p className="text-[11px] text-emerald-600 font-semibold">Ready to share &amp; redeem</p>
         </div>
 
         <div className="p-5 rounded-3xl bg-white/90 border border-slate-200/80 shadow-sm space-y-2">
@@ -295,7 +349,7 @@ export default function AdminCouponsPage() {
             </div>
           </div>
           <div className="text-2xl font-black text-slate-900">{metrics.totalRedemptions}</div>
-          <p className="text-[11px] text-slate-500">Successful checkouts with coupon</p>
+          <p className="text-[11px] text-slate-500">Successful checkouts</p>
         </div>
 
         <div className="p-5 rounded-3xl bg-white/90 border border-slate-200/80 shadow-sm space-y-2">
@@ -306,18 +360,18 @@ export default function AdminCouponsPage() {
             </div>
           </div>
           <div className="text-2xl font-black text-slate-900">₹{metrics.estimatedSavings.toLocaleString()}</div>
-          <p className="text-[11px] text-amber-700 font-semibold">Saved by onboarding businesses</p>
+          <p className="text-[11px] text-amber-700 font-semibold">Total partner discount given</p>
         </div>
 
         <div className="p-5 rounded-3xl bg-white/90 border border-slate-200/80 shadow-sm space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">Primary Default Code</span>
+            <span className="text-xs font-semibold text-slate-500">Supported Plans</span>
             <div className="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
-              <Sparkles className="w-4 h-4" />
+              <Crown className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-lg font-mono font-black text-rose-600">ONECLICK300</div>
-          <p className="text-[11px] text-slate-500">Instant ₹300 Flat Discount</p>
+          <div className="text-sm font-bold text-slate-900">Basic • Pro • Advanced</div>
+          <p className="text-[11px] text-indigo-600 font-semibold">Plan-Specific Rules Active</p>
         </div>
 
       </div>
@@ -325,20 +379,57 @@ export default function AdminCouponsPage() {
       {/* Main Table Section */}
       <div className="p-6 sm:p-8 rounded-3xl bg-white/90 border border-slate-200/80 shadow-md space-y-6">
         
-        {/* Table Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="relative flex-1 max-w-md">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search coupon code, recipient name, or email..."
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-indigo-500"
-            />
+        {/* Table Controls & Plan Filter Tabs */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          
+          {/* Plan Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-2xl bg-slate-100 border border-slate-200 self-start">
+            <button
+              onClick={() => setPlanFilter('ALL')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
+                planFilter === 'ALL' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              All Plans ({coupons.length})
+            </button>
+            <button
+              onClick={() => setPlanFilter('PRO')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 ${
+                planFilter === 'PRO' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-indigo-600'
+              }`}
+            >
+              <Zap className="w-3 h-3" /> Pro Plan (₹1,599)
+            </button>
+            <button
+              onClick={() => setPlanFilter('ADVANCED')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 ${
+                planFilter === 'ADVANCED' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-600 hover:text-purple-600'
+              }`}
+            >
+              <Crown className="w-3 h-3 text-amber-300" /> Advanced (₹2,199)
+            </button>
+            <button
+              onClick={() => setPlanFilter('BASIC')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 ${
+                planFilter === 'BASIC' ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Basic (₹999)
+            </button>
           </div>
 
           <div className="flex items-center gap-2">
+            <div className="relative flex-1 sm:w-72">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search code, client name, email..."
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-indigo-500"
+              />
+            </div>
+
             <button
               onClick={loadCoupons}
               className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 transition"
@@ -356,8 +447,8 @@ export default function AdminCouponsPage() {
               <tr>
                 <th className="py-3 px-4">Coupon Code</th>
                 <th className="py-3 px-4">Discount Value</th>
-                <th className="py-3 px-4">Target / Recipient</th>
-                <th className="py-3 px-4">Allowed Plans</th>
+                <th className="py-3 px-4">Applicable Plan Target</th>
+                <th className="py-3 px-4">Assigned Recipient</th>
                 <th className="py-3 px-4">Usage &amp; Quota</th>
                 <th className="py-3 px-4">Status</th>
                 <th className="py-3 px-4 text-right">Actions &amp; Share</th>
@@ -376,7 +467,7 @@ export default function AdminCouponsPage() {
               {!loading && filteredCoupons.length === 0 && (
                 <tr>
                   <td colSpan={7} className="text-center py-8 text-slate-400">
-                    No matching coupons found. Click &quot;Generate New Coupon&quot; to create one!
+                    No matching coupons found. Click &quot;Generate Plan Coupon&quot; to create one!
                   </td>
                 </tr>
               )}
@@ -406,14 +497,47 @@ export default function AdminCouponsPage() {
                           )}
                         </button>
                       </div>
-                      <div className="text-[10px] text-slate-400 font-sans font-normal mt-0.5">{c.description}</div>
+                      <div className="text-[10px] text-slate-500 font-sans font-normal mt-0.5">{c.description}</div>
                     </td>
 
                     {/* Discount */}
                     <td className="py-3.5 px-4">
-                      <span className="inline-flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                      <span className="inline-flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
                         {c.discountType === 'FLAT' ? `₹${c.discountValue} FLAT OFF` : `${c.discountValue}% OFF`}
                       </span>
+                    </td>
+
+                    {/* Applicable Plan Target */}
+                    <td className="py-3.5 px-4">
+                      {c.applicablePlans && c.applicablePlans.length > 0 ? (
+                        <div className="flex flex-wrap gap-1">
+                          {c.applicablePlans.map(p => {
+                            const up = p.toUpperCase();
+                            const isPro = up === 'PRO';
+                            const isAdv = up === 'ADVANCED';
+                            const isBasic = up === 'BASIC';
+
+                            return (
+                              <span 
+                                key={p} 
+                                className={`px-2 py-0.5 rounded-lg font-bold text-[10px] border flex items-center gap-1 ${
+                                  isPro ? 'bg-indigo-50 text-indigo-700 border-indigo-200' :
+                                  isAdv ? 'bg-purple-50 text-purple-700 border-purple-200' :
+                                  'bg-slate-100 text-slate-700 border-slate-200'
+                                }`}
+                              >
+                                {isPro && <Zap className="w-3 h-3 text-indigo-600" />}
+                                {isAdv && <Crown className="w-3 h-3 text-amber-500" />}
+                                <span>{isPro ? 'Pro (₹1,599)' : isAdv ? 'Advanced (₹2,199)' : isBasic ? 'Basic (₹999)' : p}</span>
+                              </span>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">
+                          🌐 All Annual Plans
+                        </span>
+                      )}
                     </td>
 
                     {/* Target Recipient */}
@@ -428,22 +552,7 @@ export default function AdminCouponsPage() {
                           {c.assignedPhone && <div className="text-slate-500 font-mono">{c.assignedPhone}</div>}
                         </div>
                       ) : (
-                        <span className="text-slate-500 italic">Open to Anyone with Link</span>
-                      )}
-                    </td>
-
-                    {/* Plans */}
-                    <td className="py-3.5 px-4">
-                      {c.applicablePlans && c.applicablePlans.length > 0 ? (
-                        <div className="flex flex-wrap gap-1">
-                          {c.applicablePlans.map(p => (
-                            <span key={p} className="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 font-semibold text-[9px] border border-indigo-200">
-                              {p}
-                            </span>
-                          ))}
-                        </div>
-                      ) : (
-                        <span className="text-slate-500 text-[11px]">All Annual Plans</span>
+                        <span className="text-slate-500 italic">Open to Anyone</span>
                       )}
                     </td>
 
@@ -490,7 +599,7 @@ export default function AdminCouponsPage() {
                         {/* Share Button */}
                         <button
                           onClick={() => setShareCoupon(c)}
-                          className="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold text-[11px] flex items-center gap-1 border border-emerald-200 transition"
+                          className="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold text-[11px] flex items-center gap-1 border border-emerald-200 transition cursor-pointer"
                           title="Share on WhatsApp or Copy Link"
                         >
                           <Share2 className="w-3.5 h-3.5" />
@@ -500,7 +609,7 @@ export default function AdminCouponsPage() {
                         {/* Toggle Active Button */}
                         <button
                           onClick={() => handleToggleActive(c)}
-                          className={`p-1.5 rounded-lg border transition ${
+                          className={`p-1.5 rounded-lg border transition cursor-pointer ${
                             c.isActive 
                               ? 'bg-slate-50 text-slate-600 hover:text-slate-900 border-slate-200' 
                               : 'bg-emerald-50 text-emerald-700 border-emerald-200'
@@ -514,7 +623,7 @@ export default function AdminCouponsPage() {
                         {c.createdBy !== 'System Default' && (
                           <button
                             onClick={() => handleDeleteCoupon(c)}
-                            className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 transition"
+                            className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 transition cursor-pointer"
                             title="Delete Coupon"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -533,20 +642,20 @@ export default function AdminCouponsPage() {
       </div>
 
       {/* ============================================================== */}
-      {/* MODAL 1: GENERATE NEW CUSTOM COUPON                            */}
+      {/* MODAL 1: GENERATE PLAN-SPECIFIC PROMO COUPON                   */}
       {/* ============================================================== */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-in fade-in">
-          <div className="w-full max-w-lg bg-white border border-slate-200 rounded-3xl shadow-2xl p-6 sm:p-8 space-y-6 my-8 animate-in zoom-in-95">
+          <div className="w-full max-w-xl bg-white border border-slate-200 rounded-3xl shadow-2xl p-6 sm:p-8 space-y-6 my-8 animate-in zoom-in-95">
             
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-rose-600 to-indigo-600 text-white flex items-center justify-center">
+                <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-rose-600 via-purple-600 to-indigo-600 text-white flex items-center justify-center shadow-md shadow-rose-500/20">
                   <Tag className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-base">Generate Promo Coupon</h3>
-                  <p className="text-[11px] text-slate-500">Create a personalized coupon for a client or campaign</p>
+                  <h3 className="font-bold text-slate-900 text-base">Generate Plan-Specific Promo Coupon</h3>
+                  <p className="text-[11px] text-slate-500">Target a specific plan (Basic, Pro, Advanced) and set rules</p>
                 </div>
               </div>
               <button
@@ -566,22 +675,120 @@ export default function AdminCouponsPage() {
 
             <form onSubmit={handleCreateCoupon} className="space-y-4">
               
-              {/* Code & Generator */}
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold text-slate-700">Coupon Code *</label>
-                  <button
-                    type="button"
-                    onClick={() => handleGenerateRandomCode('ONECLICK300')}
-                    className="text-[10px] text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1"
+              {/* PLAN SELECTION CARDS */}
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                  Step 1: Choose Target Plan Rule
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  
+                  {/* Pro Plan Card */}
+                  <div
+                    onClick={() => handleSelectPlanType('PRO')}
+                    className={`p-3 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between ${
+                      applicablePlan === 'PRO'
+                        ? 'bg-indigo-50 border-indigo-600 text-slate-900 shadow-sm'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                    }`}
                   >
-                    <Sparkles className="w-3 h-3" /> Auto-Generate
-                  </button>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-indigo-700 flex items-center gap-1">
+                        <Zap className="w-3.5 h-3.5" /> Pro Plan
+                      </span>
+                      {applicablePlan === 'PRO' && <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600" />}
+                    </div>
+                    <div className="mt-1">
+                      <span className="text-sm font-black text-slate-900">₹1,599<span className="text-[9px] font-normal text-slate-500">/yr</span></span>
+                      <p className="text-[9px] text-slate-500">Most Popular Suite</p>
+                    </div>
+                  </div>
+
+                  {/* Advanced Plan Card */}
+                  <div
+                    onClick={() => handleSelectPlanType('ADVANCED')}
+                    className={`p-3 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between ${
+                      applicablePlan === 'ADVANCED'
+                        ? 'bg-purple-50 border-purple-600 text-slate-900 shadow-sm'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-purple-700 flex items-center gap-1">
+                        <Crown className="w-3.5 h-3.5 text-amber-500" /> Advanced
+                      </span>
+                      {applicablePlan === 'ADVANCED' && <CheckCircle2 className="w-3.5 h-3.5 text-purple-600" />}
+                    </div>
+                    <div className="mt-1">
+                      <span className="text-sm font-black text-slate-900">₹2,199<span className="text-[9px] font-normal text-slate-500">/yr</span></span>
+                      <p className="text-[9px] text-slate-500">Corporate &amp; Team</p>
+                    </div>
+                  </div>
+
+                  {/* Basic Plan Card */}
+                  <div
+                    onClick={() => handleSelectPlanType('BASIC')}
+                    className={`p-3 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between ${
+                      applicablePlan === 'BASIC'
+                        ? 'bg-slate-100 border-slate-900 text-slate-900 shadow-sm'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-700">Basic Plan</span>
+                      {applicablePlan === 'BASIC' && <CheckCircle2 className="w-3.5 h-3.5 text-slate-900" />}
+                    </div>
+                    <div className="mt-1">
+                      <span className="text-sm font-black text-slate-900">₹999<span className="text-[9px] font-normal text-slate-500">/yr</span></span>
+                      <p className="text-[9px] text-slate-500">1 Smart Digital Card</p>
+                    </div>
+                  </div>
+
+                  {/* Pro & Advanced Combo */}
+                  <div
+                    onClick={() => handleSelectPlanType('PRO_AND_ADVANCED')}
+                    className={`p-3 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between sm:col-span-1 ${
+                      applicablePlan === 'PRO_AND_ADVANCED'
+                        ? 'bg-pink-50 border-pink-600 text-slate-900 shadow-sm'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-pink-700">Pro + Advanced</span>
+                      {applicablePlan === 'PRO_AND_ADVANCED' && <CheckCircle2 className="w-3.5 h-3.5 text-pink-600" />}
+                    </div>
+                    <div className="mt-1">
+                      <span className="text-xs font-bold text-slate-900">Commercial Tiers</span>
+                    </div>
+                  </div>
+
+                  {/* All Plans (Universal) */}
+                  <div
+                    onClick={() => handleSelectPlanType('ALL')}
+                    className={`p-3 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between sm:col-span-2 ${
+                      applicablePlan === 'ALL'
+                        ? 'bg-emerald-50 border-emerald-600 text-slate-900 shadow-sm'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-emerald-800">🌐 All Plans (Universal)</span>
+                      {applicablePlan === 'ALL' && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />}
+                    </div>
+                    <div className="mt-1">
+                      <p className="text-[10px] text-slate-600">Redeemable across Basic, Pro, or Advanced</p>
+                    </div>
+                  </div>
+
                 </div>
+              </div>
+
+              {/* CODE & DISCOUNT AMOUNT */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-700">Coupon Code *</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. VIPARAVIND300 or KISHORE500"
+                  placeholder="e.g. PRO300, ADV500, VIPARAVIND"
                   value={code}
                   onChange={e => setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9_-]/g, ''))}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-slate-900 focus:bg-white focus:outline-none focus:border-indigo-500 uppercase"
@@ -616,21 +823,6 @@ export default function AdminCouponsPage() {
                     className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-900 focus:bg-white focus:outline-none focus:border-indigo-500"
                   />
                 </div>
-              </div>
-
-              {/* Plan Restriction */}
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-slate-700">Applicable Plan</label>
-                <select
-                  value={applicablePlan}
-                  onChange={e => setApplicablePlan(e.target.value as any)}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-indigo-500"
-                >
-                  <option value="ALL">All Annual Plans (Basic, Pro, Advanced)</option>
-                  <option value="PRO">Pro Plan Only (₹1,599)</option>
-                  <option value="ADVANCED">Advanced Plan Only (₹2,199)</option>
-                  <option value="BASIC">Basic Plan Only (₹999)</option>
-                </select>
               </div>
 
               {/* Specific Recipient Assignment (Optional) */}
@@ -729,7 +921,7 @@ export default function AdminCouponsPage() {
                   ) : (
                     <>
                       <Sparkles className="w-3.5 h-3.5" />
-                      <span>Create &amp; Ready to Share</span>
+                      <span>Create Plan Coupon &amp; Share</span>
                     </>
                   )}
                 </button>
@@ -754,8 +946,8 @@ export default function AdminCouponsPage() {
                   <Share2 className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-base">Share Coupon &amp; Discount Link</h3>
-                  <p className="text-[11px] text-slate-500">Send directly to client or copy pre-applied URLs</p>
+                  <h3 className="font-bold text-slate-900 text-base">Share Plan Coupon &amp; Discount Link</h3>
+                  <p className="text-[11px] text-slate-500">Send directly to client via WhatsApp or copy pre-applied URL</p>
                 </div>
               </div>
               <button
@@ -769,7 +961,11 @@ export default function AdminCouponsPage() {
             {/* Coupon Highlight Box */}
             <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border border-indigo-200 flex items-center justify-between">
               <div>
-                <span className="text-[10px] uppercase font-bold text-indigo-700 tracking-wider">Coupon Code</span>
+                <span className="text-[10px] uppercase font-bold text-indigo-700 tracking-wider">
+                  {shareCoupon.applicablePlans && shareCoupon.applicablePlans.length === 1 
+                    ? `${shareCoupon.applicablePlans[0]} Plan Coupon` 
+                    : 'Promo Coupon'}
+                </span>
                 <div className="text-xl font-mono font-black text-slate-900">{shareCoupon.code}</div>
                 <div className="text-xs text-emerald-700 font-bold mt-0.5">
                   {shareCoupon.discountType === 'FLAT' ? `Instant ₹${shareCoupon.discountValue} FLAT OFF` : `${shareCoupon.discountValue}% Special Discount`}
@@ -805,10 +1001,18 @@ export default function AdminCouponsPage() {
                   ? `₹${shareCoupon.discountValue} OFF` 
                   : `${shareCoupon.discountValue}% OFF`;
 
-                const directSignupUrl = `https://oneclickbiz.in/signup?coupon=${encodeURIComponent(shareCoupon.code)}`;
+                const planQuery = shareCoupon.applicablePlans && shareCoupon.applicablePlans.length === 1
+                  ? `&plan=${shareCoupon.applicablePlans[0].toLowerCase()}`
+                  : '';
+
+                const planMention = shareCoupon.applicablePlans && shareCoupon.applicablePlans.length === 1
+                  ? `${shareCoupon.applicablePlans[0]} Plan`
+                  : 'Annual Subscription Plan';
+
+                const directSignupUrl = `https://oneclickbiz.in/signup?coupon=${encodeURIComponent(shareCoupon.code)}${planQuery}`;
                 const greeting = shareCoupon.assignedName ? `Hi ${shareCoupon.assignedName}!` : `Hi!`;
 
-                const waMessage = `${greeting} Here is an exclusive special invitation from OneClickBiz 🚀\n\nUse promo coupon code *${shareCoupon.code}* to get an instant *${discountText}* on your Annual Digital Smart Card, WhatsApp Store & Lead Engine.\n\n👉 Click here to activate with discount pre-applied: ${directSignupUrl}\n\nLet me know if you need any assistance getting started!`;
+                const waMessage = `${greeting} Here is an exclusive special invitation from OneClickBiz 🚀\n\nUse promo coupon code *${shareCoupon.code}* to get an instant *${discountText}* on your ${planMention} (Digital Smart Card, WhatsApp Store & Lead Engine).\n\n👉 Click here to activate with discount pre-applied: ${directSignupUrl}\n\nLet me know if you need any assistance getting started!`;
 
                 const waShareUrl = `https://wa.me/${shareCoupon.assignedPhone ? shareCoupon.assignedPhone.replace(/\D/g, '') : ''}?text=${encodeURIComponent(waMessage)}`;
 
@@ -838,42 +1042,53 @@ export default function AdminCouponsPage() {
               <label className="text-xs font-bold text-slate-700">Pre-Applied Direct URLs</label>
               
               {/* Signup Link */}
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  readOnly
-                  value={`https://oneclickbiz.in/signup?coupon=${shareCoupon.code}`}
-                  className="flex-1 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 font-mono select-all"
-                />
-                <button
-                  onClick={() => copyToClipboard(`https://oneclickbiz.in/signup?coupon=${shareCoupon.code}`, 'link_signup')}
-                  className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold whitespace-nowrap shadow-xs"
-                >
-                  {copiedCode === 'link_signup' ? 'Copied!' : 'Copy Signup Link'}
-                </button>
-              </div>
+              {(() => {
+                const planQuery = shareCoupon.applicablePlans && shareCoupon.applicablePlans.length === 1
+                  ? `&plan=${shareCoupon.applicablePlans[0].toLowerCase()}`
+                  : '';
+                const signupUrl = `https://oneclickbiz.in/signup?coupon=${shareCoupon.code}${planQuery}`;
+                const upgradeUrl = `https://oneclickbiz.in/dashboard/settings?checkout=true&coupon=${shareCoupon.code}${planQuery}`;
 
-              {/* Settings / Upgrade Link */}
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  readOnly
-                  value={`https://oneclickbiz.in/dashboard/settings?checkout=true&coupon=${shareCoupon.code}`}
-                  className="flex-1 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 font-mono select-all"
-                />
-                <button
-                  onClick={() => copyToClipboard(`https://oneclickbiz.in/dashboard/settings?checkout=true&coupon=${shareCoupon.code}`, 'link_upgrade')}
-                  className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold whitespace-nowrap shadow-xs"
-                >
-                  {copiedCode === 'link_upgrade' ? 'Copied!' : 'Copy Upgrade Link'}
-                </button>
-              </div>
+                return (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        readOnly
+                        value={signupUrl}
+                        className="flex-1 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 font-mono select-all"
+                      />
+                      <button
+                        onClick={() => copyToClipboard(signupUrl, 'link_signup')}
+                        className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold whitespace-nowrap shadow-xs cursor-pointer"
+                      >
+                        {copiedCode === 'link_signup' ? 'Copied!' : 'Copy Signup Link'}
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        readOnly
+                        value={upgradeUrl}
+                        className="flex-1 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 font-mono select-all"
+                      />
+                      <button
+                        onClick={() => copyToClipboard(upgradeUrl, 'link_upgrade')}
+                        className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold whitespace-nowrap shadow-xs cursor-pointer"
+                      >
+                        {copiedCode === 'link_upgrade' ? 'Copied!' : 'Copy Upgrade Link'}
+                      </button>
+                    </div>
+                  </>
+                );
+              })()}
             </div>
 
             <div className="pt-2 text-right">
               <button
                 onClick={() => setShareCoupon(null)}
-                className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold"
+                className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold cursor-pointer"
               >
                 Done
               </button>

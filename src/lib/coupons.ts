@@ -150,9 +150,17 @@ export function validateAndCalculateCoupon(
     const cleanPlan = planId.toUpperCase();
     const allowed = coupon.applicablePlans.map(p => p.toUpperCase());
     if (!allowed.includes(cleanPlan)) {
+      const planNames = coupon.applicablePlans.map(p => {
+        const up = p.toUpperCase();
+        if (up === 'BASIC') return 'Basic (₹999)';
+        if (up === 'PRO') return 'Pro (₹1,599)';
+        if (up === 'ADVANCED') return 'Advanced (₹2,199)';
+        return p;
+      }).join(' or ');
+
       return {
         valid: false,
-        error: `Coupon "${cleanCode}" is only valid on ${coupon.applicablePlans.join(' & ')} plans.`,
+        error: `Coupon "${cleanCode}" is only applicable to ${planNames} subscriptions. Please choose ${planNames} to redeem.`,
         discountAmount: 0,
         finalPrice: originalPrice
       };
