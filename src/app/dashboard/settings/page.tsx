@@ -261,7 +261,7 @@ function SettingsContent() {
   };
 
   // Coupon State
-  const [couponInput, setCouponInput] = useState('ONECLICK300');
+  const [couponInput, setCouponInput] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState<CouponApplicationResult | null>(null);
   const [couponError, setCouponError] = useState<string | null>(null);
 
@@ -272,8 +272,10 @@ function SettingsContent() {
     setIsProcessingPayment(false);
     setCouponError(null);
     
-    // Auto apply active or default coupon on checkout open
-    await handleApplyCustomCoupon(couponInput || 'ONECLICK300', plan);
+    // If a coupon code was passed in via URL or typed previously, apply it
+    if (couponInput) {
+      await handleApplyCustomCoupon(couponInput, plan);
+    }
   };
 
   const handleApplyCustomCoupon = async (
@@ -1108,7 +1110,7 @@ function SettingsContent() {
                             <div className="flex gap-2">
                               <input
                                 type="text"
-                                placeholder="Enter coupon (e.g. ONECLICK300)"
+                                placeholder="Enter promo coupon code"
                                 value={couponInput}
                                 onChange={e => setCouponInput(e.target.value.toUpperCase())}
                                 className="flex-1 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 font-mono uppercase placeholder-slate-400 focus:outline-none focus:border-amber-500"
@@ -1118,38 +1120,13 @@ function SettingsContent() {
                                 onClick={() => handleApplyCustomCoupon()}
                                 className="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition active:scale-95 shadow-sm"
                               >
-                                Apply
+                                Apply Code
                               </button>
                             </div>
 
                             {couponError && (
                               <p className="text-[10px] text-rose-600 font-semibold">{couponError}</p>
                             )}
-
-                            {/* Quick Clickable Coupon Suggestions */}
-                            <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-                              <span className="text-[10px] text-slate-500">Available:</span>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setCouponInput('ONECLICK300');
-                                  handleApplyCustomCoupon('ONECLICK300');
-                                }}
-                                className="px-2 py-0.5 rounded-lg bg-amber-100/80 hover:bg-amber-200 text-amber-900 text-[10px] font-bold border border-amber-300/80 transition"
-                              >
-                                🏷️ ONECLICK300 (-₹300)
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setCouponInput('VIP500');
-                                  handleApplyCustomCoupon('VIP500');
-                                }}
-                                className="px-2 py-0.5 rounded-lg bg-purple-100/80 hover:bg-purple-200 text-purple-900 text-[10px] font-bold border border-purple-300/80 transition"
-                              >
-                                🏷️ VIP500 (-₹500)
-                              </button>
-                            </div>
                           </div>
                         )}
                       </div>

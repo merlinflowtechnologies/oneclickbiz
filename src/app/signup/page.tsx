@@ -178,7 +178,7 @@ function SignUpForm() {
   const [completedOrder, setCompletedOrder] = useState<any>(null);
 
   // Coupon State
-  const [couponInput, setCouponInput] = useState(paramCoupon || 'ONECLICK300');
+  const [couponInput, setCouponInput] = useState(paramCoupon || '');
   const [appliedCoupon, setAppliedCoupon] = useState<CouponApplicationResult | null>(null);
   const [couponError, setCouponError] = useState<string | null>(null);
 
@@ -1032,7 +1032,7 @@ function SignUpForm() {
                     <div className="flex gap-2">
                       <input
                         type="text"
-                        placeholder="Enter coupon (e.g. ONECLICK300)"
+                        placeholder="Enter promo coupon code"
                         value={couponInput}
                         onChange={e => setCouponInput(e.target.value.toUpperCase())}
                         className="flex-1 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 font-mono uppercase placeholder-slate-400 focus:outline-none focus:border-amber-500"
@@ -1042,40 +1042,13 @@ function SignUpForm() {
                         onClick={() => handleApplyCoupon()}
                         className="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition active:scale-95 shadow-sm"
                       >
-                        Apply
+                        Apply Code
                       </button>
                     </div>
 
                     {couponError && (
                       <p className="text-[10px] text-rose-600 font-semibold">{couponError}</p>
                     )}
-
-                    {/* Quick Clickable Coupon Suggestions */}
-                    <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-                      <span className="text-[10px] text-slate-500">Available:</span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setCouponInput('ONECLICK300');
-                          handleApplyCoupon('ONECLICK300');
-                        }}
-                        className="px-2 py-0.5 rounded-lg bg-amber-100/80 hover:bg-amber-200 text-amber-900 font-mono font-bold text-[10px] border border-amber-300 transition"
-                      >
-                        🏷️ ONECLICK300 (-₹300)
-                      </button>
-                      {selectedPlanKey !== 'Basic' && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setCouponInput('VIP500');
-                            handleApplyCoupon('VIP500');
-                          }}
-                          className="px-2 py-0.5 rounded-lg bg-indigo-100/80 hover:bg-indigo-200 text-indigo-900 font-mono font-bold text-[10px] border border-indigo-300 transition"
-                        >
-                          🏷️ VIP500 (-₹500)
-                        </button>
-                      )}
-                    </div>
                   </div>
                 )}
               </div>
