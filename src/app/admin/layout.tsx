@@ -16,10 +16,10 @@ import {
   Search, 
   Bell, 
   Activity, 
-  Layers, 
   LayoutDashboard, 
   Menu, 
-  X 
+  X,
+  Tag
 } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -127,6 +127,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         ? `₹${(sidebarStats.revenue / 100000).toFixed(1)}L` 
         : `₹${sidebarStats.revenue}`,
       badgeColor: 'bg-amber-100 text-amber-800 border-amber-300'
+    },
+    {
+      name: 'Coupons & Discounts',
+      href: '/admin/coupons',
+      icon: Tag,
+      badge: 'Promo',
+      badgeColor: 'bg-rose-100 text-rose-700 border-rose-300'
     },
     {
       name: 'System Settings',

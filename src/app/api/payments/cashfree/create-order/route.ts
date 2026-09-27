@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSessionUser } from '@/lib/auth';
-import { validateAndCalculateCoupon } from '@/lib/coupons';
+import prisma from '@/lib/prisma';
+import { validateAndCalculateCoupon, Coupon } from '@/lib/coupons';
 
 const CASHFREE_APP_ID = process.env.CASHFREE_APP_ID || '';
 const CASHFREE_SECRET_KEY = process.env.CASHFREE_SECRET_KEY || '';
@@ -20,12 +21,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing required plan details' }, { status: 400 });
     }
 
-    // Secure server-side coupon calculation
+    // Secure server-side coupon calculation with dynamic admin coupons
     let finalOrderAmount = Number(price);
     let appliedCouponMessage: string | undefined = undefined;
 
     if (couponCode) {
-      const couponResult = validateAndCalculateCoupon(couponCode, Number(price), planId);
+      let customCoupons: Coupon[] = [];
+      try {
+        const setting = await prisma.systemSetting.findUnique({
+          where: { key: 'platform_custom_coupons' }
+        });
+        if (setting && Array.isArray(setting.value)) {
+          customCoupons = setting.value as unknown as Coupon[];
+        }
+      } catch (e) {
+        console.error('Failed to load custom coupons in order creation:', e);
+      }
+
+      const couponResult = validateAndCalculateCoupon(
+        couponCode, 
+        Number(price), 
+        planId, 
+        customerEmail || session?.email, 
+        customerPhone,
+        customCoupons
+      );
+
       if (couponResult.valid) {
         finalOrderAmount = couponResult.finalPrice;
         appliedCouponMessage = `Coupon ${couponResult.coupon?.code} applied (-₹${couponResult.discountAmount})`;

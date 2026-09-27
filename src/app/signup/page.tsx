@@ -120,6 +120,7 @@ function SignUpForm() {
   const paramName = searchParams.get('name') || '';
   const paramStep = searchParams.get('step') || '';
   const paramUnpaid = searchParams.get('unpaid') === 'true';
+  const paramCoupon = searchParams.get('coupon') || '';
 
   const [plans, setPlans] = useState(DEFAULT_PLANS_CONFIG);
 
@@ -177,44 +178,94 @@ function SignUpForm() {
   const [completedOrder, setCompletedOrder] = useState<any>(null);
 
   // Coupon State
-  const [couponInput, setCouponInput] = useState('ONECLICK300');
+  const [couponInput, setCouponInput] = useState(paramCoupon || 'ONECLICK300');
   const [appliedCoupon, setAppliedCoupon] = useState<CouponApplicationResult | null>(null);
   const [couponError, setCouponError] = useState<string | null>(null);
 
-  // Auto-validate coupon when plan or step changes
+  // Auto-validate coupon when plan, step, or query param changes
   useEffect(() => {
-    if (appliedCoupon?.coupon?.code) {
-      const revalidated = validateAndCalculateCoupon(appliedCoupon.coupon.code, activePlan.price, activePlan.id);
-      if (revalidated.valid) {
-        setAppliedCoupon(revalidated);
-        setCouponError(null);
-      } else {
-        setAppliedCoupon(null);
-        setCouponError(revalidated.error || null);
+    async function validateCurrentCoupon() {
+      const codeToTest = appliedCoupon?.coupon?.code || paramCoupon || couponInput;
+      if (!codeToTest) return;
+
+      try {
+        const res = await fetch('/api/coupons/validate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            code: codeToTest,
+            price: activePlan.price,
+            planId: activePlan.id,
+            email,
+            phone
+          })
+        });
+        const data = await res.json();
+        if (res.ok && data.success && data.result) {
+          setAppliedCoupon(data.result);
+          setCouponError(null);
+          return;
+        }
+      } catch (e) {
+        // Fallback to local evaluation
       }
-    } else if (couponInput) {
-      const res = validateAndCalculateCoupon(couponInput, activePlan.price, activePlan.id);
-      if (res.valid) {
-        setAppliedCoupon(res);
+
+      const localRes = validateAndCalculateCoupon(codeToTest, activePlan.price, activePlan.id, email, phone);
+      if (localRes.valid) {
+        setAppliedCoupon(localRes);
+        setCouponError(null);
+      } else if (appliedCoupon) {
+        setAppliedCoupon(null);
+        setCouponError(localRes.error || null);
       }
     }
-  }, [selectedPlanKey, plans]);
 
-  const handleApplyCoupon = (codeToApply?: string) => {
+    validateCurrentCoupon();
+  }, [selectedPlanKey, plans, paramCoupon]);
+
+  const handleApplyCoupon = async (codeToApply?: string) => {
     const code = (codeToApply !== undefined ? codeToApply : couponInput).trim();
     if (!code) {
       setCouponError('Please enter a coupon code.');
       setAppliedCoupon(null);
       return;
     }
-    const res = validateAndCalculateCoupon(code, activePlan.price, activePlan.id);
-    if (res.valid) {
-      setAppliedCoupon(res);
+
+    try {
+      const res = await fetch('/api/coupons/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code,
+          price: activePlan.price,
+          planId: activePlan.id,
+          email,
+          phone
+        })
+      });
+      const data = await res.json();
+      if (res.ok && data.success && data.result) {
+        setAppliedCoupon(data.result);
+        setCouponError(null);
+        confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+        return;
+      } else if (data.result && !data.result.valid) {
+        setAppliedCoupon(null);
+        setCouponError(data.result.error || 'Invalid or expired coupon code.');
+        return;
+      }
+    } catch (e) {
+      // Fallback
+    }
+
+    const localRes = validateAndCalculateCoupon(code, activePlan.price, activePlan.id, email, phone);
+    if (localRes.valid) {
+      setAppliedCoupon(localRes);
       setCouponError(null);
       confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
     } else {
       setAppliedCoupon(null);
-      setCouponError(res.error || 'Invalid coupon code.');
+      setCouponError(localRes.error || 'Invalid coupon code.');
     }
   };
 

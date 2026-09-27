@@ -200,21 +200,29 @@ function SettingsContent() {
           if (parsed.designation) setAccountDesignation(parsed.designation);
         }
 
-        // Auto-open Checkout Modal if navigated from business registration
+        // Auto-open Checkout Modal if navigated from business registration or shared link
         const paramCheckout = searchParams.get('checkout');
         const paramPlan = searchParams.get('plan');
         const paramName = searchParams.get('name');
         const paramBiz = searchParams.get('biz');
+        const paramCoupon = searchParams.get('coupon');
 
         if (paramBiz) setOrgName(decodeURIComponent(paramBiz));
         if (paramName) {
           setBillingName(decodeURIComponent(paramName));
         }
 
-        if (paramCheckout === 'true') {
+        if (paramCoupon) {
+          setCouponInput(paramCoupon);
+        }
+
+        if (paramCheckout === 'true' || paramCoupon) {
           const rawPlan = (paramPlan || 'PRO').toUpperCase();
           const targetPlan = rawPlan === 'BASIC' ? DEFAULT_PLAN_TIERS[0] : rawPlan === 'ADVANCED' ? DEFAULT_PLAN_TIERS[2] : DEFAULT_PLAN_TIERS[1];
           setCheckoutPlan(targetPlan);
+          if (paramCoupon) {
+            handleApplyCustomCoupon(paramCoupon, targetPlan);
+          }
         }
       } catch (err) {
         console.error(err);
@@ -258,29 +266,58 @@ function SettingsContent() {
   const [couponError, setCouponError] = useState<string | null>(null);
 
   // Open Billing Checkout Modal
-  const handleInitiateSwitch = (plan: { id: 'BASIC' | 'PRO' | 'ADVANCED'; name: string; price: number }) => {
+  const handleInitiateSwitch = async (plan: { id: 'BASIC' | 'PRO' | 'ADVANCED'; name: string; price: number }) => {
     setCheckoutPlan(plan);
     setPaymentSuccess(false);
     setIsProcessingPayment(false);
     setCouponError(null);
-    // Auto apply ONECLICK300 promo on checkout open
-    const defaultRes = validateAndCalculateCoupon('ONECLICK300', plan.price, plan.id);
-    if (defaultRes.valid) {
-      setAppliedCoupon(defaultRes);
-    } else {
-      setAppliedCoupon(null);
-    }
+    
+    // Auto apply active or default coupon on checkout open
+    await handleApplyCustomCoupon(couponInput || 'ONECLICK300', plan);
   };
 
-  const handleApplyCustomCoupon = (codeToApply?: string) => {
+  const handleApplyCustomCoupon = async (
+    codeToApply?: string,
+    planOverride?: { id: 'BASIC' | 'PRO' | 'ADVANCED'; name: string; price: number }
+  ) => {
+    const targetPlan = planOverride || checkoutPlan;
+    if (!targetPlan) return;
+
     const code = (codeToApply !== undefined ? codeToApply : couponInput).trim();
     if (!code) {
       setCouponError('Please enter a coupon code.');
       setAppliedCoupon(null);
       return;
     }
-    if (!checkoutPlan) return;
-    const res = validateAndCalculateCoupon(code, checkoutPlan.price, checkoutPlan.id);
+
+    try {
+      const res = await fetch('/api/coupons/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code,
+          price: targetPlan.price,
+          planId: targetPlan.id,
+          email: billingEmail,
+          phone: billingPhone
+        })
+      });
+      const data = await res.json();
+      if (res.ok && data.success && data.result) {
+        setAppliedCoupon(data.result);
+        setCouponError(null);
+        confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+        return;
+      } else if (data.result && !data.result.valid) {
+        setAppliedCoupon(null);
+        setCouponError(data.result.error || 'Invalid or expired coupon code.');
+        return;
+      }
+    } catch (e) {
+      // Fallback to local validator
+    }
+
+    const res = validateAndCalculateCoupon(code, targetPlan.price, targetPlan.id, billingEmail, billingPhone);
     if (res.valid) {
       setAppliedCoupon(res);
       setCouponError(null);

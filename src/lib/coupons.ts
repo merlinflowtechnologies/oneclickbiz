@@ -1,37 +1,57 @@
 export interface Coupon {
+  id?: string;
   code: string;
   discountType: 'FLAT' | 'PERCENTAGE';
   discountValue: number; // in INR for FLAT, percentage for PERCENTAGE
   description: string;
   minPrice?: number;
-  applicablePlans?: string[];
+  applicablePlans?: string[]; // e.g. ['BASIC', 'PRO', 'ADVANCED']
+  assignedEmail?: string; // If set, only this email can redeem
+  assignedPhone?: string; // If set, only this phone can redeem
+  assignedName?: string; // Name of person this was issued for
+  maxUsage?: number; // Maximum times this coupon can be used (e.g. 1 for single-use)
+  usedCount: number; // Current redemption count
+  expiryDate?: string; // ISO date string
+  createdAt?: string;
+  createdBy?: string;
   isActive: boolean;
 }
 
-export const PLATFORM_COUPONS: Coupon[] = [
+export const PLATFORM_DEFAULT_COUPONS: Coupon[] = [
   {
+    id: 'c_default_01',
     code: 'ONECLICK300',
     discountType: 'FLAT',
     discountValue: 300,
     description: 'Instant ₹300 Discount on all Annual Subscription Plans',
-    isActive: true
+    usedCount: 14,
+    isActive: true,
+    createdBy: 'System Default'
   },
   {
+    id: 'c_default_02',
     code: 'VIP500',
     discountType: 'FLAT',
     discountValue: 500,
     description: 'Special ₹500 OFF on Pro & Advanced Plans',
     applicablePlans: ['PRO', 'ADVANCED'],
-    isActive: true
+    usedCount: 9,
+    isActive: true,
+    createdBy: 'System Default'
   },
   {
+    id: 'c_default_03',
     code: 'STARTUP20',
     discountType: 'PERCENTAGE',
     discountValue: 20,
     description: '20% Special Discount for Startups & Local SMBs',
-    isActive: true
+    usedCount: 5,
+    isActive: true,
+    createdBy: 'System Default'
   }
 ];
+
+export const PLATFORM_COUPONS = PLATFORM_DEFAULT_COUPONS;
 
 export interface CouponApplicationResult {
   valid: boolean;
@@ -45,7 +65,10 @@ export interface CouponApplicationResult {
 export function validateAndCalculateCoupon(
   code: string,
   originalPrice: number,
-  planId?: string
+  planId?: string,
+  userEmail?: string,
+  userPhone?: string,
+  customCouponsList?: Coupon[]
 ): CouponApplicationResult {
   if (!code || !code.trim()) {
     return {
@@ -57,29 +80,86 @@ export function validateAndCalculateCoupon(
   }
 
   const cleanCode = code.trim().toUpperCase();
-  const coupon = PLATFORM_COUPONS.find(c => c.code === cleanCode && c.isActive);
+  const pool = [...(customCouponsList || []), ...PLATFORM_DEFAULT_COUPONS];
+  const coupon = pool.find(c => c.code.toUpperCase() === cleanCode && c.isActive);
 
   if (!coupon) {
     return {
       valid: false,
-      error: `Coupon "${cleanCode}" is invalid or expired.`,
+      error: `Coupon "${cleanCode}" is invalid or has expired.`,
       discountAmount: 0,
       finalPrice: originalPrice
     };
   }
 
-  if (coupon.applicablePlans && planId) {
-    const cleanPlan = planId.toUpperCase();
-    if (!coupon.applicablePlans.includes(cleanPlan)) {
+  // Check Expiry Date
+  if (coupon.expiryDate) {
+    const exp = new Date(coupon.expiryDate).getTime();
+    if (Date.now() > exp) {
       return {
         valid: false,
-        error: `Coupon "${cleanCode}" is only applicable to ${coupon.applicablePlans.join(' & ')} plans.`,
+        error: `Coupon "${cleanCode}" expired on ${new Date(coupon.expiryDate).toLocaleDateString()}.`,
         discountAmount: 0,
         finalPrice: originalPrice
       };
     }
   }
 
+  // Check Max Usage Limits
+  if (coupon.maxUsage && coupon.maxUsage > 0) {
+    if (coupon.usedCount >= coupon.maxUsage) {
+      return {
+        valid: false,
+        error: `Coupon "${cleanCode}" has reached its maximum usage limit (${coupon.maxUsage} uses).`,
+        discountAmount: 0,
+        finalPrice: originalPrice
+      };
+    }
+  }
+
+  // Check Specific User Email Assignment
+  if (coupon.assignedEmail && coupon.assignedEmail.trim()) {
+    const targetEmail = coupon.assignedEmail.trim().toLowerCase();
+    const providedEmail = (userEmail || '').trim().toLowerCase();
+    if (providedEmail && providedEmail !== targetEmail) {
+      return {
+        valid: false,
+        error: `Coupon "${cleanCode}" is exclusive to ${coupon.assignedName || coupon.assignedEmail}.`,
+        discountAmount: 0,
+        finalPrice: originalPrice
+      };
+    }
+  }
+
+  // Check Specific User Phone Assignment
+  if (coupon.assignedPhone && coupon.assignedPhone.trim()) {
+    const cleanAssignedPhone = coupon.assignedPhone.replace(/\D/g, '').slice(-10);
+    const cleanProvidedPhone = (userPhone || '').replace(/\D/g, '').slice(-10);
+    if (cleanProvidedPhone && cleanAssignedPhone && cleanProvidedPhone !== cleanAssignedPhone) {
+      return {
+        valid: false,
+        error: `Coupon "${cleanCode}" is exclusive to the designated recipient contact.`,
+        discountAmount: 0,
+        finalPrice: originalPrice
+      };
+    }
+  }
+
+  // Check Plan Restrictions
+  if (coupon.applicablePlans && coupon.applicablePlans.length > 0 && planId) {
+    const cleanPlan = planId.toUpperCase();
+    const allowed = coupon.applicablePlans.map(p => p.toUpperCase());
+    if (!allowed.includes(cleanPlan)) {
+      return {
+        valid: false,
+        error: `Coupon "${cleanCode}" is only valid on ${coupon.applicablePlans.join(' & ')} plans.`,
+        discountAmount: 0,
+        finalPrice: originalPrice
+      };
+    }
+  }
+
+  // Calculate Discount
   let discountAmount = 0;
   if (coupon.discountType === 'FLAT') {
     discountAmount = coupon.discountValue;
