@@ -976,13 +976,21 @@ export default function VisitingCardStudio() {
                       </div>
 
                       {/* Bottom Footer Info */}
-                      <div className="flex items-center justify-between border-t pt-3 border-white/10 text-[10px]">
-                        <div className="flex items-center gap-3">
-                          <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.phone}</span>
-                          <span className="opacity-40">•</span>
-                          <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.email}</span>
+                      <div className="flex items-center justify-between border-t pt-2.5 border-white/10 text-[10px] gap-2 overflow-hidden">
+                        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1 overflow-hidden">
+                          <span className={`whitespace-nowrap font-medium shrink-0 ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>
+                            {cardData.phone}
+                          </span>
+                          {cardData.email && (
+                            <>
+                              <span className="opacity-40 shrink-0">•</span>
+                              <span className={`truncate ${isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}`}>
+                                {cardData.email}
+                              </span>
+                            </>
+                          )}
                         </div>
-                        <span className={`font-mono font-semibold ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
+                        <span className={`font-mono font-semibold whitespace-nowrap truncate shrink-0 max-w-[150px] text-right ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
                           oneclickbiz.in/v/{cardData.slug}
                         </span>
                       </div>
@@ -1737,13 +1745,17 @@ export default function VisitingCardStudio() {
               </div>
 
               {/* Bottom Footer */}
-              <div className="flex items-center justify-between border-t pt-5 border-white/10 text-base relative z-10">
-                <div className="flex items-center gap-6">
-                  <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.phone}</span>
-                  <span className="opacity-40">•</span>
-                  <span className={isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}>{cardData.email}</span>
+              <div className="flex items-center justify-between border-t pt-5 border-white/10 text-base relative z-10 gap-4 overflow-hidden">
+                <div className="flex items-center gap-4 min-w-0 flex-1 overflow-hidden">
+                  <span className={`whitespace-nowrap font-medium shrink-0 ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>{cardData.phone}</span>
+                  {cardData.email && (
+                    <>
+                      <span className="opacity-40 shrink-0">•</span>
+                      <span className={`truncate ${isLight ? 'text-slate-700 font-medium' : 'text-slate-300 font-medium'}`}>{cardData.email}</span>
+                    </>
+                  )}
                 </div>
-                <span className={`font-mono font-bold ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
+                <span className={`font-mono font-bold whitespace-nowrap shrink-0 ${isLight ? 'text-indigo-600' : 'text-amber-400'}`}>
                   oneclickbiz.in/v/{cardData.slug}
                 </span>
               </div>
