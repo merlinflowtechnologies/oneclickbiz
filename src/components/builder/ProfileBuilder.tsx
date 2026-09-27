@@ -1363,6 +1363,53 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 shadow-inner"
                   />
                 </div>
+
+                {/* Direct UPI Payment VPA & Google Review Booster Configuration */}
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/50 border border-indigo-500/30 space-y-3 pt-3 mt-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">Smart Conversions &amp; Payment Settings</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+                          <span>⚡ Direct UPI ID (VPA)</span>
+                        </label>
+                        <span className="text-[10px] text-emerald-400/80 font-mono">0% Fee</span>
+                      </div>
+                      <input 
+                        type="text" 
+                        value={profile.upiId || ''}
+                        placeholder="e.g. 9876543210@paytm or business@okhdfcbank"
+                        onChange={e => handleFieldChange('upiId', e.target.value)}
+                        className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-emerald-500/40 text-xs text-white font-mono focus:outline-none focus:border-emerald-400 shadow-inner"
+                      />
+                      <p className="text-[10px] text-slate-400 mt-1">
+                        Powers the ⚡ Pay via UPI button and dynamic QR code on your live card.
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-semibold text-amber-400 flex items-center gap-1.5">
+                          <span>⭐ Google 5-Star Review URL</span>
+                        </label>
+                        <span className="text-[10px] text-amber-400/80 font-mono">SEO Booster</span>
+                      </div>
+                      <input 
+                        type="url" 
+                        value={profile.googleReviewUrl || ''}
+                        placeholder="https://g.page/r/YOUR_ID/review"
+                        onChange={e => handleFieldChange('googleReviewUrl', e.target.value)}
+                        className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-amber-500/40 text-xs text-white font-mono focus:outline-none focus:border-amber-400 shadow-inner"
+                      />
+                      <p className="text-[10px] text-slate-400 mt-1">
+                        Deep-links visitors directly to submit a 5-star review on Google Maps.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
