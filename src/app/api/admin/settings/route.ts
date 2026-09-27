@@ -39,7 +39,11 @@ export async function POST(req: NextRequest) {
     const updated = await prisma.systemSetting.upsert({
       where: { key: 'platform_pricing_settings' },
       update: { value: body },
-      create: { key: 'platform_pricing_settings', value: body }
+      create: { 
+        id: `setting_pricing_${Date.now()}`,
+        key: 'platform_pricing_settings', 
+        value: body 
+      }
     });
 
     return NextResponse.json({ success: true, config: updated.value });

@@ -23,10 +23,15 @@ async function getStoredCustomCoupons(): Promise<Coupon[]> {
 }
 
 async function saveStoredCustomCoupons(coupons: Coupon[]): Promise<void> {
+  const uniqueId = `setting_${SETTING_KEY}_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   await prisma.systemSetting.upsert({
     where: { key: SETTING_KEY },
     update: { value: coupons as any },
-    create: { key: SETTING_KEY, value: coupons as any }
+    create: { 
+      id: uniqueId,
+      key: SETTING_KEY, 
+      value: coupons as any 
+    }
   });
 }
 
