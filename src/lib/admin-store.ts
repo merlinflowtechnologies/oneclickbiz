@@ -7,7 +7,7 @@ export interface AdminUserRecord {
   avatarUrl: string;
   role: 'USER' | 'ORG_ADMIN' | 'SUPER_ADMIN';
   planTier: 'Basic' | 'Pro' | 'Advanced';
-  planCost: number; // in INR
+  planCost: number; // in INR (0 for complimentary)
   billingCycle: 'Annual' | 'Monthly' | 'Lifetime';
   subscriptionStatus: 'ACTIVE' | 'TRIAL' | 'EXPIRED' | 'CANCELLED';
   joinedDate: string;
@@ -18,6 +18,12 @@ export interface AdminUserRecord {
   totalOrders: number;
   totalBookings: number;
   hasPaidInvoice?: boolean;
+  paymentType?: 'PAID_GATEWAY' | 'ADMIN_COMPLIMENTARY' | 'UNPAID';
+  gateway?: string;
+  promoReason?: string;
+  orderId?: string;
+  paymentId?: string;
+  invoiceNumber?: string;
 }
 
 export interface PlatformMetrics {
@@ -31,6 +37,8 @@ export interface PlatformMetrics {
   totalScans: number;
   totalWhatsAppOrders: number;
   totalBookings: number;
+  totalPaidSubscribers?: number;
+  totalComplimentaryUsers?: number;
   planRates?: {
     basic: number;
     pro: number;
@@ -56,6 +64,8 @@ export const PLATFORM_SUMMARY_METRICS: PlatformMetrics = {
   totalScans: 0,
   totalWhatsAppOrders: 0,
   totalBookings: 0,
+  totalPaidSubscribers: 0,
+  totalComplimentaryUsers: 0,
   planRates: {
     basic: 999,
     pro: 1599,
@@ -67,4 +77,3 @@ export const PLATFORM_SUMMARY_METRICS: PlatformMetrics = {
     advanced: { count: 0, revenue: 0 }
   }
 };
-

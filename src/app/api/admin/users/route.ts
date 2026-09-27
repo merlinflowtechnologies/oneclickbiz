@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { requireAdmin } from '@/lib/auth';
+import { requireAdmin, hashPassword } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -49,18 +49,18 @@ export async function GET(req: NextRequest) {
       const org = u.memberships[0]?.organization;
       const profile = org?.profiles[0];
       
-      // Look up user's actual invoice amount paid
+      // Look up user's active invoice
       const userInvoice = invoices.find(inv => inv.userId === u.id || (org && inv.organizationId === org.id));
       
-      // Resolve tier consistently: Invoice planTier -> org.planId -> org.subscriptionStatus -> Basic
-      const invoiceTier = userInvoice?.planTier?.toUpperCase();
+      // Resolve tier consistently
+      const invoiceTier = userInvoice?.planTier?.toUpperCase() || '';
       const orgPlan = (org?.planId || '').toUpperCase();
       const orgStatus = (org?.subscriptionStatus || '').toUpperCase();
       
       let tier: 'Basic' | 'Pro' | 'Advanced' = 'Basic';
-      if (invoiceTier?.includes('ADVANCED') || orgPlan.includes('ADVANCED') || orgStatus.includes('ADVANCED')) {
+      if (invoiceTier.includes('ADVANCED') || orgPlan.includes('ADVANCED') || orgStatus.includes('ADVANCED')) {
         tier = 'Advanced';
-      } else if (invoiceTier?.includes('PRO') || orgPlan.includes('PRO') || orgStatus.includes('PRO')) {
+      } else if (invoiceTier.includes('PRO') || orgPlan.includes('PRO') || orgStatus.includes('PRO')) {
         tier = 'Pro';
       } else {
         tier = 'Basic';
@@ -71,6 +71,14 @@ export async function GET(req: NextRequest) {
       const invoicePaidDate = userInvoice ? userInvoice.createdAt.getTime() : 0;
       const isWithinActiveYear = hasPaid && (Date.now() - invoicePaidDate < ONE_YEAR_MS);
       const isCancelled = orgStatus === 'CANCELLED' || orgStatus === 'SUSPENDED';
+
+      const isComplimentary = Boolean(
+        userInvoice?.gateway === 'ADMIN_COMPLIMENTARY' ||
+        userInvoice?.gateway === 'ADMIN_PROMO' ||
+        (hasPaid && userInvoice?.amount === 0) ||
+        orgPlan.includes('PROMO') ||
+        orgPlan.includes('FREE')
+      );
       
       let status: 'ACTIVE' | 'EXPIRED' | 'CANCELLED' = 'EXPIRED';
       if (isCancelled) {
@@ -78,10 +86,19 @@ export async function GET(req: NextRequest) {
       } else if (isWithinActiveYear) {
         status = 'ACTIVE';
       } else {
-        status = 'EXPIRED'; // STRICT: Unpaid OR Expired after 365 days, strictly EXPIRED/UNPAID
+        status = 'EXPIRED';
       }
 
-      const planCost = hasPaid ? (userInvoice!.amount || defaultTierPrices[tier]) : defaultTierPrices[tier];
+      let paymentType: 'PAID_GATEWAY' | 'ADMIN_COMPLIMENTARY' | 'UNPAID' = 'UNPAID';
+      if (status === 'ACTIVE') {
+        paymentType = isComplimentary ? 'ADMIN_COMPLIMENTARY' : 'PAID_GATEWAY';
+      } else if (hasPaid && isComplimentary) {
+        paymentType = 'ADMIN_COMPLIMENTARY';
+      } else if (hasPaid) {
+        paymentType = 'PAID_GATEWAY';
+      }
+
+      const planCost = isComplimentary ? 0 : (hasPaid ? (userInvoice!.amount || defaultTierPrices[tier]) : 0);
       const baseTime = userInvoice ? userInvoice.createdAt.getTime() : u.createdAt.getTime();
       const renewalDate = new Date(baseTime + ONE_YEAR_MS).toISOString().split('T')[0];
 
@@ -98,6 +115,12 @@ export async function GET(req: NextRequest) {
         billingCycle: 'Annual',
         subscriptionStatus: status,
         hasPaidInvoice: isWithinActiveYear,
+        paymentType,
+        gateway: isComplimentary ? 'ADMIN_COMPLIMENTARY' : (userInvoice?.gateway || 'Cashfree'),
+        promoReason: isComplimentary ? (userInvoice?.paymentId?.replace('ADMIN_GRANT: ', '') || 'Admin Complimentary Promo') : undefined,
+        invoiceNumber: userInvoice?.invoiceNumber,
+        orderId: userInvoice?.orderId,
+        paymentId: userInvoice?.paymentId,
         joinedDate: u.createdAt.toISOString().split('T')[0],
         renewalDate,
         totalProfiles: org?.profiles.length || 0,
@@ -115,14 +138,137 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// PATCH update user account moderation (Suspend / Block)
+// POST Create new user / Grant Free VIP Promotional Account
+export async function POST(req: NextRequest) {
+  try {
+    const auth = await requireAdmin(req);
+    if (!auth.authorized) return auth.response!;
+
+    const body = await req.json();
+    const { name, email, password, businessName, slug, planTier, promoReason, isFreePromo = true } = body;
+
+    if (!name || !email || !password) {
+      return NextResponse.json({ error: 'Name, email, and password are required' }, { status: 400 });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+    const existingUser = await prisma.user.findUnique({ where: { email: cleanEmail } });
+    if (existingUser) {
+      return NextResponse.json({ error: 'A user with this email address already exists' }, { status: 400 });
+    }
+
+    // Sanitize slug
+    const cleanSlug = (slug || name.toLowerCase().replace(/[^a-z0-9]/g, '-'))
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/g, '')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '') || `user-${Date.now().toString().slice(-4)}`;
+
+    const existingSlug = await prisma.profile.findUnique({ where: { slug: cleanSlug } });
+    const finalSlug = existingSlug ? `${cleanSlug}-${Math.floor(100 + Math.random() * 900)}` : cleanSlug;
+
+    const hashedPassword = await hashPassword(password);
+    const tier = (planTier || 'Pro') as 'Basic' | 'Pro' | 'Advanced';
+
+    // Create User, Org, and Profile in transaction
+    const newUser = await prisma.$transaction(async (tx) => {
+      const user = await tx.user.create({
+        data: {
+          name,
+          email: cleanEmail,
+          passwordHash: hashedPassword,
+          role: 'USER',
+          avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80'
+        }
+      });
+
+      const org = await tx.organization.create({
+        data: {
+          name: businessName || `${name}'s Business`,
+          slug: `${finalSlug}-org`,
+          planId: isFreePromo ? `${tier}_PROMO` : tier,
+          subscriptionStatus: 'ACTIVE',
+          members: {
+            create: {
+              userId: user.id,
+              role: 'ORG_ADMIN'
+            }
+          }
+        }
+      });
+
+      const profile = await tx.profile.create({
+        data: {
+          organizationId: org.id,
+          slug: finalSlug,
+          name,
+          designation: 'Business Owner',
+          company: businessName || `${name}'s Business`,
+          bio: 'Welcome to my digital profile! Connect with me instantly via WhatsApp, call, or email.',
+          theme: 'obsidian-gold',
+          avatarUrl: user.avatarUrl,
+          email: cleanEmail,
+          isPublished: true,
+          socialLinks: {
+            create: [
+              { platform: 'whatsapp', url: 'https://wa.me/919876543210' },
+              { platform: 'email', url: `mailto:${cleanEmail}` }
+            ]
+          }
+        }
+      });
+
+      // If free promo or granted by admin, create complimentary 0-rupee invoice record for audit trail
+      if (isFreePromo) {
+        await tx.invoice.create({
+          data: {
+            invoiceNumber: `INV-PROMO-${Date.now().toString().slice(-6)}`,
+            organizationId: org.id,
+            userId: user.id,
+            planTier: `${tier} (Complimentary Promo)`,
+            amount: 0,
+            currency: 'INR',
+            status: 'PAID',
+            gateway: 'ADMIN_COMPLIMENTARY',
+            paymentId: `ADMIN_GRANT: ${promoReason || 'Promotional Free Access'}`,
+            orderId: `FREE-PROMO-${finalSlug.toUpperCase()}`,
+            taxAmount: 0,
+            paidAt: new Date()
+          }
+        });
+      }
+
+      return { user, org, profile };
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: `Account created successfully! ${isFreePromo ? 'VIP Free Promotional Access granted.' : ''}`,
+      user: {
+        id: newUser.user.id,
+        name: newUser.user.name,
+        email: newUser.user.email,
+        slug: newUser.profile.slug,
+        planTier: tier,
+        subscriptionStatus: 'ACTIVE',
+        paymentType: isFreePromo ? 'ADMIN_COMPLIMENTARY' : 'UNPAID'
+      }
+    });
+
+  } catch (error: any) {
+    console.error('Admin create user error:', error);
+    return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 });
+  }
+}
+
+// PATCH update user account moderation / Grant Free Promo
 export async function PATCH(req: NextRequest) {
   try {
     const auth = await requireAdmin(req);
     if (!auth.authorized) return auth.response!;
 
     const body = await req.json();
-    const { userId, planTier, role, status, businessName } = body;
+    const { userId, planTier, role, status, businessName, grantFreePromo, promoReason } = body;
 
     if (!userId) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
@@ -145,6 +291,40 @@ export async function PATCH(req: NextRequest) {
 
     const org = user.memberships[0]?.organization;
 
+    // If granting Free VIP Promo to an existing user:
+    if (grantFreePromo && org) {
+      const tier = planTier || 'Pro';
+      await prisma.invoice.create({
+        data: {
+          invoiceNumber: `INV-PROMO-${Date.now().toString().slice(-6)}`,
+          organizationId: org.id,
+          userId: user.id,
+          planTier: `${tier} (Complimentary Promo)`,
+          amount: 0,
+          currency: 'INR',
+          status: 'PAID',
+          gateway: 'ADMIN_COMPLIMENTARY',
+          paymentId: `ADMIN_GRANT: ${promoReason || 'Promotional Free Access'}`,
+          orderId: `FREE-PROMO-${Date.now()}`,
+          taxAmount: 0,
+          paidAt: new Date()
+        }
+      });
+
+      await prisma.organization.update({
+        where: { id: org.id },
+        data: {
+          subscriptionStatus: 'ACTIVE',
+          planId: `${tier}_PROMO`
+        }
+      });
+
+      return NextResponse.json({
+        success: true,
+        message: `Successfully granted Complimentary Free Promo (${tier}) to ${user.name}. (₹0 recorded, 0% revenue share deducted).`
+      });
+    }
+
     // Check if user has a verified paid online invoice within 365 days
     const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
     const paidInvoice = await prisma.invoice.findFirst({
@@ -162,26 +342,18 @@ export async function PATCH(req: NextRequest) {
 
     let resolvedStatus: 'ACTIVE' | 'EXPIRED' | 'CANCELLED' | undefined = undefined;
 
-    // STRICT NO-BYPASS: Check requested status
-    if (status === 'ACTIVE' && !isInvoiceActive) {
-      return NextResponse.json({ 
-        error: 'Strict Policy Violation: Cannot activate account manually. The subscription is either unpaid or has expired. The member must renew their plan online via Cashfree.' 
-      }, { status: 400 });
-    }
-
     if (status === 'CANCELLED' || status === 'SUSPENDED') {
       resolvedStatus = 'CANCELLED';
     } else if (status === 'UNBLOCK' || status === 'RESTORE') {
-      // Unblocking restores to ACTIVE only if within active paid year, otherwise remains EXPIRED/UNPAID
       resolvedStatus = isInvoiceActive ? 'ACTIVE' : 'EXPIRED';
-    } else if (status === 'ACTIVE' && isInvoiceActive) {
-      resolvedStatus = 'ACTIVE';
-    }
-
-    if (planTier && paidInvoice && !paidInvoice.planTier.toLowerCase().includes(planTier.toLowerCase())) {
-      return NextResponse.json({
-        error: 'Strict Policy Violation: Plan tiers are strictly locked to verified Cashfree gateway transactions.'
-      }, { status: 400 });
+    } else if (status === 'ACTIVE') {
+      if (isInvoiceActive) {
+        resolvedStatus = 'ACTIVE';
+      } else {
+        return NextResponse.json({ 
+          error: 'Cannot activate unpaid account directly. Please use "Grant Free VIP Promo" to explicitly grant complimentary access with audit logs.' 
+        }, { status: 400 });
+      }
     }
 
     if (role) {
@@ -211,8 +383,8 @@ export async function PATCH(req: NextRequest) {
       statusMsg = 'Account has been suspended/blocked.';
     } else if (status === 'UNBLOCK' || status === 'RESTORE') {
       statusMsg = resolvedStatus === 'ACTIVE'
-        ? 'Account unblocked and restored to ACTIVE (Payment verified).'
-        : 'Account unblocked. Status remains UNPAID until online payment is completed.';
+        ? 'Account unblocked and restored to ACTIVE.'
+        : 'Account unblocked. Status remains UNPAID until online payment or promo grant.';
     }
 
     return NextResponse.json({ 
