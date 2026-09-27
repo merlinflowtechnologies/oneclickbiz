@@ -350,61 +350,91 @@ export default function ProfileCardView({
   // Theme Styles Selector
   const getThemeStyles = () => {
     switch (profile.theme) {
+      case 'obsidian-gold':
       case 'dark-onyx':
         return {
-          bg: 'bg-zinc-950 text-white',
-          card: 'bg-zinc-900/90 border border-zinc-800 text-zinc-100',
-          accent: 'from-amber-500 to-amber-600',
-          accentText: 'text-amber-400',
-          buttonPrimary: 'bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 hover:from-amber-400 hover:to-amber-500',
-          buttonSecondary: 'bg-zinc-800 text-zinc-200 hover:bg-zinc-700',
-          badge: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
-          border: 'border-zinc-800'
+          bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900 via-zinc-950 to-black text-white',
+          card: 'bg-zinc-900/95 backdrop-blur-xl border border-amber-500/30 text-zinc-100 shadow-2xl shadow-amber-500/5',
+          accent: 'from-amber-400 via-yellow-500 to-amber-600',
+          accentText: 'text-amber-300 font-semibold',
+          buttonPrimary: 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-slate-950 font-bold shadow-lg shadow-amber-500/20 hover:from-amber-300 hover:to-amber-500 hover:scale-[1.02] active:scale-95 transition-all',
+          buttonSecondary: 'bg-zinc-850 border border-amber-500/20 text-zinc-200 hover:bg-zinc-800 hover:text-white',
+          badge: 'bg-gradient-to-r from-amber-500/15 to-yellow-500/10 text-amber-300 border border-amber-500/30 shadow-sm font-semibold',
+          border: 'border-amber-500/25',
+          avatarRing: 'ring-4 ring-amber-400/40 shadow-amber-500/20'
         };
       case 'emerald-pro':
         return {
-          bg: 'bg-slate-950 text-white',
-          card: 'bg-slate-900/90 border border-slate-800 text-slate-100',
-          accent: 'from-emerald-500 to-teal-500',
-          accentText: 'text-emerald-400',
-          buttonPrimary: 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:from-emerald-400 hover:to-teal-400',
-          buttonSecondary: 'bg-slate-800 text-slate-200 hover:bg-slate-700',
-          badge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
-          border: 'border-slate-800'
+          bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-950/80 via-slate-950 to-zinc-950 text-white',
+          card: 'bg-slate-900/95 backdrop-blur-xl border border-emerald-500/30 text-slate-100 shadow-2xl shadow-emerald-500/5',
+          accent: 'from-emerald-400 via-teal-500 to-emerald-600',
+          accentText: 'text-emerald-300 font-semibold',
+          buttonPrimary: 'bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600 text-slate-950 font-bold shadow-lg shadow-emerald-500/20 hover:from-emerald-300 hover:to-emerald-500 hover:scale-[1.02] active:scale-95 transition-all',
+          buttonSecondary: 'bg-slate-850 border border-emerald-500/20 text-slate-200 hover:bg-slate-800 hover:text-white',
+          badge: 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shadow-sm font-semibold',
+          border: 'border-emerald-500/25',
+          avatarRing: 'ring-4 ring-emerald-400/40 shadow-emerald-500/20'
         };
       case 'sunset-gold':
         return {
-          bg: 'bg-stone-950 text-white',
-          card: 'bg-stone-900/90 border border-stone-800 text-stone-100',
-          accent: 'from-orange-500 via-rose-500 to-amber-500',
-          accentText: 'text-orange-400',
-          buttonPrimary: 'bg-gradient-to-r from-orange-500 to-rose-500 text-white hover:from-orange-600 hover:to-rose-600',
-          buttonSecondary: 'bg-stone-800 text-stone-200 hover:bg-stone-700',
-          badge: 'bg-orange-500/10 text-orange-400 border border-orange-500/20',
-          border: 'border-stone-800'
+          bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-rose-950/70 via-stone-950 to-black text-white',
+          card: 'bg-stone-900/95 backdrop-blur-xl border border-rose-500/30 text-stone-100 shadow-2xl shadow-rose-500/5',
+          accent: 'from-rose-400 via-orange-500 to-amber-500',
+          accentText: 'text-rose-300 font-semibold',
+          buttonPrimary: 'bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 text-white font-bold shadow-lg shadow-rose-500/25 hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all',
+          buttonSecondary: 'bg-stone-850 border border-rose-500/20 text-stone-200 hover:bg-stone-800 hover:text-white',
+          badge: 'bg-rose-500/15 text-rose-300 border border-rose-500/30 shadow-sm font-semibold',
+          border: 'border-rose-500/25',
+          avatarRing: 'ring-4 ring-rose-400/40 shadow-rose-500/20'
+        };
+      case 'royal-navy':
+        return {
+          bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-950 via-slate-950 to-black text-white',
+          card: 'bg-slate-900/95 backdrop-blur-xl border border-sky-500/30 text-slate-100 shadow-2xl shadow-sky-500/5',
+          accent: 'from-sky-400 via-blue-500 to-indigo-600',
+          accentText: 'text-sky-300 font-semibold',
+          buttonPrimary: 'bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 text-white font-bold shadow-lg shadow-sky-500/20 hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all',
+          buttonSecondary: 'bg-slate-850 border border-sky-500/20 text-slate-200 hover:bg-slate-800 hover:text-white',
+          badge: 'bg-sky-500/15 text-sky-300 border border-sky-500/30 shadow-sm font-semibold',
+          border: 'border-sky-500/25',
+          avatarRing: 'ring-4 ring-sky-400/40 shadow-sky-500/20'
+        };
+      case 'cyber-neon':
+        return {
+          bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-fuchsia-950/70 via-slate-950 to-black text-white',
+          card: 'bg-slate-900/95 backdrop-blur-xl border border-cyan-500/40 text-slate-100 shadow-2xl shadow-cyan-500/10',
+          accent: 'from-cyan-400 via-fuchsia-500 to-pink-500',
+          accentText: 'text-cyan-300 font-bold',
+          buttonPrimary: 'bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-pink-500 text-slate-950 font-black shadow-lg shadow-cyan-500/25 hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all',
+          buttonSecondary: 'bg-slate-850 border border-cyan-500/20 text-cyan-200 hover:bg-slate-800 hover:text-white',
+          badge: 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-sm font-semibold',
+          border: 'border-cyan-500/30',
+          avatarRing: 'ring-4 ring-cyan-400/50 shadow-cyan-500/30'
         };
       case 'glassmorphic':
         return {
-          bg: 'bg-gradient-to-br from-indigo-950 via-slate-950 to-purple-950 text-white',
-          card: 'bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-2xl',
-          accent: 'from-cyan-400 to-indigo-500',
-          accentText: 'text-cyan-400',
-          buttonPrimary: 'bg-gradient-to-r from-cyan-400 to-indigo-500 text-slate-950 font-semibold hover:opacity-90',
-          buttonSecondary: 'bg-white/10 backdrop-blur-md text-white hover:bg-white/20 border border-white/10',
-          badge: 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30',
-          border: 'border-white/10'
+          bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-950/90 via-slate-950 to-purple-950 text-white',
+          card: 'bg-white/10 backdrop-blur-2xl border border-white/25 text-white shadow-2xl shadow-indigo-500/10',
+          accent: 'from-cyan-300 via-indigo-400 to-pink-400',
+          accentText: 'text-cyan-300 font-bold',
+          buttonPrimary: 'bg-gradient-to-r from-cyan-400 via-indigo-500 to-pink-500 text-slate-950 font-extrabold shadow-xl hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all',
+          buttonSecondary: 'bg-white/10 backdrop-blur-md text-white hover:bg-white/20 border border-white/15',
+          badge: 'bg-white/15 text-cyan-200 border border-white/25 shadow-sm font-semibold backdrop-blur-md',
+          border: 'border-white/20',
+          avatarRing: 'ring-4 ring-white/40 shadow-indigo-500/30'
         };
       case 'modern-indigo':
       default:
         return {
-          bg: 'bg-slate-900 text-slate-100',
-          card: 'bg-slate-800/80 backdrop-blur-md border border-slate-700/80 text-white shadow-xl',
-          accent: 'from-indigo-500 via-purple-500 to-pink-500',
-          accentText: 'text-indigo-400',
-          buttonPrimary: 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500',
-          buttonSecondary: 'bg-slate-700/80 text-slate-200 hover:bg-slate-600',
-          badge: 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20',
-          border: 'border-slate-700'
+          bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-950/80 via-slate-900 to-slate-950 text-slate-100',
+          card: 'bg-slate-850/95 backdrop-blur-xl border border-indigo-500/30 text-white shadow-2xl shadow-indigo-500/10',
+          accent: 'from-indigo-400 via-purple-500 to-pink-500',
+          accentText: 'text-indigo-300 font-semibold',
+          buttonPrimary: 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold shadow-lg shadow-indigo-500/25 hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all',
+          buttonSecondary: 'bg-slate-750/90 border border-indigo-500/20 text-slate-200 hover:bg-slate-700 hover:text-white',
+          badge: 'bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 shadow-sm font-semibold',
+          border: 'border-indigo-500/25',
+          avatarRing: 'ring-4 ring-indigo-400/40 shadow-indigo-500/20'
         };
     }
   };
@@ -449,7 +479,7 @@ export default function ProfileCardView({
         {/* Avatar & Header */}
         <div className="flex flex-col items-center text-center">
           <div className="relative">
-            <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-slate-900 shadow-2xl ring-2 ring-indigo-500/50">
+            <div className={`w-28 h-28 rounded-full overflow-hidden border-4 border-slate-900 shadow-2xl ${theme.avatarRing || 'ring-2 ring-indigo-500/50'}`}>
               <img 
                 src={profile.avatarUrl} 
                 alt={profile.name} 

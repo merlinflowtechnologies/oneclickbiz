@@ -130,6 +130,32 @@ export default function VCardTemplatesPage() {
 
         {/* Templates Gallery Grid */}
         <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Canva & Adobe Express Pro Integration Banner */}
+          <div className="mb-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-purple-950 border border-indigo-500/30 shadow-2xl text-white flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="space-y-2 text-center md:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-300 text-xs font-bold border border-cyan-500/30">
+                <Sparkles className="w-3.5 h-3.5" /> 100% Canva &amp; Adobe Express Compatible
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white">
+                Have a Custom Design from Canva or Adobe Express?
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl">
+                Import your custom front &amp; back artwork directly into OneClickBiz. We automatically overlay dynamic QR codes, contactless NFC triggers, and generate 300 DPI print-ready PDFs.
+              </p>
+            </div>
+
+            <div className="flex items-center flex-wrap gap-3 shrink-0">
+              <Link
+                href="/dashboard/visiting-cards"
+                className="px-5 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:opacity-95 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-purple-500/25 transition-all hover:scale-105 active:scale-95"
+              >
+                <span>Open Canva / Adobe Studio</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
           <div className="flex items-center justify-between mb-8">
             <p className="text-sm text-slate-600 font-medium">
               Showing <span className="text-slate-900 font-bold">{filteredTemplates.length}</span> of {VCARD_TEMPLATES_CATALOG.length} templates

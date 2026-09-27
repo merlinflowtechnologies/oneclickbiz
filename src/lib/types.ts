@@ -4,7 +4,9 @@ export type ThemeType =
   | 'glassmorphic'
   | 'emerald-pro'
   | 'sunset-gold'
-  | 'cyber-neon';
+  | 'cyber-neon'
+  | 'obsidian-gold'
+  | 'royal-navy';
 
 export interface SocialLinkItem {
   id: string;
