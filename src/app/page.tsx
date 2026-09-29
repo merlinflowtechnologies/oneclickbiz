@@ -45,7 +45,8 @@ import {
   Eye,
   ChevronLeft,
   ChevronRight,
-  Wifi
+  Wifi,
+  RefreshCw
 } from 'lucide-react';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/navigation/Footer';
@@ -288,6 +289,10 @@ export default function LandingPage() {
       a: 'Yes! Your dynamic QR code uses a stable cloud redirect link. You can update your phone, email, products, photos, or design template anytime from your dashboard, and your link will instantly display the updated content.'
     },
     {
+      q: 'How many times can I edit my contact details, services, or card information?',
+      a: 'You can edit your details N number of times (100% unlimited updates 24x7) without any restrictions, edit fees, or special plans. Every time you change your phone, WhatsApp, email, social links, photos, prices, services, or templates from your dashboard, the changes go live instantly on your dynamic QR code and custom link.'
+    },
+    {
       q: 'Does it support one-click contact saving to iPhone and Android?',
       a: 'Yes! When someone clicks the "Save Contact" button on your card, an industry-standard .vcf file is downloaded and directly prompts them to save your full name, phone numbers, email, company, address, and profile photo directly to their phone address book.'
     },
@@ -406,7 +411,11 @@ export default function LandingPage() {
               </div>
 
               {/* Social Proof Badges */}
-              <div className="pt-4 flex items-center justify-center lg:justify-start space-x-6 text-xs text-slate-600">
+              <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-600">
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-semibold shadow-xs">
+                  <RefreshCw className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Unlimited Real-Time Edits (Edit N Times)</span>
+                </div>
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   <span className="font-medium">1-Click Contact Save</span>
@@ -1217,7 +1226,7 @@ export default function LandingPage() {
         <div className="absolute top-10 left-1/3 w-[750px] h-[500px] bg-gradient-to-r from-pink-400/35 via-purple-400/35 to-indigo-400/35 blur-[130px] pointer-events-none -z-10" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
           <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-600">
             Simple, Transparent Pricing
           </h2>
@@ -1225,7 +1234,21 @@ export default function LandingPage() {
             Choose Your Smart Identity Plan
           </h3>
           <p className="text-sm text-slate-600">
-            All plans include SSL security, unlimited QR code generation, dynamic URL aliases, and mobile address book (.VCF) downloads.
+            All plans include SSL security, unlimited QR code generation, dynamic URL aliases, mobile address book (.VCF) downloads, and <strong>100% free unlimited profile edits anytime</strong>.
+          </p>
+        </div>
+
+        {/* Highlight Banner: Edit Details N Number of Times */}
+        <div className="mb-12 max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-white/90 border-2 border-emerald-500/40 backdrop-blur-md shadow-lg shadow-emerald-500/10 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-600 text-white font-bold text-[10px] uppercase tracking-wider mb-2 shadow-xs">
+            <RefreshCw className="w-3 h-3 animate-spin" />
+            100% Free Unlimited Updates
+          </div>
+          <h4 className="text-base sm:text-lg font-black text-slate-900">
+            Edit Your Details N Number of Times — ZERO Extra Fees
+          </h4>
+          <p className="text-xs sm:text-sm text-slate-700 mt-1 max-w-2xl mx-auto leading-relaxed">
+            Update your phone, WhatsApp, email, social links, photos, services, pricing, or templates whenever your business evolves. You never need an extra recharge or special plan to make changes.
           </p>
         </div>
 
@@ -1245,6 +1268,7 @@ export default function LandingPage() {
                 <span className="ml-2 px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-[10px] font-bold text-indigo-700">Annual</span>
               </div>
               <ul className="space-y-2.5 pt-4 text-xs text-slate-700 border-t border-slate-100">
+                <li className="flex items-center gap-2 text-emerald-800 font-semibold"><Check className="w-4 h-4 text-emerald-600" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> <strong>1 Digital Card (/v/your-name)</strong></li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> 1-Click .VCF Contact Downloader</li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> Dynamic Cloud QR Code (Editable)</li>
@@ -1275,6 +1299,7 @@ export default function LandingPage() {
                 <span className="ml-2 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[10px] font-bold text-emerald-700">Annual</span>
               </div>
               <ul className="space-y-2.5 pt-4 text-xs text-slate-700 border-t border-slate-100">
+                <li className="flex items-center gap-2 text-emerald-800 font-semibold"><Check className="w-4 h-4 text-emerald-600" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> <strong>Up to 3 Digital Cards</strong></li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> <strong>1 Custom Domain CNAME (White-Label)</strong></li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> <strong>Unlimited WhatsApp Store Catalog</strong></li>
@@ -1303,6 +1328,7 @@ export default function LandingPage() {
                 <span className="ml-2 px-2 py-0.5 rounded-full bg-rose-50 border border-rose-200 text-[10px] font-bold text-rose-700">Annual</span>
               </div>
               <ul className="space-y-2.5 pt-4 text-xs text-slate-700 border-t border-slate-100">
+                <li className="flex items-center gap-2 text-emerald-800 font-semibold"><Check className="w-4 h-4 text-emerald-600" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-rose-600" /> <strong>Up to 5 Digital Cards &amp; Team Profiles</strong></li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-rose-600" /> <strong>5 White-Label Custom Domains</strong></li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-rose-600" /> <strong>Unlimited 4K Video Uploads &amp; CDN</strong></li>
