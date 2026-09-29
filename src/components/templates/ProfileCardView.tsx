@@ -129,7 +129,7 @@ export default function ProfileCardView({
   }, [propProfile?.slug, isMockup]);
 
   const profile = (!isMockup && customProfile) 
-    ? { ...propProfile, ...customProfile, ...(propProfile.avatarUrl ? { avatarUrl: propProfile.avatarUrl } : {}) } 
+    ? { ...propProfile, ...customProfile } 
     : propProfile;
 
   // Cart & Modals State
@@ -661,18 +661,20 @@ export default function ProfileCardView({
           if (!sec.isVisible) return null;
 
           switch (sec.type) {
-            case 'about':
-              return profile.sectionData.about?.content ? (
+            case 'about': {
+              const aboutText = profile.bio || profile.sectionData.about?.content;
+              return aboutText ? (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-                    {sec.title}
+                    {sec.title || 'About Me'}
                   </h3>
                   <p className="text-xs leading-relaxed text-slate-200">
-                    {profile.sectionData.about.content}
+                    {aboutText}
                   </p>
                 </div>
               ) : null;
+            }
 
             case 'socials':
               return profile.sectionData.socials?.items?.length ? (

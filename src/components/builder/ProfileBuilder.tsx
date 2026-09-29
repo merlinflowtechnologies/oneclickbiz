@@ -453,27 +453,46 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           url: url.trim()
         });
       }
-      const updated = {
+      return {
         ...prev,
         sectionData: {
           ...prev.sectionData,
           socials: { items }
         }
       };
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.setItem(`oneclickbiz_custom_profile_${prev.slug}`, JSON.stringify(updated));
-        } catch {}
-      }
-      return updated;
     });
   };
+
+  // Auto-sync profile changes to localStorage & live event listeners
+  useEffect(() => {
+    if (typeof window !== 'undefined' && profile?.slug) {
+      try {
+        localStorage.setItem(`oneclickbiz_custom_profile_${profile.slug}`, JSON.stringify(profile));
+        localStorage.setItem('oneclickbiz_active_profile', JSON.stringify(profile));
+        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new CustomEvent('oneclickbiz_profile_updated', { detail: profile }));
+      } catch (err) {
+        console.error('Auto-sync profile error:', err);
+      }
+    }
+  }, [profile]);
 
   // Field updates with card & session sync
   const handleFieldChange = (field: keyof DigitalProfile, value: any) => {
     setProfile(prev => {
       const updated = { ...prev, [field]: value };
       
+      // If updating bio, also sync to sectionData.about.content
+      if (field === 'bio') {
+        updated.sectionData = {
+          ...updated.sectionData,
+          about: {
+            ...updated.sectionData?.about,
+            content: value
+          }
+        };
+      }
+
       // If updating phone, also sync whatsapp if it was empty, previously matched phone, or was default preset
       if (field === 'phone') {
         const isPresetWa = !prev.whatsapp || prev.whatsapp === '916304989071' || prev.whatsapp === '+91 63049 89071' || prev.whatsapp === prev.phone;
@@ -523,11 +542,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
         }
       }
 
-      // If updating avatar, name, or company, sync to userCards list immediately
-      if (field === 'avatarUrl' || field === 'name' || field === 'company' || field === 'designation') {
+      // If updating avatar, name, company, designation, or slug, sync to userCards list immediately
+      if (field === 'avatarUrl' || field === 'name' || field === 'company' || field === 'designation' || field === 'slug') {
         setUserCards(cards => {
           const newCards = cards.map(c => c.slug === prev.slug ? {
             ...c,
+            slug: field === 'slug' ? value : c.slug,
             avatarUrl: field === 'avatarUrl' ? value : c.avatarUrl,
             name: field === 'name' ? value : c.name,
             company: field === 'company' ? value : c.company,
@@ -544,13 +564,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
         });
       }
 
-      // Immediately sync custom profile to local storage so QR modal and preview never lag
-      if (typeof window !== 'undefined') {
+      // If slug changed, update URL without reload and migrate old storage key
+      if (field === 'slug' && prev.slug !== value && typeof window !== 'undefined') {
         try {
-          localStorage.setItem(`oneclickbiz_custom_profile_${prev.slug}`, JSON.stringify(updated));
-        } catch (e) {
-          console.error(e);
-        }
+          localStorage.removeItem(`oneclickbiz_custom_profile_${prev.slug}`);
+          window.history.replaceState({}, '', `/dashboard/builder?slug=${value}`);
+        } catch (e) {}
       }
 
       // If updating avatarUrl, show confirmation

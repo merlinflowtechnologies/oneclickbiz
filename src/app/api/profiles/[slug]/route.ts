@@ -94,37 +94,65 @@ export async function PUT(
     const cleanSlug = (slug || '').toLowerCase().trim();
     const body = await req.json();
 
-    const profile = await prisma.profile.findUnique({
+    let targetProfile = await prisma.profile.findUnique({
       where: { slug: cleanSlug }
     });
 
-    if (!profile) {
-      // If profile is not in DB yet (e.g. client-side draft), return success for local storage
-      return NextResponse.json({ success: true, profile: body, note: 'Saved locally' });
-    }
-
     const session = await getSessionUser(req);
-    // If authenticated, check permissions (super admin or org owner)
-    if (session && session.role !== 'SUPER_ADMIN' && profile.organizationId !== session.organizationId) {
-      return NextResponse.json({ error: 'Forbidden: You do not own this profile' }, { status: 403 });
+
+    if (!targetProfile) {
+      let orgId = session?.organizationId;
+      if (!orgId) {
+        const firstOrg = await prisma.organization.findFirst();
+        orgId = firstOrg?.id;
+      }
+
+      if (orgId) {
+        targetProfile = await prisma.profile.create({
+          data: {
+            organizationId: orgId,
+            slug: cleanSlug,
+            name: body.name || 'Digital Card',
+            designation: body.designation,
+            company: body.company,
+            bio: body.bio,
+            phone: body.phone,
+            email: body.email,
+            whatsapp: body.whatsapp,
+            website: body.website,
+            address: body.address,
+            theme: body.theme || 'modern-indigo',
+            avatarUrl: body.avatarUrl,
+            coverUrl: body.coverUrl,
+            isPublished: true
+          }
+        });
+      } else {
+        return NextResponse.json({ success: true, profile: body, note: 'Saved locally' });
+      }
+    } else {
+      // If authenticated, check permissions (super admin or org owner)
+      if (session && session.role !== 'SUPER_ADMIN' && targetProfile.organizationId !== session.organizationId) {
+        return NextResponse.json({ error: 'Forbidden: You do not own this profile' }, { status: 403 });
+      }
     }
 
     const updated = await prisma.profile.update({
-      where: { id: profile.id },
+      where: { id: targetProfile.id },
       data: {
-        name: body.name !== undefined ? body.name : profile.name,
-        designation: body.designation !== undefined ? body.designation : profile.designation,
-        company: body.company !== undefined ? body.company : profile.company,
-        bio: body.bio !== undefined ? body.bio : profile.bio,
-        email: body.email !== undefined ? body.email : profile.email,
-        phone: body.phone !== undefined ? body.phone : profile.phone,
-        whatsapp: body.whatsapp !== undefined ? body.whatsapp : profile.whatsapp,
-        website: body.website !== undefined ? body.website : profile.website,
-        address: body.address !== undefined ? body.address : profile.address,
-        theme: body.theme !== undefined ? body.theme : profile.theme,
-        avatarUrl: body.avatarUrl !== undefined ? body.avatarUrl : profile.avatarUrl,
-        coverUrl: body.coverUrl !== undefined ? body.coverUrl : profile.coverUrl,
-        isPublished: body.isPublished !== undefined ? body.isPublished : profile.isPublished,
+        name: body.name !== undefined ? body.name : targetProfile.name,
+        designation: body.designation !== undefined ? body.designation : targetProfile.designation,
+        company: body.company !== undefined ? body.company : targetProfile.company,
+        bio: body.bio !== undefined ? body.bio : targetProfile.bio,
+        email: body.email !== undefined ? body.email : targetProfile.email,
+        phone: body.phone !== undefined ? body.phone : targetProfile.phone,
+        whatsapp: body.whatsapp !== undefined ? body.whatsapp : targetProfile.whatsapp,
+        website: body.website !== undefined ? body.website : targetProfile.website,
+        address: body.address !== undefined ? body.address : targetProfile.address,
+        theme: body.theme !== undefined ? body.theme : targetProfile.theme,
+        avatarUrl: body.avatarUrl !== undefined ? body.avatarUrl : targetProfile.avatarUrl,
+        coverUrl: body.coverUrl !== undefined ? body.coverUrl : targetProfile.coverUrl,
+        isPublished: body.isPublished !== undefined ? body.isPublished : targetProfile.isPublished,
       }
     });
 
@@ -132,7 +160,7 @@ export async function PUT(
     if (body.sections && Array.isArray(body.sections)) {
       try {
         await prisma.profileSection.deleteMany({
-          where: { profileId: profile.id }
+          where: { profileId: targetProfile.id }
         });
 
         for (let i = 0; i < body.sections.length; i++) {
@@ -141,7 +169,7 @@ export async function PUT(
           const configData = body.sectionData?.[secType] || {};
           await prisma.profileSection.create({
             data: {
-              profileId: profile.id,
+              profileId: targetProfile.id,
               type: secType,
               title: sec.title || secType,
               isVisible: sec.isVisible !== false,
