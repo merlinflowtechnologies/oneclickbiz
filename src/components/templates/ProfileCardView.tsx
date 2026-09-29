@@ -129,7 +129,50 @@ export default function ProfileCardView({
   }, [propProfile?.slug, isMockup]);
 
   const profile = (!isMockup && customProfile) 
-    ? { ...propProfile, ...customProfile } 
+    ? {
+        ...propProfile,
+        ...customProfile,
+        bio: customProfile.bio || propProfile.bio,
+        name: customProfile.name || propProfile.name,
+        company: customProfile.company || propProfile.company,
+        designation: customProfile.designation || propProfile.designation,
+        phone: customProfile.phone || propProfile.phone,
+        whatsapp: customProfile.whatsapp || propProfile.whatsapp,
+        email: customProfile.email || propProfile.email,
+        website: customProfile.website || propProfile.website,
+        address: customProfile.address || propProfile.address,
+        avatarUrl: customProfile.avatarUrl || propProfile.avatarUrl,
+        coverUrl: customProfile.coverUrl || propProfile.coverUrl,
+        sections: (customProfile.sections && customProfile.sections.length > 0) ? customProfile.sections : propProfile.sections,
+        sectionData: {
+          ...propProfile.sectionData,
+          ...customProfile.sectionData,
+          about: {
+            content: customProfile.bio || customProfile.sectionData?.about?.content || propProfile.bio || propProfile.sectionData?.about?.content || ''
+          },
+          gallery: (customProfile.sectionData?.gallery?.items && customProfile.sectionData.gallery.items.length > 0)
+            ? customProfile.sectionData.gallery
+            : propProfile.sectionData?.gallery,
+          videos: (customProfile.sectionData?.videos?.items && customProfile.sectionData.videos.items.length > 0)
+            ? customProfile.sectionData.videos
+            : propProfile.sectionData?.videos,
+          services: (customProfile.sectionData?.services?.items && customProfile.sectionData.services.items.length > 0)
+            ? customProfile.sectionData.services
+            : propProfile.sectionData?.services,
+          products: (customProfile.sectionData?.products?.items && customProfile.sectionData.products.items.length > 0)
+            ? customProfile.sectionData.products
+            : propProfile.sectionData?.products,
+          socials: (customProfile.sectionData?.socials?.items && customProfile.sectionData.socials.items.length > 0)
+            ? customProfile.sectionData.socials
+            : propProfile.sectionData?.socials,
+          testimonials: (customProfile.sectionData?.testimonials?.items && customProfile.sectionData.testimonials.items.length > 0)
+            ? customProfile.sectionData.testimonials
+            : propProfile.sectionData?.testimonials,
+          blogs: (customProfile.sectionData?.blogs?.items && customProfile.sectionData.blogs.items.length > 0)
+            ? customProfile.sectionData.blogs
+            : propProfile.sectionData?.blogs,
+        }
+      } 
     : propProfile;
 
   // Cart & Modals State
