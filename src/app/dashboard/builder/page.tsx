@@ -22,7 +22,6 @@ function BuilderContent() {
         const queryTemplate = searchParams.get('template');
         const queryName = searchParams.get('name');
         const queryBiz = searchParams.get('biz');
-        const queryPlan = searchParams.get('plan');
 
         const savedSession = localStorage.getItem('oneclickbiz_user_session');
         const parsedSession = savedSession ? JSON.parse(savedSession) : null;
@@ -33,34 +32,67 @@ function BuilderContent() {
         // If user came from signup/login query params OR has valid session
         if ((querySlug && queryBiz) || (parsedSession && parsedSession.loggedIn)) {
           setIsAuthVerified(true);
-          let resolved: DigitalProfile;
 
+          // Build a local fallback first (from localStorage or preset)
+          let localFallback: DigitalProfile;
           const customSaved = localStorage.getItem(`oneclickbiz_custom_profile_${targetSlug}`);
           if (customSaved) {
             try {
-              resolved = JSON.parse(customSaved);
+              localFallback = JSON.parse(customSaved);
             } catch {
-              resolved = effectiveTemplateId ? getTemplateProfile(effectiveTemplateId) : getProfileBySlug(targetSlug);
+              localFallback = effectiveTemplateId ? getTemplateProfile(effectiveTemplateId) : getProfileBySlug(targetSlug);
             }
           } else if (effectiveTemplateId) {
-            resolved = getTemplateProfile(effectiveTemplateId);
-            if (targetSlug) resolved.slug = targetSlug;
+            localFallback = getTemplateProfile(effectiveTemplateId);
+            if (targetSlug) localFallback.slug = targetSlug;
           } else {
-            resolved = getProfileBySlug(targetSlug);
+            localFallback = getProfileBySlug(targetSlug);
           }
 
-          if (queryName && !customSaved) resolved.name = decodeURIComponent(queryName);
-          if (queryBiz && !customSaved) resolved.company = decodeURIComponent(queryBiz);
-          if (parsedSession?.fullName && !customSaved) resolved.name = parsedSession.fullName;
-          if (parsedSession?.businessName && !customSaved) resolved.company = parsedSession.businessName;
+          if (queryName && !customSaved) localFallback.name = decodeURIComponent(queryName);
+          if (queryBiz && !customSaved) localFallback.company = decodeURIComponent(queryBiz);
+          if (parsedSession?.fullName && !customSaved) localFallback.name = parsedSession.fullName;
+          if (parsedSession?.businessName && !customSaved) localFallback.company = parsedSession.businessName;
           if (parsedSession?.phone && !customSaved) {
-            resolved.phone = parsedSession.phone;
-            resolved.whatsapp = parsedSession.phone.replace(/\D/g, '');
+            localFallback.phone = parsedSession.phone;
+            localFallback.whatsapp = parsedSession.phone.replace(/\D/g, '');
           }
-          if (parsedSession?.email && !customSaved) resolved.email = parsedSession.email;
-          if (targetSlug) resolved.slug = targetSlug;
+          if (parsedSession?.email && !customSaved) localFallback.email = parsedSession.email;
+          if (targetSlug) localFallback.slug = targetSlug;
 
-          setProfile(resolved);
+          // Show local data immediately, then fetch fresh from DB
+          setProfile(localFallback);
+
+          // Fetch latest profile from the server DB (source of truth)
+          fetch(`/api/profiles/${targetSlug}`)
+            .then(res => res.ok ? res.json() : null)
+            .then(data => {
+              if (data?.profile) {
+                const dbProfile = data.profile as DigitalProfile;
+                // Merge: DB fields override local, but keep local-only fields
+                const merged: DigitalProfile = {
+                  ...localFallback,
+                  ...dbProfile,
+                  // Ensure sectionData.about.content reflects the DB bio
+                  sectionData: {
+                    ...(localFallback.sectionData || {}),
+                    ...(dbProfile.sectionData || {}),
+                    about: {
+                      ...(localFallback.sectionData?.about || {}),
+                      ...(dbProfile.sectionData?.about || {}),
+                      content: dbProfile.bio != null ? dbProfile.bio : (localFallback.sectionData?.about?.content || localFallback.bio || '')
+                    }
+                  }
+                };
+                setProfile(merged);
+                // Update localStorage with fresh DB data
+                try {
+                  localStorage.setItem(`oneclickbiz_custom_profile_${targetSlug}`, JSON.stringify(merged));
+                } catch (_) {}
+              }
+            })
+            .catch(err => console.warn('Builder: Could not fetch fresh profile from DB:', err));
+
           return;
         }
 
