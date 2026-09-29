@@ -88,24 +88,39 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
         });
       }
 
+      // Use DB bio if it exists (even empty string means user cleared it intentionally)
+      // Only fall back to preset if DB has never set a bio (null/undefined)
+      const resolvedBio = dbProfile.bio != null ? dbProfile.bio : fallback.bio;
+
+      // Ensure sectionData.about.content always mirrors the resolved bio
+      if (resolvedBio != null) {
+        reconstructedSectionData = {
+          ...reconstructedSectionData,
+          about: {
+            ...(reconstructedSectionData.about || {}),
+            content: resolvedBio
+          }
+        };
+      }
+
       return {
         ...fallback,
         id: dbProfile.id,
         slug: dbProfile.slug,
-        name: dbProfile.name || fallback.name,
-        designation: dbProfile.designation || fallback.designation,
-        company: dbProfile.company || fallback.company,
-        bio: dbProfile.bio || fallback.bio,
-        email: dbProfile.email || fallback.email,
-        phone: dbProfile.phone || fallback.phone,
-        whatsapp: dbProfile.whatsapp || fallback.whatsapp,
-        website: dbProfile.website || fallback.website,
-        address: dbProfile.address || fallback.address,
-        theme: (dbProfile.theme as any) || fallback.theme,
+        name: dbProfile.name ?? fallback.name,
+        designation: dbProfile.designation ?? fallback.designation,
+        company: dbProfile.company ?? fallback.company,
+        bio: resolvedBio,
+        email: dbProfile.email ?? fallback.email,
+        phone: dbProfile.phone ?? fallback.phone,
+        whatsapp: dbProfile.whatsapp ?? fallback.whatsapp,
+        website: dbProfile.website ?? fallback.website,
+        address: dbProfile.address ?? fallback.address,
+        theme: (dbProfile.theme as any) ?? fallback.theme,
         avatarUrl: ['kishore', 'kishore-patel'].includes(cleanSlug)
           ? '/kishore-profile-v2.png'
-          : (dbProfile.avatarUrl || fallback.avatarUrl),
-        coverUrl: dbProfile.coverUrl || fallback.coverUrl,
+          : (dbProfile.avatarUrl ?? fallback.avatarUrl),
+        coverUrl: dbProfile.coverUrl ?? fallback.coverUrl,
         sections: reconstructedSections,
         sectionData: reconstructedSectionData,
         isPublished,
