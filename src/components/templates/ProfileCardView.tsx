@@ -52,30 +52,17 @@ const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; labe
   AED: { symbol: 'AED ', rate: 0.044, label: 'AED' }
 };
 
-function getEmbedUrl(item: VideoItem): string {
-  if (item.embedUrl) return item.embedUrl;
+export function getEmbedUrl(item: VideoItem | { url?: string; embedUrl?: string }): string {
+  if (item.embedUrl && item.embedUrl.includes('embed')) return item.embedUrl;
   const url = (item.url || '').trim();
+  if (!url) return '';
   
-  // YouTube Standard
-  if (url.includes('youtube.com/watch')) {
-    try {
-      const parsed = new URL(url);
-      const v = parsed.searchParams.get('v');
-      if (v) return `https://www.youtube.com/embed/${v}`;
-    } catch {
-      // ignore
-    }
+  // YouTube Regex Match (supports watch, shorts, live, embed, youtu.be, m.youtube, timestamps)
+  const ytMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts|live)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+  if (ytMatch && ytMatch[1]) {
+    return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=0&rel=0`;
   }
-  // YouTube Short Link
-  if (url.includes('youtu.be/')) {
-    const v = url.split('youtu.be/')[1]?.split('?')[0];
-    if (v) return `https://www.youtube.com/embed/${v}`;
-  }
-  // YouTube Shorts
-  if (url.includes('youtube.com/shorts/')) {
-    const v = url.split('youtube.com/shorts/')[1]?.split('?')[0];
-    if (v) return `https://www.youtube.com/embed/${v}`;
-  }
+  
   // Vimeo
   if (url.includes('vimeo.com/')) {
     const v = url.split('vimeo.com/')[1]?.split('?')[0]?.replace(/\D/g, '');
@@ -86,7 +73,7 @@ function getEmbedUrl(item: VideoItem): string {
     const v = url.split('loom.com/share/')[1]?.split('?')[0];
     if (v) return `https://www.loom.com/embed/${v}`;
   }
-  // Instagram Reels
+  // Instagram Reels / Posts
   if (url.includes('instagram.com/reel/') || url.includes('instagram.com/p/')) {
     const cleanReel = url.split('instagram.com/reel/')[1]?.split('/')[0]?.split('?')[0] || 
                       url.split('instagram.com/p/')[1]?.split('/')[0]?.split('?')[0];
@@ -116,16 +103,30 @@ export default function ProfileCardView({
   const [customProfile, setCustomProfile] = useState<DigitalProfile | null>(null);
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined' && !isMockup && propProfile?.slug) {
-      const custom = localStorage.getItem(`oneclickbiz_custom_profile_${propProfile.slug}`);
-      if (custom) {
-        try {
-          const parsed = JSON.parse(custom);
-          setCustomProfile(parsed);
-        } catch (e) {}
+    const loadCustom = () => {
+      if (typeof window !== 'undefined' && !isMockup && propProfile?.slug) {
+        const custom = localStorage.getItem(`oneclickbiz_custom_profile_${propProfile.slug}`);
+        if (custom) {
+          try {
+            const parsed = JSON.parse(custom);
+            setCustomProfile(parsed);
+          } catch (e) {}
+        }
       }
+    };
+
+    loadCustom();
+
+    if (typeof window !== 'undefined' && !isMockup) {
+      const handleStorage = () => loadCustom();
+      window.addEventListener('storage', handleStorage);
+      window.addEventListener('oneclickbiz_profile_updated', handleStorage as EventListener);
+      return () => {
+        window.removeEventListener('storage', handleStorage);
+        window.removeEventListener('oneclickbiz_profile_updated', handleStorage as EventListener);
+      };
     }
-  }, [propProfile?.slug, propProfile?.avatarUrl, isMockup]);
+  }, [propProfile?.slug, isMockup]);
 
   const profile = (!isMockup && customProfile) 
     ? { ...propProfile, ...customProfile, ...(propProfile.avatarUrl ? { avatarUrl: propProfile.avatarUrl } : {}) } 
@@ -818,14 +819,17 @@ export default function ProfileCardView({
                   <div className="space-y-4">
                     {profile.sectionData.videos.items.map((vid) => {
                       const embedSrc = getEmbedUrl(vid);
+                      const isYouTube = vid.type === 'youtube' || embedSrc.includes('youtube.com/embed') || (vid.url && (vid.url.includes('youtu.be') || vid.url.includes('youtube')));
+                      const isInstagram = vid.type === 'instagram' || embedSrc.includes('instagram.com') || (vid.url && vid.url.includes('instagram.com'));
+
                       return (
                         <div key={vid.id} className="rounded-2xl overflow-hidden bg-slate-950/80 border border-slate-800 shadow-md">
                           {/* Video Player Render */}
-                          {vid.type === 'youtube' && (
+                          {isYouTube && (
                             <div className="relative w-full aspect-video bg-slate-950">
                               <iframe
                                 src={embedSrc}
-                                title={vid.title}
+                                title={vid.title || 'YouTube Video'}
                                 className="w-full h-full border-0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
@@ -833,13 +837,13 @@ export default function ProfileCardView({
                             </div>
                           )}
 
-                          {vid.type === 'instagram' && (
+                          {!isYouTube && isInstagram && (
                             <div className="relative w-full bg-slate-950 flex flex-col items-center">
                               {embedSrc.includes('instagram.com') ? (
                                 <div className="w-full aspect-[9/16] max-h-[460px] bg-slate-950 overflow-hidden relative">
                                   <iframe
                                     src={embedSrc}
-                                    title={vid.title}
+                                    title={vid.title || 'Instagram Reel'}
                                     className="w-full h-full border-0"
                                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
                                     allowFullScreen
@@ -865,7 +869,7 @@ export default function ProfileCardView({
                             </div>
                           )}
 
-                          {vid.type === 'direct' && (
+                          {!isYouTube && !isInstagram && (
                             <div className="relative w-full bg-slate-950">
                               <video 
                                 src={vid.url} 
@@ -882,11 +886,11 @@ export default function ProfileCardView({
                             <div className="flex items-center justify-between gap-2">
                               <h4 className="text-xs font-bold text-white line-clamp-1">{vid.title}</h4>
                               <span className={`text-[9px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded ${
-                                vid.type === 'youtube' ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
-                                vid.type === 'instagram' ? 'bg-pink-500/20 text-pink-400 border border-pink-500/30' :
+                                isYouTube ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
+                                isInstagram ? 'bg-pink-500/20 text-pink-400 border border-pink-500/30' :
                                 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
                               }`}>
-                                {vid.type === 'youtube' ? 'YouTube' : vid.type === 'instagram' ? 'Instagram' : 'MP4 Video'}
+                                {isYouTube ? 'YouTube' : isInstagram ? 'Instagram' : 'MP4 Video'}
                               </span>
                             </div>
                             {vid.caption && (
@@ -1030,6 +1034,10 @@ export default function ProfileCardView({
                           src={img.imageUrl} 
                           alt={img.title || 'Portfolio Showcase'} 
                           className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" 
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
+                          }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity p-2.5 flex flex-col justify-end">
                           {img.category && (

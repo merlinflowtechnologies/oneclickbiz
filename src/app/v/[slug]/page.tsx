@@ -49,6 +49,26 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
       const isPublished = Boolean(dbProfile.isPublished && hasActivePaidPlan);
 
       const fallback = getProfileBySlug(cleanSlug);
+
+      let reconstructedSectionData = { ...(fallback.sectionData || {}) };
+      let reconstructedSections = fallback.sections;
+
+      if (dbProfile.sections && dbProfile.sections.length > 0) {
+        reconstructedSections = dbProfile.sections.map(s => ({
+          id: s.id,
+          type: s.type as any,
+          title: s.title,
+          isVisible: s.isVisible,
+          order: s.order
+        }));
+
+        dbProfile.sections.forEach(s => {
+          if (s.config && typeof s.config === 'object' && Object.keys(s.config).length > 0) {
+            (reconstructedSectionData as any)[s.type] = s.config;
+          }
+        });
+      }
+
       return {
         ...fallback,
         id: dbProfile.id,
@@ -67,6 +87,8 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
           ? '/kishore-profile-v2.png'
           : (dbProfile.avatarUrl || fallback.avatarUrl),
         coverUrl: dbProfile.coverUrl || fallback.coverUrl,
+        sections: reconstructedSections,
+        sectionData: reconstructedSectionData,
         isPublished,
         isExpired,
         subscriptionStatus

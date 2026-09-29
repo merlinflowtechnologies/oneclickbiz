@@ -25,53 +25,43 @@ function BuilderContent() {
         const queryPlan = searchParams.get('plan');
 
         const savedSession = localStorage.getItem('oneclickbiz_user_session');
+        const parsedSession = savedSession ? JSON.parse(savedSession) : null;
 
-        // Check if template parameter is supplied
-        const effectiveTemplateId = queryTemplate || (savedSession ? JSON.parse(savedSession).template : null);
+        const targetSlug = (querySlug || parsedSession?.slug || 'alex').toLowerCase().trim();
+        const effectiveTemplateId = queryTemplate || parsedSession?.template || null;
 
         // If user came from signup/login query params OR has valid session
-        if (querySlug && queryBiz) {
+        if ((querySlug && queryBiz) || (parsedSession && parsedSession.loggedIn)) {
           setIsAuthVerified(true);
-          const generated = effectiveTemplateId ? getTemplateProfile(effectiveTemplateId) : getProfileBySlug(querySlug);
-          if (queryName) generated.name = decodeURIComponent(queryName);
-          if (queryBiz) generated.company = decodeURIComponent(queryBiz);
-          if (querySlug) generated.slug = querySlug.toLowerCase();
-          setProfile(generated);
-          return;
-        }
+          let resolved: DigitalProfile;
 
-        if (savedSession) {
-          const parsed = JSON.parse(savedSession);
-          if (parsed.loggedIn) {
-            setIsAuthVerified(true);
-            const targetSlug = querySlug || parsed.slug || 'alex';
-            const targetTemplate = queryTemplate || parsed.template;
-            let resolved: DigitalProfile;
-            
-            const customSaved = localStorage.getItem(`oneclickbiz_custom_profile_${targetSlug}`);
-            if (customSaved) {
-              try {
-                resolved = JSON.parse(customSaved);
-              } catch {
-                resolved = getProfileBySlug(targetSlug);
-              }
-            } else if (targetTemplate) {
-              resolved = getTemplateProfile(targetTemplate);
-              if (parsed.slug) resolved.slug = parsed.slug;
-            } else {
-              resolved = getProfileBySlug(targetSlug);
+          const customSaved = localStorage.getItem(`oneclickbiz_custom_profile_${targetSlug}`);
+          if (customSaved) {
+            try {
+              resolved = JSON.parse(customSaved);
+            } catch {
+              resolved = effectiveTemplateId ? getTemplateProfile(effectiveTemplateId) : getProfileBySlug(targetSlug);
             }
-
-            if (parsed.fullName && !customSaved) resolved.name = parsed.fullName;
-            if (parsed.businessName && !customSaved) resolved.company = parsed.businessName;
-            if (parsed.phone && !customSaved) {
-              resolved.phone = parsed.phone;
-              resolved.whatsapp = parsed.phone.replace(/\D/g, '');
-            }
-            if (parsed.email && !customSaved) resolved.email = parsed.email;
-            setProfile(resolved);
-            return;
+          } else if (effectiveTemplateId) {
+            resolved = getTemplateProfile(effectiveTemplateId);
+            if (targetSlug) resolved.slug = targetSlug;
+          } else {
+            resolved = getProfileBySlug(targetSlug);
           }
+
+          if (queryName && !customSaved) resolved.name = decodeURIComponent(queryName);
+          if (queryBiz && !customSaved) resolved.company = decodeURIComponent(queryBiz);
+          if (parsedSession?.fullName && !customSaved) resolved.name = parsedSession.fullName;
+          if (parsedSession?.businessName && !customSaved) resolved.company = parsedSession.businessName;
+          if (parsedSession?.phone && !customSaved) {
+            resolved.phone = parsedSession.phone;
+            resolved.whatsapp = parsedSession.phone.replace(/\D/g, '');
+          }
+          if (parsedSession?.email && !customSaved) resolved.email = parsedSession.email;
+          if (targetSlug) resolved.slug = targetSlug;
+
+          setProfile(resolved);
+          return;
         }
 
         // If neither exists, user is unauthenticated

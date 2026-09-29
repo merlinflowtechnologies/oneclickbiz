@@ -55,6 +55,89 @@ import SocialIcon, { getSocialBrandColor } from '@/components/common/SocialIcon'
 import ShareCardModal from '@/components/common/ShareCardModal';
 import { getCurrentUserPlan } from '@/lib/plan-guards';
 
+// Helper to permanently convert and compress image files to base64 data URLs
+export const readFileAsDataUrl = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      if (typeof window !== 'undefined' && file.type.startsWith('image/')) {
+        const img = new Image();
+        img.onload = () => {
+          const maxDim = 1200;
+          let width = img.width;
+          let height = img.height;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', 0.85));
+            return;
+          }
+          resolve(result);
+        };
+        img.onerror = () => resolve(result);
+        img.src = result;
+      } else {
+        resolve(result);
+      }
+    };
+    reader.onerror = error => reject(error);
+    reader.readAsDataURL(file);
+  });
+};
+
+// Helper to auto-detect video type and extract proper embed URL
+export const normalizeVideoUrl = (rawUrl: string): { url: string; type: 'youtube' | 'instagram' | 'direct'; embedUrl?: string } => {
+  const url = (rawUrl || '').trim();
+  if (!url) return { url: '', type: 'youtube' };
+
+  // YouTube match
+  const ytMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts|live)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+  if (ytMatch && ytMatch[1]) {
+    return {
+      url,
+      type: 'youtube',
+      embedUrl: `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=0&rel=0`
+    };
+  }
+
+  // Instagram Reels or Posts
+  if (url.includes('instagram.com/reel/') || url.includes('instagram.com/p/')) {
+    const cleanReel = url.split('instagram.com/reel/')[1]?.split('/')[0]?.split('?')[0] || 
+                      url.split('instagram.com/p/')[1]?.split('/')[0]?.split('?')[0];
+    return {
+      url,
+      type: 'instagram',
+      embedUrl: cleanReel ? `https://www.instagram.com/reel/${cleanReel}/embed` : url
+    };
+  }
+
+  // Direct video file extension
+  if (url.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i)) {
+    return {
+      url,
+      type: 'direct'
+    };
+  }
+
+  return {
+    url,
+    type: url.includes('youtube') || url.includes('youtu.be') ? 'youtube' : 'direct'
+  };
+};
+
 export const AVATAR_PRESETS = [
   { id: 'av1', label: 'Executive Leader', url: '/kishore-profile-v2.png' },
   { id: 'av2', label: 'Tech Founder (F)', url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80' },
@@ -97,6 +180,8 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
   const [profile, setProfile] = useState<DigitalProfile>(initialProfile);
   const [activeTab, setActiveTab] = useState<'cards' | 'info' | 'templates' | 'theme' | 'sections' | 'services' | 'products' | 'videos' | 'blogs' | 'gallery' | 'socials'>('info');
   const [isSaved, setIsSaved] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccessMsg, setSaveSuccessMsg] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
   const [appliedTemplateName, setAppliedTemplateName] = useState<string | null>(null);
 
@@ -401,15 +486,25 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     const templateMeta = VCARD_TEMPLATES_CATALOG.find(t => t.id === templateId);
 
     if (fullPreset) {
-      setProfile(prev => ({
-        ...preset,
-        slug: prev.slug || preset.slug,
-        name: (prev.name && prev.name !== 'Kishore Patel') ? prev.name : preset.name,
-        company: (prev.company && prev.company !== 'Himastech Digital Reality') ? prev.company : preset.company,
-        phone: prev.phone || preset.phone,
-        whatsapp: prev.whatsapp || preset.whatsapp,
-        email: prev.email || preset.email,
-      }));
+      setProfile(prev => {
+        const hasCustomGallery = prev.sectionData.gallery?.items && prev.sectionData.gallery.items.length > 0;
+        const hasCustomVideos = prev.sectionData.videos?.items && prev.sectionData.videos.items.length > 0;
+
+        return {
+          ...preset,
+          slug: prev.slug || preset.slug,
+          name: (prev.name && prev.name !== 'Kishore Patel') ? prev.name : preset.name,
+          company: (prev.company && prev.company !== 'Himastech Digital Reality') ? prev.company : preset.company,
+          phone: prev.phone || preset.phone,
+          whatsapp: prev.whatsapp || preset.whatsapp,
+          email: prev.email || preset.email,
+          sectionData: {
+            ...preset.sectionData,
+            gallery: hasCustomGallery ? prev.sectionData.gallery : preset.sectionData.gallery,
+            videos: hasCustomVideos ? prev.sectionData.videos : preset.sectionData.videos,
+          }
+        };
+      });
     } else {
       setProfile(prev => ({
         ...prev,
@@ -429,15 +524,18 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
   };
 
   const handleSave = async () => {
+    setIsSaving(true);
     if (onSave) {
       onSave(profile);
     }
     
-    // Sync to local storage
+    // Sync to local storage & trigger storage update across all components
     if (typeof window !== 'undefined') {
       try {
         localStorage.setItem(`oneclickbiz_custom_profile_${profile.slug}`, JSON.stringify(profile));
         localStorage.setItem('oneclickbiz_active_profile', JSON.stringify(profile));
+        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new CustomEvent('oneclickbiz_profile_updated', { detail: profile }));
       } catch (e) {
         console.error('Save to localStorage error:', e);
       }
@@ -445,22 +543,32 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
     // Persist to Server Database API
     try {
-      fetch(`/api/profiles/${profile.slug}`, {
+      const res = await fetch(`/api/profiles/${profile.slug}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(profile)
-      }).catch(err => console.error('Save profile to API error:', err));
+      });
+      if (res.ok) {
+        const data = await res.json();
+        console.log('Profile saved & published successfully:', data);
+      }
     } catch (e) {
-      console.error(e);
+      console.error('Save profile to API error:', e);
+    } finally {
+      setIsSaving(false);
     }
 
     setIsSaved(true);
+    setSaveSuccessMsg(`Card published live at oneclickbiz.in/v/${profile.slug}`);
     confetti({
       particleCount: 80,
       spread: 60,
       origin: { y: 0.6 }
     });
-    setTimeout(() => setIsSaved(false), 3000);
+    setTimeout(() => {
+      setIsSaved(false);
+      setSaveSuccessMsg(null);
+    }, 4000);
   };
 
   const handleCopyLink = () => {
@@ -637,10 +745,17 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             </a>
             <button 
               onClick={handleSave}
-              className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white flex items-center gap-1.5 shadow-lg transition-all active:scale-95"
+              disabled={isSaving}
+              className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-75 text-xs font-semibold text-white flex items-center gap-1.5 shadow-lg transition-all active:scale-95 cursor-pointer"
             >
-              {isSaved ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Save className="w-3.5 h-3.5" />}
-              {isSaved ? 'Saved!' : 'Save & Publish'}
+              {isSaving ? (
+                <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : isSaved ? (
+                <Check className="w-3.5 h-3.5 text-emerald-300" />
+              ) : (
+                <Save className="w-3.5 h-3.5" />
+              )}
+              {isSaving ? 'Publishing...' : isSaved ? 'Saved & Live!' : 'Save & Publish'}
             </button>
           </div>
         </div>
@@ -2155,8 +2270,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         <select
                           value={vid.type}
                           onChange={e => {
+                            const newType = e.target.value as 'youtube' | 'instagram' | 'direct';
                             const updated = [...(profile.sectionData.videos?.items || [])];
-                            updated[idx].type = e.target.value as 'youtube' | 'instagram' | 'direct';
+                            updated[idx] = {
+                              ...updated[idx],
+                              type: newType
+                            };
                             setProfile(prev => ({
                               ...prev,
                               sectionData: { ...prev.sectionData, videos: { items: updated } }
@@ -2192,7 +2311,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     <div>
                       <div className="flex items-center justify-between mb-1">
                         <label className="text-[11px] font-medium text-slate-400">
-                          {vid.type === 'direct' ? 'Direct Video URL or Local File' : 'Video Web Link'}
+                          {vid.type === 'direct' ? 'Direct Video URL or Local File' : 'Video Web Link (YouTube / Vimeo / Reels)'}
                         </label>
                         {vid.type === 'direct' && (
                           <label className="text-[10px] text-indigo-400 hover:text-indigo-300 font-semibold cursor-pointer flex items-center gap-1">
@@ -2202,14 +2321,14 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                               type="file"
                               accept="video/*"
                               className="hidden"
-                              onChange={(e) => {
+                              onChange={async (e) => {
                                 const file = e.target.files?.[0];
                                 if (!file) return;
-                                const localUrl = URL.createObjectURL(file);
+                                const dataUrl = await readFileAsDataUrl(file);
                                 const updated = [...(profile.sectionData.videos?.items || [])];
-                                updated[idx].url = localUrl;
+                                updated[idx].url = dataUrl;
                                 updated[idx].type = 'direct';
-                                updated[idx].caption = `Local video: ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)`;
+                                updated[idx].caption = `Video: ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)`;
                                 setProfile(prev => ({
                                   ...prev,
                                   sectionData: { ...prev.sectionData, videos: { items: updated } }
@@ -2223,13 +2342,20 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         type="url"
                         value={vid.url}
                         placeholder={
-                          vid.type === 'youtube' ? 'https://www.youtube.com/watch?v=...' :
+                          vid.type === 'youtube' ? 'https://www.youtube.com/watch?v=... or https://youtu.be/...' :
                           vid.type === 'instagram' ? 'https://www.instagram.com/reel/...' :
-                          'https://example.com/video.mp4 or blob:local'
+                          'https://example.com/video.mp4'
                         }
                         onChange={e => {
+                          const rawVal = e.target.value;
+                          const normalized = normalizeVideoUrl(rawVal);
                           const updated = [...(profile.sectionData.videos?.items || [])];
-                          updated[idx].url = e.target.value;
+                          updated[idx] = {
+                            ...updated[idx],
+                            url: rawVal,
+                            type: normalized.type,
+                            embedUrl: normalized.embedUrl
+                          };
                           setProfile(prev => ({
                             ...prev,
                             sectionData: { ...prev.sectionData, videos: { items: updated } }
@@ -2237,6 +2363,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         }}
                         className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white font-mono"
                       />
+                      {vid.type === 'youtube' && vid.url && (
+                        <p className="text-[10px] text-emerald-400 mt-1 flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" />
+                          <span>Auto-configured for 4K streaming embed player</span>
+                        </p>
+                      )}
                     </div>
 
                     <div>
@@ -2416,7 +2548,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 accept="image/*"
                 multiple
                 className="hidden"
-                onChange={(e) => {
+                onChange={async (e) => {
                   const files = Array.from(e.target.files || []);
                   if (!files.length) return;
 
@@ -2434,12 +2566,14 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   }
 
                   const filesToUpload = files.slice(0, remainingQuota);
+                  const dataUrls = await Promise.all(filesToUpload.map(f => readFileAsDataUrl(f)));
+
                   const newGalleryItems: GalleryItem[] = filesToUpload.map((file, i) => ({
                     id: `gal_${Date.now()}_${i}`,
                     title: file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ") || 'Showcase Photograph',
                     category: galleryUploadTag || 'Portfolio',
                     description: `High-resolution showcase photograph under ${galleryUploadTag || 'Portfolio'}.`,
-                    imageUrl: URL.createObjectURL(file)
+                    imageUrl: dataUrls[i]
                   }));
 
                   const updated = [...currentItems, ...newGalleryItems];
@@ -2594,21 +2728,33 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     </div>
 
                     <div className="flex gap-4 items-start">
-                      <label className="w-20 h-20 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 shrink-0 shadow cursor-pointer relative group">
-                        <img src={item.imageUrl} alt={item.title || 'Preview'} className="w-full h-full object-cover group-hover:opacity-75 transition-opacity" />
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <label 
+                        className="w-20 h-20 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 shrink-0 shadow cursor-pointer relative group"
+                        title="Click to upload photo from your device gallery"
+                      >
+                        <img 
+                          src={item.imageUrl} 
+                          alt={item.title || 'Preview'} 
+                          className="w-full h-full object-cover group-hover:opacity-75 transition-opacity" 
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-1 text-center">
                           <Upload className="w-4 h-4 text-white" />
+                          <span className="text-[8px] font-bold text-white mt-0.5 leading-tight">Upload</span>
                         </div>
                         <input
                           type="file"
                           accept="image/*"
                           className="hidden"
-                          onChange={(e) => {
+                          onChange={async (e) => {
                             const file = e.target.files?.[0];
                             if (!file) return;
-                            const localUrl = URL.createObjectURL(file);
+                            const dataUrl = await readFileAsDataUrl(file);
                             const updated = [...(profile.sectionData.gallery?.items || [])];
-                            updated[idx].imageUrl = localUrl;
+                            updated[idx].imageUrl = dataUrl;
                             setProfile(prev => ({
                               ...prev,
                               sectionData: { ...prev.sectionData, gallery: { items: updated } }
@@ -2656,21 +2802,68 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         </div>
 
                         <div>
-                          <label className="text-[10px] text-slate-400 font-semibold">Image URL or Local Upload</label>
-                          <input
-                            type="url"
-                            value={item.imageUrl}
-                            placeholder="https://images.unsplash.com/..."
-                            onChange={e => {
-                              const updated = [...(profile.sectionData.gallery?.items || [])];
-                              updated[idx].imageUrl = e.target.value;
-                              setProfile(prev => ({
-                                ...prev,
-                                sectionData: { ...prev.sectionData, gallery: { items: updated } }
-                              }));
-                            }}
-                            className="w-full mt-0.5 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white font-mono"
-                          />
+                          <div className="flex items-center justify-between mb-1">
+                            <label className="text-[10px] text-slate-400 font-semibold">
+                              Image (Web Link or Gallery Upload)
+                            </label>
+                            <label className="px-2.5 py-0.5 rounded-md bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 hover:text-white border border-indigo-500/30 text-[10px] font-bold cursor-pointer flex items-center gap-1 transition active:scale-95 shadow-sm">
+                              <Upload className="w-3 h-3 text-indigo-400" />
+                              <span>Upload from Gallery</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0];
+                                  if (!file) return;
+                                  const dataUrl = await readFileAsDataUrl(file);
+                                  const updated = [...(profile.sectionData.gallery?.items || [])];
+                                  updated[idx].imageUrl = dataUrl;
+                                  setProfile(prev => ({
+                                    ...prev,
+                                    sectionData: { ...prev.sectionData, gallery: { items: updated } }
+                                  }));
+                                }}
+                              />
+                            </label>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="text"
+                              value={item.imageUrl.startsWith('data:') ? '[Uploaded Image File from Gallery]' : item.imageUrl}
+                              placeholder="https://images.unsplash.com/... or click Upload"
+                              onChange={e => {
+                                const val = e.target.value;
+                                const updated = [...(profile.sectionData.gallery?.items || [])];
+                                updated[idx].imageUrl = val;
+                                setProfile(prev => ({
+                                  ...prev,
+                                  sectionData: { ...prev.sectionData, gallery: { items: updated } }
+                                }));
+                              }}
+                              className="flex-1 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white font-mono"
+                            />
+                            <label className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold cursor-pointer border border-slate-700 flex items-center gap-1.5 shrink-0 transition active:scale-95">
+                              <Upload className="w-3.5 h-3.5 text-indigo-400" />
+                              <span>Choose Photo</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0];
+                                  if (!file) return;
+                                  const dataUrl = await readFileAsDataUrl(file);
+                                  const updated = [...(profile.sectionData.gallery?.items || [])];
+                                  updated[idx].imageUrl = dataUrl;
+                                  setProfile(prev => ({
+                                    ...prev,
+                                    sectionData: { ...prev.sectionData, gallery: { items: updated } }
+                                  }));
+                                }}
+                              />
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -3202,6 +3395,30 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           profile={profile}
           onClose={() => setIsShareModalOpen(false)}
         />
+      )}
+
+      {/* Floating Save & Publish Live Success Banner */}
+      {saveSuccessMsg && (
+        <div className="fixed bottom-6 right-6 z-50 animate-in fade-in slide-in-from-bottom-5 duration-300">
+          <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-slate-900 border border-emerald-500/40 text-white shadow-2xl shadow-emerald-500/20 backdrop-blur-xl">
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/30">
+              <CheckCircle2 className="w-5 h-5" />
+            </div>
+            <div className="text-xs">
+              <p className="font-bold text-white">Card Published Successfully!</p>
+              <p className="text-slate-300 text-[11px] font-mono mt-0.5">/v/{profile.slug}</p>
+            </div>
+            <a
+              href={`/v/${profile.slug}`}
+              target="_blank"
+              rel="noreferrer"
+              className="ml-2 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition"
+            >
+              <span>View Live</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
       )}
 
     </div>
