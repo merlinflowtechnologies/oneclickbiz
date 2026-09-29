@@ -684,16 +684,18 @@ export default function ProfileCardView({
                   <div className="grid grid-cols-2 gap-2">
                     {profile.sectionData.socials.items.map(s => {
                       const brand = getSocialBrandColor(s.platform, s.url);
+                      const isWa = s.platform === 'whatsapp' || s.url?.includes('wa.me') || s.url?.includes('whatsapp') || (s.label && s.label.toLowerCase().includes('whatsapp'));
+                      const isPh = s.platform === 'phone' || s.url?.startsWith('tel:') || (s.label && (s.label.toLowerCase().includes('call') || s.label.toLowerCase().includes('phone')));
+                      const targetHref = isWa
+                        ? `https://wa.me/${getCleanWhatsAppNumber(profile)}`
+                        : isPh
+                        ? `tel:${profile.phone ? profile.phone.replace(/[^\d+]/g, '') : '+916304989071'}`
+                        : s.url;
+
                       return (
                         <a 
                           key={s.id}
-                          href={
-                            s.platform === 'whatsapp'
-                              ? `https://wa.me/${getCleanWhatsAppNumber(profile)}`
-                              : s.platform === 'phone'
-                              ? `tel:${profile.phone ? profile.phone.replace(/[^\d+]/g, '') : '+916304989071'}`
-                              : s.url
-                          }
+                          href={targetHref}
                           target="_blank"
                           rel="noreferrer"
                           className={`px-3 py-2.5 rounded-xl ${brand.bg} ${brand.border} border text-xs font-semibold flex items-center justify-between gap-2 hover:scale-[1.02] active:scale-95 transition-all shadow-sm ${brand.glow} group`}

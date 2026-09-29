@@ -69,6 +69,25 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
         });
       }
 
+      const cleanPhone = dbProfile.phone || fallback.phone;
+      const rawWa = dbProfile.whatsapp || dbProfile.phone || fallback.whatsapp;
+      const cleanWaDigits = (rawWa || '').replace(/\D/g, '');
+      const cleanWa = cleanWaDigits.length === 10 ? `91${cleanWaDigits}` : cleanWaDigits;
+
+      if (reconstructedSectionData?.socials?.items) {
+        reconstructedSectionData.socials.items = reconstructedSectionData.socials.items.map((soc: any) => {
+          const isWa = soc.platform === 'whatsapp' || soc.url?.includes('wa.me') || soc.url?.includes('whatsapp');
+          const isPh = soc.platform === 'phone' || soc.url?.startsWith('tel:');
+          if (isWa && cleanWa) {
+            return { ...soc, url: `https://wa.me/${cleanWa}` };
+          }
+          if (isPh && cleanPhone) {
+            return { ...soc, url: `tel:${cleanPhone.replace(/[^\d+]/g, '')}` };
+          }
+          return soc;
+        });
+      }
+
       return {
         ...fallback,
         id: dbProfile.id,
