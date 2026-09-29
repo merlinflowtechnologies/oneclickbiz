@@ -262,6 +262,8 @@ export default async function PublicProfilePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}
       />
       <div className="w-full max-w-md relative z-10 sm:shadow-2xl sm:rounded-[36px] overflow-hidden">
+        {/* DEBUG - remove after fix */}
+        {console.log('[DEBUG PAGE] bio:', JSON.stringify(profile.bio?.substring(0,50)), '| about.content:', JSON.stringify((profile.sectionData?.about as any)?.content?.substring(0,50))) as any}
         <ProfileCardView profile={profile} isMockup={false} />
       </div>
     </main>
