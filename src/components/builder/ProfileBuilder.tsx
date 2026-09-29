@@ -438,6 +438,37 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     }
   };
 
+  // Helper to quickly update or create social channel URLs (LinkedIn, Instagram, etc.)
+  const updateQuickSocial = (platform: string, url: string, label: string) => {
+    setProfile(prev => {
+      const items = [...(prev.sectionData?.socials?.items || [])];
+      const idx = items.findIndex(s => s.platform === platform || (platform === 'twitter' && s.platform === 'x'));
+      if (idx >= 0) {
+        items[idx] = { ...items[idx], url: url.trim() };
+      } else if (url.trim()) {
+        items.push({
+          id: `s_${platform}_${Date.now()}`,
+          platform: platform as any,
+          label,
+          url: url.trim()
+        });
+      }
+      const updated = {
+        ...prev,
+        sectionData: {
+          ...prev.sectionData,
+          socials: { items }
+        }
+      };
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(`oneclickbiz_custom_profile_${prev.slug}`, JSON.stringify(updated));
+        } catch {}
+      }
+      return updated;
+    });
+  };
+
   // Field updates with card & session sync
   const handleFieldChange = (field: keyof DigitalProfile, value: any) => {
     setProfile(prev => {
@@ -466,6 +497,24 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 }
                 if (soc.platform === 'phone' && field === 'phone' && value) {
                   return { ...soc, url: `tel:${value}` };
+                }
+                return soc;
+              })
+            }
+          };
+        }
+      }
+
+      // Automatically sync Email in social links
+      if (field === 'email') {
+        if (updated.sectionData?.socials?.items) {
+          updated.sectionData = {
+            ...updated.sectionData,
+            socials: {
+              ...updated.sectionData.socials,
+              items: updated.sectionData.socials.items.map((soc: any) => {
+                if (soc.platform === 'email' || soc.url?.startsWith('mailto:')) {
+                  return { ...soc, url: `mailto:${value}` };
                 }
                 return soc;
               })
@@ -824,6 +873,14 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             }`}
           >
             <User className="w-3.5 h-3.5" /> Basic Info
+          </button>
+          <button 
+            onClick={() => setActiveTab('socials')}
+            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+              activeTab === 'socials' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            <Share2 className="w-3.5 h-3.5 text-purple-400" /> Social Channels ({profile.sectionData?.socials?.items?.length || 0})
           </button>
           <button 
             onClick={() => setActiveTab('templates')}
@@ -1569,6 +1626,119 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       <p className="text-[10px] text-slate-400 mt-1">
                         Deep-links visitors directly to submit a 5-star review on Google Maps.
                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Social Media & Networks (LinkedIn, Instagram, Twitter/X, YouTube, Facebook, Telegram) */}
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 space-y-3 pt-3 mt-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Share2 className="w-4 h-4 text-purple-400" />
+                      <span className="text-xs font-bold uppercase tracking-wider text-purple-200">Social Media Channels</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('socials')}
+                      className="text-[11px] text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-1 hover:underline cursor-pointer"
+                    >
+                      <span>Manage All ({profile.sectionData?.socials?.items?.length || 0})</span>
+                    </button>
+                  </div>
+
+                  <p className="text-[11px] text-slate-400">
+                    Add your profile links to activate the 1-tap connection buttons on your live card.
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+                    {/* LinkedIn */}
+                    <div>
+                      <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1.5">
+                        <SocialIcon platform="linkedin" size={13} />
+                        <span>LinkedIn Profile URL</span>
+                      </label>
+                      <input 
+                        type="url" 
+                        value={profile.sectionData?.socials?.items?.find(s => s.platform === 'linkedin')?.url || ''}
+                        placeholder="https://linkedin.com/in/username"
+                        onChange={e => updateQuickSocial('linkedin', e.target.value, 'LinkedIn')}
+                        className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 shadow-inner"
+                      />
+                    </div>
+
+                    {/* Instagram */}
+                    <div>
+                      <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1.5">
+                        <SocialIcon platform="instagram" size={13} />
+                        <span>Instagram Profile URL</span>
+                      </label>
+                      <input 
+                        type="url" 
+                        value={profile.sectionData?.socials?.items?.find(s => s.platform === 'instagram')?.url || ''}
+                        placeholder="https://instagram.com/username"
+                        onChange={e => updateQuickSocial('instagram', e.target.value, 'Instagram')}
+                        className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 shadow-inner"
+                      />
+                    </div>
+
+                    {/* Twitter / X */}
+                    <div>
+                      <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1.5">
+                        <SocialIcon platform="twitter" size={13} />
+                        <span>Twitter / X URL</span>
+                      </label>
+                      <input 
+                        type="url" 
+                        value={profile.sectionData?.socials?.items?.find(s => s.platform === 'twitter' || s.platform === 'x')?.url || ''}
+                        placeholder="https://x.com/username"
+                        onChange={e => updateQuickSocial('twitter', e.target.value, 'Twitter / X')}
+                        className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 shadow-inner"
+                      />
+                    </div>
+
+                    {/* YouTube */}
+                    <div>
+                      <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1.5">
+                        <SocialIcon platform="youtube" size={13} />
+                        <span>YouTube Channel URL</span>
+                      </label>
+                      <input 
+                        type="url" 
+                        value={profile.sectionData?.socials?.items?.find(s => s.platform === 'youtube')?.url || ''}
+                        placeholder="https://youtube.com/@channel"
+                        onChange={e => updateQuickSocial('youtube', e.target.value, 'YouTube')}
+                        className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 shadow-inner"
+                      />
+                    </div>
+
+                    {/* Facebook */}
+                    <div>
+                      <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1.5">
+                        <SocialIcon platform="facebook" size={13} />
+                        <span>Facebook Page URL</span>
+                      </label>
+                      <input 
+                        type="url" 
+                        value={profile.sectionData?.socials?.items?.find(s => s.platform === 'facebook')?.url || ''}
+                        placeholder="https://facebook.com/page"
+                        onChange={e => updateQuickSocial('facebook', e.target.value, 'Facebook')}
+                        className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 shadow-inner"
+                      />
+                    </div>
+
+                    {/* Telegram */}
+                    <div>
+                      <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1.5">
+                        <SocialIcon platform="telegram" size={13} />
+                        <span>Telegram Channel / User</span>
+                      </label>
+                      <input 
+                        type="url" 
+                        value={profile.sectionData?.socials?.items?.find(s => s.platform === 'telegram')?.url || ''}
+                        placeholder="https://t.me/username"
+                        onChange={e => updateQuickSocial('telegram', e.target.value, 'Telegram')}
+                        className="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-indigo-500 shadow-inner"
+                      />
                     </div>
                   </div>
                 </div>

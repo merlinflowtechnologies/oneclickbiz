@@ -686,10 +686,13 @@ export default function ProfileCardView({
                       const brand = getSocialBrandColor(s.platform, s.url);
                       const isWa = s.platform === 'whatsapp' || s.url?.includes('wa.me') || s.url?.includes('whatsapp') || (s.label && s.label.toLowerCase().includes('whatsapp'));
                       const isPh = s.platform === 'phone' || s.url?.startsWith('tel:') || (s.label && (s.label.toLowerCase().includes('call') || s.label.toLowerCase().includes('phone')));
+                      const isEmail = s.platform === 'email' || s.url?.startsWith('mailto:') || (s.label && s.label.toLowerCase().includes('email'));
                       const targetHref = isWa
                         ? `https://wa.me/${getCleanWhatsAppNumber(profile)}`
                         : isPh
                         ? `tel:${profile.phone ? profile.phone.replace(/[^\d+]/g, '') : '+916304989071'}`
+                        : isEmail
+                        ? `mailto:${profile.email || 'support@oneclickbiz.in'}`
                         : s.url;
 
                       return (
