@@ -351,9 +351,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
       ...basePreset,
       id: `prof_${cleanSlug}_${Date.now()}`,
       slug: cleanSlug,
-      name: newCardName.trim() || basePreset.name,
-      company: newCardCompany.trim() || basePreset.company,
-      designation: newCardDesignation.trim() || basePreset.designation,
+      name: newCardName.trim() || profile.name || basePreset.name,
+      company: newCardCompany.trim() || profile.company || basePreset.company,
+      designation: newCardDesignation.trim() || profile.designation || basePreset.designation,
+      phone: profile.phone || basePreset.phone,
+      whatsapp: profile.whatsapp || profile.phone || basePreset.whatsapp,
+      email: profile.email || basePreset.email,
     };
 
     if (typeof window !== 'undefined') {
@@ -440,6 +443,37 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     setProfile(prev => {
       const updated = { ...prev, [field]: value };
       
+      // If updating phone, also sync whatsapp if it was empty, previously matched phone, or was default preset
+      if (field === 'phone') {
+        const isPresetWa = !prev.whatsapp || prev.whatsapp === '916304989071' || prev.whatsapp === '+91 63049 89071' || prev.whatsapp === prev.phone;
+        if (isPresetWa) {
+          updated.whatsapp = value;
+        }
+      }
+
+      // Automatically sync WhatsApp and Phone in social links
+      if (field === 'whatsapp' || field === 'phone') {
+        const targetWa = (field === 'whatsapp' ? value : updated.whatsapp || value || '').replace(/\D/g, '');
+        const cleanWa = targetWa.length === 10 ? `91${targetWa}` : targetWa;
+        if (updated.sectionData?.socials?.items) {
+          updated.sectionData = {
+            ...updated.sectionData,
+            socials: {
+              ...updated.sectionData.socials,
+              items: updated.sectionData.socials.items.map((soc: any) => {
+                if (soc.platform === 'whatsapp' && cleanWa) {
+                  return { ...soc, url: `https://wa.me/${cleanWa}` };
+                }
+                if (soc.platform === 'phone' && field === 'phone' && value) {
+                  return { ...soc, url: `tel:${value}` };
+                }
+                return soc;
+              })
+            }
+          };
+        }
+      }
+
       // If updating avatar, name, or company, sync to userCards list immediately
       if (field === 'avatarUrl' || field === 'name' || field === 'company' || field === 'designation') {
         setUserCards(cards => {
@@ -489,6 +523,18 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
       setProfile(prev => {
         const hasCustomGallery = prev.sectionData.gallery?.items && prev.sectionData.gallery.items.length > 0;
         const hasCustomVideos = prev.sectionData.videos?.items && prev.sectionData.videos.items.length > 0;
+        const userWa = (prev.whatsapp || prev.phone || '').replace(/\D/g, '');
+        const cleanWa = userWa.length === 10 ? `91${userWa}` : userWa;
+
+        const updatedSocials = (preset.sectionData.socials?.items || []).map((soc: any) => {
+          if (soc.platform === 'whatsapp' && cleanWa) {
+            return { ...soc, url: `https://wa.me/${cleanWa}` };
+          }
+          if (soc.platform === 'phone' && prev.phone) {
+            return { ...soc, url: `tel:${prev.phone}` };
+          }
+          return soc;
+        });
 
         return {
           ...preset,
@@ -496,10 +542,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           name: (prev.name && prev.name !== 'Kishore Patel') ? prev.name : preset.name,
           company: (prev.company && prev.company !== 'Himastech Digital Reality') ? prev.company : preset.company,
           phone: prev.phone || preset.phone,
-          whatsapp: prev.whatsapp || preset.whatsapp,
+          whatsapp: prev.whatsapp || (cleanWa ? cleanWa : preset.whatsapp),
           email: prev.email || preset.email,
           sectionData: {
             ...preset.sectionData,
+            socials: { items: updatedSocials },
             gallery: hasCustomGallery ? prev.sectionData.gallery : preset.sectionData.gallery,
             videos: hasCustomVideos ? prev.sectionData.videos : preset.sectionData.videos,
           }

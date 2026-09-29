@@ -271,6 +271,31 @@ export default function ProfileCardView({
     return sum + singlePrice * item.quantity;
   }, 0);
 
+  const getCleanWhatsAppNumber = (p: DigitalProfile) => {
+    let raw = (p.whatsapp || '').trim();
+    // If whatsapp is empty or equals default placeholder, prioritize custom phone
+    if (!raw || raw === '916304989071' || raw === '919876543210' || raw === '+91 63049 89071') {
+      if (p.phone && p.phone.trim() && p.phone !== '+91 63049 89071' && p.phone !== '+91 98765 43210') {
+        raw = p.phone.trim();
+      }
+    }
+    // If still empty or default, check socials
+    if ((!raw || raw === '916304989071' || raw === '919876543210') && p.sectionData?.socials?.items) {
+      const waSoc = p.sectionData.socials.items.find(s => s.platform === 'whatsapp');
+      if (waSoc?.url && !waSoc.url.includes('916304989071') && !waSoc.url.includes('919876543210')) {
+        const match = waSoc.url.match(/\d+/g);
+        if (match) raw = match.join('');
+      }
+    }
+    let digits = (raw || p.whatsapp || p.phone || '916304989071').replace(/\D/g, '');
+    if (digits.length === 10) {
+      digits = `91${digits}`;
+    } else if (digits.length === 11 && digits.startsWith('0')) {
+      digits = `91${digits.slice(1)}`;
+    }
+    return digits || '916304989071';
+  };
+
   const handleWhatsAppCheckout = () => {
     if (cart.length === 0) return;
     const currSymbol = CURRENCY_CONFIG[selectedCurrency].symbol;
@@ -280,7 +305,7 @@ export default function ProfileCardView({
     }).join('\n');
     const message = `Hello ${profile.name}! 👋\n\nI would like to place an order from your OneClickBiz digital store:\n\n${itemsList}\n\n*Total Amount:* ${currSymbol}${totalConvertedPrice}\n*Currency:* ${selectedCurrency}\n\nPlease confirm availability and payment details. Thank you!`;
     const encoded = encodeURIComponent(message);
-    const whatsappNum = profile.whatsapp.replace(/\D/g, '');
+    const whatsappNum = getCleanWhatsAppNumber(profile);
     window.open(`https://wa.me/${whatsappNum}?text=${encoded}`, '_blank');
   };
 
@@ -301,7 +326,7 @@ export default function ProfileCardView({
     const total = quoteServices.reduce((sum, s) => sum + (s.price || 0), 0);
     const msg = `Hello ${profile.name}! 👋\n\nI would like an official quotation / estimate for the following services from your OneClickBiz smart profile:\n\n${itemsList}\n\n*Estimated Total:* ₹${total.toLocaleString()}\n\nPlease share detailed package scope, availability, and next steps. Thank you!`;
     const encoded = encodeURIComponent(msg);
-    const whatsappNum = profile.whatsapp.replace(/\D/g, '');
+    const whatsappNum = getCleanWhatsAppNumber(profile);
     window.open(`https://wa.me/${whatsappNum}?text=${encoded}`, '_blank');
   };
 
@@ -539,7 +564,7 @@ export default function ProfileCardView({
               Save Contact
             </button>
             <a 
-              href={`https://wa.me/${profile.whatsapp.replace(/\D/g, '')}?text=Hi%20${encodeURIComponent(profile.name)},%20I%20came%20across%20your%20OneClickBiz%20profile!`}
+              href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=Hi%20${encodeURIComponent(profile.name)},%20I%20came%20across%20your%20OneClickBiz%20profile!`}
               target="_blank"
               rel="noreferrer"
               onClick={() => trackAction('whatsapp_click')}
@@ -662,7 +687,13 @@ export default function ProfileCardView({
                       return (
                         <a 
                           key={s.id}
-                          href={s.url}
+                          href={
+                            s.platform === 'whatsapp'
+                              ? `https://wa.me/${getCleanWhatsAppNumber(profile)}`
+                              : s.platform === 'phone'
+                              ? `tel:${profile.phone ? profile.phone.replace(/[^\d+]/g, '') : '+916304989071'}`
+                              : s.url
+                          }
                           target="_blank"
                           rel="noreferrer"
                           className={`px-3 py-2.5 rounded-xl ${brand.bg} ${brand.border} border text-xs font-semibold flex items-center justify-between gap-2 hover:scale-[1.02] active:scale-95 transition-all shadow-sm ${brand.glow} group`}
@@ -1308,7 +1339,7 @@ export default function ProfileCardView({
 
                 <div className="pt-2 flex flex-col gap-2">
                   <a
-                    href={`https://wa.me/${profile.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(
+                    href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=${encodeURIComponent(
                       `Hello ${profile.name}! 👋\n\nI just scheduled an appointment via your digital card:\n\n• *Service:* ${confirmedBookingData.service.title}\n• *Date & Time:* ${confirmedBookingData.date} at ${confirmedBookingData.time}\n• *Name:* ${confirmedBookingData.name}\n• *Phone:* ${confirmedBookingData.phone}\n• *Email:* ${confirmedBookingData.email}\n\nPlease confirm availability. Thank you!`
                     )}`}
                     target="_blank"
@@ -1503,10 +1534,10 @@ export default function ProfileCardView({
                 </p>
               )}
 
-              {profile.whatsapp && (
+              {(profile.whatsapp || profile.phone) && (
                 <div className="pt-2">
                   <a
-                    href={`https://wa.me/${profile.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${profile.name}, I was viewing your portfolio project "${activeGalleryItem.title || 'Showcase'}" on your digital card. Could you please share photoshoot packages, pricing, and availability?`)}`}
+                    href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=${encodeURIComponent(`Hi ${profile.name}, I was viewing your portfolio project "${activeGalleryItem.title || 'Showcase'}" on your digital card. Could you please share photoshoot packages, pricing, and availability?`)}`}
                     target="_blank"
                     rel="noreferrer"
                     className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 transition"
@@ -1582,7 +1613,7 @@ export default function ProfileCardView({
                 <p className="text-slate-400">Message {profile.name} directly</p>
               </div>
               <a 
-                href={`https://wa.me/${profile.whatsapp || '916304989071'}?text=${encodeURIComponent(`Hi ${profile.name}, I read your article "${activeBlogPost.title}" on your digital card.`)}`}
+                href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=${encodeURIComponent(`Hi ${profile.name}, I read your article "${activeBlogPost.title}" on your digital card.`)}`}
                 target="_blank"
                 rel="noreferrer"
                 className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow"

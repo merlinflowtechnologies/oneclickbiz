@@ -167,7 +167,7 @@ function SignUpForm() {
   const [businessName, setBusinessName] = useState(paramName ? `${paramName}'s Business` : '');
   const [entityType, setEntityType] = useState('Private Limited / LLC');
   const [category, setCategory] = useState('Technology & Agency');
-  const [phone, setPhone] = useState('+91 63049 89071');
+  const [phone, setPhone] = useState('');
   const [slug, setSlug] = useState(paramSlug ? paramSlug.toLowerCase() : '');
 
   // UI / Payment States
@@ -419,6 +419,7 @@ function SignUpForm() {
           name: fullName,
           email,
           password,
+          phone,
           businessName: cleanBiz,
           slug: cleanSlug
         })
@@ -818,7 +819,7 @@ function SignUpForm() {
                         required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="+91 63049 89071"
+                        placeholder="+91 98765 43210"
                         className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50/90 border border-slate-200 text-slate-900 placeholder:text-slate-400 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                       />
                     </div>

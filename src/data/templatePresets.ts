@@ -507,10 +507,14 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
     }
   ];
 
+  const customPhone = custom.phone || '+91 63049 89071';
+  const customWaDigits = (custom.whatsapp || custom.phone || '916304989071').replace(/\D/g, '');
+  const cleanWaNumber = customWaDigits.length === 10 ? `91${customWaDigits}` : customWaDigits;
+
   const socials: SocialLinkItem[] = custom.socials || [
-    { id: 's_wa', platform: 'whatsapp', url: `https://wa.me/916304989071`, label: 'WhatsApp' },
-    { id: 's_ph', platform: 'phone', url: 'tel:+916304989071', label: 'Call' },
-    { id: 's_em', platform: 'email', url: `mailto:support@oneclickbiz.in`, label: 'Email' },
+    { id: 's_wa', platform: 'whatsapp', url: `https://wa.me/${cleanWaNumber || '916304989071'}`, label: 'WhatsApp' },
+    { id: 's_ph', platform: 'phone', url: `tel:${customPhone.replace(/[^\d+]/g, '')}`, label: 'Call' },
+    { id: 's_em', platform: 'email', url: `mailto:${custom.email || 'support@oneclickbiz.in'}`, label: 'Email' },
     { id: 's_li', platform: 'linkedin', url: 'https://linkedin.com', label: 'LinkedIn' },
     { id: 's_in', platform: 'instagram', url: 'https://instagram.com', label: 'Instagram' }
   ];
@@ -524,8 +528,8 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
     company,
     bio,
     email: custom.email || `support@oneclickbiz.in`,
-    phone: custom.phone || '+91 63049 89071',
-    whatsapp: custom.whatsapp || '916304989071',
+    phone: customPhone,
+    whatsapp: cleanWaNumber || '916304989071',
     website: custom.website || `https://oneclickbiz.in/v/${templateId}`,
     address: custom.address || 'OneClickBiz Towers, Indiranagar, Bangalore, India',
     avatarUrl,

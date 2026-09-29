@@ -108,7 +108,7 @@ export default function StoreManagerPage() {
     );
   }
 
-  // Save products to local storage
+  // Save products to local storage and sync with server
   const saveProducts = (updatedProducts: ProductItem[]) => {
     setProducts(updatedProducts);
     if (typeof window !== 'undefined') {
@@ -119,6 +119,13 @@ export default function StoreManagerPage() {
         if (!parsed.sectionData) parsed.sectionData = {};
         parsed.sectionData.products = { items: updatedProducts };
         localStorage.setItem(profileKey, JSON.stringify(parsed));
+
+        // Sync to server profile
+        fetch(`/api/profiles/${encodeURIComponent(userSlug)}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(parsed)
+        }).catch(err => console.error('Store sync error:', err));
       } catch (e) {
         console.error(e);
       }

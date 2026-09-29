@@ -56,6 +56,10 @@ export async function POST(req: NextRequest) {
         }
       });
 
+      const rawPhone = body.phone ? String(body.phone).trim() : null;
+      const cleanWaDigits = rawPhone ? rawPhone.replace(/\D/g, '') : null;
+      const formattedWa = cleanWaDigits ? (cleanWaDigits.length === 10 ? `91${cleanWaDigits}` : cleanWaDigits) : null;
+
       const profile = await tx.profile.create({
         data: {
           organizationId: organization.id,
@@ -63,6 +67,8 @@ export async function POST(req: NextRequest) {
           name,
           company: businessName || `${name}'s Business`,
           email: cleanEmail,
+          phone: rawPhone,
+          whatsapp: formattedWa,
           theme: 'modern-indigo',
           isPublished: false,
         }
