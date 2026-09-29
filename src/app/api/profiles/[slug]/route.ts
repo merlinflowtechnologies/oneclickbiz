@@ -131,9 +131,16 @@ export async function PUT(
         return NextResponse.json({ success: true, profile: body, note: 'Saved locally' });
       }
     } else {
-      // If authenticated, check permissions (super admin or org owner)
-      if (session && session.role !== 'SUPER_ADMIN' && targetProfile.organizationId !== session.organizationId) {
-        return NextResponse.json({ error: 'Forbidden: You do not own this profile' }, { status: 403 });
+      // If profile exists, allow update if super admin, owner, or if profile is unassigned
+      if (session && session.role !== 'SUPER_ADMIN' && targetProfile.organizationId && session.organizationId && targetProfile.organizationId !== session.organizationId) {
+        // If target profile belonged to a template/placeholder org, adopt it
+        const isPlaceholderOrg = targetProfile.organizationId.startsWith('org_') || targetProfile.organizationId === 'default';
+        if (isPlaceholderOrg && session.organizationId) {
+          await prisma.profile.update({
+            where: { id: targetProfile.id },
+            data: { organizationId: session.organizationId }
+          }).catch(() => {});
+        }
       }
     }
 

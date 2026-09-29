@@ -98,6 +98,41 @@ export const readFileAsDataUrl = (file: File): Promise<string> => {
   });
 };
 
+// Helper to compress any existing large data URL
+export const compressDataUrl = (dataUrl: string, maxDim = 800, quality = 0.75): Promise<string> => {
+  if (typeof window === 'undefined' || !dataUrl || !dataUrl.startsWith('data:image/') || dataUrl.length < 150000) {
+    return Promise.resolve(dataUrl);
+  }
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      let width = img.width;
+      let height = img.height;
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+        return;
+      }
+      resolve(dataUrl);
+    };
+    img.onerror = () => resolve(dataUrl);
+    img.src = dataUrl;
+  });
+};
+
 // Helper to auto-detect video type and extract proper embed URL
 export const normalizeVideoUrl = (rawUrl: string): { url: string; type: 'youtube' | 'instagram' | 'direct'; embedUrl?: string } => {
   const url = (rawUrl || '').trim();
@@ -643,17 +678,51 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
   const handleSave = async () => {
     setIsSaving(true);
+    
+    // Auto-compress any large base64 images in gallery, avatar, cover
+    let cleanProfile = { ...profile };
+    try {
+      if (cleanProfile.avatarUrl && cleanProfile.avatarUrl.startsWith('data:image/')) {
+        cleanProfile.avatarUrl = await compressDataUrl(cleanProfile.avatarUrl);
+      }
+      if (cleanProfile.coverUrl && cleanProfile.coverUrl.startsWith('data:image/')) {
+        cleanProfile.coverUrl = await compressDataUrl(cleanProfile.coverUrl);
+      }
+      if (cleanProfile.sectionData?.gallery?.items) {
+        const compressedGallery = await Promise.all(
+          cleanProfile.sectionData.gallery.items.map(async item => {
+            if (item.imageUrl && item.imageUrl.startsWith('data:image/')) {
+              const compressedUrl = await compressDataUrl(item.imageUrl);
+              return { ...item, imageUrl: compressedUrl };
+            }
+            return item;
+          })
+        );
+        cleanProfile = {
+          ...cleanProfile,
+          sectionData: {
+            ...cleanProfile.sectionData,
+            gallery: { ...cleanProfile.sectionData.gallery, items: compressedGallery }
+          }
+        };
+      }
+    } catch (compErr) {
+      console.warn('Compression error before save:', compErr);
+    }
+
+    setProfile(cleanProfile);
+
     if (onSave) {
-      onSave(profile);
+      onSave(cleanProfile);
     }
     
     // Sync to local storage & trigger storage update across all components
     if (typeof window !== 'undefined') {
       try {
-        localStorage.setItem(`oneclickbiz_custom_profile_${profile.slug}`, JSON.stringify(profile));
-        localStorage.setItem('oneclickbiz_active_profile', JSON.stringify(profile));
+        localStorage.setItem(`oneclickbiz_custom_profile_${cleanProfile.slug}`, JSON.stringify(cleanProfile));
+        localStorage.setItem('oneclickbiz_active_profile', JSON.stringify(cleanProfile));
         window.dispatchEvent(new Event('storage'));
-        window.dispatchEvent(new CustomEvent('oneclickbiz_profile_updated', { detail: profile }));
+        window.dispatchEvent(new CustomEvent('oneclickbiz_profile_updated', { detail: cleanProfile }));
       } catch (e) {
         console.error('Save to localStorage error:', e);
       }
@@ -661,14 +730,17 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
     // Persist to Server Database API
     try {
-      const res = await fetch(`/api/profiles/${profile.slug}`, {
+      const res = await fetch(`/api/profiles/${cleanProfile.slug}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(profile)
+        body: JSON.stringify(cleanProfile)
       });
       if (res.ok) {
         const data = await res.json();
         console.log('Profile saved & published successfully:', data);
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        console.error('Save profile API failed with status:', res.status, errData);
       }
     } catch (e) {
       console.error('Save profile to API error:', e);
@@ -677,7 +749,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     }
 
     setIsSaved(true);
-    setSaveSuccessMsg(`Card published live at oneclickbiz.in/v/${profile.slug}`);
+    setSaveSuccessMsg(`Card published live at oneclickbiz.in/v/${cleanProfile.slug}`);
     confetti({
       particleCount: 80,
       spread: 60,
