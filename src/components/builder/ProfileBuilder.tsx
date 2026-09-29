@@ -55,7 +55,7 @@ import SocialIcon, { getSocialBrandColor } from '@/components/common/SocialIcon'
 import ShareCardModal from '@/components/common/ShareCardModal';
 import { getCurrentUserPlan } from '@/lib/plan-guards';
 
-// Helper to permanently convert and compress image files to base64 data URLs
+// Helper to permanently convert and compress image files to lightweight base64 data URLs
 export const readFileAsDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -64,7 +64,7 @@ export const readFileAsDataUrl = (file: File): Promise<string> => {
       if (typeof window !== 'undefined' && file.type.startsWith('image/')) {
         const img = new Image();
         img.onload = () => {
-          const maxDim = 1200;
+          const maxDim = 800;
           let width = img.width;
           let height = img.height;
           if (width > maxDim || height > maxDim) {
@@ -82,7 +82,7 @@ export const readFileAsDataUrl = (file: File): Promise<string> => {
           const ctx = canvas.getContext('2d');
           if (ctx) {
             ctx.drawImage(img, 0, 0, width, height);
-            resolve(canvas.toDataURL('image/jpeg', 0.85));
+            resolve(canvas.toDataURL('image/jpeg', 0.75));
             return;
           }
           resolve(result);
