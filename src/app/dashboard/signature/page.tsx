@@ -401,7 +401,7 @@ export default function EmailSignaturePage() {
                   <div className="w-6 h-6 rounded-full bg-indigo-600 text-white font-black text-xs flex items-center justify-center">
                     1
                   </div>
-                  <p className="font-bold text-white">Click "Copy Rich Signature"</p>
+                  <p className="font-bold text-white">Click &quot;Copy Rich Signature&quot;</p>
                   <p className="text-slate-400 text-[11px]">Copies the styled format directly to your clipboard.</p>
                 </div>
 

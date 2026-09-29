@@ -47,15 +47,14 @@ const ICON_MAP: Record<string, any> = {
 };
 
 export default function FeatureImpactModal({ feature, onClose, defaultSectorId = 'real_estate' }: FeatureImpactModalProps) {
-  const [selectedSector, setSelectedSector] = useState<string>(defaultSectorId);
+  const initialSector = defaultSectorId && defaultSectorId !== 'all' ? defaultSectorId : 'real_estate';
+  const [prevSectorProp, setPrevSectorProp] = useState(defaultSectorId);
+  const [selectedSector, setSelectedSector] = useState<string>(initialSector);
 
-  useEffect(() => {
-    if (defaultSectorId && defaultSectorId !== 'all') {
-      setSelectedSector(defaultSectorId);
-    } else {
-      setSelectedSector('real_estate');
-    }
-  }, [defaultSectorId, feature]);
+  if (defaultSectorId !== prevSectorProp) {
+    setPrevSectorProp(defaultSectorId);
+    setSelectedSector(defaultSectorId && defaultSectorId !== 'all' ? defaultSectorId : 'real_estate');
+  }
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

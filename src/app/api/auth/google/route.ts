@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Find or create user in database
-    let existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma.user.findUnique({
       where: { email },
       include: {
         memberships: {

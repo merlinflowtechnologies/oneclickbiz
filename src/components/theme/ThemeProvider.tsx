@@ -13,24 +13,25 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('dark');
-  const [mounted, setMounted] = useState(false);
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const savedTheme = localStorage.getItem('oneclickbiz-theme') as Theme | null;
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          return savedTheme;
+        }
+      } catch {}
+    }
+    return 'dark';
+  });
 
   useEffect(() => {
-    try {
-      const savedTheme = localStorage.getItem('oneclickbiz-theme') as Theme | null;
-      if (savedTheme === 'light' || savedTheme === 'dark') {
-        setThemeState(savedTheme);
-        document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-      } else {
-        setThemeState('dark');
-        document.documentElement.classList.add('dark');
-      }
-    } catch {
+    if (theme === 'dark') {
       document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
-    setMounted(true);
-  }, []);
+  }, [theme]);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);

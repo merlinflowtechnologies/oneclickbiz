@@ -377,7 +377,7 @@ export default function DashboardOverviewPage() {
                 </div>
                 <p className="text-xs font-bold text-slate-900">No Appointments Scheduled</p>
                 <p className="text-[11px] text-slate-500 max-w-xs mx-auto">
-                  Clients can book meetings or consultation calls with you directly from your card's appointment section.
+                  Clients can book meetings or consultation calls with you directly from your card&apos;s appointment section.
                 </p>
                 <Link 
                   href="/dashboard/bookings" 

@@ -27,15 +27,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
-  // If on login page, render children directly without sidebar
-  if (pathname === '/admin/login') {
-    return <>{children}</>;
-  }
-
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean | null>(null);
   const [sidebarStats, setSidebarStats] = useState<{ userCount: number; revenue: number }>({ userCount: 0, revenue: 0 });
 
   React.useEffect(() => {
+    if (pathname === '/admin/login') {
+      return;
+    }
+
     let isMounted = true;
 
     async function verifyAdminAuth() {
@@ -103,6 +102,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       isMounted = false;
     };
   }, [pathname]);
+
+  // If on login page, render children directly without sidebar
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
+  }
 
   const navItems = [
     {

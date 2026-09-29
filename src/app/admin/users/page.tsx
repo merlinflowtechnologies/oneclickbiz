@@ -519,7 +519,7 @@ export default function AdminUsersPage() {
                       <Users className="w-8 h-8 text-slate-400 mb-1" />
                       <span className="font-bold text-slate-700">No Member Accounts Found</span>
                       <span className="text-xs text-slate-500">
-                        Click "Grant Free VIP Account" to create a complimentary member or clear your filters.
+                        Click &quot;Grant Free VIP Account&quot; to create a complimentary member or clear your filters.
                       </span>
                     </div>
                   </td>

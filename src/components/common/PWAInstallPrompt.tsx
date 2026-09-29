@@ -25,9 +25,11 @@ export default function PWAInstallPrompt({ cardName = 'Digital Business Card', a
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone;
     
     if (isIosDevice && !isStandalone) {
-      setIsIOS(true);
       // Show after a brief delay
-      const timer = setTimeout(() => setShowPrompt(true), 3000);
+      const timer = setTimeout(() => {
+        setIsIOS(true);
+        setShowPrompt(true);
+      }, 3000);
       return () => clearTimeout(timer);
     }
 
@@ -136,11 +138,11 @@ export default function PWAInstallPrompt({ cardName = 'Digital Business Card', a
               </div>
               <div className="flex items-center gap-2.5">
                 <span className="w-5 h-5 rounded-full bg-indigo-600 text-white font-bold text-[10px] flex items-center justify-center shrink-0">2</span>
-                <span>Scroll down and select <strong>"Add to Home Screen"</strong> <PlusSquare className="w-3.5 h-3.5 inline mx-1 text-emerald-400" /></span>
+                <span>Scroll down and select <strong>&quot;Add to Home Screen&quot;</strong> <PlusSquare className="w-3.5 h-3.5 inline mx-1 text-emerald-400" /></span>
               </div>
               <div className="flex items-center gap-2.5">
                 <span className="w-5 h-5 rounded-full bg-indigo-600 text-white font-bold text-[10px] flex items-center justify-center shrink-0">3</span>
-                <span>Tap <strong>"Add"</strong> in top-right corner</span>
+                <span>Tap <strong>&quot;Add&quot;</strong> in top-right corner</span>
               </div>
             </div>
 

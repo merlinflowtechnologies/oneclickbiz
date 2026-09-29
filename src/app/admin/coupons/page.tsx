@@ -66,6 +66,7 @@ export default function AdminCouponsPage() {
 
   // Share Modal State
   const [shareCoupon, setShareCoupon] = useState<Coupon | null>(null);
+  const [currentTime] = useState(() => Date.now());
 
   async function loadCoupons() {
     setLoading(true);
@@ -473,7 +474,7 @@ export default function AdminCouponsPage() {
               )}
 
               {!loading && filteredCoupons.map((c) => {
-                const isExpired = c.expiryDate && new Date(c.expiryDate).getTime() < Date.now();
+                const isExpired = c.expiryDate && new Date(c.expiryDate).getTime() < currentTime;
                 const isExhausted = c.maxUsage && c.usedCount >= c.maxUsage;
 
                 return (

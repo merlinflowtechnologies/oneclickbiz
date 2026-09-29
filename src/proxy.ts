@@ -32,7 +32,7 @@ function parseJWTPayload(token: string): JWTPayload | null {
   }
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const tokenCookie = request.cookies.get('oneclickbiz_auth_token')?.value;
   const payload = tokenCookie ? parseJWTPayload(tokenCookie) : null;

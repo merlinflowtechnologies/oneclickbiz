@@ -135,6 +135,68 @@ function SettingsContent() {
   const [showAvatarPresets, setShowAvatarPresets] = useState(false);
   const avatarFileInputRef = React.useRef<HTMLInputElement | null>(null);
 
+  // Coupon State
+  const [couponInput, setCouponInput] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<CouponApplicationResult | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+
+  const handleApplyCustomCoupon = async (
+    codeToApply?: string,
+    planOverride?: { id: 'BASIC' | 'PRO' | 'ADVANCED'; name: string; price: number }
+  ) => {
+    const targetPlan = planOverride || checkoutPlan;
+    if (!targetPlan) return;
+
+    const code = (codeToApply !== undefined ? codeToApply : couponInput).trim();
+    if (!code) {
+      setCouponError('Please enter a coupon code.');
+      setAppliedCoupon(null);
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/coupons/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code,
+          price: targetPlan.price,
+          planId: targetPlan.id,
+          email: billingEmail,
+          phone: billingPhone
+        })
+      });
+      const data = await res.json();
+      if (res.ok && data.success && data.result) {
+        setAppliedCoupon(data.result);
+        setCouponError(null);
+        confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+        return;
+      } else if (data.result && !data.result.valid) {
+        setAppliedCoupon(null);
+        setCouponError(data.result.error || 'Invalid or expired coupon code.');
+        return;
+      }
+    } catch (e) {
+      // Fallback to local validator
+    }
+
+    const res = validateAndCalculateCoupon(code, targetPlan.price, targetPlan.id, billingEmail, billingPhone);
+    if (res.valid) {
+      setAppliedCoupon(res);
+      setCouponError(null);
+      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+    } else {
+      setAppliedCoupon(null);
+      setCouponError(res.error || 'Invalid or expired coupon code.');
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponError(null);
+  };
+
   const [invoices, setInvoices] = useState<InvoiceItem[]>([
     {
       id: 'INV-2026-8942',
@@ -260,11 +322,6 @@ function SettingsContent() {
     setTimeout(() => setIsSaved(false), 2500);
   };
 
-  // Coupon State
-  const [couponInput, setCouponInput] = useState('');
-  const [appliedCoupon, setAppliedCoupon] = useState<CouponApplicationResult | null>(null);
-  const [couponError, setCouponError] = useState<string | null>(null);
-
   // Open Billing Checkout Modal
   const handleInitiateSwitch = async (plan: { id: 'BASIC' | 'PRO' | 'ADVANCED'; name: string; price: number }) => {
     setCheckoutPlan(plan);
@@ -276,63 +333,6 @@ function SettingsContent() {
     if (couponInput) {
       await handleApplyCustomCoupon(couponInput, plan);
     }
-  };
-
-  const handleApplyCustomCoupon = async (
-    codeToApply?: string,
-    planOverride?: { id: 'BASIC' | 'PRO' | 'ADVANCED'; name: string; price: number }
-  ) => {
-    const targetPlan = planOverride || checkoutPlan;
-    if (!targetPlan) return;
-
-    const code = (codeToApply !== undefined ? codeToApply : couponInput).trim();
-    if (!code) {
-      setCouponError('Please enter a coupon code.');
-      setAppliedCoupon(null);
-      return;
-    }
-
-    try {
-      const res = await fetch('/api/coupons/validate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          code,
-          price: targetPlan.price,
-          planId: targetPlan.id,
-          email: billingEmail,
-          phone: billingPhone
-        })
-      });
-      const data = await res.json();
-      if (res.ok && data.success && data.result) {
-        setAppliedCoupon(data.result);
-        setCouponError(null);
-        confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
-        return;
-      } else if (data.result && !data.result.valid) {
-        setAppliedCoupon(null);
-        setCouponError(data.result.error || 'Invalid or expired coupon code.');
-        return;
-      }
-    } catch (e) {
-      // Fallback to local validator
-    }
-
-    const res = validateAndCalculateCoupon(code, targetPlan.price, targetPlan.id, billingEmail, billingPhone);
-    if (res.valid) {
-      setAppliedCoupon(res);
-      setCouponError(null);
-      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
-    } else {
-      setAppliedCoupon(null);
-      setCouponError(res.error || 'Invalid or expired coupon code.');
-    }
-  };
-
-  const handleRemoveCoupon = () => {
-    setAppliedCoupon(null);
-    setCouponError(null);
   };
 
   // Launch Cashfree Automated Checkout Modal
