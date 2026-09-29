@@ -251,6 +251,20 @@ export default async function PublicProfilePage({
     },
   };
 
+  // DEFINITIVE FIX: Force sectionData.about.content = profile.bio right before rendering.
+  // profile.bio is already proven correct (it appears correctly in metadata above).
+  // This bypasses any sectionData reconstruction issues in fetchProfileData.
+  const displayProfile = profile.bio ? {
+    ...profile,
+    sectionData: {
+      ...(profile.sectionData || {}),
+      about: {
+        ...((profile.sectionData?.about as any) || {}),
+        content: profile.bio
+      }
+    }
+  } : profile;
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-indigo-100/95 via-purple-100/80 to-pink-100/90 flex flex-col justify-center items-center p-0 sm:py-8 font-sans relative overflow-x-hidden">
       {/* Background Ambient Glows */}
@@ -262,9 +276,7 @@ export default async function PublicProfilePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}
       />
       <div className="w-full max-w-md relative z-10 sm:shadow-2xl sm:rounded-[36px] overflow-hidden">
-        {/* DEBUG - remove after fix */}
-        <span id="__debug_bio" style={{display:'none'}} data-bio={profile.bio?.substring(0,80)} data-about={(profile.sectionData?.about as any)?.content?.substring(0,80)} />
-        <ProfileCardView profile={profile} isMockup={false} />
+        <ProfileCardView profile={displayProfile} isMockup={false} />
       </div>
     </main>
   );
