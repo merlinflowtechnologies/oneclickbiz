@@ -398,7 +398,7 @@ export default function MBLMiniWebsiteView({
   ];
 
   return (
-    <div className={`w-full min-h-screen ${t.canvasBg} ${t.canvasText} font-sans ${t.selection}`}>
+    <div className={`w-full min-h-screen ${t.canvasBg} ${t.canvasText} !font-sans ${t.selection} [&_h1]:!font-sans [&_h2]:!font-sans [&_h3]:!font-sans [&_h4]:!font-sans [&_h5]:!font-sans [&_h6]:!font-sans`}>
       
       {/* 1. TOP STICKY WEBSITE NAVIGATION (MINIMAL & REFINED) */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-black/5 shadow-xs transition-all">
@@ -407,31 +407,29 @@ export default function MBLMiniWebsiteView({
           {/* Brand Logo & Name */}
           <a href="#top" className="flex items-center gap-3 group shrink-0">
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-black/10 bg-slate-100 shadow-xs shrink-0 group-hover:scale-105 transition-transform">
-              <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover" />
+              <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover object-top" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 group-hover:text-black">
+                <span className="font-black text-sm sm:text-base tracking-tight text-slate-950 group-hover:text-black !font-sans">
                   {profile.company || profile.name}
                 </span>
                 <span className={`w-2 h-2 rounded-full ${t.accentDot} inline-block animate-pulse`} title="Active Online" />
               </div>
-              <p className="text-[11px] text-slate-500 font-medium truncate max-w-[200px] sm:max-w-xs">
+              <p className="text-[11px] text-slate-500 font-semibold truncate max-w-[200px] sm:max-w-xs !font-sans">
                 {profile.designation || 'Verified Business Partner'}
               </p>
             </div>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-700">
-            <a href="#about" className="hover:text-black hover:underline underline-offset-8 transition-colors">About</a>
-            {services.length > 0 && <a href="#services" className="hover:text-black hover:underline underline-offset-8 transition-colors">Services</a>}
-            {products.length > 0 && <a href="#store" className="hover:text-black hover:underline underline-offset-8 transition-colors">Store</a>}
-            {videos.length > 0 && <a href="#videos" className="hover:text-black hover:underline underline-offset-8 transition-colors">Videos</a>}
-            {gallery.length > 0 && <a href="#portfolio" className="hover:text-black hover:underline underline-offset-8 transition-colors">Portfolio</a>}
-            {testimonials.length > 0 && <a href="#reviews" className="hover:text-black hover:underline underline-offset-8 transition-colors">Reviews</a>}
-            <a href="#faq" className="hover:text-black hover:underline underline-offset-8 transition-colors">FAQ</a>
-            <a href="#contact" className="hover:text-black hover:underline underline-offset-8 transition-colors">Contact</a>
+          <nav className="hidden lg:flex items-center gap-7 text-xs font-black uppercase tracking-wider text-slate-700 !font-sans">
+            <a href="#about" className="hover:text-black transition-colors">About</a>
+            {services.length > 0 && <a href="#services" className="hover:text-black transition-colors">Services</a>}
+            {products.length > 0 && <a href="#store" className="hover:text-black transition-colors">Store</a>}
+            {testimonials.length > 0 && <a href="#reviews" className="hover:text-black transition-colors">Reviews</a>}
+            <a href="#faq" className="hover:text-black transition-colors">FAQ</a>
+            <a href="#contact" className="hover:text-black transition-colors">Contact</a>
           </nav>
 
           {/* Action Header CTAs & View Switcher */}
@@ -501,30 +499,31 @@ export default function MBLMiniWebsiteView({
         </div>
       </header>
 
-      {/* 2. HERO SECTION (EDITORIAL MINIMAL LOOK) */}
+      {/* 2. HERO SECTION (EDITORIAL MINIMAL LOOK WITH MBL AESTHETICS) */}
       <section id="top" className="py-14 sm:py-20 lg:py-24 border-b border-black/5 bg-gradient-to-b from-white via-white to-slate-50/50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
-            {/* Left Hero Content */}
-            <div className="lg:col-span-7 space-y-6 text-left">
+            {/* Left Hero Content: Bold 3-line Stacked Headline */}
+            <div className="lg:col-span-7 space-y-7 text-left">
               
               {/* Kicker Pill */}
-              <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full ${t.accentLightBg} ${t.accentLightBorder} text-xs font-extrabold tracking-wide uppercase shadow-xs`}>
-                <span className={`w-2 h-2 rounded-full ${t.accentDot} animate-ping`} />
+              <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full ${t.accentLightBg} ${t.accentLightBorder} text-xs font-black tracking-wider uppercase shadow-xs`}>
+                <span className={`w-2 h-2 rounded-full ${t.accentDot}`} />
                 <span>Learn. Connect. Grow.</span>
               </div>
 
-              {/* Massive Editorial Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-tight text-slate-900 leading-[1.08]">
-                BUILD YOUR DIGITAL{' '}
-                <span className={`px-3 sm:px-4 py-0.5 rounded-xl ${t.accentPill} inline-block shadow-sm`}>
-                  FUTURE.
-                </span>
+              {/* Massive 3-Line MBL Grotesque Headline */}
+              <h1 className="!font-sans text-5xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tight text-slate-950 leading-[0.92]">
+                Build Your<br />
+                <span className={`inline-block px-4 sm:px-6 py-1 sm:py-2 rounded-2xl ${t.accentPill} my-1.5 shadow-sm transform -rotate-1`}>
+                  Digital
+                </span><br />
+                Future<span className={`inline-block w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full ${t.accentDot} ml-2 mb-1 sm:mb-2 align-baseline`} />
               </h1>
 
               {/* Founder Bio / Subtitle */}
-              <p className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed font-normal">
+              <p className="!font-sans text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed font-normal">
                 {profile.bio || 'Empowering clients, real estate leaders, and enterprises with practical digital execution, bespoke campaigns, and automated growth funnels.'}
               </p>
 
@@ -535,10 +534,11 @@ export default function MBLMiniWebsiteView({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('whatsapp_hero_click')}
-                  className="px-6 py-3.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 shadow-lg transition-all active:scale-95"
+                  className="px-7 py-4 rounded-full bg-slate-950 hover:bg-slate-800 text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 shadow-xl hover:shadow-2xl transition-all active:scale-95"
                 >
+                  <SocialIcon platform="whatsapp" size={17} colored={false} className="text-white" />
                   <span>Chat on WhatsApp</span>
-                  <ArrowRight className={`w-4 h-4 ${t.darkSectionAccent}`} />
+                  <ArrowRight className="w-4 h-4 ml-1" />
                 </a>
 
                 <button
@@ -547,7 +547,7 @@ export default function MBLMiniWebsiteView({
                     trackAction('contact_download');
                     downloadVcfFile(profile);
                   }}
-                  className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-300 font-extrabold text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 transition-all active:scale-95 shadow-xs"
+                  className="px-6 py-4 rounded-full bg-white hover:bg-slate-50 text-slate-900 border-2 border-slate-200 hover:border-slate-400 font-extrabold text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 transition-all active:scale-95 shadow-xs"
                 >
                   <Download className="w-4 h-4 text-slate-700" />
                   <span>Save Contact (VCF)</span>
@@ -556,7 +556,7 @@ export default function MBLMiniWebsiteView({
                 <button
                   type="button"
                   onClick={() => setIsUPIModalOpen(true)}
-                  className="px-5 py-3.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition active:scale-95"
+                  className="px-5 py-4 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition active:scale-95"
                 >
                   <QrCode className="w-4 h-4 text-emerald-600" />
                   <span>Pay via UPI (0% Fee)</span>
@@ -564,9 +564,9 @@ export default function MBLMiniWebsiteView({
               </div>
 
               {/* Trust Ratings & Badges */}
-              <div className="flex flex-wrap items-center gap-4 pt-3 text-xs text-slate-600 font-medium">
-                <div className="flex items-center gap-1">
-                  <div className="flex text-amber-500">
+              <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-slate-600 font-medium">
+                <div className="flex items-center gap-2">
+                  <div className="flex text-amber-500 text-sm">
                     {'★★★★★'}
                   </div>
                   <span className="font-bold text-slate-900">4.9/5 Rating</span>
@@ -581,54 +581,61 @@ export default function MBLMiniWebsiteView({
 
             </div>
 
-            {/* Right Asymmetric Hero Card */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-md">
+            {/* Right MBL Organic Floating Portrait Showcase */}
+            <div className="lg:col-span-5 flex justify-center relative">
+              <div className="relative w-full max-w-sm sm:max-w-md">
                 
-                {/* Background Shadow Box */}
-                <div className={`absolute inset-0 ${t.heroShadowBox} rounded-3xl transform rotate-3 scale-[1.02] shadow-xl -z-10`} />
+                {/* 1. Organic Ambient Aura Glow (Behind Portrait) */}
+                <div className={`absolute -inset-4 sm:-inset-6 ${t.heroShadowBox} rounded-[3.5rem] blur-2xl opacity-70 -z-10`} />
 
-                {/* Main Card */}
-                <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-7 shadow-2xl relative space-y-5">
-                  
-                  {/* Avatar & Floating Badges */}
-                  <div className="relative h-72 sm:h-80 rounded-2xl overflow-hidden bg-slate-100 border border-slate-200">
-                    <img
-                      src={profile.avatarUrl}
-                      alt={profile.name}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    
-                    {/* Top Floating Badge */}
-                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-[10px] font-extrabold uppercase tracking-wider border border-white/10 shadow-xs">
-                      <span className={t.darkSectionAccent}>Practical • Personal • Real</span>
-                    </div>
-
-                    {/* Bottom Status Card */}
-                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-white/95 backdrop-blur-md border border-white/40 shadow-lg text-slate-900">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-extrabold text-xs">{profile.name}</p>
-                          <p className="text-[10px] text-slate-500 truncate">{profile.designation}</p>
-                        </div>
-                        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Available
-                        </span>
-                      </div>
-                    </div>
+                {/* 2. Floating Badge: Top Left (Rating & Reviews) */}
+                <div className="absolute -left-3 sm:-left-6 top-8 z-20 px-3.5 py-2.5 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-slate-200/80 flex items-center gap-2.5 animate-bounce-subtle">
+                  <div className="w-8 h-8 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-500 shrink-0">
+                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                   </div>
+                  <div>
+                    <span className="font-black text-xs text-slate-900 block leading-tight">4.9 / 5.0</span>
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">120+ Reviews</span>
+                  </div>
+                </div>
 
-                  {/* Highlights Row */}
-                  <div className="grid grid-cols-2 gap-3 pt-1 text-center">
-                    <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                      <span className="block font-black text-lg text-slate-900">12+ Yrs</span>
-                      <span className="text-[10px] text-slate-500 uppercase font-semibold">Leadership</span>
+                {/* 3. Floating Badge: Top Right (Verified Executive) */}
+                <div className="absolute -right-2 sm:-right-4 top-4 z-20 px-3 py-1.5 rounded-full bg-slate-950/90 backdrop-blur-md text-white border border-white/20 shadow-xl flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Verified Executive</span>
+                </div>
+
+                {/* 4. Floating Badge: Bottom Right (Experience & Deliverables) */}
+                <div className="absolute -right-3 sm:-right-6 bottom-24 z-20 px-3.5 py-2.5 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-slate-200/80 flex items-center gap-2.5">
+                  <div className={`w-8 h-8 rounded-xl ${t.accentLightBg} ${t.accentLightBorder} flex items-center justify-center shrink-0`}>
+                    <Award className="w-4 h-4 text-slate-900" />
+                  </div>
+                  <div>
+                    <span className="font-black text-xs text-slate-900 block leading-tight">12+ Yrs</span>
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">500+ Projects</span>
+                  </div>
+                </div>
+
+                {/* 5. Main Hero Portrait Frame - Aspect 3/4 with object-top guarantees head is completely visible! */}
+                <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden bg-slate-100 border-4 border-white shadow-2xl group">
+                  <img
+                    src={profile.avatarUrl}
+                    alt={profile.name}
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                  
+                  {/* Subtle Bottom Fade */}
+                  <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+
+                  {/* Clean Bottom Overlay Card */}
+                  <div className="absolute bottom-4 inset-x-4 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-white/50 shadow-lg flex items-center justify-between text-slate-900">
+                    <div className="min-w-0 pr-2">
+                      <p className="font-black text-xs sm:text-sm text-slate-900 truncate">{profile.name}</p>
+                      <p className="text-[10px] sm:text-[11px] text-slate-500 font-semibold truncate">{profile.designation}</p>
                     </div>
-                    <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                      <span className="block font-black text-lg text-slate-900">500+</span>
-                      <span className="text-[10px] text-slate-500 uppercase font-semibold">Deliverables</span>
-                    </div>
+                    <span className="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Available
+                    </span>
                   </div>
 
                 </div>
