@@ -299,10 +299,10 @@ export default function VCardTemplatesPage() {
             <div className="rounded-3xl p-8 sm:p-12 bg-white/90 border border-slate-200/80 shadow-xl backdrop-blur-xl flex flex-col lg:flex-row items-center justify-between gap-8">
               <div className="space-y-3 max-w-2xl text-center lg:text-left">
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                  Need a Custom Enterprise Design?
+                  Need a Custom Brand or Team Design?
                 </h2>
                 <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                  All templates include custom company domains, NFC smart card hardware pairing, CRM leads integration, and automated WhatsApp mini-stores.
+                  All templates include 1-click contact download (.VCF), QR sharing, direct UPI payments, and automated WhatsApp mini-stores.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">

@@ -396,7 +396,7 @@ export default function CanvaAdobeStudioModal({
                     </span>
                     <h3 className="text-base font-bold text-white">Create in Canva with 1-Click</h3>
                     <p className="text-xs text-slate-300">
-                      Open Canva’s 10,000+ luxury business card templates, design your card, and download as PNG/PDF.
+                      Open Canva’s vast library of luxury business card templates, design your card, and download as PNG/PDF.
                     </p>
                   </div>
                 </div>

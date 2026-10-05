@@ -339,7 +339,7 @@ export default function LandingPage() {
               
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-200/80 text-indigo-700 text-xs font-semibold tracking-wide shadow-xs backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
-                <span>Next-Gen Smart Identity &amp; Commerce SaaS</span>
+                <span>Smart Digital Visiting Cards &amp; WhatsApp Commerce</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold font-serif tracking-tight text-slate-900 leading-[1.15]">
@@ -710,7 +710,7 @@ export default function LandingPage() {
                 <Rocket className="w-7 h-7" />
               </div>
               <h3 className="text-base font-bold text-white">Ready to Elevate Your Brand?</h3>
-              <p className="text-xs text-slate-300">Join thousands of businesses scaling their professional identity today.</p>
+              <p className="text-xs text-slate-300">Empowering Indian small businesses &amp; professionals to connect instantly.</p>
               <Link 
                 href="/signup?intent=build_card" 
                 className="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all"
@@ -762,7 +762,7 @@ export default function LandingPage() {
             </div>
             <h4 className="text-base font-bold text-slate-900">Grow</h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Gain actionable insights with real-time tap/scan analytics, manage client leads, and scale team enterprise accounts.
+              Gain actionable insights with real-time tap/scan analytics, manage client leads, and organize your team cards.
             </p>
           </div>
 
@@ -793,7 +793,7 @@ export default function LandingPage() {
               Full-Service Solutions for High-Impact Networking &amp; Growth
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              From bespoke digital smart cards to full-scale enterprise white-labeling and WhatsApp commerce onboarding, here is how our team empowers your business.
+              From bespoke digital smart cards to multi-team cards and WhatsApp commerce onboarding, here is how our team empowers your business.
             </p>
           </div>
 
@@ -936,8 +936,8 @@ export default function LandingPage() {
                   <Globe2 className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600">Enterprise Infrastructure</span>
-                  <h3 className="text-base font-bold text-slate-900">Enterprise White-Label Setup</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600">Multi-Card Infrastructure</span>
+                  <h3 className="text-base font-bold text-slate-900">Custom Domain &amp; Team Setup</h3>
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Connect your company’s custom domain (e.g., <code className="text-indigo-600 font-mono text-[10px]">cards.yourbrand.com</code>), remove all OneClickBiz badges, and manage hundreds of employee smart cards under unified admin controls.
@@ -1013,10 +1013,10 @@ export default function LandingPage() {
           <div className="mt-14 p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-purple-950 border border-indigo-500/30 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 text-white">
             <div className="space-y-1 text-center md:text-left">
               <h4 className="text-lg font-bold text-white flex items-center justify-center md:justify-start gap-2">
-                <span>Need a Custom Solution for Your Team or Enterprise?</span>
+                <span>Need a Custom Solution for Your Team or Brand?</span>
               </h4>
               <p className="text-xs text-slate-300">
-                Talk with our digital identity specialists to get custom enterprise volume licensing, custom domain setups, or white-label onboarding.
+                Talk with our digital identity specialists to get custom team volume setups, custom domain pairing, or personalized onboarding.
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -1057,7 +1057,7 @@ export default function LandingPage() {
               Explore Our Product Ecosystem
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              Powerful, modular tools engineered to transform personal branding, digital sales, and enterprise networking.
+              Powerful, modular tools engineered to transform personal branding, digital sales, and business networking.
             </p>
           </div>
 
@@ -1541,7 +1541,7 @@ export default function LandingPage() {
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
                       >
                         <option value="General Inquiry">General Product Inquiry</option>
-                        <option value="Enterprise Onboarding">Enterprise / Multi-User Card Setup</option>
+                        <option value="Team Onboarding">Multi-User / Team Card Setup</option>
                         <option value="WhatsApp Store Integration">WhatsApp Mini Store Assistance</option>
                         <option value="Billing & Invoicing">Billing & Tax GST Invoicing</option>
                         <option value="Technical Support">Technical & Domain Support</option>

@@ -1130,7 +1130,7 @@ function SignUpForm() {
                 </p>
                 <div className="flex items-center gap-2 text-[10px] text-slate-600">
                   <span className="px-2 py-0.5 rounded bg-white border border-slate-200 shadow-xs">⚡ Instant Gateway Verification</span>
-                  <span className="px-2 py-0.5 rounded bg-white border border-slate-200 shadow-xs">🔒 256-Bit Bank Encryption</span>
+                  <span className="px-2 py-0.5 rounded bg-white border border-slate-200 shadow-xs">🔒 256-Bit SSL Encrypted</span>
                 </div>
               </div>
 

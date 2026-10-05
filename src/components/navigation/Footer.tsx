@@ -57,13 +57,13 @@ export default function Footer() {
           <div className="lg:col-span-7 space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 border border-indigo-300/60 text-indigo-700 text-[11px] font-semibold shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
-              <span>Modern Enterprise Identity</span>
+              <span>Smart Business Identity</span>
             </div>
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
               Ready to Upgrade Your Professional Identity?
             </h3>
             <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-xl">
-              Join 10,000+ business leaders using OneClickBiz for contactless NFC cards, 1-click .VCF contact saving, and zero-commission WhatsApp stores.
+              Built for Indian retailers, doctors, builders, and service professionals for 1-click .VCF contact saving, instant WhatsApp stores, and 0% fee direct UPI payments.
             </p>
           </div>
 
@@ -320,7 +320,7 @@ export default function Footer() {
             </div>
             <div>
               <p className="text-xs font-bold text-slate-900">256-Bit SSL</p>
-              <p className="text-[10px] text-slate-500">Bank-grade encryption</p>
+              <p className="text-[10px] text-slate-500">Secure &amp; encrypted</p>
             </div>
           </div>
 
@@ -329,8 +329,8 @@ export default function Footer() {
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-900">99.9% Uptime</p>
-              <p className="text-[10px] text-slate-500">Global edge CDN</p>
+              <p className="text-xs font-bold text-slate-900">Cloud Hosted</p>
+              <p className="text-[10px] text-slate-500">Fast &amp; always online</p>
             </div>
           </div>
 
@@ -367,7 +367,7 @@ export default function Footer() {
           <p className="flex items-center justify-center gap-1.5">
             <span>Engineered with</span>
             <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
-            <span>for modern enterprise growth.</span>
+            <span>for modern business growth.</span>
           </p>
         </div>
       </div>
