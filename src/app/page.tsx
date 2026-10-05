@@ -47,7 +47,8 @@ import {
   ChevronRight,
   Wifi,
   RefreshCw,
-  X
+  X,
+  Lock
 } from 'lucide-react';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/navigation/Footer';
@@ -316,6 +317,10 @@ export default function LandingPage() {
     {
       q: 'What happens if I print 1,000 physical cards with my QR code? Am I locked in?',
       a: 'You are completely protected against vendor lock-in! First, OneClickBiz supports White-Label Custom Domains (e.g., cards.yourbrand.com). If you print your own custom domain on your cards, you own that link forever—even if you ever migrate to another platform in the future, your physical cards will never break. Second, all QR codes use dynamic cloud redirects, meaning you can update the destination URL anytime without reprinting. Third, you can export all your contacts, leads, and catalog data to open CSV/JSON formats with 1 click anytime.'
+    },
+    {
+      q: 'Who owns the customer contacts and leads captured through my card? Does OneClickBiz sell user data?',
+      a: 'You retain 100% exclusive legal ownership of all customer leads, phone numbers, appointments, and inquiries captured through your card. OneClickBiz acts strictly as your secure data processor. We enforce an absolute Zero Data Broker Selling policy: we never sell, monetize, rent, or share your customer data with advertisers or third parties. You can export all leads to CSV/Excel anytime with 1 click, and your data is protected under India\'s DPDP Act 2023.'
     }
   ];
 
@@ -1432,63 +1437,80 @@ export default function LandingPage() {
             </p>
           </div>
 
-          {/* 3 Core Trust Pillars */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {/* 4 Core Trust Pillars */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             
             {/* Pillar 1: ₹0 Upfront */}
-            <div className="p-8 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold text-lg">
-                ₹0
+            <div className="p-7 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold text-lg">
+                  ₹0
+                </div>
+                <h3 className="text-base font-bold text-slate-900">Try 100% Free First</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Build your card, customize colors, upload your products, and live-preview it on your phone for free. No credit card or upfront deposit required.
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900">Try 100% Free First</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Build your card, customize colors, upload your products, and live-preview it on your phone for free. No credit card or upfront deposit required.
-              </p>
-              <div className="pt-2">
-                <Link href="/signup?intent=build_card" className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1.5 group">
-                  <span>Start Free Card</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
+              <Link href="/signup?intent=build_card" className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1.5 group pt-2">
+                <span>Start Free Card</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
 
             {/* Pillar 2: 7-Day Money Back */}
-            <div className="p-8 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-200 flex items-center justify-center">
-                <ShieldCheck className="w-6 h-6 text-indigo-600" />
+            <div className="p-7 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-200 flex items-center justify-center">
+                  <ShieldCheck className="w-6 h-6 text-indigo-600" />
+                </div>
+                <h3 className="text-base font-bold text-slate-900">7-Day Money-Back Guarantee</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  If you choose to upgrade to Pro and are not 100% satisfied with the results, simply ping us within 7 days for an instant, full refund. Zero hassle.
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900">7-Day Money-Back Guarantee</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                If you choose to upgrade to Pro and are not 100% satisfied with the results, simply ping us within 7 days for an instant, full refund. Zero hassle.
-              </p>
-              <div className="pt-2">
-                <Link href="/refund" className="text-xs font-bold text-indigo-700 hover:text-indigo-800 flex items-center gap-1.5 group">
-                  <span>Read Refund Policy</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
+              <Link href="/refund" className="text-xs font-bold text-indigo-700 hover:text-indigo-800 flex items-center gap-1.5 group pt-2">
+                <span>Read Refund Policy</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
 
-            {/* Pillar 3: Corporate Transparency & Support */}
-            <div className="p-8 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center">
-                <Building className="w-6 h-6 text-purple-600" />
+            {/* Pillar 3: 100% Data Ownership & Privacy */}
+            <div className="p-7 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 border border-teal-200 flex items-center justify-center">
+                  <Lock className="w-6 h-6 text-teal-600" />
+                </div>
+                <h3 className="text-base font-bold text-slate-900">100% Data Ownership</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  You own all captured leads, appointments, and contact lists. We never sell or broker your data to advertisers. Export to CSV anytime with 1 click.
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900">Registered Corporate Entity</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Engineered &amp; operated by <strong>Merlinflow Technologies Pvt. Ltd.</strong>, headquartered in Hyderabad, India. Direct human customer assistance on WhatsApp and phone.
-              </p>
-              <div className="pt-2">
-                <a 
-                  href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Team%2C%20I%20have%20a%20question%20before%20signing%20up." 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-xs font-bold text-purple-700 hover:text-purple-800 flex items-center gap-1.5 group"
-                >
-                  <span>Chat With Our Team</span>
-                  <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </a>
+              <Link href="/privacy" className="text-xs font-bold text-teal-700 hover:text-teal-800 flex items-center gap-1.5 group pt-2">
+                <span>Read Privacy Terms</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+
+            {/* Pillar 4: Corporate Transparency & Support */}
+            <div className="p-7 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center">
+                  <Building className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="text-base font-bold text-slate-900">Registered Corporate Entity</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Engineered &amp; operated by <strong>Merlinflow Technologies Pvt. Ltd.</strong>, headquartered in Hyderabad, India. Direct human WhatsApp &amp; phone support.
+                </p>
               </div>
+              <a 
+                href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Team%2C%20I%20have%20a%20question%20before%20signing%20up." 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-purple-700 hover:text-purple-800 flex items-center gap-1.5 group pt-2"
+              >
+                <span>Chat With Our Team</span>
+                <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </a>
             </div>
 
           </div>

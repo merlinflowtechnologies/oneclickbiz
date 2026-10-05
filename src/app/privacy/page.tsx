@@ -203,70 +203,121 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
-          {/* 4. Cookies & Similar Technologies */}
+          {/* 4. Customer Leads & Client Data Sovereignty (Zero Data Broker Selling) */}
+          <section className="space-y-4 p-6 sm:p-8 rounded-3xl bg-slate-900/50 border border-emerald-500/30 shadow-xl">
+            <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-emerald-400" />
+              4. Customer Leads &amp; Client Data Sovereignty (Zero Data Broker Selling)
+            </h2>
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+              When prospective clients, patients, or buyers interact with your digital profile (submitting inquiry forms, requesting appointments, or placing WhatsApp orders), OneClickBiz acts strictly as your secure technology processor.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1.5">
+                <h3 className="font-bold text-emerald-400 flex items-center gap-1.5 text-xs">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> 100% Exclusive Ownership
+                </h3>
+                <p className="text-slate-400 text-[11px] leading-relaxed">
+                  You own 100% of your customer contacts, phone numbers, and lead inquiries. OneClickBiz will never claim ownership over your client relationships or customer lists.
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1.5">
+                <h3 className="font-bold text-emerald-400 flex items-center gap-1.5 text-xs">
+                  <Ban className="w-4 h-4 text-rose-400 shrink-0" /> Zero Data Broker Selling
+                </h3>
+                <p className="text-slate-400 text-[11px] leading-relaxed">
+                  We will NEVER sell, lease, rent, or monetize your leads or customer contact details to third-party ad networks, marketing brokers, or data aggregators.
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1.5">
+                <h3 className="font-bold text-emerald-400 flex items-center gap-1.5 text-xs">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> Direct P2P Privacy
+                </h3>
+                <p className="text-slate-400 text-[11px] leading-relaxed">
+                  WhatsApp chats and bank UPI payments route directly peer-to-peer between you and your customers without intermediary escrow or middleman cuts.
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1.5">
+                <h3 className="font-bold text-emerald-400 flex items-center gap-1.5 text-xs">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> 1-Click Export &amp; DPDP Rights
+                </h3>
+                <p className="text-slate-400 text-[11px] leading-relaxed">
+                  Export your leads to open CSV/Excel and PDF anytime. Full compliance with India’s DPDP Act 2023 including rights to access, portability, and permanent erasure.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* 5. Cookies & Similar Technologies */}
           <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Cookie className="w-4 h-4 text-indigo-400" />
-              4. Cookies and Similar Technologies
+              5. Cookies and Similar Technologies
             </h2>
             <p className="text-slate-400 text-xs leading-relaxed">
               We may use cookies and similar technologies for purposes such as authentication, security, preferences, analytics and improving the user experience. Users may be able to control certain cookies through their browser settings.
             </p>
           </section>
 
-          {/* 5. Payment Information */}
+          {/* 6. Payment Information */}
           <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <CreditCard className="w-4 h-4 text-indigo-400" />
-              5. Payment Information
+              6. Payment Information
             </h2>
             <p className="text-slate-400 text-xs leading-relaxed">
               Payments may be processed through third-party payment providers. OneClickBiz does not intend to store complete payment card details on its own servers unless specifically stated otherwise. Payment providers may process information according to their own privacy policies and terms.
             </p>
           </section>
 
-          {/* 6. Third-Party Services */}
+          {/* 7. Third-Party Services */}
           <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Globe className="w-4 h-4 text-indigo-400" />
-              6. Third-Party Services
+              7. Third-Party Services
             </h2>
             <p className="text-slate-400 text-xs leading-relaxed">
               OneClickBiz may integrate with third-party services such as payment gateways, cloud storage providers, communication providers, analytics services, hosting providers, and other integrations necessary to provide the platform. These providers may process information according to their respective policies.
             </p>
           </section>
 
-          {/* 7. Data Security */}
+          {/* 8. Data Security */}
           <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Lock className="w-4 h-4 text-emerald-400" />
-              7. Data Security
+              8. Data Security
             </h2>
             <p className="text-slate-400 text-xs leading-relaxed">
               We use reasonable technical and organizational safeguards designed to protect information from unauthorized access, alteration, disclosure or destruction. However, no internet-based service can guarantee absolute security.
             </p>
           </section>
 
-          {/* 8. Data Retention */}
+          {/* 9. Data Retention */}
           <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Server className="w-4 h-4 text-indigo-400" />
-              8. Data Retention
+              9. Data Retention
             </h2>
             <p className="text-slate-400 text-xs leading-relaxed">
               We retain information for as long as reasonably necessary to provide our services, maintain business and transaction records, comply with legal obligations, resolve disputes, and enforce our agreements.
             </p>
           </section>
 
-          {/* 9. Your Rights */}
+          {/* 10. Your Rights & DPDP Act 2023 Compliance */}
           <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Users className="w-4 h-4 text-indigo-400" />
-              9. Your Rights
+              10. Your Rights &amp; India DPDP Act 2023 Compliance
             </h2>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              Depending on applicable law, you may have rights relating to your personal information, including requesting access, correction, deletion, or other applicable privacy rights. Requests may be submitted using the contact information provided below.
+            <p className="text-slate-300 text-xs leading-relaxed">
+              Under India’s <strong>Digital Personal Data Protection (DPDP) Act 2023</strong> and international data protection standards (GDPR), you possess legally enforceable rights over your personal data:
             </p>
+            <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-300 pl-2">
+              <li><strong>Right to Access &amp; Summary:</strong> Request a complete summary of your personal data processed by OneClickBiz.</li>
+              <li><strong>Right to Correction &amp; Updation:</strong> Rectify inaccurate, incomplete, or outdated personal or profile details.</li>
+              <li><strong>Right to Data Erasure / Deletion:</strong> Request full permanent deletion of your account and associated lead records.</li>
+              <li><strong>Right to Grievance Redressal:</strong> Direct escalation to our designated Grievance Officer in Hyderabad, India.</li>
+            </ul>
           </section>
 
           {/* 10. Children's Privacy */}

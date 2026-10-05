@@ -47,6 +47,25 @@ export default function LeadsCrmPage() {
     exportLeadsPDF(filteredLeads);
   };
 
+  const handleExportCSV = () => {
+    if (userPlanTier === 'BASIC') {
+      setShowUpgradeModal(true);
+      return;
+    }
+    const headers = ['Lead ID,Name,Phone,Email,Message,Status,Date Captured'];
+    const rows = filteredLeads.map(l => 
+      `"${l.id}","${l.name || ''}","${l.phone || ''}","${l.email || ''}","${(l.message || '').replace(/"/g, '""')}","${l.status}","${l.createdAt || ''}"`
+    );
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers, ...rows].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `oneclickbiz-leads-${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="p-6 lg:p-8 space-y-8 max-w-7xl mx-auto">
       
@@ -117,14 +136,24 @@ export default function LeadsCrmPage() {
             ))}
           </div>
 
-          {/* Export PDF */}
-          <button
-            onClick={handleExport}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-semibold text-xs flex items-center gap-2 shadow-lg transition-all active:scale-95 shrink-0"
-          >
-            {userPlanTier === 'BASIC' ? <Lock className="w-3.5 h-3.5 text-amber-300" /> : <Download className="w-4 h-4" />}
-            <span>Export PDF {userPlanTier === 'BASIC' && '(PRO)'}</span>
-          </button>
+          {/* Export PDF & CSV */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleExportCSV}
+              className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-1.5 shadow-md transition-all active:scale-95 shrink-0"
+              title="Export leads to Excel-compatible CSV"
+            >
+              {userPlanTier === 'BASIC' ? <Lock className="w-3.5 h-3.5 text-amber-300" /> : <FileText className="w-3.5 h-3.5 text-emerald-400" />}
+              <span>CSV (Excel)</span>
+            </button>
+            <button
+              onClick={handleExport}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-semibold text-xs flex items-center gap-2 shadow-lg transition-all active:scale-95 shrink-0"
+            >
+              {userPlanTier === 'BASIC' ? <Lock className="w-3.5 h-3.5 text-amber-300" /> : <Download className="w-4 h-4" />}
+              <span>PDF {userPlanTier === 'BASIC' && '(PRO)'}</span>
+            </button>
+          </div>
         </div>
       </div>
 
