@@ -299,6 +299,14 @@ export default function LandingPage() {
     {
       q: 'Can I publish blogs and download PDF brochures?',
       a: 'Yes! OneClickBiz includes full Blog Publishing and Brochure Design Studios. You can write articles, design multi-page company brochures, and export 300 DPI print-ready PDFs directly from your dashboard.'
+    },
+    {
+      q: 'Do I have to pay any large upfront fees, or can I try it for free?',
+      a: 'You do not have to pay anything upfront! You can build, customize, and live-preview your complete digital business card on your own phone 100% free with zero credit card required. Only upgrade when you love how your card looks. All paid plans also include an unconditional 7-day money-back guarantee.'
+    },
+    {
+      q: 'Who owns and operates OneClickBiz, and how can I verify legitimacy?',
+      a: 'OneClickBiz is engineered and operated by Merlinflow Technologies Pvt. Ltd., an incorporated Indian software company headquartered in Hyderabad, Telangana. We provide direct human customer support on WhatsApp (+91 63049 89071), and all digital transactions are secured via RBI-compliant payment gateway partners.'
     }
   ];
 
@@ -1224,6 +1232,214 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Authentic Transparency & Risk-Free Guarantees Section */}
+      <section className="py-24 bg-gradient-to-b from-slate-50 via-indigo-50/60 to-purple-50/50 border-t border-slate-200/80 relative overflow-hidden">
+        <div className="absolute top-1/3 left-1/4 w-[600px] h-[350px] bg-gradient-to-r from-emerald-400/20 via-indigo-400/20 to-sky-400/20 blur-[130px] pointer-events-none -z-10" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/90 text-emerald-800 text-xs font-semibold shadow-xs">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>Honest Business Architecture</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+              Transparent Company. Zero Financial Risk.
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+              We know trust is earned. You never need to pay upfront deposits or take risks on unverified claims. Experience the full platform risk-free before spending a single rupee.
+            </p>
+          </div>
+
+          {/* 3 Core Trust Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            
+            {/* Pillar 1: ₹0 Upfront */}
+            <div className="p-8 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold text-lg">
+                ₹0
+              </div>
+              <h3 className="text-lg font-bold text-slate-900">Try 100% Free First</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Build your card, customize colors, upload your products, and live-preview it on your phone for free. No credit card or upfront deposit required.
+              </p>
+              <div className="pt-2">
+                <Link href="/signup?intent=build_card" className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1.5 group">
+                  <span>Start Free Card</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Pillar 2: 7-Day Money Back */}
+            <div className="p-8 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-200 flex items-center justify-center">
+                <ShieldCheck className="w-6 h-6 text-indigo-600" />
+              </div>
+              <h3 className="text-lg font-bold text-slate-900">7-Day Money-Back Guarantee</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                If you choose to upgrade to Pro and are not 100% satisfied with the results, simply ping us within 7 days for an instant, full refund. Zero hassle.
+              </p>
+              <div className="pt-2">
+                <Link href="/refund" className="text-xs font-bold text-indigo-700 hover:text-indigo-800 flex items-center gap-1.5 group">
+                  <span>Read Refund Policy</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Pillar 3: Corporate Transparency & Support */}
+            <div className="p-8 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center">
+                <Building className="w-6 h-6 text-purple-600" />
+              </div>
+              <h3 className="text-lg font-bold text-slate-900">Registered Corporate Entity</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Engineered &amp; operated by <strong>Merlinflow Technologies Pvt. Ltd.</strong>, headquartered in Hyderabad, India. Direct human customer assistance on WhatsApp and phone.
+              </p>
+              <div className="pt-2">
+                <a 
+                  href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Team%2C%20I%20have%20a%20question%20before%20signing%20up." 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-purple-700 hover:text-purple-800 flex items-center gap-1.5 group"
+                >
+                  <span>Chat With Our Team</span>
+                  <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Real-World Industry Diversity Demos */}
+          <div className="p-8 sm:p-12 rounded-3xl bg-white/95 border border-slate-200/90 shadow-lg space-y-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600">
+                  <BadgeCheck className="w-4 h-4" />
+                  <span>Real Indian Industry Implementations</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900">
+                  Built for Indian Small Businesses, Clinics, Retailers &amp; Professionals
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 max-w-2xl">
+                  Not limited to a single sector. Explore live working demonstrations tailored for doctors, hardware stores, advocates, and builders.
+                </p>
+              </div>
+              <Link
+                href="/vcard-templates"
+                className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold flex items-center gap-2 shrink-0 transition"
+              >
+                <span>Browse All 45+ Templates</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              
+              {/* Sector 1: Healthcare */}
+              <div className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200 hover:border-emerald-400 transition-all flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-sm font-bold">
+                    🩺
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">Dr. Ananya Sharma, MD</h4>
+                    <p className="text-[11px] text-slate-500">Consultant Cardiologist • Hyderabad</p>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Direct WhatsApp patient consultation booking, in-card hospital map directions, and emergency helpline chips.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setPreviewTemplate(VCARD_TEMPLATES_CATALOG[2] || VCARD_TEMPLATES_CATALOG[0])}
+                  className="w-full py-2 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs font-bold hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-800 transition flex items-center justify-center gap-1.5 shadow-2xs"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  <span>Preview Medical Card</span>
+                </button>
+              </div>
+
+              {/* Sector 2: Retail & Hardware */}
+              <div className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200 hover:border-indigo-400 transition-all flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center text-sm font-bold">
+                    🛍️
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">Apex Electricals &amp; Tools</h4>
+                    <p className="text-[11px] text-slate-500">Rajesh Kumar • Bangalore</p>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Zero-commission WhatsApp catalog store, wholesale product rate card, and instant direct bank UPI QR code.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setPreviewTemplate(VCARD_TEMPLATES_CATALOG[1] || VCARD_TEMPLATES_CATALOG[0])}
+                  className="w-full py-2 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs font-bold hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-800 transition flex items-center justify-center gap-1.5 shadow-2xs"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  <span>Preview Retail Card</span>
+                </button>
+              </div>
+
+              {/* Sector 3: Legal & Corporate Advisory */}
+              <div className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200 hover:border-purple-400 transition-all flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center text-sm font-bold">
+                    ⚖️
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">Verma &amp; Associates</h4>
+                    <p className="text-[11px] text-slate-500">Advocate Vikramaditya • New Delhi</p>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Instant 1-click .VCF contact saving, bar council credentials, client appointment calendar, and fee deposit link.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setPreviewTemplate(VCARD_TEMPLATES_CATALOG[3] || VCARD_TEMPLATES_CATALOG[0])}
+                  className="w-full py-2 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs font-bold hover:bg-purple-50 hover:border-purple-300 hover:text-purple-800 transition flex items-center justify-center gap-1.5 shadow-2xs"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  <span>Preview Legal Card</span>
+                </button>
+              </div>
+
+              {/* Sector 4: Real Estate & Construction */}
+              <div className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200 hover:border-sky-400 transition-all flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center text-sm font-bold">
+                    🏢
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">Himastech Digital Reality</h4>
+                    <p className="text-[11px] text-slate-500">Kishore Patel • Hyderabad</p>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    3D virtual site walkthroughs, downloadable PDF project brochure, property catalog, and direct site-visit booking.
+                  </p>
+                </div>
+                <Link
+                  href="/v/kishore"
+                  target="_blank"
+                  className="w-full py-2 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs font-bold hover:bg-sky-50 hover:border-sky-300 hover:text-sky-800 transition flex items-center justify-center gap-1.5 shadow-2xs"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Open Live Card (/v/kishore)</span>
+                </Link>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       {/* Pricing Section with Soft Pastel Rose-Indigo Gradient */}
       <section id="pricing" className="py-24 bg-gradient-to-b from-pink-100/85 via-indigo-100/90 to-purple-100/85 border-y border-indigo-200/80 relative scroll-mt-24 overflow-hidden">
         {/* Glowing Background Orbs */}
@@ -1254,6 +1470,25 @@ export default function LandingPage() {
           <p className="text-xs sm:text-sm text-slate-700 mt-1 max-w-2xl mx-auto leading-relaxed">
             Update your phone, WhatsApp, email, social links, photos, services, pricing, or templates whenever your business evolves. You never need an extra recharge or special plan to make changes.
           </p>
+        </div>
+
+        {/* Free Tier Callout to eliminate any upfront payment hesitation */}
+        <div className="mb-10 max-w-4xl mx-auto p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-indigo-500/15 border-2 border-emerald-500/30 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-5 shadow-lg shadow-emerald-500/5">
+          <div className="flex items-center gap-4 text-left">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-600/20">
+              <BadgeCheck className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-base font-extrabold text-slate-900">Try 100% Free First</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200">₹0 Upfront</span>
+              </div>
+              <p className="text-xs text-slate-600 mt-0.5">Create, customize, and test your live card on your phone before spending a single rupee. No credit card required.</p>
+            </div>
+          </div>
+          <Link href="/signup?intent=build_card" className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 shadow-md transition-all active:scale-95">
+            Start Free Card
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -1347,6 +1582,24 @@ export default function LandingPage() {
           </div>
 
         </div>
+
+        {/* 7-Day Money Back Guarantee Strip */}
+        <div className="mt-12 max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-white/95 border border-slate-200/90 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-900">100% Risk-Free Guarantee</p>
+              <p className="text-[11px] text-slate-600">Try any paid plan for 7 days. If you aren&apos;t completely delighted, WhatsApp or email us for an instant, no-questions-asked refund.</p>
+            </div>
+          </div>
+          <Link href="/refund" className="text-xs font-bold text-indigo-600 hover:text-indigo-700 shrink-0 flex items-center gap-1">
+            <span>Refund Terms</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
         </div>
       </section>
 
