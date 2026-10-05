@@ -42,6 +42,7 @@ import TestimonialSubmitModal from '@/components/cards/TestimonialSubmitModal';
 import ShareCardModal from '@/components/common/ShareCardModal';
 import PWAInstallPrompt from '@/components/common/PWAInstallPrompt';
 import DirectUPIPaymentModal from '@/components/common/DirectUPIPaymentModal';
+import MBLMiniWebsiteView from './MBLMiniWebsiteView';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -579,13 +580,13 @@ export default function ProfileCardView({
 
   return (
     <div className="w-full relative">
-      {/* Top Device View Switcher for Desktop Visitors */}
-      {showViewToggle && !isMockup && (
-        <div className="hidden sm:flex items-center justify-between w-full max-w-5xl mx-auto mb-4 px-3">
+      {/* Top Device View Switcher for Desktop Visitors (Mobile Mode only) */}
+      {showViewToggle && !isMockup && !isWebsiteMode && (
+        <div className="hidden sm:flex items-center justify-between w-full max-w-md mx-auto mb-4 px-3">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-xs font-bold text-slate-800 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full border border-slate-200 shadow-xs">
-              Live Mini-Website &amp; WhatsApp Business Hub
+              Mobile Business Card
             </span>
           </div>
           <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md">
@@ -593,7 +594,7 @@ export default function ProfileCardView({
               onClick={() => setViewMode('website')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
                 viewMode === 'website'
-                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-sm'
+                  ? 'bg-black text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
@@ -604,7 +605,7 @@ export default function ProfileCardView({
               onClick={() => setViewMode('mobile')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
                 viewMode === 'mobile'
-                  ? 'bg-slate-900 text-white shadow-sm'
+                  ? 'bg-black text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
@@ -615,108 +616,47 @@ export default function ProfileCardView({
         </div>
       )}
 
-      {/* Main Card / Mini-Website Container */}
-      <div className={`w-full ${isWebsiteMode ? 'max-w-5xl sm:rounded-3xl sm:border sm:border-slate-200/60' : 'max-w-md ' + (isMockup ? 'rounded-[36px]' : 'sm:rounded-[44px] sm:border-4 sm:border-slate-800 sm:p-1.5 sm:bg-slate-900')} mx-auto ${theme.bg} min-h-screen relative font-sans transition-all duration-300 pb-24 shadow-2xl overflow-hidden`}>
-        
-        {/* Sticky Mini-Website Navbar (Desktop & Tablet) */}
-        {isWebsiteMode && (
-          <header id="top" className={`sticky top-0 z-40 backdrop-blur-xl ${theme.isLight ? 'bg-white/90 border-b border-slate-200/90 text-slate-900' : 'bg-slate-950/90 border-b border-slate-800 text-white'} px-4 sm:px-6 py-3 transition-all shadow-xs`}>
-            <div className="flex items-center justify-between gap-4">
-              {/* Brand Logo & Name */}
-              <a href="#top" className="flex items-center gap-2.5 min-w-0 group">
-                <div className={`w-8 h-8 rounded-full overflow-hidden border-2 ${theme.avatarBorder} shadow-sm shrink-0`}>
-                  <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover" />
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-extrabold text-xs sm:text-sm tracking-tight truncate group-hover:text-indigo-600 transition-colors">
-                      {profile.company || profile.name}
-                    </span>
-                    <span className="inline-flex items-center gap-0.5 text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 font-bold shrink-0">
-                      <Check className="w-2.5 h-2.5" /> Verified
-                    </span>
-                  </div>
-                  <p className="text-[10px] text-slate-500 truncate hidden sm:block">
-                    {profile.designation}
-                  </p>
-                </div>
-              </a>
-
-              {/* Anchor Navigation Links */}
-              <nav className="hidden md:flex items-center gap-1 text-xs font-semibold">
-                <a href="#about" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
-                  About
-                </a>
-                {hasServices && (
-                  <a href="#services" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
-                    Services
-                  </a>
-                )}
-                {hasProducts && (
-                  <a href="#store" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
-                    Store
-                  </a>
-                )}
-                {hasVideos && (
-                  <a href="#videos" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
-                    Videos
-                  </a>
-                )}
-                {hasGallery && (
-                  <a href="#gallery" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
-                    Portfolio
-                  </a>
-                )}
-                {hasTestimonials && (
-                  <a href="#reviews" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
-                    Reviews
-                  </a>
-                )}
-                <a href="#contact" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
-                  Contact
-                </a>
-              </nav>
-
-              {/* Right Action CTAs */}
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  onClick={() => {
-                    trackAction('contact_download');
-                    downloadVcfFile(profile);
-                  }}
-                  className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl ${theme.buttonPrimary} text-xs font-bold shadow-sm transition active:scale-95`}
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Save Contact</span>
-                </button>
-
-                <a
-                  href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=Hi%20${encodeURIComponent(profile.name)},%20I%20came%20across%20your%20website!`}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => trackAction('whatsapp_click')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold shadow-sm transition active:scale-95"
-                >
-                  <SocialIcon platform="whatsapp" size={14} colored={false} className="text-white" />
-                  <span className="hidden xs:inline">WhatsApp</span>
-                </a>
-
-                {cart.length > 0 && (
-                  <button
-                    onClick={() => setIsCartOpen(true)}
-                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow transition"
-                  >
-                    <ShoppingBag className="w-3.5 h-3.5" />
-                    <span>{cart.reduce((s, i) => s + i.quantity, 0)}</span>
-                  </button>
-                )}
-              </div>
-            </div>
-          </header>
-        )}
-
-        {/* Top Cover Image */}
-        <div className={`relative ${isWebsiteMode ? 'h-52 sm:h-64 lg:h-72' : 'h-44'} w-full overflow-hidden bg-slate-800 transition-all`}>
+      {/* Main Experience: Either MBL Digital Academy Mini-Website OR Smartphone Card */}
+      {isWebsiteMode ? (
+        <MBLMiniWebsiteView
+          profile={profile}
+          cart={cart}
+          addToCart={addToCart}
+          updateQuantity={updateQuantity}
+          setIsCartOpen={setIsCartOpen}
+          selectedCurrency={selectedCurrency}
+          setSelectedCurrency={setSelectedCurrency}
+          formatPrice={formatPrice}
+          totalConvertedPrice={totalConvertedPrice}
+          setIsUPIModalOpen={setIsUPIModalOpen}
+          setBookingService={setBookingService}
+          setBookingSuccess={setBookingSuccess}
+          quoteServices={quoteServices}
+          toggleQuoteService={toggleQuoteService}
+          sendWhatsAppQuotation={sendWhatsAppQuotation}
+          leadName={leadName}
+          setLeadName={setLeadName}
+          leadEmail={leadEmail}
+          setLeadEmail={setLeadEmail}
+          leadPhone={leadPhone}
+          setLeadPhone={setLeadPhone}
+          leadMessage={leadMessage}
+          setLeadMessage={setLeadMessage}
+          handleLeadSubmit={handleLeadSubmit}
+          leadSuccess={leadSuccess}
+          trackAction={trackAction}
+          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+          getEmbedUrl={getEmbedUrl}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          showViewToggle={showViewToggle}
+          setIsReviewModalOpen={setIsReviewModalOpen}
+          dynamicTestimonials={dynamicTestimonials || undefined}
+        />
+      ) : (
+        <div className={`w-full max-w-md ${isMockup ? 'rounded-[36px]' : 'sm:rounded-[44px] sm:border-4 sm:border-slate-800 sm:p-1.5 sm:bg-slate-900'} mx-auto ${theme.bg} min-h-screen relative font-sans transition-all duration-300 pb-24 shadow-2xl overflow-hidden`}>
+          {/* Top Cover Image */}
+          <div className="relative h-44 w-full overflow-hidden bg-slate-800 transition-all">
           <img 
             src={profile.coverUrl} 
             alt="Cover" 
@@ -1888,92 +1828,19 @@ export default function ProfileCardView({
               return null;
           }
         })}
+        </div>
 
-        {/* Mini-Website or Mobile Card Footer Branding */}
-        {isWebsiteMode ? (
-          <footer className="mt-8 pt-8 pb-6 border-t border-slate-200/60 dark:border-slate-800 text-slate-500">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-slate-100 shrink-0">
-                    <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover" />
-                  </div>
-                  <div>
-                    <h5 className="font-extrabold text-sm text-slate-900 dark:text-white leading-tight">{profile.company || profile.name}</h5>
-                    <p className="text-[10px] text-slate-500">{profile.designation || 'Professional Business'}</p>
-                  </div>
-                </div>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  {profile.bio || 'Official digital business website with live booking, WhatsApp store catalog, and direct UPI integration.'}
-                </p>
-              </div>
-
-              <div className="space-y-2">
-                <h6 className="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Quick Navigation</h6>
-                <div className="grid grid-cols-2 gap-1.5 text-xs">
-                  {hasAbout && <a href="#about" className="hover:text-indigo-600 transition">About Us</a>}
-                  {hasServices && <a href="#services" className="hover:text-indigo-600 transition">Services</a>}
-                  {hasProducts && <a href="#store" className="hover:text-indigo-600 transition">Store Catalog</a>}
-                  {hasVideos && <a href="#videos" className="hover:text-indigo-600 transition">Video Demos</a>}
-                  {hasGallery && <a href="#portfolio" className="hover:text-indigo-600 transition">Portfolio</a>}
-                  {hasTestimonials && <a href="#reviews" className="hover:text-indigo-600 transition">Reviews</a>}
-                  <a href="#contact" className="hover:text-indigo-600 transition">Contact</a>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <h6 className="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Direct Actions</h6>
-                <div className="flex flex-col gap-2">
-                  <button
-                    onClick={() => {
-                      trackAction('contact_download');
-                      downloadVcfFile(profile);
-                    }}
-                    className="py-2 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 flex items-center justify-between transition"
-                  >
-                    <span className="flex items-center gap-1.5">
-                      <Download className="w-3.5 h-3.5 text-indigo-500" />
-                      Save Contact (VCF)
-                    </span>
-                    <ArrowRight className="w-3 h-3 text-slate-400" />
-                  </button>
-
-                  <a
-                    href={`https://wa.me/${getCleanWhatsAppNumber(profile)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="py-2 px-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-xs font-semibold text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/40 flex items-center justify-between transition"
-                  >
-                    <span className="flex items-center gap-1.5">
-                      <SocialIcon platform="whatsapp" size={14} colored={false} className="text-emerald-500" />
-                      WhatsApp Chat Direct
-                    </span>
-                    <ArrowRight className="w-3 h-3 text-emerald-500" />
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-slate-200/50 dark:border-slate-800/50 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-2">
-              <p>© 2026 {profile.company || profile.name}. All rights reserved.</p>
-              <div className="flex items-center gap-3">
-                <span>Powered by <a href="https://oneclickbiz.in" target="_blank" rel="noreferrer" className="font-bold text-indigo-600 hover:underline">OneClickBiz Mini-Website Engine</a></span>
-                <span>•</span>
-                <span>Developed by Merlinflow Technologies</span>
-              </div>
-            </div>
-          </footer>
-        ) : (
-          <div className="text-center pt-5 pb-3 px-4 space-y-1">
-            <p className={`text-[10px] ${theme.isLight ? 'text-slate-500' : 'text-slate-400'} font-medium`}>
-              © 2026 {profile.company || profile.name}. All rights reserved.
-            </p>
-            <p className={`text-[9px] ${theme.isLight ? 'text-slate-500' : 'text-slate-500'}`}>
-              Powered by <span className={`${theme.isLight ? 'text-slate-700 font-semibold' : 'text-slate-400 font-semibold'}`}>OneClickBiz</span> • Merlinflow Technologies Pvt Ltd
-            </p>
-          </div>
-        )}
+        {/* Mobile Card Footer Branding */}
+        <div className="text-center pt-5 pb-3 px-4 space-y-1">
+          <p className={`text-[10px] ${theme.isLight ? 'text-slate-500' : 'text-slate-400'} font-medium`}>
+            © 2026 {profile.company || profile.name}. All rights reserved.
+          </p>
+          <p className={`text-[9px] ${theme.isLight ? 'text-slate-500' : 'text-slate-500'}`}>
+            Powered by <span className={`${theme.isLight ? 'text-slate-700 font-semibold' : 'text-slate-400 font-semibold'}`}>OneClickBiz</span> • Merlinflow Technologies Pvt Ltd
+          </p>
+        </div>
       </div>
+    )}
 
       {/* Floating Cart Button (when items exist in cart) */}
       {cart.length > 0 && (
@@ -2437,8 +2304,8 @@ export default function ProfileCardView({
         defaultAmount={500}
       />
 
-      {/* Floating Bottom Quick-Conversion Dock (Mobile & Mini-Website) */}
-      {!isMockup && (
+      {/* Floating Bottom Quick-Conversion Dock (Mobile Card Mode only) */}
+      {!isMockup && !isWebsiteMode && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-auto max-w-[92vw] flex items-center gap-2 p-1.5 rounded-full bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-md border border-slate-700/60 shadow-2xl text-white">
           <button
             onClick={() => {
@@ -2499,7 +2366,6 @@ export default function ProfileCardView({
       {!isMockup && (
         <PWAInstallPrompt cardName={profile.name} avatarUrl={profile.avatarUrl} />
       )}
-    </div>
     </div>
   );
 }

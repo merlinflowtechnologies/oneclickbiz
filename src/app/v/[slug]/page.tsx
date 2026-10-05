@@ -266,16 +266,12 @@ export default async function PublicProfilePage({
   } : profile;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-indigo-100/95 via-purple-100/80 to-pink-100/90 flex flex-col justify-center items-center p-0 sm:py-8 font-sans relative overflow-x-hidden">
-      {/* Background Ambient Glows */}
-      <div className="absolute top-10 left-1/4 w-[480px] h-[480px] bg-purple-300/30 rounded-full blur-[130px] pointer-events-none -z-10 animate-pulse" />
-      <div className="absolute bottom-10 right-1/4 w-[520px] h-[520px] bg-pink-300/30 rounded-full blur-[140px] pointer-events-none -z-10 animate-pulse" style={{ animationDelay: '2s' }} />
-
+    <main className="min-h-screen bg-[#F8F9FA] text-[#111111] font-sans relative w-full overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}
       />
-      <div className="w-full max-w-5xl relative z-10 sm:px-4 py-2 sm:py-6">
+      <div className="w-full relative z-10">
         <ProfileCardView profile={displayProfile} isMockup={false} initialViewMode="website" showViewToggle={true} />
       </div>
     </main>
