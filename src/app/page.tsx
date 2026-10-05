@@ -46,7 +46,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Wifi,
-  RefreshCw
+  RefreshCw,
+  X
 } from 'lucide-react';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/navigation/Footer';
@@ -307,6 +308,10 @@ export default function LandingPage() {
     {
       q: 'Who owns and operates OneClickBiz, and how can I verify legitimacy?',
       a: 'OneClickBiz is engineered and operated by Merlinflow Technologies Pvt. Ltd., an incorporated Indian software company headquartered in Hyderabad, Telangana. We provide direct human customer support on WhatsApp (+91 63049 89071), and all digital transactions are secured via RBI-compliant payment gateway partners.'
+    },
+    {
+      q: 'Why should I choose OneClickBiz over a free Linktree or generic digital card?',
+      a: 'Linktree and standard digital cards are simply flat link directories. They do not support native Indian commerce: 0% fee WhatsApp cart ordering, direct bank UPI QR codes, in-card appointment slot booking, or 300 DPI corporate print brochure generation. Additionally, international card platforms charge expensive recurring US dollar subscriptions ($8-$15/month). OneClickBiz delivers a full identity and micro-commerce ecosystem built specifically for Indian businesses at an affordable local price in ₹ INR.'
     }
   ];
 
@@ -1227,6 +1232,178 @@ export default function LandingPage() {
               </Link>
             </div>
 
+          </div>
+
+        </div>
+      </section>
+
+      {/* Head-to-Head Comparison & Differentiation Section */}
+      <section className="py-24 bg-white border-t border-slate-200/80 relative overflow-hidden">
+        {/* Ambient Gradient Glows */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5 blur-[140px] pointer-events-none -z-10" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold shadow-xs">
+              <Zap className="w-4 h-4 text-indigo-600" />
+              <span>Built Different For Indian Commerce</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+              Why OneClickBiz vs. Generic Digital Cards
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+              Most digital cards are just a flat list of web links. OneClickBiz combines 1-click address book downloads with native WhatsApp micro-stores, direct UPI payments, and high-resolution corporate print studios.
+            </p>
+          </div>
+
+          {/* Comparison Table */}
+          <div className="overflow-x-auto pb-4">
+            <div className="min-w-[760px] rounded-3xl bg-white border border-slate-200 shadow-xl overflow-hidden">
+              <div className="grid grid-cols-12 bg-slate-50/90 border-b border-slate-200 text-xs font-bold text-slate-700">
+                <div className="col-span-4 p-5 text-slate-500 uppercase tracking-wider text-[11px]">
+                  Capability / Feature
+                </div>
+                <div className="col-span-2.5 p-5 text-center text-slate-500">
+                  Generic Link-in-Bio
+                  <span className="block text-[10px] font-normal text-slate-400 mt-0.5">(Linktree, Carrd)</span>
+                </div>
+                <div className="col-span-2.5 p-5 text-center text-slate-500">
+                  Western NFC Cards
+                  <span className="block text-[10px] font-normal text-slate-400 mt-0.5">(Popl, Blinq, HiHello)</span>
+                </div>
+                <div className="col-span-3 p-5 text-center bg-indigo-600 text-white rounded-t-2xl shadow-md">
+                  <div className="inline-flex items-center gap-1.5 font-extrabold">
+                    <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+                    <span>OneClickBiz</span>
+                  </div>
+                  <span className="block text-[10px] font-medium text-indigo-100 mt-0.5">Engineered for Indian Commerce</span>
+                </div>
+              </div>
+
+              {/* Rows */}
+              {[
+                {
+                  feature: 'Primary Function',
+                  sub: 'What it actually does for your business',
+                  generic: 'Basic list of outbound links',
+                  western: 'Corporate networking profile',
+                  oneclickbiz: 'Complete Commerce & Identity Engine',
+                  highlight: true,
+                },
+                {
+                  feature: 'WhatsApp Mini-Store & Direct Cart',
+                  sub: 'Receive structured client orders on WhatsApp',
+                  generic: false,
+                  western: false,
+                  oneclickbiz: '✅ 0% Fee In-Card WhatsApp Cart',
+                  highlight: true,
+                },
+                {
+                  feature: 'Direct Bank UPI Payments',
+                  sub: 'Collect GPay / PhonePe / Paytm with 0% gateway cuts',
+                  generic: false,
+                  western: 'Stripe / Apple Pay only',
+                  oneclickbiz: '✅ Instant Bank UPI QR Code (0% fees)',
+                  highlight: true,
+                },
+                {
+                  feature: 'Print Brochure & Card Studio',
+                  sub: 'Design & export 300 DPI corporate PDF brochures',
+                  generic: false,
+                  western: false,
+                  oneclickbiz: '✅ Built-in 300 DPI Multi-Page Studio',
+                  highlight: true,
+                },
+                {
+                  feature: 'Appointment Slot Booking',
+                  sub: 'Let clients book appointments without Calendly fees',
+                  generic: 'Needs $15/mo 3rd-party',
+                  western: 'Needs Calendly subscription',
+                  oneclickbiz: '✅ In-Card Concurrency Slot Booking',
+                  highlight: true,
+                },
+                {
+                  feature: 'Blog & Article Publishing Studio',
+                  sub: 'Publish articles & rank in Google search',
+                  generic: false,
+                  western: false,
+                  oneclickbiz: '✅ Built-in SEO Blog Studio',
+                  highlight: true,
+                },
+                {
+                  feature: '24x7 Unlimited Profile Updates',
+                  sub: 'Edit phone, address, photo, or products anytime',
+                  generic: 'Limited on free plans',
+                  western: 'Paywalled behind upgrades',
+                  oneclickbiz: '✅ 100% Free Unlimited Updates',
+                  highlight: true,
+                },
+                {
+                  feature: 'Annual Price in India',
+                  sub: 'No expensive recurring US dollar surprises',
+                  generic: '$60 - $120/yr (~₹5,000 - ₹10,000)',
+                  western: '$96 - $180/yr (~₹8,000 - ₹15,000)',
+                  oneclickbiz: '₹499 - ₹999/yr (Indian ₹ Pricing)',
+                  highlight: true,
+                }
+              ].map((row, idx) => (
+                <div 
+                  key={idx} 
+                  className={`grid grid-cols-12 text-xs border-b border-slate-100 last:border-0 items-center ${
+                    idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'
+                  }`}
+                >
+                  <div className="col-span-4 p-4 sm:p-5">
+                    <p className="font-bold text-slate-900">{row.feature}</p>
+                    <p className="text-[11px] text-slate-500 mt-0.5">{row.sub}</p>
+                  </div>
+                  <div className="col-span-2.5 p-4 sm:p-5 text-center text-slate-600 font-medium border-l border-slate-100">
+                    {row.generic === false ? (
+                      <span className="inline-flex items-center gap-1 text-slate-400 font-normal">
+                        <X className="w-4 h-4 text-slate-300" /> None
+                      </span>
+                    ) : (
+                      row.generic
+                    )}
+                  </div>
+                  <div className="col-span-2.5 p-4 sm:p-5 text-center text-slate-600 font-medium border-l border-slate-100">
+                    {row.western === false ? (
+                      <span className="inline-flex items-center gap-1 text-slate-400 font-normal">
+                        <X className="w-4 h-4 text-slate-300" /> None
+                      </span>
+                    ) : (
+                      row.western
+                    )}
+                  </div>
+                  <div className="col-span-3 p-4 sm:p-5 text-center font-bold text-indigo-950 bg-indigo-50/60 border-l border-indigo-100">
+                    <span className="text-indigo-900">{row.oneclickbiz}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Consolidate & Save Banner */}
+          <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-purple-950 to-slate-900 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="space-y-1 text-center md:text-left">
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
+                COST CONSOLIDATION
+              </span>
+              <h3 className="text-lg sm:text-xl font-bold text-white">
+                Replace 4 Disjointed Subscriptions with 1 Smart Identity
+              </h3>
+              <p className="text-xs text-slate-300 max-w-xl">
+                Save ₹25,000+/year by replacing Linktree (₹5,000/yr), Calendly (₹12,000/yr), Shopify Lite (₹8,000/yr), and PDF tools with OneClickBiz.
+              </p>
+            </div>
+            <Link
+              href="/signup?intent=build_card"
+              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-xs shrink-0 shadow-lg transition-all active:scale-95 flex items-center gap-2"
+            >
+              <span>Build Your Smart Card Free</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
         </div>
