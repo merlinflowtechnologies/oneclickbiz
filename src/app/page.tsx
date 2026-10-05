@@ -312,6 +312,10 @@ export default function LandingPage() {
     {
       q: 'Why should I choose OneClickBiz over a free Linktree or generic digital card?',
       a: 'Linktree and standard digital cards are simply flat link directories. They do not support native Indian commerce: 0% fee WhatsApp cart ordering, direct bank UPI QR codes, in-card appointment slot booking, or 300 DPI corporate print brochure generation. Additionally, international card platforms charge expensive recurring US dollar subscriptions ($8-$15/month). OneClickBiz delivers a full identity and micro-commerce ecosystem built specifically for Indian businesses at an affordable local price in ₹ INR.'
+    },
+    {
+      q: 'What happens if I print 1,000 physical cards with my QR code? Am I locked in?',
+      a: 'You are completely protected against vendor lock-in! First, OneClickBiz supports White-Label Custom Domains (e.g., cards.yourbrand.com). If you print your own custom domain on your cards, you own that link forever—even if you ever migrate to another platform in the future, your physical cards will never break. Second, all QR codes use dynamic cloud redirects, meaning you can update the destination URL anytime without reprinting. Third, you can export all your contacts, leads, and catalog data to open CSV/JSON formats with 1 click anytime.'
     }
   ];
 
@@ -1487,6 +1491,58 @@ export default function LandingPage() {
               </div>
             </div>
 
+          </div>
+
+          {/* Zero Vendor Lock-In & Physical Print Longevity Guarantee Banner */}
+          <div className="mb-16 p-8 rounded-3xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-indigo-500/10 border-2 border-amber-500/30 backdrop-blur-md shadow-lg shadow-amber-500/5">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="space-y-2 max-w-3xl">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-[11px] font-bold">
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-700" />
+                  <span>Physical Print &amp; QR Longevity Protection</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                  Printing 1,000+ Physical Cards? You Are 100% Protected From Lock-In.
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
+                  Never worry about wasted printing costs or broken links. With <strong>White-Label Custom Domains (e.g., cards.yourbrand.com)</strong>, the QR code printed on your physical cards and marketing materials points to <strong>your own company domain</strong>—you own the URL forever. Even if you migrate platforms in 10 years, your printed cards never expire.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3">
+                  <div className="p-3 rounded-xl bg-white/80 border border-amber-200/80 space-y-1">
+                    <p className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                      <Check className="w-3.5 h-3.5 text-emerald-600" /> Custom CNAME Domains
+                    </p>
+                    <p className="text-[11px] text-slate-500">Your brand, your URL. Zero platform lock-in.</p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/80 border border-amber-200/80 space-y-1">
+                    <p className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                      <Check className="w-3.5 h-3.5 text-emerald-600" /> Dynamic Cloud Redirects
+                    </p>
+                    <p className="text-[11px] text-slate-500">Update the destination anytime with 0 reprints.</p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/80 border border-amber-200/80 space-y-1">
+                    <p className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                      <Check className="w-3.5 h-3.5 text-emerald-600" /> 1-Click Data Portability
+                    </p>
+                    <p className="text-[11px] text-slate-500">Export leads, products &amp; vCards to CSV anytime.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 shrink-0">
+                <Link
+                  href="/terms"
+                  className="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center shadow-md transition"
+                >
+                  Read Longevity Terms
+                </Link>
+                <Link
+                  href="/signup?plan=Pro&intent=custom_domain"
+                  className="px-5 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-bold text-xs text-center shadow-xs transition"
+                >
+                  Pair Custom Domain
+                </Link>
+              </div>
+            </div>
           </div>
 
           {/* Real-World Industry Diversity Demos */}

@@ -19,7 +19,8 @@ import {
   HelpCircle,
   Lock,
   Ban,
-  Gavel
+  Gavel,
+  Globe2
 } from 'lucide-react';
 
 export default function TermsPage() {
@@ -186,7 +187,7 @@ export default function TermsPage() {
           <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Cpu className="w-4 h-4 text-indigo-400" />
-              4. Proprietary Rights & Development Ownership
+              4. Proprietary Rights &amp; Development Ownership
             </h2>
             <p className="text-slate-300 text-xs leading-relaxed">
               The OneClickBiz software platform, backend architecture, dynamic NFC resonance engine, and digital template designs are proprietary assets engineered and maintained by <strong>Merlinflow Technologies Pvt Ltd</strong>.
@@ -196,11 +197,27 @@ export default function TermsPage() {
             </p>
           </section>
 
-          {/* 5. Limitation of Liability & Warranty Disclaimer */}
+          {/* 5. Zero Vendor Lock-In & URL Longevity Commitment */}
+          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-emerald-500/30">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Globe2 className="w-4 h-4 text-emerald-400" />
+              5. Zero Vendor Lock-In &amp; Physical Card Longevity Commitment
+            </h2>
+            <p className="text-slate-300 text-xs leading-relaxed">
+              We respect the physical investment you make in printing NFC cards, standees, and brochures. OneClickBiz guarantees:
+            </p>
+            <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-300 pl-2">
+              <li><strong>Custom Domain Sovereignty:</strong> Subscribers utilizing White-Label Custom Domains (e.g. <code className="text-indigo-400 font-mono">cards.yourbrand.com</code>) retain 100% intellectual property and DNS ownership. If you ever migrate, your printed physical cards pointing to your domain will never break.</li>
+              <li><strong>Dynamic Redirect Continuity:</strong> All QR codes route through dynamic cloud endpoints. You can redirect the target URL anytime without reprinting your materials.</li>
+              <li><strong>Data Portability:</strong> You may export your leads, customer interactions, product catalogs, and contact lists to open CSV and JSON formats at any time. We do not hold your business data or domain hostage.</li>
+            </ul>
+          </section>
+
+          {/* 6. Limitation of Liability & Warranty Disclaimer */}
           <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-amber-400" />
-              5. Limitation of Liability & Indemnity
+              6. Limitation of Liability &amp; Indemnity
             </h2>
             <p className="text-slate-300 text-xs leading-relaxed">
               To the maximum extent permitted by applicable Indian law, OneClickBiz, its founders, and Merlinflow Technologies Pvt Ltd shall not be liable for any indirect, incidental, punitive, or consequential damages resulting from lost profits, network outages, third-party carrier delays, or transactions between users and their end customers.
@@ -210,11 +227,11 @@ export default function TermsPage() {
             </p>
           </section>
 
-          {/* 6. Jurisdiction & Legal Disputes */}
+          {/* 7. Jurisdiction & Legal Disputes */}
           <section className="p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950/30 to-slate-900 border border-slate-800 space-y-3">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Gavel className="w-4 h-4 text-indigo-400" />
-              6. Governing Law & Exclusive Jurisdiction
+              7. Governing Law &amp; Exclusive Jurisdiction
             </h2>
             <p className="text-slate-300 text-xs leading-relaxed">
               These Terms shall be governed by, interpreted, and enforced in accordance with the substantive laws of the Republic of India. Any legal dispute, arbitration, or proceeding arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the competent courts located in <strong>Hyderabad, Telangana, India</strong>.
