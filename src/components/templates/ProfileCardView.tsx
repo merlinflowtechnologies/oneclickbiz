@@ -374,88 +374,186 @@ export default function ProfileCardView({
       case 'obsidian-gold':
       case 'dark-onyx':
         return {
+          isLight: false,
           bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900 via-zinc-950 to-black text-white',
           card: 'bg-zinc-900/95 backdrop-blur-xl border border-amber-500/30 text-zinc-100 shadow-2xl shadow-amber-500/5',
+          itemBg: 'bg-zinc-950/60 border border-zinc-800',
           accent: 'from-amber-400 via-yellow-500 to-amber-600',
           accentText: 'text-amber-300 font-semibold',
+          textPrimary: 'text-white',
+          textSecondary: 'text-zinc-300',
+          textMuted: 'text-zinc-400',
           buttonPrimary: 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-slate-950 font-bold shadow-lg shadow-amber-500/20 hover:from-amber-300 hover:to-amber-500 hover:scale-[1.02] active:scale-95 transition-all',
           buttonSecondary: 'bg-zinc-850 border border-amber-500/20 text-zinc-200 hover:bg-zinc-800 hover:text-white',
           badge: 'bg-gradient-to-r from-amber-500/15 to-yellow-500/10 text-amber-300 border border-amber-500/30 shadow-sm font-semibold',
           border: 'border-amber-500/25',
-          avatarRing: 'ring-4 ring-amber-400/40 shadow-amber-500/20'
+          avatarRing: 'ring-4 ring-amber-400/40 shadow-amber-500/20',
+          avatarBorder: 'border-slate-900',
+          coverOverlay: 'bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent',
+          quickChipCall: 'bg-zinc-850/90 border border-amber-500/20 text-zinc-300 hover:text-white',
+          quickChipEmail: 'bg-zinc-850/90 border border-amber-500/20 text-zinc-300 hover:text-white',
+          quickChipWeb: 'bg-zinc-850/90 border border-amber-500/20 text-zinc-300 hover:text-white',
+          quickChipMap: 'bg-zinc-850/90 border border-amber-500/20 text-zinc-300 hover:text-white',
+          upiCard: 'bg-gradient-to-tr from-emerald-950/70 via-slate-900 to-slate-950 border border-emerald-500/40 hover:border-emerald-400',
+          reviewCard: 'bg-gradient-to-tr from-amber-950/60 via-slate-900 to-slate-950 border border-amber-500/40 hover:border-amber-400',
+          inputBg: 'bg-zinc-950/70 border-zinc-700 text-white placeholder-zinc-500 focus:border-amber-500'
         };
       case 'emerald-pro':
         return {
+          isLight: false,
           bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-950/80 via-slate-950 to-zinc-950 text-white',
           card: 'bg-slate-900/95 backdrop-blur-xl border border-emerald-500/30 text-slate-100 shadow-2xl shadow-emerald-500/5',
+          itemBg: 'bg-slate-950/60 border border-slate-800',
           accent: 'from-emerald-400 via-teal-500 to-emerald-600',
           accentText: 'text-emerald-300 font-semibold',
+          textPrimary: 'text-white',
+          textSecondary: 'text-slate-300',
+          textMuted: 'text-slate-400',
           buttonPrimary: 'bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600 text-slate-950 font-bold shadow-lg shadow-emerald-500/20 hover:from-emerald-300 hover:to-emerald-500 hover:scale-[1.02] active:scale-95 transition-all',
           buttonSecondary: 'bg-slate-850 border border-emerald-500/20 text-slate-200 hover:bg-slate-800 hover:text-white',
           badge: 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shadow-sm font-semibold',
           border: 'border-emerald-500/25',
-          avatarRing: 'ring-4 ring-emerald-400/40 shadow-emerald-500/20'
+          avatarRing: 'ring-4 ring-emerald-400/40 shadow-emerald-500/20',
+          avatarBorder: 'border-slate-900',
+          coverOverlay: 'bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent',
+          quickChipCall: 'bg-slate-850/90 border border-emerald-500/20 text-slate-300 hover:text-white',
+          quickChipEmail: 'bg-slate-850/90 border border-emerald-500/20 text-slate-300 hover:text-white',
+          quickChipWeb: 'bg-slate-850/90 border border-emerald-500/20 text-slate-300 hover:text-white',
+          quickChipMap: 'bg-slate-850/90 border border-emerald-500/20 text-slate-300 hover:text-white',
+          upiCard: 'bg-gradient-to-tr from-emerald-950/70 via-slate-900 to-slate-950 border border-emerald-500/40 hover:border-emerald-400',
+          reviewCard: 'bg-gradient-to-tr from-amber-950/60 via-slate-900 to-slate-950 border border-amber-500/40 hover:border-amber-400',
+          inputBg: 'bg-slate-950/60 border-slate-700 text-white placeholder-slate-500 focus:border-emerald-500'
         };
       case 'sunset-gold':
         return {
+          isLight: false,
           bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-rose-950/70 via-stone-950 to-black text-white',
           card: 'bg-stone-900/95 backdrop-blur-xl border border-rose-500/30 text-stone-100 shadow-2xl shadow-rose-500/5',
+          itemBg: 'bg-stone-950/60 border border-stone-800',
           accent: 'from-rose-400 via-orange-500 to-amber-500',
           accentText: 'text-rose-300 font-semibold',
+          textPrimary: 'text-white',
+          textSecondary: 'text-stone-300',
+          textMuted: 'text-stone-400',
           buttonPrimary: 'bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 text-white font-bold shadow-lg shadow-rose-500/25 hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all',
           buttonSecondary: 'bg-stone-850 border border-rose-500/20 text-stone-200 hover:bg-stone-800 hover:text-white',
           badge: 'bg-rose-500/15 text-rose-300 border border-rose-500/30 shadow-sm font-semibold',
           border: 'border-rose-500/25',
-          avatarRing: 'ring-4 ring-rose-400/40 shadow-rose-500/20'
+          avatarRing: 'ring-4 ring-rose-400/40 shadow-rose-500/20',
+          avatarBorder: 'border-slate-900',
+          coverOverlay: 'bg-gradient-to-t from-stone-950/90 via-stone-950/30 to-transparent',
+          quickChipCall: 'bg-stone-850/90 border border-rose-500/20 text-stone-300 hover:text-white',
+          quickChipEmail: 'bg-stone-850/90 border border-rose-500/20 text-stone-300 hover:text-white',
+          quickChipWeb: 'bg-stone-850/90 border border-rose-500/20 text-stone-300 hover:text-white',
+          quickChipMap: 'bg-stone-850/90 border border-rose-500/20 text-stone-300 hover:text-white',
+          upiCard: 'bg-gradient-to-tr from-emerald-950/70 via-stone-900 to-stone-950 border border-emerald-500/40 hover:border-emerald-400',
+          reviewCard: 'bg-gradient-to-tr from-amber-950/60 via-stone-900 to-stone-950 border border-amber-500/40 hover:border-amber-400',
+          inputBg: 'bg-stone-950/60 border-stone-700 text-white placeholder-stone-500 focus:border-rose-500'
         };
       case 'royal-navy':
         return {
+          isLight: false,
           bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-950 via-slate-950 to-black text-white',
           card: 'bg-slate-900/95 backdrop-blur-xl border border-sky-500/30 text-slate-100 shadow-2xl shadow-sky-500/5',
+          itemBg: 'bg-slate-950/60 border border-slate-800',
           accent: 'from-sky-400 via-blue-500 to-indigo-600',
           accentText: 'text-sky-300 font-semibold',
+          textPrimary: 'text-white',
+          textSecondary: 'text-slate-300',
+          textMuted: 'text-slate-400',
           buttonPrimary: 'bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 text-white font-bold shadow-lg shadow-sky-500/20 hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all',
           buttonSecondary: 'bg-slate-850 border border-sky-500/20 text-slate-200 hover:bg-slate-800 hover:text-white',
           badge: 'bg-sky-500/15 text-sky-300 border border-sky-500/30 shadow-sm font-semibold',
           border: 'border-sky-500/25',
-          avatarRing: 'ring-4 ring-sky-400/40 shadow-sky-500/20'
+          avatarRing: 'ring-4 ring-sky-400/40 shadow-sky-500/20',
+          avatarBorder: 'border-slate-900',
+          coverOverlay: 'bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent',
+          quickChipCall: 'bg-slate-850/90 border border-sky-500/20 text-slate-300 hover:text-white',
+          quickChipEmail: 'bg-slate-850/90 border border-sky-500/20 text-slate-300 hover:text-white',
+          quickChipWeb: 'bg-slate-850/90 border border-sky-500/20 text-slate-300 hover:text-white',
+          quickChipMap: 'bg-slate-850/90 border border-sky-500/20 text-slate-300 hover:text-white',
+          upiCard: 'bg-gradient-to-tr from-emerald-950/70 via-slate-900 to-slate-950 border border-emerald-500/40 hover:border-emerald-400',
+          reviewCard: 'bg-gradient-to-tr from-amber-950/60 via-slate-900 to-slate-950 border border-amber-500/40 hover:border-amber-400',
+          inputBg: 'bg-slate-950/60 border-slate-700 text-white placeholder-slate-500 focus:border-sky-500'
         };
       case 'cyber-neon':
         return {
+          isLight: false,
           bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-fuchsia-950/70 via-slate-950 to-black text-white',
           card: 'bg-slate-900/95 backdrop-blur-xl border border-cyan-500/40 text-slate-100 shadow-2xl shadow-cyan-500/10',
+          itemBg: 'bg-slate-950/60 border border-cyan-900/40',
           accent: 'from-cyan-400 via-fuchsia-500 to-pink-500',
           accentText: 'text-cyan-300 font-bold',
+          textPrimary: 'text-white',
+          textSecondary: 'text-slate-300',
+          textMuted: 'text-slate-400',
           buttonPrimary: 'bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-pink-500 text-slate-950 font-black shadow-lg shadow-cyan-500/25 hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all',
           buttonSecondary: 'bg-slate-850 border border-cyan-500/20 text-cyan-200 hover:bg-slate-800 hover:text-white',
           badge: 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-sm font-semibold',
           border: 'border-cyan-500/30',
-          avatarRing: 'ring-4 ring-cyan-400/50 shadow-cyan-500/30'
+          avatarRing: 'ring-4 ring-cyan-400/50 shadow-cyan-500/30',
+          avatarBorder: 'border-slate-900',
+          coverOverlay: 'bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent',
+          quickChipCall: 'bg-slate-850/90 border border-cyan-500/20 text-cyan-300 hover:text-white',
+          quickChipEmail: 'bg-slate-850/90 border border-cyan-500/20 text-cyan-300 hover:text-white',
+          quickChipWeb: 'bg-slate-850/90 border border-cyan-500/20 text-cyan-300 hover:text-white',
+          quickChipMap: 'bg-slate-850/90 border border-cyan-500/20 text-cyan-300 hover:text-white',
+          upiCard: 'bg-gradient-to-tr from-emerald-950/70 via-slate-900 to-slate-950 border border-emerald-500/40 hover:border-emerald-400',
+          reviewCard: 'bg-gradient-to-tr from-amber-950/60 via-slate-900 to-slate-950 border border-amber-500/40 hover:border-amber-400',
+          inputBg: 'bg-slate-950/60 border-cyan-700/50 text-white placeholder-slate-500 focus:border-cyan-400'
         };
       case 'glassmorphic':
         return {
+          isLight: false,
           bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-950/90 via-slate-950 to-purple-950 text-white',
           card: 'bg-white/10 backdrop-blur-2xl border border-white/25 text-white shadow-2xl shadow-indigo-500/10',
+          itemBg: 'bg-white/5 border border-white/15',
           accent: 'from-cyan-300 via-indigo-400 to-pink-400',
           accentText: 'text-cyan-300 font-bold',
+          textPrimary: 'text-white',
+          textSecondary: 'text-slate-300',
+          textMuted: 'text-slate-400',
           buttonPrimary: 'bg-gradient-to-r from-cyan-400 via-indigo-500 to-pink-500 text-slate-950 font-extrabold shadow-xl hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all',
           buttonSecondary: 'bg-white/10 backdrop-blur-md text-white hover:bg-white/20 border border-white/15',
           badge: 'bg-white/15 text-cyan-200 border border-white/25 shadow-sm font-semibold backdrop-blur-md',
           border: 'border-white/20',
-          avatarRing: 'ring-4 ring-white/40 shadow-indigo-500/30'
+          avatarRing: 'ring-4 ring-white/40 shadow-indigo-500/30',
+          avatarBorder: 'border-white/30',
+          coverOverlay: 'bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent',
+          quickChipCall: 'bg-white/10 border border-white/15 text-slate-200 hover:text-white',
+          quickChipEmail: 'bg-white/10 border border-white/15 text-slate-200 hover:text-white',
+          quickChipWeb: 'bg-white/10 border border-white/15 text-slate-200 hover:text-white',
+          quickChipMap: 'bg-white/10 border border-white/15 text-slate-200 hover:text-white',
+          upiCard: 'bg-gradient-to-tr from-emerald-950/70 via-slate-900 to-slate-950 border border-emerald-500/40 hover:border-emerald-400',
+          reviewCard: 'bg-gradient-to-tr from-amber-950/60 via-slate-900 to-slate-950 border border-amber-500/40 hover:border-amber-400',
+          inputBg: 'bg-white/10 border-white/20 text-white placeholder-slate-400 focus:border-cyan-400'
         };
       case 'modern-indigo':
       default:
         return {
-          bg: 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-950/80 via-slate-900 to-slate-950 text-slate-100',
-          card: 'bg-slate-850/95 backdrop-blur-xl border border-indigo-500/30 text-white shadow-2xl shadow-indigo-500/10',
-          accent: 'from-indigo-400 via-purple-500 to-pink-500',
-          accentText: 'text-indigo-300 font-semibold',
-          buttonPrimary: 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold shadow-lg shadow-indigo-500/25 hover:opacity-95 hover:scale-[1.02] active:scale-95 transition-all',
-          buttonSecondary: 'bg-slate-750/90 border border-indigo-500/20 text-slate-200 hover:bg-slate-700 hover:text-white',
-          badge: 'bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 shadow-sm font-semibold',
-          border: 'border-indigo-500/25',
-          avatarRing: 'ring-4 ring-indigo-400/40 shadow-indigo-500/20'
+          isLight: true,
+          bg: 'bg-gradient-to-b from-amber-50/40 via-white to-sky-50/40 text-slate-900',
+          card: 'bg-white/95 backdrop-blur-xl border border-slate-200/90 text-slate-800 shadow-xl shadow-slate-200/60',
+          itemBg: 'bg-slate-50/90 border border-slate-200/80',
+          accent: 'from-orange-500 via-amber-500 to-indigo-600',
+          accentText: 'text-indigo-600 font-bold',
+          textPrimary: 'text-slate-900',
+          textSecondary: 'text-slate-600',
+          textMuted: 'text-slate-500',
+          buttonPrimary: 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-white font-extrabold shadow-lg shadow-orange-500/30 hover:scale-[1.02] active:scale-95 transition-all',
+          buttonSecondary: 'bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800',
+          badge: 'bg-orange-50 text-orange-700 border border-orange-200 shadow-xs font-bold',
+          border: 'border-slate-200',
+          avatarRing: 'ring-4 ring-amber-400/80 shadow-lg shadow-amber-200/50',
+          avatarBorder: 'border-white',
+          coverOverlay: 'bg-gradient-to-t from-white via-white/50 to-transparent',
+          quickChipCall: 'bg-sky-50 hover:bg-sky-100 border border-sky-200 text-sky-800 shadow-xs',
+          quickChipEmail: 'bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-800 shadow-xs',
+          quickChipWeb: 'bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-800 shadow-xs',
+          quickChipMap: 'bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 shadow-xs',
+          upiCard: 'bg-gradient-to-br from-emerald-50 via-teal-50/60 to-white border-2 border-emerald-300/90 shadow-md shadow-emerald-100/60 hover:border-emerald-400',
+          reviewCard: 'bg-gradient-to-br from-amber-50 via-yellow-50/60 to-white border-2 border-amber-300/90 shadow-md shadow-amber-100/60 hover:border-amber-400',
+          inputBg: 'bg-white border-slate-200 text-slate-900 placeholder-slate-400 focus:border-indigo-500'
         };
     }
   };
@@ -473,23 +571,23 @@ export default function ProfileCardView({
           alt="Cover" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent" />
+        <div className={`absolute inset-0 ${theme.coverOverlay}`} />
         
         {/* Floating Quick Action Bar */}
         <div className="absolute top-4 right-4 flex items-center space-x-2">
           <button 
             onClick={() => setIsQrOpen(true)}
-            className="p-2.5 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/60 transition-all border border-white/20 shadow-lg"
+            className={`p-2.5 rounded-full ${theme.isLight ? 'bg-white/85 hover:bg-white text-slate-800 border-white/60 shadow-md' : 'bg-black/40 hover:bg-black/60 text-white border-white/20'} backdrop-blur-md transition-all border shadow-lg`}
             title="Scan QR Code"
           >
             <QrCode className="w-4 h-4" />
           </button>
           <button 
             onClick={handleShare}
-            className="p-2.5 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/60 transition-all border border-white/20 shadow-lg"
+            className={`p-2.5 rounded-full ${theme.isLight ? 'bg-white/85 hover:bg-white text-slate-800 border-white/60 shadow-md' : 'bg-black/40 hover:bg-black/60 text-white border-white/20'} backdrop-blur-md transition-all border shadow-lg`}
             title="Share Profile"
           >
-            {copiedLink ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
+            {copiedLink ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
           </button>
         </div>
       </div>
@@ -500,24 +598,24 @@ export default function ProfileCardView({
         {/* Avatar & Header */}
         <div className="flex flex-col items-center text-center">
           <div className="relative">
-            <div className={`w-28 h-28 rounded-full overflow-hidden border-4 border-slate-900 shadow-2xl ${theme.avatarRing || 'ring-2 ring-indigo-500/50'}`}>
+            <div className={`w-28 h-28 rounded-full overflow-hidden border-4 ${theme.avatarBorder} shadow-2xl ${theme.avatarRing || 'ring-2 ring-indigo-500/50'}`}>
               <img 
                 src={profile.avatarUrl} 
                 alt={profile.name} 
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center">
+            <div className={`absolute bottom-1 right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 ${theme.avatarBorder} flex items-center justify-center shadow-md`}>
               <Sparkles className="w-3 h-3 text-white" />
             </div>
           </div>
 
-          <h1 className="mt-3 text-2xl font-bold tracking-tight text-white flex items-center gap-1.5">
+          <h1 className={`mt-3 text-2xl font-black tracking-tight ${theme.textPrimary} flex items-center gap-1.5`}>
             {profile.name}
           </h1>
-          <p className="text-sm font-medium text-slate-300 mt-0.5">{profile.designation}</p>
+          <p className={`text-sm font-semibold ${theme.textSecondary} mt-0.5`}>{profile.designation}</p>
           {profile.company && (
-            <p className={`text-xs font-semibold ${theme.accentText} mt-0.5`}>{profile.company}</p>
+            <p className={`text-xs font-bold ${theme.accentText} mt-0.5`}>{profile.company}</p>
           )}
 
           {/* Action CTA Buttons: Save Contact & WhatsApp */}
@@ -527,7 +625,7 @@ export default function ProfileCardView({
                 trackAction('contact_download');
                 downloadVcfFile(profile);
               }}
-              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl ${theme.buttonPrimary} shadow-lg font-medium text-xs transition-all active:scale-95`}
+              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl ${theme.buttonPrimary} shadow-lg font-bold text-xs transition-all active:scale-95`}
             >
               <Download className="w-4 h-4" />
               Save Contact
@@ -537,28 +635,31 @@ export default function ProfileCardView({
               target="_blank"
               rel="noreferrer"
               onClick={() => trackAction('whatsapp_click')}
-              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg font-medium text-xs transition-all active:scale-95"
+              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-lg shadow-emerald-500/25 font-bold text-xs transition-all active:scale-95"
             >
               <SocialIcon platform="whatsapp" size={16} colored={false} className="text-white" />
               WhatsApp
             </a>
           </div>
 
-          {/* Quick Contact Chips */}
+          {/* Quick Contact Chips - Vibrant multi-color chips */}
           <div className="grid grid-cols-4 gap-2 w-full mt-3">
             {profile.phone && (
               <a 
                 href={`tel:${profile.phone}`} 
                 onClick={() => trackAction('phone_click')}
-                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.card} hover:scale-105 transition-all text-xs text-slate-300`}
+                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipCall} hover:scale-105 transition-all text-xs font-semibold`}
               >
-                <Phone className="w-4 h-4 mb-1 text-sky-400" />
+                <Phone className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-sky-600' : 'text-sky-400'}`} />
                 <span className="text-[10px]">Call</span>
               </a>
             )}
             {profile.email && (
-              <a href={`mailto:${profile.email}`} className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.card} hover:scale-105 transition-all text-xs text-slate-300`}>
-                <Mail className="w-4 h-4 mb-1 text-rose-400" />
+              <a 
+                href={`mailto:${profile.email}`} 
+                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipEmail} hover:scale-105 transition-all text-xs font-semibold`}
+              >
+                <Mail className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-rose-600' : 'text-rose-400'}`} />
                 <span className="text-[10px]">Email</span>
               </a>
             )}
@@ -568,15 +669,20 @@ export default function ProfileCardView({
                 target="_blank" 
                 rel="noreferrer" 
                 onClick={() => trackAction('website_click')}
-                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.card} hover:scale-105 transition-all text-xs text-slate-300`}
+                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipWeb} hover:scale-105 transition-all text-xs font-semibold`}
               >
-                <Globe className="w-4 h-4 mb-1 text-emerald-400" />
+                <Globe className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-indigo-600' : 'text-emerald-400'}`} />
                 <span className="text-[10px]">Web</span>
               </a>
             )}
             {profile.address && (
-              <a href={`https://maps.google.com/?q=${encodeURIComponent(profile.address)}`} target="_blank" rel="noreferrer" className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.card} hover:scale-105 transition-all text-xs text-slate-300`}>
-                <MapPin className="w-4 h-4 mb-1 text-amber-400" />
+              <a 
+                href={`https://maps.google.com/?q=${encodeURIComponent(profile.address)}`} 
+                target="_blank" 
+                rel="noreferrer" 
+                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipMap} hover:scale-105 transition-all text-xs font-semibold`}
+              >
+                <MapPin className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-amber-600' : 'text-amber-400'}`} />
                 <span className="text-[10px]">Map</span>
               </a>
             )}
@@ -590,18 +696,18 @@ export default function ProfileCardView({
                 trackAction('upi_pay_click');
                 setIsUPIModalOpen(true);
               }}
-              className="p-3 rounded-2xl bg-gradient-to-tr from-emerald-950/70 via-slate-900 to-slate-950 border border-emerald-500/40 hover:border-emerald-400 text-left transition-all active:scale-95 shadow-lg group"
+              className={`p-3 rounded-2xl ${theme.upiCard} text-left transition-all active:scale-95 group`}
             >
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[9px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/20 px-1.5 py-0.5 rounded border border-emerald-500/30">
+                <span className={`text-[9px] font-black uppercase tracking-wider ${theme.isLight ? 'bg-emerald-600 text-white' : 'text-emerald-400 bg-emerald-500/20 border border-emerald-500/30'} px-2 py-0.5 rounded-full shadow-xs`}>
                   0% Fee UPI
                 </span>
-                <Smartphone className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition" />
+                <Smartphone className={`w-3.5 h-3.5 ${theme.isLight ? 'text-emerald-600' : 'text-emerald-400'} group-hover:scale-110 transition`} />
               </div>
-              <div className="text-xs font-bold text-white flex items-center gap-1">
+              <div className={`text-xs font-extrabold ${theme.isLight ? 'text-slate-900' : 'text-white'} flex items-center gap-1`}>
                 <span>⚡ Pay via UPI</span>
               </div>
-              <p className="text-[9px] text-slate-400 mt-0.5">GPay • PhonePe • Paytm</p>
+              <p className={`text-[9px] ${theme.isLight ? 'text-emerald-800 font-bold' : 'text-slate-400'} mt-0.5`}>GPay • PhonePe • Paytm</p>
             </button>
 
             <a
@@ -609,18 +715,18 @@ export default function ProfileCardView({
               target="_blank"
               rel="noreferrer"
               onClick={() => trackAction('google_review_click')}
-              className="p-3 rounded-2xl bg-gradient-to-tr from-amber-950/60 via-slate-900 to-slate-950 border border-amber-500/40 hover:border-amber-400 text-left transition-all active:scale-95 shadow-lg group"
+              className={`p-3 rounded-2xl ${theme.reviewCard} text-left transition-all active:scale-95 group`}
             >
               <div className="flex items-center justify-between mb-1.5">
-                <div className="flex items-center gap-0.5 text-amber-400 text-[10px] tracking-tighter">
+                <div className="flex items-center gap-0.5 text-amber-500 text-[10px] tracking-tighter">
                   {'★★★★★'}
                 </div>
-                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 group-hover:scale-110 transition" />
+                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500 group-hover:scale-110 transition" />
               </div>
-              <div className="text-xs font-bold text-white flex items-center gap-1">
+              <div className={`text-xs font-extrabold ${theme.isLight ? 'text-slate-900' : 'text-white'} flex items-center gap-1`}>
                 <span>⭐ 5-Star Review</span>
               </div>
-              <p className="text-[9px] text-slate-400 mt-0.5">Rate us on Google</p>
+              <p className={`text-[9px] ${theme.isLight ? 'text-amber-800 font-bold' : 'text-slate-400'} mt-0.5`}>Rate us on Google</p>
             </a>
           </div>
         </div>
@@ -634,11 +740,11 @@ export default function ProfileCardView({
               const aboutText = profile.bio || profile.sectionData.about?.content;
               return aboutText ? (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+                  <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} mb-2 flex items-center gap-1.5`}>
+                    <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
                     {sec.title || 'About Me'}
                   </h3>
-                  <p className="text-xs leading-relaxed text-slate-200">
+                  <p className={`text-xs leading-relaxed ${theme.isLight ? 'text-slate-700 font-normal' : 'text-slate-200'}`}>
                     {aboutText}
                   </p>
                 </div>
@@ -648,9 +754,9 @@ export default function ProfileCardView({
             case 'socials':
               return profile.sectionData.socials?.items?.length ? (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
+                  <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} mb-3 flex items-center justify-between`}>
                     <span>Connect With Me</span>
-                    <span className="text-[10px] text-slate-500 font-normal">Social Channels</span>
+                    <span className={`text-[10px] ${theme.isLight ? 'text-slate-500' : 'text-slate-500'} font-normal`}>Social Channels</span>
                   </h3>
                   <div className="grid grid-cols-2 gap-2">
                     {profile.sectionData.socials.items.map(s => {
@@ -676,11 +782,11 @@ export default function ProfileCardView({
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
                             <SocialIcon platform={s.platform} url={s.url} size={17} />
-                            <span className="text-white text-xs font-medium truncate group-hover:text-white transition-colors">
+                            <span className={`${theme.isLight ? 'text-slate-800 font-bold' : 'text-white font-medium'} text-xs truncate transition-colors`}>
                               {s.label || s.platform}
                             </span>
                           </div>
-                          <ExternalLink className="w-3 h-3 text-slate-400 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity" />
+                          <ExternalLink className={`w-3 h-3 ${theme.isLight ? 'text-slate-500' : 'text-slate-400'} shrink-0 opacity-60 group-hover:opacity-100 transition-opacity`} />
                         </a>
                       );
                     })}
@@ -693,27 +799,27 @@ export default function ProfileCardView({
               return profile.sectionData.services?.items?.length ? (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-purple-400" />
+                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
+                      <Calendar className="w-3.5 h-3.5 text-purple-500" />
                       {sec.title || 'Book an Appointment'}
                     </h3>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full ${theme.isLight ? 'bg-purple-100 text-purple-700 font-semibold' : 'bg-purple-500/10 text-purple-400 border border-purple-500/20'}`}>
                       Live Scheduling
                     </span>
                   </div>
                   <div className="space-y-3">
                     {profile.sectionData.services.items.map(srv => (
-                      <div key={srv.id} className="p-3 rounded-xl bg-slate-950/40 border border-slate-700/50 flex flex-col justify-between hover:border-purple-500/30 transition">
+                      <div key={srv.id} className={`p-3 rounded-xl ${theme.itemBg} flex flex-col justify-between hover:border-purple-500/30 transition`}>
                         <div>
                           <div className="flex items-center justify-between">
-                            <h4 className="text-xs font-semibold text-white">{srv.title}</h4>
-                            <span className="text-xs font-bold text-emerald-400">{srv.currency}{srv.price}</span>
+                            <h4 className={`text-xs font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>{srv.title}</h4>
+                            <span className={`text-xs font-black ${theme.isLight ? 'text-emerald-700' : 'text-emerald-400'}`}>{srv.currency}{srv.price}</span>
                           </div>
-                          <p className="text-[11px] text-slate-400 mt-1">{srv.description}</p>
+                          <p className={`text-[11px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'} mt-1`}>{srv.description}</p>
                         </div>
-                        <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-800 gap-2">
-                          <span className="text-[10px] text-slate-500 flex items-center gap-1">
-                            <Clock className="w-3 h-3 text-purple-400" />
+                        <div className={`flex items-center justify-between mt-3 pt-2 ${theme.isLight ? 'border-t border-slate-200' : 'border-t border-slate-800'} gap-2`}>
+                          <span className={`text-[10px] ${theme.isLight ? 'text-slate-500 font-medium' : 'text-slate-500'} flex items-center gap-1`}>
+                            <Clock className="w-3 h-3 text-purple-500" />
                             {srv.durationMinutes} Mins
                           </span>
                           <div className="flex items-center gap-1.5">
@@ -722,13 +828,15 @@ export default function ProfileCardView({
                               onClick={() => toggleQuoteService(srv)}
                               className={`px-2.5 py-1.5 rounded-lg text-[10px] font-semibold flex items-center gap-1 border transition active:scale-95 ${
                                 quoteServices.some(s => s.id === srv.id)
-                                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50'
+                                  ? 'bg-emerald-500/20 text-emerald-700 border-emerald-500/50'
+                                  : theme.isLight
+                                  ? 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
                                   : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:text-white'
                               }`}
                             >
                               {quoteServices.some(s => s.id === srv.id) ? (
                                 <>
-                                  <Check className="w-3 h-3 text-emerald-400" />
+                                  <Check className="w-3 h-3 text-emerald-500" />
                                   <span>In Quote</span>
                                 </>
                               ) : (
@@ -743,7 +851,7 @@ export default function ProfileCardView({
                                 setBookingService(srv);
                                 setBookingSuccess(false);
                               }}
-                              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 text-white text-[10px] font-semibold flex items-center gap-1 shadow transition active:scale-95"
+                              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 text-white text-[10px] font-bold flex items-center gap-1 shadow transition active:scale-95"
                             >
                               <span>Book Slot</span>
                               <ArrowRight className="w-3 h-3" />
@@ -760,13 +868,13 @@ export default function ProfileCardView({
               return profile.sectionData.products?.items?.length ? (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                      <ShoppingBag className="w-3.5 h-3.5 text-pink-400" />
+                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
+                      <ShoppingBag className="w-3.5 h-3.5 text-pink-500" />
                       <span>{sec.title}</span>
                     </h3>
 
                     {/* Multi-Currency Selector */}
-                    <div className="flex items-center gap-1 bg-slate-950/80 p-0.5 rounded-lg border border-slate-800">
+                    <div className={`flex items-center gap-1 ${theme.isLight ? 'bg-slate-100 p-0.5 rounded-lg border border-slate-200' : 'bg-slate-950/80 p-0.5 rounded-lg border border-slate-800'}`}>
                       {(['INR', 'USD', 'EUR', 'AED'] as CurrencyCode[]).map(curr => (
                         <button
                           key={curr}
@@ -774,6 +882,8 @@ export default function ProfileCardView({
                           className={`px-1.5 py-0.5 rounded text-[9px] font-bold transition ${
                             selectedCurrency === curr
                               ? 'bg-emerald-600 text-white shadow'
+                              : theme.isLight
+                              ? 'text-slate-600 hover:text-slate-900'
                               : 'text-slate-400 hover:text-white'
                           }`}
                         >
@@ -784,21 +894,21 @@ export default function ProfileCardView({
                   </div>
                   <div className="grid grid-cols-2 gap-2.5">
                     {profile.sectionData.products.items.map(prod => (
-                      <div key={prod.id} className="rounded-xl overflow-hidden bg-slate-950/50 border border-slate-700/50 flex flex-col">
-                        <div className="h-28 w-full overflow-hidden bg-slate-800 relative">
+                      <div key={prod.id} className={`rounded-xl overflow-hidden ${theme.isLight ? 'bg-white border border-slate-200 shadow-sm' : 'bg-slate-950/50 border border-slate-700/50'} flex flex-col`}>
+                        <div className="h-28 w-full overflow-hidden bg-slate-100 relative">
                           <img src={prod.imageUrl} alt={prod.name} className="w-full h-full object-cover" />
-                          <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/70 backdrop-blur-md text-[10px] font-bold text-emerald-300 border border-emerald-500/20">
+                          <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-md text-[10px] font-bold text-emerald-300 border border-emerald-500/20 shadow-xs">
                             {formatPrice(prod.price, selectedCurrency)}
                           </span>
                         </div>
                         <div className="p-2.5 flex-1 flex flex-col justify-between">
                           <div>
-                            <h4 className="text-[11px] font-semibold text-white line-clamp-1">{prod.name}</h4>
-                            <p className="text-[9px] text-slate-400 line-clamp-2 mt-0.5">{prod.description}</p>
+                            <h4 className={`text-[11px] font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'} line-clamp-1`}>{prod.name}</h4>
+                            <p className={`text-[9px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'} line-clamp-2 mt-0.5`}>{prod.description}</p>
                           </div>
                           <button 
                             onClick={() => addToCart(prod)}
-                            className="mt-2 w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-medium flex items-center justify-center gap-1 active:scale-95 transition-all"
+                            className="mt-2 w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center gap-1 active:scale-95 transition-all shadow-sm"
                           >
                             <Plus className="w-3 h-3" />
                             <span>Add • {formatPrice(prod.price, selectedCurrency)}</span>
@@ -814,8 +924,8 @@ export default function ProfileCardView({
               return profile.sectionData.videos?.items?.length ? (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card} space-y-3`}>
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                      <Film className="w-3.5 h-3.5 text-indigo-400" />
+                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
+                      <Film className="w-3.5 h-3.5 text-indigo-500" />
                       {sec.title}
                     </h3>
                     <span className="text-[10px] text-slate-500 font-mono">
@@ -830,7 +940,7 @@ export default function ProfileCardView({
                       const isInstagram = vid.type === 'instagram' || embedSrc.includes('instagram.com') || (vid.url && vid.url.includes('instagram.com'));
 
                       return (
-                        <div key={vid.id} className="rounded-2xl overflow-hidden bg-slate-950/80 border border-slate-800 shadow-md">
+                        <div key={vid.id} className={`rounded-2xl overflow-hidden ${theme.isLight ? 'bg-white border border-slate-200' : 'bg-slate-950/80 border border-slate-800'} shadow-md`}>
                           {/* Video Player Render */}
                           {isYouTube && (
                             <div className="relative w-full aspect-video bg-slate-950">
@@ -858,9 +968,9 @@ export default function ProfileCardView({
                                   />
                                 </div>
                               ) : null}
-                              <div className="w-full p-3 bg-gradient-to-r from-purple-950/40 via-pink-950/30 to-slate-950 border-t border-slate-800 flex items-center justify-between px-4">
-                                <span className="text-xs text-pink-300 font-semibold flex items-center gap-1.5">
-                                  <Film className="w-3.5 h-3.5 text-pink-400" />
+                              <div className={`w-full p-3 ${theme.isLight ? 'bg-gradient-to-r from-purple-50 to-pink-50 border-t border-slate-200' : 'bg-gradient-to-r from-purple-950/40 via-pink-950/30 to-slate-950 border-t border-slate-800'} flex items-center justify-between px-4`}>
+                                <span className={`text-xs ${theme.isLight ? 'text-pink-600' : 'text-pink-300'} font-bold flex items-center gap-1.5`}>
+                                  <Film className="w-3.5 h-3.5 text-pink-500" />
                                   Instagram Reel
                                 </span>
                                 <a 
@@ -889,19 +999,19 @@ export default function ProfileCardView({
                           )}
 
                           {/* Video Info Footer */}
-                          <div className="p-3 space-y-1">
+                          <div className={`p-3 space-y-1 ${theme.isLight ? 'bg-white' : ''}`}>
                             <div className="flex items-center justify-between gap-2">
-                              <h4 className="text-xs font-bold text-white line-clamp-1">{vid.title}</h4>
+                              <h4 className={`text-xs font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'} line-clamp-1`}>{vid.title}</h4>
                               <span className={`text-[9px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded ${
-                                isYouTube ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
-                                isInstagram ? 'bg-pink-500/20 text-pink-400 border border-pink-500/30' :
-                                'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
+                                isYouTube ? (theme.isLight ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-red-500/20 text-red-400 border border-red-500/30') :
+                                isInstagram ? (theme.isLight ? 'bg-pink-50 text-pink-600 border border-pink-200' : 'bg-pink-500/20 text-pink-400 border border-pink-500/30') :
+                                (theme.isLight ? 'bg-indigo-50 text-indigo-600 border border-indigo-200' : 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30')
                               }`}>
                                 {isYouTube ? 'YouTube' : isInstagram ? 'Instagram' : 'MP4 Video'}
                               </span>
                             </div>
                             {vid.caption && (
-                              <p className="text-[11px] text-slate-400 leading-relaxed">{vid.caption}</p>
+                              <p className={`text-[11px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'} leading-relaxed`}>{vid.caption}</p>
                             )}
                           </div>
                         </div>
@@ -915,8 +1025,8 @@ export default function ProfileCardView({
               return profile.sectionData.blogs?.items?.length ? (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card} space-y-3`}>
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                      <BookOpen className="w-3.5 h-3.5 text-indigo-400" />
+                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
+                      <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
                       {sec.title}
                     </h3>
                     <span className="text-[10px] text-slate-500 font-mono">
@@ -929,7 +1039,7 @@ export default function ProfileCardView({
                       <div 
                         key={blog.id} 
                         onClick={() => setActiveBlogPost(blog)}
-                        className="group p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 hover:border-indigo-500/50 transition-all cursor-pointer space-y-2 shadow-md hover:-translate-y-0.5 duration-200"
+                        className={`group p-3.5 rounded-2xl ${theme.isLight ? 'bg-white border border-slate-200 hover:border-indigo-400' : 'bg-slate-950/60 border border-slate-800/80 hover:border-indigo-500/50'} transition-all cursor-pointer space-y-2 shadow-md hover:-translate-y-0.5 duration-200`}
                       >
                         {blog.coverImage && (
                           <div className="w-full h-32 rounded-xl overflow-hidden relative shadow">
@@ -951,19 +1061,19 @@ export default function ProfileCardView({
                         )}
 
                         <div className="space-y-1">
-                          <div className="flex items-center justify-between text-[10px] text-slate-400">
+                          <div className={`flex items-center justify-between text-[10px] ${theme.isLight ? 'text-slate-500' : 'text-slate-400'}`}>
                             <span>{blog.publishedAt}</span>
                             <span>{blog.authorName || profile.name}</span>
                           </div>
-                          <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-indigo-300 transition-colors line-clamp-2">
+                          <h4 className={`text-xs sm:text-sm font-bold ${theme.isLight ? 'text-slate-900 group-hover:text-indigo-600' : 'text-white group-hover:text-indigo-300'} transition-colors line-clamp-2`}>
                             {blog.title}
                           </h4>
-                          <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
+                          <p className={`text-[11px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'} line-clamp-2 leading-relaxed`}>
                             {blog.excerpt}
                           </p>
                         </div>
 
-                        <div className="flex items-center justify-between pt-1 text-[11px] font-semibold text-indigo-400">
+                        <div className="flex items-center justify-between pt-1 text-[11px] font-semibold text-indigo-500">
                           <span className="flex items-center gap-1">
                             <span>Read Article</span>
                             <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
@@ -987,8 +1097,8 @@ export default function ProfileCardView({
               return (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card} space-y-3`}>
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                      <Layers className="w-3.5 h-3.5 text-indigo-400" />
+                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
+                      <Layers className="w-3.5 h-3.5 text-indigo-500" />
                       {sec.title}
                     </h3>
                     <span className="text-[10px] text-slate-500 font-mono">
@@ -1005,6 +1115,8 @@ export default function ProfileCardView({
                         className={`px-2.5 py-1 rounded-xl text-[10px] font-bold shrink-0 transition-all ${
                           cardGalleryFilter === 'All'
                             ? 'bg-indigo-600 text-white shadow-sm ring-1 ring-indigo-400'
+                            : theme.isLight
+                            ? 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
                             : 'bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800'
                         }`}
                       >
@@ -1020,6 +1132,8 @@ export default function ProfileCardView({
                             className={`px-2.5 py-1 rounded-xl text-[10px] font-bold shrink-0 transition-all ${
                               cardGalleryFilter === cat
                                 ? 'bg-indigo-600 text-white shadow-sm ring-1 ring-indigo-400'
+                                : theme.isLight
+                                ? 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
                                 : 'bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800'
                             }`}
                           >
@@ -1035,7 +1149,7 @@ export default function ProfileCardView({
                       <div 
                         key={img.id} 
                         onClick={() => setActiveGalleryItem(img)}
-                        className="group relative rounded-xl overflow-hidden bg-slate-900 border border-slate-800 cursor-pointer aspect-square shadow-md hover:border-indigo-500/50 transition-all duration-300"
+                        className={`group relative rounded-xl overflow-hidden ${theme.isLight ? 'bg-slate-100 border border-slate-200' : 'bg-slate-900 border border-slate-800'} cursor-pointer aspect-square shadow-md hover:border-indigo-500/50 transition-all duration-300`}
                       >
                         <img 
                           src={img.imageUrl} 
@@ -1071,13 +1185,13 @@ export default function ProfileCardView({
               return (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card} space-y-3`}>
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
                       <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                       <span>{sec.title}</span>
                     </h3>
                     <button
                       onClick={() => setIsReviewModalOpen(true)}
-                      className="px-2.5 py-1 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 text-[10px] font-bold border border-indigo-500/30 transition flex items-center gap-1"
+                      className={`px-2.5 py-1 rounded-lg ${theme.isLight ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200' : 'bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border-indigo-500/30'} text-[10px] font-bold border transition flex items-center gap-1`}
                     >
                       <Plus className="w-2.5 h-2.5" />
                       <span>Write Review</span>
@@ -1085,17 +1199,17 @@ export default function ProfileCardView({
                   </div>
                   <div className="space-y-2.5">
                     {activeList.map(t => (
-                      <div key={t.id} className="p-3 rounded-xl bg-slate-950/40 border border-slate-800">
+                      <div key={t.id} className={`p-3 rounded-xl ${theme.itemBg}`}>
                         <div className="flex items-center gap-2 mb-1.5">
                           {t.clientAvatar && (
                             <img src={t.clientAvatar} alt={t.clientName} className="w-6 h-6 rounded-full object-cover" />
                           )}
                           <div>
-                            <p className="text-[11px] font-semibold text-white">{t.clientName}</p>
-                            <p className="text-[9px] text-slate-400">{t.clientRole} {t.clientCompany ? `• ${t.clientCompany}` : ''}</p>
+                            <p className={`text-[11px] font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>{t.clientName}</p>
+                            <p className={`text-[9px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'}`}>{t.clientRole} {t.clientCompany ? `• ${t.clientCompany}` : ''}</p>
                           </div>
                         </div>
-                        <p className="text-[11px] text-slate-300 italic">&ldquo;{t.content}&rdquo;</p>
+                        <p className={`text-[11px] ${theme.isLight ? 'text-slate-700' : 'text-slate-300'} italic`}>&ldquo;{t.content}&rdquo;</p>
                         <div className="flex items-center gap-0.5 mt-1.5">
                           {[...Array(t.rating || 5)].map((_, i) => (
                             <Star key={i} className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
@@ -1111,7 +1225,7 @@ export default function ProfileCardView({
             case 'customLinks':
               return profile.sectionData.customLinks?.items?.length ? (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                  <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} mb-3`}>
                     {sec.title}
                   </h3>
                   <div className="space-y-2">
@@ -1138,11 +1252,11 @@ export default function ProfileCardView({
             case 'contact':
               return (
                 <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                  <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} mb-3`}>
                     Send a Message
                   </h3>
                   {leadSuccess ? (
-                    <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs text-center flex items-center justify-center gap-1.5">
+                    <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-xs text-center flex items-center justify-center gap-1.5 font-semibold">
                       <Check className="w-4 h-4" /> Message sent successfully!
                     </div>
                   ) : (
@@ -1153,7 +1267,7 @@ export default function ProfileCardView({
                         required
                         value={leadName}
                         onChange={e => setLeadName(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg bg-slate-950/60 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                        className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none`}
                       />
                       <input 
                         type="email" 
@@ -1161,14 +1275,14 @@ export default function ProfileCardView({
                         required
                         value={leadEmail}
                         onChange={e => setLeadEmail(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg bg-slate-950/60 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                        className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none`}
                       />
                       <input 
                         type="tel" 
                         placeholder="Phone Number (Optional)" 
                         value={leadPhone}
                         onChange={e => setLeadPhone(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg bg-slate-950/60 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                        className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none`}
                       />
                       <textarea 
                         rows={2} 
@@ -1176,11 +1290,11 @@ export default function ProfileCardView({
                         required
                         value={leadMessage}
                         onChange={e => setLeadMessage(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg bg-slate-950/60 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 resize-none"
+                        className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none resize-none`}
                       />
                       <button 
                         type="submit"
-                        className={`w-full py-2.5 rounded-lg ${theme.buttonPrimary} text-xs font-semibold flex items-center justify-center gap-1.5 transition-all`}
+                        className={`w-full py-2.5 rounded-lg ${theme.buttonPrimary} text-xs font-bold flex items-center justify-center gap-1.5 transition-all`}
                       >
                         <Send className="w-3 h-3" />
                         Send Direct Inquiry
@@ -1197,11 +1311,11 @@ export default function ProfileCardView({
 
         {/* Footer Branding */}
         <div className="text-center pt-5 pb-3 px-4 space-y-1">
-          <p className="text-[10px] text-slate-400 font-medium">
+          <p className={`text-[10px] ${theme.isLight ? 'text-slate-500' : 'text-slate-400'} font-medium`}>
             © 2026 himastech. All rights reserved.
           </p>
-          <p className="text-[9px] text-slate-500">
-            Developed & Maintained by <span className="text-slate-400 font-semibold">Merlinflow Technologies Pvt Ltd</span>
+          <p className={`text-[9px] ${theme.isLight ? 'text-slate-500' : 'text-slate-500'}`}>
+            Developed & Maintained by <span className={`${theme.isLight ? 'text-slate-700 font-semibold' : 'text-slate-400 font-semibold'}`}>Merlinflow Technologies Pvt Ltd</span>
           </p>
         </div>
       </div>

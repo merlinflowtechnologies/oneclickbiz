@@ -436,7 +436,7 @@ export default function LandingPage() {
             <div className="lg:col-span-5 flex flex-col items-center justify-center">
               
               {/* Theme Switcher Chips */}
-              <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/90 mb-4 shadow-lg shadow-slate-200/50">
+              <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 mb-4 shadow-lg shadow-slate-200/50">
                 {(['modern-indigo', 'dark-onyx', 'glassmorphic', 'emerald-pro', 'sunset-gold'] as const).map(t => (
                   <button
                     key={t}
@@ -447,14 +447,18 @@ export default function LandingPage() {
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                     }`}
                   >
-                    {t.split('-')[0].toUpperCase()}
+                    {t === 'modern-indigo' ? 'LIGHT (RECOMMENDED)' : t.split('-')[0].toUpperCase()}
                   </button>
                 ))}
               </div>
 
               {/* Phone Mockup Frame */}
-              <div className="w-full max-w-[340px] rounded-[44px] p-2.5 bg-slate-950 border-4 border-slate-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] relative ring-1 ring-slate-700/50">
-                <div className="rounded-[36px] overflow-hidden bg-slate-950 max-h-[580px] overflow-y-auto scrollbar-none border border-slate-800">
+              <div className="w-full max-w-[340px] rounded-[48px] p-2.5 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800">
+                {/* Dynamic Island Speaker Notch */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
+                  <div className="w-2 h-2 rounded-full bg-slate-800" />
+                </div>
+                <div className="rounded-[38px] overflow-hidden bg-white max-h-[580px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
                   <ProfileCardView profile={demoProfile} isMockup={true} />
                 </div>
               </div>
