@@ -275,8 +275,8 @@ export default async function PublicProfilePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}
       />
-      <div className="w-full max-w-md relative z-10 sm:shadow-2xl sm:rounded-[36px] overflow-hidden">
-        <ProfileCardView profile={displayProfile} isMockup={false} />
+      <div className="w-full max-w-5xl relative z-10 sm:px-4 py-2 sm:py-6">
+        <ProfileCardView profile={displayProfile} isMockup={false} initialViewMode="website" showViewToggle={true} />
       </div>
     </main>
   );

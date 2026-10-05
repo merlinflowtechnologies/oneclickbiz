@@ -90,6 +90,8 @@ export function getEmbedUrl(item: VideoItem | { url?: string; embedUrl?: string 
 interface ProfileCardViewProps {
   profile: DigitalProfile;
   isMockup?: boolean;
+  initialViewMode?: 'mobile' | 'website';
+  showViewToggle?: boolean;
   onLeadSubmit?: (name: string, email: string, phone: string, message: string) => void;
   onBookingSubmit?: (service: ServiceItem, date: string, time: string, name: string, email: string, phone: string) => void;
 }
@@ -97,9 +99,14 @@ interface ProfileCardViewProps {
 export default function ProfileCardView({
   profile,
   isMockup = false,
+  initialViewMode,
+  showViewToggle = false,
   onLeadSubmit,
   onBookingSubmit
 }: ProfileCardViewProps) {
+  const [viewMode, setViewMode] = useState<'mobile' | 'website'>(
+    initialViewMode || (isMockup ? 'mobile' : 'website')
+  );
 
   // Cart & Modals State
   const [cart, setCart] = useState<OrderCartItem[]>([]);
@@ -561,175 +568,501 @@ export default function ProfileCardView({
   const theme = getThemeStyles();
   const sortedSections = [...(profile.sections || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
 
+  const hasAbout = Boolean(profile.bio || profile.sectionData?.about?.content);
+  const hasServices = Boolean(profile.sectionData?.services?.items?.length);
+  const hasProducts = Boolean(profile.sectionData?.products?.items?.length);
+  const hasVideos = Boolean(profile.sectionData?.videos?.items?.length);
+  const hasGallery = Boolean(profile.sectionData?.gallery?.items?.length);
+  const hasTestimonials = Boolean((dynamicTestimonials || profile.sectionData?.testimonials?.items || []).length);
+  const hasBlogs = Boolean(profile.sectionData?.blogs?.items?.length);
+  const isWebsiteMode = !isMockup && viewMode === 'website';
+
   return (
-    <div className={`w-full max-w-md mx-auto ${theme.bg} min-h-screen relative font-sans transition-all duration-300 pb-20 shadow-2xl ${isMockup ? 'rounded-[36px] overflow-hidden' : ''}`}>
-      
-      {/* Top Cover Image */}
-      <div className="relative h-44 w-full overflow-hidden bg-slate-800">
-        <img 
-          src={profile.coverUrl} 
-          alt="Cover" 
-          className="w-full h-full object-cover"
-        />
-        <div className={`absolute inset-0 ${theme.coverOverlay}`} />
-        
-        {/* Floating Quick Action Bar */}
-        <div className="absolute top-4 right-4 flex items-center space-x-2">
-          <button 
-            onClick={() => setIsQrOpen(true)}
-            className={`p-2.5 rounded-full ${theme.isLight ? 'bg-white/85 hover:bg-white text-slate-800 border-white/60 shadow-md' : 'bg-black/40 hover:bg-black/60 text-white border-white/20'} backdrop-blur-md transition-all border shadow-lg`}
-            title="Scan QR Code"
-          >
-            <QrCode className="w-4 h-4" />
-          </button>
-          <button 
-            onClick={handleShare}
-            className={`p-2.5 rounded-full ${theme.isLight ? 'bg-white/85 hover:bg-white text-slate-800 border-white/60 shadow-md' : 'bg-black/40 hover:bg-black/60 text-white border-white/20'} backdrop-blur-md transition-all border shadow-lg`}
-            title="Share Profile"
-          >
-            {copiedLink ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Main Profile Info Container */}
-      <div className="px-5 -mt-16 relative z-10 space-y-6">
-        
-        {/* Avatar & Header */}
-        <div className="flex flex-col items-center text-center">
-          <div className="relative">
-            <div className={`w-28 h-28 rounded-full overflow-hidden border-4 ${theme.avatarBorder} shadow-2xl ${theme.avatarRing || 'ring-2 ring-indigo-500/50'}`}>
-              <img 
-                src={profile.avatarUrl} 
-                alt={profile.name} 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className={`absolute bottom-1 right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 ${theme.avatarBorder} flex items-center justify-center shadow-md`}>
-              <Sparkles className="w-3 h-3 text-white" />
-            </div>
+    <div className="w-full relative">
+      {/* Top Device View Switcher for Desktop Visitors */}
+      {showViewToggle && !isMockup && (
+        <div className="hidden sm:flex items-center justify-between w-full max-w-5xl mx-auto mb-4 px-3">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs font-bold text-slate-800 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full border border-slate-200 shadow-xs">
+              Live Mini-Website &amp; WhatsApp Business Hub
+            </span>
           </div>
-
-          <h1 className={`mt-3 text-2xl font-black tracking-tight ${theme.textPrimary} flex items-center gap-1.5`}>
-            {profile.name}
-          </h1>
-          <p className={`text-sm font-semibold ${theme.textSecondary} mt-0.5`}>{profile.designation}</p>
-          {profile.company && (
-            <p className={`text-xs font-bold ${theme.accentText} mt-0.5`}>{profile.company}</p>
-          )}
-
-          {/* Action CTA Buttons: Save Contact & WhatsApp */}
-          <div className="grid grid-cols-2 gap-2.5 w-full mt-5">
-            <button 
-              onClick={() => {
-                trackAction('contact_download');
-                downloadVcfFile(profile);
-              }}
-              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl ${theme.buttonPrimary} shadow-lg font-bold text-xs transition-all active:scale-95`}
-            >
-              <Download className="w-4 h-4" />
-              Save Contact
-            </button>
-            <a 
-              href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=Hi%20${encodeURIComponent(profile.name)},%20I%20came%20across%20your%20OneClickBiz%20profile!`}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => trackAction('whatsapp_click')}
-              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-lg shadow-emerald-500/25 font-bold text-xs transition-all active:scale-95"
-            >
-              <SocialIcon platform="whatsapp" size={16} colored={false} className="text-white" />
-              WhatsApp
-            </a>
-          </div>
-
-          {/* Quick Contact Chips - Vibrant multi-color chips */}
-          <div className="grid grid-cols-4 gap-2 w-full mt-3">
-            {profile.phone && (
-              <a 
-                href={`tel:${profile.phone}`} 
-                onClick={() => trackAction('phone_click')}
-                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipCall} hover:scale-105 transition-all text-xs font-semibold`}
-              >
-                <Phone className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-sky-600' : 'text-sky-400'}`} />
-                <span className="text-[10px]">Call</span>
-              </a>
-            )}
-            {profile.email && (
-              <a 
-                href={`mailto:${profile.email}`} 
-                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipEmail} hover:scale-105 transition-all text-xs font-semibold`}
-              >
-                <Mail className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-rose-600' : 'text-rose-400'}`} />
-                <span className="text-[10px]">Email</span>
-              </a>
-            )}
-            {profile.website && (
-              <a 
-                href={profile.website} 
-                target="_blank" 
-                rel="noreferrer" 
-                onClick={() => trackAction('website_click')}
-                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipWeb} hover:scale-105 transition-all text-xs font-semibold`}
-              >
-                <Globe className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-indigo-600' : 'text-emerald-400'}`} />
-                <span className="text-[10px]">Web</span>
-              </a>
-            )}
-            {profile.address && (
-              <a 
-                href={`https://maps.google.com/?q=${encodeURIComponent(profile.address)}`} 
-                target="_blank" 
-                rel="noreferrer" 
-                className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipMap} hover:scale-105 transition-all text-xs font-semibold`}
-              >
-                <MapPin className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-amber-600' : 'text-amber-400'}`} />
-                <span className="text-[10px]">Map</span>
-              </a>
-            )}
-          </div>
-
-          {/* Instant UPI Payment & Google 5-Star Review Booster */}
-          <div className="grid grid-cols-2 gap-2 w-full mt-3">
+          <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md">
             <button
-              type="button"
-              onClick={() => {
-                trackAction('upi_pay_click');
-                setIsUPIModalOpen(true);
-              }}
-              className={`p-3 rounded-2xl ${theme.upiCard} text-left transition-all active:scale-95 group`}
+              onClick={() => setViewMode('website')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                viewMode === 'website'
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
             >
-              <div className="flex items-center justify-between mb-1.5">
-                <span className={`text-[9px] font-black uppercase tracking-wider ${theme.isLight ? 'bg-emerald-600 text-white' : 'text-emerald-400 bg-emerald-500/20 border border-emerald-500/30'} px-2 py-0.5 rounded-full shadow-xs`}>
-                  0% Fee UPI
-                </span>
-                <Smartphone className={`w-3.5 h-3.5 ${theme.isLight ? 'text-emerald-600' : 'text-emerald-400'} group-hover:scale-110 transition`} />
-              </div>
-              <div className={`text-xs font-extrabold ${theme.isLight ? 'text-slate-900' : 'text-white'} flex items-center gap-1`}>
-                <span>⚡ Pay via UPI</span>
-              </div>
-              <p className={`text-[9px] ${theme.isLight ? 'text-emerald-800 font-bold' : 'text-slate-400'} mt-0.5`}>GPay • PhonePe • Paytm</p>
+              <Globe className="w-3.5 h-3.5" />
+              <span>Mini-Website View</span>
             </button>
-
-            <a
-              href={profile.googleReviewUrl || `https://www.google.com/search?q=${encodeURIComponent(`${profile.company || profile.name} reviews`)}`}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => trackAction('google_review_click')}
-              className={`p-3 rounded-2xl ${theme.reviewCard} text-left transition-all active:scale-95 group`}
+            <button
+              onClick={() => setViewMode('mobile')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                viewMode === 'mobile'
+                  ? 'bg-slate-900 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
             >
-              <div className="flex items-center justify-between mb-1.5">
-                <div className="flex items-center gap-0.5 text-amber-500 text-[10px] tracking-tighter">
-                  {'★★★★★'}
-                </div>
-                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500 group-hover:scale-110 transition" />
-              </div>
-              <div className={`text-xs font-extrabold ${theme.isLight ? 'text-slate-900' : 'text-white'} flex items-center gap-1`}>
-                <span>⭐ 5-Star Review</span>
-              </div>
-              <p className={`text-[9px] ${theme.isLight ? 'text-amber-800 font-bold' : 'text-slate-400'} mt-0.5`}>Rate us on Google</p>
-            </a>
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>Mobile Card View</span>
+            </button>
           </div>
         </div>
+      )}
+
+      {/* Main Card / Mini-Website Container */}
+      <div className={`w-full ${isWebsiteMode ? 'max-w-5xl sm:rounded-3xl sm:border sm:border-slate-200/60' : 'max-w-md ' + (isMockup ? 'rounded-[36px]' : 'sm:rounded-[44px] sm:border-4 sm:border-slate-800 sm:p-1.5 sm:bg-slate-900')} mx-auto ${theme.bg} min-h-screen relative font-sans transition-all duration-300 pb-24 shadow-2xl overflow-hidden`}>
+        
+        {/* Sticky Mini-Website Navbar (Desktop & Tablet) */}
+        {isWebsiteMode && (
+          <header id="top" className={`sticky top-0 z-40 backdrop-blur-xl ${theme.isLight ? 'bg-white/90 border-b border-slate-200/90 text-slate-900' : 'bg-slate-950/90 border-b border-slate-800 text-white'} px-4 sm:px-6 py-3 transition-all shadow-xs`}>
+            <div className="flex items-center justify-between gap-4">
+              {/* Brand Logo & Name */}
+              <a href="#top" className="flex items-center gap-2.5 min-w-0 group">
+                <div className={`w-8 h-8 rounded-full overflow-hidden border-2 ${theme.avatarBorder} shadow-sm shrink-0`}>
+                  <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-extrabold text-xs sm:text-sm tracking-tight truncate group-hover:text-indigo-600 transition-colors">
+                      {profile.company || profile.name}
+                    </span>
+                    <span className="inline-flex items-center gap-0.5 text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 font-bold shrink-0">
+                      <Check className="w-2.5 h-2.5" /> Verified
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-slate-500 truncate hidden sm:block">
+                    {profile.designation}
+                  </p>
+                </div>
+              </a>
+
+              {/* Anchor Navigation Links */}
+              <nav className="hidden md:flex items-center gap-1 text-xs font-semibold">
+                <a href="#about" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
+                  About
+                </a>
+                {hasServices && (
+                  <a href="#services" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
+                    Services
+                  </a>
+                )}
+                {hasProducts && (
+                  <a href="#store" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
+                    Store
+                  </a>
+                )}
+                {hasVideos && (
+                  <a href="#videos" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
+                    Videos
+                  </a>
+                )}
+                {hasGallery && (
+                  <a href="#gallery" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
+                    Portfolio
+                  </a>
+                )}
+                {hasTestimonials && (
+                  <a href="#reviews" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
+                    Reviews
+                  </a>
+                )}
+                <a href="#contact" className={`px-2.5 py-1.5 rounded-lg ${theme.isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-slate-300 hover:text-white hover:bg-slate-800'} transition`}>
+                  Contact
+                </a>
+              </nav>
+
+              {/* Right Action CTAs */}
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={() => {
+                    trackAction('contact_download');
+                    downloadVcfFile(profile);
+                  }}
+                  className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl ${theme.buttonPrimary} text-xs font-bold shadow-sm transition active:scale-95`}
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Save Contact</span>
+                </button>
+
+                <a
+                  href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=Hi%20${encodeURIComponent(profile.name)},%20I%20came%20across%20your%20website!`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackAction('whatsapp_click')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold shadow-sm transition active:scale-95"
+                >
+                  <SocialIcon platform="whatsapp" size={14} colored={false} className="text-white" />
+                  <span className="hidden xs:inline">WhatsApp</span>
+                </a>
+
+                {cart.length > 0 && (
+                  <button
+                    onClick={() => setIsCartOpen(true)}
+                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow transition"
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5" />
+                    <span>{cart.reduce((s, i) => s + i.quantity, 0)}</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          </header>
+        )}
+
+        {/* Top Cover Image */}
+        <div className={`relative ${isWebsiteMode ? 'h-52 sm:h-64 lg:h-72' : 'h-44'} w-full overflow-hidden bg-slate-800 transition-all`}>
+          <img 
+            src={profile.coverUrl} 
+            alt="Cover" 
+            className="w-full h-full object-cover"
+          />
+          <div className={`absolute inset-0 ${theme.coverOverlay}`} />
+          
+          {/* Floating Quick Action Bar */}
+          <div className="absolute top-4 right-4 flex items-center space-x-2 z-20">
+            <button 
+              onClick={() => setIsQrOpen(true)}
+              className={`p-2.5 rounded-full ${theme.isLight ? 'bg-white/85 hover:bg-white text-slate-800 border-white/60 shadow-md' : 'bg-black/40 hover:bg-black/60 text-white border-white/20'} backdrop-blur-md transition-all border shadow-lg`}
+              title="Scan QR Code"
+            >
+              <QrCode className="w-4 h-4" />
+            </button>
+            <button 
+              onClick={handleShare}
+              className={`p-2.5 rounded-full ${theme.isLight ? 'bg-white/85 hover:bg-white text-slate-800 border-white/60 shadow-md' : 'bg-black/40 hover:bg-black/60 text-white border-white/20'} backdrop-blur-md transition-all border shadow-lg`}
+              title="Share Profile"
+            >
+              {copiedLink ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Main Profile Info Container */}
+        <div className={`px-4 sm:px-6 lg:px-8 ${isWebsiteMode ? '-mt-20 sm:-mt-24' : '-mt-16'} relative z-10 space-y-6`}>
+          
+          {/* Header / Identity Block */}
+          {isWebsiteMode ? (
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 pb-2">
+              {/* Left: Avatar + Title + Bio Summary */}
+              <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-4 md:gap-6">
+                <div className="relative shrink-0">
+                  <div className={`w-28 h-28 sm:w-36 sm:h-36 rounded-full md:rounded-3xl overflow-hidden border-4 ${theme.avatarBorder} shadow-2xl ${theme.avatarRing || 'ring-2 ring-indigo-500/50'}`}>
+                    <img 
+                      src={profile.avatarUrl} 
+                      alt={profile.name} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className={`absolute bottom-1 right-1 w-7 h-7 rounded-full bg-emerald-500 border-2 ${theme.avatarBorder} flex items-center justify-center shadow-md`} title="Verified & Active">
+                    <Sparkles className="w-3.5 h-3.5 text-white" />
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                    <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight ${theme.textPrimary}`}>
+                      {profile.name}
+                    </h1>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-xs font-bold">
+                      <Check className="w-3 h-3" /> Verified Business
+                    </span>
+                  </div>
+                  <p className={`text-sm sm:text-base font-semibold ${theme.textSecondary}`}>{profile.designation}</p>
+                  {profile.company && (
+                    <p className={`text-xs sm:text-sm font-bold ${theme.accentText}`}>{profile.company}</p>
+                  )}
+
+                  {/* Rating & Social Proof */}
+                  <div className="flex items-center justify-center md:justify-start gap-2 pt-1 text-xs">
+                    <div className="flex items-center text-amber-500 gap-0.5">
+                      {'★★★★★'}
+                    </div>
+                    <span className={`font-bold ${theme.isLight ? 'text-slate-700' : 'text-slate-300'}`}>4.9/5.0</span>
+                    <span className="text-slate-400">•</span>
+                    <span className="text-slate-500 font-medium">120+ Verified Clients</span>
+                  </div>
+
+                  {/* Social Channels Preview Row */}
+                  {profile.sectionData?.socials?.items?.length ? (
+                    <div className="flex items-center justify-center md:justify-start gap-2 pt-2">
+                      {profile.sectionData.socials.items.slice(0, 5).map(s => {
+                        const brand = getSocialBrandColor(s.platform, s.url);
+                        return (
+                          <a
+                            key={s.id}
+                            href={s.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            title={s.label || s.platform}
+                            className={`p-2 rounded-xl ${brand.bg} ${brand.border} border hover:scale-110 transition-transform shadow-xs`}
+                          >
+                            <SocialIcon platform={s.platform} url={s.url} size={15} />
+                          </a>
+                        );
+                      })}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+
+              {/* Right: Executive Action Panel */}
+              <div className="w-full md:w-[380px] lg:w-[420px] shrink-0 space-y-3">
+                {/* Primary CTA Buttons */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <button 
+                    onClick={() => {
+                      trackAction('contact_download');
+                      downloadVcfFile(profile);
+                    }}
+                    className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl ${theme.buttonPrimary} shadow-lg font-bold text-xs transition-all active:scale-95`}
+                  >
+                    <Download className="w-4 h-4" />
+                    Save Contact
+                  </button>
+                  <a 
+                    href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=Hi%20${encodeURIComponent(profile.name)},%20I%20came%20across%20your%20OneClickBiz%20profile!`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackAction('whatsapp_click')}
+                    className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-lg shadow-emerald-500/25 font-bold text-xs transition-all active:scale-95"
+                  >
+                    <SocialIcon platform="whatsapp" size={16} colored={false} className="text-white" />
+                    WhatsApp
+                  </a>
+                </div>
+
+                {/* Quick Contact Chips */}
+                <div className="grid grid-cols-4 gap-2">
+                  {profile.phone && (
+                    <a 
+                      href={`tel:${profile.phone}`} 
+                      onClick={() => trackAction('phone_click')}
+                      className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipCall} hover:scale-105 transition-all text-xs font-semibold`}
+                    >
+                      <Phone className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-sky-600' : 'text-sky-400'}`} />
+                      <span className="text-[10px]">Call</span>
+                    </a>
+                  )}
+                  {profile.email && (
+                    <a 
+                      href={`mailto:${profile.email}`} 
+                      className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipEmail} hover:scale-105 transition-all text-xs font-semibold`}
+                    >
+                      <Mail className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-rose-600' : 'text-rose-400'}`} />
+                      <span className="text-[10px]">Email</span>
+                    </a>
+                  )}
+                  {profile.website && (
+                    <a 
+                      href={profile.website} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      onClick={() => trackAction('website_click')}
+                      className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipWeb} hover:scale-105 transition-all text-xs font-semibold`}
+                    >
+                      <Globe className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-indigo-600' : 'text-emerald-400'}`} />
+                      <span className="text-[10px]">Web</span>
+                    </a>
+                  )}
+                  {profile.address && (
+                    <a 
+                      href={`https://maps.google.com/?q=${encodeURIComponent(profile.address)}`} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipMap} hover:scale-105 transition-all text-xs font-semibold`}
+                    >
+                      <MapPin className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-amber-600' : 'text-amber-400'}`} />
+                      <span className="text-[10px]">Map</span>
+                    </a>
+                  )}
+                </div>
+
+                {/* Instant UPI Payment & Google Review */}
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      trackAction('upi_pay_click');
+                      setIsUPIModalOpen(true);
+                    }}
+                    className={`p-2.5 sm:p-3 rounded-2xl ${theme.upiCard} text-left transition-all active:scale-95 group`}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className={`text-[9px] font-black uppercase tracking-wider ${theme.isLight ? 'bg-emerald-600 text-white' : 'text-emerald-400 bg-emerald-500/20 border border-emerald-500/30'} px-2 py-0.5 rounded-full shadow-xs`}>
+                        0% Fee UPI
+                      </span>
+                      <Smartphone className={`w-3.5 h-3.5 ${theme.isLight ? 'text-emerald-600' : 'text-emerald-400'} group-hover:scale-110 transition`} />
+                    </div>
+                    <div className={`text-xs font-extrabold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>
+                      ⚡ Pay via UPI
+                    </div>
+                    <p className={`text-[9px] ${theme.isLight ? 'text-emerald-800 font-bold' : 'text-slate-400'} mt-0.5 truncate`}>GPay • PhonePe • Paytm</p>
+                  </button>
+
+                  <a
+                    href={profile.googleReviewUrl || `https://www.google.com/search?q=${encodeURIComponent(`${profile.company || profile.name} reviews`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackAction('google_review_click')}
+                    className={`p-2.5 sm:p-3 rounded-2xl ${theme.reviewCard} text-left transition-all active:scale-95 group`}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-0.5 text-amber-500 text-[10px] tracking-tighter">
+                        {'★★★★★'}
+                      </div>
+                      <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500 group-hover:scale-110 transition" />
+                    </div>
+                    <div className={`text-xs font-extrabold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>
+                      ⭐ 5-Star Review
+                    </div>
+                    <p className={`text-[9px] ${theme.isLight ? 'text-amber-800 font-bold' : 'text-slate-400'} mt-0.5`}>Rate us on Google</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Mobile / Mockup Centered Header */
+            <div className="flex flex-col items-center text-center">
+              <div className="relative">
+                <div className={`w-28 h-28 rounded-full overflow-hidden border-4 ${theme.avatarBorder} shadow-2xl ${theme.avatarRing || 'ring-2 ring-indigo-500/50'}`}>
+                  <img 
+                    src={profile.avatarUrl} 
+                    alt={profile.name} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className={`absolute bottom-1 right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 ${theme.avatarBorder} flex items-center justify-center shadow-md`}>
+                  <Sparkles className="w-3 h-3 text-white" />
+                </div>
+              </div>
+
+              <h1 className={`mt-3 text-2xl font-black tracking-tight ${theme.textPrimary} flex items-center gap-1.5`}>
+                {profile.name}
+              </h1>
+              <p className={`text-sm font-semibold ${theme.textSecondary} mt-0.5`}>{profile.designation}</p>
+              {profile.company && (
+                <p className={`text-xs font-bold ${theme.accentText} mt-0.5`}>{profile.company}</p>
+              )}
+
+              {/* Action CTA Buttons: Save Contact & WhatsApp */}
+              <div className="grid grid-cols-2 gap-2.5 w-full mt-5">
+                <button 
+                  onClick={() => {
+                    trackAction('contact_download');
+                    downloadVcfFile(profile);
+                  }}
+                  className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl ${theme.buttonPrimary} shadow-lg font-bold text-xs transition-all active:scale-95`}
+                >
+                  <Download className="w-4 h-4" />
+                  Save Contact
+                </button>
+                <a 
+                  href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=Hi%20${encodeURIComponent(profile.name)},%20I%20came%20across%20your%20OneClickBiz%20profile!`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackAction('whatsapp_click')}
+                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-lg shadow-emerald-500/25 font-bold text-xs transition-all active:scale-95"
+                >
+                  <SocialIcon platform="whatsapp" size={16} colored={false} className="text-white" />
+                  WhatsApp
+                </a>
+              </div>
+
+              {/* Quick Contact Chips - Vibrant multi-color chips */}
+              <div className="grid grid-cols-4 gap-2 w-full mt-3">
+                {profile.phone && (
+                  <a 
+                    href={`tel:${profile.phone}`} 
+                    onClick={() => trackAction('phone_click')}
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipCall} hover:scale-105 transition-all text-xs font-semibold`}
+                  >
+                    <Phone className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-sky-600' : 'text-sky-400'}`} />
+                    <span className="text-[10px]">Call</span>
+                  </a>
+                )}
+                {profile.email && (
+                  <a 
+                    href={`mailto:${profile.email}`} 
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipEmail} hover:scale-105 transition-all text-xs font-semibold`}
+                  >
+                    <Mail className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-rose-600' : 'text-rose-400'}`} />
+                    <span className="text-[10px]">Email</span>
+                  </a>
+                )}
+                {profile.website && (
+                  <a 
+                    href={profile.website} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    onClick={() => trackAction('website_click')}
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipWeb} hover:scale-105 transition-all text-xs font-semibold`}
+                  >
+                    <Globe className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-indigo-600' : 'text-emerald-400'}`} />
+                    <span className="text-[10px]">Web</span>
+                  </a>
+                )}
+                {profile.address && (
+                  <a 
+                    href={`https://maps.google.com/?q=${encodeURIComponent(profile.address)}`} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-xl ${theme.quickChipMap} hover:scale-105 transition-all text-xs font-semibold`}
+                  >
+                    <MapPin className={`w-4 h-4 mb-1 ${theme.isLight ? 'text-amber-600' : 'text-amber-400'}`} />
+                    <span className="text-[10px]">Map</span>
+                  </a>
+                )}
+              </div>
+
+              {/* Instant UPI Payment & Google 5-Star Review Booster */}
+              <div className="grid grid-cols-2 gap-2 w-full mt-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    trackAction('upi_pay_click');
+                    setIsUPIModalOpen(true);
+                  }}
+                  className={`p-3 rounded-2xl ${theme.upiCard} text-left transition-all active:scale-95 group`}
+                >
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className={`text-[9px] font-black uppercase tracking-wider ${theme.isLight ? 'bg-emerald-600 text-white' : 'text-emerald-400 bg-emerald-500/20 border border-emerald-500/30'} px-2 py-0.5 rounded-full shadow-xs`}>
+                      0% Fee UPI
+                    </span>
+                    <Smartphone className={`w-3.5 h-3.5 ${theme.isLight ? 'text-emerald-600' : 'text-emerald-400'} group-hover:scale-110 transition`} />
+                  </div>
+                  <div className={`text-xs font-extrabold ${theme.isLight ? 'text-slate-900' : 'text-white'} flex items-center gap-1`}>
+                    <span>⚡ Pay via UPI</span>
+                  </div>
+                  <p className={`text-[9px] ${theme.isLight ? 'text-emerald-800 font-bold' : 'text-slate-400'} mt-0.5`}>GPay • PhonePe • Paytm</p>
+                </button>
+
+                <a
+                  href={profile.googleReviewUrl || `https://www.google.com/search?q=${encodeURIComponent(`${profile.company || profile.name} reviews`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackAction('google_review_click')}
+                  className={`p-3 rounded-2xl ${theme.reviewCard} text-left transition-all active:scale-95 group`}
+                >
+                  <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center gap-0.5 text-amber-500 text-[10px] tracking-tighter">
+                      {'★★★★★'}
+                    </div>
+                    <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500 group-hover:scale-110 transition" />
+                  </div>
+                  <div className={`text-xs font-extrabold ${theme.isLight ? 'text-slate-900' : 'text-white'} flex items-center gap-1`}>
+                    <span>⭐ 5-Star Review</span>
+                  </div>
+                  <p className={`text-[9px] ${theme.isLight ? 'text-amber-800 font-bold' : 'text-slate-400'} mt-0.5`}>Rate us on Google</p>
+                </a>
+              </div>
+            </div>
+          )}
 
         {/* Dynamic Profile Sections */}
         {sortedSections.map(sec => {
@@ -739,26 +1072,89 @@ export default function ProfileCardView({
             case 'about': {
               const aboutText = profile.bio || profile.sectionData.about?.content;
               return aboutText ? (
-                <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
-                  <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} mb-2 flex items-center gap-1.5`}>
-                    <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-                    {sec.title || 'About Me'}
-                  </h3>
-                  <p className={`text-xs leading-relaxed ${theme.isLight ? 'text-slate-700 font-normal' : 'text-slate-200'}`}>
-                    {aboutText}
-                  </p>
+                <div key={sec.id} id="about" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card}`}>
+                  <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
+                    <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
+                      <Sparkles className="w-4 h-4 text-indigo-500" />
+                      <span>{sec.title || 'About & Background'}</span>
+                    </h3>
+                    {isWebsiteMode && (
+                      <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-0.5 rounded-full border border-indigo-200/60 dark:border-indigo-800/40">
+                        Verified Business Story
+                      </span>
+                    )}
+                  </div>
+                  
+                  {isWebsiteMode ? (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                      <div className="md:col-span-2 space-y-3">
+                        <p className={`text-xs sm:text-sm leading-relaxed ${theme.isLight ? 'text-slate-700 font-normal' : 'text-slate-200'}`}>
+                          {aboutText}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2 pt-2">
+                          {profile.designation && (
+                            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                              💼 {profile.designation}
+                            </span>
+                          )}
+                          {profile.address && (
+                            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                              📍 {profile.address}
+                            </span>
+                          )}
+                          <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/40">
+                            ⚡ Quick Turnaround
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className={`p-4 rounded-xl ${theme.itemBg} flex flex-col justify-between space-y-3 border border-slate-200/60 dark:border-slate-800`}>
+                        <div className="space-y-2">
+                          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Business Highlights</div>
+                          <div className="space-y-1.5 text-xs">
+                            <div className="flex items-center justify-between">
+                              <span className="text-slate-500">Working Hours:</span>
+                              <span className="font-semibold text-slate-800 dark:text-slate-200">Mon - Sat (9AM - 8PM)</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-slate-500">Response Time:</span>
+                              <span className="font-semibold text-emerald-600 dark:text-emerald-400">Within 15 mins</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-slate-500">Direct Delivery:</span>
+                              <span className="font-semibold text-indigo-600 dark:text-indigo-400">Pan-India / Global</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <a
+                          href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=${encodeURIComponent(`Hi ${profile.name}, I checked your mini-website and would like to know more about your services.`)}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-full py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition active:scale-95"
+                        >
+                          <SocialIcon platform="whatsapp" size={14} colored={false} className="text-white" />
+                          <span>Chat on WhatsApp</span>
+                        </a>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className={`text-xs leading-relaxed ${theme.isLight ? 'text-slate-700 font-normal' : 'text-slate-200'}`}>
+                      {aboutText}
+                    </p>
+                  )}
                 </div>
               ) : null;
             }
 
             case 'socials':
               return profile.sectionData.socials?.items?.length ? (
-                <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
-                  <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} mb-3 flex items-center justify-between`}>
-                    <span>Connect With Me</span>
+                <div key={sec.id} id="socials" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card}`}>
+                  <h3 className={`text-xs sm:text-sm font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-300'} mb-3 flex items-center justify-between`}>
+                    <span>Connect & Follow</span>
                     <span className={`text-[10px] ${theme.isLight ? 'text-slate-500' : 'text-slate-500'} font-normal`}>Social Channels</span>
                   </h3>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className={`grid ${isWebsiteMode ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4' : 'grid-cols-2'} gap-2.5`}>
                     {profile.sectionData.socials.items.map(s => {
                       const brand = getSocialBrandColor(s.platform, s.url);
                       const isWa = s.platform === 'whatsapp' || s.url?.includes('wa.me') || s.url?.includes('whatsapp') || (s.label && s.label.toLowerCase().includes('whatsapp'));
@@ -797,27 +1193,32 @@ export default function ProfileCardView({
             case 'services':
             case 'booking':
               return profile.sectionData.services?.items?.length ? (
-                <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
-                      <Calendar className="w-3.5 h-3.5 text-purple-500" />
-                      {sec.title || 'Book an Appointment'}
-                    </h3>
-                    <span className={`text-[10px] px-2 py-0.5 rounded-full ${theme.isLight ? 'bg-purple-100 text-purple-700 font-semibold' : 'bg-purple-500/10 text-purple-400 border border-purple-500/20'}`}>
-                      Live Scheduling
+                <div key={sec.id} id="services" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card}`}>
+                  <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
+                    <div>
+                      <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
+                        <Calendar className="w-4 h-4 text-purple-500" />
+                        <span>{sec.title || 'Our Services & Appointments'}</span>
+                      </h3>
+                      {isWebsiteMode && (
+                        <p className="text-[11px] text-slate-500 mt-0.5">Select a service package to book a live appointment slot or request a custom quotation.</p>
+                      )}
+                    </div>
+                    <span className={`text-[10px] px-2.5 py-1 rounded-full ${theme.isLight ? 'bg-purple-100 text-purple-700 font-semibold' : 'bg-purple-500/10 text-purple-400 border border-purple-500/20'}`}>
+                      Live Booking
                     </span>
                   </div>
-                  <div className="space-y-3">
+                  <div className={`grid ${isWebsiteMode ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-3 sm:gap-4`}>
                     {profile.sectionData.services.items.map(srv => (
-                      <div key={srv.id} className={`p-3 rounded-xl ${theme.itemBg} flex flex-col justify-between hover:border-purple-500/30 transition`}>
+                      <div key={srv.id} className={`p-4 rounded-xl ${theme.itemBg} flex flex-col justify-between hover:border-purple-500/40 border border-slate-200/60 dark:border-slate-800/80 transition-all hover:shadow-md`}>
                         <div>
-                          <div className="flex items-center justify-between">
-                            <h4 className={`text-xs font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>{srv.title}</h4>
-                            <span className={`text-xs font-black ${theme.isLight ? 'text-emerald-700' : 'text-emerald-400'}`}>{srv.currency}{srv.price}</span>
+                          <div className="flex items-start justify-between gap-2">
+                            <h4 className={`text-xs sm:text-sm font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>{srv.title}</h4>
+                            <span className={`text-xs sm:text-sm font-black shrink-0 ${theme.isLight ? 'text-emerald-700' : 'text-emerald-400'}`}>{srv.currency}{srv.price}</span>
                           </div>
-                          <p className={`text-[11px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'} mt-1`}>{srv.description}</p>
+                          <p className={`text-[11px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'} mt-1.5 leading-relaxed`}>{srv.description}</p>
                         </div>
-                        <div className={`flex items-center justify-between mt-3 pt-2 ${theme.isLight ? 'border-t border-slate-200' : 'border-t border-slate-800'} gap-2`}>
+                        <div className={`flex items-center justify-between mt-4 pt-3 ${theme.isLight ? 'border-t border-slate-200' : 'border-t border-slate-800'} gap-2`}>
                           <span className={`text-[10px] ${theme.isLight ? 'text-slate-500 font-medium' : 'text-slate-500'} flex items-center gap-1`}>
                             <Clock className="w-3 h-3 text-purple-500" />
                             {srv.durationMinutes} Mins
@@ -866,51 +1267,60 @@ export default function ProfileCardView({
 
             case 'products':
               return profile.sectionData.products?.items?.length ? (
-                <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
-                      <ShoppingBag className="w-3.5 h-3.5 text-pink-500" />
-                      <span>{sec.title}</span>
-                    </h3>
+                <div key={sec.id} id="store" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card}`}>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
+                    <div>
+                      <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
+                        <ShoppingBag className="w-4 h-4 text-pink-500" />
+                        <span>{sec.title || 'Products & Store Catalog'}</span>
+                      </h3>
+                      {isWebsiteMode && (
+                        <p className="text-[11px] text-slate-500 mt-0.5">Click any product to add to cart and order directly on WhatsApp.</p>
+                      )}
+                    </div>
 
                     {/* Multi-Currency Selector */}
-                    <div className={`flex items-center gap-1 ${theme.isLight ? 'bg-slate-100 p-0.5 rounded-lg border border-slate-200' : 'bg-slate-950/80 p-0.5 rounded-lg border border-slate-800'}`}>
-                      {(['INR', 'USD', 'EUR', 'AED'] as CurrencyCode[]).map(curr => (
-                        <button
-                          key={curr}
-                          onClick={() => setSelectedCurrency(curr)}
-                          className={`px-1.5 py-0.5 rounded text-[9px] font-bold transition ${
-                            selectedCurrency === curr
-                              ? 'bg-emerald-600 text-white shadow'
-                              : theme.isLight
-                              ? 'text-slate-600 hover:text-slate-900'
-                              : 'text-slate-400 hover:text-white'
-                          }`}
-                        >
-                          {curr}
-                        </button>
-                      ))}
+                    <div className="flex items-center gap-2 self-start sm:self-auto">
+                      <span className="text-[10px] text-slate-400 font-semibold hidden sm:inline">Currency:</span>
+                      <div className={`flex items-center gap-1 ${theme.isLight ? 'bg-slate-100 p-0.5 rounded-lg border border-slate-200' : 'bg-slate-950/80 p-0.5 rounded-lg border border-slate-800'}`}>
+                        {(['INR', 'USD', 'EUR', 'AED'] as CurrencyCode[]).map(curr => (
+                          <button
+                            key={curr}
+                            onClick={() => setSelectedCurrency(curr)}
+                            className={`px-2 py-0.5 rounded text-[10px] font-bold transition ${
+                              selectedCurrency === curr
+                                ? 'bg-emerald-600 text-white shadow'
+                                : theme.isLight
+                                ? 'text-slate-600 hover:text-slate-900'
+                                : 'text-slate-400 hover:text-white'
+                            }`}
+                          >
+                            {curr}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-2.5">
+
+                  <div className={`grid ${isWebsiteMode ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4' : 'grid-cols-2'} gap-3 sm:gap-4`}>
                     {profile.sectionData.products.items.map(prod => (
-                      <div key={prod.id} className={`rounded-xl overflow-hidden ${theme.isLight ? 'bg-white border border-slate-200 shadow-sm' : 'bg-slate-950/50 border border-slate-700/50'} flex flex-col`}>
-                        <div className="h-28 w-full overflow-hidden bg-slate-100 relative">
-                          <img src={prod.imageUrl} alt={prod.name} className="w-full h-full object-cover" />
-                          <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-md text-[10px] font-bold text-emerald-300 border border-emerald-500/20 shadow-xs">
+                      <div key={prod.id} className={`rounded-xl overflow-hidden ${theme.isLight ? 'bg-white border border-slate-200 shadow-sm' : 'bg-slate-950/50 border border-slate-700/50'} flex flex-col group hover:shadow-lg transition-all duration-200`}>
+                        <div className={`${isWebsiteMode ? 'h-36 sm:h-44' : 'h-28'} w-full overflow-hidden bg-slate-100 relative`}>
+                          <img src={prod.imageUrl} alt={prod.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                          <span className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md text-[10px] font-extrabold text-emerald-300 border border-emerald-500/20 shadow">
                             {formatPrice(prod.price, selectedCurrency)}
                           </span>
                         </div>
-                        <div className="p-2.5 flex-1 flex flex-col justify-between">
+                        <div className="p-3 flex-1 flex flex-col justify-between space-y-2">
                           <div>
-                            <h4 className={`text-[11px] font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'} line-clamp-1`}>{prod.name}</h4>
-                            <p className={`text-[9px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'} line-clamp-2 mt-0.5`}>{prod.description}</p>
+                            <h4 className={`text-xs sm:text-sm font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'} line-clamp-1`}>{prod.name}</h4>
+                            <p className={`text-[10px] sm:text-[11px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'} line-clamp-2 mt-0.5 leading-relaxed`}>{prod.description}</p>
                           </div>
                           <button 
                             onClick={() => addToCart(prod)}
-                            className="mt-2 w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center gap-1 active:scale-95 transition-all shadow-sm"
+                            className="w-full py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] sm:text-[11px] font-bold flex items-center justify-center gap-1.5 active:scale-95 transition-all shadow-sm"
                           >
-                            <Plus className="w-3 h-3" />
+                            <Plus className="w-3.5 h-3.5" />
                             <span>Add • {formatPrice(prod.price, selectedCurrency)}</span>
                           </button>
                         </div>
@@ -922,25 +1332,30 @@ export default function ProfileCardView({
 
             case 'videos':
               return profile.sectionData.videos?.items?.length ? (
-                <div key={sec.id} className={`p-4 rounded-2xl ${theme.card} space-y-3`}>
-                  <div className="flex items-center justify-between">
-                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
-                      <Film className="w-3.5 h-3.5 text-indigo-500" />
-                      {sec.title}
-                    </h3>
-                    <span className="text-[10px] text-slate-500 font-mono">
+                <div key={sec.id} id="videos" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card} space-y-4`}>
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
+                    <div>
+                      <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
+                        <Film className="w-4 h-4 text-indigo-500" />
+                        <span>{sec.title || 'Featured Videos & Reels'}</span>
+                      </h3>
+                      {isWebsiteMode && (
+                        <p className="text-[11px] text-slate-500 mt-0.5">Watch video showcases, product demos, and client explainers.</p>
+                      )}
+                    </div>
+                    <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 font-mono">
                       {profile.sectionData.videos.items.length} {profile.sectionData.videos.items.length === 1 ? 'Video' : 'Videos'}
                     </span>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className={`grid ${isWebsiteMode ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'} gap-4 sm:gap-5`}>
                     {profile.sectionData.videos.items.map((vid) => {
                       const embedSrc = getEmbedUrl(vid);
                       const isYouTube = vid.type === 'youtube' || embedSrc.includes('youtube.com/embed') || (vid.url && (vid.url.includes('youtu.be') || vid.url.includes('youtube')));
                       const isInstagram = vid.type === 'instagram' || embedSrc.includes('instagram.com') || (vid.url && vid.url.includes('instagram.com'));
 
                       return (
-                        <div key={vid.id} className={`rounded-2xl overflow-hidden ${theme.isLight ? 'bg-white border border-slate-200' : 'bg-slate-950/80 border border-slate-800'} shadow-md`}>
+                        <div key={vid.id} className={`rounded-2xl overflow-hidden ${theme.isLight ? 'bg-white border border-slate-200' : 'bg-slate-950/80 border border-slate-800'} shadow-md flex flex-col justify-between`}>
                           {/* Video Player Render */}
                           {isYouTube && (
                             <div className="relative w-full aspect-video bg-slate-950">
@@ -999,10 +1414,10 @@ export default function ProfileCardView({
                           )}
 
                           {/* Video Info Footer */}
-                          <div className={`p-3 space-y-1 ${theme.isLight ? 'bg-white' : ''}`}>
+                          <div className={`p-3.5 space-y-1 ${theme.isLight ? 'bg-white' : ''}`}>
                             <div className="flex items-center justify-between gap-2">
-                              <h4 className={`text-xs font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'} line-clamp-1`}>{vid.title}</h4>
-                              <span className={`text-[9px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded ${
+                              <h4 className={`text-xs sm:text-sm font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'} line-clamp-1`}>{vid.title}</h4>
+                              <span className={`text-[9px] uppercase tracking-wider font-bold px-2 py-0.5 rounded ${
                                 isYouTube ? (theme.isLight ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-red-500/20 text-red-400 border border-red-500/30') :
                                 isInstagram ? (theme.isLight ? 'bg-pink-50 text-pink-600 border border-pink-200' : 'bg-pink-500/20 text-pink-400 border border-pink-500/30') :
                                 (theme.isLight ? 'bg-indigo-50 text-indigo-600 border border-indigo-200' : 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30')
@@ -1023,44 +1438,49 @@ export default function ProfileCardView({
 
             case 'blogs':
               return profile.sectionData.blogs?.items?.length ? (
-                <div key={sec.id} className={`p-4 rounded-2xl ${theme.card} space-y-3`}>
-                  <div className="flex items-center justify-between">
-                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
-                      <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
-                      {sec.title}
-                    </h3>
-                    <span className="text-[10px] text-slate-500 font-mono">
+                <div key={sec.id} id="blogs" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card} space-y-4`}>
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
+                    <div>
+                      <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
+                        <BookOpen className="w-4 h-4 text-indigo-500" />
+                        <span>{sec.title || 'Insights & Articles'}</span>
+                      </h3>
+                      {isWebsiteMode && (
+                        <p className="text-[11px] text-slate-500 mt-0.5">Read recent articles, industry thoughts, and helpful resources.</p>
+                      )}
+                    </div>
+                    <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 font-mono">
                       {profile.sectionData.blogs.items.length} {profile.sectionData.blogs.items.length === 1 ? 'Article' : 'Articles'}
                     </span>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className={`grid ${isWebsiteMode ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-4 sm:gap-5`}>
                     {profile.sectionData.blogs.items.filter(b => b.isPublished !== false).map((blog) => (
                       <div 
                         key={blog.id} 
                         onClick={() => setActiveBlogPost(blog)}
-                        className={`group p-3.5 rounded-2xl ${theme.isLight ? 'bg-white border border-slate-200 hover:border-indigo-400' : 'bg-slate-950/60 border border-slate-800/80 hover:border-indigo-500/50'} transition-all cursor-pointer space-y-2 shadow-md hover:-translate-y-0.5 duration-200`}
+                        className={`group p-4 rounded-2xl ${theme.isLight ? 'bg-white border border-slate-200 hover:border-indigo-400' : 'bg-slate-950/60 border border-slate-800/80 hover:border-indigo-500/50'} transition-all cursor-pointer space-y-3 shadow-md hover:-translate-y-1 duration-200 flex flex-col justify-between`}
                       >
                         {blog.coverImage && (
-                          <div className="w-full h-32 rounded-xl overflow-hidden relative shadow">
+                          <div className={`w-full ${isWebsiteMode ? 'h-40' : 'h-32'} rounded-xl overflow-hidden relative shadow`}>
                             <img 
                               src={blog.coverImage} 
                               alt={blog.title} 
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                             <div className="absolute top-2 left-2">
-                              <span className="px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-md text-[9px] font-bold text-amber-300 border border-white/10">
+                              <span className="px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-md text-[9px] font-bold text-amber-300 border border-white/10">
                                 {blog.category}
                               </span>
                             </div>
-                            <div className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/70 backdrop-blur-md text-[9px] text-slate-300 flex items-center gap-1">
+                            <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-black/70 backdrop-blur-md text-[9px] text-slate-300 flex items-center gap-1">
                               <Clock className="w-2.5 h-2.5 text-indigo-400" />
                               <span>{blog.readTimeMinutes} min</span>
                             </div>
                           </div>
                         )}
 
-                        <div className="space-y-1">
+                        <div className="space-y-1.5 flex-1">
                           <div className={`flex items-center justify-between text-[10px] ${theme.isLight ? 'text-slate-500' : 'text-slate-400'}`}>
                             <span>{blog.publishedAt}</span>
                             <span>{blog.authorName || profile.name}</span>
@@ -1073,10 +1493,10 @@ export default function ProfileCardView({
                           </p>
                         </div>
 
-                        <div className="flex items-center justify-between pt-1 text-[11px] font-semibold text-indigo-500">
+                        <div className="flex items-center justify-between pt-2 border-t border-slate-200/50 dark:border-slate-800/50 text-[11px] font-semibold text-indigo-500">
                           <span className="flex items-center gap-1">
-                            <span>Read Article</span>
-                            <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                            <span>Read Full Article</span>
+                            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                           </span>
                         </div>
                       </div>
@@ -1095,13 +1515,18 @@ export default function ProfileCardView({
                 : galleryItems.filter(g => g.category === cardGalleryFilter);
 
               return (
-                <div key={sec.id} className={`p-4 rounded-2xl ${theme.card} space-y-3`}>
-                  <div className="flex items-center justify-between">
-                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
-                      <Layers className="w-3.5 h-3.5 text-indigo-500" />
-                      {sec.title}
-                    </h3>
-                    <span className="text-[10px] text-slate-500 font-mono">
+                <div key={sec.id} id="portfolio" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card} space-y-4`}>
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
+                    <div>
+                      <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
+                        <Layers className="w-4 h-4 text-indigo-500" />
+                        <span>{sec.title || 'Portfolio & Gallery Showcase'}</span>
+                      </h3>
+                      {isWebsiteMode && (
+                        <p className="text-[11px] text-slate-500 mt-0.5">Explore our recent projects, creative works, and visual showcases.</p>
+                      )}
+                    </div>
+                    <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 font-mono">
                       {filteredGallery.length} / {galleryItems.length} {galleryItems.length === 1 ? 'Photo' : 'Photos'}
                     </span>
                   </div>
@@ -1112,7 +1537,7 @@ export default function ProfileCardView({
                       <button
                         type="button"
                         onClick={() => setCardGalleryFilter('All')}
-                        className={`px-2.5 py-1 rounded-xl text-[10px] font-bold shrink-0 transition-all ${
+                        className={`px-3 py-1.5 rounded-xl text-[10px] font-bold shrink-0 transition-all ${
                           cardGalleryFilter === 'All'
                             ? 'bg-indigo-600 text-white shadow-sm ring-1 ring-indigo-400'
                             : theme.isLight
@@ -1129,7 +1554,7 @@ export default function ProfileCardView({
                             key={cat}
                             type="button"
                             onClick={() => setCardGalleryFilter(cat)}
-                            className={`px-2.5 py-1 rounded-xl text-[10px] font-bold shrink-0 transition-all ${
+                            className={`px-3 py-1.5 rounded-xl text-[10px] font-bold shrink-0 transition-all ${
                               cardGalleryFilter === cat
                                 ? 'bg-indigo-600 text-white shadow-sm ring-1 ring-indigo-400'
                                 : theme.isLight
@@ -1144,34 +1569,34 @@ export default function ProfileCardView({
                     </div>
                   )}
 
-                  <div className="grid grid-cols-2 gap-2.5">
+                  <div className={`grid ${isWebsiteMode ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4' : 'grid-cols-2'} gap-3 sm:gap-4`}>
                     {filteredGallery.map((img) => (
                       <div 
                         key={img.id} 
                         onClick={() => setActiveGalleryItem(img)}
-                        className={`group relative rounded-xl overflow-hidden ${theme.isLight ? 'bg-slate-100 border border-slate-200' : 'bg-slate-900 border border-slate-800'} cursor-pointer aspect-square shadow-md hover:border-indigo-500/50 transition-all duration-300`}
+                        className={`group relative rounded-xl overflow-hidden ${theme.isLight ? 'bg-slate-100 border border-slate-200' : 'bg-slate-900 border border-slate-800'} cursor-pointer aspect-square shadow-md hover:border-indigo-500/50 hover:shadow-xl transition-all duration-300`}
                       >
                         <img 
                           src={img.imageUrl} 
                           alt={img.title || 'Portfolio Showcase'} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" 
+                          className="w-full h-full object-cover group-hover:scale-108 transition-all duration-300" 
                           onError={(e) => {
                             e.currentTarget.onerror = null;
                             e.currentTarget.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
                           }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity p-2.5 flex flex-col justify-end">
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity p-3 flex flex-col justify-end">
                           {img.category && (
                             <span className="text-[9px] font-bold text-indigo-300 uppercase tracking-wider">
                               {img.category}
                             </span>
                           )}
-                          <p className="text-xs font-bold text-white line-clamp-1 group-hover:text-indigo-200 transition-colors">
+                          <p className="text-xs sm:text-sm font-bold text-white line-clamp-1 group-hover:text-indigo-200 transition-colors">
                             {img.title || 'View Project'}
                           </p>
                         </div>
-                        <div className="absolute top-2 right-2 p-1.5 rounded-full bg-slate-950/70 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
-                          <Maximize2 className="w-3 h-3" />
+                        <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-slate-950/70 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm shadow">
+                          <Maximize2 className="w-3.5 h-3.5" />
                         </div>
                       </div>
                     ))}
@@ -1183,37 +1608,56 @@ export default function ProfileCardView({
             case 'testimonials': {
               const activeList = dynamicTestimonials || profile.sectionData.testimonials?.items || [];
               return (
-                <div key={sec.id} className={`p-4 rounded-2xl ${theme.card} space-y-3`}>
-                  <div className="flex items-center justify-between">
-                    <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} flex items-center gap-1.5`}>
-                      <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                      <span>{sec.title}</span>
-                    </h3>
+                <div key={sec.id} id="reviews" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card} space-y-4`}>
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
+                    <div>
+                      <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
+                        <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                        <span>{sec.title || 'Client Testimonials & Feedback'}</span>
+                      </h3>
+                      {isWebsiteMode && (
+                        <p className="text-[11px] text-slate-500 mt-0.5">Real verified reviews from clients, partners, and customers.</p>
+                      )}
+                    </div>
                     <button
                       onClick={() => setIsReviewModalOpen(true)}
-                      className={`px-2.5 py-1 rounded-lg ${theme.isLight ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200' : 'bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border-indigo-500/30'} text-[10px] font-bold border transition flex items-center gap-1`}
+                      className={`px-3 py-1.5 rounded-xl ${theme.isLight ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200' : 'bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border-indigo-500/30'} text-[11px] font-bold border transition flex items-center gap-1.5 shadow-sm active:scale-95`}
                     >
-                      <Plus className="w-2.5 h-2.5" />
+                      <Plus className="w-3 h-3" />
                       <span>Write Review</span>
                     </button>
                   </div>
-                  <div className="space-y-2.5">
+                  <div className={`grid ${isWebsiteMode ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-3 sm:gap-4`}>
                     {activeList.map(t => (
-                      <div key={t.id} className={`p-3 rounded-xl ${theme.itemBg}`}>
-                        <div className="flex items-center gap-2 mb-1.5">
-                          {t.clientAvatar && (
-                            <img src={t.clientAvatar} alt={t.clientName} className="w-6 h-6 rounded-full object-cover" />
+                      <div key={t.id} className={`p-4 rounded-xl ${theme.itemBg} flex flex-col justify-between space-y-3 border border-slate-200/60 dark:border-slate-800`}>
+                        <div>
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-0.5 text-amber-400">
+                              {[...Array(t.rating || 5)].map((_, i) => (
+                                <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                              ))}
+                            </div>
+                            <span className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200/60 dark:border-emerald-800/40">
+                              Verified Client
+                            </span>
+                          </div>
+                          <p className={`text-xs ${theme.isLight ? 'text-slate-700' : 'text-slate-300'} italic leading-relaxed`}>
+                            &ldquo;{t.content}&rdquo;
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-center gap-2.5 pt-2 border-t border-slate-200/50 dark:border-slate-800/50">
+                          {t.clientAvatar ? (
+                            <img src={t.clientAvatar} alt={t.clientName} className="w-7 h-7 rounded-full object-cover ring-2 ring-indigo-500/30" />
+                          ) : (
+                            <div className="w-7 h-7 rounded-full bg-indigo-600/20 text-indigo-500 font-bold text-xs flex items-center justify-center">
+                              {t.clientName.charAt(0)}
+                            </div>
                           )}
                           <div>
-                            <p className={`text-[11px] font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>{t.clientName}</p>
-                            <p className={`text-[9px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'}`}>{t.clientRole} {t.clientCompany ? `• ${t.clientCompany}` : ''}</p>
+                            <p className={`text-xs font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>{t.clientName}</p>
+                            <p className={`text-[10px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'}`}>{t.clientRole} {t.clientCompany ? `• ${t.clientCompany}` : ''}</p>
                           </div>
-                        </div>
-                        <p className={`text-[11px] ${theme.isLight ? 'text-slate-700' : 'text-slate-300'} italic`}>&ldquo;{t.content}&rdquo;</p>
-                        <div className="flex items-center gap-0.5 mt-1.5">
-                          {[...Array(t.rating || 5)].map((_, i) => (
-                            <Star key={i} className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
-                          ))}
                         </div>
                       </div>
                     ))}
@@ -1224,18 +1668,18 @@ export default function ProfileCardView({
 
             case 'customLinks':
               return profile.sectionData.customLinks?.items?.length ? (
-                <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
-                  <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} mb-3`}>
+                <div key={sec.id} id="links" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card}`}>
+                  <h3 className={`text-xs sm:text-sm font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-300'} mb-3`}>
                     {sec.title}
                   </h3>
-                  <div className="space-y-2">
+                  <div className={`grid ${isWebsiteMode ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'} gap-2.5`}>
                     {profile.sectionData.customLinks.items.map(link => (
                       <a 
                         key={link.id}
                         href={link.url}
                         target="_blank"
                         rel="noreferrer"
-                        className={`w-full p-3 rounded-xl flex items-center justify-between text-xs font-medium transition-all ${
+                        className={`w-full p-3.5 rounded-xl flex items-center justify-between text-xs font-medium transition-all ${
                           link.highlight 
                             ? `${theme.buttonPrimary} shadow-md` 
                             : `${theme.buttonSecondary}`
@@ -1251,55 +1695,191 @@ export default function ProfileCardView({
 
             case 'contact':
               return (
-                <div key={sec.id} className={`p-4 rounded-2xl ${theme.card}`}>
-                  <h3 className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? 'text-slate-700' : 'text-slate-400'} mb-3`}>
-                    Send a Message
-                  </h3>
-                  {leadSuccess ? (
-                    <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-xs text-center flex items-center justify-center gap-1.5 font-semibold">
-                      <Check className="w-4 h-4" /> Message sent successfully!
+                <div key={sec.id} id="contact" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card}`}>
+                  <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
+                    <div>
+                      <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
+                        <Send className="w-4 h-4 text-indigo-500" />
+                        <span>Get In Touch & Inquiry</span>
+                      </h3>
+                      {isWebsiteMode && (
+                        <p className="text-[11px] text-slate-500 mt-0.5">Send a direct message or connect instantly via phone, WhatsApp, or email.</p>
+                      )}
+                    </div>
+                    <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold">
+                      Fast Response
+                    </span>
+                  </div>
+
+                  {isWebsiteMode ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Left: Inquiry Form */}
+                      <div>
+                        <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2.5">
+                          Send a Direct Message
+                        </h4>
+                        {leadSuccess ? (
+                          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-xs text-center flex items-center justify-center gap-2 font-semibold">
+                            <Check className="w-4 h-4" /> Message sent successfully! We will get back to you shortly.
+                          </div>
+                        ) : (
+                          <form onSubmit={handleLeadSubmit} className="space-y-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                              <input 
+                                type="text" 
+                                placeholder="Your Name *" 
+                                required
+                                value={leadName}
+                                onChange={e => setLeadName(e.target.value)}
+                                className={`w-full px-3.5 py-2.5 rounded-xl ${theme.inputBg} border text-xs focus:outline-none`}
+                              />
+                              <input 
+                                type="tel" 
+                                placeholder="Phone Number *" 
+                                required
+                                value={leadPhone}
+                                onChange={e => setLeadPhone(e.target.value)}
+                                className={`w-full px-3.5 py-2.5 rounded-xl ${theme.inputBg} border text-xs focus:outline-none`}
+                              />
+                            </div>
+                            <input 
+                              type="email" 
+                              placeholder="Email Address (Optional)" 
+                              value={leadEmail}
+                              onChange={e => setLeadEmail(e.target.value)}
+                              className={`w-full px-3.5 py-2.5 rounded-xl ${theme.inputBg} border text-xs focus:outline-none`}
+                            />
+                            <textarea 
+                              rows={3} 
+                              placeholder="Your message, project details, or questions..." 
+                              required
+                              value={leadMessage}
+                              onChange={e => setLeadMessage(e.target.value)}
+                              className={`w-full px-3.5 py-2.5 rounded-xl ${theme.inputBg} border text-xs focus:outline-none resize-none`}
+                            />
+                            <button 
+                              type="submit"
+                              className={`w-full py-3 rounded-xl ${theme.buttonPrimary} text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-md active:scale-95`}
+                            >
+                              <Send className="w-3.5 h-3.5" />
+                              <span>Submit Inquiry</span>
+                            </button>
+                          </form>
+                        )}
+                      </div>
+
+                      {/* Right: Direct Connect Hub */}
+                      <div className="space-y-3">
+                        <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                          Direct Contact Hub
+                        </h4>
+
+                        <div className={`p-4 rounded-xl ${theme.itemBg} border border-slate-200/60 dark:border-slate-800 space-y-3`}>
+                          <a
+                            href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=${encodeURIComponent(`Hi ${profile.name}, I reached out from your mini-website.`)}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="p-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-between transition shadow-sm"
+                          >
+                            <div className="flex items-center gap-2.5">
+                              <SocialIcon platform="whatsapp" size={18} colored={false} className="text-white" />
+                              <div>
+                                <div className="text-xs">Chat on WhatsApp Direct</div>
+                                <div className="text-[10px] text-emerald-100 font-normal">Instant 24/7 direct response</div>
+                              </div>
+                            </div>
+                            <ArrowRight className="w-4 h-4" />
+                          </a>
+
+                          <div className="grid grid-cols-2 gap-2 text-xs">
+                            {profile.phone && (
+                              <a
+                                href={`tel:${profile.phone.replace(/[^\d+]/g, '')}`}
+                                className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-2 text-slate-800 dark:text-slate-200 font-semibold"
+                              >
+                                <Phone className="w-4 h-4 text-indigo-500 shrink-0" />
+                                <div className="min-w-0">
+                                  <div className="text-[10px] text-slate-500">Call Now</div>
+                                  <div className="text-[11px] truncate">{profile.phone}</div>
+                                </div>
+                              </a>
+                            )}
+                            {profile.email && (
+                              <a
+                                href={`mailto:${profile.email}`}
+                                className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-2 text-slate-800 dark:text-slate-200 font-semibold"
+                              >
+                                <Mail className="w-4 h-4 text-pink-500 shrink-0" />
+                                <div className="min-w-0">
+                                  <div className="text-[10px] text-slate-500">Email Us</div>
+                                  <div className="text-[11px] truncate">{profile.email}</div>
+                                </div>
+                              </a>
+                            )}
+                          </div>
+
+                          <div className="pt-2 border-t border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between">
+                            <button
+                              type="button"
+                              onClick={() => setIsUPIModalOpen(true)}
+                              className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-90 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition active:scale-95"
+                            >
+                              <QrCode className="w-4 h-4" />
+                              <span>Direct 0% UPI Payment (Scan & Pay)</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ) : (
-                    <form onSubmit={handleLeadSubmit} className="space-y-2.5">
-                      <input 
-                        type="text" 
-                        placeholder="Your Name" 
-                        required
-                        value={leadName}
-                        onChange={e => setLeadName(e.target.value)}
-                        className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none`}
-                      />
-                      <input 
-                        type="email" 
-                        placeholder="Email Address" 
-                        required
-                        value={leadEmail}
-                        onChange={e => setLeadEmail(e.target.value)}
-                        className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none`}
-                      />
-                      <input 
-                        type="tel" 
-                        placeholder="Phone Number (Optional)" 
-                        value={leadPhone}
-                        onChange={e => setLeadPhone(e.target.value)}
-                        className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none`}
-                      />
-                      <textarea 
-                        rows={2} 
-                        placeholder="Your inquiry message..." 
-                        required
-                        value={leadMessage}
-                        onChange={e => setLeadMessage(e.target.value)}
-                        className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none resize-none`}
-                      />
-                      <button 
-                        type="submit"
-                        className={`w-full py-2.5 rounded-lg ${theme.buttonPrimary} text-xs font-bold flex items-center justify-center gap-1.5 transition-all`}
-                      >
-                        <Send className="w-3 h-3" />
-                        Send Direct Inquiry
-                      </button>
-                    </form>
+                    <>
+                      {leadSuccess ? (
+                        <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-xs text-center flex items-center justify-center gap-1.5 font-semibold">
+                          <Check className="w-4 h-4" /> Message sent successfully!
+                        </div>
+                      ) : (
+                        <form onSubmit={handleLeadSubmit} className="space-y-2.5">
+                          <input 
+                            type="text" 
+                            placeholder="Your Name" 
+                            required
+                            value={leadName}
+                            onChange={e => setLeadName(e.target.value)}
+                            className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none`}
+                          />
+                          <input 
+                            type="email" 
+                            placeholder="Email Address" 
+                            required
+                            value={leadEmail}
+                            onChange={e => setLeadEmail(e.target.value)}
+                            className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none`}
+                          />
+                          <input 
+                            type="tel" 
+                            placeholder="Phone Number (Optional)" 
+                            value={leadPhone}
+                            onChange={e => setLeadPhone(e.target.value)}
+                            className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none`}
+                          />
+                          <textarea 
+                            rows={2} 
+                            placeholder="Your inquiry message..." 
+                            required
+                            value={leadMessage}
+                            onChange={e => setLeadMessage(e.target.value)}
+                            className={`w-full px-3 py-2 rounded-lg ${theme.inputBg} border text-xs focus:outline-none resize-none`}
+                          />
+                          <button 
+                            type="submit"
+                            className={`w-full py-2.5 rounded-lg ${theme.buttonPrimary} text-xs font-bold flex items-center justify-center gap-1.5 transition-all`}
+                          >
+                            <Send className="w-3 h-3" />
+                            Send Direct Inquiry
+                          </button>
+                        </form>
+                      )}
+                    </>
                   )}
                 </div>
               );
@@ -1309,15 +1889,90 @@ export default function ProfileCardView({
           }
         })}
 
-        {/* Footer Branding */}
-        <div className="text-center pt-5 pb-3 px-4 space-y-1">
-          <p className={`text-[10px] ${theme.isLight ? 'text-slate-500' : 'text-slate-400'} font-medium`}>
-            © 2026 himastech. All rights reserved.
-          </p>
-          <p className={`text-[9px] ${theme.isLight ? 'text-slate-500' : 'text-slate-500'}`}>
-            Developed & Maintained by <span className={`${theme.isLight ? 'text-slate-700 font-semibold' : 'text-slate-400 font-semibold'}`}>Merlinflow Technologies Pvt Ltd</span>
-          </p>
-        </div>
+        {/* Mini-Website or Mobile Card Footer Branding */}
+        {isWebsiteMode ? (
+          <footer className="mt-8 pt-8 pb-6 border-t border-slate-200/60 dark:border-slate-800 text-slate-500">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-slate-100 shrink-0">
+                    <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <h5 className="font-extrabold text-sm text-slate-900 dark:text-white leading-tight">{profile.company || profile.name}</h5>
+                    <p className="text-[10px] text-slate-500">{profile.designation || 'Professional Business'}</p>
+                  </div>
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {profile.bio || 'Official digital business website with live booking, WhatsApp store catalog, and direct UPI integration.'}
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <h6 className="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Quick Navigation</h6>
+                <div className="grid grid-cols-2 gap-1.5 text-xs">
+                  {hasAbout && <a href="#about" className="hover:text-indigo-600 transition">About Us</a>}
+                  {hasServices && <a href="#services" className="hover:text-indigo-600 transition">Services</a>}
+                  {hasProducts && <a href="#store" className="hover:text-indigo-600 transition">Store Catalog</a>}
+                  {hasVideos && <a href="#videos" className="hover:text-indigo-600 transition">Video Demos</a>}
+                  {hasGallery && <a href="#portfolio" className="hover:text-indigo-600 transition">Portfolio</a>}
+                  {hasTestimonials && <a href="#reviews" className="hover:text-indigo-600 transition">Reviews</a>}
+                  <a href="#contact" className="hover:text-indigo-600 transition">Contact</a>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <h6 className="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Direct Actions</h6>
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={() => {
+                      trackAction('contact_download');
+                      downloadVcfFile(profile);
+                    }}
+                    className="py-2 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 flex items-center justify-between transition"
+                  >
+                    <span className="flex items-center gap-1.5">
+                      <Download className="w-3.5 h-3.5 text-indigo-500" />
+                      Save Contact (VCF)
+                    </span>
+                    <ArrowRight className="w-3 h-3 text-slate-400" />
+                  </button>
+
+                  <a
+                    href={`https://wa.me/${getCleanWhatsAppNumber(profile)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="py-2 px-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-xs font-semibold text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/40 flex items-center justify-between transition"
+                  >
+                    <span className="flex items-center gap-1.5">
+                      <SocialIcon platform="whatsapp" size={14} colored={false} className="text-emerald-500" />
+                      WhatsApp Chat Direct
+                    </span>
+                    <ArrowRight className="w-3 h-3 text-emerald-500" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-200/50 dark:border-slate-800/50 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-2">
+              <p>© 2026 {profile.company || profile.name}. All rights reserved.</p>
+              <div className="flex items-center gap-3">
+                <span>Powered by <a href="https://oneclickbiz.in" target="_blank" rel="noreferrer" className="font-bold text-indigo-600 hover:underline">OneClickBiz Mini-Website Engine</a></span>
+                <span>•</span>
+                <span>Developed by Merlinflow Technologies</span>
+              </div>
+            </div>
+          </footer>
+        ) : (
+          <div className="text-center pt-5 pb-3 px-4 space-y-1">
+            <p className={`text-[10px] ${theme.isLight ? 'text-slate-500' : 'text-slate-400'} font-medium`}>
+              © 2026 {profile.company || profile.name}. All rights reserved.
+            </p>
+            <p className={`text-[9px] ${theme.isLight ? 'text-slate-500' : 'text-slate-500'}`}>
+              Powered by <span className={`${theme.isLight ? 'text-slate-700 font-semibold' : 'text-slate-400 font-semibold'}`}>OneClickBiz</span> • Merlinflow Technologies Pvt Ltd
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Floating Cart Button (when items exist in cart) */}
@@ -1782,10 +2437,69 @@ export default function ProfileCardView({
         defaultAmount={500}
       />
 
+      {/* Floating Bottom Quick-Conversion Dock (Mobile & Mini-Website) */}
+      {!isMockup && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-auto max-w-[92vw] flex items-center gap-2 p-1.5 rounded-full bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-md border border-slate-700/60 shadow-2xl text-white">
+          <button
+            onClick={() => {
+              trackAction('contact_download');
+              downloadVcfFile(profile);
+            }}
+            className="px-3.5 py-2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition"
+            title="Save Contact to Phone"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Save Contact</span>
+            <span className="sm:hidden">Save</span>
+          </button>
+
+          <a
+            href={`https://wa.me/${getCleanWhatsAppNumber(profile)}`}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackAction('whatsapp_dock_click')}
+            className="px-3.5 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition"
+            title="Chat on WhatsApp"
+          >
+            <SocialIcon platform="whatsapp" size={14} colored={false} className="text-white" />
+            <span className="hidden sm:inline">WhatsApp</span>
+            <span className="sm:hidden">Chat</span>
+          </a>
+
+          {profile.phone && (
+            <a
+              href={`tel:${profile.phone.replace(/[^\d+]/g, '')}`}
+              onClick={() => trackAction('call_dock_click')}
+              className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 transition"
+              title="Call Directly"
+            >
+              <Phone className="w-3.5 h-3.5" />
+            </a>
+          )}
+
+          <button
+            onClick={() => setIsUPIModalOpen(true)}
+            className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-emerald-400 transition"
+            title="Pay via UPI"
+          >
+            <QrCode className="w-3.5 h-3.5" />
+          </button>
+
+          <button
+            onClick={handleShare}
+            className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 transition"
+            title="Share Mini-Website"
+          >
+            <Share2 className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
+
       {/* PWA "Add to Home Screen" Install Banner for Mobile Visitors */}
       {!isMockup && (
         <PWAInstallPrompt cardName={profile.name} avatarUrl={profile.avatarUrl} />
       )}
+    </div>
     </div>
   );
 }

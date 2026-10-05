@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { 
   Sparkles, 
   Smartphone, 
+  Monitor,
   ShoppingBag, 
   Calendar, 
   CreditCard, 
@@ -195,6 +196,7 @@ const VCARD_TEMPLATES = [
 export default function LandingPage() {
   const [aliasSearch, setAliasSearch] = useState('');
   const [aliasStatus, setAliasStatus] = useState<'idle' | 'available' | 'taken'>('idle');
+  const [heroDemoMode, setHeroDemoMode] = useState<'mobile' | 'website'>('website');
   const [selectedDemoTheme, setSelectedDemoTheme] = useState<'modern-indigo' | 'dark-onyx' | 'glassmorphic' | 'emerald-pro' | 'sunset-gold'>('modern-indigo');
   const [templateFilter, setTemplateFilter] = useState<string>('all');
   const [previewTemplate, setPreviewTemplate] = useState<VCardTemplateItem | null>(null);
@@ -454,36 +456,95 @@ export default function LandingPage() {
 
             </div>
 
-            {/* Right Hero Visual: Real-Time Interactive Card Preview */}
-            <div className="lg:col-span-5 flex flex-col items-center justify-center">
+            {/* Right Hero Visual: Real-Time Interactive Card & Mini-Website Preview */}
+            <div className="lg:col-span-5 flex flex-col items-center justify-center w-full">
               
+              {/* Dual View Mode Switcher: Mini-Website vs Phone Card */}
+              <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 mb-3 shadow-lg shadow-slate-200/60">
+                <button
+                  type="button"
+                  onClick={() => setHeroDemoMode('website')}
+                  className={`px-3 sm:px-4 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all ${
+                    heroDemoMode === 'website'
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  }`}
+                >
+                  <Monitor className="w-3.5 h-3.5" />
+                  <span>Mini-Website View</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setHeroDemoMode('mobile')}
+                  className={`px-3 sm:px-4 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all ${
+                    heroDemoMode === 'mobile'
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  }`}
+                >
+                  <Smartphone className="w-3.5 h-3.5" />
+                  <span>Mobile Card</span>
+                </button>
+              </div>
+
               {/* Theme Switcher Chips */}
-              <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 mb-4 shadow-lg shadow-slate-200/50">
+              <div className="flex items-center gap-1 p-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/90 mb-4 shadow-sm overflow-x-auto max-w-full">
                 {(['modern-indigo', 'dark-onyx', 'glassmorphic', 'emerald-pro', 'sunset-gold'] as const).map(t => (
                   <button
                     key={t}
                     onClick={() => setSelectedDemoTheme(t)}
-                    className={`px-3 py-1 rounded-full text-[10px] font-bold transition-all ${
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all shrink-0 ${
                       selectedDemoTheme === t 
-                        ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/20' 
+                        ? 'bg-slate-900 text-white shadow-xs' 
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                     }`}
                   >
-                    {t === 'modern-indigo' ? 'LIGHT (RECOMMENDED)' : t.split('-')[0].toUpperCase()}
+                    {t === 'modern-indigo' ? 'LIGHT' : t.split('-')[0].toUpperCase()}
                   </button>
                 ))}
               </div>
 
-              {/* Phone Mockup Frame */}
-              <div className="w-full max-w-[340px] rounded-[48px] p-2.5 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800">
-                {/* Dynamic Island Speaker Notch */}
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
-                  <div className="w-2 h-2 rounded-full bg-slate-800" />
+              {heroDemoMode === 'website' ? (
+                /* Desktop Browser Shell Frame Mockup */
+                <div className="w-full max-w-[500px] xl:max-w-[540px] rounded-2xl bg-white border border-slate-300 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden transition-all duration-300">
+                  {/* Browser Chrome Window Bar */}
+                  <div className="bg-slate-900 px-3.5 py-2.5 flex items-center justify-between border-b border-slate-800">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
+                      <div className="hidden sm:flex items-center gap-1 ml-2 px-2.5 py-0.5 rounded-md bg-slate-950 text-[10px] text-slate-300 font-mono">
+                        <span className="text-emerald-400">https://</span>
+                        <span>oneclickbiz.in/v/kishore</span>
+                      </div>
+                    </div>
+                    <a
+                      href="/v/kishore"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-[10px] font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition"
+                    >
+                      <span>Open Live Demo</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                  {/* Inner Scrollable Website Content */}
+                  <div className="h-[480px] sm:h-[520px] overflow-y-auto scrollbar-none bg-slate-50">
+                    <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
+                  </div>
                 </div>
-                <div className="rounded-[38px] overflow-hidden bg-white max-h-[580px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
-                  <ProfileCardView profile={demoProfile} isMockup={true} />
+              ) : (
+                /* Phone Mockup Frame */
+                <div className="w-full max-w-[340px] rounded-[48px] p-2.5 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300">
+                  {/* Dynamic Island Speaker Notch */}
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
+                    <div className="w-2 h-2 rounded-full bg-slate-800" />
+                  </div>
+                  <div className="rounded-[38px] overflow-hidden bg-white max-h-[580px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
+                    <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="mobile" showViewToggle={false} />
+                  </div>
                 </div>
-              </div>
+              )}
 
             </div>
 
