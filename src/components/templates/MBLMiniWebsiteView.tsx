@@ -609,27 +609,79 @@ export default function MBLMiniWebsiteView({
               {/* Kicker Pill */}
               <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full ${t.accentLightBg} ${t.accentLightBorder} text-xs font-black tracking-wider uppercase shadow-xs`}>
                 <span className={`w-2 h-2 rounded-full ${t.accentDot}`} />
-                <span>Learn. Connect. Grow.</span>
+                <span>
+                  {profile.designation 
+                    ? profile.designation.toUpperCase() 
+                    : (profile.company ? `${profile.company.toUpperCase()} HUB` : 'VERIFIED BUSINESS PROFILE')}
+                </span>
               </div>
 
               {/* Massive 3-Line MBL Grotesque Headline */}
-              <h1 className="!font-sans text-5xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tight text-slate-950 leading-[0.92]">
-                Build Your<br />
-                <span className={`inline-block px-4 sm:px-6 py-1 sm:py-2 rounded-2xl ${t.accentPill} my-1.5 shadow-sm transform -rotate-1`}>
-                  Digital
-                </span><br />
-                Future<span className={`inline-block w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full ${t.accentDot} ml-2 mb-1 sm:mb-2 align-baseline`} />
+              <h1 className="!font-sans text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tight text-slate-950 leading-[0.95] break-words">
+                {(() => {
+                  if (profile.company && profile.company.trim()) {
+                    const words = profile.company.trim().split(/\s+/);
+                    if (words.length === 1) {
+                      return (
+                        <>
+                          {words[0]}<br />
+                          <span className={`inline-block px-3 sm:px-6 py-1 sm:py-2 rounded-2xl ${t.accentPill} my-1.5 shadow-sm transform -rotate-1`}>
+                            {profile.designation ? profile.designation.split(/\s+/)[0] : 'OFFICIAL'}
+                          </span><br />
+                          {profile.designation && profile.designation.split(/\s+/).length > 1 
+                            ? profile.designation.split(/\s+/).slice(1).join(' ') 
+                            : 'SERVICES'}
+                          <span className={`inline-block w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full ${t.accentDot} ml-2 mb-1 sm:mb-2 align-baseline`} />
+                        </>
+                      );
+                    } else if (words.length === 2) {
+                      return (
+                        <>
+                          {words[0]}<br />
+                          <span className={`inline-block px-3 sm:px-6 py-1 sm:py-2 rounded-2xl ${t.accentPill} my-1.5 shadow-sm transform -rotate-1`}>
+                            {words[1]}
+                          </span><br />
+                          {profile.designation || 'ENTERPRISE'}
+                          <span className={`inline-block w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full ${t.accentDot} ml-2 mb-1 sm:mb-2 align-baseline`} />
+                        </>
+                      );
+                    } else {
+                      return (
+                        <>
+                          {words[0]}<br />
+                          <span className={`inline-block px-3 sm:px-6 py-1 sm:py-2 rounded-2xl ${t.accentPill} my-1.5 shadow-sm transform -rotate-1`}>
+                            {words.slice(1, -1).join(' ') || words[1]}
+                          </span><br />
+                          {words.slice(-1)[0]}
+                          <span className={`inline-block w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full ${t.accentDot} ml-2 mb-1 sm:mb-2 align-baseline`} />
+                        </>
+                      );
+                    }
+                  } else {
+                    const words = (profile.name || 'Business').trim().split(/\s+/);
+                    return (
+                      <>
+                        {words[0]}<br />
+                        <span className={`inline-block px-3 sm:px-6 py-1 sm:py-2 rounded-2xl ${t.accentPill} my-1.5 shadow-sm transform -rotate-1`}>
+                          {words.slice(1).join(' ') || (profile.designation ? profile.designation.split(/\s+/)[0] : 'OFFICIAL')}
+                        </span><br />
+                        {profile.designation || 'SERVICES'}
+                        <span className={`inline-block w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full ${t.accentDot} ml-2 mb-1 sm:mb-2 align-baseline`} />
+                      </>
+                    );
+                  }
+                })()}
               </h1>
 
               {/* Founder Bio / Subtitle */}
               <p className="!font-sans text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed font-normal">
-                {profile.bio || 'Empowering clients, real estate leaders, and enterprises with practical digital execution, bespoke campaigns, and automated growth funnels.'}
+                {profile.bio || `Welcome to ${profile.company || profile.name}. Explore our specialized services, connect directly on WhatsApp, or book a consultation.`}
               </p>
 
               {/* Primary Dual Actions */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <a
-                  href={`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi ${profile.name}, I reached out from your website and would like to get started.`)}`}
+                  href={`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi ${profile.name}, I reached out from your website and would like to connect.`)}`}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('whatsapp_hero_click')}
@@ -668,8 +720,12 @@ export default function MBLMiniWebsiteView({
                   <div className="flex text-amber-500 text-sm">
                     {'★★★★★'}
                   </div>
-                  <span className="font-bold text-slate-900">4.9/5 Rating</span>
-                  <span className="text-slate-400">• 120+ Verified Reviews</span>
+                  <span className="font-bold text-slate-900">
+                    {testimonials.length > 0 ? (testimonials.reduce((s, x) => s + (x.rating || 5), 0) / testimonials.length).toFixed(1) : '4.9'}/5.0 Rating
+                  </span>
+                  <span className="text-slate-400">
+                    • {testimonials.length > 0 ? `${testimonials.length}+ Verified Reviews` : 'Verified Feedback'}
+                  </span>
                 </div>
                 <span className="text-slate-300">|</span>
                 <div className="flex items-center gap-1 text-emerald-700 font-semibold">
@@ -693,25 +749,33 @@ export default function MBLMiniWebsiteView({
                     <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                   </div>
                   <div>
-                    <span className="font-black text-xs text-slate-900 block leading-tight">4.9 / 5.0</span>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">120+ Reviews</span>
+                    <span className="font-black text-xs text-slate-900 block leading-tight">
+                      {testimonials.length > 0 ? (testimonials.reduce((s, x) => s + (x.rating || 5), 0) / testimonials.length).toFixed(1) : '4.9'} / 5.0
+                    </span>
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                      {testimonials.length > 0 ? `${testimonials.length}+ Reviews` : 'Verified Partner'}
+                    </span>
                   </div>
                 </div>
 
                 {/* 3. Floating Badge: Top Right (Verified Executive) */}
                 <div className="absolute -right-2 sm:-right-4 top-4 z-20 px-3 py-1.5 rounded-full bg-slate-950/90 backdrop-blur-md text-white border border-white/20 shadow-xl flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Verified Executive</span>
+                  <span className="truncate max-w-[140px]">{profile.designation || 'Verified Partner'}</span>
                 </div>
 
-                {/* 4. Floating Badge: Bottom Right (Experience & Deliverables) */}
+                {/* 4. Floating Badge: Bottom Right (Deliverables) */}
                 <div className="absolute -right-3 sm:-right-6 bottom-24 z-20 px-3.5 py-2.5 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-slate-200/80 flex items-center gap-2.5">
                   <div className={`w-8 h-8 rounded-xl ${t.accentLightBg} ${t.accentLightBorder} flex items-center justify-center shrink-0`}>
                     <Award className="w-4 h-4 text-slate-900" />
                   </div>
                   <div>
-                    <span className="font-black text-xs text-slate-900 block leading-tight">12+ Yrs</span>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">500+ Projects</span>
+                    <span className="font-black text-xs text-slate-900 block leading-tight">
+                      {services.length > 0 ? `${services.length}+ Offerings` : 'Professional'}
+                    </span>
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block truncate max-w-[110px]">
+                      {profile.company || 'Enterprise Solutions'}
+                    </span>
                   </div>
                 </div>
 
@@ -746,44 +810,44 @@ export default function MBLMiniWebsiteView({
         </div>
       </section>
 
-      {/* 3. METRIC COUNTER BAR (4 COLUMNS) */}
+      {/* 3. METRIC COUNTER BAR (4 COLUMNS - DYNAMIC) */}
       <section className="py-12 bg-white border-b border-black/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left">
             
             <div className="space-y-1">
               <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-                12+
+                {profile.stats?.views ? `${profile.stats.views}+` : `${services.length > 0 ? services.length + '+' : '100%'}`}
               </span>
               <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
-                Years of Strategic Leadership
+                {profile.stats?.views ? 'Active Profile Views' : 'Dedicated Focus'}
               </p>
             </div>
 
             <div className="space-y-1">
               <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-                500+
+                {products.length > 0 ? `${products.length}+` : `${services.length > 0 ? services.length + '+' : 'Custom'}`}
               </span>
               <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
-                High-Impact Projects
+                {products.length > 0 ? 'Digital Products & Items' : 'Service Deliverables'}
               </p>
             </div>
 
             <div className="space-y-1">
               <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-                99.8%
+                {testimonials.length > 0 ? `${testimonials.length}+` : '99.8%'}
               </span>
               <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
-                Client Satisfaction Rate
+                {testimonials.length > 0 ? 'Verified Client Reviews' : 'Client Satisfaction'}
               </p>
             </div>
 
             <div className="space-y-1">
               <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-                15 Mins
+                &lt; 15 M
               </span>
               <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
-                Average WhatsApp Response
+                WhatsApp Desk Response
               </p>
             </div>
 
