@@ -798,10 +798,10 @@ export default function MBLMiniWebsiteView({
           <div className="space-y-2 max-w-2xl">
             <span className="text-xs font-black uppercase tracking-widest text-slate-500">— THE APPROACH</span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
-              WE TEACH HOW WORK ACTUALLY GETS DONE.
+              COMMITTED TO EXCELLENCE &amp; REAL RESULTS.
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              {profile.company || profile.name} bridges high-level commercial vision with boots-on-the-ground execution.
+              {profile.company || profile.name} bridges strategic planning with high-impact execution and dedicated support.
             </p>
           </div>
 
@@ -818,28 +818,28 @@ export default function MBLMiniWebsiteView({
                   {profile.name}
                 </h3>
                 <p className={`text-xs font-bold ${t.darkSectionAccent} tracking-wider uppercase`}>
-                  {profile.designation} • {profile.company}
+                  {profile.designation} {profile.company ? `• ${profile.company}` : ''}
                 </p>
 
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-                  {profile.sectionData?.about?.content || profile.bio || 'Understand the strategic thinking behind a multi-crore campaign. Then turn the lesson into results for your enterprise.'}
+                  {profile.sectionData?.about?.content || profile.bio || 'Dedicated to delivering measurable outcomes, high-standard execution, and reliable client satisfaction across every project.'}
                 </p>
 
                 <div className="space-y-2 pt-2 text-xs text-slate-300">
                   <div className="flex items-center gap-2">
                     <Check className={`w-4 h-4 ${t.darkSectionAccent}`} />
-                    <span>Based in {profile.address ? profile.address.split(',')[0] : 'India'} &amp; operating Pan-India</span>
+                    <span>Based in {profile.address || 'India'} &amp; available worldwide</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className={`w-4 h-4 ${t.darkSectionAccent}`} />
-                    <span>Direct personal guidance &amp; project roadmaps</span>
+                    <span>Direct personal guidance &amp; prompt response</span>
                   </div>
                 </div>
               </div>
 
               <div className="pt-8 relative z-10">
                 <a
-                  href={`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi ${profile.name}, I would like to schedule a strategy consultation.`)}`}
+                  href={`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi ${profile.name}, I would like to discuss a project consultation.`)}`}
                   target="_blank"
                   rel="noreferrer"
                   className={`w-full py-3.5 rounded-full ${t.ctaBanner.primaryBtn} text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition active:scale-95`}
@@ -850,76 +850,96 @@ export default function MBLMiniWebsiteView({
               </div>
             </div>
 
-            {/* Right 3 Stacked Feature Cards */}
+            {/* Right Dynamic Capabilities Cards */}
             <div className="lg:col-span-7 flex flex-col justify-between gap-4">
-              
-              <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
-                <div className="flex items-start gap-4">
-                  <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
-                    01
+              {services.length > 0 ? (
+                services.slice(0, 3).map((srv, idx) => (
+                  <div key={srv.id || idx} className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
+                        0{idx + 1}
+                      </div>
+                      <div className="space-y-1">
+                        <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
+                          {srv.title}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                          {srv.description}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
-                      Live Execution &amp; Practical Projects
-                    </h4>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      Connect conceptual strategy to real market campaigns. Build authentic assets, 3D interactive virtual tours, and automated buyer inquiry funnels.
-                    </p>
+                ))
+              ) : (
+                <>
+                  <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
+                        01
+                      </div>
+                      <div className="space-y-1">
+                        <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
+                          Dedicated Project Execution
+                        </h4>
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                          Tailored service delivery with actionable milestones, transparent communications, and consistent results.
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
 
-              <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
-                <div className="flex items-start gap-4">
-                  <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
-                    02
+                  <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
+                        02
+                      </div>
+                      <div className="space-y-1">
+                        <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
+                          Transparent Client Consultation
+                        </h4>
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                          Direct personal guidance and clarity on scope, schedules, and deliverables for peace of mind.
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
-                      Personal Founder Guidance &amp; Audits
-                    </h4>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      Ask questions, get transparent feedback, and understand exact campaign economics. No generic theories—only data-driven execution.
-                    </p>
-                  </div>
-                </div>
-              </div>
 
-              <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
-                <div className="flex items-start gap-4">
-                  <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
-                    03
+                  <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
+                        03
+                      </div>
+                      <div className="space-y-1">
+                        <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
+                          Continuous Support &amp; Partnership
+                        </h4>
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                          Long-term value creation, responsive communication on WhatsApp, and dependable follow-through.
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
-                      Career, Enterprise &amp; Commercial Support
-                    </h4>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      Equipping developers, agency owners, and executive leaders with the commercial frameworks to win high-value deals and retain clients.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
+                </>
+              )}
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* 5. SERVICES & PACKAGES (NUMBERED 01-04 MBL STYLE) */}
+      {/* 5. SERVICES & PACKAGES (DYNAMIC FROM USER PROFILE) */}
       {services.length > 0 && (
         <section id="services" className="py-20 bg-white border-b border-black/5 scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div className="space-y-2 max-w-2xl">
-                <span className="text-xs font-black uppercase tracking-widest text-slate-500">— WHAT WE DELIVER</span>
+                <span className="text-xs font-black uppercase tracking-widest text-slate-500">— SERVICES &amp; SOLUTIONS</span>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
-                  PACKAGES DESIGNED FOR OUTCOMES.
+                  SERVICES TAILORED FOR YOU.
                 </h2>
                 <p className="text-sm sm:text-base text-slate-600">
-                  Select a bespoke service package below to book a live appointment slot or add multiple packages to your quotation estimate.
+                  Select a bespoke service below to book a live appointment slot or add multiple items to your custom quotation estimate.
                 </p>
               </div>
 
@@ -938,18 +958,20 @@ export default function MBLMiniWebsiteView({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {services.map((srv, idx) => (
                 <div
-                  key={srv.id}
+                  key={srv.id || idx}
                   className="p-7 rounded-3xl bg-[#F8F9FA] border border-black/5 hover:border-black/20 flex flex-col justify-between space-y-6 hover:shadow-xl transition-all duration-300 group"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className={`px-2.5 py-1 rounded-lg ${t.numberBadge} text-[11px] font-black uppercase tracking-wider`}>
-                        0{idx + 1} / PACKAGE
+                        0{idx + 1} / SERVICE
                       </span>
-                      <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-slate-400" />
-                        {srv.durationMinutes} Mins
-                      </span>
+                      {srv.durationMinutes > 0 && (
+                        <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5 text-slate-400" />
+                          {srv.durationMinutes} Mins
+                        </span>
+                      )}
                     </div>
 
                     <h3 className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-black leading-snug">
@@ -963,8 +985,10 @@ export default function MBLMiniWebsiteView({
 
                   <div className="pt-4 border-t border-slate-200 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-500 font-medium">Standard Investment:</span>
-                      <span className="text-base sm:text-lg font-black text-slate-900">{srv.currency}{srv.price.toLocaleString()}</span>
+                      <span className="text-xs text-slate-500 font-medium">Pricing / Investment:</span>
+                      <span className="text-base sm:text-lg font-black text-slate-900">
+                        {selectedCurrency !== 'INR' ? formatPrice(srv.price, selectedCurrency) : `${srv.currency || '₹'}${srv.price.toLocaleString()}`}
+                      </span>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 pt-1">
@@ -1446,43 +1470,251 @@ export default function MBLMiniWebsiteView({
         </div>
       </section>
 
-      {/* 12. CLEAN MINIMAL WEBSITE FOOTER */}
-      <footer className="bg-white border-t border-black/5 py-12 text-slate-600 text-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      {/* 12. COMPREHENSIVE MINI-WEBSITE FOOTER */}
+      <footer className="bg-slate-950 text-white border-t border-white/10 pt-16 pb-24 lg:pb-12 text-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-100">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200">
-                <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover" />
+          {/* Top 4-Column Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+            
+            {/* Column 1: Brand & Executive Bio (Col span 4) */}
+            <div className="lg:col-span-4 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/20 shadow-md shrink-0">
+                  <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover object-top" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-black text-base text-white">{profile.company || profile.name}</h3>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  </div>
+                  <p className="text-xs text-slate-400 font-semibold">{profile.designation}</p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-black text-base text-slate-900">{profile.company || profile.name}</h4>
-                <p className="text-[11px] text-slate-500">{profile.designation}</p>
+
+              <p className="text-xs text-slate-300 leading-relaxed font-normal">
+                {profile.bio || `${profile.name} provides high-impact services, commercial leadership, and bespoke client solutions.`}
+              </p>
+
+              {/* Social Channels */}
+              {socials.length > 0 && (
+                <div className="pt-2 space-y-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block">
+                    Follow &amp; Connect
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {socials.map((s, idx) => (
+                      <a
+                        key={idx}
+                        href={s.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={() => trackAction(`footer_social_${s.platform}`)}
+                        className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition flex items-center justify-center hover:scale-105 active:scale-95"
+                        title={s.platform}
+                      >
+                        <SocialIcon platform={s.platform} size={15} colored={false} className="text-white" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Column 2: Quick Links Directory (Col span 3) */}
+            <div className="lg:col-span-3 space-y-4">
+              <h4 className="text-xs font-black uppercase tracking-widest text-slate-200 border-b border-white/10 pb-2">
+                Quick Navigation
+              </h4>
+              <ul className="space-y-2.5 font-bold text-slate-300">
+                <li>
+                  <a href="#top" className="hover:text-white flex items-center gap-2 transition">
+                    <span className="text-slate-500">›</span> Home
+                  </a>
+                </li>
+                {services.length > 0 && (
+                  <li>
+                    <a href="#services" className="hover:text-white flex items-center gap-2 transition">
+                      <span className="text-slate-500">›</span> Services ({services.length})
+                    </a>
+                  </li>
+                )}
+                {products.length > 0 && (
+                  <li>
+                    <a href="#store" className="hover:text-white flex items-center gap-2 transition">
+                      <span className="text-slate-500">›</span> Digital Store ({products.length})
+                    </a>
+                  </li>
+                )}
+                <li>
+                  <a href="#about" className="hover:text-white flex items-center gap-2 transition">
+                    <span className="text-slate-500">›</span> About &amp; Approach
+                  </a>
+                </li>
+                {gallery.length > 0 && (
+                  <li>
+                    <a href="#portfolio" className="hover:text-white flex items-center gap-2 transition">
+                      <span className="text-slate-500">›</span> Portfolio Gallery
+                    </a>
+                  </li>
+                )}
+                {videos.length > 0 && (
+                  <li>
+                    <a href="#videos" className="hover:text-white flex items-center gap-2 transition">
+                      <span className="text-slate-500">›</span> Video Showcase
+                    </a>
+                  </li>
+                )}
+                {testimonials.length > 0 && (
+                  <li>
+                    <a href="#reviews" className="hover:text-white flex items-center gap-2 transition">
+                      <span className="text-slate-500">›</span> Client Reviews &amp; Ratings
+                    </a>
+                  </li>
+                )}
+                <li>
+                  <a href="#faq" className="hover:text-white flex items-center gap-2 transition">
+                    <span className="text-slate-500">›</span> FAQ &amp; Help
+                  </a>
+                </li>
+                <li>
+                  <a href="#contact" className="hover:text-white flex items-center gap-2 transition">
+                    <span className="text-slate-500">›</span> Contact Hub
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 3: Contact & Office Location (Col span 3) */}
+            <div className="lg:col-span-3 space-y-4">
+              <h4 className="text-xs font-black uppercase tracking-widest text-slate-200 border-b border-white/10 pb-2">
+                Office &amp; Direct Contact
+              </h4>
+              <div className="space-y-3.5 text-xs text-slate-300">
+                {/* Email */}
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-white/10 text-white shrink-0 mt-0.5">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Email Address</span>
+                    <a href={`mailto:${profile.email}`} className="font-bold text-white hover:underline break-all">
+                      {profile.email}
+                    </a>
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-white/10 text-white shrink-0 mt-0.5">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Phone / Mobile</span>
+                    <a href={`tel:${cleanPhone}`} className="font-bold text-white hover:underline">
+                      {profile.phone}
+                    </a>
+                  </div>
+                </div>
+
+                {/* Office Location */}
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-white/10 text-white shrink-0 mt-0.5">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Office Location</span>
+                    <a
+                      href={`https://maps.google.com/?q=${encodeURIComponent(profile.address || profile.company || profile.name)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-bold text-white hover:underline block leading-relaxed"
+                    >
+                      {profile.address || 'Hyderabad, Telangana, India'}
+                    </a>
+                  </div>
+                </div>
+
+                {/* WhatsApp Status */}
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-400 shrink-0 mt-0.5">
+                    <SocialIcon platform="whatsapp" size={16} colored={false} className="text-emerald-400" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">WhatsApp Desk</span>
+                    <a
+                      href={`https://wa.me/${waNumber}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-bold text-emerald-400 hover:underline"
+                    >
+                      Online • Instant Reply
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-6 text-xs font-extrabold uppercase tracking-wider text-slate-700">
-              <a href="#about" className="hover:text-black">About</a>
-              <a href="#services" className="hover:text-black">Services</a>
-              <a href="#store" className="hover:text-black">Store</a>
-              <a href="#videos" className="hover:text-black">Videos</a>
-              <a href="#portfolio" className="hover:text-black">Portfolio</a>
-              <a href="#reviews" className="hover:text-black">Reviews</a>
-              <a href="#faq" className="hover:text-black">FAQ</a>
-              <a href="#contact" className="hover:text-black">Contact</a>
+            {/* Column 4: Quick Actions & Trust (Col span 2) */}
+            <div className="lg:col-span-2 space-y-4">
+              <h4 className="text-xs font-black uppercase tracking-widest text-slate-200 border-b border-white/10 pb-2">
+                Quick Actions
+              </h4>
+              <div className="space-y-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    trackAction('footer_vcf_download');
+                    downloadVcfFile(profile);
+                  }}
+                  className="w-full py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-2 transition active:scale-95"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Save VCF Card</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsUPIModalOpen(true)}
+                  className="w-full py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs flex items-center justify-center gap-2 transition active:scale-95"
+                >
+                  <QrCode className="w-3.5 h-3.5" />
+                  <span>Pay via UPI (0% Fee)</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsShareModalOpen(true)}
+                  className="w-full py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-2 transition active:scale-95"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>Share Profile</span>
+                </button>
+              </div>
+
+              <div className="pt-2">
+                <span className="text-[10px] font-bold text-slate-400 block">Working Hours</span>
+                <p className="text-[11px] font-bold text-white mt-0.5">Mon – Sat: 9:00 AM – 7:30 PM IST</p>
+              </div>
             </div>
+
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-medium">
+          {/* Bottom Copyright & Attribution Bar */}
+          <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400 font-medium">
             <p>© 2026 {profile.company || profile.name}. All rights reserved.</p>
             <div className="flex items-center gap-2">
               <span>Powered by</span>
-              <a href="https://oneclickbiz.in" target="_blank" rel="noreferrer" className="font-extrabold text-black hover:underline">
+              <a href="https://oneclickbiz.in" target="_blank" rel="noreferrer" className="font-extrabold text-white hover:underline">
                 OneClickBiz Mini-Website Engine
               </a>
               <span>•</span>
               <span>Merlinflow Technologies</span>
             </div>
+            <a href="#top" className="text-slate-400 hover:text-white flex items-center gap-1 font-bold">
+              <span>Back to Top</span>
+              <span>↑</span>
+            </a>
           </div>
 
         </div>
