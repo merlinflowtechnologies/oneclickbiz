@@ -497,7 +497,7 @@ export default function MBLMiniWebsiteView({
   ];
 
   return (
-    <div className={`w-full min-h-screen ${t.canvasBg} ${t.canvasText} !font-sans ${t.selection} pb-28 lg:pb-0 [&_h1]:!font-sans [&_h2]:!font-sans [&_h3]:!font-sans [&_h4]:!font-sans [&_h5]:!font-sans [&_h6]:!font-sans`}>
+    <div className={`w-full min-h-screen ${t.canvasBg} ${t.canvasText} !font-sans ${t.selection} pb-28 sm:pb-32 [&_h1]:!font-sans [&_h2]:!font-sans [&_h3]:!font-sans [&_h4]:!font-sans [&_h5]:!font-sans [&_h6]:!font-sans`}>
       
       {/* 1. TOP STICKY WEBSITE NAVIGATION (MINIMAL & REFINED) */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-black/5 shadow-xs transition-all">
@@ -1741,10 +1741,10 @@ export default function MBLMiniWebsiteView({
         </div>
       )}
 
-      {/* 13. FLOATING MOBILE BOTTOM NAVIGATION DOCK (MBL NATIVE APP EXPERIENCE) */}
+      {/* 13. FLOATING MOBILE/DESKTOP BOTTOM NAVIGATION DOCK (MBL NATIVE EXPERIENCE) */}
       <nav 
-        aria-label="Mobile Navigation Dock"
-        className="fixed bottom-3 inset-x-3 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[440px] z-40 lg:hidden pointer-events-auto pb-[env(safe-area-inset-bottom,0px)]"
+        aria-label="Bottom Navigation Dock"
+        className="fixed bottom-4 inset-x-3 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[460px] z-40 pointer-events-auto pb-[env(safe-area-inset-bottom,0px)]"
       >
         <div className={`w-full ${t.mobileDock.dockBg} rounded-full p-1.5 flex items-center justify-between shadow-2xl backdrop-blur-xl transition-all duration-300`}>
           
@@ -1828,9 +1828,9 @@ export default function MBLMiniWebsiteView({
         </div>
       </nav>
 
-      {/* 14. MOBILE SLIDE-UP DRAWER / ACTION SHEET */}
+      {/* 14. SLIDE-UP DRAWER / ACTION SHEET */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex flex-col justify-end lg:hidden animate-fade-in">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex flex-col justify-end sm:justify-center sm:items-center sm:p-4 animate-fade-in">
           
           {/* Backdrop dismiss */}
           <div 
@@ -1839,10 +1839,10 @@ export default function MBLMiniWebsiteView({
           />
 
           {/* Slide-up Container */}
-          <div className="w-full max-h-[85vh] bg-white rounded-t-[32px] border-t border-slate-200 shadow-2xl p-5 sm:p-6 overflow-y-auto space-y-6 animate-slide-up">
+          <div className="w-full sm:max-w-xl max-h-[85vh] bg-white rounded-t-[32px] sm:rounded-3xl border border-slate-200 shadow-2xl p-5 sm:p-6 overflow-y-auto space-y-6 animate-slide-up relative z-10">
             
             {/* Sheet Handle */}
-            <div className="w-12 h-1.5 rounded-full bg-slate-300 mx-auto -mt-1" />
+            <div className="w-12 h-1.5 rounded-full bg-slate-300 mx-auto -mt-1 sm:hidden" />
 
             {/* Profile Header in Sheet */}
             <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-100">
