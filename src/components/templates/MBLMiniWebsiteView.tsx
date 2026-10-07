@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Sparkles, 
   Check, 
@@ -34,10 +34,20 @@ import {
   TrendingUp,
   Zap,
   Users,
-  Award
+  Award,
+  Home,
+  GraduationCap,
+  Briefcase,
+  Play,
+  Menu,
+  Grid,
+  FileText,
+  HelpCircle,
+  PhoneCall
 } from 'lucide-react';
 import { DigitalProfile, ServiceItem, ProductItem, VideoItem, GalleryItem, BlogPostItem } from '@/lib/types';
 import SocialIcon, { getSocialBrandColor } from '@/components/common/SocialIcon';
+import ShareCardModal from '@/components/common/ShareCardModal';
 import { downloadVcfFile } from '@/lib/vcf';
 
 export type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
@@ -97,6 +107,12 @@ export function getWebsiteThemeTokens(themeName?: string) {
         currencyActivePill: 'bg-black text-white',
         darkSectionAccent: 'text-white',
         darkSectionBtn: 'bg-white hover:bg-slate-100 text-black font-extrabold',
+        mobileDock: {
+          dockBg: 'bg-black/95 text-white backdrop-blur-xl border border-white/15 shadow-2xl',
+          activeItem: 'bg-white text-black font-black shadow-md',
+          inactiveItem: 'text-slate-400 hover:text-white',
+          badgeBg: 'bg-white text-black font-black'
+        },
         ctaBanner: {
           bg: 'bg-black text-white border border-white/10',
           kicker: 'bg-white/10 text-white border-white/20',
@@ -127,6 +143,12 @@ export function getWebsiteThemeTokens(themeName?: string) {
         currencyActivePill: 'bg-emerald-600 text-white',
         darkSectionAccent: 'text-emerald-400',
         darkSectionBtn: 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold',
+        mobileDock: {
+          dockBg: 'bg-slate-950/95 text-white backdrop-blur-xl border border-emerald-500/30 shadow-2xl',
+          activeItem: 'bg-emerald-500 text-slate-950 font-black shadow-md shadow-emerald-500/30',
+          inactiveItem: 'text-slate-300 hover:text-emerald-400',
+          badgeBg: 'bg-emerald-500 text-slate-950 font-black'
+        },
         ctaBanner: {
           bg: 'bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white border border-emerald-500/30',
           kicker: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
@@ -157,6 +179,12 @@ export function getWebsiteThemeTokens(themeName?: string) {
         currencyActivePill: 'bg-stone-950 text-amber-400',
         darkSectionAccent: 'text-amber-400',
         darkSectionBtn: 'bg-amber-400 hover:bg-amber-300 text-stone-950 font-black',
+        mobileDock: {
+          dockBg: 'bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-stone-950 border border-amber-500/50 shadow-2xl shadow-amber-500/30',
+          activeItem: 'bg-stone-950 text-amber-400 font-black shadow-md',
+          inactiveItem: 'text-stone-950/80 font-bold hover:text-stone-950',
+          badgeBg: 'bg-stone-950 text-amber-400 font-black'
+        },
         ctaBanner: {
           bg: 'bg-gradient-to-br from-stone-950 via-zinc-950 to-amber-950/60 text-white border border-amber-500/30',
           kicker: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
@@ -187,6 +215,12 @@ export function getWebsiteThemeTokens(themeName?: string) {
         currencyActivePill: 'bg-blue-600 text-white',
         darkSectionAccent: 'text-sky-400',
         darkSectionBtn: 'bg-blue-500 hover:bg-blue-400 text-white font-bold',
+        mobileDock: {
+          dockBg: 'bg-slate-950/95 text-white backdrop-blur-xl border border-blue-500/30 shadow-2xl',
+          activeItem: 'bg-blue-600 text-white font-black shadow-md shadow-blue-500/30',
+          inactiveItem: 'text-slate-300 hover:text-blue-400',
+          badgeBg: 'bg-blue-600 text-white font-black'
+        },
         ctaBanner: {
           bg: 'bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white border border-blue-500/30',
           kicker: 'bg-blue-500/20 text-sky-300 border-blue-500/30',
@@ -217,6 +251,12 @@ export function getWebsiteThemeTokens(themeName?: string) {
         currencyActivePill: 'bg-rose-600 text-white',
         darkSectionAccent: 'text-rose-400',
         darkSectionBtn: 'bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold',
+        mobileDock: {
+          dockBg: 'bg-stone-950/95 text-white backdrop-blur-xl border border-rose-500/30 shadow-2xl',
+          activeItem: 'bg-gradient-to-r from-rose-500 to-orange-500 text-white font-black shadow-md shadow-rose-500/30',
+          inactiveItem: 'text-stone-300 hover:text-rose-400',
+          badgeBg: 'bg-rose-500 text-white font-black'
+        },
         ctaBanner: {
           bg: 'bg-gradient-to-br from-slate-950 via-stone-950 to-rose-950/70 text-white border border-rose-500/30',
           kicker: 'bg-rose-500/20 text-rose-300 border-rose-500/30',
@@ -247,6 +287,12 @@ export function getWebsiteThemeTokens(themeName?: string) {
         currencyActivePill: 'bg-[#FFE500] text-black',
         darkSectionAccent: 'text-[#FFE500]',
         darkSectionBtn: 'bg-[#FFE500] hover:bg-[#FADB00] text-black font-extrabold',
+        mobileDock: {
+          dockBg: 'bg-[#FFE500] text-black border border-black/20 shadow-2xl shadow-yellow-500/30',
+          activeItem: 'bg-slate-950 text-[#FFE500] font-black shadow-md',
+          inactiveItem: 'text-slate-950/80 font-bold hover:text-black',
+          badgeBg: 'bg-slate-950 text-[#FFE500] font-black'
+        },
         ctaBanner: {
           bg: 'bg-[#FFE500] text-black border border-black/10',
           kicker: 'bg-black/10 text-black border-black/20',
@@ -277,6 +323,12 @@ export function getWebsiteThemeTokens(themeName?: string) {
         currencyActivePill: 'bg-cyan-500 text-slate-950 font-bold',
         darkSectionAccent: 'text-cyan-400',
         darkSectionBtn: 'bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold',
+        mobileDock: {
+          dockBg: 'bg-slate-900/90 text-white backdrop-blur-xl border border-cyan-500/30 shadow-2xl',
+          activeItem: 'bg-cyan-400 text-slate-950 font-black shadow-md shadow-cyan-500/30',
+          inactiveItem: 'text-slate-300 hover:text-cyan-400',
+          badgeBg: 'bg-cyan-400 text-slate-950 font-black'
+        },
         ctaBanner: {
           bg: 'bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 text-white border border-cyan-500/30',
           kicker: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
@@ -308,6 +360,12 @@ export function getWebsiteThemeTokens(themeName?: string) {
         currencyActivePill: 'bg-slate-900 text-white',
         darkSectionAccent: 'text-indigo-400',
         darkSectionBtn: 'bg-indigo-500 hover:bg-indigo-400 text-white font-bold',
+        mobileDock: {
+          dockBg: 'bg-slate-950/95 text-white backdrop-blur-xl border border-indigo-500/30 shadow-2xl',
+          activeItem: 'bg-indigo-600 text-white font-black shadow-md shadow-indigo-500/30',
+          inactiveItem: 'text-slate-300 hover:text-indigo-400',
+          badgeBg: 'bg-indigo-600 text-white font-black'
+        },
         ctaBanner: {
           bg: 'bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white border border-indigo-500/30',
           kicker: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
@@ -361,6 +419,9 @@ export default function MBLMiniWebsiteView({
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [galleryFilter, setGalleryFilter] = useState('All');
   const [activeLightboxImg, setActiveLightboxImg] = useState<GalleryItem | null>(null);
+  const [activeNavTab, setActiveNavTab] = useState<'home' | 'courses' | 'mentor' | 'stories' | 'menu'>('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const t = getWebsiteThemeTokens(profile.theme);
 
@@ -373,6 +434,44 @@ export default function MBLMiniWebsiteView({
   const gallery = profile.sectionData?.gallery?.items || [];
   const testimonials = dynamicTestimonials || profile.sectionData?.testimonials?.items || [];
   const socials = profile.sectionData?.socials?.items || [];
+
+  // Scroll spy to update activeNavTab
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 200;
+      const sections: { id: string; tab: 'home' | 'courses' | 'mentor' | 'stories' }[] = [
+        { id: 'reviews', tab: 'stories' },
+        { id: 'about', tab: 'mentor' },
+        { id: 'services', tab: 'courses' },
+        { id: 'top', tab: 'home' }
+      ];
+
+      for (const s of sections) {
+        const el = document.getElementById(s.id);
+        if (el && el.offsetTop <= scrollPos) {
+          if (!isMobileMenuOpen) {
+            setActiveNavTab(s.tab);
+          }
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobileMenuOpen]);
+
+  const scrollToSection = (e: React.MouseEvent, id: string, tab: 'home' | 'courses' | 'mentor' | 'stories') => {
+    e.preventDefault();
+    setActiveNavTab(tab);
+    setIsMobileMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else if (id === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const categories = Array.from(new Set(gallery.map(g => g.category).filter(Boolean))) as string[];
   const filteredGallery = galleryFilter === 'All' ? gallery : gallery.filter(g => g.category === galleryFilter);
@@ -398,7 +497,7 @@ export default function MBLMiniWebsiteView({
   ];
 
   return (
-    <div className={`w-full min-h-screen ${t.canvasBg} ${t.canvasText} !font-sans ${t.selection} [&_h1]:!font-sans [&_h2]:!font-sans [&_h3]:!font-sans [&_h4]:!font-sans [&_h5]:!font-sans [&_h6]:!font-sans`}>
+    <div className={`w-full min-h-screen ${t.canvasBg} ${t.canvasText} !font-sans ${t.selection} pb-28 lg:pb-0 [&_h1]:!font-sans [&_h2]:!font-sans [&_h3]:!font-sans [&_h4]:!font-sans [&_h5]:!font-sans [&_h6]:!font-sans`}>
       
       {/* 1. TOP STICKY WEBSITE NAVIGATION (MINIMAL & REFINED) */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-black/5 shadow-xs transition-all">
@@ -1408,6 +1507,384 @@ export default function MBLMiniWebsiteView({
             </div>
           </div>
         </div>
+      )}
+
+      {/* 13. FLOATING MOBILE BOTTOM NAVIGATION DOCK (MBL NATIVE APP EXPERIENCE) */}
+      <nav 
+        aria-label="Mobile Navigation Dock"
+        className="fixed bottom-3 inset-x-3 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[440px] z-40 lg:hidden pointer-events-auto pb-[env(safe-area-inset-bottom,0px)]"
+      >
+        <div className={`w-full ${t.mobileDock.dockBg} rounded-full p-1.5 flex items-center justify-between shadow-2xl backdrop-blur-xl transition-all duration-300`}>
+          
+          {/* 1. Home */}
+          <a
+            href="#top"
+            onClick={(e) => scrollToSection(e, 'top', 'home')}
+            className={`flex-1 py-1.5 px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
+              activeNavTab === 'home' && !isMobileMenuOpen 
+                ? `${t.mobileDock.activeItem} scale-105 shadow-sm` 
+                : t.mobileDock.inactiveItem
+            }`}
+          >
+            <Home className="w-4 h-4 shrink-0" />
+            <span className="text-[10px] font-black uppercase tracking-tight leading-none">Home</span>
+          </a>
+
+          {/* 2. Courses / Services */}
+          <a
+            href="#services"
+            onClick={(e) => scrollToSection(e, 'services', 'courses')}
+            className={`flex-1 py-1.5 px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
+              activeNavTab === 'courses' && !isMobileMenuOpen 
+                ? `${t.mobileDock.activeItem} scale-105 shadow-sm` 
+                : t.mobileDock.inactiveItem
+            }`}
+          >
+            <GraduationCap className="w-4 h-4 shrink-0" />
+            <span className="text-[10px] font-black uppercase tracking-tight leading-none">
+              {profile.company?.toLowerCase().includes('academy') ? 'Courses' : 'Services'}
+            </span>
+          </a>
+
+          {/* 3. Mentor / About */}
+          <a
+            href="#about"
+            onClick={(e) => scrollToSection(e, 'about', 'mentor')}
+            className={`flex-1 py-1.5 px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
+              activeNavTab === 'mentor' && !isMobileMenuOpen 
+                ? `${t.mobileDock.activeItem} scale-105 shadow-sm` 
+                : t.mobileDock.inactiveItem
+            }`}
+          >
+            <Users className="w-4 h-4 shrink-0" />
+            <span className="text-[10px] font-black uppercase tracking-tight leading-none">
+              {profile.company?.toLowerCase().includes('academy') ? 'Mentor' : 'About'}
+            </span>
+          </a>
+
+          {/* 4. Stories / Reviews */}
+          <a
+            href="#reviews"
+            onClick={(e) => scrollToSection(e, 'reviews', 'stories')}
+            className={`flex-1 py-1.5 px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
+              activeNavTab === 'stories' && !isMobileMenuOpen 
+                ? `${t.mobileDock.activeItem} scale-105 shadow-sm` 
+                : t.mobileDock.inactiveItem
+            }`}
+          >
+            <Star className="w-4 h-4 shrink-0" />
+            <span className="text-[10px] font-black uppercase tracking-tight leading-none">Stories</span>
+          </a>
+
+          {/* 5. Menu / All Actions */}
+          <button
+            type="button"
+            onClick={() => {
+              setActiveNavTab('menu');
+              setIsMobileMenuOpen(true);
+            }}
+            className={`flex-1 py-1.5 px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
+              isMobileMenuOpen 
+                ? `${t.mobileDock.activeItem} scale-105 shadow-sm` 
+                : t.mobileDock.inactiveItem
+            }`}
+          >
+            <Menu className="w-4 h-4 shrink-0" />
+            <span className="text-[10px] font-black uppercase tracking-tight leading-none">Menu</span>
+          </button>
+
+        </div>
+      </nav>
+
+      {/* 14. MOBILE SLIDE-UP DRAWER / ACTION SHEET */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex flex-col justify-end lg:hidden animate-fade-in">
+          
+          {/* Backdrop dismiss */}
+          <div 
+            className="flex-1 w-full"
+            onClick={() => setIsMobileMenuOpen(false)} 
+          />
+
+          {/* Slide-up Container */}
+          <div className="w-full max-h-[85vh] bg-white rounded-t-[32px] border-t border-slate-200 shadow-2xl p-5 sm:p-6 overflow-y-auto space-y-6 animate-slide-up">
+            
+            {/* Sheet Handle */}
+            <div className="w-12 h-1.5 rounded-full bg-slate-300 mx-auto -mt-1" />
+
+            {/* Profile Header in Sheet */}
+            <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-100">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 shrink-0">
+                  <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover object-top" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <h3 className="font-black text-sm text-slate-950">{profile.company || profile.name}</h3>
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  </div>
+                  <p className="text-xs text-slate-500 font-semibold">{profile.designation || 'Executive Profile'}</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Quick Action Matrix */}
+            <div className="grid grid-cols-2 gap-2.5">
+              <a
+                href={`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi ${profile.name}, I reached out from your website.`)}`}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => {
+                  trackAction('whatsapp_drawer_click');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="p-3 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-950 flex items-center gap-2.5 font-bold text-xs transition active:scale-95"
+              >
+                <SocialIcon platform="whatsapp" size={18} colored={true} />
+                <span>WhatsApp Chat</span>
+              </a>
+
+              <a
+                href={`tel:${cleanPhone}`}
+                onClick={() => {
+                  trackAction('call_drawer_click');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="p-3 rounded-2xl bg-slate-900 hover:bg-black text-white flex items-center gap-2.5 font-bold text-xs transition active:scale-95"
+              >
+                <PhoneCall className="w-4 h-4 text-emerald-400" />
+                <span>Call Directly</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsUPIModalOpen(true);
+                }}
+                className="p-3 rounded-2xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-950 flex items-center gap-2.5 font-bold text-xs transition active:scale-95"
+              >
+                <QrCode className="w-4 h-4 text-purple-600" />
+                <span>Pay via UPI (0% Fee)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  trackAction('contact_download_drawer');
+                  downloadVcfFile(profile);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-900 flex items-center gap-2.5 font-bold text-xs transition active:scale-95"
+              >
+                <Download className="w-4 h-4 text-slate-700" />
+                <span>Save Contact (VCF)</span>
+              </button>
+            </div>
+
+            {/* View Switcher in Drawer */}
+            {showViewToggle && (
+              <div className="p-3 rounded-2xl bg-slate-100 border border-slate-200/80 flex items-center justify-between">
+                <span className="text-xs font-black uppercase tracking-wider text-slate-700">Display Layout</span>
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setViewMode('website');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition ${
+                      viewMode === 'website' ? 'bg-black text-white shadow-xs' : 'text-slate-600'
+                    }`}
+                  >
+                    💻 Website
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setViewMode('mobile');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition ${
+                      viewMode === 'mobile' ? 'bg-black text-white shadow-xs' : 'text-slate-600'
+                    }`}
+                  >
+                    📱 Card
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Jump Navigation Directory */}
+            <div className="space-y-1.5 pt-1">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block px-1">
+                Website Directory
+              </span>
+
+              <div className="grid grid-cols-2 gap-1.5 text-xs font-bold text-slate-800">
+                <a
+                  href="#top"
+                  onClick={(e) => scrollToSection(e, 'top', 'home')}
+                  className="p-2.5 rounded-xl hover:bg-slate-100 flex items-center gap-2 transition"
+                >
+                  <Home className="w-4 h-4 text-slate-500" />
+                  <span>Home</span>
+                </a>
+
+                {services.length > 0 && (
+                  <a
+                    href="#services"
+                    onClick={(e) => scrollToSection(e, 'services', 'courses')}
+                    className="p-2.5 rounded-xl hover:bg-slate-100 flex items-center gap-2 transition"
+                  >
+                    <GraduationCap className="w-4 h-4 text-slate-500" />
+                    <span>{profile.company?.toLowerCase().includes('academy') ? 'Courses' : 'Services'}</span>
+                  </a>
+                )}
+
+                {products.length > 0 && (
+                  <a
+                    href="#store"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
+                      document.getElementById('store')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="p-2.5 rounded-xl hover:bg-slate-100 flex items-center gap-2 transition"
+                  >
+                    <ShoppingBag className="w-4 h-4 text-slate-500" />
+                    <span>Store ({products.length})</span>
+                  </a>
+                )}
+
+                <a
+                  href="#about"
+                  onClick={(e) => scrollToSection(e, 'about', 'mentor')}
+                  className="p-2.5 rounded-xl hover:bg-slate-100 flex items-center gap-2 transition"
+                >
+                  <Users className="w-4 h-4 text-slate-500" />
+                  <span>About Mentor</span>
+                </a>
+
+                {gallery.length > 0 && (
+                  <a
+                    href="#portfolio"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
+                      document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="p-2.5 rounded-xl hover:bg-slate-100 flex items-center gap-2 transition"
+                  >
+                    <Layers className="w-4 h-4 text-slate-500" />
+                    <span>Portfolio</span>
+                  </a>
+                )}
+
+                {videos.length > 0 && (
+                  <a
+                    href="#videos"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
+                      document.getElementById('videos')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="p-2.5 rounded-xl hover:bg-slate-100 flex items-center gap-2 transition"
+                  >
+                    <Film className="w-4 h-4 text-slate-500" />
+                    <span>Videos</span>
+                  </a>
+                )}
+
+                {testimonials.length > 0 && (
+                  <a
+                    href="#reviews"
+                    onClick={(e) => scrollToSection(e, 'reviews', 'stories')}
+                    className="p-2.5 rounded-xl hover:bg-slate-100 flex items-center gap-2 transition"
+                  >
+                    <Star className="w-4 h-4 text-amber-500" />
+                    <span>Reviews & Stories</span>
+                  </a>
+                )}
+
+                <a
+                  href="#faq"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="p-2.5 rounded-xl hover:bg-slate-100 flex items-center gap-2 transition"
+                >
+                  <HelpCircle className="w-4 h-4 text-slate-500" />
+                  <span>FAQ</span>
+                </a>
+
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="p-2.5 rounded-xl hover:bg-slate-100 flex items-center gap-2 transition"
+                >
+                  <Send className="w-4 h-4 text-slate-500" />
+                  <span>Contact Hub</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsShareModalOpen(true);
+                  }}
+                  className="p-2.5 rounded-xl hover:bg-slate-100 flex items-center gap-2 text-left transition"
+                >
+                  <Share2 className="w-4 h-4 text-slate-500" />
+                  <span>Share QR Card</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Social Icons Row */}
+            {socials.length > 0 && (
+              <div className="pt-2 border-t border-slate-100 space-y-2">
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block px-1">
+                  Connect on Socials
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {socials.map((s, idx) => (
+                    <a
+                      key={idx}
+                      href={s.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => trackAction(`social_${s.platform}`)}
+                      className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center gap-2 text-xs font-bold text-slate-800 transition active:scale-95"
+                    >
+                      <SocialIcon platform={s.platform} size={16} colored={true} />
+                      <span className="capitalize">{s.platform}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+          </div>
+        </div>
+      )}
+
+      {/* Share Card Modal */}
+      {isShareModalOpen && (
+        <ShareCardModal profile={profile} onClose={() => setIsShareModalOpen(false)} />
       )}
 
     </div>
