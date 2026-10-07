@@ -616,44 +616,45 @@ export default function MBLMiniWebsiteView({
                 </span>
               </div>
 
-              {/* Massive 3-Line MBL Grotesque Headline */}
-              <h1 className="!font-sans text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tight text-slate-950 leading-[0.95] break-words">
+              {/* Responsive 3-Line MBL Grotesque Headline */}
+              <h1 className="!font-sans text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black uppercase tracking-tight text-slate-950 leading-[1.1] break-words">
                 {(() => {
-                  if (profile.company && profile.company.trim()) {
-                    const words = profile.company.trim().split(/\s+/);
+                  const companyName = profile.company?.trim();
+                  if (companyName) {
+                    const words = companyName.split(/\s+/);
                     if (words.length === 1) {
                       return (
                         <>
                           {words[0]}<br />
-                          <span className={`inline-block px-3 sm:px-6 py-1 sm:py-2 rounded-2xl ${t.accentPill} my-1.5 shadow-sm transform -rotate-1`}>
+                          <span className={`inline-block px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1`}>
                             {profile.designation ? profile.designation.split(/\s+/)[0] : 'OFFICIAL'}
                           </span><br />
                           {profile.designation && profile.designation.split(/\s+/).length > 1 
                             ? profile.designation.split(/\s+/).slice(1).join(' ') 
-                            : 'SERVICES'}
-                          <span className={`inline-block w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full ${t.accentDot} ml-2 mb-1 sm:mb-2 align-baseline`} />
+                            : 'HUB'}
+                          <span className={`inline-block w-3 h-3 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-2 align-baseline`} />
                         </>
                       );
                     } else if (words.length === 2) {
                       return (
                         <>
                           {words[0]}<br />
-                          <span className={`inline-block px-3 sm:px-6 py-1 sm:py-2 rounded-2xl ${t.accentPill} my-1.5 shadow-sm transform -rotate-1`}>
+                          <span className={`inline-block px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1`}>
                             {words[1]}
                           </span><br />
                           {profile.designation || 'ENTERPRISE'}
-                          <span className={`inline-block w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full ${t.accentDot} ml-2 mb-1 sm:mb-2 align-baseline`} />
+                          <span className={`inline-block w-3 h-3 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-2 align-baseline`} />
                         </>
                       );
                     } else {
                       return (
                         <>
                           {words[0]}<br />
-                          <span className={`inline-block px-3 sm:px-6 py-1 sm:py-2 rounded-2xl ${t.accentPill} my-1.5 shadow-sm transform -rotate-1`}>
-                            {words.slice(1, -1).join(' ') || words[1]}
+                          <span className={`inline-block px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1`}>
+                            {words[1]}
                           </span><br />
-                          {words.slice(-1)[0]}
-                          <span className={`inline-block w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full ${t.accentDot} ml-2 mb-1 sm:mb-2 align-baseline`} />
+                          {words.slice(2).join(' ')}
+                          <span className={`inline-block w-3 h-3 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-2 align-baseline`} />
                         </>
                       );
                     }
@@ -662,11 +663,11 @@ export default function MBLMiniWebsiteView({
                     return (
                       <>
                         {words[0]}<br />
-                        <span className={`inline-block px-3 sm:px-6 py-1 sm:py-2 rounded-2xl ${t.accentPill} my-1.5 shadow-sm transform -rotate-1`}>
+                        <span className={`inline-block px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1`}>
                           {words.slice(1).join(' ') || (profile.designation ? profile.designation.split(/\s+/)[0] : 'OFFICIAL')}
                         </span><br />
                         {profile.designation || 'SERVICES'}
-                        <span className={`inline-block w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full ${t.accentDot} ml-2 mb-1 sm:mb-2 align-baseline`} />
+                        <span className={`inline-block w-3 h-3 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-2 align-baseline`} />
                       </>
                     );
                   }
@@ -744,7 +745,7 @@ export default function MBLMiniWebsiteView({
                 <div className={`absolute -inset-4 sm:-inset-6 ${t.heroShadowBox} rounded-[3.5rem] blur-2xl opacity-70 -z-10`} />
 
                 {/* 2. Floating Badge: Top Left (Rating & Reviews) */}
-                <div className="absolute -left-3 sm:-left-6 top-8 z-20 px-3.5 py-2.5 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-slate-200/80 flex items-center gap-2.5 animate-bounce-subtle">
+                <div className="absolute left-2 sm:-left-2 top-8 z-20 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-slate-200/80 flex items-center gap-2 sm:gap-2.5 animate-bounce-subtle">
                   <div className="w-8 h-8 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-500 shrink-0">
                     <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                   </div>
@@ -1805,10 +1806,10 @@ export default function MBLMiniWebsiteView({
         </div>
       )}
 
-      {/* 13. FLOATING MOBILE/DESKTOP BOTTOM NAVIGATION DOCK (MBL NATIVE EXPERIENCE) */}
+      {/* 13. FLOATING MOBILE/TABLET BOTTOM NAVIGATION DOCK (MBL NATIVE EXPERIENCE) */}
       <nav 
         aria-label="Bottom Navigation Dock"
-        className="fixed bottom-4 inset-x-3 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[460px] z-40 pointer-events-auto pb-[env(safe-area-inset-bottom,0px)]"
+        className="lg:hidden fixed bottom-4 inset-x-3 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[460px] z-40 pointer-events-auto pb-[env(safe-area-inset-bottom,0px)]"
       >
         <div className={`w-full ${t.mobileDock.dockBg} rounded-full p-1.5 flex items-center justify-between shadow-2xl backdrop-blur-xl transition-all duration-300`}>
           
