@@ -70,8 +70,8 @@ export default function PWAInstallPrompt({ cardName = 'Digital Business Card', a
   return (
     <>
       {/* Floating Bottom PWA Banner */}
-      <div className="fixed bottom-4 inset-x-4 max-w-md mx-auto z-50 animate-in slide-in-from-bottom-5 duration-500">
-        <div className="p-4 rounded-3xl bg-slate-900/95 border border-indigo-500/30 backdrop-blur-2xl shadow-2xl shadow-indigo-950/60 flex items-center justify-between gap-3 text-left">
+      <div className="fixed bottom-20 sm:bottom-6 inset-x-3 xs:inset-x-4 max-w-md mx-auto z-50 animate-in slide-in-from-bottom-5 duration-500">
+        <div className="p-3.5 sm:p-4 rounded-3xl bg-slate-900/95 border border-indigo-500/30 backdrop-blur-2xl shadow-2xl shadow-indigo-950/60 flex items-center justify-between gap-2.5 sm:gap-3 text-left">
           
           <div className="flex items-center gap-3 min-w-0">
             {avatarUrl ? (

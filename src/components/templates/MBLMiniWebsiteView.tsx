@@ -497,25 +497,25 @@ export default function MBLMiniWebsiteView({
   ];
 
   return (
-    <div className={`w-full min-h-screen ${t.canvasBg} ${t.canvasText} !font-sans ${t.selection} pb-28 sm:pb-32 [&_h1]:!font-sans [&_h2]:!font-sans [&_h3]:!font-sans [&_h4]:!font-sans [&_h5]:!font-sans [&_h6]:!font-sans`}>
+    <div className={`w-full max-w-full overflow-x-hidden min-h-screen ${t.canvasBg} ${t.canvasText} !font-sans ${t.selection} pb-28 sm:pb-32 [&_h1]:!font-sans [&_h2]:!font-sans [&_h3]:!font-sans [&_h4]:!font-sans [&_h5]:!font-sans [&_h6]:!font-sans`}>
       
       {/* 1. TOP STICKY WEBSITE NAVIGATION (MINIMAL & REFINED) */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-black/5 shadow-xs transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-black/5 shadow-xs transition-all w-full">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-2 sm:gap-4">
           
           {/* Brand Logo & Name */}
-          <a href="#top" className="flex items-center gap-3 group shrink-0">
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-black/10 bg-slate-100 shadow-xs shrink-0 group-hover:scale-105 transition-transform">
+          <a href="#top" className="flex items-center gap-2.5 sm:gap-3 group shrink min-w-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-black/10 bg-slate-100 shadow-xs shrink-0 group-hover:scale-105 transition-transform">
               <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover object-top" />
             </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-black text-sm sm:text-base tracking-tight text-slate-950 group-hover:text-black !font-sans">
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <span className="font-black text-xs sm:text-base tracking-tight text-slate-950 group-hover:text-black !font-sans truncate block max-w-[120px] xs:max-w-[170px] sm:max-w-xs">
                   {profile.company || profile.name}
                 </span>
-                <span className={`w-2 h-2 rounded-full ${t.accentDot} inline-block animate-pulse`} title="Active Online" />
+                <span className={`w-2 h-2 rounded-full ${t.accentDot} inline-block animate-pulse shrink-0`} title="Active Online" />
               </div>
-              <p className="text-[11px] text-slate-500 font-semibold truncate max-w-[200px] sm:max-w-xs !font-sans">
+              <p className="text-[10px] sm:text-[11px] text-slate-500 font-semibold truncate max-w-[120px] xs:max-w-[170px] sm:max-w-xs !font-sans">
                 {profile.designation || 'Verified Business Partner'}
               </p>
             </div>
@@ -532,7 +532,7 @@ export default function MBLMiniWebsiteView({
           </nav>
 
           {/* Action Header CTAs & View Switcher */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             {showViewToggle && (
               <div className="hidden md:flex items-center gap-1 p-1 rounded-full bg-slate-100 border border-slate-200">
                 <button
@@ -562,7 +562,7 @@ export default function MBLMiniWebsiteView({
                 trackAction('contact_download');
                 downloadVcfFile(profile);
               }}
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-bold transition active:scale-95 shadow-xs"
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-bold transition active:scale-95 shadow-xs shrink-0"
               title="Save Contact to Phone"
             >
               <Download className="w-3.5 h-3.5" />
@@ -574,17 +574,18 @@ export default function MBLMiniWebsiteView({
               target="_blank"
               rel="noreferrer"
               onClick={() => trackAction('whatsapp_header_click')}
-              className={`px-4 py-2 rounded-full ${t.headerCtaBtn} text-xs font-bold flex items-center gap-1.5 shadow-sm hover:shadow transition-all active:scale-95`}
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full ${t.headerCtaBtn} text-xs font-bold flex items-center gap-1.5 shadow-sm hover:shadow transition-all active:scale-95 shrink-0`}
             >
               <SocialIcon platform="whatsapp" size={15} colored={false} className={t.headerCtaIcon} />
-              <span>WhatsApp Us</span>
+              <span className="hidden xs:inline">WhatsApp Us</span>
+              <span className="xs:hidden">WhatsApp</span>
             </a>
 
             {cart.length > 0 && (
               <button
                 type="button"
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 rounded-full bg-black text-white hover:bg-slate-800 transition"
+                className="relative p-2 rounded-full bg-black text-white hover:bg-slate-800 transition shrink-0"
                 title="View WhatsApp Cart"
               >
                 <ShoppingBag className="w-4 h-4" />
@@ -599,17 +600,17 @@ export default function MBLMiniWebsiteView({
       </header>
 
       {/* 2. HERO SECTION (EDITORIAL MINIMAL LOOK WITH MBL AESTHETICS) */}
-      <section id="top" className="py-14 sm:py-20 lg:py-24 border-b border-black/5 bg-gradient-to-b from-white via-white to-slate-50/50 relative overflow-hidden">
+      <section id="top" className="py-10 sm:py-20 lg:py-24 border-b border-black/5 bg-gradient-to-b from-white via-white to-slate-50/50 relative overflow-hidden w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
             
             {/* Left Hero Content: Bold 3-line Stacked Headline */}
-            <div className="lg:col-span-7 space-y-7 text-left">
+            <div className="lg:col-span-7 space-y-5 sm:space-y-7 text-left">
               
               {/* Kicker Pill */}
-              <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full ${t.accentLightBg} ${t.accentLightBorder} text-xs font-black tracking-wider uppercase shadow-xs`}>
-                <span className={`w-2 h-2 rounded-full ${t.accentDot}`} />
-                <span>
+              <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full ${t.accentLightBg} ${t.accentLightBorder} text-xs font-black tracking-wider uppercase shadow-xs max-w-full`}>
+                <span className={`w-2 h-2 rounded-full ${t.accentDot} shrink-0`} />
+                <span className="truncate">
                   {profile.designation 
                     ? profile.designation.toUpperCase() 
                     : (profile.company ? `${profile.company.toUpperCase()} HUB` : 'VERIFIED BUSINESS PROFILE')}
@@ -617,7 +618,7 @@ export default function MBLMiniWebsiteView({
               </div>
 
               {/* Responsive 3-Line MBL Grotesque Headline */}
-              <h1 className="!font-sans text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black uppercase tracking-tight text-slate-950 leading-[1.1] break-words">
+              <h1 className="!font-sans text-2xl xs:text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black uppercase tracking-tight text-slate-950 leading-[1.1] break-words">
                 {(() => {
                   const companyName = profile.company?.trim();
                   if (companyName) {
@@ -626,35 +627,35 @@ export default function MBLMiniWebsiteView({
                       return (
                         <>
                           {words[0]}<br />
-                          <span className={`inline-block px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1`}>
+                          <span className={`inline-block max-w-full px-2.5 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-xl xs:text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1 break-words`}>
                             {profile.designation ? profile.designation.split(/\s+/)[0] : 'OFFICIAL'}
                           </span><br />
                           {profile.designation && profile.designation.split(/\s+/).length > 1 
                             ? profile.designation.split(/\s+/).slice(1).join(' ') 
                             : 'HUB'}
-                          <span className={`inline-block w-3 h-3 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-2 align-baseline`} />
+                          <span className={`inline-block w-2.5 h-2.5 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-1.5 sm:ml-2 align-baseline`} />
                         </>
                       );
                     } else if (words.length === 2) {
                       return (
                         <>
                           {words[0]}<br />
-                          <span className={`inline-block px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1`}>
+                          <span className={`inline-block max-w-full px-2.5 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-xl xs:text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1 break-words`}>
                             {words[1]}
                           </span><br />
                           {profile.designation || 'ENTERPRISE'}
-                          <span className={`inline-block w-3 h-3 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-2 align-baseline`} />
+                          <span className={`inline-block w-2.5 h-2.5 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-1.5 sm:ml-2 align-baseline`} />
                         </>
                       );
                     } else {
                       return (
                         <>
                           {words[0]}<br />
-                          <span className={`inline-block px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1`}>
+                          <span className={`inline-block max-w-full px-2.5 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-xl xs:text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1 break-words`}>
                             {words[1]}
                           </span><br />
                           {words.slice(2).join(' ')}
-                          <span className={`inline-block w-3 h-3 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-2 align-baseline`} />
+                          <span className={`inline-block w-2.5 h-2.5 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-1.5 sm:ml-2 align-baseline`} />
                         </>
                       );
                     }
@@ -663,11 +664,11 @@ export default function MBLMiniWebsiteView({
                     return (
                       <>
                         {words[0]}<br />
-                        <span className={`inline-block px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1`}>
+                        <span className={`inline-block max-w-full px-2.5 sm:px-4 py-0.5 sm:py-1 rounded-xl ${t.accentPill} my-1 text-xl xs:text-2xl sm:text-4xl lg:text-4xl font-black shadow-xs transform -rotate-1 break-words`}>
                           {words.slice(1).join(' ') || (profile.designation ? profile.designation.split(/\s+/)[0] : 'OFFICIAL')}
                         </span><br />
                         {profile.designation || 'SERVICES'}
-                        <span className={`inline-block w-3 h-3 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-2 align-baseline`} />
+                        <span className={`inline-block w-2.5 h-2.5 sm:w-4 sm:h-4 rounded-full ${t.accentDot} ml-1.5 sm:ml-2 align-baseline`} />
                       </>
                     );
                   }
@@ -675,18 +676,18 @@ export default function MBLMiniWebsiteView({
               </h1>
 
               {/* Founder Bio / Subtitle */}
-              <p className="!font-sans text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed font-normal">
+              <p className="!font-sans text-sm sm:text-lg text-slate-600 max-w-xl leading-relaxed font-normal">
                 {profile.bio || `Welcome to ${profile.company || profile.name}. Explore our specialized services, connect directly on WhatsApp, or book a consultation.`}
               </p>
 
               {/* Primary Dual Actions */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
+              <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3 pt-2 w-full">
                 <a
                   href={`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi ${profile.name}, I reached out from your website and would like to connect.`)}`}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('whatsapp_hero_click')}
-                  className="px-7 py-4 rounded-full bg-slate-950 hover:bg-slate-800 text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 shadow-xl hover:shadow-2xl transition-all active:scale-95"
+                  className="w-full sm:w-auto justify-center px-7 py-3.5 sm:py-4 rounded-full bg-slate-950 hover:bg-slate-800 text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 shadow-xl hover:shadow-2xl transition-all active:scale-95"
                 >
                   <SocialIcon platform="whatsapp" size={17} colored={false} className="text-white" />
                   <span>Chat on WhatsApp</span>
@@ -699,7 +700,7 @@ export default function MBLMiniWebsiteView({
                     trackAction('contact_download');
                     downloadVcfFile(profile);
                   }}
-                  className="px-6 py-4 rounded-full bg-white hover:bg-slate-50 text-slate-900 border-2 border-slate-200 hover:border-slate-400 font-extrabold text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 transition-all active:scale-95 shadow-xs"
+                  className="w-full sm:w-auto justify-center px-6 py-3.5 sm:py-4 rounded-full bg-white hover:bg-slate-50 text-slate-900 border-2 border-slate-200 hover:border-slate-400 font-extrabold text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 transition-all active:scale-95 shadow-xs"
                 >
                   <Download className="w-4 h-4 text-slate-700" />
                   <span>Save Contact (VCF)</span>
@@ -708,7 +709,7 @@ export default function MBLMiniWebsiteView({
                 <button
                   type="button"
                   onClick={() => setIsUPIModalOpen(true)}
-                  className="px-5 py-4 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition active:scale-95"
+                  className="w-full sm:w-auto justify-center px-5 py-3.5 sm:py-4 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition active:scale-95"
                 >
                   <QrCode className="w-4 h-4 text-emerald-600" />
                   <span>Pay via UPI (0% Fee)</span>
@@ -716,8 +717,8 @@ export default function MBLMiniWebsiteView({
               </div>
 
               {/* Trust Ratings & Badges */}
-              <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-slate-600 font-medium">
-                <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2 text-xs text-slate-600 font-medium">
+                <div className="flex items-center gap-2 flex-wrap">
                   <div className="flex text-amber-500 text-sm">
                     {'★★★★★'}
                   </div>
@@ -725,12 +726,12 @@ export default function MBLMiniWebsiteView({
                     {testimonials.length > 0 ? (testimonials.reduce((s, x) => s + (x.rating || 5), 0) / testimonials.length).toFixed(1) : '4.9'}/5.0 Rating
                   </span>
                   <span className="text-slate-400">
-                    • {testimonials.length > 0 ? `${testimonials.length}+ Verified Reviews` : 'Verified Feedback'}
+                    • {testimonials.length > 0 ? `${testimonials.length}+ Reviews` : 'Verified Feedback'}
                   </span>
                 </div>
-                <span className="text-slate-300">|</span>
+                <span className="hidden sm:inline text-slate-300">|</span>
                 <div className="flex items-center gap-1 text-emerald-700 font-semibold">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>Verified Business Profile</span>
                 </div>
               </div>
@@ -738,50 +739,50 @@ export default function MBLMiniWebsiteView({
             </div>
 
             {/* Right MBL Organic Floating Portrait Showcase */}
-            <div className="lg:col-span-5 flex justify-center relative">
-              <div className="relative w-full max-w-sm sm:max-w-md">
+            <div className="lg:col-span-5 flex justify-center relative w-full overflow-visible">
+              <div className="relative w-full max-w-sm sm:max-w-md mx-auto">
                 
                 {/* 1. Organic Ambient Aura Glow (Behind Portrait) */}
-                <div className={`absolute -inset-4 sm:-inset-6 ${t.heroShadowBox} rounded-[3.5rem] blur-2xl opacity-70 -z-10`} />
+                <div className={`absolute inset-0 sm:-inset-6 ${t.heroShadowBox} rounded-[2.5rem] sm:rounded-[3.5rem] blur-2xl opacity-70 -z-10`} />
 
                 {/* 2. Floating Badge: Top Left (Rating & Reviews) */}
-                <div className="absolute left-2 sm:-left-2 top-8 z-20 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-slate-200/80 flex items-center gap-2 sm:gap-2.5 animate-bounce-subtle">
-                  <div className="w-8 h-8 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-500 shrink-0">
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                <div className="absolute left-1 sm:-left-2 top-4 sm:top-8 z-20 px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-slate-200/80 flex items-center gap-2 sm:gap-2.5">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-500 shrink-0">
+                    <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
                   </div>
                   <div>
-                    <span className="font-black text-xs text-slate-900 block leading-tight">
+                    <span className="font-black text-[11px] sm:text-xs text-slate-900 block leading-tight">
                       {testimonials.length > 0 ? (testimonials.reduce((s, x) => s + (x.rating || 5), 0) / testimonials.length).toFixed(1) : '4.9'} / 5.0
                     </span>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                    <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
                       {testimonials.length > 0 ? `${testimonials.length}+ Reviews` : 'Verified Partner'}
                     </span>
                   </div>
                 </div>
 
                 {/* 3. Floating Badge: Top Right (Verified Executive) */}
-                <div className="absolute -right-2 sm:-right-4 top-4 z-20 px-3 py-1.5 rounded-full bg-slate-950/90 backdrop-blur-md text-white border border-white/20 shadow-xl flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider">
+                <div className="absolute right-1 sm:-right-4 top-3 sm:top-4 z-20 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-slate-950/90 backdrop-blur-md text-white border border-white/20 shadow-xl flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black uppercase tracking-wider">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="truncate max-w-[140px]">{profile.designation || 'Verified Partner'}</span>
+                  <span className="truncate max-w-[110px] sm:max-w-[140px]">{profile.designation || 'Verified Partner'}</span>
                 </div>
 
                 {/* 4. Floating Badge: Bottom Right (Deliverables) */}
-                <div className="absolute -right-3 sm:-right-6 bottom-24 z-20 px-3.5 py-2.5 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-slate-200/80 flex items-center gap-2.5">
-                  <div className={`w-8 h-8 rounded-xl ${t.accentLightBg} ${t.accentLightBorder} flex items-center justify-center shrink-0`}>
-                    <Award className="w-4 h-4 text-slate-900" />
+                <div className="absolute right-1 sm:-right-6 bottom-20 sm:bottom-24 z-20 px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-slate-200/80 flex items-center gap-2 sm:gap-2.5">
+                  <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl ${t.accentLightBg} ${t.accentLightBorder} flex items-center justify-center shrink-0`}>
+                    <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-900" />
                   </div>
                   <div>
-                    <span className="font-black text-xs text-slate-900 block leading-tight">
+                    <span className="font-black text-[11px] sm:text-xs text-slate-900 block leading-tight">
                       {services.length > 0 ? `${services.length}+ Offerings` : 'Professional'}
                     </span>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block truncate max-w-[110px]">
+                    <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-wider block truncate max-w-[90px] sm:max-w-[110px]">
                       {profile.company || 'Enterprise Solutions'}
                     </span>
                   </div>
                 </div>
 
                 {/* 5. Main Hero Portrait Frame - Aspect 3/4 with object-top guarantees head is completely visible! */}
-                <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden bg-slate-100 border-4 border-white shadow-2xl group">
+                <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] rounded-[2rem] sm:rounded-[3rem] overflow-hidden bg-slate-100 border-4 border-white shadow-2xl group">
                   <img
                     src={profile.avatarUrl}
                     alt={profile.name}
@@ -789,15 +790,15 @@ export default function MBLMiniWebsiteView({
                   />
                   
                   {/* Subtle Bottom Fade */}
-                  <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-32 sm:h-36 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
 
                   {/* Clean Bottom Overlay Card */}
-                  <div className="absolute bottom-4 inset-x-4 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-white/50 shadow-lg flex items-center justify-between text-slate-900">
+                  <div className="absolute bottom-3 sm:bottom-4 inset-x-3 sm:inset-x-4 p-2.5 sm:p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-white/50 shadow-lg flex items-center justify-between text-slate-900">
                     <div className="min-w-0 pr-2">
                       <p className="font-black text-xs sm:text-sm text-slate-900 truncate">{profile.name}</p>
                       <p className="text-[10px] sm:text-[11px] text-slate-500 font-semibold truncate">{profile.designation}</p>
                     </div>
-                    <span className="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                    <span className="shrink-0 flex items-center gap-1.5 text-[9px] sm:text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 sm:px-2.5 py-1 rounded-full border border-emerald-200">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Available
                     </span>
                   </div>
@@ -812,42 +813,42 @@ export default function MBLMiniWebsiteView({
       </section>
 
       {/* 3. METRIC COUNTER BAR (4 COLUMNS - DYNAMIC) */}
-      <section className="py-12 bg-white border-b border-black/5">
+      <section className="py-10 sm:py-12 bg-white border-b border-black/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-left">
             
             <div className="space-y-1">
-              <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
+              <span className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
                 {profile.stats?.views ? `${profile.stats.views}+` : `${services.length > 0 ? services.length + '+' : '100%'}`}
               </span>
-              <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
+              <p className="text-[11px] sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
                 {profile.stats?.views ? 'Active Profile Views' : 'Dedicated Focus'}
               </p>
             </div>
 
             <div className="space-y-1">
-              <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
+              <span className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
                 {products.length > 0 ? `${products.length}+` : `${services.length > 0 ? services.length + '+' : 'Custom'}`}
               </span>
-              <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
+              <p className="text-[11px] sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
                 {products.length > 0 ? 'Digital Products & Items' : 'Service Deliverables'}
               </p>
             </div>
 
             <div className="space-y-1">
-              <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
+              <span className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
                 {testimonials.length > 0 ? `${testimonials.length}+` : '99.8%'}
               </span>
-              <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
+              <p className="text-[11px] sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
                 {testimonials.length > 0 ? 'Verified Client Reviews' : 'Client Satisfaction'}
               </p>
             </div>
 
             <div className="space-y-1">
-              <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
+              <span className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
                 &lt; 15 M
               </span>
-              <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
+              <p className="text-[11px] sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
                 WhatsApp Desk Response
               </p>
             </div>
@@ -857,12 +858,12 @@ export default function MBLMiniWebsiteView({
       </section>
 
       {/* 4. "THE APPROACH" / ABOUT BENTO GRID */}
-      <section id="about" className="py-20 bg-[#F8F9FA] border-b border-black/5 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section id="about" className="py-12 sm:py-20 bg-[#F8F9FA] border-b border-black/5 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
           
           <div className="space-y-2 max-w-2xl">
             <span className="text-xs font-black uppercase tracking-widest text-slate-500">— THE APPROACH</span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
               COMMITTED TO EXCELLENCE &amp; REAL RESULTS.
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
@@ -870,16 +871,16 @@ export default function MBLMiniWebsiteView({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
             
             {/* Left Deep Charcoal Card */}
-            <div className="lg:col-span-5 rounded-3xl bg-[#18181B] text-white p-8 sm:p-10 flex flex-col justify-between shadow-xl relative overflow-hidden">
-              <div className="space-y-5 relative z-10">
-                <span className={`px-3 py-1 rounded-full ${t.accentPill} text-[10px] font-black uppercase tracking-wider`}>
+            <div className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#18181B] text-white p-6 sm:p-10 flex flex-col justify-between shadow-xl relative overflow-hidden">
+              <div className="space-y-4 sm:space-y-5 relative z-10">
+                <span className={`px-3 py-1 rounded-full ${t.accentPill} text-[10px] font-black uppercase tracking-wider inline-block`}>
                   Meet Your Expert
                 </span>
                 
-                <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+                <h3 className="text-xl sm:text-3xl font-black tracking-tight text-white">
                   {profile.name}
                 </h3>
                 <p className={`text-xs font-bold ${t.darkSectionAccent} tracking-wider uppercase`}>
@@ -892,22 +893,22 @@ export default function MBLMiniWebsiteView({
 
                 <div className="space-y-2 pt-2 text-xs text-slate-300">
                   <div className="flex items-center gap-2">
-                    <Check className={`w-4 h-4 ${t.darkSectionAccent}`} />
+                    <Check className={`w-4 h-4 ${t.darkSectionAccent} shrink-0`} />
                     <span>Based in {profile.address || 'India'} &amp; available worldwide</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Check className={`w-4 h-4 ${t.darkSectionAccent}`} />
+                    <Check className={`w-4 h-4 ${t.darkSectionAccent} shrink-0`} />
                     <span>Direct personal guidance &amp; prompt response</span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-8 relative z-10">
+              <div className="pt-6 sm:pt-8 relative z-10">
                 <a
                   href={`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi ${profile.name}, I would like to discuss a project consultation.`)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className={`w-full py-3.5 rounded-full ${t.ctaBanner.primaryBtn} text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition active:scale-95`}
+                  className={`w-full py-3 sm:py-3.5 rounded-full ${t.ctaBanner.primaryBtn} text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition active:scale-95`}
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Connect With {profile.name.split(' ')[0]}</span>
@@ -916,16 +917,16 @@ export default function MBLMiniWebsiteView({
             </div>
 
             {/* Right Dynamic Capabilities Cards */}
-            <div className="lg:col-span-7 flex flex-col justify-between gap-4">
+            <div className="lg:col-span-7 flex flex-col justify-between gap-3.5 sm:gap-4">
               {services.length > 0 ? (
                 services.slice(0, 3).map((srv, idx) => (
-                  <div key={srv.id || idx} className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
-                    <div className="flex items-start gap-4">
-                      <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
+                  <div key={srv.id || idx} className="p-4 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
+                    <div className="flex items-start gap-3.5 sm:gap-4">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-base sm:text-lg shrink-0`}>
                         0{idx + 1}
                       </div>
-                      <div className="space-y-1">
-                        <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
+                      <div className="space-y-1 min-w-0">
+                        <h4 className="text-sm sm:text-lg font-black uppercase tracking-tight text-slate-900 break-words">
                           {srv.title}
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -937,13 +938,13 @@ export default function MBLMiniWebsiteView({
                 ))
               ) : (
                 <>
-                  <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
-                    <div className="flex items-start gap-4">
-                      <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
+                  <div className="p-4 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
+                    <div className="flex items-start gap-3.5 sm:gap-4">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-base sm:text-lg shrink-0`}>
                         01
                       </div>
                       <div className="space-y-1">
-                        <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
+                        <h4 className="text-sm sm:text-lg font-black uppercase tracking-tight text-slate-900">
                           Dedicated Project Execution
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -953,13 +954,13 @@ export default function MBLMiniWebsiteView({
                     </div>
                   </div>
 
-                  <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
-                    <div className="flex items-start gap-4">
-                      <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
+                  <div className="p-4 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
+                    <div className="flex items-start gap-3.5 sm:gap-4">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-base sm:text-lg shrink-0`}>
                         02
                       </div>
                       <div className="space-y-1">
-                        <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
+                        <h4 className="text-sm sm:text-lg font-black uppercase tracking-tight text-slate-900">
                           Transparent Client Consultation
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -969,13 +970,13 @@ export default function MBLMiniWebsiteView({
                     </div>
                   </div>
 
-                  <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
-                    <div className="flex items-start gap-4">
-                      <div className={`w-12 h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-lg shrink-0`}>
+                  <div className="p-4 sm:p-7 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-shadow">
+                    <div className="flex items-start gap-3.5 sm:gap-4">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl ${t.numberBadge} flex items-center justify-center font-black text-base sm:text-lg shrink-0`}>
                         03
                       </div>
                       <div className="space-y-1">
-                        <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-slate-900">
+                        <h4 className="text-sm sm:text-lg font-black uppercase tracking-tight text-slate-900">
                           Continuous Support &amp; Partnership
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -994,13 +995,13 @@ export default function MBLMiniWebsiteView({
 
       {/* 5. SERVICES & PACKAGES (DYNAMIC FROM USER PROFILE) */}
       {services.length > 0 && (
-        <section id="services" className="py-20 bg-white border-b border-black/5 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <section id="services" className="py-12 sm:py-20 bg-white border-b border-black/5 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
             
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div className="space-y-2 max-w-2xl">
                 <span className="text-xs font-black uppercase tracking-widest text-slate-500">— SERVICES &amp; SOLUTIONS</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
                   SERVICES TAILORED FOR YOU.
                 </h2>
                 <p className="text-sm sm:text-base text-slate-600">
@@ -1012,7 +1013,7 @@ export default function MBLMiniWebsiteView({
                 <button
                   type="button"
                   onClick={sendWhatsAppQuotation}
-                  className="px-5 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition active:scale-95"
+                  className="w-full sm:w-auto justify-center px-5 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition active:scale-95"
                 >
                   <SocialIcon platform="whatsapp" size={15} colored={false} className="text-white" />
                   <span>Send Quote ({quoteServices.length} Items)</span>
@@ -1020,15 +1021,15 @@ export default function MBLMiniWebsiteView({
               )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {services.map((srv, idx) => (
                 <div
                   key={srv.id || idx}
-                  className="p-7 rounded-3xl bg-[#F8F9FA] border border-black/5 hover:border-black/20 flex flex-col justify-between space-y-6 hover:shadow-xl transition-all duration-300 group"
+                  className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-[#F8F9FA] border border-black/5 hover:border-black/20 flex flex-col justify-between space-y-5 sm:space-y-6 hover:shadow-xl transition-all duration-300 group"
                 >
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className={`px-2.5 py-1 rounded-lg ${t.numberBadge} text-[11px] font-black uppercase tracking-wider`}>
+                      <span className={`px-2.5 py-1 rounded-lg ${t.numberBadge} text-[10px] sm:text-[11px] font-black uppercase tracking-wider`}>
                         0{idx + 1} / SERVICE
                       </span>
                       {srv.durationMinutes > 0 && (
@@ -1039,7 +1040,7 @@ export default function MBLMiniWebsiteView({
                       )}
                     </div>
 
-                    <h3 className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-black leading-snug">
+                    <h3 className="text-base sm:text-xl font-black text-slate-900 group-hover:text-black leading-snug break-words">
                       {srv.title}
                     </h3>
 
@@ -1060,7 +1061,7 @@ export default function MBLMiniWebsiteView({
                       <button
                         type="button"
                         onClick={() => toggleQuoteService(srv)}
-                        className={`py-2 px-3 rounded-xl text-xs font-bold border transition active:scale-95 flex items-center justify-center gap-1 ${
+                        className={`py-2 px-2.5 sm:px-3 rounded-xl text-xs font-bold border transition active:scale-95 flex items-center justify-center gap-1 ${
                           quoteServices.some(s => s.id === srv.id)
                             ? 'bg-emerald-50 text-emerald-800 border-emerald-400'
                             : 'bg-white text-slate-800 border-slate-300 hover:bg-slate-100'
@@ -1068,12 +1069,12 @@ export default function MBLMiniWebsiteView({
                       >
                         {quoteServices.some(s => s.id === srv.id) ? (
                           <>
-                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                            <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                             <span>In Quote</span>
                           </>
                         ) : (
                           <>
-                            <Plus className="w-3.5 h-3.5" />
+                            <Plus className="w-3.5 h-3.5 shrink-0" />
                             <span>Add Quote</span>
                           </>
                         )}
@@ -1085,10 +1086,10 @@ export default function MBLMiniWebsiteView({
                           setBookingService(srv);
                           setBookingSuccess(false);
                         }}
-                        className="py-2 px-3 rounded-xl bg-black hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1 transition active:scale-95 shadow-sm"
+                        className="py-2 px-2.5 sm:px-3 rounded-xl bg-black hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1 transition active:scale-95 shadow-sm"
                       >
                         <span>Book Slot</span>
-                        <ArrowRight className={`w-3.5 h-3.5 ${t.darkSectionAccent}`} />
+                        <ArrowRight className={`w-3.5 h-3.5 ${t.darkSectionAccent} shrink-0`} />
                       </button>
                     </div>
                   </div>
@@ -1102,13 +1103,13 @@ export default function MBLMiniWebsiteView({
 
       {/* 6. WHATSAPP STORE CATALOG WITH CURRENCY CONVERTER */}
       {products.length > 0 && (
-        <section id="store" className="py-20 bg-[#F8F9FA] border-b border-black/5 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <section id="store" className="py-12 sm:py-20 bg-[#F8F9FA] border-b border-black/5 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
             
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div className="space-y-2 max-w-2xl">
                 <span className="text-xs font-black uppercase tracking-widest text-slate-500">— STORE &amp; DELIVERABLES</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
                   INSTANT WHATSAPP CATALOG.
                 </h2>
                 <p className="text-sm sm:text-base text-slate-600">
@@ -1117,14 +1118,14 @@ export default function MBLMiniWebsiteView({
               </div>
 
               {/* Multi-Currency Converter */}
-              <div className="flex items-center gap-2 self-start sm:self-auto bg-white p-1 rounded-2xl border border-slate-200 shadow-xs">
-                <span className="text-[11px] font-bold text-slate-500 px-2">Currency:</span>
+              <div className="flex items-center gap-1.5 overflow-x-auto max-w-full self-start sm:self-auto bg-white p-1 rounded-2xl border border-slate-200 shadow-xs">
+                <span className="text-[11px] font-bold text-slate-500 px-2 shrink-0">Currency:</span>
                 {(['INR', 'USD', 'EUR', 'AED'] as CurrencyCode[]).map(curr => (
                   <button
                     key={curr}
                     type="button"
                     onClick={() => setSelectedCurrency(curr)}
-                    className={`px-3 py-1 rounded-xl text-xs font-black transition ${
+                    className={`px-2.5 sm:px-3 py-1 rounded-xl text-xs font-black transition shrink-0 ${
                       selectedCurrency === curr ? `${t.currencyActivePill} shadow-xs` : 'text-slate-600 hover:text-black'
                     }`}
                   >
@@ -1134,13 +1135,13 @@ export default function MBLMiniWebsiteView({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {products.map(prod => (
                 <div
                   key={prod.id}
-                  className="rounded-3xl bg-white border border-black/5 overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group"
+                  className="rounded-2xl sm:rounded-3xl bg-white border border-black/5 overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group"
                 >
-                  <div className="h-52 w-full overflow-hidden bg-slate-100 relative">
+                  <div className="h-48 sm:h-52 w-full overflow-hidden bg-slate-100 relative">
                     <img
                       src={prod.imageUrl}
                       alt={prod.name}
@@ -1151,7 +1152,7 @@ export default function MBLMiniWebsiteView({
                     </div>
                   </div>
 
-                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-4">
                     <div className="space-y-1">
                       <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">{prod.category}</span>
                       <h4 className="text-sm sm:text-base font-black text-slate-900 line-clamp-2 leading-tight">
@@ -1181,12 +1182,12 @@ export default function MBLMiniWebsiteView({
 
       {/* 7. HIGH-CONTRAST DARK VIDEO DEMOS & REELS */}
       {videos.length > 0 && (
-        <section id="videos" className="py-20 bg-[#111111] text-white border-b border-white/10 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <section id="videos" className="py-12 sm:py-20 bg-[#111111] text-white border-b border-white/10 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
             
             <div className="space-y-2 max-w-2xl">
               <span className={`text-xs font-black uppercase tracking-widest ${t.darkSectionAccent}`}>— VIDEO SHOWCASES</span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
                 HEAR IT FROM THEM.
               </h2>
               <p className="text-sm sm:text-base text-slate-400">
@@ -1194,7 +1195,7 @@ export default function MBLMiniWebsiteView({
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {videos.map(vid => {
                 const embedUrl = getEmbedUrl(vid);
                 const isYouTube = embedUrl.includes('youtube.com') || embedUrl.includes('youtu.be');
@@ -1203,7 +1204,7 @@ export default function MBLMiniWebsiteView({
                 return (
                   <div
                     key={vid.id}
-                    className="rounded-3xl bg-[#1C1C1E] border border-white/10 overflow-hidden shadow-2xl flex flex-col justify-between"
+                    className="rounded-2xl sm:rounded-3xl bg-[#1C1C1E] border border-white/10 overflow-hidden shadow-2xl flex flex-col justify-between"
                   >
                     {isYouTube && (
                       <div className="relative w-full aspect-video bg-black">
@@ -1252,7 +1253,7 @@ export default function MBLMiniWebsiteView({
                       </div>
                     )}
 
-                    <div className="p-6 space-y-2">
+                    <div className="p-4 sm:p-6 space-y-1.5 sm:space-y-2">
                       <h4 className="text-base sm:text-lg font-black text-white">{vid.title}</h4>
                       {vid.caption && (
                         <p className="text-xs text-slate-400 leading-relaxed font-normal">{vid.caption}</p>
@@ -1269,13 +1270,13 @@ export default function MBLMiniWebsiteView({
 
       {/* 8. PORTFOLIO & WORK GALLERY */}
       {gallery.length > 0 && (
-        <section id="portfolio" className="py-20 bg-white border-b border-black/5 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <section id="portfolio" className="py-12 sm:py-20 bg-white border-b border-black/5 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
             
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div className="space-y-2 max-w-2xl">
                 <span className="text-xs font-black uppercase tracking-widest text-slate-500">— WORK &amp; PORTFOLIO</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
                   PROJECTS WE ARE PROUD OF.
                 </h2>
                 <p className="text-sm text-slate-600">
@@ -1284,11 +1285,11 @@ export default function MBLMiniWebsiteView({
               </div>
 
               {categories.length > 1 && (
-                <div className="flex items-center gap-1.5 overflow-x-auto p-1 bg-[#F8F9FA] rounded-2xl border border-slate-200">
+                <div className="flex items-center gap-1.5 overflow-x-auto max-w-full p-1 bg-[#F8F9FA] rounded-2xl border border-slate-200">
                   <button
                     type="button"
                     onClick={() => setGalleryFilter('All')}
-                    className={`px-3 py-1 rounded-xl text-xs font-black transition ${
+                    className={`px-3 py-1 rounded-xl text-xs font-black transition shrink-0 ${
                       galleryFilter === 'All' ? `${t.currencyActivePill}` : 'text-slate-600 hover:text-black'
                     }`}
                   >
@@ -1299,7 +1300,7 @@ export default function MBLMiniWebsiteView({
                       key={cat}
                       type="button"
                       onClick={() => setGalleryFilter(cat)}
-                      className={`px-3 py-1 rounded-xl text-xs font-black transition ${
+                      className={`px-3 py-1 rounded-xl text-xs font-black transition shrink-0 ${
                         galleryFilter === cat ? `${t.currencyActivePill}` : 'text-slate-600 hover:text-black'
                       }`}
                     >
@@ -1310,28 +1311,28 @@ export default function MBLMiniWebsiteView({
               )}
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
               {filteredGallery.map(img => (
                 <div
                   key={img.id}
                   onClick={() => setActiveLightboxImg(img)}
-                  className="rounded-3xl overflow-hidden bg-slate-100 aspect-square relative cursor-pointer group shadow-sm hover:shadow-2xl transition-all duration-300"
+                  className="rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-100 aspect-square relative cursor-pointer group shadow-sm hover:shadow-2xl transition-all duration-300"
                 >
                   <img
                     src={img.imageUrl}
                     alt={img.title || 'Portfolio Item'}
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity p-4 flex flex-col justify-end text-white">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity p-3 sm:p-4 flex flex-col justify-end text-white">
                     {img.category && (
-                      <span className={`text-[10px] font-black uppercase tracking-wider ${t.darkSectionAccent}`}>
+                      <span className={`text-[9px] sm:text-[10px] font-black uppercase tracking-wider ${t.darkSectionAccent}`}>
                         {img.category}
                       </span>
                     )}
                     <h5 className="text-xs sm:text-sm font-black line-clamp-1">{img.title || 'View Showcase'}</h5>
                   </div>
-                  <div className="absolute top-3 right-3 p-2 rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Maximize2 className="w-3.5 h-3.5" />
+                  <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 p-1.5 sm:p-2 rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Maximize2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   </div>
                 </div>
               ))}
@@ -1343,13 +1344,13 @@ export default function MBLMiniWebsiteView({
 
       {/* 9. CLIENT REVIEWS & TESTIMONIALS */}
       {testimonials.length > 0 && (
-        <section id="reviews" className="py-20 bg-[#F8F9FA] border-b border-black/5 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <section id="reviews" className="py-12 sm:py-20 bg-[#F8F9FA] border-b border-black/5 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
             
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div className="space-y-2 max-w-2xl">
                 <span className="text-xs font-black uppercase tracking-widest text-slate-500">— SOCIAL PROOF</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
                   REAL STORIES. REAL RESULTS.
                 </h2>
                 <p className="text-sm sm:text-base text-slate-600">
@@ -1360,24 +1361,24 @@ export default function MBLMiniWebsiteView({
               <button
                 type="button"
                 onClick={() => setIsReviewModalOpen(true)}
-                className="px-5 py-3 rounded-full bg-black hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm active:scale-95 transition"
+                className="w-full sm:w-auto justify-center px-5 py-3 rounded-full bg-black hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm active:scale-95 transition"
               >
                 <Plus className={`w-4 h-4 ${t.darkSectionAccent}`} />
                 <span>Write a Review</span>
               </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {testimonials.map((test, idx) => (
                 <div
                   key={test.id || idx}
-                  className="p-7 rounded-3xl bg-white border border-black/5 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6"
+                  className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-black/5 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 sm:space-y-6"
                 >
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex text-amber-400">
                         {Array.from({ length: test.rating || 5 }).map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                          <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
                         ))}
                       </div>
                       <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
@@ -1395,7 +1396,7 @@ export default function MBLMiniWebsiteView({
                       <h5 className="font-black text-sm text-slate-900">{test.clientName}</h5>
                       <p className="text-[11px] text-slate-500">{test.company || test.designation || 'Client Partner'}</p>
                     </div>
-                    <div className="w-10 h-10 rounded-full bg-slate-900 text-white font-black text-sm flex items-center justify-center">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-900 text-white font-black text-sm flex items-center justify-center shrink-0">
                       <span className={t.darkSectionAccent}>“</span>
                     </div>
                   </div>
@@ -1408,12 +1409,12 @@ export default function MBLMiniWebsiteView({
       )}
 
       {/* 10. FAQ ACCORDION (MBL STYLE) */}
-      <section id="faq" className="py-20 bg-white border-b border-black/5 scroll-mt-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section id="faq" className="py-12 sm:py-20 bg-white border-b border-black/5 scroll-mt-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
           
           <div className="space-y-2 text-center">
             <span className="text-xs font-black uppercase tracking-widest text-slate-500">— A FEW THINGS TO KNOW</span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900">
               GOOD QUESTIONS.
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
@@ -1432,15 +1433,15 @@ export default function MBLMiniWebsiteView({
                   <button
                     type="button"
                     onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                    className="w-full p-5 text-left flex items-center justify-between gap-4 font-black text-sm sm:text-base text-slate-900 hover:text-black transition"
+                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-3 sm:gap-4 font-black text-xs sm:text-base text-slate-900 hover:text-black transition"
                   >
                     <span>{faq.q}</span>
-                    <div className={`p-1.5 rounded-full bg-white border border-slate-200 transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+                    <div className={`p-1.5 rounded-full bg-white border border-slate-200 transition-transform shrink-0 ${isOpen ? 'rotate-180' : ''}`}>
                       <ChevronDown className="w-4 h-4 text-slate-600" />
                     </div>
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal border-t border-slate-200/60 pt-3">
+                    <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal border-t border-slate-200/60 pt-3">
                       {faq.a}
                     </div>
                   )}
@@ -1453,32 +1454,32 @@ export default function MBLMiniWebsiteView({
       </section>
 
       {/* 11. SIGNATURE CTA BANNER (DYNAMIC TEMPLATE PALETTE) */}
-      <section id="contact" className="py-20 bg-[#F8F9FA] scroll-mt-20">
+      <section id="contact" className="py-12 sm:py-20 bg-[#F8F9FA] scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`rounded-3xl sm:rounded-[36px] ${t.ctaBanner.bg} p-8 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden space-y-10`}>
+          <div className={`rounded-2xl sm:rounded-[36px] ${t.ctaBanner.bg} p-6 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden space-y-6 sm:space-y-10`}>
             
             <div className="max-w-3xl space-y-3">
               <span className={`text-xs font-black uppercase tracking-widest ${t.ctaBanner.kicker} px-3 py-1 rounded-full inline-block`}>
                 YOUR NEXT CHAPTER STARTS HERE
               </span>
-              <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight ${t.ctaBanner.heading}`}>
+              <h2 className={`text-2xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight ${t.ctaBanner.heading}`}>
                 LET&apos;S GET YOU STARTED.
               </h2>
-              <p className={`text-base sm:text-lg ${t.ctaBanner.subtext} font-medium`}>
+              <p className={`text-sm sm:text-lg ${t.ctaBanner.subtext} font-medium`}>
                 Start with a conversation. The {profile.company || profile.name} team can help with project scoping, quotation, and direct WhatsApp support.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-2">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center pt-2">
               
               {/* Direct Buttons */}
-              <div className="lg:col-span-6 flex flex-wrap items-center gap-3">
+              <div className="lg:col-span-6 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 w-full">
                 <a
                   href={`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi ${profile.name}, I am ready to get started. Let's discuss!`)}`}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('whatsapp_banner_click')}
-                  className={`px-8 py-4 rounded-full ${t.ctaBanner.primaryBtn} text-sm uppercase tracking-wider flex items-center gap-2 shadow-2xl transition active:scale-95`}
+                  className={`w-full sm:w-auto justify-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full ${t.ctaBanner.primaryBtn} text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 shadow-2xl transition active:scale-95 text-center`}
                 >
                   <SocialIcon platform="whatsapp" size={18} colored={false} />
                   <span>Start WhatsApp Chat</span>
@@ -1488,7 +1489,7 @@ export default function MBLMiniWebsiteView({
                 <a
                   href={`tel:${cleanPhone}`}
                   onClick={() => trackAction('call_banner_click')}
-                  className="px-6 py-4 rounded-full bg-white/90 hover:bg-white text-slate-900 border border-slate-300/80 font-black text-sm uppercase tracking-wider flex items-center gap-2 shadow-md transition active:scale-95"
+                  className="w-full sm:w-auto justify-center px-6 py-3.5 sm:py-4 rounded-full bg-white/90 hover:bg-white text-slate-900 border border-slate-300/80 font-black text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 shadow-md transition active:scale-95 text-center"
                 >
                   <Phone className="w-4 h-4" />
                   <span>{profile.phone}</span>
@@ -1496,7 +1497,7 @@ export default function MBLMiniWebsiteView({
               </div>
 
               {/* Direct Info Card */}
-              <div className={`lg:col-span-6 rounded-2xl ${t.ctaBanner.contactBoxBg} ${t.ctaBanner.contactBoxBorder} text-white p-6 space-y-3 text-xs`}>
+              <div className={`lg:col-span-6 rounded-2xl ${t.ctaBanner.contactBoxBg} ${t.ctaBanner.contactBoxBorder} text-white p-4 sm:p-6 space-y-3 text-xs`}>
                 <div className="flex items-center justify-between pb-2 border-b border-white/10">
                   <span className={`text-[10px] font-black uppercase tracking-wider ${t.darkSectionAccent}`}>Direct Connect Hub</span>
                   <span className="text-emerald-400 font-bold">24/7 Available</span>
@@ -1536,11 +1537,11 @@ export default function MBLMiniWebsiteView({
       </section>
 
       {/* 12. COMPREHENSIVE MINI-WEBSITE FOOTER */}
-      <footer className="bg-slate-950 text-white border-t border-white/10 pt-16 pb-24 lg:pb-12 text-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <footer className="bg-slate-950 text-white border-t border-white/10 pt-12 sm:pt-16 pb-28 sm:pb-32 lg:pb-12 text-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
           
           {/* Top 4-Column Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8">
             
             {/* Column 1: Brand & Executive Bio (Col span 4) */}
             <div className="lg:col-span-4 space-y-4">
@@ -1661,7 +1662,7 @@ export default function MBLMiniWebsiteView({
                   <div className="p-2 rounded-lg bg-white/10 text-white shrink-0 mt-0.5">
                     <Mail className="w-4 h-4" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Email Address</span>
                     <a href={`mailto:${profile.email}`} className="font-bold text-white hover:underline break-all">
                       {profile.email}
@@ -1766,9 +1767,9 @@ export default function MBLMiniWebsiteView({
           </div>
 
           {/* Bottom Copyright & Attribution Bar */}
-          <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400 font-medium">
+          <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400 font-medium text-center sm:text-left">
             <p>© 2026 {profile.company || profile.name}. All rights reserved.</p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap justify-center">
               <span>Powered by</span>
               <a href="https://oneclickbiz.in" target="_blank" rel="noreferrer" className="font-extrabold text-white hover:underline">
                 OneClickBiz Mini-Website Engine
@@ -1788,10 +1789,10 @@ export default function MBLMiniWebsiteView({
       {/* Lightbox Modal for Portfolio Gallery */}
       {activeLightboxImg && (
         <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="relative max-w-4xl w-full bg-slate-950 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+          <div className="relative max-w-4xl w-full bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
             <button
               onClick={() => setActiveLightboxImg(null)}
-              className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/60 text-white hover:bg-black transition"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-2 rounded-full bg-black/60 text-white hover:bg-black transition"
             >
               <X className="w-5 h-5" />
             </button>
@@ -1809,36 +1810,36 @@ export default function MBLMiniWebsiteView({
       {/* 13. FLOATING MOBILE/TABLET BOTTOM NAVIGATION DOCK (MBL NATIVE EXPERIENCE) */}
       <nav 
         aria-label="Bottom Navigation Dock"
-        className="lg:hidden fixed bottom-4 inset-x-3 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[460px] z-40 pointer-events-auto pb-[env(safe-area-inset-bottom,0px)]"
+        className="lg:hidden fixed bottom-3 inset-x-2.5 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[460px] z-40 pointer-events-auto pb-[env(safe-area-inset-bottom,0px)]"
       >
-        <div className={`w-full ${t.mobileDock.dockBg} rounded-full p-1.5 flex items-center justify-between shadow-2xl backdrop-blur-xl transition-all duration-300`}>
+        <div className={`w-full ${t.mobileDock.dockBg} rounded-full p-1 sm:p-1.5 flex items-center justify-between shadow-2xl backdrop-blur-xl transition-all duration-300`}>
           
           {/* 1. Home */}
           <a
             href="#top"
             onClick={(e) => scrollToSection(e, 'top', 'home')}
-            className={`flex-1 py-1.5 px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
+            className={`flex-1 py-1.5 px-0.5 sm:px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
               activeNavTab === 'home' && !isMobileMenuOpen 
                 ? `${t.mobileDock.activeItem} scale-105 shadow-sm` 
                 : t.mobileDock.inactiveItem
             }`}
           >
             <Home className="w-4 h-4 shrink-0" />
-            <span className="text-[10px] font-black uppercase tracking-tight leading-none">Home</span>
+            <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-tight leading-none truncate max-w-full">Home</span>
           </a>
 
           {/* 2. Courses / Services */}
           <a
             href="#services"
             onClick={(e) => scrollToSection(e, 'services', 'courses')}
-            className={`flex-1 py-1.5 px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
+            className={`flex-1 py-1.5 px-0.5 sm:px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
               activeNavTab === 'courses' && !isMobileMenuOpen 
                 ? `${t.mobileDock.activeItem} scale-105 shadow-sm` 
                 : t.mobileDock.inactiveItem
             }`}
           >
             <GraduationCap className="w-4 h-4 shrink-0" />
-            <span className="text-[10px] font-black uppercase tracking-tight leading-none">
+            <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-tight leading-none truncate max-w-full">
               {profile.company?.toLowerCase().includes('academy') ? 'Courses' : 'Services'}
             </span>
           </a>
@@ -1847,14 +1848,14 @@ export default function MBLMiniWebsiteView({
           <a
             href="#about"
             onClick={(e) => scrollToSection(e, 'about', 'mentor')}
-            className={`flex-1 py-1.5 px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
+            className={`flex-1 py-1.5 px-0.5 sm:px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
               activeNavTab === 'mentor' && !isMobileMenuOpen 
                 ? `${t.mobileDock.activeItem} scale-105 shadow-sm` 
                 : t.mobileDock.inactiveItem
             }`}
           >
             <Users className="w-4 h-4 shrink-0" />
-            <span className="text-[10px] font-black uppercase tracking-tight leading-none">
+            <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-tight leading-none truncate max-w-full">
               {profile.company?.toLowerCase().includes('academy') ? 'Mentor' : 'About'}
             </span>
           </a>
@@ -1863,14 +1864,14 @@ export default function MBLMiniWebsiteView({
           <a
             href="#reviews"
             onClick={(e) => scrollToSection(e, 'reviews', 'stories')}
-            className={`flex-1 py-1.5 px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
+            className={`flex-1 py-1.5 px-0.5 sm:px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
               activeNavTab === 'stories' && !isMobileMenuOpen 
                 ? `${t.mobileDock.activeItem} scale-105 shadow-sm` 
                 : t.mobileDock.inactiveItem
             }`}
           >
             <Star className="w-4 h-4 shrink-0" />
-            <span className="text-[10px] font-black uppercase tracking-tight leading-none">Stories</span>
+            <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-tight leading-none truncate max-w-full">Stories</span>
           </a>
 
           {/* 5. Menu / All Actions */}
@@ -1880,14 +1881,14 @@ export default function MBLMiniWebsiteView({
               setActiveNavTab('menu');
               setIsMobileMenuOpen(true);
             }}
-            className={`flex-1 py-1.5 px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
+            className={`flex-1 py-1.5 px-0.5 sm:px-2 rounded-full flex flex-col items-center justify-center gap-0.5 text-center transition-all duration-200 ${
               isMobileMenuOpen 
                 ? `${t.mobileDock.activeItem} scale-105 shadow-sm` 
                 : t.mobileDock.inactiveItem
             }`}
           >
             <Menu className="w-4 h-4 shrink-0" />
-            <span className="text-[10px] font-black uppercase tracking-tight leading-none">Menu</span>
+            <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-tight leading-none truncate max-w-full">Menu</span>
           </button>
 
         </div>
@@ -1904,36 +1905,36 @@ export default function MBLMiniWebsiteView({
           />
 
           {/* Slide-up Container */}
-          <div className="w-full sm:max-w-xl max-h-[85vh] bg-white rounded-t-[32px] sm:rounded-3xl border border-slate-200 shadow-2xl p-5 sm:p-6 overflow-y-auto space-y-6 animate-slide-up relative z-10">
+          <div className="w-full sm:max-w-xl max-h-[85vh] bg-white rounded-t-[28px] sm:rounded-3xl border border-slate-200 shadow-2xl p-4 sm:p-6 overflow-y-auto space-y-5 animate-slide-up relative z-10 pb-8">
             
             {/* Sheet Handle */}
             <div className="w-12 h-1.5 rounded-full bg-slate-300 mx-auto -mt-1 sm:hidden" />
 
             {/* Profile Header in Sheet */}
-            <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-100">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 shrink-0">
+            <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-slate-200 shrink-0">
                   <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover object-top" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <h3 className="font-black text-sm text-slate-950">{profile.company || profile.name}</h3>
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <h3 className="font-black text-sm text-slate-950 truncate">{profile.company || profile.name}</h3>
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                   </div>
-                  <p className="text-xs text-slate-500 font-semibold">{profile.designation || 'Executive Profile'}</p>
+                  <p className="text-xs text-slate-500 font-semibold truncate">{profile.designation || 'Executive Profile'}</p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition"
+                className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition shrink-0"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Quick Action Matrix */}
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
               <a
                 href={`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi ${profile.name}, I reached out from your website.`)}`}
                 target="_blank"
@@ -1942,10 +1943,10 @@ export default function MBLMiniWebsiteView({
                   trackAction('whatsapp_drawer_click');
                   setIsMobileMenuOpen(false);
                 }}
-                className="p-3 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-950 flex items-center gap-2.5 font-bold text-xs transition active:scale-95"
+                className="p-3 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-950 flex items-center gap-2 sm:gap-2.5 font-bold text-xs transition active:scale-95"
               >
                 <SocialIcon platform="whatsapp" size={18} colored={true} />
-                <span>WhatsApp Chat</span>
+                <span className="truncate">WhatsApp Chat</span>
               </a>
 
               <a
@@ -1954,10 +1955,10 @@ export default function MBLMiniWebsiteView({
                   trackAction('call_drawer_click');
                   setIsMobileMenuOpen(false);
                 }}
-                className="p-3 rounded-2xl bg-slate-900 hover:bg-black text-white flex items-center gap-2.5 font-bold text-xs transition active:scale-95"
+                className="p-3 rounded-2xl bg-slate-900 hover:bg-black text-white flex items-center gap-2 sm:gap-2.5 font-bold text-xs transition active:scale-95"
               >
-                <PhoneCall className="w-4 h-4 text-emerald-400" />
-                <span>Call Directly</span>
+                <PhoneCall className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span className="truncate">Call Directly</span>
               </a>
 
               <button
@@ -1966,10 +1967,10 @@ export default function MBLMiniWebsiteView({
                   setIsMobileMenuOpen(false);
                   setIsUPIModalOpen(true);
                 }}
-                className="p-3 rounded-2xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-950 flex items-center gap-2.5 font-bold text-xs transition active:scale-95"
+                className="p-3 rounded-2xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-950 flex items-center gap-2 sm:gap-2.5 font-bold text-xs transition active:scale-95"
               >
-                <QrCode className="w-4 h-4 text-purple-600" />
-                <span>Pay via UPI (0% Fee)</span>
+                <QrCode className="w-4 h-4 text-purple-600 shrink-0" />
+                <span className="truncate">Pay via UPI (0% Fee)</span>
               </button>
 
               <button
@@ -1979,10 +1980,10 @@ export default function MBLMiniWebsiteView({
                   downloadVcfFile(profile);
                   setIsMobileMenuOpen(false);
                 }}
-                className="p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-900 flex items-center gap-2.5 font-bold text-xs transition active:scale-95"
+                className="p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-900 flex items-center gap-2 sm:gap-2.5 font-bold text-xs transition active:scale-95"
               >
-                <Download className="w-4 h-4 text-slate-700" />
-                <span>Save Contact (VCF)</span>
+                <Download className="w-4 h-4 text-slate-700 shrink-0" />
+                <span className="truncate">Save Contact (VCF)</span>
               </button>
             </div>
 
