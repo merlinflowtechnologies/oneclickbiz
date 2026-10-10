@@ -74,10 +74,19 @@ export async function POST(req: NextRequest) {
         const cleanWaDigits = rawPhone ? rawPhone.replace(/\D/g, '') : null;
         const formattedWa = cleanWaDigits ? (cleanWaDigits.length === 10 ? `91${cleanWaDigits}` : cleanWaDigits) : null;
 
+        // Guarantee unique slug for profile
+        let baseSlug = (cleanSlug || name.toLowerCase().replace(/[^a-z0-9]/g, '-')).replace(/^-+|-+$/g, '') || 'card';
+        let uniqueSlug = baseSlug;
+        let slugCounter = 1;
+        while (await tx.profile.findUnique({ where: { slug: uniqueSlug } })) {
+          uniqueSlug = `${baseSlug}-${slugCounter}`;
+          slugCounter++;
+        }
+
         const profile = await tx.profile.create({
           data: {
             organizationId: organization.id,
-            slug: cleanSlug,
+            slug: uniqueSlug,
             name,
             company: businessName || `${name}'s Business`,
             designation: templatePreset.designation || (effectiveCategory === 'Interior Design' ? 'Principal Architect & Founder' : (effectiveCategory === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director')),
@@ -150,15 +159,21 @@ export async function POST(req: NextRequest) {
 
         return { user, organization, profile };
       });
-    } catch (txErr) {
-      console.warn('[Register API] Database write failed, applying local dev fallback:', txErr);
-      const devUserId = `user_${cleanEmail.replace(/[^a-z0-9]/g, '_')}`;
-      const devOrgId = `org_${cleanEmail.replace(/[^a-z0-9]/g, '_')}`;
-      result = {
-        user: { id: devUserId, email: cleanEmail, name, role: 'USER' },
-        organization: { id: devOrgId, name: businessName || `${name}'s Business`, slug: cleanSlug },
-        profile: { slug: cleanSlug, templateId: effectiveTemplateId, category: effectiveCategory }
-      };
+    } catch (txErr: any) {
+      console.error('[Register API] Database write failed:', txErr);
+      if (process.env.NODE_ENV !== 'production') {
+        const devUserId = `user_${cleanEmail.replace(/[^a-z0-9]/g, '_')}`;
+        const devOrgId = `org_${cleanEmail.replace(/[^a-z0-9]/g, '_')}`;
+        result = {
+          user: { id: devUserId, email: cleanEmail, name, role: 'USER' },
+          organization: { id: devOrgId, name: businessName || `${name}'s Business`, slug: cleanSlug },
+          profile: { slug: cleanSlug, templateId: effectiveTemplateId, category: effectiveCategory }
+        };
+      } else {
+        return NextResponse.json({ 
+          error: txErr?.message || 'Database registration failed. Please try again with valid business details.' 
+        }, { status: 500 });
+      }
     }
 
     const token = signToken({

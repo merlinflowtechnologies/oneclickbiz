@@ -16,23 +16,78 @@ function BuilderContent() {
   const [isAuthVerified, setIsAuthVerified] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    let isMounted = true;
+
+    async function initializeBuilder() {
+      if (typeof window === 'undefined') return;
+
       try {
         const querySlug = searchParams.get('slug');
         const queryTemplate = searchParams.get('template');
         const queryName = searchParams.get('name');
         const queryBiz = searchParams.get('biz');
 
-        const savedSession = localStorage.getItem('oneclickbiz_user_session');
-        const parsedSession = savedSession ? JSON.parse(savedSession) : null;
+        let parsedSession: any = null;
+        try {
+          const savedSession = localStorage.getItem('oneclickbiz_user_session');
+          parsedSession = savedSession ? JSON.parse(savedSession) : null;
+        } catch (_) {}
 
-        const targetSlug = (querySlug || parsedSession?.slug || 'alex').toLowerCase().trim();
-        const effectiveTemplateId = queryTemplate || parsedSession?.template || (parsedSession?.category === 'Real Estate' || targetSlug.startsWith('re-') ? 're-builders' : (parsedSession?.category === 'Interior Design' || targetSlug.startsWith('home-interior') || targetSlug.startsWith('interior') ? 'home-interior' : null));
+        // Check active session with server
+        let serverUser: any = null;
+        try {
+          const meRes = await fetch('/api/auth/me');
+          if (meRes.ok) {
+            const meData = await meRes.json();
+            if (meData?.authenticated && meData.user) {
+              serverUser = meData.user;
+            }
+          }
+        } catch (_) {}
+
+        const isAuthenticated = Boolean(
+          serverUser ||
+          (querySlug && queryBiz) ||
+          (parsedSession && parsedSession.loggedIn)
+        );
+
+        if (!isAuthenticated) {
+          if (isMounted) setIsAuthVerified(false);
+          return;
+        }
+
+        if (isMounted) setIsAuthVerified(true);
+
+        // If server session exists and email differs from local session, sync local session
+        if (serverUser) {
+          if (!parsedSession || parsedSession.email !== serverUser.email) {
+            parsedSession = {
+              ...(parsedSession || {}),
+              fullName: serverUser.name,
+              email: serverUser.email,
+              businessName: serverUser.businessName,
+              slug: serverUser.slug,
+              template: serverUser.template,
+              category: serverUser.category,
+              plan: serverUser.planTier || 'ADVANCED',
+              hasActivePaidPlan: serverUser.hasActivePaidPlan,
+              loggedIn: true
+            };
+            try {
+              localStorage.setItem('oneclickbiz_user_session', JSON.stringify(parsedSession));
+            } catch (_) {}
+          }
+        }
+
+        // Determine target slug: explicit queryParam > serverUser.slug > parsedSession.slug > fallback
+        const targetSlug = (querySlug || serverUser?.slug || parsedSession?.slug || 'alex').toLowerCase().trim();
+        const effectiveTemplateId = queryTemplate || serverUser?.template || parsedSession?.template || (parsedSession?.category === 'Real Estate' || targetSlug.startsWith('re-') ? 're-builders' : (parsedSession?.category === 'Interior Design' || targetSlug.startsWith('home-interior') || targetSlug.startsWith('interior') ? 'home-interior' : null));
         const isReTarget = Boolean(
           effectiveTemplateId?.startsWith('re-') || 
           parsedSession?.category === 'Real Estate' || 
           targetSlug.startsWith('re-') ||
           effectiveTemplateId === 're-builders' ||
+          serverUser?.category === 'Real Estate' ||
           parsedSession?.businessName?.toLowerCase().includes('builder') ||
           parsedSession?.businessName?.toLowerCase().includes('developer') ||
           parsedSession?.businessName?.toLowerCase().includes('realty') ||
@@ -47,17 +102,14 @@ function BuilderContent() {
           effectiveTemplateId === 'home-interior' ||
           effectiveTemplateId === 'interior' ||
           parsedSession?.category === 'Interior Design' ||
+          serverUser?.category === 'Interior Design' ||
           targetSlug.startsWith('interior') ||
           targetSlug.startsWith('home-interior') ||
           queryTemplate === 'home-interior'
         );
 
-        // If user came from signup/login query params OR has valid session
-        if ((querySlug && queryBiz) || (parsedSession && parsedSession.loggedIn)) {
-          setIsAuthVerified(true);
-
-          // Build a local fallback first (from localStorage or preset)
-          let localFallback: DigitalProfile;
+        // Build local fallback first
+        let localFallback: DigitalProfile;
           const customSaved = localStorage.getItem(`oneclickbiz_custom_profile_${targetSlug}`);
           if (customSaved) {
             try {
@@ -176,17 +228,17 @@ function BuilderContent() {
               }
             })
             .catch(err => console.warn('Builder: Could not fetch fresh profile from DB:', err));
-
-          return;
-        }
-
-        // If neither exists, user is unauthenticated
-        setIsAuthVerified(false);
       } catch (e) {
         console.error(e);
-        setIsAuthVerified(false);
+        if (isMounted) setIsAuthVerified(false);
       }
     }
+
+    initializeBuilder();
+
+    return () => {
+      isMounted = false;
+    };
   }, [searchParams]);
 
   // If checking authentication status

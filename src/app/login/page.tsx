@@ -120,6 +120,19 @@ function LoginForm() {
             isBusinessEntity: true,
             loggedIn: true
           };
+
+          // Clean up any stale profile caches from previous accounts on this machine
+          try {
+            const keysToRemove: string[] = [];
+            for (let i = 0; i < localStorage.length; i++) {
+              const k = localStorage.key(i);
+              if (k && (k.startsWith('oneclickbiz_custom_profile_') || k === 'oneclickbiz_active_profile' || k === 'oneclickbiz_user_cards')) {
+                keysToRemove.push(k);
+              }
+            }
+            keysToRemove.forEach(k => localStorage.removeItem(k));
+          } catch (_) {}
+
           localStorage.setItem('oneclickbiz_user_session', JSON.stringify(session));
           localStorage.setItem('oneclickbiz_user_plan', userPlan);
 
@@ -132,45 +145,12 @@ function LoginForm() {
         return;
       }
 
-      // Fallback for business demo accounts if DB is unseeded
-      if (cleanEmail && password.length >= 6 && cleanEmail !== 'admin@oneclickbiz.in') {
-        if (typeof window !== 'undefined') {
-          const existing = localStorage.getItem('oneclickbiz_user_session');
-          if (!existing) {
-            localStorage.setItem('oneclickbiz_user_session', JSON.stringify({
-              fullName: cleanEmail.includes('kishore') || cleanEmail.includes('alex') ? 'Kishore Patel' : 'Rahul Sharma',
-              email: cleanEmail,
-              businessName: cleanEmail.includes('kishore') || cleanEmail.includes('alex') ? 'Himastech Digital Reality' : 'InnovateTech Labs',
-              entityType: 'Private Limited / LLC',
-              category: 'Real Estate & Marketing',
-              designation: cleanEmail.includes('kishore') || cleanEmail.includes('alex') ? 'Founder & Managing Director' : 'Chief Technology Officer',
-              phone: '+91 98765 43210',
-              slug: cleanEmail.includes('kishore') || cleanEmail.includes('alex') ? 'kishore' : 'rahul-sharma',
-              plan: 'Pro',
-              isBusinessEntity: true,
-              loggedIn: true
-            }));
-          } else {
-            const parsed = JSON.parse(existing);
-            parsed.loggedIn = true;
-            localStorage.setItem('oneclickbiz_user_session', JSON.stringify(parsed));
-          }
-          window.location.href = redirectTarget;
-        }
-      } else {
-        setError(data.error || 'Invalid email or password. Please try again.');
-        setLoading(false);
-      }
+      setError(data.error || 'Invalid email or password. Please check your credentials and try again.');
+      setLoading(false);
     } catch (err) {
       console.error(err);
-      if (cleanEmail && password.length >= 6 && cleanEmail !== 'admin@oneclickbiz.in') {
-        if (typeof window !== 'undefined') {
-          window.location.href = redirectTarget;
-        }
-      } else {
-        setError('Connection error. Please try again.');
-        setLoading(false);
-      }
+      setError('Unable to connect to authentication server. Please check your internet connection.');
+      setLoading(false);
     }
   };
 

@@ -65,8 +65,24 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const defaultOrg = user.memberships[0]?.organization;
-    const defaultProfile = defaultOrg?.profiles[0];
+    let defaultOrg: any = user.memberships[0]?.organization || null;
+    let defaultProfile: any = defaultOrg?.profiles?.[0] || null;
+
+    if (!defaultProfile) {
+      defaultProfile = await prisma.profile.findFirst({
+        where: {
+          OR: [
+            { email: user.email },
+            { organization: { members: { some: { userId: user.id } } } }
+          ]
+        },
+        include: { organization: true },
+        orderBy: { createdAt: 'desc' }
+      });
+      if (defaultProfile?.organization && !defaultOrg) {
+        defaultOrg = defaultProfile.organization;
+      }
+    }
 
     // Inspect defaultProfile sections or slug for templateId & category
     let userTemplateId = 're-builders';

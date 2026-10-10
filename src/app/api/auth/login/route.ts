@@ -122,12 +122,12 @@ export async function POST(req: NextRequest) {
       if (!passwordMatch) {
         return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
       }
-    } else {
-      // Local development fallback: allow login if password is provided
-      if (process.env.NODE_ENV === 'development' || !user) {
+    } else if (!user) {
+      // In development only, allow unseeded dev accounts; in production return 401
+      if (process.env.NODE_ENV === 'development') {
         const devUserId = `user_${cleanEmail.replace(/[^a-z0-9]/g, '_')}`;
         const devOrgId = `org_${cleanEmail.replace(/[^a-z0-9]/g, '_')}`;
-        const devSlug = 're-builders';
+        const devSlug = cleanEmail.split('@')[0].toLowerCase().replace(/[^a-z0-9]/g, '-');
 
         const token = signToken({
           userId: devUserId,
@@ -159,12 +159,74 @@ export async function POST(req: NextRequest) {
 
         return setAuthCookie(response, token);
       } else {
-        return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+        return NextResponse.json({ error: 'No account found with this email. Please check your credentials or register.' }, { status: 401 });
+      }
+    } else {
+      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+    }
+
+    let defaultOrg: any = user.memberships[0]?.organization || null;
+    let defaultProfile: any = defaultOrg?.profiles?.[0] || null;
+
+    // If defaultProfile is not found via memberships, find directly by user email or user ID
+    if (!defaultProfile) {
+      defaultProfile = await prisma.profile.findFirst({
+        where: {
+          OR: [
+            { email: cleanEmail },
+            { organization: { members: { some: { userId: user.id } } } }
+          ]
+        },
+        include: { organization: true },
+        orderBy: { createdAt: 'desc' }
+      });
+      if (defaultProfile?.organization && !defaultOrg) {
+        defaultOrg = defaultProfile.organization;
       }
     }
 
-    const defaultOrg = user.memberships[0]?.organization;
-    const defaultProfile = defaultOrg?.profiles[0];
+    // If user has an account but still has NO profile in DB, create one for their account
+    if (!defaultProfile) {
+      let userOrg = defaultOrg;
+      if (!userOrg) {
+        const cleanSlugBase = user.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/^-+|-+$/g, '') || 'business';
+        userOrg = await prisma.organization.create({
+          data: {
+            name: `${user.name}'s Business`,
+            slug: `${cleanSlugBase}-${Date.now().toString(36)}`,
+            subscriptionStatus: 'ACTIVE',
+            members: {
+              create: {
+                userId: user.id,
+                role: 'ORG_OWNER'
+              }
+            }
+          }
+        });
+        defaultOrg = userOrg;
+      }
+
+      let newSlug = user.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/^-+|-+$/g, '') || 'card';
+      let count = 1;
+      while (await prisma.profile.findUnique({ where: { slug: newSlug } })) {
+        newSlug = `${user.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${count}`;
+        count++;
+      }
+
+      defaultProfile = await prisma.profile.create({
+        data: {
+          organizationId: userOrg.id,
+          slug: newSlug,
+          name: user.name,
+          email: cleanEmail,
+          company: userOrg.name,
+          designation: 'Managing Director & Builder',
+          bio: `${userOrg.name} - Smart digital business identity.`,
+          theme: 'modern-indigo',
+          isPublished: true
+        }
+      });
+    }
 
     // Inspect defaultProfile sections or slug for templateId & category
     let userTemplateId = 're-builders';
