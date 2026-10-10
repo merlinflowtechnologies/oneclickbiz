@@ -444,38 +444,38 @@ END:VCARD`;
               </div>
             </a>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-xs font-bold text-stone-700 shrink-0">
-              <a href="#portfolio" className="px-3 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap">
+            {/* Desktop Navigation Links (Only shown on xl+ so header never overflows on laptops) */}
+            <nav className="hidden xl:flex items-center gap-1 2xl:gap-2 text-xs font-bold text-stone-700 shrink-0">
+              <a href="#portfolio" className="px-2.5 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap">
                 Portfolio
               </a>
-              <a href="#before-after" className="px-3 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap flex items-center gap-1">
+              <a href="#before-after" className="px-2.5 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap flex items-center gap-1">
                 <Sparkles className="w-3.5 h-3.5 text-amber-600" />
                 <span>Before &amp; After</span>
               </a>
-              <a href="#estimator" className="px-3 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap flex items-center gap-1">
+              <a href="#estimator" className="px-2.5 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap flex items-center gap-1">
                 <Ruler className="w-3.5 h-3.5 text-indigo-600" />
                 <span>Cost Estimator</span>
               </a>
-              <a href="#process" className="px-3 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap">
+              <a href="#process" className="px-2.5 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap">
                 Turnkey Process
               </a>
-              <a href="#materials" className="px-3 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap">
+              <a href="#materials" className="px-2.5 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap">
                 Materials
               </a>
-              <a href="#reviews" className="hidden xl:inline-block px-3 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap">
+              <a href="#reviews" className="px-2.5 py-1.5 rounded-lg hover:text-[#8C6D46] hover:bg-stone-100 transition whitespace-nowrap">
                 Reviews
               </a>
             </nav>
 
             {/* Header Right Actions */}
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-auto">
+            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
               {showViewToggle && setViewMode && (
-                <div className="hidden md:flex items-center gap-1 p-1 rounded-full bg-stone-100 border border-stone-200 shadow-2xs">
+                <div className="hidden md:flex items-center gap-1 p-1 rounded-full bg-stone-100 border border-stone-200 shadow-2xs shrink-0">
                   <button
                     type="button"
                     onClick={() => setViewMode('website')}
-                    className={`px-3 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                    className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
                       viewMode === 'website' ? 'bg-[#18181B] text-white shadow-xs' : 'text-stone-600 hover:text-black'
                     }`}
                   >
@@ -484,7 +484,7 @@ END:VCARD`;
                   <button
                     type="button"
                     onClick={() => setViewMode('mobile')}
-                    className={`px-3 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                    className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
                       viewMode === 'mobile' ? 'bg-[#18181B] text-white shadow-xs' : 'text-stone-600 hover:text-black'
                     }`}
                   >
@@ -493,32 +493,32 @@ END:VCARD`;
                 </div>
               )}
 
-              {/* Primary Consultation Button */}
+              {/* Primary Consultation Button - Always 100% visible and never clipped */}
               <button
                 type="button"
                 onClick={() => setIsConsultModalOpen(true)}
                 style={{ backgroundColor: '#18181B', color: '#ffffff' }}
-                className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer hover:bg-stone-900 whitespace-nowrap shrink-0"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer hover:bg-stone-900 whitespace-nowrap shrink-0"
               >
                 <Calendar className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span className="text-white font-bold">Book Free 3D Consult</span>
+                <span className="text-white font-bold whitespace-nowrap">Book 3D Consult</span>
               </button>
 
               {/* Mobile Quick Consult Button */}
               <button
                 type="button"
                 onClick={() => setIsConsultModalOpen(true)}
-                className="sm:hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-xs bg-stone-900 text-white shadow-xs active:scale-95 transition shrink-0"
+                className="sm:hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-xs bg-stone-900 text-white shadow-xs active:scale-95 transition shrink-0 whitespace-nowrap"
               >
                 <Calendar className="w-3.5 h-3.5 text-amber-400" />
-                <span>Consult</span>
+                <span>Book 3D</span>
               </button>
 
-              {/* Mobile Menu Hamburger */}
+              {/* Mobile/Tablet Menu Hamburger */}
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl bg-stone-100 border border-stone-200 text-stone-700 hover:text-black transition cursor-pointer shrink-0"
+                className="xl:hidden p-2 rounded-xl bg-stone-100 border border-stone-200 text-stone-700 hover:text-black transition cursor-pointer shrink-0"
                 aria-label="Toggle navigation menu"
               >
                 {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -530,7 +530,7 @@ END:VCARD`;
 
         {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-stone-200 bg-white px-4 py-4 space-y-3 shadow-xl animate-in slide-in-from-top-2 duration-200">
+          <div className="xl:hidden border-t border-stone-200 bg-white px-4 py-4 space-y-3 shadow-xl animate-in slide-in-from-top-2 duration-200">
             <div className="px-3 py-2 rounded-lg bg-stone-100 border border-stone-200 text-xs text-stone-800 font-semibold flex items-center gap-2">
               <span className="flex h-2 w-2 relative shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -596,7 +596,7 @@ END:VCARD`;
       {/* ─────────────────────────────────────────────────────────────
           3. HERO SECTION WITH EXACT 9 CONTACT SQUIRCLES
       ───────────────────────────────────────────────────────────── */}
-      <section id="home" className="relative pt-6 sm:pt-14 pb-12 sm:pb-20 overflow-hidden bg-gradient-to-b from-[#FAF9F6] via-white to-[#F5F2EB]">
+      <section id="home" className="relative pt-4 sm:pt-10 pb-10 sm:pb-16 overflow-hidden bg-gradient-to-b from-[#FAF9F6] via-white to-[#F5F2EB]">
         {/* Soft Ambient Background Circles */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full overflow-hidden pointer-events-none opacity-40">
           <div className="absolute -top-24 right-10 w-[550px] h-[550px] bg-[#C5A880]/15 rounded-full blur-3xl" />
@@ -604,12 +604,12 @@ END:VCARD`;
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-5xl mx-auto space-y-3.5 sm:space-y-6">
+          <div className="text-center max-w-5xl mx-auto space-y-2.5 sm:space-y-4">
             
             {/* Studio Avatar / Logo */}
-            <div className="flex justify-center pt-1 sm:pt-2">
+            <div className="flex justify-center pt-0.5 sm:pt-1">
               {profile.avatarUrl ? (
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl overflow-hidden bg-white flex items-center justify-center p-1">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-white shadow-xl overflow-hidden bg-white flex items-center justify-center p-0.5">
                   <img 
                     src={profile.avatarUrl} 
                     alt={profile.company || profile.name} 
@@ -617,20 +617,20 @@ END:VCARD`;
                   />
                 </div>
               ) : (
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl bg-gradient-to-tr from-[#18181B] to-[#3F3F46] text-amber-300 flex items-center justify-center font-black text-2xl tracking-wider">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-white shadow-xl bg-gradient-to-tr from-[#18181B] to-[#3F3F46] text-amber-300 flex items-center justify-center font-black text-xl tracking-wider">
                   {(profile.company || profile.name || 'SL').slice(0, 2).toUpperCase()}
                 </div>
               )}
             </div>
 
             {/* Top Verification Pill */}
-            <div className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-white border border-[#C5A880]/40 text-[#8C6D46] text-[11px] sm:text-xs font-bold shadow-xs max-w-[94vw]">
-              <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8C6D46] shrink-0" />
+            <div className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1 rounded-full bg-white border border-[#C5A880]/40 text-[#8C6D46] text-[11px] sm:text-xs font-bold shadow-xs max-w-[94vw]">
+              <Award className="w-3.5 h-3.5 text-[#8C6D46] shrink-0" />
               <span className="truncate">IIID Registered Interior Architect • 12+ Years Experience</span>
             </div>
 
             {/* Main Architectural Headline */}
-            <h1 className="font-serif text-[28px] xs:text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-stone-900 tracking-tight leading-[1.18]">
+            <h1 className="font-serif text-2xl xs:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-stone-900 tracking-tight leading-[1.18]">
               Crafting Timeless Living Spaces With{' '}
               <span className="text-[#8C6D46] block sm:inline font-bold">
                 Turnkey Precision.
@@ -638,7 +638,7 @@ END:VCARD`;
             </h1>
 
             {/* Sub-headline */}
-            <p className="font-sans text-xs xs:text-sm sm:text-base lg:text-lg text-stone-600 max-w-3xl mx-auto leading-relaxed px-2">
+            <p className="font-sans text-xs xs:text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed px-2">
               {profile.company || profile.name || 'Studio Luxe Interiors'} crafts award-winning residential &amp; commercial interiors in {userCity} with 100% factory-built precision, German hardware fittings, transparent BOQ pricing, and flat 10-year warranty.
             </p>
 
@@ -726,21 +726,21 @@ END:VCARD`;
                   </span>
                 </a>
 
-                {/* 5. CATALOG / LOOKBOOK */}
+                {/* 5. 3D LOOKBOOK */}
                 <a
                   href="#portfolio"
-                  onClick={() => trackAction('catalog_hero_click')}
+                  onClick={() => trackAction('lookbook_hero_click')}
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
                   <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#8B5CF6] flex items-center justify-center text-white shadow-lg shadow-purple-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <div className="flex items-center justify-center text-white font-black tracking-tight select-none">
-                      <span className="font-mono text-xs sm:text-base mr-0.5">&lt;</span>
-                      <Zap className="w-4 h-4 sm:w-5 sm:h-5 fill-white text-white shrink-0" />
-                      <span className="font-mono text-xs sm:text-base ml-0.5">&gt;</span>
-                    </div>
+                    <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                      <line x1="12" y1="22.08" x2="12" y2="12" />
+                    </svg>
                   </div>
                   <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-900 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
-                    LOOKBOOK
+                    3D LOOKBOOK
                   </span>
                 </a>
 
