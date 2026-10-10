@@ -3370,9 +3370,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 );
               })()}
 
+              {/* Informational banner on YouTube/Instagram vs Direct File limits */}
+              <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2 text-slate-300">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span><strong>YouTube &amp; Instagram Videos:</strong> Added via web links only (zero file quota used).</span>
+                </div>
+                <div className="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/25 text-indigo-300">
+                  Direct Files: {userPlan === 'Basic' ? '0 allowed (Pro Plan Only)' : `${(profile.sectionData.videos?.items || []).filter(v => v.type === 'direct').length}/${MAX_DIRECT_VIDEOS} max 20MB`}
+                </div>
+              </div>
+
               {/* Action Buttons */}
               <div className="flex flex-wrap items-center gap-2">
                 <button
+                  type="button"
                   onClick={() => {
                     const currentCount = profile.sectionData.videos?.items?.length || 0;
                     if (currentCount >= MAX_VIDEOS) {
@@ -3385,7 +3397,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     }
                     const newVideo: VideoItem = {
                       id: `vid_${Date.now()}`,
-                      title: isRealEstate ? '4K Aerial Drone Layout Survey & Walkthrough' : '4K YouTube Brand Showcase',
+                      title: isRealEstate ? '4K Aerial Drone Layout Survey & Walkthrough' : '4K YouTube Video Showcase',
                       url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
                       type: 'youtube',
                       caption: isRealEstate ? 'Watch 4K aerial layout progression, road connectivity & master arch.' : 'Watch our story in Full 4K Ultra-HD.'
@@ -3396,13 +3408,14 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       sectionData: { ...prev.sectionData, videos: { items: updated } }
                     }));
                   }}
-                  className="px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow-lg active:scale-95 bg-red-600 hover:bg-red-500 shadow-red-500/20 cursor-pointer"
+                  className="px-3.5 py-2 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow-md active:scale-95 bg-red-600 hover:bg-red-500 shadow-red-500/20 cursor-pointer"
                 >
-                  <SocialIcon platform="youtube" size={16} /> 
-                  <span>{isRealEstate ? 'Add YouTube 4K Tour' : 'Add YouTube Video'}</span>
+                  <SocialIcon platform="youtube" size={15} /> 
+                  <span>{isRealEstate ? 'Add YouTube 4K Link' : 'Add YouTube Link'}</span>
                 </button>
 
                 <button
+                  type="button"
                   onClick={() => {
                     const currentCount = profile.sectionData.videos?.items?.length || 0;
                     if (currentCount >= MAX_VIDEOS) {
@@ -3426,20 +3439,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       sectionData: { ...prev.sectionData, videos: { items: updated } }
                     }));
                   }}
-                  className="px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow-lg active:scale-95 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-600 hover:from-purple-500 hover:to-amber-500 shadow-pink-500/20 cursor-pointer"
+                  className="px-3.5 py-2 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow-md active:scale-95 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-600 hover:from-purple-500 hover:to-amber-500 shadow-pink-500/20 cursor-pointer"
                 >
-                  <SocialIcon platform="instagram" size={16} /> 
-                  <span>{isRealEstate ? 'Add Instagram Reel' : 'Add Instagram Reel'}</span>
+                  <SocialIcon platform="instagram" size={15} /> 
+                  <span>{isRealEstate ? 'Add Instagram Reel Link' : 'Add Instagram Reel Link'}</span>
                 </button>
 
                 <button
+                  type="button"
                   onClick={() => {
                     const directCount = (profile.sectionData.videos?.items || []).filter(v => v.type === 'direct').length;
 
                     if (userPlan === 'Basic' || MAX_DIRECT_VIDEOS === 0) {
                       setUpgradeReason({
-                        title: 'Direct Video Uploads Require Pro Plan',
-                        desc: 'Direct video file uploads from your device are available on the Pro Plan (up to 3 direct videos) and Advanced Plan (up to 5 direct videos). Upgrade your plan now, or paste free unlimited YouTube, Vimeo, or Reels links!'
+                        title: 'Direct Video File Uploads Require Pro Plan',
+                        desc: 'Direct video file uploads (.mp4/.mov from device) are available on the Pro Plan (up to 3 files) and Advanced Plan (up to 5 files). You can paste unlimited YouTube and Instagram links for free on all plans!'
                       });
                       setUpgradeModalOpen(true);
                       return;
@@ -3448,7 +3462,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     if (userPlan === 'Pro' && directCount >= 3) {
                       setUpgradeReason({
                         title: 'Pro Plan Direct Video Limit Reached (3/3)',
-                        desc: 'You have reached the limit of 3 direct video uploads for the Pro Plan. Upgrade to the Advanced Plan (₹2,199/yr) for up to 5 direct videos, or paste free YouTube/Vimeo video links!'
+                        desc: 'You have reached the limit of 3 direct video uploads for the Pro Plan. Upgrade to the Advanced Plan (₹2,199/yr) for up to 5 direct videos, or paste free YouTube/Instagram video links!'
                       });
                       setUpgradeModalOpen(true);
                       return;
@@ -3457,7 +3471,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     if (userPlan === 'Advanced' && directCount >= 5) {
                       setUpgradeReason({
                         title: 'Advanced Plan Direct Video Limit Reached (5/5)',
-                        desc: 'You have reached the maximum quota of 5 direct video uploads for the Advanced Plan. You can add additional videos by pasting free YouTube, Vimeo, Loom, or Instagram Reels links!'
+                        desc: 'You have reached the maximum quota of 5 direct video uploads for the Advanced Plan. You can add additional videos by pasting free YouTube or Instagram links!'
                       });
                       setUpgradeModalOpen(true);
                       return;
@@ -3465,9 +3479,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
                     videoFileInputRef.current?.click();
                   }}
-                  className="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-medium text-slate-300 flex items-center gap-1.5 transition-all"
+                  className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-medium text-slate-300 flex items-center gap-1.5 transition-all cursor-pointer"
                 >
-                  <Upload className="w-3.5 h-3.5" /> Upload File ({userPlan === 'Basic' ? 'Pro Plan Only' : `${(profile.sectionData.videos?.items || []).filter(v => v.type === 'direct').length}/${MAX_DIRECT_VIDEOS} Max 20MB`})
+                  <Upload className="w-3.5 h-3.5 text-indigo-400" />
+                  <span>Upload Direct File ({userPlan === 'Basic' ? 'Pro Plan Only' : `${(profile.sectionData.videos?.items || []).filter(v => v.type === 'direct').length}/${MAX_DIRECT_VIDEOS}`})</span>
                 </button>
               </div>
 
@@ -3507,6 +3522,33 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                           value={vid.type}
                           onChange={e => {
                             const newType = e.target.value as 'youtube' | 'instagram' | 'direct';
+                            if (newType === 'direct') {
+                              const directCount = (profile.sectionData.videos?.items || []).filter(v => v.type === 'direct' && v.id !== vid.id).length;
+                              if (userPlan === 'Basic' || MAX_DIRECT_VIDEOS === 0) {
+                                setUpgradeReason({
+                                  title: 'Direct Video File Uploads Require Pro Plan',
+                                  desc: 'Direct video file uploads (.mp4/.mov) require the Pro Plan (up to 3 files) or Advanced Plan (up to 5 files). You can embed unlimited YouTube and Instagram videos for free via web links on all plans!'
+                                });
+                                setUpgradeModalOpen(true);
+                                return;
+                              }
+                              if (userPlan === 'Pro' && directCount >= 3) {
+                                setUpgradeReason({
+                                  title: 'Pro Plan Direct Video Limit Reached (3/3)',
+                                  desc: 'You have reached the limit of 3 direct video uploads for the Pro Plan. Upgrade to Advanced Plan (₹2199/yr) for up to 5 direct videos, or paste free YouTube/Instagram links.'
+                                });
+                                setUpgradeModalOpen(true);
+                                return;
+                              }
+                              if (userPlan === 'Advanced' && directCount >= 5) {
+                                setUpgradeReason({
+                                  title: 'Advanced Plan Direct Video Limit Reached (5/5)',
+                                  desc: 'You have reached the maximum quota of 5 direct video uploads for the Advanced Plan. You can add additional videos by pasting free YouTube or Instagram links.'
+                                });
+                                setUpgradeModalOpen(true);
+                                return;
+                              }
+                            }
                             const updated = [...(profile.sectionData.videos?.items || [])];
                             updated[idx] = {
                               ...updated[idx],
@@ -3519,9 +3561,9 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                           }}
                           className="w-full mt-1 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
                         >
-                          <option value="youtube">YouTube Video</option>
-                          <option value="instagram">Instagram Reel</option>
-                          <option value="direct">Direct / Local Video</option>
+                          <option value="youtube">YouTube (Link Only)</option>
+                          <option value="instagram">Instagram Reel (Link Only)</option>
+                          <option value="direct">Direct Video File {userPlan === 'Basic' ? '(Pro Plan Only)' : ''}</option>
                         </select>
                       </div>
 
@@ -3547,7 +3589,9 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     <div>
                       <div className="flex items-center justify-between mb-1">
                         <label className="text-[11px] font-medium text-slate-400">
-                          {vid.type === 'direct' ? 'Direct Video URL or Local File' : 'Video Web Link (YouTube / Vimeo / Reels)'}
+                          {vid.type === 'youtube' ? 'YouTube Web Link (Paste URL Only)' :
+                           vid.type === 'instagram' ? 'Instagram Reel Link (Paste URL Only)' :
+                           'Direct Video URL or Local MP4 File'}
                         </label>
                         {vid.type === 'direct' && (
                           <label className="text-[10px] text-indigo-400 hover:text-indigo-300 font-semibold cursor-pointer flex items-center gap-1">
@@ -3560,6 +3604,29 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                               onChange={async (e) => {
                                 const file = e.target.files?.[0];
                                 if (!file) return;
+
+                                const directCount = (profile.sectionData.videos?.items || []).filter(v => v.type === 'direct' && v.id !== vid.id).length;
+                                if (userPlan === 'Basic' || MAX_DIRECT_VIDEOS === 0) {
+                                  setUpgradeReason({
+                                    title: 'Direct Video File Uploads Require Pro Plan',
+                                    desc: 'Direct video file uploads (.mp4/.mov) require the Pro or Advanced plan. Paste YouTube or Instagram links for free!'
+                                  });
+                                  setUpgradeModalOpen(true);
+                                  return;
+                                }
+                                if (userPlan === 'Pro' && directCount >= 3) {
+                                  setUpgradeReason({
+                                    title: 'Pro Plan Direct Video Limit Reached (3/3)',
+                                    desc: 'You have reached the limit of 3 direct videos on the Pro Plan. Upgrade to Advanced Plan or paste free YouTube/Instagram links.'
+                                  });
+                                  setUpgradeModalOpen(true);
+                                  return;
+                                }
+                                if (file.size > 20 * 1024 * 1024) {
+                                  alert(`Selected video is ${(file.size / (1024 * 1024)).toFixed(1)}MB. Direct upload limit is 20MB. Please paste a YouTube or Instagram link for unlimited HD videos.`);
+                                  return;
+                                }
+
                                 const dataUrl = await readFileAsDataUrl(file);
                                 const updated = [...(profile.sectionData.videos?.items || [])];
                                 updated[idx].url = dataUrl;

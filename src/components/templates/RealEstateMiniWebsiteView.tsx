@@ -2043,141 +2043,213 @@ export default function RealEstateMiniWebsiteView({
               </button>
             </div>
 
-            {/* Video Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8">
-              {effectiveVideos
-                .filter(vid => {
-                  if (videoFilter === 'youtube') return vid.type === 'youtube' || vid.url?.includes('youtube') || vid.url?.includes('youtu.be');
-                  if (videoFilter === 'instagram') return vid.type === 'instagram' || vid.url?.includes('instagram');
-                  return true;
-                })
-                .map((vid, idx) => {
-                  const embedUrl = resolveEmbedUrl(vid);
-                  const isYouTube = vid.type === 'youtube' || embedUrl.includes('youtube.com') || embedUrl.includes('youtu.be');
-                  const isInstagram = vid.type === 'instagram' || vid.url.includes('instagram.com');
+            {/* Compact Video Display: Separated & Sized for YouTube and Instagram */}
+            {(() => {
+              const youtubeVideos = effectiveVideos.filter(v => v.type === 'youtube' || (!v.type && v.url?.includes('youtu')));
+              const instagramVideos = effectiveVideos.filter(v => v.type === 'instagram' || v.url?.includes('instagram'));
+              const directVideos = effectiveVideos.filter(v => v.type === 'direct' || (!v.type && !v.url?.includes('youtu') && !v.url?.includes('instagram')));
 
-                  return (
-                    <div
-                      key={vid.id || idx}
-                      className="rounded-3xl bg-[#131F37] border border-slate-800 overflow-hidden shadow-2xl flex flex-col justify-between group hover:border-[#005DAA]/60 transition-all duration-300"
-                    >
-                      {/* Video Player / Embed Container */}
-                      {isYouTube ? (
-                        <div className="relative w-full aspect-video bg-black">
-                          <iframe
-                            src={embedUrl}
-                            title={vid.title}
-                            className="w-full h-full border-0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            loading="lazy"
-                          />
-                        </div>
-                      ) : isInstagram ? (
-                        <div className="relative w-full bg-slate-950 flex flex-col items-center">
-                          <div className="w-full aspect-[9/12] max-h-[420px] overflow-hidden">
-                            <iframe
-                              src={embedUrl}
-                              title={vid.title}
-                              className="w-full h-full border-0"
-                              allowFullScreen
-                              loading="lazy"
-                            />
-                          </div>
-                          <div className="w-full p-2.5 bg-slate-900/80 border-t border-slate-800 flex items-center justify-between px-4">
-                            <span className="text-xs font-bold text-pink-400 flex items-center gap-1.5">
-                              <SocialIcon platform="instagram" size={14} className="text-pink-400" />
-                              <span>Instagram Reel</span>
-                            </span>
-                            <a
-                              href={vid.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="px-3 py-1 rounded-full bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 border border-pink-500/30 text-[11px] font-bold flex items-center gap-1 transition"
-                            >
-                              <span>Watch on IG</span>
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="relative w-full aspect-video bg-black">
-                          <video
-                            src={vid.url}
-                            controls
-                            className="w-full h-full object-cover"
-                          />
+              const showYouTube = videoFilter === 'all' || videoFilter === 'youtube';
+              const showInstagram = videoFilter === 'all' || videoFilter === 'instagram';
+
+              return (
+                <div className="space-y-10">
+                  {/* 1. YouTube 4K Drone & Architectural Walkthroughs (Compact 3-Col Grid) */}
+                  {showYouTube && youtubeVideos.length > 0 && (
+                    <div className="space-y-4">
+                      {videoFilter === 'all' && (
+                        <div className="flex items-center gap-2 pb-1 border-b border-slate-800">
+                          <SocialIcon platform="youtube" size={16} className="text-red-500" />
+                          <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200">
+                            4K Aerial Drone Tours &amp; Architectural Walkthroughs ({youtubeVideos.length})
+                          </h4>
                         </div>
                       )}
 
-                      {/* Video Information & Actions */}
-                      <div className="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between gap-2">
-                            <span className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border ${
-                              isYouTube 
-                                ? 'bg-red-500/15 text-red-400 border-red-500/30' 
-                                : isInstagram 
-                                ? 'bg-pink-500/15 text-pink-400 border-pink-500/30' 
-                                : 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30'
-                            }`}>
-                              {isYouTube ? '4K Aerial Drone Tour' : isInstagram ? 'On-Site Milestone Reel' : 'Direct Video'}
-                            </span>
-                            <span className="text-[11px] text-slate-400 font-mono">
-                              {userCity} Corridor
-                            </span>
-                          </div>
-
-                          <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
-                            {vid.title}
-                          </h4>
-                          {vid.caption && (
-                            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed line-clamp-2">
-                              {vid.caption}
-                            </p>
-                          )}
-                        </div>
-
-                        {/* Card Action Buttons */}
-                        <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
-                          {isYouTube ? (
-                            <a
-                              href={vid.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="inline-flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 font-bold transition"
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {youtubeVideos.map((vid, idx) => {
+                          const embedUrl = resolveEmbedUrl(vid);
+                          return (
+                            <div
+                              key={vid.id || `yt_${idx}`}
+                              className="rounded-2xl bg-[#111A2E] border border-slate-800 overflow-hidden shadow-lg flex flex-col justify-between group hover:border-[#005DAA]/70 transition-all duration-300"
                             >
-                              <SocialIcon platform="youtube" size={14} className="text-red-400" />
-                              <span>Watch on YouTube</span>
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          ) : (
-                            <a
-                              href={vid.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="inline-flex items-center gap-1.5 text-xs text-pink-400 hover:text-pink-300 font-bold transition"
-                            >
-                              <SocialIcon platform="instagram" size={14} className="text-pink-400" />
-                              <span>View Full Reel</span>
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          )}
+                              {/* 16:9 Compact Video Player */}
+                              <div className="relative w-full aspect-video bg-black">
+                                <iframe
+                                  src={embedUrl}
+                                  title={vid.title}
+                                  className="w-full h-full border-0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowFullScreen
+                                  loading="lazy"
+                                />
+                              </div>
 
-                          <button
-                            type="button"
-                            onClick={() => handleWhatsAppInquiry(vid.title, 'Inquiry from 4K Video Walkthrough')}
-                            className="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/30 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
-                          >
-                            <MessageCircle className="w-3 h-3" />
-                            <span>WhatsApp Inquire</span>
-                          </button>
-                        </div>
+                              {/* Compact Card Content */}
+                              <div className="p-4 space-y-2.5 flex-1 flex flex-col justify-between">
+                                <div className="space-y-1.5">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <span className="text-[9.5px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-red-500/15 text-red-400 border border-red-500/30">
+                                      4K Drone Walkthrough
+                                    </span>
+                                    <span className="text-[10px] text-slate-400 font-mono">
+                                      {userCity} Corridor
+                                    </span>
+                                  </div>
+                                  <h4 className="text-sm font-bold text-white group-hover:text-amber-300 transition-colors line-clamp-1">
+                                    {vid.title}
+                                  </h4>
+                                  {vid.caption && (
+                                    <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                                      {vid.caption}
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="pt-2.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                                  <a
+                                    href={vid.url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex items-center gap-1 text-[11px] text-red-400 hover:text-red-300 font-bold transition"
+                                  >
+                                    <SocialIcon platform="youtube" size={12} className="text-red-400" />
+                                    <span>Watch on YouTube</span>
+                                    <ExternalLink className="w-2.5 h-2.5" />
+                                  </a>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleWhatsAppInquiry(vid.title, 'Inquiry from 4K Video Tour')}
+                                    className="px-2.5 py-1 rounded-lg bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/30 text-[11px] font-bold transition flex items-center gap-1 cursor-pointer"
+                                  >
+                                    <MessageCircle className="w-2.5 h-2.5" />
+                                    <span>Inquire</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
-                  );
-                })}
-            </div>
+                  )}
+
+                  {/* 2. Instagram Milestone Reels (Compact 4-Col Vertical Phone Grid) */}
+                  {showInstagram && instagramVideos.length > 0 && (
+                    <div className="space-y-4">
+                      {videoFilter === 'all' && (
+                        <div className="flex items-center gap-2 pb-1 border-b border-slate-800">
+                          <SocialIcon platform="instagram" size={16} className="text-pink-500" />
+                          <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200">
+                            On-Site Milestone &amp; Construction Reels ({instagramVideos.length})
+                          </h4>
+                        </div>
+                      )}
+
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {instagramVideos.map((vid, idx) => (
+                          <div
+                            key={vid.id || `ig_${idx}`}
+                            className="rounded-2xl bg-gradient-to-b from-[#1C1226]/90 via-[#0F1829]/95 to-[#080E1A] border border-pink-500/25 hover:border-pink-500/60 transition-all duration-300 shadow-xl overflow-hidden flex flex-col justify-between group hover:shadow-pink-500/10"
+                          >
+                            {/* Top Badge Strip */}
+                            <div className="p-3 pb-2 flex items-center justify-between">
+                              <span className="px-2 py-0.5 rounded-full bg-pink-500/20 border border-pink-500/30 text-pink-300 text-[10px] font-extrabold flex items-center gap-1">
+                                <SocialIcon platform="instagram" size={11} className="text-pink-400" />
+                                <span>Reel</span>
+                              </span>
+                              <span className="text-[10px] text-slate-500 font-mono">
+                                Live On-Site
+                              </span>
+                            </div>
+
+                            {/* Center Reel Preview Mockup */}
+                            <a
+                              href={vid.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="px-3 py-6 flex flex-col items-center justify-center text-center space-y-3 group/reel cursor-pointer"
+                            >
+                              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-600 via-pink-600 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-pink-600/30 group-hover/reel:scale-110 group-hover/reel:rotate-6 transition-transform">
+                                <Play className="w-5 h-5 ml-0.5 fill-white" />
+                              </div>
+                              <div>
+                                <span className="text-[11px] font-bold text-slate-300 group-hover/reel:text-pink-300 transition block">
+                                  Watch Reel on Instagram
+                                </span>
+                                <span className="text-[9.5px] text-slate-500 font-mono">
+                                  Full HD Vertical 9:16
+                                </span>
+                              </div>
+                            </a>
+
+                            {/* Bottom Reel Info & Actions */}
+                            <div className="p-3 pt-2 bg-slate-950/60 border-t border-slate-800/80 space-y-2">
+                              <h5 className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors line-clamp-2 leading-tight">
+                                {vid.title}
+                              </h5>
+                              {vid.caption && (
+                                <p className="text-[10.5px] text-slate-400 line-clamp-1 leading-relaxed">
+                                  {vid.caption}
+                                </p>
+                              )}
+                              <div className="flex items-center gap-1.5 pt-1">
+                                <a
+                                  href={vid.url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="flex-1 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-[10.5px] font-bold flex items-center justify-center gap-1 transition shadow-sm"
+                                >
+                                  <span>Watch Reel</span>
+                                  <ExternalLink className="w-2.5 h-2.5" />
+                                </a>
+                                <button
+                                  type="button"
+                                  onClick={() => handleWhatsAppInquiry(vid.title, 'Inquiry from Instagram Reel')}
+                                  title="WhatsApp Inquire"
+                                  className="p-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/30 transition cursor-pointer"
+                                >
+                                  <MessageCircle className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 3. Direct Video Files (if any) */}
+                  {directVideos.length > 0 && videoFilter === 'all' && (
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 pb-1 border-b border-slate-800">
+                        <Film className="w-4 h-4 text-indigo-400" />
+                        <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200">
+                          Direct Video Uploads ({directVideos.length})
+                        </h4>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {directVideos.map((vid, idx) => (
+                          <div
+                            key={vid.id || `dir_${idx}`}
+                            className="rounded-2xl bg-[#111A2E] border border-slate-800 overflow-hidden shadow-lg flex flex-col justify-between"
+                          >
+                            <div className="relative w-full aspect-video bg-black">
+                              <video src={vid.url} controls className="w-full h-full object-cover" />
+                            </div>
+                            <div className="p-4 space-y-2">
+                              <h4 className="text-sm font-bold text-white line-clamp-1">{vid.title}</h4>
+                              {vid.caption && <p className="text-xs text-slate-400 line-clamp-2">{vid.caption}</p>}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* Bottom Guided Site Visit Prompt */}
             <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#005DAA]/30 via-slate-900 to-indigo-950/40 border border-[#005DAA]/40 flex flex-col md:flex-row items-center justify-between gap-4">
