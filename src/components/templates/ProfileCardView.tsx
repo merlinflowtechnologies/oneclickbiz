@@ -45,6 +45,7 @@ import DirectUPIPaymentModal from '@/components/common/DirectUPIPaymentModal';
 import MBLMiniWebsiteView from './MBLMiniWebsiteView';
 import RestaurantTemplateView from './RestaurantTemplateView';
 import RealEstateMiniWebsiteView from './RealEstateMiniWebsiteView';
+import InteriorMiniWebsiteView from './InteriorMiniWebsiteView';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -634,6 +635,22 @@ export default function ProfileCardView({
     profile.id === 're-villas' ||
     profile.id === 're-consultants';
 
+  const isInterior = 
+    profile.slug === 'interior' ||
+    profile.slug === 'architect' ||
+    (profile as any).templateId === 'vcard36' ||
+    (profile as any).templateId?.startsWith('interior-') ||
+    profile.id?.startsWith('interior-') ||
+    (profile as any).category === 'Interior Design' ||
+    (profile as any).category === 'Architecture' ||
+    profile.company?.toLowerCase().includes('interior') ||
+    profile.company?.toLowerCase().includes('decor') ||
+    profile.company?.toLowerCase().includes('architect') ||
+    profile.designation?.toLowerCase().includes('interior') ||
+    profile.designation?.toLowerCase().includes('architect') ||
+    profile.bio?.toLowerCase().includes('interior') ||
+    profile.bio?.toLowerCase().includes('architect');
+
   const isWebsiteMode = !isMockup && viewMode === 'website';
   const isRestaurantTemplate = profile.slug === 'food-restaurant' || profile.slug.includes('restaurant') || profile.slug.includes('food') || profile.slug.includes('brahmin') || profile.theme === 'brahmin-food';
 
@@ -705,6 +722,16 @@ export default function ProfileCardView({
           />
         ) : isRealEstate ? (
           <RealEstateMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : isInterior ? (
+          <InteriorMiniWebsiteView
             profile={profile}
             trackAction={trackAction}
             getCleanWhatsAppNumber={getCleanWhatsAppNumber}
