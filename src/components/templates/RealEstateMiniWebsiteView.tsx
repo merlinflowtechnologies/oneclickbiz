@@ -818,75 +818,77 @@ export default function RealEstateMiniWebsiteView({
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-[#005DAA]/20 selection:text-[#005DAA] relative overflow-x-hidden">
       
       {/* ─────────────────────────────────────────────────────────────
-          1. TOP RERA & TRUST STRIP
+          1. TOP RERA & TRUST STRIP (Hidden in phone mockup, clean single-line on mobile)
       ───────────────────────────────────────────────────────────── */}
-      <div 
-        style={{ backgroundColor: '#0A192F', color: '#ffffff' }}
-        className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-2 text-[11px] font-semibold border-b border-[#1E293B] shadow-xs"
-      >
-        <div className="max-w-[1600px] mx-auto w-full flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 truncate">
-            <span className="flex h-2 w-2 relative shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-            </span>
-            <span className="font-extrabold uppercase tracking-wider text-amber-300 shrink-0">
-              {userProjects[0]?.reraId || 'TS-RERA Sanctioned'}
-            </span>
-            <span className="hidden sm:inline text-slate-300 text-[11px] truncate">
-              • 100% Clear Title Guarantee &amp; Spot Registration • {userCity}
-            </span>
-          </div>
+      {!isMockup && (
+        <div 
+          style={{ backgroundColor: '#0A192F', color: '#ffffff' }}
+          className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-2 text-[11px] font-semibold border-b border-[#1E293B] shadow-xs"
+        >
+          <div className="max-w-[1600px] mx-auto w-full flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2 truncate">
+              <span className="flex h-2 w-2 relative shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+              </span>
+              <span className="font-extrabold uppercase tracking-wider text-amber-300 shrink-0">
+                {userProjects[0]?.reraId || 'TS-RERA Sanctioned'}
+              </span>
+              <span className="hidden sm:inline text-slate-300 text-[11px] truncate">
+                • 100% Clear Title Guarantee &amp; Spot Registration • {userCity}
+              </span>
+            </div>
 
-          <div className="flex items-center gap-3 sm:gap-4 text-[11px] shrink-0">
-            <button
-              onClick={() => setIsQrModalOpen(true)}
-              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-amber-300 transition cursor-pointer font-bold"
-              title="Scan QR Code to open profile on phone"
-            >
-              <QrCode className="w-3.5 h-3.5 text-amber-400" />
-              <span>QR Scanner</span>
-            </button>
-            <button
-              onClick={handleVcfDownload}
-              className="hidden md:inline-flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition cursor-pointer font-bold"
-              title="Save Developer Contact to Phone (.vcf)"
-            >
-              <Download className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Save vCard</span>
-            </button>
-            <button
-              onClick={() => handleWhatsAppInquiry('Direct Inquiry', 'Connecting from verified digital profile')}
-              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition cursor-pointer"
-              title="Chat on WhatsApp"
-            >
-              <MessageCircle className="w-3 h-3 text-emerald-400" />
-              <span className="hidden sm:inline">WhatsApp</span>
-            </button>
-            <button
-              onClick={() => setIsShareModalOpen(true)}
-              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-amber-300 transition cursor-pointer"
-              title="Share Digital Profile"
-            >
-              <Share2 className="w-3 h-3 text-amber-400" />
-              <span className="hidden sm:inline">Share Profile</span>
-            </button>
+            <div className="hidden md:flex items-center gap-3 sm:gap-4 text-[11px] shrink-0">
+              <button
+                onClick={() => setIsQrModalOpen(true)}
+                className="inline-flex items-center gap-1.5 text-slate-300 hover:text-amber-300 transition cursor-pointer font-bold"
+                title="Scan QR Code to open profile on phone"
+              >
+                <QrCode className="w-3.5 h-3.5 text-amber-400" />
+                <span>QR Scanner</span>
+              </button>
+              <button
+                onClick={handleVcfDownload}
+                className="hidden md:inline-flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition cursor-pointer font-bold"
+                title="Save Developer Contact to Phone (.vcf)"
+              >
+                <Download className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Save vCard</span>
+              </button>
+              <button
+                onClick={() => handleWhatsAppInquiry('Direct Inquiry', 'Connecting from verified digital profile')}
+                className="inline-flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition cursor-pointer"
+                title="Chat on WhatsApp"
+              >
+                <MessageCircle className="w-3 h-3 text-emerald-400" />
+                <span className="hidden sm:inline">WhatsApp</span>
+              </button>
+              <button
+                onClick={() => setIsShareModalOpen(true)}
+                className="inline-flex items-center gap-1.5 text-slate-300 hover:text-amber-300 transition cursor-pointer"
+                title="Share Digital Profile"
+              >
+                <Share2 className="w-3 h-3 text-amber-400" />
+                <span className="hidden sm:inline">Share Profile</span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* ─────────────────────────────────────────────────────────────
           2. LUXURY STICKY HEADER & NAVIGATION
       ───────────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all duration-300">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="flex items-center justify-between h-16 sm:h-20 gap-3 sm:gap-6">
+      <header className={`sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all duration-300`}>
+        <div className={`max-w-[1600px] mx-auto ${isMockup ? 'px-3' : 'px-4 sm:px-6 lg:px-8 xl:px-12'}`}>
+          <div className={`flex items-center justify-between ${isMockup ? 'h-13' : 'h-15 sm:h-20'} gap-2 sm:gap-6`}>
             
             {/* Brand Logo & Details */}
-            <a href="#home" className="flex items-center gap-3 shrink-0 min-w-0 group select-none">
+            <a href="#home" className="flex items-center gap-2.5 sm:gap-3 shrink-0 min-w-0 group select-none">
               <div className="relative shrink-0">
                 {profile.avatarUrl ? (
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden border border-slate-200 shadow-xs bg-slate-100 group-hover:border-[#005DAA]/50 transition">
+                  <div className={`${isMockup ? 'w-8 h-8' : 'w-9 h-9 sm:w-12 sm:h-12'} rounded-xl overflow-hidden border border-slate-200 shadow-xs bg-slate-100 group-hover:border-[#005DAA]/50 transition`}>
                     <img
                       src={profile.avatarUrl}
                       alt={profile.company || profile.name}
@@ -894,23 +896,23 @@ export default function RealEstateMiniWebsiteView({
                     />
                   </div>
                 ) : (
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#005DAA] to-[#003B6B] flex items-center justify-center text-white shadow-xs">
-                    <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <div className={`${isMockup ? 'w-8 h-8' : 'w-9 h-9 sm:w-12 sm:h-12'} rounded-xl bg-gradient-to-br from-[#005DAA] to-[#003B6B] flex items-center justify-center text-white shadow-xs`}>
+                    <Building2 className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
                   </div>
                 )}
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center shadow-xs">
-                  <Check className="w-2.5 h-2.5 text-white stroke-[3]" />
+                <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center shadow-xs">
+                  <Check className="w-2 h-2 text-white stroke-[3]" />
                 </div>
               </div>
               
-              <div className="flex flex-col min-w-0 max-w-[200px] sm:max-w-[260px] xl:max-w-xs">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-sm sm:text-base font-black text-slate-900 leading-tight truncate">
+              <div className="flex flex-col min-w-0 max-w-[170px] sm:max-w-[260px] xl:max-w-xs">
+                <div className="flex items-center gap-1">
+                  <span className={`${isMockup ? 'text-xs' : 'text-xs sm:text-base'} font-black text-slate-900 leading-tight truncate`}>
                     {profile.company || profile.name || 'Premium Developers'}
                   </span>
-                  <BadgeCheck className="w-4 h-4 text-[#005DAA] shrink-0" />
+                  <BadgeCheck className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
                 </div>
-                <span className="text-[11px] text-slate-500 font-medium truncate">
+                <span className="text-[10px] text-slate-500 font-medium truncate">
                   {profile.name} • {profile.designation || 'Real Estate Specialist'}
                 </span>
               </div>
@@ -1289,33 +1291,30 @@ export default function RealEstateMiniWebsiteView({
 
             {/* Location Address Strip */}
             <div className="flex justify-center">
-              <div className={`inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 ${isMockup ? 'text-[11px]' : 'text-xs sm:text-sm'} font-semibold shadow-xs`}>
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 ${isMockup ? 'text-[10px]' : 'text-xs sm:text-sm'} font-semibold shadow-xs`}>
                 <MapPin className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
                 <span className="truncate">{profile.address || `${userCity} Growth Corridor, Telangana`}</span>
               </div>
             </div>
 
             {/* ─────────────────────────────────────────────────────────────
-                HERO APP-STYLE CONTACT SQUIRCLES (Exact Brand Vectors Matching Reference Design)
-            ───────────────────────────────────────────────────────────── */}
-            {/* ─────────────────────────────────────────────────────────────
                 HERO APP-STYLE CONTACT SQUIRCLES (All 9 in 1 Single Clean Line)
             ───────────────────────────────────────────────────────────── */}
-            <div className="pt-2 sm:pt-4 pb-2 w-full overflow-x-auto no-scrollbar">
-              <div className="flex flex-nowrap items-center justify-start lg:justify-center gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-4.5 max-w-7xl mx-auto px-4 min-w-max lg:min-w-0">
+            <div className="pt-2 sm:pt-4 pb-2 w-full max-w-full overflow-x-auto no-scrollbar scroll-smooth">
+              <div className="flex flex-nowrap items-center justify-start lg:justify-center gap-2 sm:gap-3 md:gap-4 w-max lg:w-auto px-3 sm:px-4 lg:px-0 lg:mx-auto">
                 
                 {/* 1. CALL */}
                 <a
                   href={`tel:${cleanCallNumber || '+919876543210'}`}
                   onClick={() => trackAction('call_hero_click')}
-                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#10B981] flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#10B981] flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
+                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
                       <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" />
                     </svg>
                   </div>
-                  <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap">
+                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     CALL
                   </span>
                 </a>
@@ -1326,14 +1325,14 @@ export default function RealEstateMiniWebsiteView({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('whatsapp_hero_click')}
-                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#25D366] flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#25D366] flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
+                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
                       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.57 14.37C16.32 14.24 15.1 13.64 14.87 13.56C14.64 13.48 14.48 13.44 14.31 13.69C14.15 13.94 13.68 14.49 13.54 14.65C13.4 14.81 13.26 14.83 13.01 14.71C12.76 14.59 11.96 14.33 11.01 13.48C10.27 12.82 9.77 12 9.63 11.75C9.49 11.5 9.62 11.37 9.74 11.25C9.85 11.14 9.99 10.96 10.11 10.82C10.23 10.68 10.27 10.58 10.35 10.42C10.43 10.26 10.39 10.12 10.33 10C10.27 9.88 9.77 8.66 9.57 8.16C9.37 7.68 9.17 7.74 9.02 7.73C8.88 7.72 8.71 7.72 8.55 7.72C8.38 7.72 8.12 7.78 7.89 8.03C7.66 8.28 7.02 8.88 7.02 10.1C7.02 11.32 7.91 12.5 8.03 12.66C8.15 12.82 9.78 15.33 12.28 16.41C12.87 16.67 13.33 16.82 13.69 16.94C14.29 17.13 14.83 17.1 15.26 17.04C15.74 16.97 16.74 16.44 16.95 15.85C17.16 15.26 17.16 14.76 17.09 14.65C17.03 14.54 16.82 14.49 16.57 14.37Z" />
                     </svg>
                   </div>
-                  <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap">
+                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     WHATSAPP
                   </span>
                 </a>
@@ -1344,14 +1343,14 @@ export default function RealEstateMiniWebsiteView({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('instagram_hero_click')}
-                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
+                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                     </svg>
                   </div>
-                  <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap">
+                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     INSTAGRAM
                   </span>
                 </a>
@@ -1362,14 +1361,14 @@ export default function RealEstateMiniWebsiteView({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('facebook_hero_click')}
-                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#1877F2] flex items-center justify-center text-white shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#1877F2] flex items-center justify-center text-white shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
+                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     </svg>
                   </div>
-                  <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap">
+                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     FACEBOOK
                   </span>
                 </a>
@@ -1380,16 +1379,16 @@ export default function RealEstateMiniWebsiteView({
                   target={profile.website ? '_blank' : '_self'}
                   rel="noreferrer"
                   onClick={() => trackAction('software_hero_click')}
-                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#8B5CF6] flex items-center justify-center text-white shadow-lg shadow-purple-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#8B5CF6] flex items-center justify-center text-white shadow-lg shadow-purple-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
                     <div className="flex items-center justify-center text-white font-black tracking-tight select-none">
-                      <span className="font-mono text-base sm:text-lg mr-0.5">&lt;</span>
-                      <Zap className="w-4 h-4 sm:w-5 sm:h-5 fill-white text-white shrink-0" />
-                      <span className="font-mono text-base sm:text-lg ml-0.5">&gt;</span>
+                      <span className="font-mono text-xs sm:text-base mr-0.5">&lt;</span>
+                      <Zap className={`${isMockup ? 'w-3.5 h-3.5' : 'w-4 h-4 sm:w-5 sm:h-5'} fill-white text-white shrink-0`} />
+                      <span className="font-mono text-xs sm:text-base ml-0.5">&gt;</span>
                     </div>
                   </div>
-                  <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap">
+                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     OTHER SOFTWARE
                   </span>
                 </a>
@@ -1400,14 +1399,14 @@ export default function RealEstateMiniWebsiteView({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('directions_hero_click')}
-                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#2563EB] flex items-center justify-center text-white shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#2563EB] flex items-center justify-center text-white shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
+                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
                       <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
                     </svg>
                   </div>
-                  <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap">
+                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     DIRECTIONS
                   </span>
                 </a>
@@ -1416,14 +1415,14 @@ export default function RealEstateMiniWebsiteView({
                 <a
                   href={`mailto:${profile.email || 'info@oneclickbiz.in'}`}
                   onClick={() => trackAction('email_hero_click')}
-                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#EF4444] flex items-center justify-center text-white shadow-lg shadow-red-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#EF4444] flex items-center justify-center text-white shadow-lg shadow-red-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
+                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
                       <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
                   </div>
-                  <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap">
+                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     EMAIL
                   </span>
                 </a>
@@ -1432,15 +1431,15 @@ export default function RealEstateMiniWebsiteView({
                 <button
                   type="button"
                   onClick={handleVcfDownload}
-                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                   title="Save Contact to Phone Contacts"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#F59E0B] flex items-center justify-center text-white shadow-lg shadow-amber-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#F59E0B] flex items-center justify-center text-white shadow-lg shadow-amber-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
+                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
                       <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                     </svg>
                   </div>
-                  <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap">
+                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     SAVE VCARD
                   </span>
                 </button>
@@ -1449,11 +1448,11 @@ export default function RealEstateMiniWebsiteView({
                 <button
                   type="button"
                   onClick={() => setIsQrModalOpen(true)}
-                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                   title="Scan QR Code to open on mobile"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-slate-900 border border-slate-700 flex items-center justify-center text-white shadow-lg shadow-slate-900/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-slate-900 border border-slate-700 flex items-center justify-center text-white shadow-lg shadow-slate-900/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
+                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'}`} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="3" width="7" height="7" rx="1.5" />
                       <rect x="14" y="3" width="7" height="7" rx="1.5" />
                       <rect x="14" y="14" width="7" height="7" rx="1.5" />
@@ -1464,7 +1463,7 @@ export default function RealEstateMiniWebsiteView({
                       <rect x="16" y="16" width="2" height="2" fill="white" stroke="none" />
                     </svg>
                   </div>
-                  <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap">
+                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     SCAN QR
                   </span>
                 </button>
@@ -1473,22 +1472,22 @@ export default function RealEstateMiniWebsiteView({
             </div>
 
             {/* Primary Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <div className={`flex ${isMockup ? 'flex-col gap-2' : 'flex-col sm:flex-row gap-3 sm:gap-4'} items-center justify-center pt-3`}>
               <a
                 href="#projects"
                 style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-white font-black text-sm sm:text-base shadow-lg hover:bg-[#004580] transition-transform active:scale-98 cursor-pointer"
+                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-5 py-2.5 text-xs' : 'px-8 py-3.5 sm:py-4 text-sm sm:text-base'} rounded-2xl text-white font-black shadow-lg hover:bg-[#004580] transition-transform active:scale-98 cursor-pointer`}
               >
                 <span className="text-white font-extrabold">Explore Featured Projects</span>
-                <ChevronRight className="w-4.5 h-4.5 text-white" />
+                <ChevronRight className="w-4 h-4 text-white" />
               </a>
 
               <button
                 onClick={() => setIsSiteVisitModalOpen(true)}
                 style={{ backgroundColor: '#ffffff', color: '#0f172a', borderColor: '#cbd5e1' }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-[#005DAA] text-slate-900 font-bold text-sm sm:text-base shadow-xs transition cursor-pointer"
+                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-5 py-2.5 text-xs' : 'px-8 py-3.5 sm:py-4 text-sm sm:text-base'} rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-[#005DAA] text-slate-900 font-bold shadow-xs transition cursor-pointer`}
               >
-                <Calendar className="w-4.5 h-4.5 text-[#005DAA]" />
+                <Calendar className="w-4 h-4 text-[#005DAA]" />
                 <span>Schedule Site Visit</span>
               </button>
             </div>
