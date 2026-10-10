@@ -11,6 +11,7 @@ import {
   CheckCircle2, 
   ShieldCheck, 
   Sparkles, 
+  ChevronLeft,
   ChevronRight, 
   Calendar, 
   ArrowRight, 
@@ -27,6 +28,7 @@ import {
   X, 
   Play, 
   Eye, 
+  Camera,
   ExternalLink, 
   Star, 
   Quote, 
@@ -94,6 +96,7 @@ export default function InteriorMiniWebsiteView({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<InteriorProject | null>(null);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
 
   // Active filter tab for Room Type
   const [activeTab, setActiveTab] = useState<string>('all');
@@ -144,31 +147,80 @@ export default function InteriorMiniWebsiteView({
 
   // Curated Interior Projects (Dynamic from profile products/services or curated fallbacks)
   const interiorProjects: InteriorProject[] = useMemo(() => {
+    // Rich Curated Interior Gallery Assets per Room Type (5 unique photos each)
+    const roomGalleries: Record<string, string[]> = {
+      living: [
+        'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1400&q=80'
+      ],
+      kitchen: [
+        'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1400&q=80'
+      ],
+      master: [
+        'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1400&q=80'
+      ],
+      commercial: [
+        'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80',
+        'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1400&q=80'
+      ]
+    };
+
     const existingProducts = profile.sectionData?.products?.items || [];
     if (existingProducts.length > 0) {
-      return existingProducts.map((p, idx) => ({
-        id: p.id || `proj-${idx}`,
-        title: p.name || 'Signature Luxury Residence',
-        roomType: p.category || (idx % 3 === 0 ? 'Living Room' : idx % 3 === 1 ? 'Modular Kitchen' : 'Master Suite'),
-        style: idx % 2 === 0 ? 'Modern Japandi' : 'Contemporary Luxury',
-        location: profile.address || `${userCity}, India`,
-        carpetArea: '1,850 - 2,400 Sq.Ft',
-        duration: '42 Days Turnkey',
-        budgetRange: p.price ? `₹ ${(p.price / 100000).toFixed(2)} Lakhs` : '₹ 12 - 18 Lakhs',
-        coverImage: p.imageUrl || 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1400&q=80',
-        galleryImages: [
-          p.imageUrl || 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1400&q=80',
-          'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
-          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
-        ],
-        description: p.description || 'Complete turnkey architectural interior design featuring German hardware, custom modular woodwork, ambient acoustic lighting, and Italian marble finishes.',
-        keyFeatures: [
-          'Century Club Prime BWP Marine Plywood (IS:710)',
-          'Hafele Soft-Close Silent Hardware & Organizers',
-          'Concealed Warm COB Architectural Lighting',
-          '10-Year Complete Replacement Warranty'
-        ]
-      }));
+      return existingProducts.map((p, idx) => {
+        const catKey = `${p.category || ''} ${p.name || ''}`.toLowerCase();
+        const gallerySet = catKey.includes('kitchen') ? roomGalleries.kitchen
+          : catKey.includes('master') || catKey.includes('bed') || catKey.includes('suite') ? roomGalleries.master
+          : catKey.includes('comm') || catKey.includes('office') || catKey.includes('work') ? roomGalleries.commercial
+          : roomGalleries.living;
+
+        // Build deduplicated array with primary image first, followed by distinct room photos
+        const baseList = [p.imageUrl, ...gallerySet].filter(Boolean) as string[];
+        const seenKeys = new Set<string>();
+        const images: string[] = [];
+        for (const url of baseList) {
+          const match = url.match(/photo-([a-zA-Z0-9_-]+)/);
+          const key = match ? match[1] : url;
+          if (!seenKeys.has(key)) {
+            seenKeys.add(key);
+            images.push(url);
+          }
+        }
+
+        return {
+          id: p.id || `proj-${idx}`,
+          title: p.name || 'Signature Luxury Residence',
+          roomType: p.category || (idx % 3 === 0 ? 'Living Room' : idx % 3 === 1 ? 'Modular Kitchen' : 'Master Suite'),
+          style: idx % 2 === 0 ? 'Modern Japandi' : 'Contemporary Luxury',
+          location: profile.address || `${userCity}, India`,
+          carpetArea: '1,850 - 2,400 Sq.Ft',
+          duration: '42 Days Turnkey',
+          budgetRange: p.price ? `₹ ${(p.price / 100000).toFixed(2)} Lakhs` : '₹ 12 - 18 Lakhs',
+          coverImage: p.imageUrl || images[0],
+          galleryImages: images,
+          description: p.description || 'Complete turnkey architectural interior design featuring German hardware, custom modular woodwork, ambient acoustic lighting, and Italian marble finishes.',
+          keyFeatures: [
+            'Century Club Prime BWP Marine Plywood (IS:710)',
+            'Hafele Soft-Close Silent Hardware & Organizers',
+            'Concealed Warm COB Architectural Lighting',
+            '10-Year Complete Replacement Warranty'
+          ]
+        };
+      });
     }
 
     // Default High-End Curated Projects
@@ -183,11 +235,7 @@ export default function InteriorMiniWebsiteView({
         duration: '45 Days Handover',
         budgetRange: '₹ 22 - 28 Lakhs',
         coverImage: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=80',
-        galleryImages: [
-          'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=80',
-          'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80',
-          'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80'
-        ],
+        galleryImages: roomGalleries.living,
         description: 'Bespoke living and dining transformation with natural fluted oak paneling, integrated acoustic false ceiling, and seamless micro-cement media wall.',
         keyFeatures: ['Natural European Oak Fluted Panels', 'Custom Floating Marble Console', 'Hafele Loox 12V Ambient Dimming', 'Zero VOC Asian Paints Royale Finish']
       },
@@ -201,10 +249,7 @@ export default function InteriorMiniWebsiteView({
         duration: '21 Days Handover',
         budgetRange: '₹ 7.5 - 11 Lakhs',
         coverImage: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1400&q=80',
-        galleryImages: [
-          'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1400&q=80',
-          'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=80'
-        ],
+        galleryImages: roomGalleries.kitchen,
         description: 'High-performance modular island kitchen featuring anti-scratch acrylic shutters, Blum Servo-Drive motorized lifts, and quartz waterfall countertop.',
         keyFeatures: ['BWP Boiling Waterproof Marine Ply', 'Blum Servo-Drive Electronic Lift-Up', 'Anti-Fingerprint Super Matte Acrylic', 'Integrated Cutlery & Pantry Pullouts']
       },
@@ -218,10 +263,7 @@ export default function InteriorMiniWebsiteView({
         duration: '28 Days Handover',
         budgetRange: '₹ 8.5 - 12 Lakhs',
         coverImage: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1400&q=80',
-        galleryImages: [
-          'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1400&q=80',
-          'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1200&q=80'
-        ],
+        galleryImages: roomGalleries.master,
         description: 'Opulent master bedroom with custom velvet upholstered headboard, tinted glass fluted wardrobe with motion-sensor lighting, and study nook.',
         keyFeatures: ['Tinted Toughened Glass Wardrobe Profiles', 'Sensor-Activated Warm Strip Lighting', 'Custom Headboard Wall Cushioning', 'Silent Soft-Close Sliding Track Systems']
       },
@@ -235,9 +277,7 @@ export default function InteriorMiniWebsiteView({
         duration: '35 Days Handover',
         budgetRange: '₹ 14 - 18 Lakhs',
         coverImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=80',
-        galleryImages: [
-          'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=80'
-        ],
+        galleryImages: roomGalleries.commercial,
         description: 'Modern executive office suite with acoustic wood slat ceilings, ergonomic collaborative workstations, and bespoke conference center.',
         keyFeatures: ['Acoustic NRC 0.8 Wood Slat Ceilings', 'Modular Cable-Managed Work Desks', 'Soundproof Double Glazed Partitions', 'Biophilic Indoor Planter Integration']
       }
@@ -956,12 +996,13 @@ END:VCARD`;
                       type="button"
                       onClick={() => {
                         setActiveProject(project);
+                        setActiveGalleryIndex(0);
                         setIsProjectModalOpen(true);
                       }}
                       className="px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md hover:bg-white text-stone-900 text-xs font-bold shadow-md flex items-center gap-1.5 transition active:scale-95 cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5 text-[#8C6D46]" />
-                      <span>View Gallery</span>
+                      <span>View Gallery ({project.galleryImages?.length || 1} Photos)</span>
                     </button>
                   </div>
                 </div>
@@ -1544,19 +1585,91 @@ END:VCARD`;
             className="w-full max-w-3xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-stone-200 relative animate-in zoom-in-95 max-h-[92vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative aspect-[16/9] bg-stone-100 shrink-0">
+            {/* Gallery Image Display Stage */}
+            <div className="relative aspect-[16/10] sm:aspect-[16/9] bg-stone-950 shrink-0 overflow-hidden select-none">
               <img
-                src={activeProject.coverImage}
-                alt={activeProject.title}
-                className="w-full h-full object-cover"
+                src={
+                  (activeProject.galleryImages && activeProject.galleryImages.length > 0)
+                    ? (activeProject.galleryImages[activeGalleryIndex] || activeProject.galleryImages[0])
+                    : activeProject.coverImage
+                }
+                alt={`${activeProject.title} - View ${activeGalleryIndex + 1}`}
+                className="w-full h-full object-cover transition-opacity duration-300"
               />
+
+              {/* Photo Counter Pill */}
+              <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-stone-950/75 backdrop-blur-md text-white text-xs font-bold flex items-center gap-2 border border-white/10 shadow-lg">
+                <Camera className="w-3.5 h-3.5 text-amber-400" />
+                <span>
+                  Photo {activeGalleryIndex + 1} of {activeProject.galleryImages?.length || 1}
+                </span>
+              </div>
+
+              {/* Close Button */}
               <button
                 onClick={() => setIsProjectModalOpen(false)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white transition cursor-pointer"
+                className="absolute top-4 right-4 p-2 rounded-full bg-stone-950/75 hover:bg-stone-950 text-white backdrop-blur-md border border-white/10 transition cursor-pointer shadow-lg active:scale-95"
+                aria-label="Close modal"
               >
                 <X className="w-4 h-4" />
               </button>
+
+              {/* Previous / Next Navigation Arrows */}
+              {activeProject.galleryImages && activeProject.galleryImages.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveGalleryIndex((prev) =>
+                        prev > 0 ? prev - 1 : activeProject.galleryImages.length - 1
+                      );
+                    }}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white backdrop-blur-md border border-white/15 transition-all shadow-xl hover:scale-110 active:scale-95 cursor-pointer z-10"
+                    aria-label="Previous photo"
+                  >
+                    <ChevronLeft className="w-5 h-5 text-white" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveGalleryIndex((prev) =>
+                        prev < activeProject.galleryImages.length - 1 ? prev + 1 : 0
+                      );
+                    }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white backdrop-blur-md border border-white/15 transition-all shadow-xl hover:scale-110 active:scale-95 cursor-pointer z-10"
+                    aria-label="Next photo"
+                  >
+                    <ChevronRight className="w-5 h-5 text-white" />
+                  </button>
+                </>
+              )}
             </div>
+
+            {/* Interactive Thumbnail Strip */}
+            {activeProject.galleryImages && activeProject.galleryImages.length > 1 && (
+              <div className="bg-stone-950 px-4 py-2.5 flex items-center gap-2.5 overflow-x-auto scrollbar-none shrink-0 border-b border-stone-800">
+                {activeProject.galleryImages.map((img, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setActiveGalleryIndex(idx)}
+                    className={`relative w-16 sm:w-20 aspect-[16/10] rounded-lg overflow-hidden shrink-0 transition-all duration-200 cursor-pointer border ${
+                      activeGalleryIndex === idx
+                        ? 'border-amber-400 ring-2 ring-amber-400/50 scale-105 opacity-100 shadow-md'
+                        : 'border-transparent opacity-50 hover:opacity-90 hover:scale-100'
+                    }`}
+                    aria-label={`View photo ${idx + 1}`}
+                  >
+                    <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                    {activeGalleryIndex === idx && (
+                      <span className="absolute inset-0 bg-amber-400/15 pointer-events-none" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
 
             <div className="p-6 sm:p-8 space-y-4 overflow-y-auto">
               <div className="flex flex-wrap items-center justify-between gap-2">
