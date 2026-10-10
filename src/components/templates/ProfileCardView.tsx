@@ -698,7 +698,41 @@ export default function ProfileCardView({
     profile.bio?.toLowerCase().includes('architect');
 
   const isWebsiteMode = !isMockup && viewMode === 'website';
-  const isRestaurantTemplate = profile.slug === 'food-restaurant' || profile.slug.includes('restaurant') || profile.slug.includes('food') || profile.slug.includes('brahmin') || profile.theme === 'brahmin-food';
+  const isRestaurantTemplate = 
+    profile.slug === 'food-restaurant' || 
+    profile.slug === 'restaurant-menu' ||
+    profile.slug?.includes('restaurant') || 
+    profile.slug?.includes('food') || 
+    profile.slug?.includes('brahmin') || 
+    profile.slug?.includes('dining') || 
+    profile.slug?.includes('cafe') || 
+    profile.slug?.includes('kitchen') || 
+    profile.slug?.includes('bistro') ||
+    profile.slug?.includes('menu') ||
+    profile.id === 'food-restaurant' ||
+    profile.id === 'restaurant-menu' ||
+    profile.id === 'food-home' ||
+    profile.id === 'brahmin-food' ||
+    profile.id?.startsWith('food-') ||
+    (profile as any).templateId === 'food-restaurant' ||
+    (profile as any).templateId === 'restaurant-menu' ||
+    (profile as any).templateId === 'food-home' ||
+    (profile as any).templateId === 'brahmin-food' ||
+    (profile as any).templateId?.startsWith('food-') ||
+    (profile as any).category === 'Food Business' ||
+    (profile as any).category === 'Restaurant' ||
+    (profile as any).category === 'Restaurants & Lounges' ||
+    (profile as any).category === 'Smart Dining & Digital Menus' ||
+    profile.company?.toLowerCase().includes('restaurant') ||
+    profile.company?.toLowerCase().includes('dining') ||
+    profile.company?.toLowerCase().includes('kitchen') ||
+    profile.company?.toLowerCase().includes('cafe') ||
+    profile.company?.toLowerCase().includes('bistro') ||
+    profile.company?.toLowerCase().includes('food') ||
+    profile.designation?.toLowerCase().includes('restaurant') ||
+    profile.designation?.toLowerCase().includes('chef') ||
+    profile.designation?.toLowerCase().includes('dining') ||
+    profile.theme === 'brahmin-food';
 
   return (
     <div className="w-full relative">
@@ -731,42 +765,42 @@ export default function ProfileCardView({
       )}
 
       {/* Main Experience: Either Restaurant Template / Real Estate / MBL Mini-Website OR Smartphone Card */}
-      {isWebsiteMode ? (
-        isRestaurantTemplate ? (
-          <RestaurantTemplateView
-            profile={profile}
-            cart={cart}
-            addToCart={addToCart}
-            updateQuantity={updateQuantity}
-            setIsCartOpen={setIsCartOpen}
-            selectedCurrency={selectedCurrency}
-            setSelectedCurrency={setSelectedCurrency}
-            formatPrice={formatPrice}
-            totalConvertedPrice={totalConvertedPrice}
-            setIsUPIModalOpen={setIsUPIModalOpen}
-            setBookingService={setBookingService}
-            setBookingSuccess={setBookingSuccess}
-            quoteServices={quoteServices}
-            toggleQuoteService={toggleQuoteService}
-            sendWhatsAppQuotation={sendWhatsAppQuotation}
-            leadName={leadName}
-            setLeadName={setLeadName}
-            leadEmail={leadEmail}
-            setLeadEmail={setLeadEmail}
-            leadPhone={leadPhone}
-            setLeadPhone={setLeadPhone}
-            leadMessage={leadMessage}
-            setLeadMessage={setLeadMessage}
-            handleLeadSubmit={handleLeadSubmit}
-            leadSuccess={leadSuccess}
-            trackAction={trackAction}
-            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-            getEmbedUrl={getEmbedUrl}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-            showViewToggle={showViewToggle}
-          />
-        ) : isRealEstate ? (
+      {isRestaurantTemplate ? (
+        <RestaurantTemplateView
+          profile={profile}
+          cart={cart}
+          addToCart={addToCart}
+          updateQuantity={updateQuantity}
+          setIsCartOpen={setIsCartOpen}
+          selectedCurrency={selectedCurrency}
+          setSelectedCurrency={setSelectedCurrency}
+          formatPrice={formatPrice}
+          totalConvertedPrice={totalConvertedPrice}
+          setIsUPIModalOpen={setIsUPIModalOpen}
+          setBookingService={setBookingService}
+          setBookingSuccess={setBookingSuccess}
+          quoteServices={quoteServices}
+          toggleQuoteService={toggleQuoteService}
+          sendWhatsAppQuotation={sendWhatsAppQuotation}
+          leadName={leadName}
+          setLeadName={setLeadName}
+          leadEmail={leadEmail}
+          setLeadEmail={setLeadEmail}
+          leadPhone={leadPhone}
+          setLeadPhone={setLeadPhone}
+          leadMessage={leadMessage}
+          setLeadMessage={setLeadMessage}
+          handleLeadSubmit={handleLeadSubmit}
+          leadSuccess={leadSuccess}
+          trackAction={trackAction}
+          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+          getEmbedUrl={getEmbedUrl}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          showViewToggle={showViewToggle}
+        />
+      ) : isWebsiteMode ? (
+        isRealEstate ? (
           <RealEstateMiniWebsiteView
             profile={profile}
             trackAction={trackAction}
