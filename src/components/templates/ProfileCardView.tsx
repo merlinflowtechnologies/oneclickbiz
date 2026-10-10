@@ -638,7 +638,13 @@ export default function ProfileCardView({
   const isInterior = 
     profile.slug === 'interior' ||
     profile.slug === 'architect' ||
+    profile.slug === 'home-interior' ||
+    profile.id === 'home-interior' ||
+    profile.id === 'interior' ||
+    (profile as any).templateId === 'home-interior' ||
+    (profile as any).templateId === 'interior' ||
     (profile as any).templateId === 'vcard36' ||
+    (profile as any).templateId === 'vcard38' ||
     (profile as any).templateId?.startsWith('interior-') ||
     profile.id?.startsWith('interior-') ||
     (profile as any).category === 'Interior Design' ||

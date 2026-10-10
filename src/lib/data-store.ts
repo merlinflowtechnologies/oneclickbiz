@@ -279,6 +279,9 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
   );
 
   const isTemplatePattern = matchedTemplate || 
+    cleanSlug === 'interior' ||
+    cleanSlug.startsWith('home-') ||
+    cleanSlug.startsWith('interior-') ||
     cleanSlug.startsWith('vcard') || 
     cleanSlug.startsWith('re-') || 
     cleanSlug.startsWith('fashion-') || 
@@ -295,7 +298,9 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     cleanSlug.startsWith('salon-');
 
   if (isTemplatePattern) {
-    const templateId = matchedTemplate?.id || (cleanSlug.startsWith('vcard') ? cleanSlug : 're-builders');
+    const templateId = matchedTemplate?.id || 
+      (cleanSlug === 'interior' || cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'home-interior' : 
+       cleanSlug.startsWith('vcard') ? cleanSlug : 're-builders');
     const tProf = getTemplateProfile(templateId);
     return {
       ...tProf,
