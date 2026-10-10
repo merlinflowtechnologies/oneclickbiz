@@ -584,7 +584,9 @@ export default function ProfileCardView({
   const hasTestimonials = Boolean((dynamicTestimonials || profile.sectionData?.testimonials?.items || []).length);
   const hasBlogs = Boolean(profile.sectionData?.blogs?.items?.length);
   const isRealEstate = 
+    profile.slug === 'venu' ||
     profile.slug === 'kishore' || 
+    (profile as any).templateId === 'vcard35' ||
     profile.id?.startsWith('re-') ||
     (profile as any).templateId?.startsWith('re-') ||
     (profile as any).category === 'Real Estate' ||
@@ -637,20 +639,20 @@ export default function ProfileCardView({
         </div>
       )}
 
-      {/* Main Experience: Industry Specific Mini-Website OR Smartphone Card */}
-      {isWebsiteMode ? (
-        isRealEstate ? (
-          <RealEstateMiniWebsiteView
-            profile={profile}
-            trackAction={trackAction}
-            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-            getEmbedUrl={getEmbedUrl}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-            showViewToggle={showViewToggle}
-          />
-        ) : (
-            <MBLMiniWebsiteView
+      {/* Main Experience: Industry Specific Real Estate Experience OR Mini-Website OR Standard Card */}
+      {isRealEstate ? (
+        <RealEstateMiniWebsiteView
+          profile={profile}
+          trackAction={trackAction}
+          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+          getEmbedUrl={getEmbedUrl}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          showViewToggle={showViewToggle}
+          isMockup={isMockup}
+        />
+      ) : isWebsiteMode ? (
+        <MBLMiniWebsiteView
               profile={profile}
               cart={cart}
               addToCart={addToCart}
@@ -685,7 +687,6 @@ export default function ProfileCardView({
               setIsReviewModalOpen={setIsReviewModalOpen}
               dynamicTestimonials={dynamicTestimonials || undefined}
             />
-        )
       ) : (
         <div className={`w-full max-w-md ${isMockup ? 'rounded-[36px]' : 'sm:rounded-[44px] sm:border-4 sm:border-slate-800 sm:p-1.5 sm:bg-slate-900'} mx-auto ${theme.bg} min-h-screen relative font-sans transition-all duration-300 pb-24 shadow-2xl overflow-hidden`}>
           {/* Top Cover Image */}

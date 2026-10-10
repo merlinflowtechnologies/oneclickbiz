@@ -79,6 +79,7 @@ interface RealEstateMiniWebsiteViewProps {
   viewMode?: 'mobile' | 'website';
   setViewMode?: (m: 'mobile' | 'website') => void;
   showViewToggle?: boolean;
+  isMockup?: boolean;
 }
 
 export interface RealEstateProject {
@@ -117,7 +118,8 @@ export default function RealEstateMiniWebsiteView({
   getEmbedUrl,
   viewMode = 'website',
   setViewMode,
-  showViewToggle = false
+  showViewToggle = false,
+  isMockup = false
 }: RealEstateMiniWebsiteViewProps) {
   // Extract user's location & city
   const userCity = useMemo(() => {
@@ -1244,13 +1246,13 @@ export default function RealEstateMiniWebsiteView({
           <div className="absolute bottom-0 left-10 w-[500px] h-[400px] bg-emerald-500/10 rounded-full blur-3xl" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-5xl mx-auto space-y-6">
+        <div className={`max-w-7xl mx-auto ${isMockup ? 'px-2' : 'px-4 sm:px-6 lg:px-8'} relative z-10`}>
+          <div className={`text-center max-w-5xl mx-auto ${isMockup ? 'space-y-3.5' : 'space-y-4 sm:space-y-6'}`}>
             
-            {/* Developer / Business Avatar Logo (Matching Reference Design) */}
+            {/* Developer / Business Avatar Logo */}
             <div className="flex justify-center pt-2">
               {profile.avatarUrl ? (
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl overflow-hidden bg-white flex items-center justify-center p-1">
+                <div className={`${isMockup ? 'w-16 h-16' : 'w-16 h-16 sm:w-24 sm:h-24'} rounded-full border-4 border-white shadow-xl overflow-hidden bg-white flex items-center justify-center p-1`}>
                   <img 
                     src={profile.avatarUrl} 
                     alt={profile.company || profile.name} 
@@ -1258,20 +1260,20 @@ export default function RealEstateMiniWebsiteView({
                   />
                 </div>
               ) : (
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl bg-gradient-to-tr from-[#005DAA] to-sky-500 text-white flex items-center justify-center font-black text-2xl tracking-wider">
+                <div className={`${isMockup ? 'w-16 h-16 text-lg' : 'w-16 h-16 sm:w-24 sm:h-24 text-xl sm:text-2xl'} rounded-full border-4 border-white shadow-xl bg-gradient-to-tr from-[#005DAA] to-sky-500 text-white flex items-center justify-center font-black tracking-wider`}>
                   {(profile.company || profile.name || 'SK').slice(0, 2).toUpperCase()}
                 </div>
               )}
             </div>
 
             {/* Top Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#005DAA]/30 text-[#005DAA] text-xs font-bold shadow-xs">
-              <Award className="w-4 h-4 text-[#005DAA]" />
-              <span>TS-RERA Regd. Developer • 18+ Years Legal Track Record</span>
+            <div className={`inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white border border-[#005DAA]/30 text-[#005DAA] ${isMockup ? 'text-[10px]' : 'text-[11px] sm:text-xs'} font-bold shadow-xs`}>
+              <Award className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
+              <span className="truncate">TS-RERA Regd. Developer • 18+ Years Legal Track Record</span>
             </div>
 
             {/* Main Headline */}
-            <h2 className="font-sans text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+            <h2 className={`font-sans ${isMockup ? 'text-2xl' : 'text-2xl sm:text-4xl lg:text-5xl xl:text-6xl'} font-extrabold text-slate-900 tracking-tight leading-[1.15]`}>
               Building Generational Wealth Through{' '}
               <span className="text-[#005DAA] block sm:inline font-extrabold">
                 Prime Real Estate.
@@ -1279,17 +1281,17 @@ export default function RealEstateMiniWebsiteView({
             </h2>
 
             {/* Sub-headline */}
-            <p className="font-sans text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            <p className={`font-sans ${isMockup ? 'text-xs' : 'text-xs sm:text-base lg:text-lg'} text-slate-600 max-w-3xl mx-auto leading-relaxed px-1`}>
               {profile.company || profile.name || 'Premier Developers'} presenting{' '}
               <strong className="text-slate-900 font-bold">{userProjects[0]?.title || 'Signature Real Estate Portfolio'}</strong> —{' '}
               <strong className="text-slate-900 font-bold">{userProjects[0]?.propertyType || 'Luxury Residences & Plots'}</strong> in {userProjects[0]?.location || profile.address || userCity} with 100% verified approvals, world-class amenities, and high capital appreciation.
             </p>
 
-            {/* Location Address Strip (Matching Reference Design) */}
+            {/* Location Address Strip */}
             <div className="flex justify-center">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 text-xs sm:text-sm font-semibold shadow-xs">
-                <MapPin className="w-4 h-4 text-[#005DAA]" />
-                <span>{profile.address || `${userCity} Growth Corridor, Telangana`}</span>
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 ${isMockup ? 'text-[11px]' : 'text-xs sm:text-sm'} font-semibold shadow-xs`}>
+                <MapPin className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
+                <span className="truncate">{profile.address || `${userCity} Growth Corridor, Telangana`}</span>
               </div>
             </div>
 
