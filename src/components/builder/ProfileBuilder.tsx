@@ -316,6 +316,13 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
   const avatarFileInputRef = useRef<HTMLInputElement | null>(null);
   const logoFileInputRef = useRef<HTMLInputElement | null>(null);
   const coverFileInputRef = useRef<HTMLInputElement | null>(null);
+  const tabsRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollTabs = (direction: 'left' | 'right') => {
+    if (tabsRef.current) {
+      tabsRef.current.scrollBy({ left: direction === 'left' ? -220 : 220, behavior: 'smooth' });
+    }
+  };
 
   // Visual Branding Customizer State
   const [showAvatarPresets, setShowAvatarPresets] = useState(false);
@@ -976,90 +983,14 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 flex-wrap sm:flex-nowrap shrink-0 overflow-x-auto scrollbar-none py-0.5">
-            {/* Toggle Preview button for laptop screen flexibility */}
-            <button
-              type="button"
-              onClick={() => setShowPreview(!showPreview)}
-              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 cursor-pointer shadow-xs shrink-0"
-              title={showPreview ? 'Hide phone mockup to maximize editor screen' : 'Show live phone mockup preview'}
-            >
-              {showPreview ? (
-                <>
-                  <PanelRightClose className="w-3.5 h-3.5 text-indigo-400" />
-                  <span className="hidden xl:inline">Hide Preview</span>
-                </>
-              ) : (
-                <>
-                  <PanelRightOpen className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>Show Mockup</span>
-                </>
-              )}
-            </button>
-
-            <button
-              onClick={handleOpenAddCardModal}
-              className="px-2.5 sm:px-3 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-indigo-500/20 active:scale-95 transition shrink-0"
-              title={`Add New Card (${userCards.length}/${MAX_CARDS})`}
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Add Card</span>
-              <span className="text-[10px] opacity-80">({userCards.length}/{MAX_CARDS})</span>
-            </button>
-
-            <button 
-              onClick={() => setIsShareModalOpen(true)}
-              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 shrink-0"
-              title="Share profile link"
-            >
-              <Share2 className="w-3.5 h-3.5 text-purple-400" />
-              <span className="hidden lg:inline">Share</span>
-            </button>
-
-            <button 
-              type="button"
-              onClick={() => setStudioWebsitePreviewOpen(true)}
-              className="px-2.5 sm:px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition-all border border-indigo-500/40 shadow-sm active:scale-95 cursor-pointer shrink-0"
-              title="Preview authentic desktop mini-website"
-            >
-              <Monitor className="w-3.5 h-3.5 text-indigo-400" />
-              <span className="hidden md:inline">Mini-Website</span>
-            </button>
-
-            <a 
-              href={`/v/${profile.slug}`} 
-              target="_blank"
-              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 shrink-0"
-              title={`Open live card: /v/${profile.slug}`}
-            >
-              <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="hidden md:inline">Live Card</span>
-            </a>
-
-            <button
-              type="button"
-              onClick={() => setIsStudioQrModalOpen(true)}
-              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 cursor-pointer shrink-0"
-              title="Test & scan live website QR code"
-            >
-              <QrCode className="w-3.5 h-3.5 text-indigo-400" />
-              <span className="hidden xl:inline">QR</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => downloadVcfFile(profile)}
-              className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white transition-all border border-slate-700 cursor-pointer shrink-0"
-              title="Download vCard contact file (.vcf)"
-            >
-              <Download className="w-3.5 h-3.5 text-emerald-400" />
-              <span>vCard</span>
-            </button>
-
+          {/* Top Action Buttons Group */}
+          <div className="flex items-center gap-1.5 shrink-0 ml-auto py-0.5">
+            {/* Primary Action: Save & Publish (Never truncated, high contrast) */}
             <button 
               onClick={handleSave}
               disabled={isSaving}
-              className="px-3 sm:px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-75 text-xs font-semibold text-white flex items-center gap-1.5 shadow-lg transition-all active:scale-95 cursor-pointer shrink-0"
+              className="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-75 text-xs font-bold text-white flex items-center gap-1.5 shadow-lg shadow-indigo-600/30 transition-all active:scale-95 cursor-pointer shrink-0 whitespace-nowrap min-w-fit"
+              title="Save all changes and publish digital profile"
             >
               {isSaving ? (
                 <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -1070,143 +1001,246 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               )}
               <span>{isSaving ? 'Saving...' : isSaved ? 'Saved!' : 'Save & Publish'}</span>
             </button>
+
+            {/* Toggle Preview Mockup */}
+            <button
+              type="button"
+              onClick={() => setShowPreview(!showPreview)}
+              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 cursor-pointer shadow-xs shrink-0 whitespace-nowrap"
+              title={showPreview ? 'Hide phone preview to maximize editor space' : 'Show live phone mockup preview'}
+            >
+              {showPreview ? (
+                <>
+                  <PanelRightClose className="w-3.5 h-3.5 text-indigo-400" />
+                  <span className="hidden sm:inline">Hide Mockup</span>
+                </>
+              ) : (
+                <>
+                  <PanelRightOpen className="w-3.5 h-3.5 text-indigo-400" />
+                  <span>Show Mockup</span>
+                </>
+              )}
+            </button>
+
+            {/* Desktop Mini-Website Preview */}
+            <button 
+              type="button"
+              onClick={() => setStudioWebsitePreviewOpen(true)}
+              className="px-2.5 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition-all border border-indigo-500/40 shadow-sm active:scale-95 cursor-pointer shrink-0 whitespace-nowrap"
+              title="Preview full desktop website"
+            >
+              <Monitor className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="hidden md:inline">Mini-Website</span>
+            </button>
+
+            {/* Add Card Button */}
+            <button
+              onClick={handleOpenAddCardModal}
+              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs flex items-center gap-1.5 border border-slate-700 active:scale-95 transition shrink-0 whitespace-nowrap"
+              title={`Add New Card (${userCards.length}/${MAX_CARDS})`}
+            >
+              <Plus className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="hidden sm:inline">Add Card</span>
+              <span className="text-[10px] text-slate-400">({userCards.length}/{MAX_CARDS})</span>
+            </button>
+
+            {/* Quick Actions Toolbar with compact icons on laptop viewports */}
+            <div className="flex items-center gap-0.5 bg-slate-800/80 p-0.5 rounded-lg border border-slate-700/80 shrink-0">
+              <button 
+                onClick={() => setIsShareModalOpen(true)}
+                className="p-1.5 rounded-md hover:bg-slate-700 text-slate-300 hover:text-white transition cursor-pointer"
+                title="Share digital profile link"
+              >
+                <Share2 className="w-3.5 h-3.5 text-purple-400" />
+              </button>
+
+              <a 
+                href={`/v/${profile.slug}`} 
+                target="_blank"
+                className="p-1.5 rounded-md hover:bg-slate-700 text-slate-300 hover:text-white transition"
+                title={`Open live card: /v/${profile.slug}`}
+              >
+                <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setIsStudioQrModalOpen(true)}
+                className="p-1.5 rounded-md hover:bg-slate-700 text-slate-300 hover:text-white transition cursor-pointer"
+                title="Scan QR Code"
+              >
+                <QrCode className="w-3.5 h-3.5 text-indigo-400" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => downloadVcfFile(profile)}
+                className="p-1.5 rounded-md hover:bg-slate-700 text-slate-300 hover:text-white transition cursor-pointer"
+                title="Download vCard (.vcf)"
+              >
+                <Download className="w-3.5 h-3.5 text-emerald-400" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Category Tabs with horizontal scroll on laptops */}
-        <div className="flex items-center overflow-x-auto px-3 sm:px-4 py-2 border-b border-slate-800 bg-slate-950/40 gap-1.5 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent shrink-0">
+        {/* Category Tabs with smooth Left/Right scroll buttons */}
+        <div className="relative flex items-center border-b border-slate-800 bg-slate-950/60 shrink-0 px-1">
           <button 
-            onClick={() => setActiveTab('cards')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
-              activeTab === 'cards' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
+            type="button"
+            onClick={() => scrollTabs('left')}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition shrink-0 z-10 cursor-pointer"
+            title="Scroll tabs left"
           >
-            <CreditCard className="w-3.5 h-3.5" /> My Cards ({userCards.length})
+            <ChevronLeft className="w-4 h-4" />
           </button>
-          <button 
-            onClick={() => setActiveTab('info')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
-              activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
+          
+          <div 
+            ref={tabsRef}
+            className="flex items-center overflow-x-auto py-2 px-1 gap-1.5 scrollbar-none scroll-smooth shrink w-full"
           >
-            <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer & RERA Info' : isInterior ? 'Architect & Studio Info' : 'Basic Info'}
-          </button>
+            <button 
+              onClick={() => setActiveTab('cards')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'cards' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <CreditCard className="w-3.5 h-3.5" /> My Cards ({userCards.length})
+            </button>
+            <button 
+              onClick={() => setActiveTab('info')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : 'Basic Info'}
+            </button>
+            <button 
+              onClick={() => setActiveTab('products')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'products' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              {isRealEstate ? (
+                <>
+                  <Building2 className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Projects &amp; Layouts ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isInterior ? (
+                <>
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Spaces &amp; Projects ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingBag className="w-3.5 h-3.5 text-pink-400" />
+                  <span>WhatsApp Store</span>
+                </>
+              )}
+            </button>
+            <button 
+              onClick={() => setActiveTab('services')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'services' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              {isRealEstate ? (
+                <>
+                  <Calendar className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Site Visits &amp; Advisory</span>
+                </>
+              ) : isInterior ? (
+                <>
+                  <Compass className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Consultation &amp; Packages</span>
+                </>
+              ) : (
+                <>
+                  <Briefcase className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Services &amp; Packages</span>
+                </>
+              )}
+            </button>
+            <button 
+              onClick={() => setActiveTab('gallery')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'gallery' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              {isRealEstate ? (
+                <>
+                  <Layers className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Blueprints &amp; Photos</span>
+                </>
+              ) : isInterior ? (
+                <>
+                  <Layers className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Lookbooks &amp; 3D</span>
+                </>
+              ) : (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Portfolio Gallery</span>
+                </>
+              )}
+            </button>
+            <button 
+              onClick={() => setActiveTab('videos')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'videos' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Film className="w-3.5 h-3.5 text-rose-400" /> {isRealEstate ? 'Drone & Walkthroughs' : isInterior ? '3D Tours & Reels' : 'Videos & Reels'}
+            </button>
+            <button 
+              onClick={() => setActiveTab('socials')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'socials' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Share2 className="w-3.5 h-3.5 text-purple-400" /> {isInterior ? 'Desk & Socials' : 'Channels & Socials'}
+            </button>
+            <button 
+              onClick={() => setActiveTab('templates')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'templates' ? 'bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-md' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Templates ({VCARD_TEMPLATES_CATALOG.length})
+            </button>
+            <button 
+              onClick={() => setActiveTab('theme')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'theme' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Palette className="w-3.5 h-3.5" /> Themes &amp; Style
+            </button>
+            <button 
+              onClick={() => setActiveTab('sections')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'sections' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" /> Section Order
+            </button>
+            <button 
+              onClick={() => setActiveTab('blogs')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'blogs' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <BookOpen className="w-3.5 h-3.5" /> Articles &amp; Insights
+            </button>
+          </div>
+
           <button 
-            onClick={() => setActiveTab('products')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
-              activeTab === 'products' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
+            type="button"
+            onClick={() => scrollTabs('right')}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition shrink-0 z-10 cursor-pointer"
+            title="Scroll tabs right"
           >
-            {isRealEstate ? (
-              <>
-                <Building2 className="w-3.5 h-3.5 text-amber-400" />
-                <span>Projects &amp; Layouts ({profile.sectionData?.products?.items?.length || 0})</span>
-              </>
-            ) : isInterior ? (
-              <>
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span>Spaces &amp; Projects ({profile.sectionData?.products?.items?.length || 0})</span>
-              </>
-            ) : (
-              <>
-                <ShoppingBag className="w-3.5 h-3.5 text-pink-400" />
-                <span>WhatsApp Store</span>
-              </>
-            )}
-          </button>
-          <button 
-            onClick={() => setActiveTab('services')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
-              activeTab === 'services' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            {isRealEstate ? (
-              <>
-                <Calendar className="w-3.5 h-3.5 text-sky-400" />
-                <span>Site Visits &amp; Advisory</span>
-              </>
-            ) : isInterior ? (
-              <>
-                <Compass className="w-3.5 h-3.5 text-amber-400" />
-                <span>Consultation &amp; Packages</span>
-              </>
-            ) : (
-              <>
-                <Briefcase className="w-3.5 h-3.5 text-blue-400" />
-                <span>Services &amp; Packages</span>
-              </>
-            )}
-          </button>
-          <button 
-            onClick={() => setActiveTab('gallery')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
-              activeTab === 'gallery' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            {isRealEstate ? (
-              <>
-                <Layers className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Blueprints &amp; Photos</span>
-              </>
-            ) : isInterior ? (
-              <>
-                <Layers className="w-3.5 h-3.5 text-amber-400" />
-                <span>3D Lookbooks &amp; Photos</span>
-              </>
-            ) : (
-              <>
-                <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Portfolio Gallery</span>
-              </>
-            )}
-          </button>
-          <button 
-            onClick={() => setActiveTab('videos')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
-              activeTab === 'videos' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Film className="w-3.5 h-3.5 text-rose-400" /> {isRealEstate ? 'Drone & Walkthroughs' : isInterior ? '3D Tours & Reels' : 'Videos & Reels'}
-          </button>
-          <button 
-            onClick={() => setActiveTab('socials')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
-              activeTab === 'socials' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Share2 className="w-3.5 h-3.5 text-purple-400" /> Channels &amp; Office Desk
-          </button>
-          <button 
-            onClick={() => setActiveTab('templates')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
-              activeTab === 'templates' ? 'bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-md' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Templates ({VCARD_TEMPLATES_CATALOG.length})
-          </button>
-          <button 
-            onClick={() => setActiveTab('theme')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
-              activeTab === 'theme' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Palette className="w-3.5 h-3.5" /> Themes &amp; Style
-          </button>
-          <button 
-            onClick={() => setActiveTab('sections')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
-              activeTab === 'sections' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Layers className="w-3.5 h-3.5" /> Section Order
-          </button>
-          <button 
-            onClick={() => setActiveTab('blogs')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
-              activeTab === 'blogs' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <BookOpen className="w-3.5 h-3.5" /> Articles &amp; Insights
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
 
@@ -5102,12 +5136,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
       {/* Right Real-Time Mobile Device Mockup View */}
       {showPreview && (
-        <div className="w-full md:w-[320px] lg:w-[350px] xl:w-[390px] 2xl:w-[420px] p-2.5 sm:p-3 md:p-4 bg-slate-950 flex flex-col items-center justify-start h-full min-h-0 overflow-y-auto scrollbar-none shrink-0 border-t md:border-t-0 md:border-l border-slate-800 animate-in fade-in duration-200">
-          <div className="flex items-center justify-between w-full max-w-[310px] sm:max-w-[330px] xl:max-w-[365px] mb-2 px-1 shrink-0">
+        <div className="w-full md:w-[290px] lg:w-[320px] xl:w-[350px] 2xl:w-[390px] p-2 sm:p-2.5 md:p-3 bg-slate-950 flex flex-col items-center justify-start h-full min-h-0 overflow-y-auto scrollbar-none shrink-0 border-t md:border-t-0 md:border-l border-slate-800 animate-in fade-in duration-200">
+          <div className="flex items-center justify-between w-full max-w-[280px] sm:max-w-[300px] xl:max-w-[330px] mb-1.5 px-1 shrink-0">
             <div className="flex items-center gap-1.5">
               <Smartphone className="w-3.5 h-3.5 text-indigo-400" />
               <span className="text-xs font-semibold text-slate-300">
-                Live Preview
+                Live Card
               </span>
             </div>
 
@@ -5115,16 +5149,16 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               <button
                 type="button"
                 onClick={() => setStudioWebsitePreviewOpen(true)}
-                className="px-2.5 py-1 rounded-xl text-[11px] font-bold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center gap-1.5 transition active:scale-95 cursor-pointer shadow-xs"
+                className="px-2 py-0.5 rounded-lg text-[11px] font-bold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center gap-1 transition active:scale-95 cursor-pointer shadow-xs"
                 title="Open Fullscreen Desktop Website Preview"
               >
-                <Monitor className="w-3.5 h-3.5 text-indigo-400" />
+                <Monitor className="w-3 h-3 text-indigo-400" />
                 <span>Full Website</span>
               </button>
               <button
                 type="button"
                 onClick={() => setShowPreview(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+                className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
                 title="Collapse preview panel for full editor width"
               >
                 <PanelRightClose className="w-3.5 h-3.5" />
@@ -5133,16 +5167,16 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           </div>
 
           {/* Device Frame with responsive scaling for laptop displays */}
-          <div className="w-full max-w-[310px] sm:max-w-[320px] lg:max-w-[340px] xl:max-w-[365px] rounded-[38px] p-2 sm:p-2.5 bg-slate-900 border-4 border-slate-700 shadow-2xl ring-1 ring-white/10 relative shrink-0 transition-transform origin-top scale-[0.88] sm:scale-95 lg:scale-100 my-auto">
+          <div className="w-full max-w-[280px] sm:max-w-[295px] lg:max-w-[315px] xl:max-w-[335px] rounded-[36px] p-2 bg-slate-900 border-4 border-slate-700 shadow-2xl ring-1 ring-white/10 relative shrink-0 transition-transform origin-top scale-[0.84] sm:scale-[0.88] md:scale-[0.90] lg:scale-[0.95] xl:scale-100 my-auto">
             
             {/* Top Speaker / Camera Notch */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 w-20 h-3 bg-slate-950 rounded-full z-30 flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-slate-900 mr-2" />
-              <div className="w-6 h-1 rounded-full bg-slate-900" />
+            <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-16 h-2.5 bg-slate-950 rounded-full z-30 flex items-center justify-center">
+              <div className="w-1.5 h-1.5 rounded-full bg-slate-900 mr-1.5" />
+              <div className="w-5 h-1 rounded-full bg-slate-900" />
             </div>
 
             {/* Screen Content */}
-            <div className="rounded-[30px] overflow-hidden bg-slate-950 h-[460px] sm:h-[500px] md:h-[calc(100vh-210px)] max-h-[580px] min-h-[380px] overflow-y-auto scrollbar-none border border-slate-800">
+            <div className="rounded-[28px] overflow-hidden bg-slate-950 h-[440px] sm:h-[480px] md:h-[calc(100vh-230px)] max-h-[550px] min-h-[350px] overflow-y-auto scrollbar-none border border-slate-800">
               <ProfileCardView 
                 profile={profile} 
                 isMockup={true} 
