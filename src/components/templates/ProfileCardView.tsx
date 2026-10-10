@@ -43,6 +43,7 @@ import ShareCardModal from '@/components/common/ShareCardModal';
 import PWAInstallPrompt from '@/components/common/PWAInstallPrompt';
 import DirectUPIPaymentModal from '@/components/common/DirectUPIPaymentModal';
 import MBLMiniWebsiteView from './MBLMiniWebsiteView';
+import RealEstateMiniWebsiteView from './RealEstateMiniWebsiteView';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -616,43 +617,83 @@ export default function ProfileCardView({
         </div>
       )}
 
-      {/* Main Experience: Either MBL Digital Academy Mini-Website OR Smartphone Card */}
+      {/* Main Experience: Industry Specific Mini-Website OR Smartphone Card */}
       {isWebsiteMode ? (
-        <MBLMiniWebsiteView
-          profile={profile}
-          cart={cart}
-          addToCart={addToCart}
-          updateQuantity={updateQuantity}
-          setIsCartOpen={setIsCartOpen}
-          selectedCurrency={selectedCurrency}
-          setSelectedCurrency={setSelectedCurrency}
-          formatPrice={formatPrice}
-          totalConvertedPrice={totalConvertedPrice}
-          setIsUPIModalOpen={setIsUPIModalOpen}
-          setBookingService={setBookingService}
-          setBookingSuccess={setBookingSuccess}
-          quoteServices={quoteServices}
-          toggleQuoteService={toggleQuoteService}
-          sendWhatsAppQuotation={sendWhatsAppQuotation}
-          leadName={leadName}
-          setLeadName={setLeadName}
-          leadEmail={leadEmail}
-          setLeadEmail={setLeadEmail}
-          leadPhone={leadPhone}
-          setLeadPhone={setLeadPhone}
-          leadMessage={leadMessage}
-          setLeadMessage={setLeadMessage}
-          handleLeadSubmit={handleLeadSubmit}
-          leadSuccess={leadSuccess}
-          trackAction={trackAction}
-          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-          getEmbedUrl={getEmbedUrl}
-          viewMode={viewMode}
-          setViewMode={setViewMode}
-          showViewToggle={showViewToggle}
-          setIsReviewModalOpen={setIsReviewModalOpen}
-          dynamicTestimonials={dynamicTestimonials || undefined}
-        />
+        (() => {
+          const isRealEstate = 
+            profile.slug === 'kishore' || 
+            profile.id?.startsWith('re-') ||
+            (profile as any).templateId?.startsWith('re-') ||
+            (profile as any).category === 'Real Estate' ||
+            profile.company?.toLowerCase().includes('reality') ||
+            profile.company?.toLowerCase().includes('estate') ||
+            profile.company?.toLowerCase().includes('realty') ||
+            profile.company?.toLowerCase().includes('builder') ||
+            profile.company?.toLowerCase().includes('infra') ||
+            profile.company?.toLowerCase().includes('properties') ||
+            profile.designation?.toLowerCase().includes('real estate') ||
+            profile.designation?.toLowerCase().includes('realtor') ||
+            profile.designation?.toLowerCase().includes('broker') ||
+            profile.bio?.toLowerCase().includes('real estate') ||
+            profile.bio?.toLowerCase().includes('properties') ||
+            profile.id === 're-agents' ||
+            profile.id === 're-builders' ||
+            profile.id === 're-plots' ||
+            profile.id === 're-villas' ||
+            profile.id === 're-consultants';
+
+          if (isRealEstate) {
+            return (
+              <RealEstateMiniWebsiteView
+                profile={profile}
+                trackAction={trackAction}
+                getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+                getEmbedUrl={getEmbedUrl}
+                viewMode={viewMode}
+                setViewMode={setViewMode}
+                showViewToggle={showViewToggle}
+              />
+            );
+          }
+
+          return (
+            <MBLMiniWebsiteView
+              profile={profile}
+              cart={cart}
+              addToCart={addToCart}
+              updateQuantity={updateQuantity}
+              setIsCartOpen={setIsCartOpen}
+              selectedCurrency={selectedCurrency}
+              setSelectedCurrency={setSelectedCurrency}
+              formatPrice={formatPrice}
+              totalConvertedPrice={totalConvertedPrice}
+              setIsUPIModalOpen={setIsUPIModalOpen}
+              setBookingService={setBookingService}
+              setBookingSuccess={setBookingSuccess}
+              quoteServices={quoteServices}
+              toggleQuoteService={toggleQuoteService}
+              sendWhatsAppQuotation={sendWhatsAppQuotation}
+              leadName={leadName}
+              setLeadName={setLeadName}
+              leadEmail={leadEmail}
+              setLeadEmail={setLeadEmail}
+              leadPhone={leadPhone}
+              setLeadPhone={setLeadPhone}
+              leadMessage={leadMessage}
+              setLeadMessage={setLeadMessage}
+              handleLeadSubmit={handleLeadSubmit}
+              leadSuccess={leadSuccess}
+              trackAction={trackAction}
+              getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+              getEmbedUrl={getEmbedUrl}
+              viewMode={viewMode}
+              setViewMode={setViewMode}
+              showViewToggle={showViewToggle}
+              setIsReviewModalOpen={setIsReviewModalOpen}
+              dynamicTestimonials={dynamicTestimonials || undefined}
+            />
+          );
+        })()
       ) : (
         <div className={`w-full max-w-md ${isMockup ? 'rounded-[36px]' : 'sm:rounded-[44px] sm:border-4 sm:border-slate-800 sm:p-1.5 sm:bg-slate-900'} mx-auto ${theme.bg} min-h-screen relative font-sans transition-all duration-300 pb-24 shadow-2xl overflow-hidden`}>
           {/* Top Cover Image */}

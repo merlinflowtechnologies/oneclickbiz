@@ -213,3 +213,26 @@ body {
 .prose-blog tr:nth-child(even) td {
   background: #f8fafc;
 }
+
+/* ── Real Estate Template (Nest Infra Palette) ────────────────────────── */
+.bg-nest-blue { background-color: #005DAA !important; }
+.bg-nest-dark { background-color: #004580 !important; }
+.bg-nest-light { background-color: #EBF4FA !important; }
+.text-nest-blue { color: #005DAA !important; }
+.text-nest-dark { color: #004580 !important; }
+.border-nest-blue { border-color: #005DAA !important; }
+.border-nest-dark { border-color: #004580 !important; }
+.btn-nest-primary {
+  background-color: #005DAA !important;
+  color: #ffffff !important;
+}
+.btn-nest-primary:hover {
+  background-color: #004580 !important;
+}
+.btn-nest-whatsapp {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+}
+.btn-nest-whatsapp:hover {
+  background-color: #047857 !important;
+}

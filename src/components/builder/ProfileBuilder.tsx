@@ -42,12 +42,18 @@ import {
   Copy,
   QrCode,
   Camera,
-  RefreshCw,
   Sliders,
-  CheckCircle2
+  CheckCircle2,
+  Building2,
+  MapPin,
+  Calendar,
+  ShieldCheck,
+  FileText,
+  Award,
+  Compass
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { DigitalProfile, ThemeType, SectionType, VideoItem, GalleryItem, BlogPostItem } from '@/lib/types';
+import { DigitalProfile, ThemeType, SectionType, VideoItem, GalleryItem, BlogPostItem, ProductItem, ServiceItem } from '@/lib/types';
 import { VCARD_TEMPLATES_CATALOG, VCardTemplateItem } from '@/data/vcardTemplates';
 import { getTemplateProfile } from '@/data/templatePresets';
 import { getProfileBySlug } from '@/lib/data-store';
@@ -214,6 +220,22 @@ interface ProfileBuilderProps {
 export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilderProps) {
   const router = useRouter();
   const [profile, setProfile] = useState<DigitalProfile>(initialProfile);
+  const isRealEstate = Boolean(
+    profile.templateId?.startsWith('re-') || 
+    profile.id?.startsWith('re-') || 
+    profile.slug?.startsWith('re-') ||
+    profile.category === 'Real Estate' ||
+    profile.templateId === 're-builders' ||
+    profile.templateId === 're-plots' ||
+    profile.templateId === 're-agents' ||
+    profile.templateId === 're-villas' ||
+    profile.templateId === 're-consultants' ||
+    profile.templateId === 'vcard35' ||
+    profile.designation?.toLowerCase().includes('realtor') ||
+    profile.designation?.toLowerCase().includes('builder') ||
+    profile.designation?.toLowerCase().includes('broker') ||
+    profile.bio?.toLowerCase().includes('real estate')
+  );
   const [activeTab, setActiveTab] = useState<'cards' | 'info' | 'templates' | 'theme' | 'sections' | 'services' | 'products' | 'videos' | 'blogs' | 'gallery' | 'socials'>('info');
   const [isSaved, setIsSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -664,6 +686,8 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
       setProfile(prev => ({
         ...prev,
         theme: preset.theme,
+        templateId: templateId,
+        category: templateMeta?.category || (preset as any).category,
         avatarUrl: preset.avatarUrl,
         coverUrl: preset.coverUrl
       }));
@@ -977,7 +1001,69 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <User className="w-3.5 h-3.5" /> Basic Info
+            <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer & RERA Info' : 'Basic Info'}
+          </button>
+          <button 
+            onClick={() => setActiveTab('products')}
+            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+              activeTab === 'products' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            {isRealEstate ? (
+              <>
+                <Building2 className="w-3.5 h-3.5 text-amber-400" />
+                <span>Projects &amp; Layouts ({profile.sectionData?.products?.items?.length || 0})</span>
+              </>
+            ) : (
+              <>
+                <ShoppingBag className="w-3.5 h-3.5 text-pink-400" />
+                <span>WhatsApp Store</span>
+              </>
+            )}
+          </button>
+          <button 
+            onClick={() => setActiveTab('services')}
+            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+              activeTab === 'services' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            {isRealEstate ? (
+              <>
+                <Calendar className="w-3.5 h-3.5 text-sky-400" />
+                <span>Site Visits &amp; Advisory</span>
+              </>
+            ) : (
+              <>
+                <Briefcase className="w-3.5 h-3.5 text-blue-400" />
+                <span>Services &amp; Packages</span>
+              </>
+            )}
+          </button>
+          <button 
+            onClick={() => setActiveTab('gallery')}
+            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+              activeTab === 'gallery' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            {isRealEstate ? (
+              <>
+                <Layers className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Blueprints &amp; Photos</span>
+              </>
+            ) : (
+              <>
+                <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Portfolio Gallery</span>
+              </>
+            )}
+          </button>
+          <button 
+            onClick={() => setActiveTab('videos')}
+            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+              activeTab === 'videos' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            <Film className="w-3.5 h-3.5 text-rose-400" /> {isRealEstate ? 'Drone & Walkthroughs' : 'Videos & Reels'}
           </button>
           <button 
             onClick={() => setActiveTab('socials')}
@@ -985,7 +1071,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               activeTab === 'socials' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <Share2 className="w-3.5 h-3.5 text-purple-400" /> Social Channels ({profile.sectionData?.socials?.items?.length || 0})
+            <Share2 className="w-3.5 h-3.5 text-purple-400" /> Channels &amp; Office Desk
           </button>
           <button 
             onClick={() => setActiveTab('templates')}
@@ -1001,7 +1087,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               activeTab === 'theme' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <Palette className="w-3.5 h-3.5" /> Themes & Style
+            <Palette className="w-3.5 h-3.5" /> Themes &amp; Style
           </button>
           <button 
             onClick={() => setActiveTab('sections')}
@@ -1012,52 +1098,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             <Layers className="w-3.5 h-3.5" /> Section Order
           </button>
           <button 
-            onClick={() => setActiveTab('services')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
-              activeTab === 'services' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Briefcase className="w-3.5 h-3.5" /> Services
-          </button>
-          <button 
-            onClick={() => setActiveTab('products')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
-              activeTab === 'products' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <ShoppingBag className="w-3.5 h-3.5" /> WhatsApp Store
-          </button>
-          <button 
-            onClick={() => setActiveTab('videos')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
-              activeTab === 'videos' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Film className="w-3.5 h-3.5" /> Videos & Reels
-          </button>
-          <button 
             onClick={() => setActiveTab('blogs')}
             className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
               activeTab === 'blogs' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <BookOpen className="w-3.5 h-3.5" /> Articles & Blogs
-          </button>
-          <button 
-            onClick={() => setActiveTab('gallery')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
-              activeTab === 'gallery' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <ImageIcon className="w-3.5 h-3.5" /> Portfolio Gallery
-          </button>
-          <button 
-            onClick={() => setActiveTab('socials')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
-              activeTab === 'socials' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <LinkIcon className="w-3.5 h-3.5" /> Social Links
+            <BookOpen className="w-3.5 h-3.5" /> Articles &amp; Insights
           </button>
         </div>
 
@@ -1735,6 +1781,178 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   </div>
                 </div>
 
+                {/* 3. REAL ESTATE TS-RERA & LEGAL DILIGENCE PROFILE */}
+                {isRealEstate && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-[#0A192F]/80 to-slate-900 border border-amber-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center">
+                          <Award className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
+                            TS-RERA &amp; Legal Trust Credentials
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your top trust strip, hero badge, and live certificate stamps.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-300 font-bold border border-amber-500/30">
+                        100% Verified
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>TS-RERA Sanction / Registration ID</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.realEstate?.reraId ?? (profile.templateId === 're-builders' ? 'TS-RERA/P02400008920' : 'TS-RERA/P02400008921')}
+                          placeholder="e.g. TS-RERA/P02400008921"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                realEstate: {
+                                  ...(prev.sectionData?.realEstate || {}),
+                                  reraId: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 font-mono focus:outline-none focus:border-amber-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Compass className="w-3.5 h-3.5 text-sky-400" />
+                          <span>Primary City &amp; Corridor</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.realEstate?.city ?? 'Hyderabad • Future City Corridor'}
+                          placeholder="e.g. Hyderabad • Future City Corridor"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                realEstate: {
+                                  ...(prev.sectionData?.realEstate || {}),
+                                  city: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-sky-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Legal Track Record</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.realEstate?.trackRecordYears ?? '18+ Years'}
+                          placeholder="e.g. 18+ Years"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                realEstate: {
+                                  ...(prev.sectionData?.realEstate || {}),
+                                  trackRecordYears: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Delivered Projects</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.realEstate?.deliveredProjects ?? '18+'}
+                          placeholder="e.g. 18+"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                realEstate: {
+                                  ...(prev.sectionData?.realEstate || {}),
+                                  deliveredProjects: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Developed Acres</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.realEstate?.developedAcres ?? '450+'}
+                          placeholder="e.g. 450+"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                realEstate: {
+                                  ...(prev.sectionData?.realEstate || {}),
+                                  developedAcres: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Happy Families</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.realEstate?.happyFamilies ?? '2,400+'}
+                          placeholder="e.g. 2,400+"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                realEstate: {
+                                  ...(prev.sectionData?.realEstate || {}),
+                                  happyFamilies: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Quick Social Media & Networks (LinkedIn, Instagram, Twitter/X, YouTube, Facebook, Telegram) */}
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 space-y-3 pt-3 mt-2">
                   <div className="flex items-center justify-between">
@@ -2113,246 +2331,887 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             </div>
           )}
 
-          {/* TAB 4: SERVICES */}
+          {/* TAB 4: SERVICES (OR REAL ESTATE SITE VISITS & ADVISORY) */}
           {activeTab === 'services' && (
-            <div className="space-y-4 max-w-xl">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-sm font-bold text-white">Bookable Services</h3>
-                  <p className="text-xs text-slate-400">Services clients can choose from to book appointments on your calendar.</p>
-                </div>
-                <button
-                  onClick={() => {
-                    const newService = {
-                      id: `svc_${Date.now()}`,
-                      title: 'New Service',
-                      description: 'Describe this service offering...',
-                      price: 999,
-                      currency: '₹',
-                      durationMinutes: 60,
-                      isAvailable: true
-                    };
-                    const updated = [...(profile.sectionData.services?.items || []), newService];
-                    setProfile(prev => ({
-                      ...prev,
-                      sectionData: { ...prev.sectionData, services: { items: updated } }
-                    }));
-                  }}
-                  className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow"
-                >
-                  <Plus className="w-3.5 h-3.5" /> Add Service
-                </button>
-              </div>
-
-              <div className="space-y-3">
-                {profile.sectionData.services?.items?.map((srv, idx) => (
-                  <div key={srv.id} className="p-4 rounded-xl bg-slate-900 border border-slate-700 space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold text-indigo-400">Service #{idx + 1}</span>
+            isRealEstate ? (
+              <div className="space-y-5 max-w-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                        <Calendar className="w-4 h-4 text-emerald-400" />
+                        <span>Guided Site Visits &amp; Advisory Packages</span>
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        {profile.sectionData.services?.items?.length || 0} Packages
+                      </span>
                     </div>
-                    <input 
-                      type="text" 
-                      value={srv.title}
-                      placeholder="Service Title"
-                      onChange={e => {
-                        const updated = [...(profile.sectionData.services?.items || [])];
-                        updated[idx].title = e.target.value;
-                        setProfile(prev => ({
-                          ...prev,
-                          sectionData: { ...prev.sectionData, services: { items: updated } }
-                        }));
-                      }}
-                      className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
-                    />
-                    <div className="grid grid-cols-2 gap-2">
-                      <input 
-                        type="number" 
-                        value={srv.price}
-                        placeholder="Price"
-                        onChange={e => {
-                          const updated = [...(profile.sectionData.services?.items || [])];
-                          updated[idx].price = Number(e.target.value);
-                          setProfile(prev => ({
-                            ...prev,
-                            sectionData: { ...prev.sectionData, services: { items: updated } }
-                          }));
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
-                      />
-                      <input 
-                        type="number" 
-                        value={srv.durationMinutes}
-                        placeholder="Duration (Minutes)"
-                        onChange={e => {
-                          const updated = [...(profile.sectionData.services?.items || [])];
-                          updated[idx].durationMinutes = Number(e.target.value);
-                          setProfile(prev => ({
-                            ...prev,
-                            sectionData: { ...prev.sectionData, services: { items: updated } }
-                          }));
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
-                      />
-                    </div>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Configure scheduled physical site visits, chauffeur pickups, master layout consultations, and TS-RERA legal verification desks.
+                    </p>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* TAB 5: WHATSAPP STORE PRODUCTS */}
-          {activeTab === 'products' && (
-            <div className="space-y-4 max-w-xl">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-sm font-bold text-white">WhatsApp Store Catalog</h3>
-                  <p className="text-xs text-slate-400">Products or packages customers can add to their cart and order directly on WhatsApp.</p>
+                  <button
+                    onClick={() => {
+                      const newService = {
+                        id: `svc_${Date.now()}`,
+                        title: 'Free Chauffeur Gated Layout Site Visit',
+                        category: 'Site Inspection / Pickup',
+                        description: 'Complimentary doorstep AC cab pickup & drop with senior project counselor. Full venture walkthrough, layout brochure kit & refreshments included.',
+                        price: 0,
+                        currency: '₹',
+                        durationMinutes: 180,
+                        isAvailable: true
+                      };
+                      const updated = [...(profile.sectionData.services?.items || []), newService];
+                      setProfile(prev => ({
+                        ...prev,
+                        sectionData: { ...prev.sectionData, services: { items: updated } }
+                      }));
+                    }}
+                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow-md cursor-pointer shrink-0"
+                  >
+                    <Plus className="w-4 h-4 stroke-[2.5]" /> Add Inspection Package
+                  </button>
                 </div>
-                <button
-                  onClick={() => {
-                    const newProd = {
-                      id: `prod_${Date.now()}`,
-                      name: 'New Product / Service Package',
-                      description: 'High quality deliverable or service package.',
-                      price: 1999,
-                      currency: '₹',
-                      imageUrl: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
-                      category: 'Services',
-                      isAvailable: true
-                    };
-                    const updated = [...(profile.sectionData.products?.items || []), newProd];
-                    setProfile(prev => ({
-                      ...prev,
-                      sectionData: { ...prev.sectionData, products: { items: updated } }
-                    }));
-                  }}
-                  className="px-3 py-1.5 rounded-lg bg-pink-600 hover:bg-pink-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow"
-                >
-                  <Plus className="w-3.5 h-3.5" /> Add Product
-                </button>
-              </div>
 
-              <div className="space-y-3">
-                {profile.sectionData.products?.items?.map((prod, idx) => (
-                  <div key={prod.id} className="p-4 rounded-xl bg-slate-900 border border-slate-700 space-y-2 relative">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-pink-400">Product #{idx + 1}</span>
-                      <button
-                        onClick={() => {
-                          const updated = (profile.sectionData.products?.items || []).filter((_, i) => i !== idx);
-                          setProfile(prev => ({
-                            ...prev,
-                            sectionData: { ...prev.sectionData, products: { items: updated } }
-                          }));
-                        }}
-                        className="text-slate-500 hover:text-red-400 p-1 rounded"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                    <input 
-                      type="text" 
-                      value={prod.name}
-                      placeholder="Product Name"
-                      onChange={e => {
-                        const updated = [...(profile.sectionData.products?.items || [])];
-                        updated[idx].name = e.target.value;
+                {/* Quick Presets Strip */}
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-emerald-400 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                      Quick Real Estate Service Presets:
+                    </span>
+                    <span className="text-[10px] text-slate-400">Click to instantly add to card</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_1`,
+                          title: 'VIP Chauffeur Site Inspection (Doorstep Pickup & Drop)',
+                          category: 'Doorstep Chauffeur Pickup',
+                          description: 'Luxury AC vehicle pickup from your doorstep in Hyderabad. Dedicated senior manager escorted walkthrough of gated venture, physical boundary demarcation & refreshments.',
+                          price: 0,
+                          currency: '₹',
+                          durationMinutes: 180,
+                          isAvailable: true
+                        };
                         setProfile(prev => ({
                           ...prev,
-                          sectionData: { ...prev.sectionData, products: { items: updated } }
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
                         }));
                       }}
-                      className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
-                    />
-                    <div className="grid grid-cols-3 gap-2">
-                      <input 
-                        type="number" 
-                        value={prod.price}
-                        placeholder="Price (₹)"
-                        onChange={e => {
-                          const updated = [...(profile.sectionData.products?.items || [])];
-                          updated[idx].price = Number(e.target.value);
-                          setProfile(prev => ({
-                            ...prev,
-                            sectionData: { ...prev.sectionData, products: { items: updated } }
-                          }));
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
-                      />
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-emerald-950/40 text-slate-300 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition"
+                    >
+                      + Chauffeur Site Visit (Free)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_2`,
+                          title: 'Master Layout Blueprint & Vastu Walkthrough',
+                          category: 'Master Layout & Vastu Consult',
+                          description: 'One-on-one session with our senior layout architect. Detailed zoning, 40ft road connectivity, East/West facing plot demarcation & Vastu compliance review.',
+                          price: 0,
+                          currency: '₹',
+                          durationMinutes: 60,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-emerald-950/40 text-slate-300 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition"
+                    >
+                      + Blueprint &amp; Vastu Consult
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_3`,
+                          title: 'TS-RERA Legal Docket & Bank Pre-Approval Desk',
+                          category: 'Legal Documents & RERA Desk',
+                          description: 'Comprehensive review of 30-year title link documents, Encumbrance Certificate (EC), TS-RERA approval certificates, and instant spot home loan eligibility check.',
+                          price: 0,
+                          currency: '₹',
+                          durationMinutes: 45,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-emerald-950/40 text-slate-300 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition"
+                    >
+                      + TS-RERA Legal &amp; Loan Desk
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_4`,
+                          title: 'NRI High-Res 360° Live Drone Walkthrough (Video Call)',
+                          category: 'NRI Virtual 360 Walkthrough',
+                          description: 'Private 1-on-1 video call session for NRIs & overseas investors. Live HD drone stream of current venture progression, road infrastructure & neighborhood survey.',
+                          price: 0,
+                          currency: '₹',
+                          durationMinutes: 45,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-emerald-950/40 text-slate-300 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition"
+                    >
+                      + NRI 360° Drone Video Call
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {profile.sectionData.services?.items?.map((srv, idx) => (
+                    <div 
+                      key={srv.id} 
+                      className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/20 border border-slate-700 hover:border-emerald-500/40 transition-all space-y-3.5 relative shadow-lg"
+                    >
+                      <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+                        <div className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 font-black text-xs flex items-center justify-center">
+                            {idx + 1}
+                          </span>
+                          <span className="text-xs font-bold text-white truncate max-w-[220px] sm:max-w-xs">
+                            {srv.title || `Service Package #${idx + 1}`}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = (profile.sectionData.services?.items || []).filter((_, i) => i !== idx);
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, services: { items: updated } }
+                            }));
+                          }}
+                          className="text-slate-500 hover:text-red-400 p-1 rounded-lg hover:bg-slate-800 transition"
+                          title="Delete Package"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="sm:col-span-2 space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Package Title / Service Name</label>
+                          <input 
+                            type="text" 
+                            value={srv.title}
+                            placeholder="e.g. Free Chauffeur Site Inspection (Pickup & Drop)"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].title = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, services: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Category Tag</label>
+                          <select
+                            value={srv.category || 'Site Inspection / Pickup'}
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].category = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, services: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-2.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-500 transition"
+                          >
+                            <option value="Site Inspection / Pickup">Site Inspection / Pickup</option>
+                            <option value="Doorstep Chauffeur Pickup">Doorstep Chauffeur Pickup</option>
+                            <option value="Master Layout & Vastu Consult">Master Layout &amp; Vastu Consult</option>
+                            <option value="Legal Documents & RERA Desk">Legal Documents &amp; RERA Desk</option>
+                            <option value="NRI Virtual 360 Walkthrough">NRI Virtual 360 Walkthrough</option>
+                            <option value="Bank Loan Pre-Approval Desk">Bank Loan Desk</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between">
+                            <label className="text-[11px] font-medium text-slate-400">Booking / Inspection Fee (₹)</label>
+                            <span className="text-[10px] text-emerald-400 font-bold">
+                              {srv.price === 0 ? 'Complimentary' : `₹${srv.price}`}
+                            </span>
+                          </div>
+                          <input 
+                            type="number" 
+                            value={srv.price}
+                            placeholder="0 for Complimentary"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].price = Number(e.target.value);
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, services: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-500 transition font-mono"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between">
+                            <label className="text-[11px] font-medium text-slate-400">Duration (Minutes)</label>
+                            <span className="text-[10px] text-slate-400">
+                              {srv.durationMinutes >= 60 ? `${(srv.durationMinutes / 60).toFixed(1)} hrs` : `${srv.durationMinutes} mins`}
+                            </span>
+                          </div>
+                          <input 
+                            type="number" 
+                            value={srv.durationMinutes}
+                            placeholder="180"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].durationMinutes = Number(e.target.value);
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, services: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-500 transition font-mono"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-[11px] font-medium text-slate-400">Inclusions &amp; Experience Details</label>
+                        <textarea 
+                          rows={2}
+                          value={srv.description}
+                          placeholder="e.g. Complimentary doorstep AC cab pickup with senior counselor. Physical boundary walk, legal documents kit, and tea/refreshments included."
+                          onChange={e => {
+                            const updated = [...(profile.sectionData.services?.items || [])];
+                            updated[idx].description = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, services: { items: updated } }
+                            }));
+                          }}
+                          className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition resize-none"
+                        />
+                      </div>
+                    </div>
+                  ))}
+
+                  {(!profile.sectionData.services?.items || profile.sectionData.services.items.length === 0) && (
+                    <div className="p-8 text-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/50">
+                      <Calendar className="w-8 h-8 text-emerald-400 mx-auto mb-2 opacity-50" />
+                      <p className="text-xs font-semibold text-slate-300">No inspection packages configured yet</p>
+                      <p className="text-[11px] text-slate-500 mt-1 max-w-sm mx-auto">
+                        Add complimentary site visit packages or click a preset above to enable instant inspection bookings on your website.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4 max-w-xl">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold text-white">Bookable Services</h3>
+                    <p className="text-xs text-slate-400">Services clients can choose from to book appointments on your calendar.</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newService = {
+                        id: `svc_${Date.now()}`,
+                        title: 'New Service',
+                        description: 'Describe this service offering...',
+                        price: 999,
+                        currency: '₹',
+                        durationMinutes: 60,
+                        isAvailable: true
+                      };
+                      const updated = [...(profile.sectionData.services?.items || []), newService];
+                      setProfile(prev => ({
+                        ...prev,
+                        sectionData: { ...prev.sectionData, services: { items: updated } }
+                      }));
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow"
+                  >
+                    <Plus className="w-3.5 h-3.5" /> Add Service
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  {profile.sectionData.services?.items?.map((srv, idx) => (
+                    <div key={srv.id} className="p-4 rounded-xl bg-slate-900 border border-slate-700 space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs font-bold text-indigo-400">Service #{idx + 1}</span>
+                      </div>
                       <input 
                         type="text" 
-                        value={prod.category || ''}
-                        placeholder="Category (e.g. Footwear, Art...)"
+                        value={srv.title}
+                        placeholder="Service Title"
                         onChange={e => {
-                          const updated = [...(profile.sectionData.products?.items || [])];
-                          updated[idx].category = e.target.value;
+                          const updated = [...(profile.sectionData.services?.items || [])];
+                          updated[idx].title = e.target.value;
                           setProfile(prev => ({
                             ...prev,
-                            sectionData: { ...prev.sectionData, products: { items: updated } }
+                            sectionData: { ...prev.sectionData, services: { items: updated } }
                           }));
                         }}
                         className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
                       />
-                      <div className="flex gap-1.5">
+                      <div className="grid grid-cols-2 gap-2">
                         <input 
-                          type="text" 
-                          value={prod.imageUrl}
-                          placeholder="Image URL or upload"
+                          type="number" 
+                          value={srv.price}
+                          placeholder="Price"
                           onChange={e => {
-                            const updated = [...(profile.sectionData.products?.items || [])];
-                            updated[idx].imageUrl = e.target.value;
+                            const updated = [...(profile.sectionData.services?.items || [])];
+                            updated[idx].price = Number(e.target.value);
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, services: { items: updated } }
+                            }));
+                          }}
+                          className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                        <input 
+                          type="number" 
+                          value={srv.durationMinutes}
+                          placeholder="Duration (Minutes)"
+                          onChange={e => {
+                            const updated = [...(profile.sectionData.services?.items || [])];
+                            updated[idx].durationMinutes = Number(e.target.value);
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, services: { items: updated } }
+                            }));
+                          }}
+                          className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          )}
+
+          {/* TAB 5: PRODUCTS (OR REAL ESTATE VENTURES) */}
+          {activeTab === 'products' && (
+            isRealEstate ? (
+              <div className="space-y-5 max-w-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                        <Building2 className="w-4 h-4 text-amber-400" />
+                        <span>Real Estate Ventures &amp; Projects</span>
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                        {profile.sectionData.products?.items?.length || 0} Ventures
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Manage your RERA-approved gated layouts, luxury residences, open plots, and commercial ventures.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newProject: ProductItem = {
+                        id: `proj_${Date.now()}`,
+                        name: 'New Prime Gated Layout / Project',
+                        description: 'TS-RERA & DTCP approved gated layout with 40ft CC roads, security arch, underground drainage, and spot registration.',
+                        price: 16499,
+                        priceLabel: '₹16,499 / Sq. Yd.',
+                        currency: '₹',
+                        imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80',
+                        category: 'DTCP & HMDA Open Plots',
+                        approvalType: 'TS-RERA & DTCP Approved',
+                        reraId: 'TS-RERA/P02400008921',
+                        corridor: 'Kadthal',
+                        dimensions: '150, 200, 300 Sq. Yds',
+                        status: 'Ready for Construction',
+                        brochureUrl: '',
+                        amenities: ['40ft CC Roads', 'Grand Entrance Arch', 'Underground Drainage', '24/7 Water', 'Clear Title'],
+                        isAvailable: true
+                      };
+                      const updated = [...(profile.sectionData.products?.items || []), newProject];
+                      setProfile(prev => ({
+                        ...prev,
+                        sectionData: { ...prev.sectionData, products: { items: updated } }
+                      }));
+                    }}
+                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-xs font-bold text-slate-950 flex items-center gap-1.5 transition-all shadow-md cursor-pointer shrink-0"
+                  >
+                    <Plus className="w-4 h-4 text-slate-950 stroke-[3]" /> Add New Project / Venture
+                  </button>
+                </div>
+
+                <div className="space-y-4">
+                  {profile.sectionData.products?.items?.map((prod, idx) => (
+                    <div 
+                      key={prod.id} 
+                      className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-[#0A192F]/60 border border-slate-700 hover:border-amber-500/40 transition-all space-y-4 relative shadow-lg"
+                    >
+                      {/* Top Header of Card */}
+                      <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+                        <div className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 font-black text-xs flex items-center justify-center">
+                            {idx + 1}
+                          </span>
+                          <span className="text-xs font-bold text-white truncate max-w-[220px] sm:max-w-xs">
+                            {prod.name || `Project #${idx + 1}`}
+                          </span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">
+                            {prod.approvalType || 'TS-RERA Sanctioned'}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => {
+                            const updated = (profile.sectionData.products?.items || []).filter((_, i) => i !== idx);
                             setProfile(prev => ({
                               ...prev,
                               sectionData: { ...prev.sectionData, products: { items: updated } }
                             }));
                           }}
-                          className="flex-1 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                          className="text-slate-500 hover:text-rose-400 p-1.5 rounded-lg hover:bg-rose-500/10 transition"
+                          title="Remove Project"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      {/* Project Name */}
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300">Project / Venture Title</label>
+                        <input 
+                          type="text" 
+                          value={prod.name}
+                          placeholder="e.g. Project Pearl City (Kadthal Future City)"
+                          onChange={e => {
+                            const updated = [...(profile.sectionData.products?.items || [])];
+                            updated[idx].name = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, products: { items: updated } }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
                         />
-                        <label className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold cursor-pointer border border-slate-700 flex items-center gap-1 shrink-0" title="Upload from gallery">
-                          <Upload className="w-3.5 h-3.5 text-pink-400" />
-                          <input
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
+                      </div>
+
+                      {/* Category & Approval Type */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Property Category</label>
+                          <select
+                            value={prod.category || 'DTCP & HMDA Open Plots'}
                             onChange={e => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                const reader = new FileReader();
-                                reader.onload = (ev) => {
-                                  if (ev.target?.result) {
-                                    const updated = [...(profile.sectionData.products?.items || [])];
-                                    updated[idx].imageUrl = ev.target.result as string;
-                                    setProfile(prev => ({
-                                      ...prev,
-                                      sectionData: { ...prev.sectionData, products: { items: updated } }
-                                    }));
-                                  }
-                                };
-                                reader.readAsDataURL(file);
-                              }
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].category = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
                             }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
+                          >
+                            <option value="DTCP & HMDA Open Plots">DTCP &amp; HMDA Open Plots</option>
+                            <option value="Luxury Apartments">Luxury High-Rise Apartments</option>
+                            <option value="Gated Villas">Luxury Gated Villas</option>
+                            <option value="Managed Farmlands">Managed Farm Estates</option>
+                            <option value="Commercial Plots">Commercial Hub / Retail</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Approval Authority &amp; Badge</label>
+                          <input 
+                            type="text"
+                            value={prod.approvalType || 'TS-RERA & DTCP Approved'}
+                            placeholder="e.g. TS-RERA & DTCP Approved"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].approvalType = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
                           />
-                        </label>
+                        </div>
+                      </div>
+
+                      {/* Price, Price Label, and Growth Corridor */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Numerical Price (₹)</label>
+                          <input 
+                            type="number" 
+                            value={prod.price}
+                            placeholder="16499"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].price = Number(e.target.value);
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Price Display Label</label>
+                          <input 
+                            type="text" 
+                            value={prod.priceLabel || (prod.price ? `₹${prod.price.toLocaleString('en-IN')}` : '')}
+                            placeholder="e.g. ₹16,499 / Sq. Yd."
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].priceLabel = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Growth Corridor</label>
+                          <select
+                            value={prod.corridor || 'Kadthal'}
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].corridor = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white"
+                          >
+                            <option value="Kadthal">Srisailam Highway (Kadthal Future City)</option>
+                            <option value="Kokapet">Kokapet Financial District</option>
+                            <option value="Shamshabad">Shamshabad Airport (NH-44)</option>
+                            <option value="Sadashivpet">Mumbai Highway (Sadashivpet)</option>
+                            <option value="Shankarpally">Shankarpally - Mokila</option>
+                            <option value="Chevella">Chevella - Vikarabad</option>
+                            <option value="Yadagirigutta">Yadagirigutta (NH-163)</option>
+                            <option value="Ghatkesar">Ghatkesar - Warangal Highway</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* Status & Available Dimensions */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Construction / Handover Status</label>
+                          <select
+                            value={prod.status || 'Ready for Construction'}
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].status = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white"
+                          >
+                            <option value="Ready for Construction">Ready for Construction</option>
+                            <option value="Under Construction">Under Construction</option>
+                            <option value="Upcoming Pre-Launch">Upcoming Pre-Launch / EOI</option>
+                            <option value="Ready for Handover">Ready for Handover</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Available Plot / Unit Dimensions</label>
+                          <input 
+                            type="text" 
+                            value={prod.dimensions || '150, 200, 300 Sq. Yds'}
+                            placeholder="e.g. 150, 200, 300 Sq. Yds (or 3 & 4 BHK)"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].dimensions = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Image Upload / URL & Brochure PDF */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Elevation / Layout Blueprint Image</label>
+                          <div className="mt-1 flex gap-2">
+                            <input 
+                              type="text" 
+                              value={prod.imageUrl}
+                              placeholder="Image URL or upload"
+                              onChange={e => {
+                                const updated = [...(profile.sectionData.products?.items || [])];
+                                updated[idx].imageUrl = e.target.value;
+                                setProfile(prev => ({
+                                  ...prev,
+                                  sectionData: { ...prev.sectionData, products: { items: updated } }
+                                }));
+                              }}
+                              className="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white"
+                            />
+                            <label className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 text-xs font-semibold cursor-pointer border border-slate-700 flex items-center gap-1 shrink-0">
+                              <Upload className="w-3.5 h-3.5 text-amber-400" />
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={e => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = (ev) => {
+                                      if (ev.target?.result) {
+                                        const updated = [...(profile.sectionData.products?.items || [])];
+                                        updated[idx].imageUrl = ev.target.result as string;
+                                        setProfile(prev => ({
+                                          ...prev,
+                                          sectionData: { ...prev.sectionData, products: { items: updated } }
+                                        }));
+                                      }
+                                    };
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                              />
+                            </label>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Project Brochure PDF URL</label>
+                          <div className="mt-1 flex items-center rounded-xl bg-slate-950 border border-slate-700 px-3 py-2">
+                            <FileText className="w-3.5 h-3.5 text-amber-400 mr-2 shrink-0" />
+                            <input 
+                              type="url" 
+                              value={prod.brochureUrl || ''}
+                              placeholder="https://.../brochure.pdf"
+                              onChange={e => {
+                                const updated = [...(profile.sectionData.products?.items || [])];
+                                updated[idx].brochureUrl = e.target.value;
+                                setProfile(prev => ({
+                                  ...prev,
+                                  sectionData: { ...prev.sectionData, products: { items: updated } }
+                                }));
+                              }}
+                              className="w-full bg-transparent text-xs text-white focus:outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Project Description &amp; Highlights</label>
+                        <textarea 
+                          rows={2}
+                          value={prod.description || ''}
+                          placeholder="Key venture specifications, location advantages, and title clearances..."
+                          onChange={e => {
+                            const updated = [...(profile.sectionData.products?.items || [])];
+                            updated[idx].description = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, products: { items: updated } }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white resize-none"
+                        />
                       </div>
                     </div>
-                    <textarea 
-                      rows={2}
-                      value={prod.description || ''}
-                      placeholder="Product features, sizes, specs, or deliverables..."
-                      onChange={e => {
-                        const updated = [...(profile.sectionData.products?.items || [])];
-                        updated[idx].description = e.target.value;
-                        setProfile(prev => ({
-                          ...prev,
-                          sectionData: { ...prev.sectionData, products: { items: updated } }
-                        }));
-                      }}
-                      className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white resize-none"
-                    />
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="space-y-4 max-w-xl">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold text-white">WhatsApp Store Catalog</h3>
+                    <p className="text-xs text-slate-400">Products or packages customers can add to their cart and order directly on WhatsApp.</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newProd = {
+                        id: `prod_${Date.now()}`,
+                        name: 'New Product / Service Package',
+                        description: 'High quality deliverable or service package.',
+                        price: 1999,
+                        currency: '₹',
+                        imageUrl: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
+                        category: 'Services',
+                        isAvailable: true
+                      };
+                      const updated = [...(profile.sectionData.products?.items || []), newProd];
+                      setProfile(prev => ({
+                        ...prev,
+                        sectionData: { ...prev.sectionData, products: { items: updated } }
+                      }));
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-pink-600 hover:bg-pink-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow"
+                  >
+                    <Plus className="w-3.5 h-3.5" /> Add Product
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  {profile.sectionData.products?.items?.map((prod, idx) => (
+                    <div key={prod.id} className="p-4 rounded-xl bg-slate-900 border border-slate-700 space-y-2 relative">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-pink-400">Product #{idx + 1}</span>
+                        <button
+                          onClick={() => {
+                            const updated = (profile.sectionData.products?.items || []).filter((_, i) => i !== idx);
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, products: { items: updated } }
+                            }));
+                          }}
+                          className="text-slate-500 hover:text-red-400 p-1 rounded"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <input 
+                        type="text" 
+                        value={prod.name}
+                        placeholder="Product Name"
+                        onChange={e => {
+                          const updated = [...(profile.sectionData.products?.items || [])];
+                          updated[idx].name = e.target.value;
+                          setProfile(prev => ({
+                            ...prev,
+                            sectionData: { ...prev.sectionData, products: { items: updated } }
+                          }));
+                        }}
+                        className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                      />
+                      <div className="grid grid-cols-3 gap-2">
+                        <input 
+                          type="number" 
+                          value={prod.price}
+                          placeholder="Price (₹)"
+                          onChange={e => {
+                            const updated = [...(profile.sectionData.products?.items || [])];
+                            updated[idx].price = Number(e.target.value);
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, products: { items: updated } }
+                            }));
+                          }}
+                          className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                        <input 
+                          type="text" 
+                          value={prod.category || ''}
+                          placeholder="Category (e.g. Footwear, Art...)"
+                          onChange={e => {
+                            const updated = [...(profile.sectionData.products?.items || [])];
+                            updated[idx].category = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, products: { items: updated } }
+                            }));
+                          }}
+                          className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                        <div className="flex gap-1.5">
+                          <input 
+                            type="text" 
+                            value={prod.imageUrl}
+                            placeholder="Image URL or upload"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].imageUrl = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="flex-1 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                          />
+                          <label className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold cursor-pointer border border-slate-700 flex items-center gap-1 shrink-0" title="Upload from gallery">
+                            <Upload className="w-3.5 h-3.5 text-pink-400" />
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={e => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  const reader = new FileReader();
+                                  reader.onload = (ev) => {
+                                    if (ev.target?.result) {
+                                      const updated = [...(profile.sectionData.products?.items || [])];
+                                      updated[idx].imageUrl = ev.target.result as string;
+                                      setProfile(prev => ({
+                                        ...prev,
+                                        sectionData: { ...prev.sectionData, products: { items: updated } }
+                                      }));
+                                    }
+                                  };
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                            />
+                          </label>
+                        </div>
+                      </div>
+                      <textarea 
+                        rows={2}
+                        value={prod.description || ''}
+                        placeholder="Product features, sizes, specs, or deliverables..."
+                        onChange={e => {
+                          const updated = [...(profile.sectionData.products?.items || [])];
+                          updated[idx].description = e.target.value;
+                          setProfile(prev => ({
+                            ...prev,
+                            sectionData: { ...prev.sectionData, products: { items: updated } }
+                          }));
+                        }}
+                        className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white resize-none"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
           )}
 
           {/* TAB: VIDEOS & REELS */}
@@ -2431,7 +3290,9 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <HardDrive className="w-4 h-4 text-indigo-400" />
-                        <span className="text-xs font-bold text-white">Videos &amp; Storage Quotas</span>
+                        <span className="text-xs font-bold text-white">
+                          {isRealEstate ? 'Drone Surveys & Walkthrough Videos' : 'Videos & Storage Quotas'}
+                        </span>
                       </div>
 
                       <button
@@ -2502,10 +3363,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     }
                     const newVideo: VideoItem = {
                       id: `vid_${Date.now()}`,
-                      title: '4K Brand Video Showcase',
+                      title: isRealEstate ? '4K Aerial Drone Layout Survey & Walkthrough' : '4K Brand Video Showcase',
                       url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
                       type: 'youtube',
-                      caption: 'Watch our story in Full 4K Ultra-HD.'
+                      caption: isRealEstate ? 'Watch 4K aerial layout progression, road connectivity & master arch.' : 'Watch our story in Full 4K Ultra-HD.'
                     };
                     const updated = [...(profile.sectionData.videos?.items || []), newVideo];
                     setProfile(prev => ({
@@ -2513,9 +3374,14 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       sectionData: { ...prev.sectionData, videos: { items: updated } }
                     }));
                   }}
-                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow-lg shadow-indigo-500/20 active:scale-95"
+                  className={`px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow-lg active:scale-95 ${
+                    isRealEstate 
+                      ? 'bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 shadow-rose-500/20'
+                      : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 shadow-indigo-500/20'
+                  }`}
                 >
-                  <Plus className="w-3.5 h-3.5" /> Add 4K Video Link (YouTube / Vimeo / Reels)
+                  <Plus className="w-3.5 h-3.5" /> 
+                  <span>{isRealEstate ? 'Add Drone / Walkthrough Video Link' : 'Add 4K Video Link (YouTube / Vimeo / Reels)'}</span>
                 </button>
 
                 <button
@@ -2921,7 +3787,9 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <ImageIcon className="w-4 h-4 text-indigo-400" />
-                    <span className="text-xs font-bold text-white">Portfolio Gallery &amp; Photos Quota</span>
+                    <span className="text-xs font-bold text-white">
+                      {isRealEstate ? 'Blueprints, Elevations & Site Progress Photos' : 'Portfolio Gallery & Photos Quota'}
+                    </span>
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                       (profile.sectionData.gallery?.items?.length || 0) >= MAX_GALLERY
                         ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
@@ -2955,25 +3823,30 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 </div>
               </div>
 
-              {/* Quick Category Tagger for Photography & Creatives */}
+              {/* Quick Category Tagger for Real Estate or Photography & Creatives */}
               <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    Batch Upload Category:
+                    {isRealEstate ? 'Blueprint & Photo Category:' : 'Batch Upload Category:'}
                   </span>
                   <span className="text-[10px] text-slate-400">Tagged automatically on upload</span>
                 </div>
 
                 <div className="flex flex-wrap gap-1.5">
-                  {['Weddings', 'Portraits', 'Fashion', 'Pre-Wedding', 'Events', 'Commercial', 'Architecture', 'Products', 'Food & Dining', 'Landscape'].map((cat) => (
+                  {(isRealEstate 
+                    ? ['Master Layout Blueprint', '3D Architectural Elevation', 'Villa / Flat Interiors', 'Clubhouse & Amenities', 'Actual Site Progress', 'Aerial Drone Survey', 'Open Plots Demarcation', 'Venture Entrance Arch']
+                    : ['Weddings', 'Portraits', 'Fashion', 'Pre-Wedding', 'Events', 'Commercial', 'Architecture', 'Products', 'Food & Dining', 'Landscape']
+                  ).map((cat) => (
                     <button
                       key={cat}
                       type="button"
                       onClick={() => setGalleryUploadTag(cat)}
                       className={`px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all ${
                         galleryUploadTag === cat
-                          ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20 ring-1 ring-indigo-400'
+                          ? isRealEstate
+                            ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20 ring-1 ring-amber-400'
+                            : 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20 ring-1 ring-indigo-400'
                           : 'bg-slate-950 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800'
                       }`}
                     >
@@ -2987,9 +3860,14 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   onClick={() => galleryFileInputRef.current?.click()}
-                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-xs font-bold text-white flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20 active:scale-95"
+                  className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all shadow-lg active:scale-95 ${
+                    isRealEstate
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:from-amber-400 hover:to-amber-500 shadow-amber-500/20'
+                      : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white shadow-indigo-500/20'
+                  }`}
                 >
-                  <Upload className="w-4 h-4" /> Batch Upload Photos (Multi-Select)
+                  <Upload className={`w-4 h-4 ${isRealEstate ? 'text-slate-950 stroke-[2.5]' : 'text-white'}`} /> 
+                  <span>{isRealEstate ? 'Batch Upload Layouts & Photos' : 'Batch Upload Photos (Multi-Select)'}</span>
                 </button>
 
                 <button
@@ -3005,10 +3883,14 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     }
                     const newGalleryItem: GalleryItem = {
                       id: `gal_${Date.now()}`,
-                      title: 'New Client Showcase',
-                      category: galleryUploadTag || 'Portfolio',
-                      description: 'Complete project photoshoot and visual showcase.',
-                      imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80'
+                      title: isRealEstate ? 'Master Layout Demarcation Blueprint' : 'New Client Showcase',
+                      category: galleryUploadTag || (isRealEstate ? 'Master Layout Blueprint' : 'Portfolio'),
+                      description: isRealEstate 
+                        ? 'High-resolution HMDA/DTCP master zoning layout and demarcation blueprint.'
+                        : 'Complete project photoshoot and visual showcase.',
+                      imageUrl: isRealEstate
+                        ? 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80'
+                        : 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80'
                     };
                     const updated = [...(profile.sectionData.gallery?.items || []), newGalleryItem];
                     setProfile(prev => ({
@@ -3018,7 +3900,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   }}
                   className="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-medium text-slate-300 flex items-center gap-1.5 transition-all"
                 >
-                  <Plus className="w-3.5 h-3.5" /> Add Photo via Web Link
+                  <Plus className="w-3.5 h-3.5" /> {isRealEstate ? 'Add Blueprint via Web Link' : 'Add Photo via Web Link'}
                 </button>
               </div>
 
@@ -3358,15 +4240,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
         <div className="flex items-center justify-between w-full max-w-[340px] lg:max-w-[360px] xl:max-w-[375px] mb-2.5 px-1 shrink-0">
           <div className="flex items-center gap-1.5">
             <Smartphone className="w-4 h-4 text-indigo-400" />
-            <span className="text-xs font-semibold text-slate-300">Mobile Card</span>
+            <span className="text-xs font-semibold text-slate-300">
+              {isRealEstate ? 'Smart Realtor Card' : 'Mobile Card'}
+            </span>
           </div>
           <button
             type="button"
             onClick={() => setStudioWebsitePreviewOpen(true)}
-            className="px-2.5 py-1 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 hover:text-white border border-indigo-500/30 text-[11px] font-bold flex items-center gap-1.5 transition active:scale-95 shadow-xs"
+            className={`px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer ${
+              isRealEstate 
+                ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black shadow-amber-500/20'
+                : 'bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 hover:text-white border border-indigo-500/30'
+            }`}
           >
-            <Monitor className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Mini-Website View</span>
+            <Monitor className={`w-3.5 h-3.5 ${isRealEstate ? 'text-slate-950 stroke-[2.5]' : 'text-indigo-400'}`} />
+            <span>{isRealEstate ? 'Mini-Website Preview' : 'Mini-Website View'}</span>
           </button>
         </div>
 
