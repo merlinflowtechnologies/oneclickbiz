@@ -63,7 +63,8 @@ import {
   QrCode,
   Film,
   UserCheck,
-  Copy
+  Copy,
+  Globe
 } from 'lucide-react';
 import { DigitalProfile, VideoItem } from '@/lib/types';
 import ShareCardModal from '@/components/common/ShareCardModal';
@@ -130,6 +131,27 @@ export default function RealEstateMiniWebsiteView({
     if (getCleanWhatsAppNumber) return getCleanWhatsAppNumber(profile);
     return profile.whatsapp ? profile.whatsapp.replace(/[^0-9]/g, '') : (profile.phone ? profile.phone.replace(/[^0-9]/g, '') : '');
   }, [profile, getCleanWhatsAppNumber]);
+
+  // Clean Call phone
+  const cleanCallNumber = useMemo(() => {
+    const raw = profile.phone || profile.whatsapp || '+919876543210';
+    return raw.replace(/[^0-9+]/g, '');
+  }, [profile.phone, profile.whatsapp]);
+
+  // Social link resolvers
+  const socialItems = useMemo(() => {
+    return profile.sectionData?.socials?.items || (profile as any).socialLinks || [];
+  }, [profile]);
+
+  const instagramLink = useMemo(() => {
+    const found = socialItems.find((s: any) => s.platform === 'instagram');
+    return found?.url || 'https://instagram.com/';
+  }, [socialItems]);
+
+  const facebookLink = useMemo(() => {
+    const found = socialItems.find((s: any) => s.platform === 'facebook');
+    return found?.url || 'https://facebook.com/';
+  }, [socialItems]);
 
   // Dynamic projects derived from user's custom products or default templates
   const userProjects: RealEstateProject[] = useMemo(() => {
@@ -1173,6 +1195,23 @@ export default function RealEstateMiniWebsiteView({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-5xl mx-auto space-y-6">
             
+            {/* Developer / Business Avatar Logo (Matching Reference Design) */}
+            <div className="flex justify-center pt-2">
+              {profile.avatarUrl ? (
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl overflow-hidden bg-white flex items-center justify-center p-1">
+                  <img 
+                    src={profile.avatarUrl} 
+                    alt={profile.company || profile.name} 
+                    className="w-full h-full object-contain rounded-full" 
+                  />
+                </div>
+              ) : (
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl bg-gradient-to-tr from-[#005DAA] to-sky-500 text-white flex items-center justify-center font-black text-2xl tracking-wider">
+                  {(profile.company || profile.name || 'SK').slice(0, 2).toUpperCase()}
+                </div>
+              )}
+            </div>
+
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#005DAA]/30 text-[#005DAA] text-xs font-bold shadow-xs">
               <Award className="w-4 h-4 text-[#005DAA]" />
@@ -1193,6 +1232,147 @@ export default function RealEstateMiniWebsiteView({
               <strong className="text-slate-900 font-bold">{userProjects[0]?.title || 'Signature Real Estate Portfolio'}</strong> —{' '}
               <strong className="text-slate-900 font-bold">{userProjects[0]?.propertyType || 'Luxury Residences & Plots'}</strong> in {userProjects[0]?.location || profile.address || userCity} with 100% verified approvals, world-class amenities, and high capital appreciation.
             </p>
+
+            {/* Location Address Strip (Matching Reference Design) */}
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 text-xs sm:text-sm font-semibold shadow-xs">
+                <MapPin className="w-4 h-4 text-[#005DAA]" />
+                <span>{profile.address || `${userCity} Growth Corridor, Telangana`}</span>
+              </div>
+            </div>
+
+            {/* ─────────────────────────────────────────────────────────────
+                HERO APP-STYLE CONTACT SQUIRCLES (Call, WhatsApp, Instagram, Facebook, Directions, Email, Save vCard, Scan QR)
+            ───────────────────────────────────────────────────────────── */}
+            <div className="pt-2 sm:pt-4 pb-2">
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto">
+                
+                {/* 1. CALL */}
+                <a
+                  href={`tel:${cleanCallNumber || '+919876543210'}`}
+                  onClick={() => trackAction('call_hero_click')}
+                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                >
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-[#22C55E] flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <Phone className="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white" />
+                  </div>
+                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                    CALL
+                  </span>
+                </a>
+
+                {/* 2. WHATSAPP */}
+                <a
+                  href={`https://wa.me/${cleanPhone || '919876543210'}?text=${encodeURIComponent(`Hi ${profile.name || profile.company || 'Team'}, I am inquiring from your website regarding real estate properties.`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackAction('whatsapp_hero_click')}
+                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                >
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-[#25D366] flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <MessageCircle className="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white" />
+                  </div>
+                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                    WHATSAPP
+                  </span>
+                </a>
+
+                {/* 3. INSTAGRAM */}
+                <a
+                  href={instagramLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackAction('instagram_hero_click')}
+                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                >
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <SocialIcon platform="instagram" size={30} />
+                  </div>
+                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                    INSTAGRAM
+                  </span>
+                </a>
+
+                {/* 4. FACEBOOK */}
+                <a
+                  href={facebookLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackAction('facebook_hero_click')}
+                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                >
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-[#1877F2] flex items-center justify-center text-white shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <SocialIcon platform="facebook" size={30} />
+                  </div>
+                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                    FACEBOOK
+                  </span>
+                </a>
+
+                {/* 5. DIRECTIONS */}
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(profile.address || `${profile.company || profile.name} ${userCity}`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackAction('directions_hero_click')}
+                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                >
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <Navigation className="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white" />
+                  </div>
+                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                    DIRECTIONS
+                  </span>
+                </a>
+
+                {/* 6. EMAIL */}
+                {profile.email && (
+                  <a
+                    href={`mailto:${profile.email}`}
+                    onClick={() => trackAction('email_hero_click')}
+                    className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                  >
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-gradient-to-tr from-rose-500 to-orange-500 flex items-center justify-center text-white shadow-lg shadow-rose-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                      <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                    </div>
+                    <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                      EMAIL
+                    </span>
+                  </a>
+                )}
+
+                {/* 7. SAVE VCARD */}
+                <button
+                  type="button"
+                  onClick={handleVcfDownload}
+                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95 cursor-pointer"
+                  title="Save Contact to Phone Contacts"
+                >
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-500 flex items-center justify-center text-white shadow-lg shadow-amber-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <Download className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                  </div>
+                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                    SAVE VCARD
+                  </span>
+                </button>
+
+                {/* 8. SCAN QR */}
+                <button
+                  type="button"
+                  onClick={() => setIsQrModalOpen(true)}
+                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95 cursor-pointer"
+                  title="Scan QR Code to open on mobile"
+                >
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center text-white shadow-lg shadow-slate-900/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <QrCode className="w-7 h-7 sm:w-8 sm:h-8 text-amber-400" />
+                  </div>
+                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                    SCAN QR
+                  </span>
+                </button>
+
+              </div>
+            </div>
 
             {/* Primary Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
