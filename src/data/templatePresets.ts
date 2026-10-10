@@ -913,6 +913,16 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
         primaryCorridor: 'Srisailam Highway / Kadthal Growth Zone',
         city: 'Hyderabad'
       } : undefined,
+      interior: ((meta.category as string) === 'Interior Design' || effectiveId.startsWith('interior') || effectiveId.startsWith('home-interior')) ? {
+        iiidId: 'IIID/TS/ARCH-2024-884',
+        warrantyYears: '10-Year Flat Replacement Warranty',
+        turnkeyGuaranteeDays: '45-Day Move-In Guarantee',
+        completedHomes: '140+ Luxury Homes',
+        sqftTransformed: '4.5 Lakh+ Sq.Ft',
+        happyClients: '350+ Happy Homeowners',
+        city: 'Hyderabad',
+        experienceCenter: 'Road No. 36, Jubilee Hills, Hyderabad'
+      } : undefined,
       contact: {
         showEmail: true,
         showPhone: true,

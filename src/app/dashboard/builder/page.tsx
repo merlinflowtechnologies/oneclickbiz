@@ -27,12 +27,20 @@ function BuilderContent() {
         const parsedSession = savedSession ? JSON.parse(savedSession) : null;
 
         const targetSlug = (querySlug || parsedSession?.slug || 'alex').toLowerCase().trim();
-        const effectiveTemplateId = queryTemplate || parsedSession?.template || (parsedSession?.category === 'Real Estate' || targetSlug.startsWith('re-') ? 're-builders' : null);
+        const effectiveTemplateId = queryTemplate || parsedSession?.template || (parsedSession?.category === 'Real Estate' || targetSlug.startsWith('re-') ? 're-builders' : (parsedSession?.category === 'Interior Design' || targetSlug.startsWith('home-interior') || targetSlug.startsWith('interior') ? 'home-interior' : null));
         const isReTarget = Boolean(
           effectiveTemplateId?.startsWith('re-') || 
           parsedSession?.category === 'Real Estate' || 
           targetSlug.startsWith('re-') ||
           effectiveTemplateId === 're-builders'
+        );
+        const isInteriorTarget = Boolean(
+          effectiveTemplateId === 'home-interior' ||
+          effectiveTemplateId === 'interior' ||
+          parsedSession?.category === 'Interior Design' ||
+          targetSlug.startsWith('interior') ||
+          targetSlug.startsWith('home-interior') ||
+          queryTemplate === 'home-interior'
         );
 
         // If user came from signup/login query params OR has valid session
@@ -54,12 +62,21 @@ function BuilderContent() {
                     realEstate: getTemplateProfile('re-builders').sectionData.realEstate
                   };
                 }
+              } else if (isInteriorTarget) {
+                localFallback.templateId = 'home-interior';
+                localFallback.category = 'Interior Design';
+                if (!localFallback.sectionData?.interior) {
+                  localFallback.sectionData = {
+                    ...(localFallback.sectionData || {}),
+                    interior: getTemplateProfile('home-interior').sectionData.interior
+                  };
+                }
               }
             } catch {
               localFallback = effectiveTemplateId ? getTemplateProfile(effectiveTemplateId) : getProfileBySlug(targetSlug);
             }
-          } else if (effectiveTemplateId || isReTarget) {
-            localFallback = getTemplateProfile(effectiveTemplateId || 're-builders');
+          } else if (effectiveTemplateId || isReTarget || isInteriorTarget) {
+            localFallback = getTemplateProfile(effectiveTemplateId || (isInteriorTarget ? 'home-interior' : 're-builders'));
             if (targetSlug) localFallback.slug = targetSlug;
           } else {
             localFallback = getProfileBySlug(targetSlug);
@@ -72,6 +89,15 @@ function BuilderContent() {
               localFallback.sectionData = {
                 ...(localFallback.sectionData || {}),
                 realEstate: getTemplateProfile('re-builders').sectionData.realEstate
+              };
+            }
+          } else if (isInteriorTarget) {
+            localFallback.templateId = 'home-interior';
+            localFallback.category = 'Interior Design';
+            if (!localFallback.sectionData?.interior) {
+              localFallback.sectionData = {
+                ...(localFallback.sectionData || {}),
+                interior: getTemplateProfile('home-interior').sectionData.interior
               };
             }
           }
@@ -100,15 +126,18 @@ function BuilderContent() {
                 const merged: DigitalProfile = {
                   ...localFallback,
                   ...dbProfile,
-                  templateId: isReTarget ? 're-builders' : (dbProfile.templateId || localFallback.templateId || effectiveTemplateId || undefined),
-                  category: isReTarget ? 'Real Estate' : (dbProfile.category || localFallback.category || parsedSession?.category || undefined),
-                  // Ensure sectionData.about.content reflects the DB bio & realEstate is preserved
+                  templateId: isReTarget ? 're-builders' : isInteriorTarget ? 'home-interior' : (dbProfile.templateId || localFallback.templateId || effectiveTemplateId || undefined),
+                  category: isReTarget ? 'Real Estate' : isInteriorTarget ? 'Interior Design' : (dbProfile.category || localFallback.category || parsedSession?.category || undefined),
+                  // Ensure sectionData.about.content reflects the DB bio & trust configs are preserved
                   sectionData: {
                     ...(localFallback.sectionData || {}),
                     ...(dbProfile.sectionData || {}),
                     realEstate: isReTarget 
                       ? (dbProfile.sectionData?.realEstate || localFallback.sectionData?.realEstate || getTemplateProfile('re-builders').sectionData.realEstate)
                       : dbProfile.sectionData?.realEstate,
+                    interior: isInteriorTarget
+                      ? (dbProfile.sectionData?.interior || localFallback.sectionData?.interior || getTemplateProfile('home-interior').sectionData.interior)
+                      : dbProfile.sectionData?.interior,
                     about: {
                       ...(localFallback.sectionData?.about || {}),
                       ...(dbProfile.sectionData?.about || {}),

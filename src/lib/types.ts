@@ -114,6 +114,17 @@ export interface RealEstateTrustConfig {
   city?: string;
 }
 
+export interface InteriorTrustConfig {
+  iiidId?: string;
+  warrantyYears?: string;
+  turnkeyGuaranteeDays?: string;
+  completedHomes?: string;
+  sqftTransformed?: string;
+  happyClients?: string;
+  city?: string;
+  experienceCenter?: string;
+}
+
 export interface ProfileSectionConfig {
   about?: { content: string };
   services?: { items: ServiceItem[] };
@@ -125,6 +136,7 @@ export interface ProfileSectionConfig {
   testimonials?: { items: TestimonialItem[] };
   customLinks?: { items: CustomLinkItem[] };
   realEstate?: RealEstateTrustConfig;
+  interior?: InteriorTrustConfig;
   contact?: {
     showEmail: boolean;
     showPhone: boolean;

@@ -89,6 +89,13 @@ export default function InteriorMiniWebsiteView({
     return parts[parts.length - 1]?.trim() || 'Hyderabad';
   }, [profile.address]);
 
+  // Extract interior trust & warranty configuration
+  const interiorTrust = profile.sectionData?.interior;
+  const iiidLabel = interiorTrust?.iiidId || 'IIID Certified Studio';
+  const warrantyLabel = interiorTrust?.warrantyYears || '10-Year Flat Replacement Warranty';
+  const handoverLabel = interiorTrust?.turnkeyGuaranteeDays || '45-Day Move-In Guarantee';
+  const completedHomesLabel = interiorTrust?.completedHomes || '350+';
+
   // Modals state
   const [isConsultModalOpen, setIsConsultModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -399,10 +406,10 @@ END:VCARD`;
               <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
             </span>
             <span className="font-extrabold uppercase tracking-wider text-amber-300 shrink-0">
-              IIID Certified Studio
+              {iiidLabel}
             </span>
             <span className="hidden sm:inline text-zinc-300 text-[11px] truncate">
-              • 10-Year Flat Replacement Warranty • 45-Day Move-In Guarantee • {userCity}
+              • {warrantyLabel} • {handoverLabel} • {interiorTrust?.city || userCity}
             </span>
           </div>
 
@@ -890,7 +897,7 @@ END:VCARD`;
                   <CheckCircle2 className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <div className="font-serif font-bold text-xl sm:text-2xl text-stone-900">350+</div>
+                  <div className="font-serif font-bold text-xl sm:text-2xl text-stone-900">{completedHomesLabel}</div>
                   <div className="text-[11px] text-stone-500 font-medium">Delivered Homes</div>
                 </div>
               </div>
@@ -900,7 +907,7 @@ END:VCARD`;
                   <Clock className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <div className="font-serif font-bold text-xl sm:text-2xl text-stone-900">45 Days</div>
+                  <div className="font-serif font-bold text-xl sm:text-2xl text-stone-900">{handoverLabel.includes('Guarantee') ? handoverLabel.replace('Guarantee', '').trim() : handoverLabel}</div>
                   <div className="text-[11px] text-stone-500 font-medium">Turnkey Handover</div>
                 </div>
               </div>
@@ -910,7 +917,7 @@ END:VCARD`;
                   <ShieldCheck className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <div className="font-serif font-bold text-xl sm:text-2xl text-emerald-700">10-Year</div>
+                  <div className="font-serif font-bold text-xl sm:text-2xl text-emerald-700">{warrantyLabel.includes('Warranty') ? warrantyLabel.replace('Flat Replacement Warranty', '').replace('Flat Warranty', '').replace('Warranty', '').trim() || warrantyLabel : warrantyLabel}</div>
                   <div className="text-[11px] text-stone-500 font-medium">Flat Warranty</div>
                 </div>
               </div>

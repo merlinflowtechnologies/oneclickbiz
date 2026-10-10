@@ -101,7 +101,8 @@ export async function POST(req: NextRequest) {
                   ...secConfig, 
                   templateId: effectiveTemplateId, 
                   category: effectiveCategory,
-                  realEstate: templatePreset.sectionData?.realEstate 
+                  realEstate: templatePreset.sectionData?.realEstate,
+                  interior: templatePreset.sectionData?.interior 
                 } 
               : secConfig;
 
@@ -128,6 +129,20 @@ export async function POST(req: NextRequest) {
               isVisible: true,
               order: 11,
               config: templatePreset.sectionData.realEstate as any
+            }
+          }).catch(() => {});
+        }
+
+        // Seed dedicated interior section if applicable
+        if (templatePreset.sectionData?.interior) {
+          await tx.profileSection.create({
+            data: {
+              profileId: profile.id,
+              type: 'interior',
+              title: 'IIID & Studio Credentials',
+              isVisible: true,
+              order: 12,
+              config: templatePreset.sectionData.interior as any
             }
           }).catch(() => {});
         }

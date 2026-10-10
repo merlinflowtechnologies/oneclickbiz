@@ -193,7 +193,8 @@ export async function PUT(
                 ...(body.sectionData?.[secType] || {}), 
                 templateId: body.templateId || (body.category === 'Real Estate' || cleanSlug.startsWith('re-') ? 're-builders' : undefined),
                 category: body.category || (cleanSlug.startsWith('re-') ? 'Real Estate' : undefined),
-                realEstate: body.sectionData?.realEstate
+                realEstate: body.sectionData?.realEstate,
+                interior: body.sectionData?.interior
               }
             : (body.sectionData?.[secType] || {});
 
@@ -219,6 +220,20 @@ export async function PUT(
               isVisible: true,
               order: 11,
               config: body.sectionData.realEstate
+            }
+          }).catch(() => {});
+        }
+
+        // Dedicated interior section if applicable
+        if (body.sectionData?.interior) {
+          await prisma.profileSection.create({
+            data: {
+              profileId: targetProfile.id,
+              type: 'interior',
+              title: 'IIID & Studio Credentials',
+              isVisible: true,
+              order: 12,
+              config: body.sectionData.interior
             }
           }).catch(() => {});
         }

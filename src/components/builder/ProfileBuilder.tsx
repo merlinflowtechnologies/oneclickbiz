@@ -239,6 +239,26 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     profile.designation?.toLowerCase().includes('broker') ||
     profile.bio?.toLowerCase().includes('real estate')
   );
+  const isInterior = Boolean(
+    profile.templateId === 'home-interior' ||
+    profile.templateId === 'interior' ||
+    profile.templateId === 'vcard36' ||
+    profile.templateId === 'vcard38' ||
+    profile.templateId?.startsWith('interior') ||
+    profile.id === 'home-interior' ||
+    profile.id === 'interior' ||
+    profile.id?.startsWith('interior') ||
+    profile.slug === 'home-interior' ||
+    profile.slug === 'interior' ||
+    profile.slug?.startsWith('home-interior') ||
+    profile.slug?.startsWith('interior-') ||
+    profile.category === 'Interior Design' ||
+    profile.category === 'Architecture' ||
+    profile.designation?.toLowerCase().includes('interior') ||
+    profile.designation?.toLowerCase().includes('architect') ||
+    profile.company?.toLowerCase().includes('interior') ||
+    profile.bio?.toLowerCase().includes('interior')
+  );
   const [activeTab, setActiveTab] = useState<'cards' | 'info' | 'templates' | 'theme' | 'sections' | 'services' | 'products' | 'videos' | 'blogs' | 'gallery' | 'socials'>('info');
   const [isSaved, setIsSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -1024,7 +1044,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer & RERA Info' : 'Basic Info'}
+            <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer & RERA Info' : isInterior ? 'Architect & Studio Info' : 'Basic Info'}
           </button>
           <button 
             onClick={() => setActiveTab('products')}
@@ -1036,6 +1056,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               <>
                 <Building2 className="w-3.5 h-3.5 text-amber-400" />
                 <span>Projects &amp; Layouts ({profile.sectionData?.products?.items?.length || 0})</span>
+              </>
+            ) : isInterior ? (
+              <>
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span>Spaces &amp; Projects ({profile.sectionData?.products?.items?.length || 0})</span>
               </>
             ) : (
               <>
@@ -1055,6 +1080,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <Calendar className="w-3.5 h-3.5 text-sky-400" />
                 <span>Site Visits &amp; Advisory</span>
               </>
+            ) : isInterior ? (
+              <>
+                <Compass className="w-3.5 h-3.5 text-amber-400" />
+                <span>Consultation &amp; Packages</span>
+              </>
             ) : (
               <>
                 <Briefcase className="w-3.5 h-3.5 text-blue-400" />
@@ -1073,6 +1103,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <Layers className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Blueprints &amp; Photos</span>
               </>
+            ) : isInterior ? (
+              <>
+                <Layers className="w-3.5 h-3.5 text-amber-400" />
+                <span>3D Lookbooks &amp; Photos</span>
+              </>
             ) : (
               <>
                 <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
@@ -1086,7 +1121,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               activeTab === 'videos' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <Film className="w-3.5 h-3.5 text-rose-400" /> {isRealEstate ? 'Drone & Walkthroughs' : 'Videos & Reels'}
+            <Film className="w-3.5 h-3.5 text-rose-400" /> {isRealEstate ? 'Drone & Walkthroughs' : isInterior ? '3D Tours & Reels' : 'Videos & Reels'}
           </button>
           <button 
             onClick={() => setActiveTab('socials')}
@@ -1976,6 +2011,178 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   </div>
                 )}
 
+                {/* 4. INTERIOR DESIGN & IIID CREDENTIALS */}
+                {isInterior && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-stone-900 to-amber-950/40 border border-amber-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center">
+                          <Award className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
+                            IIID Certification &amp; Studio Warranties
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your top warranty ribbon, trust badges, and handover certificates.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-300 font-bold border border-amber-500/30">
+                        Turnkey Verified
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                          <span>IIID Studio Registration / License No.</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.interior?.iiidId ?? 'IIID/TS/ARCH-2024-884'}
+                          placeholder="e.g. IIID/TS/ARCH-2024-884"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                interior: {
+                                  ...(prev.sectionData?.interior || {}),
+                                  iiidId: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 font-mono focus:outline-none focus:border-amber-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Compass className="w-3.5 h-3.5 text-rose-400" />
+                          <span>Studio &amp; Experience Center Address</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.interior?.city ?? 'Road No. 36, Jubilee Hills, Hyderabad'}
+                          placeholder="e.g. Jubilee Hills, Hyderabad"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                interior: {
+                                  ...(prev.sectionData?.interior || {}),
+                                  city: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Flat Replacement Warranty</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.interior?.warrantyYears ?? '10-Year'}
+                          placeholder="e.g. 10-Year"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                interior: {
+                                  ...(prev.sectionData?.interior || {}),
+                                  warrantyYears: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Handover Guarantee</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.interior?.turnkeyGuaranteeDays ?? '45 Days'}
+                          placeholder="e.g. 45 Days"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                interior: {
+                                  ...(prev.sectionData?.interior || {}),
+                                  turnkeyGuaranteeDays: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Delivered Homes</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.interior?.completedHomes ?? '350+'}
+                          placeholder="e.g. 350+"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                interior: {
+                                  ...(prev.sectionData?.interior || {}),
+                                  completedHomes: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Happy Homeowners</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.interior?.happyClients ?? '350+'}
+                          placeholder="e.g. 350+"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                interior: {
+                                  ...(prev.sectionData?.interior || {}),
+                                  happyClients: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Quick Social Media & Networks (LinkedIn, Instagram, Twitter/X, YouTube, Facebook, Telegram) */}
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 space-y-3 pt-3 mt-2">
                   <div className="flex items-center justify-between">
@@ -2134,6 +2341,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   {[
                     { id: 'all', label: `All (${VCARD_TEMPLATES_CATALOG.length})`, icon: '✨' },
                     { id: 'Real Estate', label: 'Real Estate', icon: '🏠' },
+                    { id: 'Interior Design', label: 'Interior & Architecture', icon: '🛋️' },
                     { id: 'Fashion & Clothing', label: 'Fashion', icon: '👗' },
                     { id: 'Beauty & Personal Care', label: 'Beauty', icon: '💄' },
                     { id: 'Food Business', label: 'Food', icon: '🍽️' },
@@ -2651,6 +2859,231 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   )}
                 </div>
               </div>
+            ) : isInterior ? (
+              <div className="space-y-5 max-w-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                        <Compass className="w-4 h-4 text-amber-400" />
+                        <span>Interior Consultation &amp; Execution Services</span>
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                        {profile.sectionData.services?.items?.length || 0} Packages
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Configure 3D design consultations, site visits, modular woodwork audits, and full turnkey execution packages.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newService = {
+                        id: `svc_${Date.now()}`,
+                        title: 'Free 3D Architectural Consultation',
+                        category: '3D Consultation',
+                        description: 'Personalized site visit, floor plan review, material finishes selection, and 3D space visualizer.',
+                        price: 0,
+                        currency: '₹',
+                        durationMinutes: 60,
+                        isAvailable: true
+                      };
+                      const updated = [...(profile.sectionData.services?.items || []), newService];
+                      setProfile(prev => ({
+                        ...prev,
+                        sectionData: { ...prev.sectionData, services: { items: updated } }
+                      }));
+                    }}
+                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-xs font-bold text-stone-950 flex items-center gap-1.5 transition-all shadow-md cursor-pointer shrink-0"
+                  >
+                    <Plus className="w-4 h-4 stroke-[2.5]" /> Add Design Service
+                  </button>
+                </div>
+
+                {/* Quick Presets Strip */}
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-amber-400 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                      Quick Architecture &amp; Interior Presets:
+                    </span>
+                    <span className="text-[10px] text-slate-400">Click to instantly add to card</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_1`,
+                          title: 'Free 3D Architectural Consultation',
+                          category: '3D Consultation',
+                          description: '1-on-1 session with principal architect, 3D space modeling, floor plan review, and transparent material BOQ breakdown.',
+                          price: 0,
+                          currency: '₹',
+                          durationMinutes: 60,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Free 3D Consultation
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_2`,
+                          title: 'Full Turnkey Residential Execution',
+                          category: 'Turnkey Contract',
+                          description: 'Complete false ceiling, modular woodwork, concealed lighting, civil modifications, and turnkey decor with 10-Year Warranty.',
+                          price: 50000,
+                          currency: '₹',
+                          durationMinutes: 90,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Turnkey Execution (₹50k Token)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_3`,
+                          title: 'Modular German Kitchen &amp; Wardrobes',
+                          category: 'Modular Woodwork',
+                          description: 'Factory-made BWP Marine Ply cabinets with Hafele &amp; Blum soft-close fittings and 45-day guaranteed handover.',
+                          price: 25000,
+                          currency: '₹',
+                          durationMinutes: 45,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Modular Kitchen &amp; Wardrobes
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {profile.sectionData.services?.items?.map((srv, idx) => (
+                    <div key={srv.id} className="p-4 sm:p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 relative group hover:border-amber-500/40 transition shadow-lg">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 text-xs font-bold flex items-center justify-center">
+                            {idx + 1}
+                          </span>
+                          <span className="text-xs font-bold text-white uppercase tracking-wider">{srv.category || 'Interior Package'}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = profile.sectionData.services?.items?.filter((_, i) => i !== idx) || [];
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, services: { items: updated } }
+                            }));
+                          }}
+                          className="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Package / Service Title</label>
+                          <input 
+                            type="text"
+                            value={srv.title}
+                            placeholder="e.g. Free 3D Architectural Consultation"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].title = e.target.value;
+                              setProfile(prev => ({ ...prev, sectionData: { ...prev.sectionData, services: { items: updated } } }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Category / Type</label>
+                          <input 
+                            type="text"
+                            value={srv.category || ''}
+                            placeholder="e.g. Turnkey Contract / 3D Consultation"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].category = e.target.value;
+                              setProfile(prev => ({ ...prev, sectionData: { ...prev.sectionData, services: { items: updated } } }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Consultation Fee (₹)</label>
+                          <input 
+                            type="number"
+                            value={srv.price}
+                            placeholder="0 for Complimentary"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].price = Number(e.target.value);
+                              setProfile(prev => ({ ...prev, sectionData: { ...prev.sectionData, services: { items: updated } } }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-amber-500"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Session Duration (Mins)</label>
+                          <input 
+                            type="number"
+                            value={srv.durationMinutes}
+                            placeholder="60"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].durationMinutes = Number(e.target.value);
+                              setProfile(prev => ({ ...prev, sectionData: { ...prev.sectionData, services: { items: updated } } }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-amber-500"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Inclusions &amp; Deliverables</label>
+                        <textarea 
+                          rows={2}
+                          value={srv.description}
+                          placeholder="e.g. Site visit, layout blueprint review, and material finishes selection."
+                          onChange={e => {
+                            const updated = [...(profile.sectionData.services?.items || [])];
+                            updated[idx].description = e.target.value;
+                            setProfile(prev => ({ ...prev, sectionData: { ...prev.sectionData, services: { items: updated } } }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 resize-none"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ) : (
               <div className="space-y-4 max-w-xl">
                 <div className="flex items-center justify-between">
@@ -3082,6 +3515,253 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   ))}
                 </div>
               </div>
+            ) : isInterior ? (
+              <div className="space-y-5 max-w-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                        <Sparkles className="w-4 h-4 text-amber-400" />
+                        <span>Signature Interior Transformations &amp; Spaces</span>
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                        {profile.sectionData.products?.items?.length || 0} Spaces
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Showcase bespoke residential living spaces, modular kitchens, master suites, budgets, and 3D lookbooks.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newSpace: ProductItem = {
+                        id: `space_${Date.now()}`,
+                        name: 'Signature Luxury Living Room',
+                        description: 'Italian statuario marble flooring, custom fluted acoustic veneer paneling, ambient magnetic track lighting.',
+                        price: 1850000,
+                        currency: '₹',
+                        imageUrl: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
+                        category: 'Living Room',
+                        isAvailable: true
+                      };
+                      const updated = [...(profile.sectionData.products?.items || []), newSpace];
+                      setProfile(prev => ({
+                        ...prev,
+                        sectionData: { ...prev.sectionData, products: { items: updated } }
+                      }));
+                    }}
+                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-xs font-bold text-stone-950 flex items-center gap-1.5 transition-all shadow-md cursor-pointer shrink-0"
+                  >
+                    <Plus className="w-4 h-4 stroke-[2.5]" /> Add Interior Project
+                  </button>
+                </div>
+
+                {/* Quick Presets Strip */}
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-amber-400 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                      Quick Interior Space Presets:
+                    </span>
+                    <span className="text-[10px] text-slate-400">Click to instantly add to card</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const p: ProductItem = {
+                          id: `p_int_${Date.now()}_1`,
+                          name: 'The Sovereign Living & Dining Lounge',
+                          category: 'Living Room',
+                          description: 'Italian statuario marble flooring, custom fluted acoustic veneer paneling, ambient magnetic track lighting.',
+                          price: 1850000,
+                          currency: '₹',
+                          imageUrl: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, products: { items: [...(prev.sectionData.products?.items || []), p] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Living &amp; Dining (₹18.5L)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const p: ProductItem = {
+                          id: `p_int_${Date.now()}_2`,
+                          name: 'Minimalist Matte Charcoal Modular Kitchen',
+                          category: 'Modular Kitchen',
+                          description: 'Century Club Prime BWP plywood, quartz stone countertop, Hafele lift-up fittings, Blum soft-close tandem boxes.',
+                          price: 1250000,
+                          currency: '₹',
+                          imageUrl: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, products: { items: [...(prev.sectionData.products?.items || []), p] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Modular Kitchen (₹12.5L)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const p: ProductItem = {
+                          id: `p_int_${Date.now()}_3`,
+                          name: 'The Zen Master Suite & Walk-In Wardrobe',
+                          category: 'Master Suite',
+                          description: 'Warm teak fluted headboard, acoustic upholstered panels, tinted bronze glass wardrobes with sensor LED lighting.',
+                          price: 1450000,
+                          currency: '₹',
+                          imageUrl: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80',
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, products: { items: [...(prev.sectionData.products?.items || []), p] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Master Suite (₹14.5L)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const p: ProductItem = {
+                          id: `p_int_${Date.now()}_4`,
+                          name: 'Boutique Creative Workspace & Studio',
+                          category: 'Commercial',
+                          description: 'Acoustic NRC 0.8 wood slat ceilings, modular cable-managed desks, and double-glazed private conference cabins.',
+                          price: 1600000,
+                          currency: '₹',
+                          imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, products: { items: [...(prev.sectionData.products?.items || []), p] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Commercial Studio (₹16.0L)
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {profile.sectionData.products?.items?.map((space, idx) => (
+                    <div key={space.id} className="p-4 sm:p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 relative group hover:border-amber-500/40 transition shadow-lg">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 text-xs font-bold flex items-center justify-center">
+                            {idx + 1}
+                          </span>
+                          <span className="text-xs font-bold text-white uppercase tracking-wider">{space.category || 'Interior Space'}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = profile.sectionData.products?.items?.filter((_, i) => i !== idx) || [];
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, products: { items: updated } }
+                            }));
+                          }}
+                          className="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Space / Project Title</label>
+                          <input 
+                            type="text"
+                            value={space.name}
+                            placeholder="e.g. The Sovereign Living & Dining Lounge"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].name = e.target.value;
+                              setProfile(prev => ({ ...prev, sectionData: { ...prev.sectionData, products: { items: updated } } }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Room Category / Type</label>
+                          <input 
+                            type="text"
+                            value={space.category || ''}
+                            placeholder="e.g. Living Room / Modular Kitchen / Master Suite"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].category = e.target.value;
+                              setProfile(prev => ({ ...prev, sectionData: { ...prev.sectionData, products: { items: updated } } }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Estimated Budget (₹)</label>
+                          <input 
+                            type="number"
+                            value={space.price}
+                            placeholder="1850000"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].price = Number(e.target.value);
+                              setProfile(prev => ({ ...prev, sectionData: { ...prev.sectionData, products: { items: updated } } }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 font-mono focus:outline-none focus:border-amber-500"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-400">Project Photo URL</label>
+                          <input 
+                            type="url"
+                            value={space.imageUrl || ''}
+                            placeholder="https://images.unsplash.com/photo-..."
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].imageUrl = e.target.value;
+                              setProfile(prev => ({ ...prev, sectionData: { ...prev.sectionData, products: { items: updated } } }));
+                            }}
+                            className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-amber-500"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Material Specs &amp; Finish Details</label>
+                        <textarea 
+                          rows={2}
+                          value={space.description || ''}
+                          placeholder="e.g. Italian statuario marble flooring, custom fluted acoustic veneer paneling, ambient magnetic track lighting."
+                          onChange={e => {
+                            const updated = [...(profile.sectionData.products?.items || [])];
+                            updated[idx].description = e.target.value;
+                            setProfile(prev => ({ ...prev, sectionData: { ...prev.sectionData, products: { items: updated } } }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 resize-none"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ) : (
               <div className="space-y-4 max-w-xl">
                 <div className="flex items-center justify-between">
@@ -3398,10 +4078,18 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     }
                     const newVideo: VideoItem = {
                       id: `vid_${Date.now()}`,
-                      title: isRealEstate ? '4K Aerial Drone Layout Survey & Walkthrough' : '4K YouTube Video Showcase',
+                      title: isRealEstate 
+                        ? '4K Aerial Drone Layout Survey & Walkthrough' 
+                        : isInterior 
+                        ? '4K Ultra-HD Home Interior Walkthrough Tour' 
+                        : '4K YouTube Video Showcase',
                       url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
                       type: 'youtube',
-                      caption: isRealEstate ? 'Watch 4K aerial layout progression, road connectivity & master arch.' : 'Watch our story in Full 4K Ultra-HD.'
+                      caption: isRealEstate 
+                        ? 'Watch 4K aerial layout progression, road connectivity & master arch.' 
+                        : isInterior 
+                        ? 'Complete 3D walkthrough, Italian marble finish, and modular lighting tour.' 
+                        : 'Watch our story in Full 4K Ultra-HD.'
                     };
                     const updated = [...(profile.sectionData.videos?.items || []), newVideo];
                     setProfile(prev => ({
@@ -3412,7 +4100,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   className="px-3.5 py-2 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow-md active:scale-95 bg-red-600 hover:bg-red-500 shadow-red-500/20 cursor-pointer"
                 >
                   <SocialIcon platform="youtube" size={15} /> 
-                  <span>{isRealEstate ? 'Add YouTube 4K Link' : 'Add YouTube Link'}</span>
+                  <span>{isRealEstate ? 'Add YouTube 4K Link' : isInterior ? 'Add 4K Tour Link' : 'Add YouTube Link'}</span>
                 </button>
 
                 <button
@@ -3429,10 +4117,18 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     }
                     const newVideo: VideoItem = {
                       id: `vid_${Date.now()}`,
-                      title: isRealEstate ? 'On-Site Ground Progression & Master Arch Reel' : 'Instagram Brand Reel Tour',
+                      title: isRealEstate 
+                        ? 'On-Site Ground Progression & Master Arch Reel' 
+                        : isInterior 
+                        ? 'Before & After Turnkey Handover Reel' 
+                        : 'Instagram Brand Reel Tour',
                       url: 'https://www.instagram.com/reel/C3M8W98oG12/',
                       type: 'instagram',
-                      caption: isRealEstate ? 'Live on-site footage, finished CC roads, and street lighting illumination.' : 'Watch on-the-go updates on Instagram.'
+                      caption: isRealEstate 
+                        ? 'Live on-site footage, finished CC roads, and street lighting illumination.' 
+                        : isInterior 
+                        ? 'Live 45-day turnkey progress, modular factory installation, and client reaction.' 
+                        : 'Watch on-the-go updates on Instagram.'
                     };
                     const updated = [...(profile.sectionData.videos?.items || []), newVideo];
                     setProfile(prev => ({
@@ -3958,6 +4654,8 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex flex-wrap gap-1.5">
                   {(isRealEstate 
                     ? ['Master Layout Blueprint', '3D Architectural Elevation', 'Villa / Flat Interiors', 'Clubhouse & Amenities', 'Actual Site Progress', 'Aerial Drone Survey', 'Open Plots Demarcation', 'Venture Entrance Arch']
+                    : isInterior
+                    ? ['Living & Dining', 'Modular Kitchens', 'Master Bedrooms', 'Commercial & Offices', '3D Lookbooks & Renders', 'False Ceiling & Lighting', 'Wardrobes & Woodwork', 'Before & After Transformations']
                     : ['Weddings', 'Portraits', 'Fashion', 'Pre-Wedding', 'Events', 'Commercial', 'Architecture', 'Products', 'Food & Dining', 'Landscape']
                   ).map((cat) => (
                     <button
@@ -3966,7 +4664,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       onClick={() => setGalleryUploadTag(cat)}
                       className={`px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all ${
                         galleryUploadTag === cat
-                          ? isRealEstate
+                          ? isRealEstate || isInterior
                             ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20 ring-1 ring-amber-400'
                             : 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20 ring-1 ring-indigo-400'
                           : 'bg-slate-950 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800'
