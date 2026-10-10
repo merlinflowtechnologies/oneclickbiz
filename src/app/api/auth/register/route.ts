@@ -38,8 +38,9 @@ export async function POST(req: NextRequest) {
     const passwordHash = await hashPassword(password);
 
     // Resolve template and industry preset
-    const effectiveCategory = body.category || (cleanSlug.startsWith('re-') || body.templateId?.startsWith('re-') ? 'Real Estate' : 'Real Estate');
-    const effectiveTemplateId = body.templateId || (effectiveCategory === 'Real Estate' ? 're-builders' : 're-builders');
+    const isInteriorCategory = body.category === 'Interior Design' || body.category === 'Interior' || cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') || body.templateId === 'home-interior' || body.templateId === 'interior';
+    const effectiveCategory = body.category || (isInteriorCategory ? 'Interior Design' : (cleanSlug.startsWith('re-') || body.templateId?.startsWith('re-') ? 'Real Estate' : 'Real Estate'));
+    const effectiveTemplateId = body.templateId || (isInteriorCategory ? 'home-interior' : (effectiveCategory === 'Real Estate' ? 're-builders' : 're-builders'));
     const templatePreset = getTemplateProfile(effectiveTemplateId);
 
     // Create User, Organization, and Default Profile in a transaction (with fallback)
@@ -79,7 +80,7 @@ export async function POST(req: NextRequest) {
             slug: cleanSlug,
             name,
             company: businessName || `${name}'s Business`,
-            designation: templatePreset.designation || (effectiveCategory === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director'),
+            designation: templatePreset.designation || (effectiveCategory === 'Interior Design' ? 'Principal Architect & Founder' : (effectiveCategory === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director')),
             bio: templatePreset.bio || `${businessName || name} - Smart digital business identity.`,
             email: cleanEmail,
             phone: rawPhone,

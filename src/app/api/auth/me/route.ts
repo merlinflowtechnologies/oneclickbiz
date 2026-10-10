@@ -85,6 +85,9 @@ export async function GET(req: NextRequest) {
       if (defaultProfile.slug?.startsWith('re-')) {
         userTemplateId = 're-builders';
         userCategory = 'Real Estate';
+      } else if (defaultProfile.slug?.startsWith('home-interior') || defaultProfile.slug?.startsWith('interior')) {
+        userTemplateId = 'home-interior';
+        userCategory = 'Interior Design';
       }
     }
 

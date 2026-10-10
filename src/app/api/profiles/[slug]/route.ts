@@ -73,6 +73,9 @@ export async function GET(
     if (cleanSlug.startsWith('re-') || resolvedCategory === 'Real Estate') {
       if (!resolvedTemplateId) resolvedTemplateId = 're-builders';
       if (!resolvedCategory) resolvedCategory = 'Real Estate';
+    } else if (cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') || resolvedCategory === 'Interior Design' || resolvedCategory === 'Interior') {
+      if (!resolvedTemplateId) resolvedTemplateId = 'home-interior';
+      if (!resolvedCategory) resolvedCategory = 'Interior Design';
     }
 
     // Increment views asynchronously
@@ -85,8 +88,8 @@ export async function GET(
       success: true, 
       profile: {
         ...profile,
-        templateId: resolvedTemplateId || (cleanSlug.startsWith('re-') ? 're-builders' : undefined),
-        category: resolvedCategory || (cleanSlug.startsWith('re-') ? 'Real Estate' : undefined),
+        templateId: resolvedTemplateId || (cleanSlug.startsWith('re-') ? 're-builders' : (cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'home-interior' : undefined)),
+        category: resolvedCategory || (cleanSlug.startsWith('re-') ? 'Real Estate' : (cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'Interior Design' : undefined)),
         sections: sections.length > 0 ? sections : undefined,
         sectionData: Object.keys(sectionData).length > 0 ? sectionData : undefined,
         subscriptionStatus,
@@ -191,8 +194,8 @@ export async function PUT(
           const configData = secType === 'hero' 
             ? { 
                 ...(body.sectionData?.[secType] || {}), 
-                templateId: body.templateId || (body.category === 'Real Estate' || cleanSlug.startsWith('re-') ? 're-builders' : undefined),
-                category: body.category || (cleanSlug.startsWith('re-') ? 'Real Estate' : undefined),
+                templateId: body.templateId || (body.category === 'Interior Design' || cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'home-interior' : (body.category === 'Real Estate' || cleanSlug.startsWith('re-') ? 're-builders' : undefined)),
+                category: body.category || (cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'Interior Design' : (cleanSlug.startsWith('re-') ? 'Real Estate' : undefined)),
                 realEstate: body.sectionData?.realEstate,
                 interior: body.sectionData?.interior
               }
@@ -246,8 +249,8 @@ export async function PUT(
       success: true, 
       profile: { 
         ...updated, 
-        templateId: body.templateId || (body.category === 'Real Estate' || cleanSlug.startsWith('re-') ? 're-builders' : undefined),
-        category: body.category || (cleanSlug.startsWith('re-') ? 'Real Estate' : undefined),
+        templateId: body.templateId || (body.category === 'Interior Design' || cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'home-interior' : (body.category === 'Real Estate' || cleanSlug.startsWith('re-') ? 're-builders' : undefined)),
+        category: body.category || (cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'Interior Design' : (cleanSlug.startsWith('re-') ? 'Real Estate' : undefined)),
         sections: body.sections, 
         sectionData: body.sectionData 
       } 

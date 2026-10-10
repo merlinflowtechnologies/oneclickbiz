@@ -132,6 +132,18 @@ const INDUSTRY_OPTIONS = [
     highlightText: 'Pre-loaded with High-Rise Towers, Gated Villas, Open Plots, TS-RERA Badges, Blueprint Galleries, EMI Calculator, and VIP Site Visit booking.'
   },
   {
+    id: 'interior-design',
+    category: 'Interior Design',
+    templateId: 'home-interior',
+    label: 'Interior Design & Architecture',
+    badge: '✨ Flagship 3D Studio',
+    desc: 'Interior Designers, Turnkey Fitouts, Modular Kitchens, Architects & 3D Renderings',
+    icon: Compass,
+    gradient: 'from-amber-600/10 via-yellow-600/10 to-amber-600/5',
+    activeBorder: 'border-amber-600 bg-amber-50/90 text-amber-950',
+    highlightText: 'Pre-loaded with 3D Lookbook, Living & Dining transformations, Modular Kitchens, IIID Certification, Cost Estimator, and 10-Yr Warranty guarantees.'
+  },
+  {
     id: 'healthcare',
     category: 'Healthcare',
     templateId: 'vcard36',
@@ -294,8 +306,9 @@ function SignUpForm() {
   const [step, setStep] = useState<1 | 2 | 3>(paramStep === '2' || paramUnpaid ? 2 : 1);
 
   // Industry & Profession Selection
-  const initialCategory = paramCategory || (paramTemplate?.startsWith('re-') ? 'Real Estate' : 'Real Estate');
-  const initialTemplateId = paramTemplate || (initialCategory === 'Real Estate' ? 're-builders' : 're-builders');
+  const isInteriorParam = paramTemplate === 'home-interior' || paramTemplate === 'interior' || paramCategory?.toLowerCase().includes('interior');
+  const initialCategory = paramCategory || (isInteriorParam ? 'Interior Design' : (paramTemplate?.startsWith('re-') ? 'Real Estate' : 'Real Estate'));
+  const initialTemplateId = paramTemplate || (initialCategory === 'Interior Design' ? 'home-interior' : (initialCategory === 'Real Estate' ? 're-builders' : 're-builders'));
 
   const [category, setCategory] = useState(initialCategory);
   const [templateId, setTemplateId] = useState(initialTemplateId);
@@ -307,8 +320,8 @@ function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [businessName, setBusinessName] = useState(
     paramName 
-      ? (initialCategory === 'Real Estate' ? `${paramName} Builders & Realty` : `${paramName}'s Business`)
-      : (initialCategory === 'Real Estate' ? 'Skyline Builders & Developers' : '')
+      ? (initialCategory === 'Interior Design' ? `${paramName} Studio & Interiors` : initialCategory === 'Real Estate' ? `${paramName} Builders & Realty` : `${paramName}'s Business`)
+      : (initialCategory === 'Interior Design' ? 'Luxe Living Interiors & Architecture' : initialCategory === 'Real Estate' ? 'Skyline Builders & Developers' : '')
   );
   const [entityType, setEntityType] = useState('Private Limited / LLC');
   const [phone, setPhone] = useState('');
@@ -512,7 +525,7 @@ function SignUpForm() {
                   businessName: generatedBizName,
                   entityType,
                   category,
-                  designation: category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director',
+                  designation: category === 'Interior Design' ? 'Principal Architect & Founder' : (category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director'),
                   phone,
                   slug: generatedSlug,
                   plan: activePlan.id,
@@ -541,7 +554,7 @@ function SignUpForm() {
                       title: `${generatedBizName} vCard`,
                       name: data.user.name,
                       company: generatedBizName,
-                      designation: category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder & Managing Director',
+                      designation: category === 'Interior Design' ? 'Principal Architect & Founder' : (category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder & Managing Director'),
                       templateId: templateId,
                       theme: initialCustomProfile.theme,
                       avatarUrl: initialCustomProfile.avatarUrl,
@@ -617,7 +630,7 @@ function SignUpForm() {
           businessName: cleanBiz,
           entityType,
           category,
-          designation: category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director',
+          designation: category === 'Interior Design' ? 'Principal Architect & Founder' : (category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director'),
           phone,
           slug: cleanSlug,
           plan: activePlan.id,
@@ -646,7 +659,7 @@ function SignUpForm() {
               title: `${cleanBiz} vCard`,
               name: fullName,
               company: cleanBiz,
-              designation: category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder & Managing Director',
+              designation: category === 'Interior Design' ? 'Principal Architect & Founder' : (category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder & Managing Director'),
               templateId: templateId,
               theme: initialCustomProfile.theme,
               avatarUrl: initialCustomProfile.avatarUrl,
@@ -932,13 +945,13 @@ function SignUpForm() {
                     Step 2: Choose Your Profession / Industry
                   </label>
                   <span className="text-[11px] font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
-                    Active Studio: {category}
+                    Active Studio: {category === 'Interior Design' ? 'Interior Design & Architecture' : category}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {INDUSTRY_OPTIONS.map((ind) => {
-                    const isSelected = category === ind.category && (ind.id === 'real-estate' ? templateId === 're-builders' : true);
+                    const isSelected = category === ind.category && (ind.templateId ? templateId === ind.templateId : true);
                     const IconComponent = ind.icon;
                     return (
                       <div
@@ -946,8 +959,9 @@ function SignUpForm() {
                         onClick={() => {
                           setCategory(ind.category);
                           setTemplateId(ind.templateId);
-                          if (!businessName || businessName.includes('Business') || businessName.includes('Builders')) {
+                          if (!businessName || businessName.includes('Business') || businessName.includes('Builders') || businessName.includes('Interiors')) {
                             if (ind.id === 'real-estate') setBusinessName(fullName ? `${fullName} Builders & Realty` : 'Skyline Builders & Developers');
+                            else if (ind.id === 'interior-design') setBusinessName(fullName ? `${fullName} Studio & Interiors` : 'Luxe Living Interiors & Architecture');
                             else setBusinessName(fullName ? `${fullName}'s Business` : '');
                           }
                         }}
@@ -982,15 +996,15 @@ function SignUpForm() {
                 </div>
 
                 {/* Active Studio Highlight Banner */}
-                {INDUSTRY_OPTIONS.find(i => i.category === category && (i.id === 'real-estate' ? templateId === 're-builders' : true)) && (
+                {INDUSTRY_OPTIONS.find(i => i.category === category && (i.templateId ? templateId === i.templateId : true)) && (
                   <div className="p-3 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border border-amber-300 text-amber-950 text-xs flex items-start gap-2.5 shadow-xs animate-in fade-in duration-200">
                     <Sparkles className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                     <div className="space-y-0.5">
                       <p className="font-extrabold text-amber-900 text-xs">
-                        {category === 'Real Estate' ? '🏰 Flagship Real Estate Studio Enabled' : `✨ ${category} Studio Enabled`}
+                        {category === 'Real Estate' ? '🏰 Flagship Real Estate Studio Enabled' : category === 'Interior Design' ? '✨ Flagship Interior Design & 3D Studio Enabled' : `✨ ${category} Studio Enabled`}
                       </p>
                       <p className="text-[11px] text-amber-800 leading-relaxed">
-                        {INDUSTRY_OPTIONS.find(i => i.category === category && (i.id === 'real-estate' ? templateId === 're-builders' : true))?.highlightText}
+                        {INDUSTRY_OPTIONS.find(i => i.category === category && (i.templateId ? templateId === i.templateId : true))?.highlightText}
                       </p>
                     </div>
                   </div>

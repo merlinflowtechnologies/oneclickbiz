@@ -1,5 +1,6 @@
 export type VCardCategory = 
   | 'Real Estate'
+  | 'Interior Design'
   | 'Fashion & Clothing'
   | 'Beauty & Personal Care'
   | 'Food Business'
@@ -28,6 +29,7 @@ export interface VCardTemplateItem {
 
 export const VCARD_CATEGORY_LIST: { id: VCardCategory; name: string; icon: string; count?: number }[] = [
   { id: 'Real Estate', name: 'Real Estate', icon: '🏠' },
+  { id: 'Interior Design', name: 'Interior Design', icon: '🛋️' },
   { id: 'Fashion & Clothing', name: 'Fashion & Clothing', icon: '👗' },
   { id: 'Beauty & Personal Care', name: 'Beauty & Personal Care', icon: '💄' },
   { id: 'Food Business', name: 'Food Business', icon: '🍽️' },
@@ -426,13 +428,20 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
     id: 'home-interior',
     templateNumber: 701,
-    name: 'Interior Designer & Modular Kitchens vCard',
-    category: 'Home & Professional Services',
-    subCategory: 'Interior Designers',
+    name: 'Interior Designer & Modular Kitchens Mini-Website',
+    category: 'Interior Design',
+    subCategory: 'Interior Designers & Architects',
     imgUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
-    badge: 'Featured',
-    tagline: 'Turnkey residential interiors, modular homes & offices',
-    features: ['3D photo gallery', 'Get free quote estimator', 'Warranty & quality certificate', 'WhatsApp consultation']
+    badge: '⭐ Flagship 3D Studio',
+    tagline: 'Turnkey residential interiors, modular homes & offices with 3D Lookbook',
+    features: [
+      'Interactive 3D Lookbook and space transformations',
+      'Living & dining, modular kitchen, and master suite galleries',
+      'Dynamic interior cost estimator & instant BOQ quote',
+      'IIID certified designer credentials & 10-year warranty guarantee',
+      'Before & After interactive split slider',
+      'Doorstep 3D consultation appointment booking'
+    ]
   },
   {
     id: 'home-architect',

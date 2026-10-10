@@ -28,6 +28,7 @@ export default function VCardTemplatesPage() {
   const categories = [
     { id: 'all', label: `All Templates (${VCARD_TEMPLATES_CATALOG.length})`, icon: '✨' },
     { id: 'Real Estate', label: 'Real Estate', icon: '🏠' },
+    { id: 'Interior Design', label: 'Interior Design', icon: '🛋️' },
     { id: 'Fashion & Clothing', label: 'Fashion & Clothing', icon: '👗' },
     { id: 'Beauty & Personal Care', label: 'Beauty & Care', icon: '💄' },
     { id: 'Food Business', label: 'Food Business', icon: '🍽️' },
