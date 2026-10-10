@@ -101,13 +101,48 @@ interface ProfileCardViewProps {
 }
 
 export default function ProfileCardView({
-  profile,
+  profile: initialProfile,
   isMockup = false,
   initialViewMode,
   showViewToggle = false,
   onLeadSubmit,
   onBookingSubmit
 }: ProfileCardViewProps) {
+  const [profile, setProfile] = useState<DigitalProfile>(initialProfile);
+
+  useEffect(() => {
+    setProfile(initialProfile);
+  }, [initialProfile]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && initialProfile?.slug) {
+      try {
+        const cached = localStorage.getItem(`oneclickbiz_custom_profile_${initialProfile.slug}`);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed && parsed.slug === initialProfile.slug) {
+            setProfile(prev => ({
+              ...prev,
+              ...parsed,
+              sectionData: {
+                ...(prev.sectionData || {}),
+                ...(parsed.sectionData || {})
+              }
+            }));
+          }
+        }
+      } catch (e) {}
+
+      const handleUpdate = (e: any) => {
+        if (e.detail && e.detail.slug === initialProfile.slug) {
+          setProfile(e.detail);
+        }
+      };
+      window.addEventListener('oneclickbiz_profile_updated', handleUpdate);
+      return () => window.removeEventListener('oneclickbiz_profile_updated', handleUpdate);
+    }
+  }, [initialProfile?.slug]);
+
   const [viewMode, setViewMode] = useState<'mobile' | 'website'>(
     initialViewMode || (isMockup ? 'mobile' : 'website')
   );

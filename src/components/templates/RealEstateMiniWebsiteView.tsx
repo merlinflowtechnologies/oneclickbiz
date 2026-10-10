@@ -123,10 +123,18 @@ export default function RealEstateMiniWebsiteView({
 }: RealEstateMiniWebsiteViewProps) {
   // Extract user's location & city
   const userCity = useMemo(() => {
+    if (profile.sectionData?.realEstate?.city) {
+      return profile.sectionData.realEstate.city.split('•')[0].trim();
+    }
     if (!profile.address) return 'Hyderabad';
     const parts = profile.address.split(',').map(s => s.trim());
     return parts[parts.length - 2] || parts[parts.length - 1] || parts[0] || 'Hyderabad';
-  }, [profile.address]);
+  }, [profile.address, profile.sectionData?.realEstate?.city]);
+
+  // Real estate statutory RERA ID
+  const displayRera = useMemo(() => {
+    return profile.sectionData?.realEstate?.reraId || 'TS-RERA Sanctioned';
+  }, [profile.sectionData?.realEstate?.reraId]);
 
   // Clean WhatsApp phone
   const cleanPhone = useMemo(() => {
@@ -174,11 +182,12 @@ export default function RealEstateMiniWebsiteView({
         else propType = 'Apartments';
 
         const locationMatch = prod.description.match(/(?:at|in|near|corridor:)\s+([A-Za-z\s]+?)(?:[.,;]|$)/i);
-        const projectLoc = locationMatch ? locationMatch[1].trim() : (profile.address ? profile.address.split(',')[0].trim() : `${userCity} Growth Corridor`);
+        const prodCorridor = (prod as any).corridor || (prod as any).location;
+        const projectLoc = prodCorridor || (locationMatch ? locationMatch[1].trim() : (profile.address ? profile.address.split(',')[0].trim() : `${userCity} Growth Corridor`));
 
-        let priceDisp = '₹ 24.7 Lakhs - ₹ 49.5 Lakhs';
+        let priceDisp = (prod as any).priceLabel || '₹ 24.7 Lakhs - ₹ 49.5 Lakhs';
         let pricePerUnit = '₹ 16,499 / Sq. Yd';
-        if (prod.price > 0) {
+        if (prod.price > 0 && !(prod as any).priceLabel) {
           if (prod.price >= 10000000) {
             priceDisp = `₹ ${(prod.price / 10000000).toFixed(2)} Cr`;
           } else if (prod.price >= 100000) {
@@ -188,6 +197,12 @@ export default function RealEstateMiniWebsiteView({
           }
           pricePerUnit = isPlot ? `₹ ${Math.round(prod.price / 200).toLocaleString('en-IN')} / Sq. Yd` : `₹ ${Math.round(prod.price / 1800).toLocaleString('en-IN')} / sq.ft`;
         }
+
+        const prodRera = (prod as any).reraId || profile.sectionData?.realEstate?.reraId;
+        const prodDimensions = (prod as any).dimensions;
+        const prodStatus = (prod as any).status;
+        const prodApproval = (prod as any).approvalType;
+        const prodAmenities = (prod as any).amenities;
 
         // Tailored high-resolution gallery visuals and architectural floor plans for each property category
         const typeMedia = {
@@ -201,7 +216,7 @@ export default function RealEstateMiniWebsiteView({
             ].filter(Boolean),
             plans: [
               {
-                bhk: bhkMatches[0] || '150 Sq. Yds (33ft × 41ft)',
+                bhk: prodDimensions || bhkMatches[0] || '150 Sq. Yds (33ft × 41ft)',
                 superArea: '1,350 sq.ft',
                 carpetArea: '1,350 sq.ft',
                 price: priceDisp,
@@ -236,7 +251,7 @@ export default function RealEstateMiniWebsiteView({
             ].filter(Boolean),
             plans: [
               {
-                bhk: bhkMatches[0] || '4 BHK Triplex Luxury Villa',
+                bhk: prodDimensions || bhkMatches[0] || '4 BHK Triplex Luxury Villa',
                 superArea: '3,850 sq.ft',
                 carpetArea: '3,100 sq.ft',
                 price: priceDisp,
@@ -263,7 +278,7 @@ export default function RealEstateMiniWebsiteView({
             ].filter(Boolean),
             plans: [
               {
-                bhk: 'Grade-A Executive Office Suite',
+                bhk: prodDimensions || 'Grade-A Executive Office Suite',
                 superArea: '1,250 sq.ft',
                 carpetArea: '1,020 sq.ft',
                 price: priceDisp,
@@ -289,7 +304,7 @@ export default function RealEstateMiniWebsiteView({
             ].filter(Boolean),
             plans: [
               {
-                bhk: '0.5 Acre Weekend Farm Plot',
+                bhk: prodDimensions || '0.5 Acre Weekend Farm Plot',
                 superArea: '2,420 Sq. Yds',
                 carpetArea: '2,420 Sq. Yds',
                 price: priceDisp,
@@ -317,7 +332,7 @@ export default function RealEstateMiniWebsiteView({
             ].filter(Boolean),
             plans: [
               {
-                bhk: bhkMatches[0] || '3 BHK Luxury Sky Suite',
+                bhk: prodDimensions || bhkMatches[0] || '3 BHK Luxury Sky Suite',
                 superArea: '2,450 sq.ft',
                 carpetArea: '1,890 sq.ft',
                 price: priceDisp,
@@ -346,26 +361,30 @@ export default function RealEstateMiniWebsiteView({
           title: prod.name,
           developer: profile.company || profile.name,
           location: projectLoc,
-          microMarket: profile.address || projectLoc,
+          microMarket: prodCorridor ? `${prodCorridor}, ${userCity}` : (profile.address || projectLoc),
           priceDisplay: priceDisp,
           pricePerSqFt: pricePerUnit,
-          bhkTypes: bhkMatches,
+          bhkTypes: prodDimensions ? [prodDimensions] : bhkMatches,
           propertyType: propType,
-          status: isPlot ? 'Ready for Construction' : (isVilla ? 'Ready to Move' : 'Under Construction'),
-          reraId: `TS-RERA/P0240000${8920 + index * 11}`,
-          possessionDate: isPlot ? 'Immediate Spot Registration' : (isVilla ? 'Ready for Possession' : 'December 2026'),
-          carpetAreaRange: isPlot ? '150, 200, 300 Sq. Yds' : (isVilla ? '3,200 - 5,500 sq.ft' : (isCommercial ? '1,000 - 4,000 sq.ft' : '1,250 - 3,450 sq.ft')),
+          status: prodStatus || (isPlot ? 'Ready for Construction' : (isVilla ? 'Ready to Move' : 'Under Construction')),
+          reraId: prodRera || `TS-RERA/P0240000${8920 + index * 11}`,
+          possessionDate: prodStatus || (isPlot ? 'Immediate Spot Registration' : (isVilla ? 'Ready for Possession' : 'December 2026')),
+          carpetAreaRange: prodDimensions || (isPlot ? '150, 200, 300 Sq. Yds' : (isVilla ? '3,200 - 5,500 sq.ft' : (isCommercial ? '1,000 - 4,000 sq.ft' : '1,250 - 3,450 sq.ft'))),
           imageUrl: prod.imageUrl || currentTypeMedia.gallery[0] || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
           galleryUrls: currentTypeMedia.gallery.concat(extraProfileGallery.slice(0, 2)),
-          featuredTags: isPlot
+          featuredTags: prodApproval
+            ? [prodApproval, prodDimensions || '100% Clear Title', 'Spot Registration']
+            : (isPlot
             ? ['HMDA & DTCP Approved', '100% Clear Title', 'Gated Plotted Layout', 'Spot Registration']
             : isVilla
             ? ['Ultra Luxury Villas', 'Private Pool Deck', '100% Vastu Compliant', 'Gated Community']
             : isCommercial
             ? ['Grade-A IT Hub', 'High Rental Yield', '100% DG Backup', 'Instant Metro Connect']
-            : ['RERA Approved High-Rise', 'Sky Deck Clubhouse', '100% Vastu Compliant', 'Lake View Balconies'],
+            : ['RERA Approved High-Rise', 'Sky Deck Clubhouse', '100% Vastu Compliant', 'Lake View Balconies']),
           description: prod.description || `${prod.name} in ${projectLoc} featuring premium specifications, verified statutory approvals, and high ROI appreciation.`,
-          highlights: isPlot
+          highlights: Array.isArray(prodAmenities) && prodAmenities.length > 0
+            ? prodAmenities
+            : (isPlot
             ? [
                 '100% Clear Legal Title with 30-Year Forensic Link Audit',
                 'Heavy-Duty Concrete CC Roads with Kerb Markings & Footpaths',
@@ -391,7 +410,7 @@ export default function RealEstateMiniWebsiteView({
                 'Expansive 40,000+ sq.ft Lifestyle Clubhouse & Infinity Pool Deck',
                 '100% Vastu Compliant Homes with Panoramic Unobstructed Views',
                 'Pre-Approved Home Loan Facilities by SBI, HDFC & ICICI Bank'
-              ],
+              ]),
           floorPlans: currentTypeMedia.plans
         };
       });
@@ -404,14 +423,14 @@ export default function RealEstateMiniWebsiteView({
         id: 'proj_luxury_residences',
         title: `${devName} Imperia Luxury Residences`,
         developer: devName,
-        location: `Kokapet Financial District, ${userCity}`,
-        microMarket: `Golden Mile Road, Near Outer Ring Road Exit 1`,
+        location: profile.sectionData?.realEstate?.city || `Kokapet Financial District, ${userCity}`,
+        microMarket: profile.address || `Golden Mile Road, Near Outer Ring Road Exit 1`,
         priceDisplay: '₹ 1.85 Cr - ₹ 3.45 Cr',
         pricePerSqFt: '₹ 8,999 / sq.ft',
         bhkTypes: ['3 & 4 BHK Sky Residences (2,450 - 3,850 sq.ft)'],
         propertyType: 'Apartments',
         status: 'Under Construction',
-        reraId: 'TS-RERA/P02400008921',
+        reraId: displayRera !== 'TS-RERA Sanctioned' ? displayRera : 'TS-RERA/P02400008921',
         possessionDate: 'December 2026',
         carpetAreaRange: '2,450 - 3,850 sq.ft Super Built-up Area',
         imageUrl: profile.coverUrl || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
@@ -645,7 +664,7 @@ export default function RealEstateMiniWebsiteView({
   const handleWhatsAppInquiry = (projectName: string, context = 'General Inquiry') => {
     trackAction(`whatsapp_realestate_${projectName}`);
     const text = encodeURIComponent(
-      `Hi ${profile.name}! I am interested in *${projectName}* listed on ${profile.company || 'Nest Infra Developers'}.\n\nContext: ${context}\nPlease share the brochure, price list, and layout plan.`
+      `Hi ${profile.name}! I am interested in *${projectName}* listed on ${profile.company || `${profile.name} Developers`}.\n\nContext: ${context}\nPlease share the brochure, price list, and layout plan.`
     );
     window.open(`https://wa.me/${cleanPhone}?text=${text}`, '_blank');
   };
@@ -697,6 +716,62 @@ export default function RealEstateMiniWebsiteView({
   const testimonialsList = profile.sectionData?.testimonials?.items || [];
   const videosList = profile.sectionData?.videos?.items || [];
   const galleryList = profile.sectionData?.gallery?.items || [];
+
+  const effectiveGallery = useMemo(() => {
+    if (galleryList.length > 0) {
+      return galleryList.map((g, idx) => ({
+        title: g.title || `Site View #${idx + 1}`,
+        desc: g.description || `On-site development progression photo for ${profile.company || profile.name}.`,
+        img: g.imageUrl,
+        tag: g.category || 'Site Photo',
+        status: 'Verified'
+      }));
+    }
+    return [
+      {
+        title: 'Grand Designer Entrance Arch — Clear Daylight View',
+        desc: 'Monumental pergola entrance archway with paved approach avenue, 24/7 security cabin, and 100ft road access.',
+        img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
+        tag: 'Entrance Arch',
+        status: 'HMDA Approved'
+      },
+      {
+        title: 'Blacktop Avenue with Checkered Footpaths & Palm Trees',
+        desc: 'Smooth blacktop roads, red-and-white checkered pedestrian footpaths, yellow-black kerbs, and palm tree avenues.',
+        img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
+        tag: 'Blacktop Avenue',
+        status: '100% Finished'
+      },
+      {
+        title: 'Full Layout Illumination with High-Mast LED Street Lights',
+        desc: 'Fully energized electrification grid with glowing street lights, demarcated avenue kerbs, and secure night ambiance.',
+        img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+        tag: 'Night Illumination',
+        status: 'Energized Grid'
+      },
+      {
+        title: 'Demarcated Individual Plot with Precast Boundary Wall & Gate',
+        desc: 'Clearly demarcated individual plots with precast boundary walls, painted kerbs, dedicated gate access, and avenue trees.',
+        img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+        tag: 'Demarcated Plot',
+        status: 'Spot Registration'
+      },
+      {
+        title: 'Main Layout Avenue Perspective with Boundary Fencing',
+        desc: 'Scenic perspective down the primary layout avenue flanked by palm trees, demarcated plots, and perimeter fencing.',
+        img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
+        tag: 'Avenue View',
+        status: '10.2 Acres HMDA'
+      },
+      {
+        title: 'Nature Farm Plot with Grand Shade Tree & Fertile Soil',
+        desc: 'Scenic leveled farmland unit with mature shade tree, ideal for weekend cottages, organic fruit plantations, and family getaways.',
+        img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
+        tag: 'Farm Plot',
+        status: 'Verified Layout'
+      }
+    ];
+  }, [galleryList, profile.company, profile.name]);
 
   // Default rich real estate drone walkthroughs and reels if user has not yet added custom videos
   const defaultRealEstateVideos: VideoItem[] = useMemo(() => [
@@ -832,10 +907,10 @@ export default function RealEstateMiniWebsiteView({
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
               </span>
               <span className="font-extrabold uppercase tracking-wider text-amber-300 shrink-0">
-                {userProjects[0]?.reraId || 'TS-RERA Sanctioned'}
+                {displayRera}
               </span>
               <span className="hidden sm:inline text-slate-300 text-[11px] truncate">
-                • 100% Clear Title Guarantee &amp; Spot Registration • {userCity}
+                • 100% Clear Title Guarantee &amp; Spot Registration • {profile.sectionData?.realEstate?.city || userCity}
               </span>
             </div>
 
@@ -1271,7 +1346,9 @@ export default function RealEstateMiniWebsiteView({
             {/* Top Badge */}
             <div className={`inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white border border-[#005DAA]/30 text-[#005DAA] ${isMockup ? 'text-[10px]' : 'text-[11px] sm:text-xs'} font-bold shadow-xs`}>
               <Award className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
-              <span className="truncate">TS-RERA Regd. Developer • 18+ Years Legal Track Record</span>
+              <span className="truncate">
+                {displayRera} • {profile.sectionData?.realEstate?.trackRecordYears || '18+ Years'} Legal Track Record
+              </span>
             </div>
 
             {/* Main Headline */}
@@ -1523,14 +1600,16 @@ export default function RealEstateMiniWebsiteView({
               </a>
             </div>
 
-            {/* 4 Trust Counters Row (Nest Infra Signature) */}
+            {/* 4 Trust Counters Row (Developer Credentials) */}
             <div className="pt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 text-left">
               <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-4 hover:border-[#005DAA]/40 transition">
                 <div className="w-12 h-12 rounded-xl bg-[#005DAA]/10 text-[#005DAA] flex items-center justify-center font-bold">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="font-black text-2xl sm:text-3xl text-slate-900">18+</div>
+                  <div className="font-black text-2xl sm:text-3xl text-slate-900">
+                    {profile.sectionData?.realEstate?.deliveredProjects || '18+'}
+                  </div>
                   <div className="text-xs text-slate-600 font-semibold">Delivered Projects</div>
                 </div>
               </div>
@@ -1540,7 +1619,9 @@ export default function RealEstateMiniWebsiteView({
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="font-black text-2xl sm:text-3xl text-slate-900">450+</div>
+                  <div className="font-black text-2xl sm:text-3xl text-slate-900">
+                    {profile.sectionData?.realEstate?.developedAcres || '450+'}
+                  </div>
                   <div className="text-xs text-slate-600 font-semibold">Developed Acres</div>
                 </div>
               </div>
@@ -1550,7 +1631,9 @@ export default function RealEstateMiniWebsiteView({
                   <Sparkles className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="font-black text-2xl sm:text-3xl text-slate-900">2,400+</div>
+                  <div className="font-black text-2xl sm:text-3xl text-slate-900">
+                    {profile.sectionData?.realEstate?.happyFamilies || '2,400+'}
+                  </div>
                   <div className="text-xs text-slate-600 font-semibold">Happy Families</div>
                 </div>
               </div>
@@ -1560,7 +1643,9 @@ export default function RealEstateMiniWebsiteView({
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="font-black text-2xl sm:text-3xl text-emerald-700">100%</div>
+                  <div className="font-black text-2xl sm:text-3xl text-emerald-700">
+                    {profile.sectionData?.realEstate?.clearTitleRating || '100%'}
+                  </div>
                   <div className="text-xs text-slate-600 font-semibold">Clear Title Rating</div>
                 </div>
               </div>
@@ -1884,6 +1969,73 @@ export default function RealEstateMiniWebsiteView({
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
+          5B. GUIDED SITE VISITS & ADVISORY PACKAGES (From Profile Studio)
+      ───────────────────────────────────────────────────────────── */}
+      {servicesList.length > 0 && (
+        <section id="advisory-services" className="py-20 bg-white border-b border-slate-200 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#005DAA]/10 text-[#004580] text-xs font-bold uppercase tracking-wider">
+                <Calendar className="w-3.5 h-3.5 text-[#005DAA]" />
+                <span>Site Inspections &amp; Advisory Services</span>
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-black text-slate-900">
+                Scheduled Site Visits &amp; Investment Advisory
+              </h3>
+              <p className="text-sm text-slate-600">
+                Experience our ventures in person with chauffeured pickup assistance, master layout reviews, and statutory title diligence.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {servicesList.map((srv, sIdx) => (
+                <div
+                  key={srv.id || sIdx}
+                  className="p-6 rounded-3xl bg-slate-50 border border-slate-200 hover:border-[#005DAA]/50 transition shadow-xs hover:shadow-lg flex flex-col justify-between"
+                >
+                  <div className="space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-[#005DAA]/10 text-[#004580]">
+                        {srv.category || 'Site Inspection'}
+                      </span>
+                      {srv.price === 0 ? (
+                        <span className="px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-xs font-black uppercase border border-emerald-200">
+                          Complimentary
+                        </span>
+                      ) : (
+                        <span className="text-sm font-black text-slate-900">
+                          ₹{srv.price.toLocaleString('en-IN')}
+                        </span>
+                      )}
+                    </div>
+                    <h4 className="text-lg font-bold text-slate-900">{srv.title}</h4>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{srv.description}</p>
+                  </div>
+                  <div className="pt-5 mt-5 border-t border-slate-200 flex items-center justify-between">
+                    <span className="text-xs text-slate-500 font-semibold flex items-center gap-1">
+                      <span>⏱</span>
+                      <span>{srv.durationMinutes || 60} Mins</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const msg = `Hi ${profile.name || profile.company || 'Team'}, I would like to book a site visit/session for "${srv.title}". Please confirm available slots.`;
+                        window.open(`https://wa.me/${cleanPhone || '919876543210'}?text=${encodeURIComponent(msg)}`, '_blank');
+                      }}
+                      className="px-4 py-2 rounded-xl bg-[#005DAA] hover:bg-[#004580] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+                    >
+                      <Car className="w-3.5 h-3.5" />
+                      <span>Book on WhatsApp</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────
           6. BHARAT FUTURE CITY GROWTH ANALYSIS & INFRASTRUCTURE
       ───────────────────────────────────────────────────────────── */}
       <section id="future-city-hub" className="py-24 bg-slate-50 relative overflow-hidden border-b border-slate-200">
@@ -2164,50 +2316,7 @@ export default function RealEstateMiniWebsiteView({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'Grand Designer Entrance Arch — Clear Daylight View',
-                desc: 'Monumental pergola entrance archway with paved approach avenue, 24/7 security cabin, and 100ft road access.',
-                img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
-                tag: 'Entrance Arch',
-                status: 'HMDA Approved'
-              },
-              {
-                title: 'Blacktop Avenue with Checkered Footpaths & Palm Trees',
-                desc: 'Smooth blacktop roads, red-and-white checkered pedestrian footpaths, yellow-black kerbs, and palm tree avenues.',
-                img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
-                tag: 'Blacktop Avenue',
-                status: '100% Finished'
-              },
-              {
-                title: 'Full Layout Illumination with High-Mast LED Street Lights',
-                desc: 'Fully energized electrification grid with glowing street lights, demarcated avenue kerbs, and secure night ambiance.',
-                img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
-                tag: 'Night Illumination',
-                status: 'Energized Grid'
-              },
-              {
-                title: 'Demarcated Individual Plot with Precast Boundary Wall & Gate',
-                desc: 'Clearly demarcated individual plots with precast boundary walls, painted kerbs, dedicated gate access, and avenue trees.',
-                img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-                tag: 'Demarcated Plot',
-                status: 'Spot Registration'
-              },
-              {
-                title: 'Main Layout Avenue Perspective with Boundary Fencing',
-                desc: 'Scenic perspective down the primary layout avenue flanked by palm trees, demarcated plots, and perimeter fencing.',
-                img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-                tag: 'Avenue View',
-                status: '10.2 Acres HMDA'
-              },
-              {
-                title: 'Nature Farm Plot with Grand Shade Tree & Fertile Soil',
-                desc: 'Scenic leveled farmland unit with mature shade tree, ideal for weekend cottages, organic fruit plantations, and family getaways.',
-                img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
-                tag: 'Farm Plot',
-                status: '₹3,599 / Sq. Yd'
-              }
-            ].map((galleryItem, idx) => (
+            {effectiveGallery.map((galleryItem, idx) => (
               <div
                 key={idx}
                 onClick={() => setLightboxImage({ url: galleryItem.img, title: galleryItem.title, desc: galleryItem.desc })}
@@ -2785,7 +2894,7 @@ export default function RealEstateMiniWebsiteView({
               <span>Uncompromised Trust</span>
             </div>
             <h3 className="text-3xl sm:text-4xl font-black text-slate-900">
-              Why Investors Choose {profile.company || 'Nest Infra Developers'}
+              Why Investors Choose {profile.company || profile.name || 'Our Developments'}
             </h3>
             <p className="text-sm text-slate-600">
               Clear titles, strategic growth corridor locations, and hassle-free spot registration.
@@ -2831,7 +2940,7 @@ export default function RealEstateMiniWebsiteView({
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative w-72 sm:w-80 h-96 rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-slate-200">
                 <img
-                  src={profile.avatarUrl || '/kishore-profile-v2.png'}
+                  src={profile.avatarUrl || profile.coverUrl || '/kishore-profile-v2.png'}
                   alt={profile.name}
                   className="w-full h-full object-cover"
                 />
@@ -2852,7 +2961,7 @@ export default function RealEstateMiniWebsiteView({
                 Delivering Excellence in Real Estate for Over a Decade.
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                {profile.bio || `At ${profile.company || 'Nest Infra Developers'}, our mission is to empower families with legally verified, high-appreciation open plots and gated residential communities. We believe every piece of land is an asset for generations.`}
+                {profile.bio || profile.sectionData?.about?.content || `At ${profile.company || profile.name}, our mission is to empower families with legally verified, high-appreciation open plots and gated residential communities. We believe every piece of land is an asset for generations.`}
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-2">
@@ -3052,16 +3161,16 @@ export default function RealEstateMiniWebsiteView({
                   />
                 </div>
                 <div>
-                  <h4 className="text-base font-black text-white">{profile.company || 'Nest Infra Developers Private Limited'}</h4>
-                  <p className="text-amber-400 text-xs font-semibold">TS-RERA Regd. Developer</p>
+                  <h4 className="text-base font-black text-white">{profile.company || `${profile.name} Developers`}</h4>
+                  <p className="text-amber-400 text-xs font-semibold">{displayRera !== 'TS-RERA Sanctioned' ? `${displayRera}` : 'TS-RERA Regd. Developer'}</p>
                 </div>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed">
-                {profile.bio || 'Premier real estate developers offering RERA approved residential towers, luxury villas, and gated communities with 100% clear legal titles.'}
+                {profile.bio || profile.sectionData?.about?.content || 'Premier real estate developers offering RERA approved residential towers, luxury villas, and gated communities with 100% clear legal titles.'}
               </p>
               <div className="text-[11px] text-slate-400 space-y-1 pt-1">
                 <div><strong>{profile.designation || 'Principal'}:</strong> {profile.name}</div>
-                <div><strong>RERA Registration:</strong> {userProjects[0]?.reraId || 'Verified & Approved'}</div>
+                <div><strong>RERA Registration:</strong> {displayRera || userProjects[0]?.reraId || 'Verified & Approved'}</div>
               </div>
             </div>
 
@@ -3136,7 +3245,7 @@ export default function RealEstateMiniWebsiteView({
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
-            <p>© {new Date().getFullYear()} {profile.company || 'Nest Infra Developers Private Limited'}. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} {profile.company || `${profile.name} Developers`}. All rights reserved.</p>
             <p>Powered by <Link href="/" className="text-amber-400 hover:underline">OneClickBiz Digital Platform</Link></p>
           </div>
         </div>

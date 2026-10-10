@@ -59,6 +59,8 @@ export async function GET(
           const cfg = s.config as any;
           if (cfg.templateId) resolvedTemplateId = cfg.templateId;
           if (cfg.category) resolvedCategory = cfg.category;
+          if (cfg.realEstate && !sectionData.realEstate) sectionData.realEstate = cfg.realEstate;
+          if (cfg.interior && !sectionData.interior) sectionData.interior = cfg.interior;
         }
       }
       return {

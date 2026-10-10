@@ -104,10 +104,24 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
           };
         }
 
+        // Extract templateId, category, realEstate, and interior from hero or section configs
+        const heroConfig = (reconstructedSectionData as any).hero || {};
+        const resolvedTemplateId = heroConfig.templateId || fallback.templateId || (cleanSlug.startsWith('re-') ? 're-builders' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'home-interior' : undefined);
+        const resolvedCategory = heroConfig.category || fallback.category || (cleanSlug.startsWith('re-') ? 'Real Estate' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'Interior Design' : undefined);
+
+        if (heroConfig.realEstate && !reconstructedSectionData.realEstate) {
+          reconstructedSectionData.realEstate = heroConfig.realEstate;
+        }
+        if (heroConfig.interior && !reconstructedSectionData.interior) {
+          reconstructedSectionData.interior = heroConfig.interior;
+        }
+
         return {
           ...fallback,
           id: dbProfile.id,
           slug: dbProfile.slug,
+          templateId: resolvedTemplateId,
+          category: resolvedCategory,
           name: dbProfile.name ?? fallback.name,
           designation: dbProfile.designation ?? fallback.designation,
           company: dbProfile.company ?? fallback.company,
