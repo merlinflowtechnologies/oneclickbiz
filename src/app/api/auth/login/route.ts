@@ -149,6 +149,8 @@ export async function POST(req: NextRequest) {
             organizationId: devOrgId,
             businessName: `${cleanEmail.split('@')[0]}'s Business`,
             slug: devSlug,
+            template: 're-builders',
+            category: 'Real Estate',
             subscriptionStatus: 'ACTIVE',
             hasActivePaidPlan: true,
             planTier: 'ADVANCED'
@@ -163,6 +165,26 @@ export async function POST(req: NextRequest) {
 
     const defaultOrg = user.memberships[0]?.organization;
     const defaultProfile = defaultOrg?.profiles[0];
+
+    // Inspect defaultProfile sections or slug for templateId & category
+    let userTemplateId = 're-builders';
+    let userCategory = 'Real Estate';
+    if (defaultProfile) {
+      try {
+        const heroSec = await prisma.profileSection.findFirst({
+          where: { profileId: defaultProfile.id, type: 'hero' }
+        });
+        if (heroSec && heroSec.config && typeof heroSec.config === 'object') {
+          const conf = heroSec.config as any;
+          if (conf.templateId) userTemplateId = conf.templateId;
+          if (conf.category) userCategory = conf.category;
+        }
+      } catch (_) {}
+      if (defaultProfile.slug?.startsWith('re-')) {
+        userTemplateId = 're-builders';
+        userCategory = 'Real Estate';
+      }
+    }
 
     // Check if the user has an active PAID invoice within 365 days
     let hasActivePaidPlan = true;
@@ -229,6 +251,8 @@ export async function POST(req: NextRequest) {
         organizationId: defaultOrg?.id,
         businessName: defaultOrg?.name,
         slug: defaultProfile?.slug || 'profile',
+        template: userTemplateId,
+        category: userCategory,
         subscriptionStatus,
         hasActivePaidPlan,
         planTier

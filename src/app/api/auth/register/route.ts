@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { hashPassword, signToken, setAuthCookie } from '@/lib/auth';
+import { getTemplateProfile } from '@/data/templatePresets';
 
 export async function POST(req: NextRequest) {
   try {
@@ -35,6 +36,11 @@ export async function POST(req: NextRequest) {
     }
 
     const passwordHash = await hashPassword(password);
+
+    // Resolve template and industry preset
+    const effectiveCategory = body.category || (cleanSlug.startsWith('re-') || body.templateId?.startsWith('re-') ? 'Real Estate' : 'Real Estate');
+    const effectiveTemplateId = body.templateId || (effectiveCategory === 'Real Estate' ? 're-builders' : 're-builders');
+    const templatePreset = getTemplateProfile(effectiveTemplateId);
 
     // Create User, Organization, and Default Profile in a transaction (with fallback)
     let result: any = null;
@@ -73,13 +79,58 @@ export async function POST(req: NextRequest) {
             slug: cleanSlug,
             name,
             company: businessName || `${name}'s Business`,
+            designation: templatePreset.designation || (effectiveCategory === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director'),
+            bio: templatePreset.bio || `${businessName || name} - Smart digital business identity.`,
             email: cleanEmail,
             phone: rawPhone,
             whatsapp: formattedWa,
-            theme: 'modern-indigo',
+            theme: templatePreset.theme || 'modern-indigo',
+            avatarUrl: templatePreset.avatarUrl,
+            coverUrl: templatePreset.coverUrl,
             isPublished: false,
           }
         });
+
+        // Seed initial sections & config from template preset
+        if (templatePreset.sections && Array.isArray(templatePreset.sections)) {
+          for (let i = 0; i < templatePreset.sections.length; i++) {
+            const sec = templatePreset.sections[i];
+            const secConfig = templatePreset.sectionData?.[sec.type as keyof typeof templatePreset.sectionData] || {};
+            const configWithMeta = sec.type === 'hero' 
+              ? { 
+                  ...secConfig, 
+                  templateId: effectiveTemplateId, 
+                  category: effectiveCategory,
+                  realEstate: templatePreset.sectionData?.realEstate 
+                } 
+              : secConfig;
+
+            await tx.profileSection.create({
+              data: {
+                profileId: profile.id,
+                type: sec.type,
+                title: sec.title,
+                isVisible: sec.isVisible,
+                order: sec.order,
+                config: configWithMeta as any
+              }
+            }).catch(() => {});
+          }
+        }
+
+        // Seed dedicated realEstate section if applicable
+        if (templatePreset.sectionData?.realEstate) {
+          await tx.profileSection.create({
+            data: {
+              profileId: profile.id,
+              type: 'realEstate',
+              title: 'RERA & Track Record',
+              isVisible: true,
+              order: 11,
+              config: templatePreset.sectionData.realEstate as any
+            }
+          }).catch(() => {});
+        }
 
         return { user, organization, profile };
       });
@@ -90,7 +141,7 @@ export async function POST(req: NextRequest) {
       result = {
         user: { id: devUserId, email: cleanEmail, name, role: 'USER' },
         organization: { id: devOrgId, name: businessName || `${name}'s Business`, slug: cleanSlug },
-        profile: { slug: cleanSlug }
+        profile: { slug: cleanSlug, templateId: effectiveTemplateId, category: effectiveCategory }
       };
     }
 
@@ -110,6 +161,8 @@ export async function POST(req: NextRequest) {
         role: result.user.role,
         slug: result.profile.slug,
         organizationId: result.organization.id,
+        template: effectiveTemplateId,
+        category: effectiveCategory,
       }
     }, { status: 201 });
 
