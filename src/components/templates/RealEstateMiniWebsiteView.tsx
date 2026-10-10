@@ -59,11 +59,16 @@ import {
   Building,
   Route,
   ArrowUpRight,
-  Info
+  Info,
+  QrCode,
+  Film,
+  UserCheck,
+  Copy
 } from 'lucide-react';
 import { DigitalProfile, VideoItem } from '@/lib/types';
 import ShareCardModal from '@/components/common/ShareCardModal';
 import { downloadVcfFile } from '@/lib/vcf';
+import SocialIcon from '@/components/common/SocialIcon';
 
 interface RealEstateMiniWebsiteViewProps {
   profile: DigitalProfile;
@@ -647,10 +652,82 @@ export default function RealEstateMiniWebsiteView({
     downloadVcfFile(profile);
   };
 
+  // QR Code & vCard Modal States
+  const [isQrModalOpen, setIsQrModalOpen] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [videoFilter, setVideoFilter] = useState<'all' | 'youtube' | 'instagram'>('all');
+
+  const liveUrl = typeof window !== 'undefined'
+    ? `${window.location.origin}/v/${profile.slug}`
+    : `https://oneclickbiz.in/v/${profile.slug}`;
+
+  const handleCopyLink = () => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(liveUrl);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    }
+  };
+
   const servicesList = profile.sectionData?.services?.items || [];
   const testimonialsList = profile.sectionData?.testimonials?.items || [];
   const videosList = profile.sectionData?.videos?.items || [];
   const galleryList = profile.sectionData?.gallery?.items || [];
+
+  // Default rich real estate drone walkthroughs and reels if user has not yet added custom videos
+  const defaultRealEstateVideos: VideoItem[] = useMemo(() => [
+    {
+      id: 'v_bld_1',
+      title: `${userProjects[0]?.title || 'Skyline Imperia'} — 4K Aerial Drone Layout Tour & Surroundings`,
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      type: 'youtube',
+      caption: 'Comprehensive high-resolution aerial flight covering master approach avenues, 100ft road connectivity, and upcoming metro line.'
+    },
+    {
+      id: 'v_bld_2',
+      title: `Model ${userProjects[0]?.bhkTypes[0] || '4 BHK'} Sky Residence — Complete Architectural Walkthrough`,
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      type: 'youtube',
+      caption: 'Experience the double-height ceilings, Italian marble flooring, wrap-around balcony, and master bedroom layout in 4K.'
+    },
+    {
+      id: 'v_bld_3',
+      title: `${userProjects[3]?.title || 'Plotted Township'} — On-Site Ground Progression & Blacktop Roads`,
+      url: 'https://www.instagram.com/reel/C3M8W98oG12/',
+      type: 'instagram',
+      caption: 'Quick reel breakdown: 40ft finished blacktop roads, underground cabling, street illumination, and demarcated boundary stones.'
+    },
+    {
+      id: 'v_bld_4',
+      title: `${userProjects[2]?.title || 'Gated Villas'} — 40,000 Sq.Ft Clubhouse & Plunge Pool Reel Tour`,
+      url: 'https://www.instagram.com/reel/C2X4Z81oH34/',
+      type: 'instagram',
+      caption: 'Exclusive reel walkthrough of private plunge pool, double-height living room, infinity pool, and landscaped lawns.'
+    }
+  ], [userProjects]);
+
+  const effectiveVideos = useMemo(() => {
+    return videosList.length > 0 ? videosList : defaultRealEstateVideos;
+  }, [videosList, defaultRealEstateVideos]);
+
+  const resolveEmbedUrl = (vid: VideoItem): string => {
+    if (getEmbedUrl) {
+      const res = getEmbedUrl(vid);
+      if (res) return res;
+    }
+    const url = (vid.url || '').trim();
+    if (!url) return '';
+    const ytMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts|live)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+    if (ytMatch && ytMatch[1]) {
+      return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=0&rel=0`;
+    }
+    if (url.includes('instagram.com/reel/') || url.includes('instagram.com/p/')) {
+      const cleanReel = url.split('instagram.com/reel/')[1]?.split('/')[0]?.split('?')[0] || 
+                        url.split('instagram.com/p/')[1]?.split('/')[0]?.split('?')[0];
+      if (cleanReel) return `https://www.instagram.com/reel/${cleanReel}/embed`;
+    }
+    return url;
+  };
 
   // Dynamic Buyer Reviews tailored to profile and projects
   const defaultReviews = testimonialsList.length > 0
@@ -737,7 +814,23 @@ export default function RealEstateMiniWebsiteView({
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-[11px] shrink-0">
+          <div className="flex items-center gap-3 sm:gap-4 text-[11px] shrink-0">
+            <button
+              onClick={() => setIsQrModalOpen(true)}
+              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-amber-300 transition cursor-pointer font-bold"
+              title="Scan QR Code to open profile on phone"
+            >
+              <QrCode className="w-3.5 h-3.5 text-amber-400" />
+              <span>QR Scanner</span>
+            </button>
+            <button
+              onClick={handleVcfDownload}
+              className="hidden md:inline-flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition cursor-pointer font-bold"
+              title="Save Developer Contact to Phone (.vcf)"
+            >
+              <Download className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Save vCard</span>
+            </button>
             <button
               onClick={() => handleWhatsAppInquiry('Direct Inquiry', 'Connecting from verified digital profile')}
               className="inline-flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition cursor-pointer"
@@ -752,7 +845,7 @@ export default function RealEstateMiniWebsiteView({
               title="Share Digital Profile"
             >
               <Share2 className="w-3 h-3 text-amber-400" />
-              <span>Share Profile</span>
+              <span className="hidden sm:inline">Share Profile</span>
             </button>
           </div>
         </div>
@@ -823,6 +916,13 @@ export default function RealEstateMiniWebsiteView({
                 Gallery
               </a>
               <a 
+                href="#videos" 
+                className="px-2.5 py-1.5 rounded-lg hover:text-[#005DAA] hover:bg-[#005DAA]/5 transition whitespace-nowrap flex items-center gap-1"
+              >
+                <Film className="w-3.5 h-3.5 text-rose-500" />
+                <span>Walkthroughs</span>
+              </a>
+              <a 
                 href="#reviews" 
                 className="hidden xl:inline-block px-2.5 py-1.5 rounded-lg hover:text-[#005DAA] hover:bg-[#005DAA]/5 transition whitespace-nowrap"
               >
@@ -856,11 +956,33 @@ export default function RealEstateMiniWebsiteView({
 
             {/* Header Right Action Area */}
             <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
+              {/* QR Code Quick Button */}
+              <button
+                type="button"
+                onClick={() => setIsQrModalOpen(true)}
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-slate-100 hover:bg-[#005DAA]/10 border border-slate-200 hover:border-[#005DAA]/30 text-slate-700 hover:text-[#005DAA] text-xs font-bold transition shadow-2xs cursor-pointer"
+                title="Scan QR Code / Open Mobile Profile"
+              >
+                <QrCode className="w-3.5 h-3.5 text-[#005DAA]" />
+                <span className="hidden xl:inline">QR Code</span>
+              </button>
+
+              {/* Save vCard Contact Button */}
+              <button
+                type="button"
+                onClick={handleVcfDownload}
+                className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 text-xs font-bold transition cursor-pointer"
+                title="Save Developer Contact to Phone"
+              >
+                <Download className="w-3.5 h-3.5 text-slate-600" />
+                <span>Save Contact</span>
+              </button>
+
               {/* Telephone Pill Button */}
               {profile.phone && (
                 <a 
                   href={`tel:${profile.phone}`} 
-                  className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200/80 hover:border-[#005DAA]/40 hover:bg-[#005DAA]/5 text-xs font-bold text-slate-800 hover:text-[#005DAA] transition-all shrink-0"
+                  className="hidden 2xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200/80 hover:border-[#005DAA]/40 hover:bg-[#005DAA]/5 text-xs font-bold text-slate-800 hover:text-[#005DAA] transition-all shrink-0"
                   title="Call Sales Office"
                 >
                   <div className="w-4 h-4 rounded-full bg-[#005DAA]/10 flex items-center justify-center text-[#005DAA] shrink-0">
@@ -942,6 +1064,14 @@ export default function RealEstateMiniWebsiteView({
                 <span>Site Gallery</span>
               </a>
               <a 
+                href="#videos" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2.5 rounded-xl bg-slate-50 hover:bg-[#005DAA]/10 hover:text-[#005DAA] transition flex items-center gap-1.5"
+              >
+                <Film className="w-3.5 h-3.5 text-rose-500" />
+                <span>Drone &amp; Reels</span>
+              </a>
+              <a 
                 href="#tools" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="p-2.5 rounded-xl bg-slate-50 hover:bg-[#005DAA]/10 hover:text-[#005DAA] transition flex items-center gap-1.5"
@@ -979,6 +1109,30 @@ export default function RealEstateMiniWebsiteView({
             </nav>
 
             <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsQrModalOpen(true);
+                  }}
+                  className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs shadow-xs cursor-pointer"
+                >
+                  <QrCode className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Scan QR Code</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    handleVcfDownload();
+                  }}
+                  className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-xs cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5 text-white" />
+                  <span>Save vCard</span>
+                </button>
+              </div>
               <button
                 type="button"
                 onClick={() => {
@@ -1059,6 +1213,37 @@ export default function RealEstateMiniWebsiteView({
                 <Calendar className="w-4.5 h-4.5 text-[#005DAA]" />
                 <span>Schedule Site Visit</span>
               </button>
+            </div>
+
+            {/* Real Estate Digital Card & QR Action Row */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 pt-2">
+              <button
+                type="button"
+                onClick={() => setIsQrModalOpen(true)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs shadow-md transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                title="Scan QR Code to open this mini-website on phone"
+              >
+                <QrCode className="w-4 h-4 text-amber-400" />
+                <span>Scan Website QR</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleVcfDownload}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                title="Save Developer Contact to Phone Address Book"
+              >
+                <Download className="w-4 h-4 text-white" />
+                <span>Save Contact (vCard)</span>
+              </button>
+
+              <a
+                href="#videos"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-bold text-xs shadow-xs transition transform hover:-translate-y-0.5 active:scale-95"
+              >
+                <Film className="w-4 h-4 text-rose-500" />
+                <span>4K Drone Tours &amp; Reels</span>
+              </a>
             </div>
 
             {/* 4 Trust Counters Row (Nest Infra Signature) */}
@@ -1795,6 +1980,242 @@ export default function RealEstateMiniWebsiteView({
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
+          7B. 4K AERIAL DRONE SURVEYS, YOUTUBE WALKTHROUGHS & INSTAGRAM REELS
+      ───────────────────────────────────────────────────────────── */}
+      {effectiveVideos.length > 0 && (
+        <section id="videos" className="py-20 bg-[#0B132B] text-white border-b border-slate-800 scroll-mt-20 relative overflow-hidden">
+          {/* Ambient Lighting Gradients */}
+          <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-[#005DAA]/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-10 w-[500px] h-[350px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-10">
+            
+            {/* Header */}
+            <div className="text-center max-w-3xl mx-auto space-y-3">
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#005DAA]/30 text-amber-300 text-xs font-bold uppercase tracking-wider border border-[#005DAA]/50">
+                <Film className="w-3.5 h-3.5 text-amber-400" />
+                <span>4K Aerial Drone Surveys &amp; Video Walkthroughs</span>
+              </div>
+              <h3 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+                Experience On-Site Drone Tours &amp; Reels
+              </h3>
+              <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                Watch full 4K aerial drone flights, model residence architectural tours, and verified ground-level construction reels before booking your guided site visit.
+              </p>
+            </div>
+
+            {/* Video Category Filter Tabs */}
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <button
+                type="button"
+                onClick={() => setVideoFilter('all')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  videoFilter === 'all'
+                    ? 'bg-[#005DAA] text-white shadow-md'
+                    : 'bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
+                }`}
+              >
+                All Videos ({effectiveVideos.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setVideoFilter('youtube')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  videoFilter === 'youtube'
+                    ? 'bg-red-600 text-white shadow-md'
+                    : 'bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
+                }`}
+              >
+                <SocialIcon platform="youtube" size={14} className="text-red-400" />
+                <span>YouTube 4K Tours ({effectiveVideos.filter(v => v.type === 'youtube' || (!v.type && v.url?.includes('youtu'))).length})</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setVideoFilter('instagram')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  videoFilter === 'instagram'
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md'
+                    : 'bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
+                }`}
+              >
+                <SocialIcon platform="instagram" size={14} className="text-pink-400" />
+                <span>Instagram Reels ({effectiveVideos.filter(v => v.type === 'instagram' || v.url?.includes('instagram')).length})</span>
+              </button>
+            </div>
+
+            {/* Video Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8">
+              {effectiveVideos
+                .filter(vid => {
+                  if (videoFilter === 'youtube') return vid.type === 'youtube' || vid.url?.includes('youtube') || vid.url?.includes('youtu.be');
+                  if (videoFilter === 'instagram') return vid.type === 'instagram' || vid.url?.includes('instagram');
+                  return true;
+                })
+                .map((vid, idx) => {
+                  const embedUrl = resolveEmbedUrl(vid);
+                  const isYouTube = vid.type === 'youtube' || embedUrl.includes('youtube.com') || embedUrl.includes('youtu.be');
+                  const isInstagram = vid.type === 'instagram' || vid.url.includes('instagram.com');
+
+                  return (
+                    <div
+                      key={vid.id || idx}
+                      className="rounded-3xl bg-[#131F37] border border-slate-800 overflow-hidden shadow-2xl flex flex-col justify-between group hover:border-[#005DAA]/60 transition-all duration-300"
+                    >
+                      {/* Video Player / Embed Container */}
+                      {isYouTube ? (
+                        <div className="relative w-full aspect-video bg-black">
+                          <iframe
+                            src={embedUrl}
+                            title={vid.title}
+                            className="w-full h-full border-0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : isInstagram ? (
+                        <div className="relative w-full bg-slate-950 flex flex-col items-center">
+                          <div className="w-full aspect-[9/12] max-h-[420px] overflow-hidden">
+                            <iframe
+                              src={embedUrl}
+                              title={vid.title}
+                              className="w-full h-full border-0"
+                              allowFullScreen
+                              loading="lazy"
+                            />
+                          </div>
+                          <div className="w-full p-2.5 bg-slate-900/80 border-t border-slate-800 flex items-center justify-between px-4">
+                            <span className="text-xs font-bold text-pink-400 flex items-center gap-1.5">
+                              <SocialIcon platform="instagram" size={14} className="text-pink-400" />
+                              <span>Instagram Reel</span>
+                            </span>
+                            <a
+                              href={vid.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="px-3 py-1 rounded-full bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 border border-pink-500/30 text-[11px] font-bold flex items-center gap-1 transition"
+                            >
+                              <span>Watch on IG</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="relative w-full aspect-video bg-black">
+                          <video
+                            src={vid.url}
+                            controls
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+
+                      {/* Video Information & Actions */}
+                      <div className="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border ${
+                              isYouTube 
+                                ? 'bg-red-500/15 text-red-400 border-red-500/30' 
+                                : isInstagram 
+                                ? 'bg-pink-500/15 text-pink-400 border-pink-500/30' 
+                                : 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30'
+                            }`}>
+                              {isYouTube ? '4K Aerial Drone Tour' : isInstagram ? 'On-Site Milestone Reel' : 'Direct Video'}
+                            </span>
+                            <span className="text-[11px] text-slate-400 font-mono">
+                              {userCity} Corridor
+                            </span>
+                          </div>
+
+                          <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
+                            {vid.title}
+                          </h4>
+                          {vid.caption && (
+                            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed line-clamp-2">
+                              {vid.caption}
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Card Action Buttons */}
+                        <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                          {isYouTube ? (
+                            <a
+                              href={vid.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 font-bold transition"
+                            >
+                              <SocialIcon platform="youtube" size={14} className="text-red-400" />
+                              <span>Watch on YouTube</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          ) : (
+                            <a
+                              href={vid.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-1.5 text-xs text-pink-400 hover:text-pink-300 font-bold transition"
+                            >
+                              <SocialIcon platform="instagram" size={14} className="text-pink-400" />
+                              <span>View Full Reel</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={() => handleWhatsAppInquiry(vid.title, 'Inquiry from 4K Video Walkthrough')}
+                            className="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/30 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                          >
+                            <MessageCircle className="w-3 h-3" />
+                            <span>WhatsApp Inquire</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+
+            {/* Bottom Guided Site Visit Prompt */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#005DAA]/30 via-slate-900 to-indigo-950/40 border border-[#005DAA]/40 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="space-y-1 text-center md:text-left">
+                <h4 className="text-base sm:text-lg font-bold text-white flex items-center justify-center md:justify-start gap-2">
+                  <Car className="w-5 h-5 text-amber-400" />
+                  <span>Inspect Layout Roads &amp; Dimensions In Person</span>
+                </h4>
+                <p className="text-xs sm:text-sm text-slate-300">
+                  We provide free guided site visits with chauffeured car pickup &amp; drop from your doorstep anywhere in {userCity}.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setIsSiteVisitModalOpen(true)}
+                  style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
+                  className="px-5 py-3 rounded-xl font-bold text-xs sm:text-sm text-white shadow-lg hover:bg-[#004580] transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer whitespace-nowrap"
+                >
+                  Schedule Site Visit
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleWhatsAppInquiry('4K Drone Video Archives', 'Requesting HD drone footage links')}
+                  className="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs sm:text-sm border border-slate-700 transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+                >
+                  <MessageCircle className="w-4 h-4 text-emerald-400" />
+                  <span>WhatsApp Videos</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────
           8. VERIFIED BUYER REVIEWS & TESTIMONIALS (Nest Infra Style)
       ───────────────────────────────────────────────────────────── */}
       <section id="reviews" className="py-20 bg-white border-b border-slate-200 scroll-mt-20">
@@ -2334,10 +2755,20 @@ export default function RealEstateMiniWebsiteView({
 
               <div className="pt-2 flex flex-wrap gap-2">
                 <button
-                  onClick={handleVcfDownload}
-                  className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 flex items-center gap-1.5 transition"
+                  type="button"
+                  onClick={() => setIsQrModalOpen(true)}
+                  className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 flex items-center gap-1.5 transition cursor-pointer"
+                  title="Scan Website QR Code"
                 >
-                  <Download className="w-3.5 h-3.5 text-amber-400" />
+                  <QrCode className="w-3.5 h-3.5 text-amber-400" />
+                  <span>View QR Code</span>
+                </button>
+
+                <button
+                  onClick={handleVcfDownload}
+                  className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 flex items-center gap-1.5 transition cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Save .VCF</span>
                 </button>
 
@@ -2872,6 +3303,116 @@ export default function RealEstateMiniWebsiteView({
                 <span>Confirm Visit on WhatsApp</span>
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────
+          QR CODE SCANNER & DIGITAL VCARD MODAL
+      ───────────────────────────────────────────────────────────── */}
+      {isQrModalOpen && (
+        <div 
+          onClick={() => setIsQrModalOpen(false)}
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-3xl p-6 text-white text-center shadow-2xl relative animate-in zoom-in-95 duration-200 space-y-4"
+          >
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsQrModalOpen(false)} 
+              className="absolute top-4 right-4 p-1.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition cursor-pointer"
+              aria-label="Close QR Modal"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Profile Header */}
+            <div className="flex flex-col items-center space-y-2">
+              <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#005DAA] bg-slate-800 shadow-lg relative">
+                {profile.avatarUrl ? (
+                  <img 
+                    src={profile.avatarUrl} 
+                    alt={profile.name} 
+                    className="w-full h-full object-cover" 
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-[#005DAA] text-white font-black text-xl">
+                    {profile.name?.charAt(0) || 'R'}
+                  </div>
+                )}
+              </div>
+              <div className="space-y-0.5">
+                <h4 className="font-black text-base text-white">{profile.company || profile.name}</h4>
+                <p className="text-xs text-slate-400">{profile.name} • {profile.designation || 'Real Estate Specialist'}</p>
+                <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold mt-1">
+                  <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                  <span>Verified TS-RERA Developer Profile</span>
+                </div>
+              </div>
+            </div>
+
+            {/* High-Resolution QR Code */}
+            <div className="bg-white p-4 rounded-2xl mx-auto w-56 h-56 flex items-center justify-center shadow-inner relative">
+              <img 
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(liveUrl)}&color=005DAA&bgcolor=ffffff&margin=1`} 
+                alt="Mini-Website QR Code" 
+                className="w-full h-full object-contain"
+              />
+              {profile.avatarUrl && (
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-10 h-10 rounded-xl overflow-hidden border-2 border-white shadow-lg bg-white">
+                    <img 
+                      src={profile.avatarUrl} 
+                      alt={profile.name} 
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <p className="text-[11px] text-slate-400 leading-snug px-2">
+              Scan with your smartphone camera to instantly open this real estate mini-website on mobile.
+            </p>
+
+            {/* Quick URL Box & Copy */}
+            <div className="flex items-center gap-2 p-2 rounded-xl bg-slate-950 border border-slate-800 text-left">
+              <span className="text-[11px] text-slate-400 truncate flex-1 font-mono">{liveUrl}</span>
+              <button
+                type="button"
+                onClick={handleCopyLink}
+                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-white flex items-center gap-1 transition shrink-0 cursor-pointer"
+              >
+                {copiedLink ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                <span>{copiedLink ? 'Copied' : 'Copy'}</span>
+              </button>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-2 pt-1">
+              <button
+                type="button"
+                onClick={handleVcfDownload}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition active:scale-95 cursor-pointer"
+              >
+                <Download className="w-4 h-4 text-white" />
+                <span>Save Contact to Phone (vCard / .VCF)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const text = encodeURIComponent(`Explore verified projects and master layouts by ${profile.company || profile.name}: ${liveUrl}`);
+                  window.open(`https://wa.me/?text=${text}`, '_blank');
+                }}
+                className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
+              >
+                <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Share Profile on WhatsApp</span>
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -140,6 +140,36 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
       { id: 't_bld_2', clientName: 'Pooja & Harish Nair', clientRole: 'Tech VP, Google Hyderabad', content: 'Skyline Landmark Developers delivered our home right on time with verified RERA certificates. Their team is exceptionally transparent and professional.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
       { id: 't_bld_3', clientName: 'K. Venkat Reddy', clientRole: 'NRI Investor (San Jose, California)', content: 'Being based in the US, I relied on Skyline Developers for our plot investment in Aeropolis. From title search to spot registration, the transparency was 100%.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' }
     ],
+    videos: [
+      {
+        id: 'v_bld_1',
+        title: 'Skyline Imperia — 4K Aerial Drone Layout Tour & Surroundings',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        type: 'youtube',
+        caption: '4K aerial drone flight showcasing 100ft arterial roads, upcoming metro line, and clubhouse elevation.'
+      },
+      {
+        id: 'v_bld_2',
+        title: 'Model 4 BHK Sky Residence — Complete Architectural Walkthrough',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        type: 'youtube',
+        caption: 'Walkthrough of master suite, panoramic deck balcony, Italian marble foyer, and smart home automation.'
+      },
+      {
+        id: 'v_bld_3',
+        title: 'Skyline Aeropolis — Rapid Site Progression & Blacktop Roads',
+        url: 'https://www.instagram.com/reel/C3M8W98oG12/',
+        type: 'instagram',
+        caption: 'Latest on-site reel: Underground cabling, street illumination, and demarcated boundary stones.'
+      },
+      {
+        id: 'v_bld_4',
+        title: 'Skyline Grandeur Triplex Villas — Clubhouse & Pool Reel Tour',
+        url: 'https://www.instagram.com/reel/C2X4Z81oH34/',
+        type: 'instagram',
+        caption: 'Exclusive reel walkthrough of private plunge pool, double-height living room, and landscaped lawns.'
+      }
+    ],
     socials: [
       { id: 'soc_bld_wa', platform: 'whatsapp', url: 'https://wa.me/919876544001', label: 'Sales WhatsApp' },
       { id: 'soc_bld_ph', platform: 'phone', url: 'tel:+919876544001', label: 'Call Desk' },
