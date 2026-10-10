@@ -662,29 +662,29 @@ export default function ProfileCardView({
 
   return (
     <div className="w-full relative">
-      {/* Top Device View Switcher for Desktop Visitors (Mobile Mode only) */}
+      {/* Top Device View Switcher (Visible on both mobile & desktop) */}
       {showViewToggle && !isMockup && !isWebsiteMode && (
-        <div className="hidden sm:flex items-center justify-between w-full max-w-md mx-auto mb-4 px-3">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-xs font-bold text-slate-800 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full border border-slate-200 shadow-xs">
-              Mobile Business Card
+        <div className="flex items-center justify-between w-full max-w-md mx-auto mb-3 px-3">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+            <span className="text-[11px] sm:text-xs font-bold text-slate-800 bg-white/90 backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-full border border-slate-200 shadow-xs whitespace-nowrap">
+              Mobile Card
             </span>
           </div>
-          <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md">
+          <div className="flex items-center gap-1 p-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md">
             <button
               onClick={() => setViewMode('website')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100 cursor-pointer"
+              className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100 cursor-pointer"
             >
-              <Globe className="w-3.5 h-3.5" />
-              <span>Mini-Website View</span>
+              <Globe className="w-3.5 h-3.5 shrink-0" />
+              <span>Mini-Website</span>
             </button>
             <button
               onClick={() => setViewMode('mobile')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-black text-white shadow-sm cursor-pointer"
+              className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all bg-black text-white shadow-sm cursor-pointer"
             >
-              <Smartphone className="w-3.5 h-3.5" />
-              <span>Mobile Card View</span>
+              <Smartphone className="w-3.5 h-3.5 shrink-0" />
+              <span>Card</span>
             </button>
           </div>
         </div>

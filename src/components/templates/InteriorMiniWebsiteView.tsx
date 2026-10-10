@@ -431,14 +431,14 @@ END:VCARD`;
                 </div>
               </div>
               
-              <div className="flex flex-col min-w-0 max-w-[200px] sm:max-w-[280px] xl:max-w-xs">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-sm sm:text-base font-black text-stone-900 leading-tight truncate tracking-tight">
+              <div className="flex flex-col min-w-0 max-w-[140px] xs:max-w-[180px] sm:max-w-[280px] xl:max-w-xs">
+                <div className="flex items-center gap-1 sm:gap-1.5">
+                  <span className="text-xs sm:text-base font-black text-stone-900 leading-tight truncate tracking-tight">
                     {profile.company || profile.name || 'Studio Luxe Interiors'}
                   </span>
-                  <BadgeCheck className="w-4 h-4 text-[#C5A880] shrink-0" />
+                  <BadgeCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A880] shrink-0" />
                 </div>
-                <span className="text-[11px] text-stone-500 font-medium truncate">
+                <span className="text-[10px] sm:text-[11px] text-stone-500 font-medium truncate">
                   {profile.name} • {profile.designation || 'Principal Architect & Interior Designer'}
                 </span>
               </div>
@@ -498,7 +498,7 @@ END:VCARD`;
                 type="button"
                 onClick={() => setIsConsultModalOpen(true)}
                 style={{ backgroundColor: '#18181B', color: '#ffffff' }}
-                className="hidden sm:inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer hover:bg-stone-900 whitespace-nowrap shrink-0"
+                className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer hover:bg-stone-900 whitespace-nowrap shrink-0"
               >
                 <Calendar className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                 <span className="text-white font-bold">Book Free 3D Consult</span>
@@ -539,7 +539,37 @@ END:VCARD`;
               <span>10-Year Warranty • 45-Day Handover Guaranteed</span>
             </div>
 
-            <nav className="grid grid-cols-2 gap-2 text-xs font-bold text-stone-700 pt-2">
+            {/* Mobile View Switcher (Mini-Website vs Mobile Card) */}
+            {showViewToggle && setViewMode && (
+              <div className="flex items-center gap-1 p-1 rounded-full bg-stone-100 border border-stone-200">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('website');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`flex-1 py-1.5 rounded-full text-xs font-bold transition text-center cursor-pointer ${
+                    viewMode === 'website' ? 'bg-[#18181B] text-white shadow-xs' : 'text-stone-600'
+                  }`}
+                >
+                  💻 Mini-Website
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('mobile');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`flex-1 py-1.5 rounded-full text-xs font-bold transition text-center cursor-pointer ${
+                    viewMode === 'mobile' ? 'bg-[#18181B] text-white shadow-xs' : 'text-stone-600'
+                  }`}
+                >
+                  📱 Mobile Card
+                </button>
+              </div>
+            )}
+
+            <nav className="grid grid-cols-2 gap-2 text-xs font-bold text-stone-700 pt-1">
               <a href="#portfolio" onClick={() => setIsMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 transition">
                 Portfolio Showcase
               </a>
@@ -566,7 +596,7 @@ END:VCARD`;
       {/* ─────────────────────────────────────────────────────────────
           3. HERO SECTION WITH EXACT 9 CONTACT SQUIRCLES
       ───────────────────────────────────────────────────────────── */}
-      <section id="home" className="relative pt-8 sm:pt-14 pb-14 sm:pb-20 overflow-hidden bg-gradient-to-b from-[#FAF9F6] via-white to-[#F5F2EB]">
+      <section id="home" className="relative pt-6 sm:pt-14 pb-12 sm:pb-20 overflow-hidden bg-gradient-to-b from-[#FAF9F6] via-white to-[#F5F2EB]">
         {/* Soft Ambient Background Circles */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full overflow-hidden pointer-events-none opacity-40">
           <div className="absolute -top-24 right-10 w-[550px] h-[550px] bg-[#C5A880]/15 rounded-full blur-3xl" />
@@ -574,10 +604,10 @@ END:VCARD`;
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-5xl mx-auto space-y-4 sm:space-y-6">
+          <div className="text-center max-w-5xl mx-auto space-y-3.5 sm:space-y-6">
             
             {/* Studio Avatar / Logo */}
-            <div className="flex justify-center pt-2">
+            <div className="flex justify-center pt-1 sm:pt-2">
               {profile.avatarUrl ? (
                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl overflow-hidden bg-white flex items-center justify-center p-1">
                   <img 
@@ -594,13 +624,13 @@ END:VCARD`;
             </div>
 
             {/* Top Verification Pill */}
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#C5A880]/40 text-[#8C6D46] text-xs font-bold shadow-xs">
-              <Award className="w-4 h-4 text-[#8C6D46] shrink-0" />
-              <span>IIID Registered Interior Architect • 12+ Years Experience</span>
+            <div className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-white border border-[#C5A880]/40 text-[#8C6D46] text-[11px] sm:text-xs font-bold shadow-xs max-w-[94vw]">
+              <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8C6D46] shrink-0" />
+              <span className="truncate">IIID Registered Interior Architect • 12+ Years Experience</span>
             </div>
 
             {/* Main Architectural Headline */}
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-stone-900 tracking-tight leading-[1.14]">
+            <h1 className="font-serif text-[28px] xs:text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-stone-900 tracking-tight leading-[1.18]">
               Crafting Timeless Living Spaces With{' '}
               <span className="text-[#8C6D46] block sm:inline font-bold">
                 Turnkey Precision.
@@ -608,13 +638,13 @@ END:VCARD`;
             </h1>
 
             {/* Sub-headline */}
-            <p className="font-sans text-sm sm:text-base lg:text-lg text-stone-600 max-w-3xl mx-auto leading-relaxed px-2">
+            <p className="font-sans text-xs xs:text-sm sm:text-base lg:text-lg text-stone-600 max-w-3xl mx-auto leading-relaxed px-2">
               {profile.company || profile.name || 'Studio Luxe Interiors'} crafts award-winning residential &amp; commercial interiors in {userCity} with 100% factory-built precision, German hardware fittings, transparent BOQ pricing, and flat 10-year warranty.
             </p>
 
             {/* Studio Location Strip */}
             <div className="flex justify-center">
-              <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-700 text-xs sm:text-sm font-semibold shadow-xs">
+              <div className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-700 text-xs sm:text-sm font-semibold shadow-xs max-w-[94vw]">
                 <MapPin className="w-3.5 h-3.5 text-[#8C6D46] shrink-0" />
                 <span className="truncate">{profile.address || `Design Experience Centre, ${userCity}, India`}</span>
               </div>
@@ -623,8 +653,8 @@ END:VCARD`;
             {/* ─────────────────────────────────────────────────────────────
                 HERO APP-STYLE CONTACT SQUIRCLES (All 9 In 1 Single Clean Line)
             ───────────────────────────────────────────────────────────── */}
-            <div className="pt-2 sm:pt-4 pb-2 w-full max-w-full overflow-x-auto no-scrollbar scroll-smooth">
-              <div className="flex flex-nowrap items-center justify-start lg:justify-center gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-4.5 w-max lg:w-auto px-4 lg:px-0 lg:mx-auto">
+            <div className="pt-2 sm:pt-4 pb-3 w-full max-w-full overflow-x-auto no-scrollbar scroll-smooth">
+              <div className="flex flex-nowrap items-center justify-start lg:justify-center gap-3 sm:gap-4 w-max lg:w-auto px-4 lg:px-0 lg:mx-auto">
                 
                 {/* 1. CALL */}
                 <a
@@ -632,8 +662,8 @@ END:VCARD`;
                   onClick={() => trackAction('call_hero_click')}
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#10B981] flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-6.5 h-6.5 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#10B981] flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
                       <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" />
                     </svg>
                   </div>
@@ -650,8 +680,8 @@ END:VCARD`;
                   onClick={() => trackAction('whatsapp_hero_click')}
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#25D366] flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-6.5 h-6.5 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#25D366] flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
                       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.57 14.37C16.32 14.24 15.1 13.64 14.87 13.56C14.64 13.48 14.48 13.44 14.31 13.69C14.15 13.94 13.68 14.49 13.54 14.65C13.4 14.81 13.26 14.83 13.01 14.71C12.76 14.59 11.96 14.33 11.01 13.48C10.27 12.82 9.77 12 9.63 11.75C9.49 11.5 9.62 11.37 9.74 11.25C9.85 11.14 9.99 10.96 10.11 10.82C10.23 10.68 10.27 10.58 10.35 10.42C10.43 10.26 10.39 10.12 10.33 10C10.27 9.88 9.77 8.66 9.57 8.16C9.37 7.68 9.17 7.74 9.02 7.73C8.88 7.72 8.71 7.72 8.55 7.72C8.38 7.72 8.12 7.78 7.89 8.03C7.66 8.28 7.02 8.88 7.02 10.1C7.02 11.32 7.91 12.5 8.03 12.66C8.15 12.82 9.78 15.33 12.28 16.41C12.87 16.67 13.33 16.82 13.69 16.94C14.29 17.13 14.83 17.1 15.26 17.04C15.74 16.97 16.74 16.44 16.95 15.85C17.16 15.26 17.16 14.76 17.09 14.65C17.03 14.54 16.82 14.49 16.57 14.37Z" />
                     </svg>
                   </div>
@@ -668,8 +698,8 @@ END:VCARD`;
                   onClick={() => trackAction('instagram_hero_click')}
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-6.5 h-6.5 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                     </svg>
                   </div>
@@ -686,8 +716,8 @@ END:VCARD`;
                   onClick={() => trackAction('facebook_hero_click')}
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#1877F2] flex items-center justify-center text-white shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-6.5 h-6.5 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#1877F2] flex items-center justify-center text-white shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     </svg>
                   </div>
@@ -702,7 +732,7 @@ END:VCARD`;
                   onClick={() => trackAction('catalog_hero_click')}
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#8B5CF6] flex items-center justify-center text-white shadow-lg shadow-purple-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#8B5CF6] flex items-center justify-center text-white shadow-lg shadow-purple-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
                     <div className="flex items-center justify-center text-white font-black tracking-tight select-none">
                       <span className="font-mono text-xs sm:text-base mr-0.5">&lt;</span>
                       <Zap className="w-4 h-4 sm:w-5 sm:h-5 fill-white text-white shrink-0" />
@@ -722,8 +752,8 @@ END:VCARD`;
                   onClick={() => trackAction('directions_hero_click')}
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#2563EB] flex items-center justify-center text-white shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-6.5 h-6.5 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#2563EB] flex items-center justify-center text-white shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
                       <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
                     </svg>
                   </div>
@@ -738,8 +768,8 @@ END:VCARD`;
                   onClick={() => trackAction('email_hero_click')}
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#EF4444] flex items-center justify-center text-white shadow-lg shadow-red-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-6.5 h-6.5 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#EF4444] flex items-center justify-center text-white shadow-lg shadow-red-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
                       <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
                   </div>
@@ -755,8 +785,8 @@ END:VCARD`;
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                   title="Save Studio Contact to Phonebook"
                 >
-                  <div className="w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#F59E0B] flex items-center justify-center text-white shadow-lg shadow-amber-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-6.5 h-6.5 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-[#F59E0B] flex items-center justify-center text-white shadow-lg shadow-amber-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
                       <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                     </svg>
                   </div>
@@ -772,8 +802,8 @@ END:VCARD`;
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                   title="Scan QR Code to open on phone"
                 >
-                  <div className="w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-stone-900 border border-stone-700 flex items-center justify-center text-white shadow-lg shadow-stone-900/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <svg className="w-6.5 h-6.5 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px] bg-stone-900 border border-stone-700 flex items-center justify-center text-white shadow-lg shadow-stone-900/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-7 h-7 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="3" width="7" height="7" rx="1.5" />
                       <rect x="14" y="3" width="7" height="7" rx="1.5" />
                       <rect x="14" y="14" width="7" height="7" rx="1.5" />
@@ -889,7 +919,7 @@ END:VCARD`;
                   backgroundColor: activeTab === cat ? '#18181B' : '#ffffff',
                   color: activeTab === cat ? '#ffffff' : '#44403c'
                 }}
-                className={`px-4.5 py-2 rounded-full text-xs sm:text-sm font-bold transition whitespace-nowrap cursor-pointer shadow-xs border ${
+                className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition whitespace-nowrap cursor-pointer shadow-xs border ${
                   activeTab === cat ? 'border-stone-900 shadow-md' : 'border-stone-200 hover:border-stone-400'
                 }`}
               >
@@ -906,7 +936,7 @@ END:VCARD`;
                 className="group rounded-3xl bg-white border border-stone-200/90 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
               >
                 {/* Project Image & Floating Tags */}
-                <div className="relative aspect-16/10 overflow-hidden bg-stone-100">
+                <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
                   <img
                     src={project.coverImage}
                     alt={project.title}
@@ -966,7 +996,7 @@ END:VCARD`;
                       href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi ${profile.name || profile.company}, I love the project "${project.title}". Can you share full budget details and similar layout ideas?`)}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs shadow-xs transition active:scale-95"
+                      className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs shadow-xs transition active:scale-95"
                     >
                       <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Get Similar Quote</span>
@@ -1000,7 +1030,7 @@ END:VCARD`;
           </div>
 
           {/* Draggable Slider Container */}
-          <div className="relative aspect-16/9 rounded-3xl overflow-hidden shadow-2xl border-4 border-stone-100 select-none touch-none">
+          <div className="relative aspect-[4/3] sm:aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl border-4 border-stone-100 select-none touch-none">
             
             {/* "After" Image (Full Width background) */}
             <img
@@ -1008,32 +1038,31 @@ END:VCARD`;
               alt="After Furnished Luxury Interior"
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute top-4 right-4 z-20 px-3.5 py-1.5 rounded-full bg-emerald-600/90 text-white text-xs font-bold shadow-md pointer-events-none">
+            <div className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-20 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-emerald-600/90 text-white text-[11px] sm:text-xs font-bold shadow-md pointer-events-none">
               AFTER: Turnkey Handover ✨
             </div>
 
-            {/* "Before" Image (Clipped by slider position) */}
+            {/* "Before" Image (Clipped smoothly using CSS clipPath so the image is NEVER squished or scaled) */}
             <div
-              className="absolute inset-0 overflow-hidden"
-              style={{ width: `${sliderPosition}%` }}
+              className="absolute inset-0 overflow-hidden pointer-events-none"
+              style={{ clipPath: `inset(0 calc(100% - ${sliderPosition}%) 0 0)` }}
             >
               <img
                 src="https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=1600&q=85"
                 alt="Before Raw Concrete Handover"
-                className="absolute inset-0 w-full h-full object-cover max-w-none"
-                style={{ width: '100%', minWidth: '100%', objectFit: 'cover' }}
+                className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute top-4 left-4 z-20 px-3.5 py-1.5 rounded-full bg-stone-900/85 text-white text-xs font-bold shadow-md pointer-events-none">
+              <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-20 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-stone-900/85 text-white text-[11px] sm:text-xs font-bold shadow-md pointer-events-none">
                 BEFORE: Bare Shell Concrete 🏗️
               </div>
             </div>
 
             {/* Draggable Divider Bar */}
             <div
-              className="absolute top-0 bottom-0 w-1 bg-white shadow-2xl z-30 cursor-ew-resize flex items-center justify-center -translate-x-1/2"
+              className="absolute top-0 bottom-0 w-1 bg-white shadow-2xl z-30 pointer-events-none flex items-center justify-center -translate-x-1/2"
               style={{ left: `${sliderPosition}%` }}
             >
-              <div className="w-10 h-10 rounded-full bg-white text-stone-900 shadow-2xl border-2 border-[#C5A880] flex items-center justify-center font-bold text-xs select-none">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white text-stone-900 shadow-2xl border-2 border-[#C5A880] flex items-center justify-center font-bold text-xs select-none">
                 ◀ ▶
               </div>
             </div>
@@ -1045,7 +1074,7 @@ END:VCARD`;
               max="100"
               value={sliderPosition}
               onChange={(e) => setSliderPosition(Number(e.target.value))}
-              className="absolute inset-0 w-full h-full opacity-0 z-40 cursor-ew-resize"
+              className="absolute inset-0 w-full h-full opacity-0 z-40 cursor-ew-resize touch-none"
               aria-label="Before and after transformation slider"
             />
           </div>
@@ -1083,7 +1112,7 @@ END:VCARD`;
               <label className="text-xs font-bold uppercase tracking-wider text-stone-500 block">
                 1. Select Property Configuration
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-2.5">
                 {[
                   { key: '1bhk', label: '1 BHK', sqft: '650 Sft' },
                   { key: '2bhk', label: '2 BHK', sqft: '1,150 Sft' },
@@ -1100,7 +1129,7 @@ END:VCARD`;
                       backgroundColor: selectedHomeType === item.key ? '#18181B' : '#ffffff',
                       color: selectedHomeType === item.key ? '#ffffff' : '#1c1917'
                     }}
-                    className="p-3.5 rounded-2xl border-2 text-center transition cursor-pointer flex flex-col items-center justify-center shadow-2xs"
+                    className="p-3 sm:p-3.5 rounded-2xl border-2 text-center transition cursor-pointer flex flex-col items-center justify-center shadow-2xs last:col-span-2 sm:last:col-span-1"
                   >
                     <span className="font-bold text-sm sm:text-base">{item.label}</span>
                     <span className={`text-[11px] ${selectedHomeType === item.key ? 'text-amber-300' : 'text-stone-500'}`}>
@@ -1515,7 +1544,7 @@ END:VCARD`;
             className="w-full max-w-3xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-stone-200 relative animate-in zoom-in-95 max-h-[92vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative aspect-16/9 bg-stone-100 shrink-0">
+            <div className="relative aspect-[16/9] bg-stone-100 shrink-0">
               <img
                 src={activeProject.coverImage}
                 alt={activeProject.title}
