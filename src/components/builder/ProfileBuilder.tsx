@@ -17,6 +17,7 @@ import {
   Save, 
   Smartphone, 
   Monitor,
+  Globe,
   Check, 
   ExternalLink,
   Plus,
@@ -260,6 +261,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
   const [cardCreateError, setCardCreateError] = useState('');
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [studioWebsitePreviewOpen, setStudioWebsitePreviewOpen] = useState(false);
+  const [mockupViewMode, setMockupViewMode] = useState<'card' | 'website'>('card');
   const [isStudioQrModalOpen, setIsStudioQrModalOpen] = useState(false);
   const [studioQrCopied, setStudioQrCopied] = useState(false);
 
@@ -4359,23 +4361,42 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
       {/* Right Real-Time Mobile Device Mockup View */}
       <div className="w-full md:w-[350px] lg:w-[390px] xl:w-[430px] p-3 sm:p-4 md:p-5 bg-slate-950 flex flex-col items-center justify-center h-full min-h-0 overflow-hidden shrink-0 border-t md:border-t-0 md:border-l border-slate-800">
         <div className="flex items-center justify-between w-full max-w-[340px] lg:max-w-[360px] xl:max-w-[375px] mb-2.5 px-1 shrink-0">
-          <div className="flex items-center gap-1.5">
-            <Smartphone className="w-4 h-4 text-indigo-400" />
-            <span className="text-xs font-semibold text-slate-300">
-              {isRealEstate ? 'Smart Realtor Card' : 'Mobile Card'}
-            </span>
+          {/* Dual Toggle: Smart Realtor Card (vCard) vs Mini-Website */}
+          <div className="flex items-center gap-1 p-0.5 rounded-xl bg-slate-900 border border-slate-800">
+            <button
+              type="button"
+              onClick={() => setMockupViewMode('card')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 transition cursor-pointer ${
+                mockupViewMode === 'card'
+                  ? 'bg-indigo-600 text-white shadow-xs'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>{isRealEstate ? 'Smart Realtor Card' : 'Mobile Card'}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setMockupViewMode('website')}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 transition cursor-pointer ${
+                mockupViewMode === 'website'
+                  ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span>Mini-Website</span>
+            </button>
           </div>
+
           <button
             type="button"
             onClick={() => setStudioWebsitePreviewOpen(true)}
-            className={`px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-1.5 transition active:scale-95 shadow-sm cursor-pointer ${
-              isRealEstate 
-                ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black shadow-amber-500/20'
-                : 'bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 hover:text-white border border-indigo-500/30'
-            }`}
+            className="px-2.5 py-1 rounded-xl text-[11px] font-bold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center gap-1 transition active:scale-95 cursor-pointer shadow-xs"
+            title="Open Fullscreen Desktop Website Preview"
           >
-            <Monitor className={`w-3.5 h-3.5 ${isRealEstate ? 'text-slate-950 stroke-[2.5]' : 'text-indigo-400'}`} />
-            <span>{isRealEstate ? 'Mini-Website Preview' : 'Mini-Website View'}</span>
+            <Monitor className="w-3.5 h-3.5 text-indigo-400" />
+            <span className="hidden sm:inline">Desktop</span>
           </button>
         </div>
 
@@ -4390,7 +4411,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
           {/* Screen Content */}
           <div className="rounded-[36px] overflow-hidden bg-slate-950 h-[520px] sm:h-[560px] md:h-[calc(100vh-170px)] max-h-[640px] min-h-[420px] overflow-y-auto scrollbar-none border border-slate-800">
-            <ProfileCardView profile={profile} isMockup={true} />
+            <ProfileCardView 
+              profile={profile} 
+              isMockup={true} 
+              initialViewMode={mockupViewMode === 'website' ? 'website' : 'mobile'} 
+            />
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Phone, 
   Mail, 
@@ -109,6 +109,12 @@ export default function ProfileCardView({
   const [viewMode, setViewMode] = useState<'mobile' | 'website'>(
     initialViewMode || (isMockup ? 'mobile' : 'website')
   );
+
+  useEffect(() => {
+    if (initialViewMode) {
+      setViewMode(initialViewMode);
+    }
+  }, [initialViewMode]);
 
   // Cart & Modals State
   const [cart, setCart] = useState<OrderCartItem[]>([]);
@@ -599,7 +605,7 @@ export default function ProfileCardView({
     profile.id === 're-villas' ||
     profile.id === 're-consultants';
 
-  const isWebsiteMode = !isMockup && viewMode === 'website';
+  const isWebsiteMode = viewMode === 'website';
 
   return (
     <div className="w-full relative">
@@ -609,48 +615,41 @@ export default function ProfileCardView({
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-xs font-bold text-slate-800 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full border border-slate-200 shadow-xs">
-              Mobile Business Card
+              {isRealEstate ? 'Smart Realtor Card' : 'Mobile Business Card'}
             </span>
           </div>
           <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md">
             <button
               onClick={() => setViewMode('website')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                viewMode === 'website'
-                  ? 'bg-black text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-              }`}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100 cursor-pointer"
             >
               <Globe className="w-3.5 h-3.5" />
               <span>Mini-Website View</span>
             </button>
             <button
               onClick={() => setViewMode('mobile')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                viewMode === 'mobile'
-                  ? 'bg-black text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-              }`}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-black text-white shadow-sm cursor-pointer"
             >
               <Smartphone className="w-3.5 h-3.5" />
-              <span>Mobile Card View</span>
+              <span>{isRealEstate ? 'Smart Realtor Card' : 'Mobile Card View'}</span>
             </button>
           </div>
         </div>
       )}
 
       {/* Main Experience: Industry Specific Mini-Website OR Smartphone Card */}
-      {isRealEstate ? (
-        <RealEstateMiniWebsiteView
-          profile={profile}
-          trackAction={trackAction}
-          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-          getEmbedUrl={getEmbedUrl}
-          viewMode={viewMode}
-          setViewMode={setViewMode}
-          showViewToggle={showViewToggle}
-        />
-      ) : isWebsiteMode ? (
+      {isWebsiteMode ? (
+        isRealEstate ? (
+          <RealEstateMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : (
             <MBLMiniWebsiteView
               profile={profile}
               cart={cart}
@@ -686,6 +685,7 @@ export default function ProfileCardView({
               setIsReviewModalOpen={setIsReviewModalOpen}
               dynamicTestimonials={dynamicTestimonials || undefined}
             />
+        )
       ) : (
         <div className={`w-full max-w-md ${isMockup ? 'rounded-[36px]' : 'sm:rounded-[44px] sm:border-4 sm:border-slate-800 sm:p-1.5 sm:bg-slate-900'} mx-auto ${theme.bg} min-h-screen relative font-sans transition-all duration-300 pb-24 shadow-2xl overflow-hidden`}>
           {/* Top Cover Image */}

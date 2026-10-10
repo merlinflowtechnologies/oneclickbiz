@@ -978,6 +978,29 @@ export default function RealEstateMiniWebsiteView({
 
             {/* Header Right Action Area */}
             <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
+              {showViewToggle && setViewMode && (
+                <div className="hidden md:flex items-center gap-1 p-1 rounded-full bg-slate-100 border border-slate-200 shadow-2xs">
+                  <button
+                    type="button"
+                    onClick={() => setViewMode('website')}
+                    className={`px-3 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                      viewMode === 'website' ? 'bg-[#005DAA] text-white shadow-xs' : 'text-slate-600 hover:text-black'
+                    }`}
+                  >
+                    💻 Website
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewMode('mobile')}
+                    className={`px-3 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                      viewMode === 'mobile' ? 'bg-[#005DAA] text-white shadow-xs' : 'text-slate-600 hover:text-black'
+                    }`}
+                  >
+                    📱 Smart Realtor Card
+                  </button>
+                </div>
+              )}
+
               {/* QR Code Quick Button */}
               <button
                 type="button"
@@ -1060,6 +1083,35 @@ export default function RealEstateMiniWebsiteView({
               </span>
               <span className="truncate">{userProjects[0]?.reraId || 'TS-RERA Sanctioned Layouts'}</span>
             </div>
+
+            {showViewToggle && setViewMode && (
+              <div className="flex items-center gap-1 p-1 rounded-full bg-slate-100 border border-slate-200 mb-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('website');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`flex-1 py-1.5 rounded-full text-xs font-bold transition text-center cursor-pointer ${
+                    viewMode === 'website' ? 'bg-[#005DAA] text-white shadow-xs' : 'text-slate-600'
+                  }`}
+                >
+                  💻 Mini-Website
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('mobile');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`flex-1 py-1.5 rounded-full text-xs font-bold transition text-center cursor-pointer ${
+                    viewMode === 'mobile' ? 'bg-[#005DAA] text-white shadow-xs' : 'text-slate-600'
+                  }`}
+                >
+                  📱 Smart Realtor Card (vCard)
+                </button>
+              </div>
+            )}
             <nav className="grid grid-cols-2 gap-2 text-xs font-bold text-slate-700">
               <a 
                 href="#home" 
