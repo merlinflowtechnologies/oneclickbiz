@@ -1242,21 +1242,23 @@ export default function RealEstateMiniWebsiteView({
             </div>
 
             {/* ─────────────────────────────────────────────────────────────
-                HERO APP-STYLE CONTACT SQUIRCLES (Call, WhatsApp, Instagram, Facebook, Directions, Email, Save vCard, Scan QR)
+                HERO APP-STYLE CONTACT SQUIRCLES (Exact Brand Vectors Matching Reference Design)
             ───────────────────────────────────────────────────────────── */}
-            <div className="pt-2 sm:pt-4 pb-2">
+            <div className="pt-3 sm:pt-5 pb-3">
               <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto">
                 
                 {/* 1. CALL */}
                 <a
                   href={`tel:${cleanCallNumber || '+919876543210'}`}
                   onClick={() => trackAction('call_hero_click')}
-                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                  className="flex flex-col items-center gap-1.5 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-[#22C55E] flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <Phone className="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white" />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] sm:rounded-[24px] bg-[#10B981] flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-8 h-8 sm:w-9 sm:h-9 fill-white" viewBox="0 0 24 24">
+                      <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" />
+                    </svg>
                   </div>
-                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                  <span className="font-serif text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors">
                     CALL
                   </span>
                 </a>
@@ -1267,12 +1269,14 @@ export default function RealEstateMiniWebsiteView({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('whatsapp_hero_click')}
-                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                  className="flex flex-col items-center gap-1.5 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-[#25D366] flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <MessageCircle className="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white" />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] sm:rounded-[24px] bg-[#25D366] flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-8 h-8 sm:w-9 sm:h-9 fill-white" viewBox="0 0 24 24">
+                      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm0 18.15c-1.48 0-2.93-.39-4.19-1.14l-.3-.18-3.12.82.83-3.04-.2-.32a8.212 8.212 0 01-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.26.86 5.82 2.42a8.178 8.178 0 012.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.53-5.78c-.25-.13-1.47-.73-1.7-.81-.23-.08-.39-.12-.56.13-.16.25-.63.8-.77.96-.14.16-.28.18-.53.06-.25-.12-1.05-.38-2-.1.23-.74-.66-1.24-1.48-1.38-1.73-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.55-.43-.14-.01-.31-.01-.47-.01-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07s.89 2.4 1.01 2.56c.12.16 1.75 2.67 4.25 3.75.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.48-.6 1.69-1.19.21-.59.21-1.09.14-1.2-.06-.11-.27-.16-.52-.29z" />
+                    </svg>
                   </div>
-                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                  <span className="font-serif text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors">
                     WHATSAPP
                   </span>
                 </a>
@@ -1283,12 +1287,14 @@ export default function RealEstateMiniWebsiteView({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('instagram_hero_click')}
-                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                  className="flex flex-col items-center gap-1.5 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <SocialIcon platform="instagram" size={30} />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] sm:rounded-[24px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-8 h-8 sm:w-9 sm:h-9 fill-white" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
                   </div>
-                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                  <span className="font-serif text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors">
                     INSTAGRAM
                   </span>
                 </a>
@@ -1299,74 +1305,111 @@ export default function RealEstateMiniWebsiteView({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('facebook_hero_click')}
-                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                  className="flex flex-col items-center gap-1.5 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-[#1877F2] flex items-center justify-center text-white shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <SocialIcon platform="facebook" size={30} />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] sm:rounded-[24px] bg-[#1877F2] flex items-center justify-center text-white shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-8 h-8 sm:w-9 sm:h-9 fill-white" viewBox="0 0 24 24">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
                   </div>
-                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                  <span className="font-serif text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors">
                     FACEBOOK
                   </span>
                 </a>
 
-                {/* 5. DIRECTIONS */}
+                {/* 5. OTHER SOFTWARE / TECH (Exact Matching Icon & Style from Reference) */}
+                <a
+                  href={profile.website || '#finder'}
+                  target={profile.website ? '_blank' : '_self'}
+                  rel="noreferrer"
+                  onClick={() => trackAction('software_hero_click')}
+                  className="flex flex-col items-center gap-1.5 group transition-transform active:scale-95 cursor-pointer"
+                >
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] sm:rounded-[24px] bg-[#8B5CF6] flex items-center justify-center text-white shadow-lg shadow-purple-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <div className="flex items-center justify-center text-white font-black tracking-tight select-none">
+                      <span className="font-mono text-xl sm:text-2xl mr-0.5">&lt;</span>
+                      <Zap className="w-5 h-5 sm:w-6 sm:h-6 fill-white text-white shrink-0" />
+                      <span className="font-mono text-xl sm:text-2xl ml-0.5">&gt;</span>
+                    </div>
+                  </div>
+                  <span className="font-serif text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors">
+                    OTHER SOFTWARE
+                  </span>
+                </a>
+
+                {/* 6. DIRECTIONS */}
                 <a
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(profile.address || `${profile.company || profile.name} ${userCity}`)}`}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackAction('directions_hero_click')}
-                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                  className="flex flex-col items-center gap-1.5 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <Navigation className="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white" />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] sm:rounded-[24px] bg-[#2563EB] flex items-center justify-center text-white shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-8 h-8 sm:w-9 sm:h-9 fill-white" viewBox="0 0 24 24">
+                      <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
+                    </svg>
                   </div>
-                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                  <span className="font-serif text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors">
                     DIRECTIONS
                   </span>
                 </a>
 
-                {/* 6. EMAIL */}
+                {/* 7. EMAIL */}
                 {profile.email && (
                   <a
                     href={`mailto:${profile.email}`}
                     onClick={() => trackAction('email_hero_click')}
-                    className="flex flex-col items-center gap-2 group transition-transform active:scale-95"
+                    className="flex flex-col items-center gap-1.5 group transition-transform active:scale-95 cursor-pointer"
                   >
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-gradient-to-tr from-rose-500 to-orange-500 flex items-center justify-center text-white shadow-lg shadow-rose-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                      <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] sm:rounded-[24px] bg-[#EF4444] flex items-center justify-center text-white shadow-lg shadow-red-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                      <svg className="w-8 h-8 sm:w-9 sm:h-9 fill-white" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                      </svg>
                     </div>
-                    <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                    <span className="font-serif text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors">
                       EMAIL
                     </span>
                   </a>
                 )}
 
-                {/* 7. SAVE VCARD */}
+                {/* 8. SAVE VCARD */}
                 <button
                   type="button"
                   onClick={handleVcfDownload}
-                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1.5 group transition-transform active:scale-95 cursor-pointer"
                   title="Save Contact to Phone Contacts"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-500 flex items-center justify-center text-white shadow-lg shadow-amber-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <Download className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] sm:rounded-[24px] bg-[#F59E0B] flex items-center justify-center text-white shadow-lg shadow-amber-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-8 h-8 sm:w-9 sm:h-9 fill-white" viewBox="0 0 24 24">
+                      <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                    </svg>
                   </div>
-                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                  <span className="font-serif text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors">
                     SAVE VCARD
                   </span>
                 </button>
 
-                {/* 8. SCAN QR */}
+                {/* 9. SCAN QR */}
                 <button
                   type="button"
                   onClick={() => setIsQrModalOpen(true)}
-                  className="flex flex-col items-center gap-2 group transition-transform active:scale-95 cursor-pointer"
+                  className="flex flex-col items-center gap-1.5 group transition-transform active:scale-95 cursor-pointer"
                   title="Scan QR Code to open on mobile"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-[18px] sm:rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center text-white shadow-lg shadow-slate-900/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
-                    <QrCode className="w-7 h-7 sm:w-8 sm:h-8 text-amber-400" />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] sm:rounded-[24px] bg-slate-900 border border-slate-700 flex items-center justify-center text-white shadow-lg shadow-slate-900/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1">
+                    <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                      <rect x="6" y="6" width="1.5" height="1.5" fill="white" stroke="none" />
+                      <rect x="17" y="6" width="1.5" height="1.5" fill="white" stroke="none" />
+                      <rect x="6" y="17" width="1.5" height="1.5" fill="white" stroke="none" />
+                      <rect x="16" y="16" width="2" height="2" fill="white" stroke="none" />
+                    </svg>
                   </div>
-                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800 group-hover:text-[#005DAA] transition-colors">
+                  <span className="font-serif text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors">
                     SCAN QR
                   </span>
                 </button>
