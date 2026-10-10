@@ -49,9 +49,17 @@ export async function GET(
 
     // Reconstruct sections & sectionData from ProfileSection configs
     const sectionData: Record<string, any> = {};
+    let resolvedTemplateId: string | undefined = undefined;
+    let resolvedCategory: string | undefined = undefined;
+
     const sections = (profile.sections || []).map(s => {
       if (s.config && typeof s.config === 'object' && Object.keys(s.config).length > 0) {
         sectionData[s.type] = s.config;
+        if (s.type === 'hero') {
+          const cfg = s.config as any;
+          if (cfg.templateId) resolvedTemplateId = cfg.templateId;
+          if (cfg.category) resolvedCategory = cfg.category;
+        }
       }
       return {
         id: s.id,
@@ -61,6 +69,11 @@ export async function GET(
         order: s.order
       };
     });
+
+    if (cleanSlug.startsWith('re-') || resolvedCategory === 'Real Estate') {
+      if (!resolvedTemplateId) resolvedTemplateId = 're-builders';
+      if (!resolvedCategory) resolvedCategory = 'Real Estate';
+    }
 
     // Increment views asynchronously
     prisma.profile.update({
@@ -72,6 +85,8 @@ export async function GET(
       success: true, 
       profile: {
         ...profile,
+        templateId: resolvedTemplateId || (cleanSlug.startsWith('re-') ? 're-builders' : undefined),
+        category: resolvedCategory || (cleanSlug.startsWith('re-') ? 'Real Estate' : undefined),
         sections: sections.length > 0 ? sections : undefined,
         sectionData: Object.keys(sectionData).length > 0 ? sectionData : undefined,
         subscriptionStatus,
@@ -173,7 +188,15 @@ export async function PUT(
         for (let i = 0; i < body.sections.length; i++) {
           const sec = body.sections[i];
           const secType = sec.type;
-          const configData = body.sectionData?.[secType] || {};
+          const configData = secType === 'hero' 
+            ? { 
+                ...(body.sectionData?.[secType] || {}), 
+                templateId: body.templateId || (body.category === 'Real Estate' || cleanSlug.startsWith('re-') ? 're-builders' : undefined),
+                category: body.category || (cleanSlug.startsWith('re-') ? 'Real Estate' : undefined),
+                realEstate: body.sectionData?.realEstate
+              }
+            : (body.sectionData?.[secType] || {});
+
           await prisma.profileSection.create({
             data: {
               profileId: targetProfile.id,
@@ -185,12 +208,35 @@ export async function PUT(
             }
           });
         }
+
+        // Dedicated realEstate section if applicable
+        if (body.sectionData?.realEstate) {
+          await prisma.profileSection.create({
+            data: {
+              profileId: targetProfile.id,
+              type: 'realEstate',
+              title: 'RERA & Track Record',
+              isVisible: true,
+              order: 11,
+              config: body.sectionData.realEstate
+            }
+          }).catch(() => {});
+        }
       } catch (secErr) {
         console.error('Error updating profile sections:', secErr);
       }
     }
 
-    return NextResponse.json({ success: true, profile: { ...updated, sections: body.sections, sectionData: body.sectionData } });
+    return NextResponse.json({ 
+      success: true, 
+      profile: { 
+        ...updated, 
+        templateId: body.templateId || (body.category === 'Real Estate' || cleanSlug.startsWith('re-') ? 're-builders' : undefined),
+        category: body.category || (cleanSlug.startsWith('re-') ? 'Real Estate' : undefined),
+        sections: body.sections, 
+        sectionData: body.sectionData 
+      } 
+    });
   } catch (error: any) {
     console.error('Update profile error:', error);
     return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 });

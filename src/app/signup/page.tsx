@@ -26,12 +26,22 @@ import {
   ChevronRight,
   Shield,
   Smartphone,
-  Tag
+  Tag,
+  Building2,
+  HeartPulse,
+  Scale,
+  UtensilsCrossed,
+  Laptop,
+  TrendingUp,
+  ShoppingBag,
+  Compass,
+  GraduationCap
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { initiateCashfreePayment } from '@/lib/cashfree-client';
 import { exportInvoicePDF } from '@/lib/pdf-export';
 import { validateAndCalculateCoupon, CouponApplicationResult } from '@/lib/coupons';
+import { getTemplateProfile } from '@/data/templatePresets';
 
 function GoogleIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -108,6 +118,129 @@ const DEFAULT_PLANS_CONFIG = {
   }
 };
 
+const INDUSTRY_OPTIONS = [
+  {
+    id: 'real-estate',
+    category: 'Real Estate',
+    templateId: 're-builders',
+    label: 'Real Estate & Builders',
+    badge: '⭐ Flagship Mini-Website',
+    desc: 'Builders, Developers, Realtors, Gated Villas, Open Plots & RERA Approvals',
+    icon: Building2,
+    gradient: 'from-amber-500/10 via-orange-500/10 to-amber-500/5',
+    activeBorder: 'border-amber-600 bg-amber-50/90 text-amber-950',
+    highlightText: 'Pre-loaded with High-Rise Towers, Gated Villas, Open Plots, TS-RERA Badges, Blueprint Galleries, EMI Calculator, and VIP Site Visit booking.'
+  },
+  {
+    id: 'healthcare',
+    category: 'Healthcare',
+    templateId: 'vcard36',
+    label: 'Healthcare & Doctors',
+    badge: 'OPD & Clinic',
+    desc: 'Physicians, Clinics, Dentists, Diagnostics & Healthcare Centers',
+    icon: HeartPulse,
+    gradient: 'from-emerald-500/10 via-teal-500/10 to-emerald-500/5',
+    activeBorder: 'border-emerald-600 bg-emerald-50/90 text-emerald-950',
+    highlightText: 'Pre-loaded with Doctor OPD Timings, Treatment Packages & Instant Consultation Booking.'
+  },
+  {
+    id: 'legal',
+    category: 'Professional Services',
+    templateId: 'vcard37',
+    label: 'Law & Legal Advocates',
+    badge: 'Legal Suite',
+    desc: 'High Court Advocates, Corporate Law Firms, Legal Counsel & Notaries',
+    icon: Scale,
+    gradient: 'from-blue-500/10 via-indigo-500/10 to-blue-500/5',
+    activeBorder: 'border-blue-600 bg-blue-50/90 text-blue-950',
+    highlightText: 'Pre-loaded with Practice Areas, Retainers, Bar Association Affiliation & Case Queries.'
+  },
+  {
+    id: 'food',
+    category: 'Food Business',
+    templateId: 'vcard38',
+    label: 'Restaurants & Dining',
+    badge: 'Digital Menu',
+    desc: 'Fine Dining, Cafes, Bakeries, Lounges & Cloud Kitchens',
+    icon: UtensilsCrossed,
+    gradient: 'from-rose-500/10 via-pink-500/10 to-rose-500/5',
+    activeBorder: 'border-rose-600 bg-rose-50/90 text-rose-950',
+    highlightText: 'Pre-loaded with Interactive WhatsApp Food Menu, Table Reservations & Direct Ordering.'
+  },
+  {
+    id: 'tech',
+    category: 'Professional Services',
+    templateId: 'vcard39',
+    label: 'IT, Tech & SaaS Labs',
+    badge: 'Tech Studio',
+    desc: 'Software Companies, AI Labs, SaaS Startups & Developers',
+    icon: Laptop,
+    gradient: 'from-indigo-500/10 via-purple-500/10 to-indigo-500/5',
+    activeBorder: 'border-indigo-600 bg-indigo-50/90 text-indigo-950',
+    highlightText: 'Pre-loaded with SaaS Showcase, Tech Stack, Github Stars & Consultation Discovery Calls.'
+  },
+  {
+    id: 'finance',
+    category: 'Professional Services',
+    templateId: 'vcard40',
+    label: 'Finance & CA (Tax)',
+    badge: 'Financial Suite',
+    desc: 'Chartered Accountants, Tax Filers & Wealth Advisory',
+    icon: TrendingUp,
+    gradient: 'from-teal-500/10 via-cyan-500/10 to-teal-500/5',
+    activeBorder: 'border-teal-600 bg-teal-50/90 text-teal-950',
+    highlightText: 'Pre-loaded with GST / Income Tax Advisory, Auditing & Portfolio Wealth Desk.'
+  },
+  {
+    id: 'retail',
+    category: 'Retail & Local Shops',
+    templateId: 'vcard41',
+    label: 'Retail & Boutiques',
+    badge: 'WhatsApp Store',
+    desc: 'Boutiques, Jewelry, Apparel, Electronics & Local Retail',
+    icon: ShoppingBag,
+    gradient: 'from-purple-500/10 via-fuchsia-500/10 to-purple-500/5',
+    activeBorder: 'border-purple-600 bg-purple-50/90 text-purple-950',
+    highlightText: 'Pre-loaded with WhatsApp Catalog Store, Instant UPI QR Pay & New Arrivals Showcase.'
+  },
+  {
+    id: 'architecture',
+    category: 'Home & Professional Services',
+    templateId: 'vcard42',
+    label: 'Architecture & Interiors',
+    badge: '3D Studio',
+    desc: 'Architects, Interior Designers & Turnkey Contractors',
+    icon: Compass,
+    gradient: 'from-cyan-500/10 via-sky-500/10 to-cyan-500/5',
+    activeBorder: 'border-cyan-600 bg-cyan-50/90 text-cyan-950',
+    highlightText: 'Pre-loaded with 3D Elevation Blueprints, Finished Projects & Site Consultation Desk.'
+  },
+  {
+    id: 'corporate',
+    category: 'Professional Services',
+    templateId: 'vcard43',
+    label: 'Executives & Founders',
+    badge: 'Executive Suite',
+    desc: 'Managing Directors, Corporate CXOs & Board Members',
+    icon: Crown,
+    gradient: 'from-amber-500/10 via-yellow-500/10 to-amber-500/5',
+    activeBorder: 'border-amber-600 bg-amber-50/90 text-amber-950',
+    highlightText: 'Pre-loaded with Executive Credentials, Media Features, Speaking & Boardroom Profile.'
+  },
+  {
+    id: 'education',
+    category: 'Education',
+    templateId: 'vcard44',
+    label: 'Education & Academies',
+    badge: 'Academy Hub',
+    desc: 'Coaching Institutes, Academies, Tutors & Training Centres',
+    icon: GraduationCap,
+    gradient: 'from-violet-500/10 via-purple-500/10 to-violet-500/5',
+    activeBorder: 'border-violet-600 bg-violet-50/90 text-violet-950',
+    highlightText: 'Pre-loaded with Course Curriculum, Demo Class Slots & Student Admissions.'
+  }
+];
+
 function SignUpForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -115,6 +248,7 @@ function SignUpForm() {
   // Query Params
   const paramSlug = searchParams.get('slug') || '';
   const paramTemplate = searchParams.get('template') || '';
+  const paramCategory = searchParams.get('category') || '';
   const paramPlan = searchParams.get('plan') || '';
   const paramEmail = searchParams.get('email') || '';
   const paramName = searchParams.get('name') || '';
@@ -159,14 +293,24 @@ function SignUpForm() {
   // Wizard Step: 1 = Details & Credentials, 2 = Cashfree Payment Confirmation, 3 = Payment Success
   const [step, setStep] = useState<1 | 2 | 3>(paramStep === '2' || paramUnpaid ? 2 : 1);
 
+  // Industry & Profession Selection
+  const initialCategory = paramCategory || (paramTemplate?.startsWith('re-') ? 'Real Estate' : 'Real Estate');
+  const initialTemplateId = paramTemplate || (initialCategory === 'Real Estate' ? 're-builders' : 're-builders');
+
+  const [category, setCategory] = useState(initialCategory);
+  const [templateId, setTemplateId] = useState(initialTemplateId);
+
   // Form State
   const [fullName, setFullName] = useState(paramName || '');
   const [email, setEmail] = useState(paramEmail || '');
   const [password, setPassword] = useState('google_oauth_auth_2026');
   const [showPassword, setShowPassword] = useState(false);
-  const [businessName, setBusinessName] = useState(paramName ? `${paramName}'s Business` : '');
+  const [businessName, setBusinessName] = useState(
+    paramName 
+      ? (initialCategory === 'Real Estate' ? `${paramName} Builders & Realty` : `${paramName}'s Business`)
+      : (initialCategory === 'Real Estate' ? 'Skyline Builders & Developers' : '')
+  );
   const [entityType, setEntityType] = useState('Private Limited / LLC');
-  const [category, setCategory] = useState('Technology & Agency');
   const [phone, setPhone] = useState('');
   const [slug, setSlug] = useState(paramSlug ? paramSlug.toLowerCase() : '');
 
@@ -368,13 +512,46 @@ function SignUpForm() {
                   businessName: generatedBizName,
                   entityType,
                   category,
-                  designation: 'Founder / Managing Director',
+                  designation: category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director',
                   phone,
                   slug: generatedSlug,
                   plan: activePlan.id,
+                  template: templateId,
                   isBusinessEntity: true,
                   loggedIn: true
                 }));
+
+                try {
+                  const initialCustomProfile = getTemplateProfile(templateId);
+                  initialCustomProfile.name = data.user.name;
+                  initialCustomProfile.company = generatedBizName;
+                  initialCustomProfile.phone = phone;
+                  initialCustomProfile.email = data.user.email;
+                  initialCustomProfile.slug = generatedSlug;
+                  if (phone) {
+                    initialCustomProfile.whatsapp = phone.replace(/\D/g, '');
+                  }
+                  localStorage.setItem(`oneclickbiz_custom_profile_${generatedSlug}`, JSON.stringify(initialCustomProfile));
+                  localStorage.setItem('oneclickbiz_active_profile', JSON.stringify(initialCustomProfile));
+
+                  const initialCards = [
+                    {
+                      id: `card_${generatedSlug}`,
+                      slug: generatedSlug,
+                      title: `${generatedBizName} vCard`,
+                      name: data.user.name,
+                      company: generatedBizName,
+                      designation: category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder & Managing Director',
+                      templateId: templateId,
+                      theme: initialCustomProfile.theme,
+                      avatarUrl: initialCustomProfile.avatarUrl,
+                      createdAt: new Date().toISOString()
+                    }
+                  ];
+                  localStorage.setItem('oneclickbiz_user_cards', JSON.stringify(initialCards));
+                } catch (e) {
+                  console.error('Failed to pre-seed profile locally:', e);
+                }
               }
 
               setGoogleLoading(false);
@@ -421,7 +598,9 @@ function SignUpForm() {
           password,
           phone,
           businessName: cleanBiz,
-          slug: cleanSlug
+          slug: cleanSlug,
+          category,
+          templateId
         })
       });
 
@@ -438,14 +617,46 @@ function SignUpForm() {
           businessName: cleanBiz,
           entityType,
           category,
-          designation: 'Founder / Managing Director',
+          designation: category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director',
           phone,
           slug: cleanSlug,
           plan: activePlan.id,
-          template: paramTemplate || undefined,
+          template: templateId,
           isBusinessEntity: true,
           loggedIn: true
         }));
+
+        try {
+          const initialCustomProfile = getTemplateProfile(templateId);
+          initialCustomProfile.name = fullName;
+          initialCustomProfile.company = cleanBiz;
+          initialCustomProfile.phone = phone;
+          initialCustomProfile.email = email;
+          initialCustomProfile.slug = cleanSlug;
+          if (phone) {
+            initialCustomProfile.whatsapp = phone.replace(/\D/g, '');
+          }
+          localStorage.setItem(`oneclickbiz_custom_profile_${cleanSlug}`, JSON.stringify(initialCustomProfile));
+          localStorage.setItem('oneclickbiz_active_profile', JSON.stringify(initialCustomProfile));
+
+          const initialCards = [
+            {
+              id: `card_${cleanSlug}`,
+              slug: cleanSlug,
+              title: `${cleanBiz} vCard`,
+              name: fullName,
+              company: cleanBiz,
+              designation: category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder & Managing Director',
+              templateId: templateId,
+              theme: initialCustomProfile.theme,
+              avatarUrl: initialCustomProfile.avatarUrl,
+              createdAt: new Date().toISOString()
+            }
+          ];
+          localStorage.setItem('oneclickbiz_user_cards', JSON.stringify(initialCards));
+        } catch (e) {
+          console.error('Failed to pre-seed profile locally:', e);
+        }
       }
 
       setStep(2);
@@ -712,6 +923,78 @@ function SignUpForm() {
                   </div>
 
                 </div>
+              </div>
+
+              {/* Step 2: Profession / Business Industry Selector */}
+              <div className="space-y-2.5 pt-1">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Step 2: Choose Your Profession / Industry
+                  </label>
+                  <span className="text-[11px] font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                    Active Studio: {category}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {INDUSTRY_OPTIONS.map((ind) => {
+                    const isSelected = category === ind.category && (ind.id === 'real-estate' ? templateId === 're-builders' : true);
+                    const IconComponent = ind.icon;
+                    return (
+                      <div
+                        key={ind.id}
+                        onClick={() => {
+                          setCategory(ind.category);
+                          setTemplateId(ind.templateId);
+                          if (!businessName || businessName.includes('Business') || businessName.includes('Builders')) {
+                            if (ind.id === 'real-estate') setBusinessName(fullName ? `${fullName} Builders & Realty` : 'Skyline Builders & Developers');
+                            else setBusinessName(fullName ? `${fullName}'s Business` : '');
+                          }
+                        }}
+                        className={`p-3 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between space-y-1.5 relative select-none ${
+                          isSelected
+                            ? ind.activeBorder + ' shadow-md ring-2 ring-indigo-500/30'
+                            : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300 shadow-xs'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-1.5">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
+                              isSelected ? 'bg-amber-600 text-white' : 'bg-slate-100 text-slate-600'
+                            }`}>
+                              <IconComponent className="w-4 h-4" />
+                            </div>
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold truncate leading-snug">{ind.label}</p>
+                              <span className="text-[9px] font-semibold text-slate-500 block truncate">{ind.badge}</span>
+                            </div>
+                          </div>
+                          {isSelected && (
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          )}
+                        </div>
+                        <p className="text-[10px] text-slate-500 line-clamp-1 leading-tight">
+                          {ind.desc}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Active Studio Highlight Banner */}
+                {INDUSTRY_OPTIONS.find(i => i.category === category && (i.id === 'real-estate' ? templateId === 're-builders' : true)) && (
+                  <div className="p-3 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border border-amber-300 text-amber-950 text-xs flex items-start gap-2.5 shadow-xs animate-in fade-in duration-200">
+                    <Sparkles className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <p className="font-extrabold text-amber-900 text-xs">
+                        {category === 'Real Estate' ? '🏰 Flagship Real Estate Studio Enabled' : `✨ ${category} Studio Enabled`}
+                      </p>
+                      <p className="text-[11px] text-amber-800 leading-relaxed">
+                        {INDUSTRY_OPTIONS.find(i => i.category === category && (i.id === 'real-estate' ? templateId === 're-builders' : true))?.highlightText}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* One-Click Google Auth */}
@@ -1222,7 +1505,7 @@ function SignUpForm() {
                 </button>
 
                 <button
-                  onClick={() => router.push('/dashboard')}
+                  onClick={() => router.push(`/dashboard/builder?slug=${slug}&template=${templateId}`)}
                   className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/25 active:scale-95 cursor-pointer"
                 >
                   <span>Launch Business Studio Dashboard</span>

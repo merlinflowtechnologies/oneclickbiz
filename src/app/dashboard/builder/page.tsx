@@ -27,7 +27,13 @@ function BuilderContent() {
         const parsedSession = savedSession ? JSON.parse(savedSession) : null;
 
         const targetSlug = (querySlug || parsedSession?.slug || 'alex').toLowerCase().trim();
-        const effectiveTemplateId = queryTemplate || parsedSession?.template || null;
+        const effectiveTemplateId = queryTemplate || parsedSession?.template || (parsedSession?.category === 'Real Estate' || targetSlug.startsWith('re-') ? 're-builders' : null);
+        const isReTarget = Boolean(
+          effectiveTemplateId?.startsWith('re-') || 
+          parsedSession?.category === 'Real Estate' || 
+          targetSlug.startsWith('re-') ||
+          effectiveTemplateId === 're-builders'
+        );
 
         // If user came from signup/login query params OR has valid session
         if ((querySlug && queryBiz) || (parsedSession && parsedSession.loggedIn)) {
@@ -39,14 +45,35 @@ function BuilderContent() {
           if (customSaved) {
             try {
               localFallback = JSON.parse(customSaved);
+              if (isReTarget) {
+                localFallback.templateId = 're-builders';
+                localFallback.category = 'Real Estate';
+                if (!localFallback.sectionData?.realEstate) {
+                  localFallback.sectionData = {
+                    ...(localFallback.sectionData || {}),
+                    realEstate: getTemplateProfile('re-builders').sectionData.realEstate
+                  };
+                }
+              }
             } catch {
               localFallback = effectiveTemplateId ? getTemplateProfile(effectiveTemplateId) : getProfileBySlug(targetSlug);
             }
-          } else if (effectiveTemplateId) {
-            localFallback = getTemplateProfile(effectiveTemplateId);
+          } else if (effectiveTemplateId || isReTarget) {
+            localFallback = getTemplateProfile(effectiveTemplateId || 're-builders');
             if (targetSlug) localFallback.slug = targetSlug;
           } else {
             localFallback = getProfileBySlug(targetSlug);
+          }
+
+          if (isReTarget) {
+            localFallback.templateId = 're-builders';
+            localFallback.category = 'Real Estate';
+            if (!localFallback.sectionData?.realEstate) {
+              localFallback.sectionData = {
+                ...(localFallback.sectionData || {}),
+                realEstate: getTemplateProfile('re-builders').sectionData.realEstate
+              };
+            }
           }
 
           if (queryName && !customSaved) localFallback.name = decodeURIComponent(queryName);
@@ -73,10 +100,15 @@ function BuilderContent() {
                 const merged: DigitalProfile = {
                   ...localFallback,
                   ...dbProfile,
-                  // Ensure sectionData.about.content reflects the DB bio
+                  templateId: isReTarget ? 're-builders' : (dbProfile.templateId || localFallback.templateId || effectiveTemplateId || undefined),
+                  category: isReTarget ? 'Real Estate' : (dbProfile.category || localFallback.category || parsedSession?.category || undefined),
+                  // Ensure sectionData.about.content reflects the DB bio & realEstate is preserved
                   sectionData: {
                     ...(localFallback.sectionData || {}),
                     ...(dbProfile.sectionData || {}),
+                    realEstate: isReTarget 
+                      ? (dbProfile.sectionData?.realEstate || localFallback.sectionData?.realEstate || getTemplateProfile('re-builders').sectionData.realEstate)
+                      : dbProfile.sectionData?.realEstate,
                     about: {
                       ...(localFallback.sectionData?.about || {}),
                       ...(dbProfile.sectionData?.about || {}),

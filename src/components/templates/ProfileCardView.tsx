@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Phone, 
   Mail, 
@@ -44,6 +44,7 @@ import PWAInstallPrompt from '@/components/common/PWAInstallPrompt';
 import DirectUPIPaymentModal from '@/components/common/DirectUPIPaymentModal';
 import MBLMiniWebsiteView from './MBLMiniWebsiteView';
 import RestaurantTemplateView from './RestaurantTemplateView';
+import RealEstateMiniWebsiteView from './RealEstateMiniWebsiteView';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -109,6 +110,12 @@ export default function ProfileCardView({
   const [viewMode, setViewMode] = useState<'mobile' | 'website'>(
     initialViewMode || (isMockup ? 'mobile' : 'website')
   );
+
+  useEffect(() => {
+    if (initialViewMode) {
+      setViewMode(initialViewMode);
+    }
+  }, [initialViewMode]);
 
   // Cart & Modals State
   const [cart, setCart] = useState<OrderCartItem[]>([]);
@@ -603,6 +610,30 @@ export default function ProfileCardView({
   const hasGallery = Boolean(profile.sectionData?.gallery?.items?.length);
   const hasTestimonials = Boolean((dynamicTestimonials || profile.sectionData?.testimonials?.items || []).length);
   const hasBlogs = Boolean(profile.sectionData?.blogs?.items?.length);
+  const isRealEstate = 
+    profile.slug === 'venu' ||
+    profile.slug === 'kishore' || 
+    (profile as any).templateId === 'vcard35' ||
+    profile.id?.startsWith('re-') ||
+    (profile as any).templateId?.startsWith('re-') ||
+    (profile as any).category === 'Real Estate' ||
+    profile.company?.toLowerCase().includes('reality') ||
+    profile.company?.toLowerCase().includes('estate') ||
+    profile.company?.toLowerCase().includes('realty') ||
+    profile.company?.toLowerCase().includes('builder') ||
+    profile.company?.toLowerCase().includes('infra') ||
+    profile.company?.toLowerCase().includes('properties') ||
+    profile.designation?.toLowerCase().includes('real estate') ||
+    profile.designation?.toLowerCase().includes('realtor') ||
+    profile.designation?.toLowerCase().includes('broker') ||
+    profile.bio?.toLowerCase().includes('real estate') ||
+    profile.bio?.toLowerCase().includes('properties') ||
+    profile.id === 're-agents' ||
+    profile.id === 're-builders' ||
+    profile.id === 're-plots' ||
+    profile.id === 're-villas' ||
+    profile.id === 're-consultants';
+
   const isWebsiteMode = !isMockup && viewMode === 'website';
   const isRestaurantTemplate = profile.slug === 'food-restaurant' || profile.slug.includes('restaurant') || profile.slug.includes('food') || profile.slug.includes('brahmin') || profile.theme === 'brahmin-food';
 
@@ -620,22 +651,14 @@ export default function ProfileCardView({
           <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md">
             <button
               onClick={() => setViewMode('website')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                viewMode === 'website'
-                  ? 'bg-black text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-              }`}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100 cursor-pointer"
             >
               <Globe className="w-3.5 h-3.5" />
               <span>Mini-Website View</span>
             </button>
             <button
               onClick={() => setViewMode('mobile')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                viewMode === 'mobile'
-                  ? 'bg-black text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-              }`}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-black text-white shadow-sm cursor-pointer"
             >
               <Smartphone className="w-3.5 h-3.5" />
               <span>Mobile Card View</span>
@@ -644,7 +667,7 @@ export default function ProfileCardView({
         </div>
       )}
 
-      {/* Main Experience: Either Restaurant Template / MBL Mini-Website OR Smartphone Card */}
+      {/* Main Experience: Either Restaurant Template / Real Estate / MBL Mini-Website OR Smartphone Card */}
       {isWebsiteMode ? (
         isRestaurantTemplate ? (
           <RestaurantTemplateView
@@ -673,6 +696,16 @@ export default function ProfileCardView({
             setLeadMessage={setLeadMessage}
             handleLeadSubmit={handleLeadSubmit}
             leadSuccess={leadSuccess}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : isRealEstate ? (
+          <RealEstateMiniWebsiteView
+            profile={profile}
             trackAction={trackAction}
             getCleanWhatsAppNumber={getCleanWhatsAppNumber}
             getEmbedUrl={getEmbedUrl}

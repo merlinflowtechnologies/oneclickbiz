@@ -23,7 +23,11 @@ export interface ServiceItem {
   durationMinutes: number;
   price: number;
   currency: string;
+  category?: string;
+  perks?: string[];
+  isAvailable?: boolean;
 }
+
 
 export interface ProductItem {
   id: string;
@@ -35,6 +39,15 @@ export interface ProductItem {
   category: string;
   sku?: string;
   isAvailable: boolean;
+  // Real Estate Extended Properties
+  reraId?: string;
+  approvalType?: string;
+  corridor?: string;
+  dimensions?: string;
+  status?: string;
+  brochureUrl?: string;
+  amenities?: string[];
+  priceLabel?: string;
 }
 
 export interface GalleryItem {
@@ -90,6 +103,17 @@ export interface CustomLinkItem {
   highlight?: boolean;
 }
 
+export interface RealEstateTrustConfig {
+  reraId?: string;
+  trackRecordYears?: string | number;
+  developedAcres?: string | number;
+  deliveredProjects?: string | number;
+  happyFamilies?: string | number;
+  clearTitleRating?: string;
+  primaryCorridor?: string;
+  city?: string;
+}
+
 export interface ProfileSectionConfig {
   about?: { content: string };
   services?: { items: ServiceItem[] };
@@ -100,6 +124,7 @@ export interface ProfileSectionConfig {
   products?: { items: ProductItem[] };
   testimonials?: { items: TestimonialItem[] };
   customLinks?: { items: CustomLinkItem[] };
+  realEstate?: RealEstateTrustConfig;
   contact?: {
     showEmail: boolean;
     showPhone: boolean;
@@ -148,6 +173,8 @@ export interface DigitalProfile {
   avatarUrl: string;
   coverUrl: string;
   theme: ThemeType;
+  templateId?: string;
+  category?: string;
   customDomain?: string;
   isPublished: boolean;
   sections: ProfileSection[];

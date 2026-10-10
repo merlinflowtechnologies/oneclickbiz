@@ -90,58 +90,22 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     features: ['Complete pickle weight & jar catalog', 'Direct WhatsApp order with itemized cart', 'NRI worldwide parcel delivery badge', 'Instant UPI payment collection']
   },
   {
-    id: 're-agents',
-    templateNumber: 101,
-    name: 'Real Estate Agent vCard',
-    category: 'Real Estate',
-    subCategory: 'Real Estate Agents',
-    imgUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80',
-    badge: 'Popular',
-    tagline: 'Brokers, realtors, property advisors & luxury agents',
-    features: ['Luxury property listings', '1-Click schedule site visit', 'WhatsApp inquiry router', 'NFC tap vCard save']
-  },
-  {
     id: 're-builders',
-    templateNumber: 102,
-    name: 'Builders & Developers vCard',
+    templateNumber: 101,
+    name: 'Real Estate Master vCard',
     category: 'Real Estate',
-    subCategory: 'Builders & Developers',
+    subCategory: 'Builders, Plots, Villas & Realtors',
     imgUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
-    badge: 'Top Choice',
-    tagline: 'Construction firms, residential & commercial builders',
-    features: ['Ongoing project blueprints', 'Floor plan downloads', 'Brochure PDF link', 'RERA registration badge']
-  },
-  {
-    id: 're-plots',
-    templateNumber: 103,
-    name: 'Open Plots & Farm Lands vCard',
-    category: 'Real Estate',
-    subCategory: 'Open Plots / Farm Lands',
-    imgUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
-    badge: 'Trending',
-    tagline: 'Gated farmland projects, DTCP/HMDA layout plots',
-    features: ['Plot layout map view', 'Per-sq-yd pricing calculator', 'Site visit cab booking', 'Google map coordinates']
-  },
-  {
-    id: 're-villas',
-    templateNumber: 104,
-    name: 'Luxury Villas & Apartments vCard',
-    category: 'Real Estate',
-    subCategory: 'Villas & Apartments',
-    imgUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    badge: 'Luxury',
-    tagline: 'High-end gated communities, penthouses & flats',
-    features: ['3D virtual walk-through', 'Clubhouse amenities showcase', 'EMI calculator & bank tie-ups', 'Direct sales call']
-  },
-  {
-    id: 're-consultants',
-    templateNumber: 105,
-    name: 'Property Consultant vCard',
-    category: 'Real Estate',
-    subCategory: 'Property Consultants',
-    imgUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
-    tagline: 'Commercial leasing, land acquisition & investment advisors',
-    features: ['ROI & yield forecast', 'Commercial space specs', 'Client advisory booking', 'Legal verification badge']
+    badge: 'Flagship 5-in-1',
+    tagline: 'Builders, gated layouts, open plots, luxury villas & property advisors',
+    features: [
+      'TS-RERA certified builder & 100% clear title credentials',
+      'All property types: Open Plots, Villas, Apartments & IT Parks',
+      'Doorstep chauffeur site visit & inspection booking',
+      'Master layout blueprints & 4K aerial drone walkthroughs',
+      'Growth corridor filter & EMI / per-sq-yd calculator',
+      'Instant WhatsApp lead router & 1-tap contact save'
+    ]
   },
 
   // ==========================================

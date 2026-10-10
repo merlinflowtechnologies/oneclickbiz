@@ -25,6 +25,87 @@ export interface TemplatePresetConfig {
 }
 
 export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>> = {
+  're-agents': {
+    name: 'Rajesh Varma',
+    designation: 'Senior Real Estate Portfolio Advisor',
+    company: 'Varma Prime Realty & Property Advisory',
+    bio: 'Guiding luxury home buyers, NRI property investors, and corporate clients to find verified high-ROI apartments, gated villas, and commercial real estate across Hyderabad.',
+    theme: 'modern-indigo',
+    avatarUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80',
+    email: 'rajesh@varmarealty.in',
+    phone: '+91 98765 10101',
+    whatsapp: '919876510101',
+    website: 'https://varmarealty.in',
+    address: 'Gachibowli Financial District, Hyderabad, India',
+    services: [
+      { id: 's_rea_1', title: 'Schedule Private Site Visit & Chauffeur Pick-up', description: 'Personalized guided tour of model villas, sample flats, and clubhouse amenities.', durationMinutes: 60, price: 0, currency: '₹' },
+      { id: 's_rea_2', title: 'NRI Property Investment Consultation', description: 'High-yield pre-launch opportunities, rental yield analysis, and legal title verification.', durationMinutes: 45, price: 0, currency: '₹' },
+      { id: 's_rea_3', title: 'Home Loan & Legal Verification Assistance', description: 'Zero-brokerage bank loan approvals and RERA documentation audit.', durationMinutes: 30, price: 0, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_rea_1', name: 'The Crown Residences 3 & 4 BHK Sky Villas', description: 'Kokapet lakeview high-rise with 50,000 sq.ft clubhouse, infinity pool and 100% Vastu compliance. TS-RERA Approved.', price: 18500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', category: 'Luxury Apartments', isAvailable: true },
+      { id: 'p_rea_2', name: 'Greenwood 4 & 5 BHK Triplex Gated Villas', description: 'Tellapur 28-acre gated community with private plunge pool, solar power, and 24/7 multi-tier security.', price: 26500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80', category: 'Gated Villas', isAvailable: true },
+      { id: 'p_rea_3', name: 'Skyline Heights 2 & 3 BHK Gated Towers', description: 'Hitec City core IT hub with high rental demand, modern amenities, and instant metro connectivity.', price: 9500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=80', category: 'Apartments', isAvailable: true },
+      { id: 'p_rea_4', name: 'Aerovista 150-300 Sq.Yds Premium Open Plots', description: 'HMDA & RERA approved gated layout near Shamshabad Airport & ORR with wide CC roads and clubhouse.', price: 3450000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80', category: 'Open Plots', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_rea_1', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80', title: 'Kokapet Sky Tower View', category: 'Residential' },
+      { id: 'g_rea_2', imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80', title: 'Sample Triplex Villa Elevation', category: 'Villas' },
+      { id: 'g_rea_3', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', title: 'Grand Living Room Interior', category: 'Interiors' },
+      { id: 'g_rea_4', imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80', title: 'Gated Layout Main Boulevard', category: 'Open Plots' }
+    ],
+    testimonials: [
+      { id: 't_rea_1', clientName: 'Rajiv Menon', clientRole: 'Director of Engineering, Microsoft', content: 'Rajesh guided us through Kokapet high-rise options with unmatched market knowledge. Found our dream home with 100% transparency.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_rea_2', clientName: 'Sneha & Aditya Kapoor', clientRole: 'Founders, FinTech Ventures', content: 'We purchased our Tellapur villa through Varma Prime Realty. The documentation audit and loan assistance were completely smooth.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_rea_3', clientName: 'Vikram Chawla', clientRole: 'NRI Investor (Dubai, UAE)', content: 'As an overseas investor, Rajesh provided video walkthroughs, legal clearance check, and handled spot registration seamlessly.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_rea_wa', platform: 'whatsapp', url: 'https://wa.me/919876510101', label: 'Direct WhatsApp' },
+      { id: 'soc_rea_ph', platform: 'phone', url: 'tel:+919876510101', label: 'Call Agent' },
+      { id: 'soc_rea_in', platform: 'instagram', url: 'https://instagram.com/varmarealty', label: 'Instagram' },
+      { id: 'soc_rea_li', platform: 'linkedin', url: 'https://linkedin.com/in/rajeshvarma', label: 'LinkedIn' }
+    ]
+  },
+  're-plots': {
+    name: 'Srikanth Reddy',
+    designation: 'Managing Partner',
+    company: 'Reddy Lands & County Infrastructure',
+    bio: 'Promoting RERA & HMDA approved premium villa open plots, gated layout communities, and high-growth farmland investments near Hyderabad Airport & ORR Growth Corridors.',
+    theme: 'emerald-pro',
+    avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
+    email: 'plots@reddylands.in',
+    phone: '+91 98765 10103',
+    whatsapp: '919876510103',
+    website: 'https://reddylands.in',
+    address: 'Shamshabad Airport Highway, Hyderabad, India',
+    services: [
+      { id: 's_plt_1', title: 'Free Weekend Site Visit with Cab Assistance', description: 'Chauffeured site inspection of HMDA gated layouts with layout manager.', durationMinutes: 120, price: 0, currency: '₹' },
+      { id: 's_plt_2', title: 'Plot Title & Land Legal Clearance Consultation', description: 'Complete 30-year link document audit and RERA approval review.', durationMinutes: 45, price: 0, currency: '₹' },
+      { id: 's_plt_3', title: 'Farmland Agri-Management & Boundary Fencing', description: 'Complete layout demarcation, drip irrigation setup, and fruit tree plantation advisory.', durationMinutes: 30, price: 0, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_plt_1', name: 'Emerald County 200 - 500 Sq.Yds Villa Plots', description: 'Shamshabad Airport Highway. 100% clear title with 40ft BT roads, underground drainage, and clubhouse. HMDA Approved.', price: 3700000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80', category: 'Villa Plots', isAvailable: true },
+      { id: 'p_plt_2', name: 'Royal Meadows 1 Acre Gated Farm Lands', description: 'Rich red soil farm plots with drip irrigation, weekend farmhouse setup, security fencing, and organic plantations in Chevella.', price: 6500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80', category: 'Farmlands', isAvailable: true },
+      { id: 'p_plt_3', name: 'Aero Greenfield 150 - 300 Sq.Yds Gated Township', description: 'Srisailam Highway Growth Zone. TS-RERA & DTCP approved plotted community near RRR Junction with electricity and water lines.', price: 2475000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80', category: 'Open Plots', isAvailable: true },
+      { id: 'p_plt_4', name: 'Highway County 250 - 600 Sq.Yds Commercial Plots', description: 'Bangalore Highway (NH-44) facing commercial & residential development plots with 60ft arterial roads and high ROI potential.', price: 4850000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', category: 'Commercial Plots', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_plt_1', imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80', title: 'Gated Layout Entrance Arch', category: 'Layout Views' },
+      { id: 'g_plt_2', imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80', title: 'Farmland Landscape & Plantations', category: 'Farmlands' },
+      { id: 'g_plt_3', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', title: 'Clubhouse & Avenue Plantation', category: 'Amenities' }
+    ],
+    testimonials: [
+      { id: 't_plt_1', clientName: 'K. Rameshwar Rao', clientRole: 'Senior Advocate & Land Investor', content: 'Srikanth and Reddy Lands provide 100% crystal clear title documents. I have invested across two layouts and both saw over 70% appreciation.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_plt_2', clientName: 'Ananya & Dr. Praveen Kumar', clientRole: 'Consultant, Apollo Hospitals', content: 'Our 1-acre farmland plot in Royal Meadows has become our family weekend sanctuary. The drip irrigation and maintenance are outstanding.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_plt_3', clientName: 'M. Surendra Reddy', clientRole: 'NRI Property Group (Dallas, TX)', content: 'Srikanth coordinated spot registration with absolute transparency. Highly recommended for NRI land buyers.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_plt_wa', platform: 'whatsapp', url: 'https://wa.me/919876510103', label: 'WhatsApp Enquiry' },
+      { id: 'soc_plt_ph', platform: 'phone', url: 'tel:+919876510103', label: 'Call Office' }
+    ]
+  },
   're-builders': {
     name: 'Vikramaditya Roy',
     designation: 'Managing Director & Chief Infrastructure Officer',
@@ -44,19 +125,136 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
       { id: 's_bld_3', title: 'Home Loan Pre-Approval & Financial Advisory', description: 'Zero-processing fee partner bank tie-ups with SBI, HDFC & ICICI.', durationMinutes: 30, price: 0, currency: '₹' }
     ],
     products: [
-      { id: 'p_bld_1', name: 'Skyline Imperia 3 & 4 BHK Luxury Residences', description: 'High-rise ultra luxury towers with 40,000 sq.ft sky-deck clubhouse. RERA Approved.', price: 18500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', category: 'Residential Towers', isAvailable: true },
-      { id: 'p_bld_2', name: 'Skyline Business Hub Commercial Office Suites', description: 'Grade-A tech park office spaces with 100% power backup and metro connectivity.', price: 9500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80', category: 'Commercial Suites', isAvailable: true }
+      { id: 'p_bld_1', name: 'Skyline Imperia 3 & 4 BHK Luxury Residences', description: 'High-rise ultra luxury towers in Kokapet Financial District with 40,000 sq.ft sky-deck clubhouse, infinity pool & 100% Vastu. TS-RERA Approved.', price: 18500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', category: 'Residential Towers', isAvailable: true },
+      { id: 'p_bld_2', name: 'Skyline Business Hub Grade-A Commercial Suites', description: 'Grade-A tech park office spaces with 100% power backup, high-speed elevators & instant metro connectivity in Hitec City.', price: 9500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80', category: 'Commercial Suites', isAvailable: true },
+      { id: 'p_bld_3', name: 'Skyline Grandeur 4 & 5 BHK Triplex Gated Villas', description: '22-acre gated villa community in Mokila with private temperature-controlled plunge pool, solar power & European fittings.', price: 27500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80', category: 'Luxury Villas', isAvailable: true },
+      { id: 'p_bld_4', name: 'Skyline Aeropolis 150-350 Sq.Yds Plotted Township', description: 'HMDA & TS-RERA approved gated open plot community near Shamshabad Airport & ORR with 40ft blacktop roads & 24/7 security.', price: 3650000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80', category: 'Open Plots', isAvailable: true }
     ],
     gallery: [
-      { id: 'g_bld_1', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80', title: 'Skyline Imperia Exterior View', category: 'Completed Projects' },
-      { id: 'g_bld_2', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', title: 'Sample Luxury Living Room', category: 'Interiors' },
-      { id: 'g_bld_3', imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80', title: 'On-Site Construction Progress', category: 'Ongoing Projects' }
+      { id: 'g_bld_1', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80', title: 'Skyline Imperia High-Rise Elevation', category: 'Residential Towers' },
+      { id: 'g_bld_2', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', title: 'Model Apartment Living & Dining Lounge', category: 'Interiors' },
+      { id: 'g_bld_3', imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80', title: 'Skyline Grandeur Triplex Villa Facade', category: 'Gated Villas' },
+      { id: 'g_bld_4', imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80', title: 'On-Site Construction Progress & Quality Inspection', category: 'Construction Progress' }
+    ],
+    testimonials: [
+      { id: 't_bld_1', clientName: 'Dr. Srinivas Rao', clientRole: 'Chief Neurosurgeon & Investor', content: 'We booked our 4 BHK residence in Skyline Imperia. The construction quality, floor-to-ceiling glass balconies, and prompt documentation made it completely seamless.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_bld_2', clientName: 'Pooja & Harish Nair', clientRole: 'Tech VP, Google Hyderabad', content: 'Skyline Landmark Developers delivered our home right on time with verified RERA certificates. Their team is exceptionally transparent and professional.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_bld_3', clientName: 'K. Venkat Reddy', clientRole: 'NRI Investor (San Jose, California)', content: 'Being based in the US, I relied on Skyline Developers for our plot investment in Aeropolis. From title search to spot registration, the transparency was 100%.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' }
+    ],
+    videos: [
+      {
+        id: 'v_bld_1',
+        title: 'Skyline Imperia — 4K Aerial Drone Layout Tour & Surroundings',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        type: 'youtube',
+        caption: '4K aerial drone flight showcasing 100ft arterial roads, upcoming metro line, and clubhouse elevation.'
+      },
+      {
+        id: 'v_bld_2',
+        title: 'Model 4 BHK Sky Residence — Complete Architectural Walkthrough',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        type: 'youtube',
+        caption: 'Walkthrough of master suite, panoramic deck balcony, Italian marble foyer, and smart home automation.'
+      },
+      {
+        id: 'v_bld_3',
+        title: 'Skyline Aeropolis — Rapid Site Progression & Blacktop Roads',
+        url: 'https://www.instagram.com/reel/C3M8W98oG12/',
+        type: 'instagram',
+        caption: 'Latest on-site reel: Underground cabling, street illumination, and demarcated boundary stones.'
+      },
+      {
+        id: 'v_bld_4',
+        title: 'Skyline Grandeur Triplex Villas — Clubhouse & Pool Reel Tour',
+        url: 'https://www.instagram.com/reel/C2X4Z81oH34/',
+        type: 'instagram',
+        caption: 'Exclusive reel walkthrough of private plunge pool, double-height living room, and landscaped lawns.'
+      }
     ],
     socials: [
       { id: 'soc_bld_wa', platform: 'whatsapp', url: 'https://wa.me/919876544001', label: 'Sales WhatsApp' },
       { id: 'soc_bld_ph', platform: 'phone', url: 'tel:+919876544001', label: 'Call Desk' },
       { id: 'soc_bld_in', platform: 'instagram', url: 'https://instagram.com/skylinedevelopers', label: 'Instagram' },
       { id: 'soc_bld_li', platform: 'linkedin', url: 'https://linkedin.com/company/skyline-developers', label: 'LinkedIn' }
+    ]
+  },
+  're-villas': {
+    name: 'Sameer Singhania',
+    designation: 'Luxury Estates Director',
+    company: 'Singhania Villas & Signature Living',
+    bio: 'Specializing exclusively in ultra-luxury gated community triplex villas, golf estates, and bespoke hillside mansions with private plunge pools, home automation, and 5-star clubhouses.',
+    theme: 'obsidian-gold',
+    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+    email: 'sameer@singhaniavillas.com',
+    phone: '+91 98765 10104',
+    whatsapp: '919876510104',
+    website: 'https://singhaniavillas.com',
+    address: 'Jubilee Hills Road No. 36, Hyderabad, India',
+    services: [
+      { id: 's_vil_1', title: 'Private Villa Walkthrough with Chauffeur', description: 'Exclusive inspection of ready-to-move sample villas with interior designers.', durationMinutes: 90, price: 0, currency: '₹' },
+      { id: 's_vil_2', title: 'Custom Architecture & Interior Customization', description: 'Personalized private pool, home theater, and imported Italian fittings consultation.', durationMinutes: 60, price: 0, currency: '₹' },
+      { id: 's_vil_3', title: 'Clubhouse & Golf Membership Consultation', description: 'Complete handover of 5-star community amenities, fitness center, and concierge pass.', durationMinutes: 30, price: 0, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_vil_1', name: 'The Sovereign 5 BHK Triplex Golf Villas', description: 'Tellapur premium gated community with private heated pool, double-height living room and solar deck. TS-RERA Approved.', price: 34500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80', category: 'Luxury Villas', isAvailable: true },
+      { id: 'p_vil_2', name: 'Hillside Mansions 4 BHK Ultra Gated Residences', description: 'Mokila green corridor with private manicured lawn, rooftop deck lounge, and clubhouse membership.', price: 24500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80', category: 'Luxury Villas', isAvailable: true },
+      { id: 'p_vil_3', name: 'The Palm Enclave 4 & 5 BHK Courtyard Villas', description: 'Jubilee Hills adjacent signature gated enclave featuring private elevator, jacuzzi, and Italian marble flooring.', price: 42500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80', category: 'Super Luxury Villas', isAvailable: true },
+      { id: 'p_vil_4', name: 'Emerald Bay 4 BHK Waterfront Luxury Villas', description: 'Gandipet lakeview gated development with expansive glass facades, infinity plunge pool, and lush gardens.', price: 29500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80', category: 'Waterfront Villas', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_vil_1', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', title: 'Luxury Living Room Elevation', category: 'Villas' },
+      { id: 'g_vil_2', imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80', title: 'Private Swimming Pool Deck', category: 'Amenities' },
+      { id: 'g_vil_3', imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80', title: 'Master Suite & Walk-In Wardrobe', category: 'Interiors' },
+      { id: 'g_vil_4', imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80', title: 'Grand Villa Night Lighting & Lawn', category: 'Exteriors' }
+    ],
+    testimonials: [
+      { id: 't_vil_1', clientName: 'Sandeep Agarwal', clientRole: 'Managing Director, Apex Capital', content: 'Sameer helped us acquire a custom triplex villa at The Sovereign. The finish quality, private pool deck, and attention to detail are exceptional.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_vil_2', clientName: 'Ritu & Tarun Singhal', clientRole: 'VP of Technology, AWS', content: 'Living in Mokila Hillside Mansions has transformed our family lifestyle. The 5-star clubhouse and serene green views are unmatched.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_vil_3', clientName: 'Harish Varma', clientRole: 'Industrialist & Villa Owner', content: 'Singhania Villas sets the gold standard for bespoke luxury living in Hyderabad. Zero compromises on quality.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_vil_wa', platform: 'whatsapp', url: 'https://wa.me/919876510104', label: 'VIP Concierge WhatsApp' },
+      { id: 'soc_vil_ph', platform: 'phone', url: 'tel:+919876510104', label: 'Call Estates Desk' }
+    ]
+  },
+  're-consultants': {
+    name: 'Anand K. Rao',
+    designation: 'Principal Commercial & Land Acquisition Consultant',
+    company: 'Rao Real Estate Advisory & Capital Partners',
+    bio: 'Advising corporations, HNIs, and family offices on commercial office spaces, warehouse leasing, pre-leased retail assets with 8%+ yields, and land acquisition across growth corridors.',
+    theme: 'royal-navy',
+    avatarUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
+    email: 'anand@raoadvisory.in',
+    phone: '+91 98765 10105',
+    whatsapp: '919876510105',
+    website: 'https://raoadvisory.in',
+    address: 'Financial District, Nanakramguda, Hyderabad, India',
+    services: [
+      { id: 's_con_1', title: 'Pre-Leased Commercial Asset Due Diligence', description: 'ROI yield forecast, tenant covenant audit, and legal clear title review.', durationMinutes: 60, price: 0, currency: '₹' },
+      { id: 's_con_2', title: 'Land Parcel Feasibility & Joint Development', description: 'FSI analysis, municipal zoning evaluation, and developer term sheet structuring.', durationMinutes: 90, price: 0, currency: '₹' },
+      { id: 's_con_3', title: 'Corporate Office Leasing & Expansion Advisory', description: 'Grade-A tech park leasing negotiation, fit-out cost analysis, and lock-in contracts.', durationMinutes: 45, price: 0, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_con_1', name: 'Pre-Leased Grade-A IT Park Office Space', description: 'Hitec City IT Corridor. 10,000 sq.ft leased to multinational tech company with 8.4% gross rental yield and 9-year lock-in.', price: 125000000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80', category: 'Commercial Real Estate', isAvailable: true },
+      { id: 'p_con_2', name: 'Prime Commercial Retail Showroom Space', description: 'Gachibowli Main Road front facing 3,500 sq.ft retail space with high footfall, verified anchor tenant, and high ROI.', price: 48000000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80', category: 'Commercial Retail', isAvailable: true },
+      { id: 'p_con_3', name: '15-Acre Logistics & Industrial Warehousing Hub', description: 'Near Outer Ring Road (ORR) Cargo Junction. Fully zoned for logistics with multi-modal freight connectivity.', price: 95000000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80', category: 'Industrial & Land', isAvailable: true },
+      { id: 'p_con_4', name: 'Pre-Leased High Street Bank Branch Block', description: 'Banjara Hills Road No. 12. 4,200 sq.ft ground floor leased to Nationalized Bank on a 15-year lease term.', price: 62000000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=80', category: 'Pre-Leased Assets', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_con_1', imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80', title: 'Grade-A Commercial Tower', category: 'Commercial' },
+      { id: 'g_con_2', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80', title: 'Retail Showroom Frontage', category: 'Retail' },
+      { id: 'g_con_3', imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80', title: 'Industrial Logistics Park', category: 'Industrial' }
+    ],
+    testimonials: [
+      { id: 't_con_1', clientName: 'Naveen Jain', clientRole: 'CFO, Global Retail Holdings', content: 'Anand Rao structured our 40,000 sq.ft commercial acquisition in Hitec City with high rental yield security and clean title.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_con_2', clientName: 'S. Balakrishna', clientRole: 'Partner, Matrix Private Equity', content: 'Rao Advisory conducted exhaustive tenant due diligence, lease audit, and legal documentation. Outstanding expertise.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_con_3', clientName: 'Arvind Saxena', clientRole: 'Family Office Principal', content: 'For pre-leased commercial assets and land aggregation, Anand Rao is our primary advisor in South India.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_con_wa', platform: 'whatsapp', url: 'https://wa.me/919876510105', label: 'Consultant WhatsApp' },
+      { id: 'soc_con_ph', platform: 'phone', url: 'tel:+919876510105', label: 'Call Advisory' }
     ]
   },
   vcard39: {
@@ -513,8 +711,12 @@ TEMPLATE_PRESETS_DATA['brahmin-food'] = TEMPLATE_PRESETS_DATA['food-restaurant']
  * Returns a fully populated, production-ready DigitalProfile for any of the 28 templates.
  */
 export function getTemplateProfile(templateId: string): DigitalProfile {
-  const meta = VCARD_TEMPLATES_CATALOG.find((t) => t.id === templateId) || VCARD_TEMPLATES_CATALOG[0];
-  const custom = TEMPLATE_PRESETS_DATA[templateId] || {};
+  // Alias all real estate templates to the unified master real estate card
+  const effectiveId = (templateId.startsWith('re-') || templateId === 'vcard35') ? 're-builders' : templateId;
+  const meta = VCARD_TEMPLATES_CATALOG.find((t) => t.id === effectiveId) || 
+               VCARD_TEMPLATES_CATALOG.find((t) => t.id === templateId) || 
+               VCARD_TEMPLATES_CATALOG[0];
+  const custom = TEMPLATE_PRESETS_DATA[effectiveId] || TEMPLATE_PRESETS_DATA[templateId] || {};
 
   const name = custom.name || meta.name.replace(' vCard', '');
   const designation = custom.designation || meta.tagline;
@@ -600,6 +802,8 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
     avatarUrl,
     coverUrl,
     theme,
+    templateId,
+    category: meta.category,
     isPublished: true,
     sections: [
       { id: 'sec_hero', type: 'hero', title: 'Profile & Contact', isVisible: true, order: 1 },
@@ -621,6 +825,16 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
       videos: { items: custom.videos || [] },
       testimonials: { items: custom.testimonials || [] },
       socials: { items: socials },
+      realEstate: meta.category === 'Real Estate' || effectiveId.startsWith('re-') ? {
+        reraId: 'TS-RERA/P02400008920',
+        trackRecordYears: 18,
+        developedAcres: 120,
+        deliveredProjects: 14,
+        happyFamilies: 3500,
+        clearTitleRating: '100% Clear Title Guaranteed',
+        primaryCorridor: 'Srisailam Highway / Kadthal Growth Zone',
+        city: 'Hyderabad'
+      } : undefined,
       contact: {
         showEmail: true,
         showPhone: true,
