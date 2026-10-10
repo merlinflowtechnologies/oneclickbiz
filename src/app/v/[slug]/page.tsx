@@ -16,120 +16,122 @@ interface ProfilePageProps {
 
 async function fetchProfileData(slug: string): Promise<DigitalProfile> {
   const cleanSlug = (slug || '').toLowerCase().trim();
-  try {
-    const dbProfile = await prisma.profile.findUnique({
-      where: { slug: cleanSlug },
-      include: {
-        sections: { orderBy: { order: 'asc' } },
-        socialLinks: { orderBy: { order: 'asc' } },
-        products: { where: { isAvailable: true }, orderBy: { order: 'asc' } },
-        services: { where: { isAvailable: true } },
-        organization: true
-      }
-    });
-
-    if (dbProfile) {
-      const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
-      const paidInvoice = await prisma.invoice.findFirst({
-        where: {
-          organizationId: dbProfile.organizationId,
-          status: 'PAID'
-        },
-        orderBy: { createdAt: 'desc' }
+  if (process.env.DATABASE_URL) {
+    try {
+      const dbProfile = await prisma.profile.findUnique({
+        where: { slug: cleanSlug },
+        include: {
+          sections: { orderBy: { order: 'asc' } },
+          socialLinks: { orderBy: { order: 'asc' } },
+          products: { where: { isAvailable: true }, orderBy: { order: 'asc' } },
+          services: { where: { isAvailable: true } },
+          organization: true
+        }
       });
-      const hasActivePaidPlan = Boolean(
-        paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS)
-      );
-      const orgStatus = dbProfile.organization?.subscriptionStatus;
-      const isCancelled = orgStatus === 'CANCELLED' || orgStatus === 'SUSPENDED';
-      const subscriptionStatus: 'CANCELLED' | 'ACTIVE' | 'UNPAID' | 'EXPIRED' = isCancelled 
-        ? 'CANCELLED' 
-        : (hasActivePaidPlan ? 'ACTIVE' : 'UNPAID');
-      const isExpired = !hasActivePaidPlan || subscriptionStatus !== 'ACTIVE';
-      const isPublished = Boolean(dbProfile.isPublished && hasActivePaidPlan);
 
-      const fallback = getProfileBySlug(cleanSlug);
-
-      let reconstructedSectionData = { ...(fallback.sectionData || {}) };
-      let reconstructedSections = fallback.sections;
-
-      if (dbProfile.sections && dbProfile.sections.length > 0) {
-        reconstructedSections = dbProfile.sections.map(s => ({
-          id: s.id,
-          type: s.type as any,
-          title: s.title,
-          isVisible: s.isVisible,
-          order: s.order
-        }));
-
-        dbProfile.sections.forEach(s => {
-          if (s.config && typeof s.config === 'object' && Object.keys(s.config).length > 0) {
-            (reconstructedSectionData as any)[s.type] = s.config;
-          }
+      if (dbProfile) {
+        const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+        const paidInvoice = await prisma.invoice.findFirst({
+          where: {
+            organizationId: dbProfile.organizationId,
+            status: 'PAID'
+          },
+          orderBy: { createdAt: 'desc' }
         });
-      }
+        const hasActivePaidPlan = Boolean(
+          paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS)
+        );
+        const orgStatus = dbProfile.organization?.subscriptionStatus;
+        const isCancelled = orgStatus === 'CANCELLED' || orgStatus === 'SUSPENDED';
+        const subscriptionStatus: 'CANCELLED' | 'ACTIVE' | 'UNPAID' | 'EXPIRED' = isCancelled 
+          ? 'CANCELLED' 
+          : (hasActivePaidPlan ? 'ACTIVE' : 'UNPAID');
+        const isExpired = !hasActivePaidPlan || subscriptionStatus !== 'ACTIVE';
+        const isPublished = Boolean(dbProfile.isPublished && hasActivePaidPlan);
 
-      const cleanPhone = dbProfile.phone || fallback.phone;
-      const rawWa = dbProfile.whatsapp || dbProfile.phone || fallback.whatsapp;
-      const cleanWaDigits = (rawWa || '').replace(/\D/g, '');
-      const cleanWa = cleanWaDigits.length === 10 ? `91${cleanWaDigits}` : cleanWaDigits;
+        const fallback = getProfileBySlug(cleanSlug);
 
-      if (reconstructedSectionData?.socials?.items) {
-        reconstructedSectionData.socials.items = reconstructedSectionData.socials.items.map((soc: any) => {
-          const isWa = soc.platform === 'whatsapp' || soc.url?.includes('wa.me') || soc.url?.includes('whatsapp');
-          const isPh = soc.platform === 'phone' || soc.url?.startsWith('tel:');
-          if (isWa && cleanWa) {
-            return { ...soc, url: `https://wa.me/${cleanWa}` };
-          }
-          if (isPh && cleanPhone) {
-            return { ...soc, url: `tel:${cleanPhone.replace(/[^\d+]/g, '')}` };
-          }
-          return soc;
-        });
-      }
+        let reconstructedSectionData = { ...(fallback.sectionData || {}) };
+        let reconstructedSections = fallback.sections;
 
-      // Use DB bio if it exists (even empty string means user cleared it intentionally)
-      // Only fall back to preset if DB has never set a bio (null/undefined)
-      const resolvedBio = dbProfile.bio != null ? dbProfile.bio : fallback.bio;
+        if (dbProfile.sections && dbProfile.sections.length > 0) {
+          reconstructedSections = dbProfile.sections.map(s => ({
+            id: s.id,
+            type: s.type as any,
+            title: s.title,
+            isVisible: s.isVisible,
+            order: s.order
+          }));
 
-      // Ensure sectionData.about.content always mirrors the resolved bio
-      if (resolvedBio != null) {
-        reconstructedSectionData = {
-          ...reconstructedSectionData,
-          about: {
-            ...(reconstructedSectionData.about || {}),
-            content: resolvedBio
-          }
+          dbProfile.sections.forEach(s => {
+            if (s.config && typeof s.config === 'object' && Object.keys(s.config).length > 0) {
+              (reconstructedSectionData as any)[s.type] = s.config;
+            }
+          });
+        }
+
+        const cleanPhone = dbProfile.phone || fallback.phone;
+        const rawWa = dbProfile.whatsapp || dbProfile.phone || fallback.whatsapp;
+        const cleanWaDigits = (rawWa || '').replace(/\D/g, '');
+        const cleanWa = cleanWaDigits.length === 10 ? `91${cleanWaDigits}` : cleanWaDigits;
+
+        if (reconstructedSectionData?.socials?.items) {
+          reconstructedSectionData.socials.items = reconstructedSectionData.socials.items.map((soc: any) => {
+            const isWa = soc.platform === 'whatsapp' || soc.url?.includes('wa.me') || soc.url?.includes('whatsapp');
+            const isPh = soc.platform === 'phone' || soc.url?.startsWith('tel:');
+            if (isWa && cleanWa) {
+              return { ...soc, url: `https://wa.me/${cleanWa}` };
+            }
+            if (isPh && cleanPhone) {
+              return { ...soc, url: `tel:${cleanPhone.replace(/[^\d+]/g, '')}` };
+            }
+            return soc;
+          });
+        }
+
+        // Use DB bio if it exists (even empty string means user cleared it intentionally)
+        // Only fall back to preset if DB has never set a bio (null/undefined)
+        const resolvedBio = dbProfile.bio != null ? dbProfile.bio : fallback.bio;
+
+        // Ensure sectionData.about.content always mirrors the resolved bio
+        if (resolvedBio != null) {
+          reconstructedSectionData = {
+            ...reconstructedSectionData,
+            about: {
+              ...(reconstructedSectionData.about || {}),
+              content: resolvedBio
+            }
+          };
+        }
+
+        return {
+          ...fallback,
+          id: dbProfile.id,
+          slug: dbProfile.slug,
+          name: dbProfile.name ?? fallback.name,
+          designation: dbProfile.designation ?? fallback.designation,
+          company: dbProfile.company ?? fallback.company,
+          bio: resolvedBio,
+          email: dbProfile.email ?? fallback.email,
+          phone: dbProfile.phone ?? fallback.phone,
+          whatsapp: dbProfile.whatsapp ?? fallback.whatsapp,
+          website: dbProfile.website ?? fallback.website,
+          address: dbProfile.address ?? fallback.address,
+          theme: (dbProfile.theme as any) ?? fallback.theme,
+          avatarUrl: ['kishore', 'kishore-patel'].includes(cleanSlug)
+            ? '/kishore-profile-v2.png'
+            : (dbProfile.avatarUrl ?? fallback.avatarUrl),
+          coverUrl: dbProfile.coverUrl ?? fallback.coverUrl,
+          sections: reconstructedSections,
+          sectionData: reconstructedSectionData,
+          isPublished,
+          isExpired,
+          subscriptionStatus
         };
       }
-
-      return {
-        ...fallback,
-        id: dbProfile.id,
-        slug: dbProfile.slug,
-        name: dbProfile.name ?? fallback.name,
-        designation: dbProfile.designation ?? fallback.designation,
-        company: dbProfile.company ?? fallback.company,
-        bio: resolvedBio,
-        email: dbProfile.email ?? fallback.email,
-        phone: dbProfile.phone ?? fallback.phone,
-        whatsapp: dbProfile.whatsapp ?? fallback.whatsapp,
-        website: dbProfile.website ?? fallback.website,
-        address: dbProfile.address ?? fallback.address,
-        theme: (dbProfile.theme as any) ?? fallback.theme,
-        avatarUrl: ['kishore', 'kishore-patel'].includes(cleanSlug)
-          ? '/kishore-profile-v2.png'
-          : (dbProfile.avatarUrl ?? fallback.avatarUrl),
-        coverUrl: dbProfile.coverUrl ?? fallback.coverUrl,
-        sections: reconstructedSections,
-        sectionData: reconstructedSectionData,
-        isPublished,
-        isExpired,
-        subscriptionStatus
-      };
+    } catch (err) {
+      console.warn('Database profile lookup fallback note:', err);
     }
-  } catch (err) {
-    console.error('Database profile lookup error:', err);
   }
 
   const fallback = getProfileBySlug(cleanSlug);
@@ -198,7 +200,7 @@ export default async function PublicProfilePage({
 
   // Real Analytics Tracking: increment viewCount and log event in DB only if card is active
   try {
-    if (profile.id && profile.isPublished && !profile.isExpired) {
+    if (process.env.DATABASE_URL && profile.id && profile.isPublished && !profile.isExpired) {
       const eventType = resolvedQuery.src === 'qr' 
         ? 'qr_scan' 
         : resolvedQuery.src === 'nfc' 

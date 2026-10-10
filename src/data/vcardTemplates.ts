@@ -264,13 +264,13 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
     id: 'food-restaurant',
     templateNumber: 401,
-    name: 'Fine Dine Restaurant vCard',
+    name: 'OneClickBiz Smart Restaurant & Digital Dining Menu',
     category: 'Food Business',
-    subCategory: 'Restaurants',
+    subCategory: 'Smart Dining & Digital Menus',
     imgUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
-    badge: 'Foodie',
-    tagline: 'Multi-cuisine dining, family restaurants & bistros',
-    features: ['Interactive digital menu with photos', 'Table reservation booking', 'Zomato/Swiggy order links', 'Customer reviews']
+    badge: 'Smart Dining',
+    tagline: 'Interactive Digital Menu, Dish Details & Instant WhatsApp Ordering',
+    features: ['Interactive Digital Menu with Photos', 'Dish Details with Ingredients & Dietary Tags', '2-Option WhatsApp Ordering (Table / Delivery)', 'Direct UPI Bill Payment Desk']
   },
   {
     id: 'food-cloud',

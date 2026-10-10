@@ -6,7 +6,8 @@ export type ThemeType =
   | 'sunset-gold'
   | 'cyber-neon'
   | 'obsidian-gold'
-  | 'royal-navy';
+  | 'royal-navy'
+  | 'brahmin-food';
 
 export interface SocialLinkItem {
   id: string;

@@ -13,6 +13,7 @@ export interface TemplatePresetConfig {
   email: string;
   phone: string;
   whatsapp: string;
+  upiId?: string;
   website: string;
   address: string;
   services: ServiceItem[];
@@ -426,7 +427,7 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
       { id: 'p_pic_3', name: 'Gongura Mutton & Prawns Pickle (500g)', description: 'Fresh Godavari river prawns and mutton tossed in tangy sorrel (Gongura) leaves & spice blend.', price: 650, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80', category: 'Non-Veg Pickles', isAvailable: true },
       { id: 'p_pic_4', name: 'Traditional Bellam Pootharekulu (Pack of 10)', description: 'Paper-thin rice starch edible wraps rolled with pure ghee, organic jaggery, and crushed dry fruits.', price: 380, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80', category: 'Ghee Sweets', isAvailable: true },
       { id: 'p_pic_5', name: 'Hot Ribbon Murukulu & Kakinada Mixture (500g)', description: 'Crispy crunchy savory snacks fried in pure refined groundnut oil with roasted peanuts & curry leaves.', price: 220, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80', category: 'Snacks', isAvailable: true },
-      { id: 'p_pic_6', name: 'Godavari Pure Ghee Sunnundalu (Pack of 12)', description: 'Roasted urad dal flour blended with organic jaggery powder and generous melted desi ghee.', price: 340, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80', category: 'Ghee Sweets', isAvailable: true }
+      { id: 'p_pic_6', name: 'Godavari Pure Ghee Sunnundalu (Pack of 12)', description: 'Roasted urad dal flour blended with organic jaggery powder and generous melted desi ghee.', price: 340, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=600&q=80', category: 'Ghee Sweets', isAvailable: true }
     ],
     gallery: [
       { id: 'g_pic_1', imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80', title: 'Traditional Sun-Dried Clay Pot Pickle Making', category: 'Kitchen Process' },
@@ -441,8 +442,72 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
       { id: 'soc_pic_ph', platform: 'phone', url: 'tel:+919876533011', label: 'Direct Call' },
       { id: 'soc_pic_in', platform: 'instagram', url: 'https://instagram.com/srilakshmipickles', label: 'Instagram Store' }
     ]
-  }
+  },
+  'food-restaurant': {
+    name: 'OneClickBiz Food & Fine Dining',
+    designation: 'Smart Digital Dining & Instant WhatsApp Ordering',
+    company: 'OneClickBiz Kitchen & Dining',
+    bio: 'Welcome to OneClickBiz Food & Fine Dining. Experience culinary excellence with farm-fresh ingredients, slow-cooked royal delicacies, and instant WhatsApp ordering for restaurant dining and home delivery. Browse our interactive menu below.',
+    theme: 'brahmin-food',
+    avatarUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+    email: 'dining@oneclickbiz.in',
+    phone: '+91 63049 89071',
+    whatsapp: '916304989071',
+    upiId: '6304989071@okaxis',
+    website: 'https://oneclickbiz.in/v/food-restaurant',
+    address: 'OneClickBiz Plaza, 100ft Road, Indiranagar, Bengaluru, Karnataka 560038',
+    services: [
+      { id: 's_res_1', title: 'Table Reservation & Dining Booking', description: 'Reserve a premium dining table with instant WhatsApp confirmation and zero waiting time.', durationMinutes: 60, price: 0, currency: '₹' },
+      { id: 's_res_2', title: 'Private Party & Event Catering', description: 'Customized gourmet menu with live tandoor and buffet counters for birthdays & corporate events.', durationMinutes: 180, price: 5000, currency: '₹' },
+      { id: 's_res_3', title: 'Express Takeaway & Pickup Packing', description: 'Pre-order your favorite dishes via WhatsApp and have them freshly packed ready for pickup.', durationMinutes: 20, price: 0, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_res_1', name: 'Paneer Tikka Angaara', description: 'Succulent malai cottage cheese cubes marinated in Kashmiri red chili, spiced hung curd, and charcoal-grilled with bell peppers. Served with mint chutney.', price: 280, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=600&q=80', category: 'Starters', isAvailable: true },
+      { id: 'p_res_2', name: 'Crispy Lotus Stem Honey Chilli', description: 'Thinly sliced lotus stems wok-tossed with toasted sesame seeds, scallions, garlic, and sweet spicy honey glaze.', price: 260, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=600&q=80', category: 'Starters', isAvailable: true },
+      { id: 'p_res_3', name: 'Ghee Roast Mushroom Pepper Fry', description: 'Fresh button mushrooms tossed in slow-roasted Kundapur ghee masala with fresh curry leaves and crushed tellicherry pepper.', price: 270, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=600&q=80', category: 'Starters', isAvailable: true },
+      { id: 'p_res_4', name: 'Golden Corn Cheese Croquettes', description: 'Golden breaded croquettes stuffed with sweet American corn, melted mozzarella, and fresh herbs. Served with spicy dip.', price: 240, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&w=600&q=80', category: 'Starters', isAvailable: true },
+      { id: 'p_res_5', name: 'Paneer Butter Masala Royal', description: 'Silky smooth tomato-cashew velvet gravy simmered with fresh cream, kasuri methi, and melt-in-mouth cottage cheese cubes.', price: 320, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=600&q=80', category: 'Main Course', isAvailable: true },
+      { id: 'p_res_6', name: 'Dal Makhani Overnight Dum', description: 'Whole black lentils slow-cooked for 18 hours on glowing charcoal embers with churned white butter, cream, and rich spices.', price: 290, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=600&q=80', category: 'Main Course', isAvailable: true },
+      { id: 'p_res_7', name: 'Kadhai Vegetable Peshawari', description: 'Crunchy bell peppers, florets, baby corn, and paneer wok-tossed in freshly crushed coriander and red chili kadhai gravy.', price: 290, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80', category: 'Main Course', isAvailable: true },
+      { id: 'p_res_8', name: 'Dum Aloo Kashmiri Saffron', description: 'Baby potatoes stuffed with minced paneer and dry fruits, gently simmered in a fragrant saffron and fennel seed gravy.', price: 310, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80', category: 'Main Course', isAvailable: true },
+      { id: 'p_res_9', name: 'Hyderabadi Shahi Veg Dum Biryani', description: 'Aged long-grain basmati rice layered with marinated seasonal vegetables, saffron, mint, and fried onions. Served with salan and raita.', price: 340, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80', category: 'Biryani & Rice', isAvailable: true },
+      { id: 'p_res_10', name: 'Butter Garlic Naan (2 Pcs)', description: 'Classic tandoor-baked leavened flatbread brushed with garlic butter and fresh coriander leaves.', price: 90, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=600&q=80', category: 'Breads', isAvailable: true },
+      { id: 'p_res_11', name: 'Warm Gulab Jamun with Rabdi', description: 'Golden fried milk dumplings soaked in fragrant rose-cardamom syrup, served hot with thick chilled lachha rabdi.', price: 160, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=600&q=80', category: 'Desserts & Drinks', isAvailable: true },
+      { id: 'p_res_12', name: 'Artisanal Mango Malai Kulfi', description: 'Traditional slow-reduced creamy milk kulfi infused with pure Alphonso mango puree and roasted pistachio silvers.', price: 120, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1505394033641-40c6ad1178d7?auto=format&fit=crop&w=600&q=80', category: 'Desserts & Drinks', isAvailable: true },
+      { id: 'p_res_13', name: 'Murgh Tandoori Chicken Tikka', description: 'Boneless tender chicken thighs steeped in spiced hung curd and Kashmiri chili marinade, flame-charred in clay tandoor.', price: 340, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=600&q=80', category: 'Starters', isAvailable: true },
+      { id: 'p_res_14', name: 'Andhra Special Chicken 65', description: 'Crispy fried boneless chicken tossed with South Indian aromatic spices, curry leaves, ginger-garlic, and green chilies.', price: 320, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=600&q=80', category: 'Starters', isAvailable: true },
+      { id: 'p_res_15', name: 'Hyderabadi Chicken Dum Biryani', description: 'Authentic royal kacchi dum biryani layered with marinated farm chicken, saffron milk, caramelized onions, and aged basmati.', price: 390, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=600&q=80', category: 'Biryani & Rice', isAvailable: true },
+      { id: 'p_res_16', name: 'Delhi Butter Chicken (Murgh Makhani)', description: 'Tandoori roasted chicken pieces simmered gently in rich tomato, cashew nut, and white butter satin gravy with kasuri methi.', price: 380, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=600&q=80', category: 'Main Course', isAvailable: true },
+      { id: 'p_res_17', name: 'Slow-Cooked Mutton Rogan Josh', description: 'Tender baby mutton pieces braised in an authentic Kashmiri aromatic red gravy flavored with ratanjot and dry ginger.', price: 460, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=600&q=80', category: 'Main Course', isAvailable: true },
+      { id: 'p_res_18', name: 'Butter Garlic Pepper Prawns', description: 'Fresh juicy tiger prawns pan-sautéed in melted garlic butter, freshly cracked Tellicherry black pepper, and herbs.', price: 420, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1559742811-822873691df8?auto=format&fit=crop&w=600&q=80', category: 'Starters', isAvailable: true },
+      { id: 'p_res_19', name: 'Mangalorean Tawa Fish Fry', description: 'Fresh surmai fish coated in tangy spicy Byadgi chili paste, shallow-fried crisp on an authentic iron tawa.', price: 380, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80', category: 'Starters', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_res_1', imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80', title: 'Royal Ambient Dining Hall', category: 'Ambience' },
+      { id: 'g_res_2', imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80', title: 'Live Tandoor & Kitchen Counter', category: 'Kitchen' },
+      { id: 'g_res_3', imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', title: 'Shahi Biryani & Gourmet Platters', category: 'Dishes' }
+    ],
+    testimonials: [
+      { id: 't_res_1', clientName: 'Siddharth Sen', clientRole: 'Indiranagar, Bengaluru', content: 'The digital menu experience is brilliant! We placed our order on WhatsApp for Table 4, checked dish ingredients & spice levels, and received piping hot food within 15 minutes!', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_res_2', clientName: 'Priya Chandran', clientRole: 'Koramangala, Bengaluru', content: 'Paneer Butter Masala Royal and the Garlic Naans are unbelievable. Having item details and direct WhatsApp ordering makes everything so frictionless.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_res_3', clientName: 'Rajesh Hegde', clientRole: 'HSR Layout, Bengaluru', content: 'Super fast WhatsApp response from the kitchen staff. Clean interface, transparent prices, instant UPI payment. This is the future of dining!', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_res_wa', platform: 'whatsapp', url: 'https://wa.me/916304989071', label: 'Order on WhatsApp' },
+      { id: 'soc_res_ph', platform: 'phone', url: 'tel:+916304989071', label: 'Call Table Desk' },
+      { id: 'soc_res_web', platform: 'website', url: 'https://oneclickbiz.in/v/food-restaurant', label: 'Official Website' },
+      { id: 'soc_res_in', platform: 'instagram', url: 'https://instagram.com/oneclickbiz', label: 'Instagram @oneclickbiz' },
+      { id: 'soc_res_yt', platform: 'youtube', url: 'https://youtube.com/@oneclickbiz', label: 'YouTube Kitchen Stories' }
+    ]
+  },
+  'food-home': null as any,
+  'brahmin-food': null as any
 };
+
+TEMPLATE_PRESETS_DATA['food-home'] = TEMPLATE_PRESETS_DATA['food-restaurant'];
+TEMPLATE_PRESETS_DATA['brahmin-food'] = TEMPLATE_PRESETS_DATA['food-restaurant'];
+
 
 /**
  * Returns a fully populated, production-ready DigitalProfile for any of the 28 templates.

@@ -43,6 +43,7 @@ import ShareCardModal from '@/components/common/ShareCardModal';
 import PWAInstallPrompt from '@/components/common/PWAInstallPrompt';
 import DirectUPIPaymentModal from '@/components/common/DirectUPIPaymentModal';
 import MBLMiniWebsiteView from './MBLMiniWebsiteView';
+import RestaurantTemplateView from './RestaurantTemplateView';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -536,6 +537,32 @@ export default function ProfileCardView({
           reviewCard: 'bg-gradient-to-tr from-amber-950/60 via-slate-900 to-slate-950 border border-amber-500/40 hover:border-amber-400',
           inputBg: 'bg-white/10 border-white/20 text-white placeholder-slate-400 focus:border-cyan-400'
         };
+      case 'brahmin-food':
+        return {
+          isLight: true,
+          bg: 'bg-[#FBF2DE] text-[#241208]',
+          card: 'bg-white/95 backdrop-blur-xl border border-[#D8A63D]/40 text-[#241208] shadow-xl shadow-[#C1621F]/10',
+          itemBg: 'bg-[#F5E9CC]/60 border border-[#D8A63D]/30',
+          accent: 'from-[#C1621F] via-[#D8A63D] to-[#7E1717]',
+          accentText: 'text-[#C1621F] font-bold',
+          textPrimary: 'text-[#241208]',
+          textSecondary: 'text-[#5C3A21]',
+          textMuted: 'text-[#7A5B43]',
+          buttonPrimary: 'bg-gradient-to-r from-[#C1621F] to-[#7E1717] hover:from-[#a34f15] hover:to-[#631111] text-white font-bold shadow-lg shadow-[#C1621F]/30 hover:scale-[1.02] active:scale-95 transition-all',
+          buttonSecondary: 'bg-[#F5E9CC] hover:bg-[#ebd8b0] border border-[#D8A63D]/40 text-[#241208]',
+          badge: 'bg-[#F5E9CC] text-[#7E1717] border border-[#D8A63D]/50 shadow-xs font-bold',
+          border: 'border-[#D8A63D]/30',
+          avatarRing: 'ring-4 ring-[#D8A63D] shadow-lg shadow-[#D8A63D]/30',
+          avatarBorder: 'border-[#FBF2DE]',
+          coverOverlay: 'bg-gradient-to-t from-[#FBF2DE] via-[#FBF2DE]/40 to-transparent',
+          quickChipCall: 'bg-white/80 hover:bg-white border border-[#D8A63D]/30 text-[#241208] shadow-xs',
+          quickChipEmail: 'bg-white/80 hover:bg-white border border-[#D8A63D]/30 text-[#241208] shadow-xs',
+          quickChipWeb: 'bg-white/80 hover:bg-white border border-[#D8A63D]/30 text-[#241208] shadow-xs',
+          quickChipMap: 'bg-white/80 hover:bg-white border border-[#D8A63D]/30 text-[#241208] shadow-xs',
+          upiCard: 'bg-gradient-to-br from-[#2E4D2A]/10 via-[#F5E9CC]/40 to-white border-2 border-[#2E4D2A]/30 shadow-md hover:border-[#2E4D2A]',
+          reviewCard: 'bg-gradient-to-br from-[#C1621F]/10 via-[#F5E9CC]/40 to-white border-2 border-[#D8A63D]/40 shadow-md hover:border-[#D8A63D]',
+          inputBg: 'bg-white border-[#D8A63D]/40 text-[#241208] placeholder-[#7A5B43] focus:border-[#C1621F]'
+        };
       case 'modern-indigo':
       default:
         return {
@@ -577,6 +604,7 @@ export default function ProfileCardView({
   const hasTestimonials = Boolean((dynamicTestimonials || profile.sectionData?.testimonials?.items || []).length);
   const hasBlogs = Boolean(profile.sectionData?.blogs?.items?.length);
   const isWebsiteMode = !isMockup && viewMode === 'website';
+  const isRestaurantTemplate = profile.slug === 'food-restaurant' || profile.slug.includes('restaurant') || profile.slug.includes('food') || profile.slug.includes('brahmin') || profile.theme === 'brahmin-food';
 
   return (
     <div className="w-full relative">
@@ -616,43 +644,79 @@ export default function ProfileCardView({
         </div>
       )}
 
-      {/* Main Experience: Either MBL Digital Academy Mini-Website OR Smartphone Card */}
+      {/* Main Experience: Either Restaurant Template / MBL Mini-Website OR Smartphone Card */}
       {isWebsiteMode ? (
-        <MBLMiniWebsiteView
-          profile={profile}
-          cart={cart}
-          addToCart={addToCart}
-          updateQuantity={updateQuantity}
-          setIsCartOpen={setIsCartOpen}
-          selectedCurrency={selectedCurrency}
-          setSelectedCurrency={setSelectedCurrency}
-          formatPrice={formatPrice}
-          totalConvertedPrice={totalConvertedPrice}
-          setIsUPIModalOpen={setIsUPIModalOpen}
-          setBookingService={setBookingService}
-          setBookingSuccess={setBookingSuccess}
-          quoteServices={quoteServices}
-          toggleQuoteService={toggleQuoteService}
-          sendWhatsAppQuotation={sendWhatsAppQuotation}
-          leadName={leadName}
-          setLeadName={setLeadName}
-          leadEmail={leadEmail}
-          setLeadEmail={setLeadEmail}
-          leadPhone={leadPhone}
-          setLeadPhone={setLeadPhone}
-          leadMessage={leadMessage}
-          setLeadMessage={setLeadMessage}
-          handleLeadSubmit={handleLeadSubmit}
-          leadSuccess={leadSuccess}
-          trackAction={trackAction}
-          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-          getEmbedUrl={getEmbedUrl}
-          viewMode={viewMode}
-          setViewMode={setViewMode}
-          showViewToggle={showViewToggle}
-          setIsReviewModalOpen={setIsReviewModalOpen}
-          dynamicTestimonials={dynamicTestimonials || undefined}
-        />
+        isRestaurantTemplate ? (
+          <RestaurantTemplateView
+            profile={profile}
+            cart={cart}
+            addToCart={addToCart}
+            updateQuantity={updateQuantity}
+            setIsCartOpen={setIsCartOpen}
+            selectedCurrency={selectedCurrency}
+            setSelectedCurrency={setSelectedCurrency}
+            formatPrice={formatPrice}
+            totalConvertedPrice={totalConvertedPrice}
+            setIsUPIModalOpen={setIsUPIModalOpen}
+            setBookingService={setBookingService}
+            setBookingSuccess={setBookingSuccess}
+            quoteServices={quoteServices}
+            toggleQuoteService={toggleQuoteService}
+            sendWhatsAppQuotation={sendWhatsAppQuotation}
+            leadName={leadName}
+            setLeadName={setLeadName}
+            leadEmail={leadEmail}
+            setLeadEmail={setLeadEmail}
+            leadPhone={leadPhone}
+            setLeadPhone={setLeadPhone}
+            leadMessage={leadMessage}
+            setLeadMessage={setLeadMessage}
+            handleLeadSubmit={handleLeadSubmit}
+            leadSuccess={leadSuccess}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : (
+          <MBLMiniWebsiteView
+            profile={profile}
+            cart={cart}
+            addToCart={addToCart}
+            updateQuantity={updateQuantity}
+            setIsCartOpen={setIsCartOpen}
+            selectedCurrency={selectedCurrency}
+            setSelectedCurrency={setSelectedCurrency}
+            formatPrice={formatPrice}
+            totalConvertedPrice={totalConvertedPrice}
+            setIsUPIModalOpen={setIsUPIModalOpen}
+            setBookingService={setBookingService}
+            setBookingSuccess={setBookingSuccess}
+            quoteServices={quoteServices}
+            toggleQuoteService={toggleQuoteService}
+            sendWhatsAppQuotation={sendWhatsAppQuotation}
+            leadName={leadName}
+            setLeadName={setLeadName}
+            leadEmail={leadEmail}
+            setLeadEmail={setLeadEmail}
+            leadPhone={leadPhone}
+            setLeadPhone={setLeadPhone}
+            leadMessage={leadMessage}
+            setLeadMessage={setLeadMessage}
+            handleLeadSubmit={handleLeadSubmit}
+            leadSuccess={leadSuccess}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+            setIsReviewModalOpen={setIsReviewModalOpen}
+            dynamicTestimonials={dynamicTestimonials || undefined}
+          />
+        )
       ) : (
         <div className={`w-full max-w-md ${isMockup ? 'rounded-[36px]' : 'sm:rounded-[44px] sm:border-4 sm:border-slate-800 sm:p-1.5 sm:bg-slate-900'} mx-auto ${theme.bg} min-h-screen relative font-sans transition-all duration-300 pb-24 shadow-2xl overflow-hidden`}>
           {/* Top Cover Image */}
@@ -1843,7 +1907,7 @@ export default function ProfileCardView({
     )}
 
       {/* Floating Cart Button (when items exist in cart) */}
-      {cart.length > 0 && (
+      {!isRestaurantTemplate && cart.length > 0 && (
         <button 
           onClick={() => setIsCartOpen(true)}
           className="fixed bottom-6 right-6 z-40 px-4 py-3 rounded-full bg-emerald-600 text-white shadow-2xl flex items-center gap-2.5 animate-bounce hover:bg-emerald-500 transition-all font-semibold text-xs border border-emerald-400/40"
@@ -1855,7 +1919,7 @@ export default function ProfileCardView({
       )}
 
       {/* Slide-out WhatsApp Store Cart Modal */}
-      {isCartOpen && (
+      {!isRestaurantTemplate && isCartOpen && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl p-5 text-white shadow-2xl max-h-[85vh] flex flex-col animate-in slide-in-from-bottom">
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -2299,7 +2363,7 @@ export default function ProfileCardView({
         isOpen={isUPIModalOpen}
         onClose={() => setIsUPIModalOpen(false)}
         payeeName={profile.name}
-        payeeVpa={profile.upiId || `${profile.whatsapp.replace(/\D/g, '') || 'merchant'}@upi`}
+        payeeVpa={profile.upiId || (profile.whatsapp ? `${profile.whatsapp.replace(/\D/g, '').slice(-10)}@okaxis` : 'oneclickbiz@icici')}
         businessName={profile.company || profile.name}
         defaultAmount={500}
       />
