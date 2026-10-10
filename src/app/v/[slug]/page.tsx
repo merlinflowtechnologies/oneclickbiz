@@ -106,8 +106,9 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
 
         // Extract templateId, category, realEstate, and interior from hero or section configs
         const heroConfig = (reconstructedSectionData as any).hero || {};
-        const resolvedTemplateId = heroConfig.templateId || fallback.templateId || (cleanSlug.startsWith('re-') ? 're-builders' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'home-interior' : undefined);
-        const resolvedCategory = heroConfig.category || fallback.category || (cleanSlug.startsWith('re-') ? 'Real Estate' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'Interior Design' : undefined);
+        const isFoodSlug = cleanSlug.startsWith('food-') || cleanSlug.includes('restaurant') || cleanSlug.includes('dining') || cleanSlug.includes('brahmin');
+        const resolvedTemplateId = heroConfig.templateId || fallback.templateId || (isFoodSlug ? 'food-restaurant' : cleanSlug.startsWith('re-') ? 're-builders' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'home-interior' : undefined);
+        const resolvedCategory = heroConfig.category || fallback.category || (isFoodSlug ? 'Food Business' : cleanSlug.startsWith('re-') ? 'Real Estate' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'Interior Design' : undefined);
 
         if (heroConfig.realEstate && !reconstructedSectionData.realEstate) {
           reconstructedSectionData.realEstate = heroConfig.realEstate;

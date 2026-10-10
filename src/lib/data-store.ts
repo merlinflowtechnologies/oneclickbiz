@@ -271,7 +271,36 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     };
   }
 
-  // 3. Check if slug matches any catalog template (by id or normalized name)
+  // 3. Check if slug is restaurant / food / dining related
+  const isFoodPattern = 
+    cleanSlug === 'restaurant' ||
+    cleanSlug === 'restaurant-menu' ||
+    cleanSlug === 'food-restaurant' ||
+    cleanSlug === 'food-menu' ||
+    cleanSlug === 'food-home' ||
+    cleanSlug === 'food-cloud' ||
+    cleanSlug === 'brahmin-food' ||
+    cleanSlug === 'dining' ||
+    cleanSlug === 'bistro' ||
+    cleanSlug === 'cafe' ||
+    cleanSlug.includes('restaurant') ||
+    cleanSlug.startsWith('food-') ||
+    cleanSlug.includes('dining') ||
+    cleanSlug.includes('bistro') ||
+    cleanSlug.includes('cafe');
+
+  if (isFoodPattern) {
+    const tProf = getTemplateProfile('food-restaurant');
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
+  // 4. Check if slug matches any catalog template (by id or normalized name)
   const matchedTemplate = VCARD_TEMPLATES_CATALOG.find(
     t => t.id.toLowerCase() === cleanSlug || 
          t.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === cleanSlug ||
@@ -300,6 +329,7 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
   if (isTemplatePattern) {
     const templateId = matchedTemplate?.id || 
       (cleanSlug === 'interior' || cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'home-interior' : 
+       cleanSlug.startsWith('food-') ? 'food-restaurant' :
        cleanSlug.startsWith('vcard') ? cleanSlug : 're-builders');
     const tProf = getTemplateProfile(templateId);
     return {
