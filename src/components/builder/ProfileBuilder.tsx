@@ -4360,12 +4360,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
       {/* Right Real-Time Mobile Device Mockup View */}
       <div className="w-full md:w-[350px] lg:w-[390px] xl:w-[430px] p-3 sm:p-4 md:p-5 bg-slate-950 flex flex-col items-center justify-center h-full min-h-0 overflow-hidden shrink-0 border-t md:border-t-0 md:border-l border-slate-800">
         <div className="flex items-center justify-between w-full max-w-[340px] lg:max-w-[360px] xl:max-w-[375px] mb-2.5 px-1 shrink-0">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <Smartphone className="w-4 h-4 text-indigo-400" />
             <span className="text-xs font-semibold text-slate-300">
-              {isRealEstate ? 'Smart Realtor Card' : 'Mobile Card'}
+              Mobile Card
             </span>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           </div>
 
           <button

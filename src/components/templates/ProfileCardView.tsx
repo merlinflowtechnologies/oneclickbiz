@@ -607,7 +607,7 @@ export default function ProfileCardView({
     profile.id === 're-villas' ||
     profile.id === 're-consultants';
 
-  const isWebsiteMode = viewMode === 'website';
+  const isWebsiteMode = !isMockup && viewMode === 'website';
 
   return (
     <div className="w-full relative">
@@ -617,7 +617,7 @@ export default function ProfileCardView({
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-xs font-bold text-slate-800 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full border border-slate-200 shadow-xs">
-              {isRealEstate ? 'Smart Realtor Card' : 'Mobile Business Card'}
+              Mobile Business Card
             </span>
           </div>
           <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md">
@@ -633,26 +633,26 @@ export default function ProfileCardView({
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-black text-white shadow-sm cursor-pointer"
             >
               <Smartphone className="w-3.5 h-3.5" />
-              <span>{isRealEstate ? 'Smart Realtor Card' : 'Mobile Card View'}</span>
+              <span>Mobile Card View</span>
             </button>
           </div>
         </div>
       )}
 
-      {/* Main Experience: Industry Specific Real Estate Experience OR Mini-Website OR Standard Card */}
-      {isRealEstate ? (
-        <RealEstateMiniWebsiteView
-          profile={profile}
-          trackAction={trackAction}
-          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-          getEmbedUrl={getEmbedUrl}
-          viewMode={viewMode}
-          setViewMode={setViewMode}
-          showViewToggle={showViewToggle}
-          isMockup={isMockup}
-        />
-      ) : isWebsiteMode ? (
-        <MBLMiniWebsiteView
+      {/* Main Experience: Industry Specific Mini-Website OR Smartphone Card */}
+      {isWebsiteMode ? (
+        isRealEstate ? (
+          <RealEstateMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : (
+          <MBLMiniWebsiteView
               profile={profile}
               cart={cart}
               addToCart={addToCart}
@@ -687,6 +687,7 @@ export default function ProfileCardView({
               setIsReviewModalOpen={setIsReviewModalOpen}
               dynamicTestimonials={dynamicTestimonials || undefined}
             />
+        )
       ) : (
         <div className={`w-full max-w-md ${isMockup ? 'rounded-[36px]' : 'sm:rounded-[44px] sm:border-4 sm:border-slate-800 sm:p-1.5 sm:bg-slate-900'} mx-auto ${theme.bg} min-h-screen relative font-sans transition-all duration-300 pb-24 shadow-2xl overflow-hidden`}>
           {/* Top Cover Image */}

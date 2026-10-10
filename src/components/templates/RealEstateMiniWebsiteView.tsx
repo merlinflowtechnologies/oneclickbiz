@@ -1000,7 +1000,7 @@ export default function RealEstateMiniWebsiteView({
                       viewMode === 'mobile' ? 'bg-[#005DAA] text-white shadow-xs' : 'text-slate-600 hover:text-black'
                     }`}
                   >
-                    📱 Smart Realtor Card
+                    📱 Mobile Card
                   </button>
                 </div>
               )}
@@ -1112,7 +1112,7 @@ export default function RealEstateMiniWebsiteView({
                     viewMode === 'mobile' ? 'bg-[#005DAA] text-white shadow-xs' : 'text-slate-600'
                   }`}
                 >
-                  📱 Smart Realtor Card (vCard)
+                  📱 Mobile Card (vCard)
                 </button>
               </div>
             )}
