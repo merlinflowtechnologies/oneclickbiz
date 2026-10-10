@@ -52,7 +52,11 @@ import {
   FileText,
   Compass,
   Award,
-  Download
+  Download,
+  PanelRightClose,
+  PanelRightOpen,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { DigitalProfile, ThemeType, SectionType, VideoItem, GalleryItem, BlogPostItem, ProductItem, ServiceItem } from '@/lib/types';
@@ -237,8 +241,19 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     profile.designation?.toLowerCase().includes('realtor') ||
     profile.designation?.toLowerCase().includes('builder') ||
     profile.designation?.toLowerCase().includes('broker') ||
-    profile.bio?.toLowerCase().includes('real estate')
+    profile.designation?.toLowerCase().includes('infrastructure') ||
+    profile.company?.toLowerCase().includes('builder') ||
+    profile.company?.toLowerCase().includes('developer') ||
+    profile.company?.toLowerCase().includes('realty') ||
+    profile.company?.toLowerCase().includes('real estate') ||
+    profile.company?.toLowerCase().includes('infra') ||
+    profile.company?.toLowerCase().includes('properties') ||
+    profile.company?.toLowerCase().includes('constructions') ||
+    profile.company?.toLowerCase().includes('estates') ||
+    profile.bio?.toLowerCase().includes('real estate') ||
+    Boolean(profile.sectionData?.realEstate)
   );
+  const [showPreview, setShowPreview] = useState(true);
   const isInterior = Boolean(
     profile.templateId === 'home-interior' ||
     profile.templateId === 'interior' ||
@@ -961,60 +976,90 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-1.5 flex-wrap sm:flex-nowrap shrink-0 overflow-x-auto scrollbar-none py-0.5">
+            {/* Toggle Preview button for laptop screen flexibility */}
+            <button
+              type="button"
+              onClick={() => setShowPreview(!showPreview)}
+              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 cursor-pointer shadow-xs shrink-0"
+              title={showPreview ? 'Hide phone mockup to maximize editor screen' : 'Show live phone mockup preview'}
+            >
+              {showPreview ? (
+                <>
+                  <PanelRightClose className="w-3.5 h-3.5 text-indigo-400" />
+                  <span className="hidden xl:inline">Hide Preview</span>
+                </>
+              ) : (
+                <>
+                  <PanelRightOpen className="w-3.5 h-3.5 text-indigo-400" />
+                  <span>Show Mockup</span>
+                </>
+              )}
+            </button>
+
             <button
               onClick={handleOpenAddCardModal}
-              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-indigo-500/20 active:scale-95 transition"
+              className="px-2.5 sm:px-3 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-indigo-500/20 active:scale-95 transition shrink-0"
+              title={`Add New Card (${userCards.length}/${MAX_CARDS})`}
             >
               <Plus className="w-3.5 h-3.5" />
-              <span>Add Card ({userCards.length}/{MAX_CARDS})</span>
+              <span className="hidden sm:inline">Add Card</span>
+              <span className="text-[10px] opacity-80">({userCards.length}/{MAX_CARDS})</span>
             </button>
+
             <button 
               onClick={() => setIsShareModalOpen(true)}
-              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 flex items-center gap-1.5 transition-all border border-slate-700"
+              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 shrink-0"
+              title="Share profile link"
             >
-              <Share2 className="w-3.5 h-3.5" />
-              <span>Share Link</span>
+              <Share2 className="w-3.5 h-3.5 text-purple-400" />
+              <span className="hidden lg:inline">Share</span>
             </button>
+
             <button 
               type="button"
               onClick={() => setStudioWebsitePreviewOpen(true)}
-              className="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition-all border border-indigo-500/40 shadow-sm active:scale-95 cursor-pointer"
+              className="px-2.5 sm:px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition-all border border-indigo-500/40 shadow-sm active:scale-95 cursor-pointer shrink-0"
               title="Preview authentic desktop mini-website"
             >
               <Monitor className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Mini-Website</span>
+              <span className="hidden md:inline">Mini-Website</span>
             </button>
+
             <a 
               href={`/v/${profile.slug}`} 
               target="_blank"
-              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700"
+              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 shrink-0"
+              title={`Open live card: /v/${profile.slug}`}
             >
-              <ExternalLink className="w-3.5 h-3.5" />
-              <span>Live Card</span>
+              <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="hidden md:inline">Live Card</span>
             </a>
+
             <button
               type="button"
               onClick={() => setIsStudioQrModalOpen(true)}
-              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 cursor-pointer"
+              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 cursor-pointer shrink-0"
               title="Test & scan live website QR code"
             >
               <QrCode className="w-3.5 h-3.5 text-indigo-400" />
-              <span className="hidden sm:inline">QR Scanner</span>
+              <span className="hidden xl:inline">QR</span>
             </button>
+
             <button
               type="button"
               onClick={() => downloadVcfFile(profile)}
-              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white transition-all border border-slate-700 cursor-pointer"
+              className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 hover:text-white transition-all border border-slate-700 cursor-pointer shrink-0"
               title="Download vCard contact file (.vcf)"
             >
               <Download className="w-3.5 h-3.5 text-emerald-400" />
               <span>vCard</span>
             </button>
+
             <button 
               onClick={handleSave}
               disabled={isSaving}
-              className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-75 text-xs font-semibold text-white flex items-center gap-1.5 shadow-lg transition-all active:scale-95 cursor-pointer"
+              className="px-3 sm:px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-75 text-xs font-semibold text-white flex items-center gap-1.5 shadow-lg transition-all active:scale-95 cursor-pointer shrink-0"
             >
               {isSaving ? (
                 <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -1023,16 +1068,16 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               ) : (
                 <Save className="w-3.5 h-3.5" />
               )}
-              {isSaving ? 'Publishing...' : isSaved ? 'Saved & Live!' : 'Save & Publish'}
+              <span>{isSaving ? 'Saving...' : isSaved ? 'Saved!' : 'Save & Publish'}</span>
             </button>
           </div>
         </div>
 
-        {/* Category Tabs */}
-        <div className="flex items-center overflow-x-auto px-4 py-2 border-b border-slate-800 bg-slate-950/40 gap-1 scrollbar-none shrink-0">
+        {/* Category Tabs with horizontal scroll on laptops */}
+        <div className="flex items-center overflow-x-auto px-3 sm:px-4 py-2 border-b border-slate-800 bg-slate-950/40 gap-1.5 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent shrink-0">
           <button 
             onClick={() => setActiveTab('cards')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
               activeTab === 'cards' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
@@ -1040,7 +1085,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           </button>
           <button 
             onClick={() => setActiveTab('info')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
               activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
@@ -1048,7 +1093,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           </button>
           <button 
             onClick={() => setActiveTab('products')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
               activeTab === 'products' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
@@ -1071,7 +1116,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           </button>
           <button 
             onClick={() => setActiveTab('services')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
               activeTab === 'services' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
@@ -1094,7 +1139,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           </button>
           <button 
             onClick={() => setActiveTab('gallery')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
               activeTab === 'gallery' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
@@ -1117,7 +1162,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           </button>
           <button 
             onClick={() => setActiveTab('videos')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
               activeTab === 'videos' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
@@ -1125,7 +1170,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           </button>
           <button 
             onClick={() => setActiveTab('socials')}
-            className={`px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all shrink-0 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap ${
               activeTab === 'socials' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
@@ -5056,45 +5101,57 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
       </div>
 
       {/* Right Real-Time Mobile Device Mockup View */}
-      <div className="w-full md:w-[350px] lg:w-[390px] xl:w-[430px] p-3 sm:p-4 md:p-5 bg-slate-950 flex flex-col items-center justify-center h-full min-h-0 overflow-hidden shrink-0 border-t md:border-t-0 md:border-l border-slate-800">
-        <div className="flex items-center justify-between w-full max-w-[340px] lg:max-w-[360px] xl:max-w-[375px] mb-2.5 px-1 shrink-0">
-          <div className="flex items-center gap-1.5">
-            <Smartphone className="w-4 h-4 text-indigo-400" />
-            <span className="text-xs font-semibold text-slate-300">
-              Mobile Card
-            </span>
+      {showPreview && (
+        <div className="w-full md:w-[320px] lg:w-[350px] xl:w-[390px] 2xl:w-[420px] p-2.5 sm:p-3 md:p-4 bg-slate-950 flex flex-col items-center justify-start h-full min-h-0 overflow-y-auto scrollbar-none shrink-0 border-t md:border-t-0 md:border-l border-slate-800 animate-in fade-in duration-200">
+          <div className="flex items-center justify-between w-full max-w-[310px] sm:max-w-[330px] xl:max-w-[365px] mb-2 px-1 shrink-0">
+            <div className="flex items-center gap-1.5">
+              <Smartphone className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="text-xs font-semibold text-slate-300">
+                Live Preview
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => setStudioWebsitePreviewOpen(true)}
+                className="px-2.5 py-1 rounded-xl text-[11px] font-bold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center gap-1.5 transition active:scale-95 cursor-pointer shadow-xs"
+                title="Open Fullscreen Desktop Website Preview"
+              >
+                <Monitor className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Full Website</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowPreview(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+                title="Collapse preview panel for full editor width"
+              >
+                <PanelRightClose className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setStudioWebsitePreviewOpen(true)}
-            className="px-3 py-1.5 rounded-xl text-[11px] font-bold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center gap-1.5 transition active:scale-95 cursor-pointer shadow-xs"
-            title="Open Fullscreen Desktop Website Preview"
-          >
-            <Monitor className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Desktop Preview</span>
-          </button>
+          {/* Device Frame with responsive scaling for laptop displays */}
+          <div className="w-full max-w-[310px] sm:max-w-[320px] lg:max-w-[340px] xl:max-w-[365px] rounded-[38px] p-2 sm:p-2.5 bg-slate-900 border-4 border-slate-700 shadow-2xl ring-1 ring-white/10 relative shrink-0 transition-transform origin-top scale-[0.88] sm:scale-95 lg:scale-100 my-auto">
+            
+            {/* Top Speaker / Camera Notch */}
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 w-20 h-3 bg-slate-950 rounded-full z-30 flex items-center justify-center">
+              <div className="w-2 h-2 rounded-full bg-slate-900 mr-2" />
+              <div className="w-6 h-1 rounded-full bg-slate-900" />
+            </div>
+
+            {/* Screen Content */}
+            <div className="rounded-[30px] overflow-hidden bg-slate-950 h-[460px] sm:h-[500px] md:h-[calc(100vh-210px)] max-h-[580px] min-h-[380px] overflow-y-auto scrollbar-none border border-slate-800">
+              <ProfileCardView 
+                profile={profile} 
+                isMockup={true} 
+                initialViewMode="mobile" 
+              />
+            </div>
+          </div>
         </div>
-
-        {/* Device Frame */}
-        <div className="w-full max-w-[320px] sm:max-w-[340px] lg:max-w-[360px] xl:max-w-[375px] rounded-[44px] p-2.5 sm:p-3 bg-slate-900 border-4 border-slate-700 shadow-2xl ring-1 ring-white/10 relative shrink-0">
-          
-          {/* Top Speaker / Camera Notch */}
-          <div className="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-3.5 bg-slate-950 rounded-full z-30 flex items-center justify-center">
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-900 mr-2" />
-            <div className="w-7 h-1 rounded-full bg-slate-900" />
-          </div>
-
-          {/* Screen Content */}
-          <div className="rounded-[36px] overflow-hidden bg-slate-950 h-[520px] sm:h-[560px] md:h-[calc(100vh-170px)] max-h-[640px] min-h-[420px] overflow-y-auto scrollbar-none border border-slate-800">
-            <ProfileCardView 
-              profile={profile} 
-              isMockup={true} 
-              initialViewMode="mobile" 
-            />
-          </div>
-        </div>
-      </div>
+      )}
 
       {/* Mini-Website Desktop Browser Preview Modal */}
       {studioWebsitePreviewOpen && (

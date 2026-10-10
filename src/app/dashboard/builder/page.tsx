@@ -32,7 +32,16 @@ function BuilderContent() {
           effectiveTemplateId?.startsWith('re-') || 
           parsedSession?.category === 'Real Estate' || 
           targetSlug.startsWith('re-') ||
-          effectiveTemplateId === 're-builders'
+          effectiveTemplateId === 're-builders' ||
+          parsedSession?.businessName?.toLowerCase().includes('builder') ||
+          parsedSession?.businessName?.toLowerCase().includes('developer') ||
+          parsedSession?.businessName?.toLowerCase().includes('realty') ||
+          parsedSession?.businessName?.toLowerCase().includes('infra') ||
+          parsedSession?.businessName?.toLowerCase().includes('estate') ||
+          queryBiz?.toLowerCase().includes('builder') ||
+          queryBiz?.toLowerCase().includes('developer') ||
+          queryBiz?.toLowerCase().includes('realty') ||
+          queryBiz?.toLowerCase().includes('infra')
         );
         const isInteriorTarget = Boolean(
           effectiveTemplateId === 'home-interior' ||
@@ -122,17 +131,31 @@ function BuilderContent() {
             .then(data => {
               if (data?.profile) {
                 const dbProfile = data.profile as DigitalProfile;
+                const dbIsRe = Boolean(
+                  isReTarget ||
+                  dbProfile.category === 'Real Estate' ||
+                  dbProfile.templateId?.startsWith('re-') ||
+                  dbProfile.company?.toLowerCase().includes('builder') ||
+                  dbProfile.company?.toLowerCase().includes('developer') ||
+                  dbProfile.company?.toLowerCase().includes('realty') ||
+                  dbProfile.company?.toLowerCase().includes('infra') ||
+                  dbProfile.company?.toLowerCase().includes('properties') ||
+                  dbProfile.company?.toLowerCase().includes('estate') ||
+                  dbProfile.designation?.toLowerCase().includes('infrastructure') ||
+                  dbProfile.designation?.toLowerCase().includes('builder') ||
+                  dbProfile.sectionData?.realEstate
+                );
                 // Merge: DB fields override local, but keep local-only fields
                 const merged: DigitalProfile = {
                   ...localFallback,
                   ...dbProfile,
-                  templateId: isReTarget ? 're-builders' : isInteriorTarget ? 'home-interior' : (dbProfile.templateId || localFallback.templateId || effectiveTemplateId || undefined),
-                  category: isReTarget ? 'Real Estate' : isInteriorTarget ? 'Interior Design' : (dbProfile.category || localFallback.category || parsedSession?.category || undefined),
+                  templateId: dbIsRe ? 're-builders' : isInteriorTarget ? 'home-interior' : (dbProfile.templateId || localFallback.templateId || effectiveTemplateId || undefined),
+                  category: dbIsRe ? 'Real Estate' : isInteriorTarget ? 'Interior Design' : (dbProfile.category || localFallback.category || parsedSession?.category || undefined),
                   // Ensure sectionData.about.content reflects the DB bio & trust configs are preserved
                   sectionData: {
                     ...(localFallback.sectionData || {}),
                     ...(dbProfile.sectionData || {}),
-                    realEstate: isReTarget 
+                    realEstate: dbIsRe 
                       ? (dbProfile.sectionData?.realEstate || localFallback.sectionData?.realEstate || getTemplateProfile('re-builders').sectionData.realEstate)
                       : dbProfile.sectionData?.realEstate,
                     interior: isInteriorTarget

@@ -622,13 +622,18 @@ export default function ProfileCardView({
     profile.company?.toLowerCase().includes('estate') ||
     profile.company?.toLowerCase().includes('realty') ||
     profile.company?.toLowerCase().includes('builder') ||
+    profile.company?.toLowerCase().includes('developer') ||
     profile.company?.toLowerCase().includes('infra') ||
     profile.company?.toLowerCase().includes('properties') ||
+    profile.company?.toLowerCase().includes('constructions') ||
     profile.designation?.toLowerCase().includes('real estate') ||
     profile.designation?.toLowerCase().includes('realtor') ||
     profile.designation?.toLowerCase().includes('broker') ||
+    profile.designation?.toLowerCase().includes('builder') ||
+    profile.designation?.toLowerCase().includes('infrastructure') ||
     profile.bio?.toLowerCase().includes('real estate') ||
     profile.bio?.toLowerCase().includes('properties') ||
+    Boolean(profile.sectionData?.realEstate) ||
     profile.id === 're-agents' ||
     profile.id === 're-builders' ||
     profile.id === 're-plots' ||
