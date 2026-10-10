@@ -577,6 +577,28 @@ export default function ProfileCardView({
   const hasGallery = Boolean(profile.sectionData?.gallery?.items?.length);
   const hasTestimonials = Boolean((dynamicTestimonials || profile.sectionData?.testimonials?.items || []).length);
   const hasBlogs = Boolean(profile.sectionData?.blogs?.items?.length);
+  const isRealEstate = 
+    profile.slug === 'kishore' || 
+    profile.id?.startsWith('re-') ||
+    (profile as any).templateId?.startsWith('re-') ||
+    (profile as any).category === 'Real Estate' ||
+    profile.company?.toLowerCase().includes('reality') ||
+    profile.company?.toLowerCase().includes('estate') ||
+    profile.company?.toLowerCase().includes('realty') ||
+    profile.company?.toLowerCase().includes('builder') ||
+    profile.company?.toLowerCase().includes('infra') ||
+    profile.company?.toLowerCase().includes('properties') ||
+    profile.designation?.toLowerCase().includes('real estate') ||
+    profile.designation?.toLowerCase().includes('realtor') ||
+    profile.designation?.toLowerCase().includes('broker') ||
+    profile.bio?.toLowerCase().includes('real estate') ||
+    profile.bio?.toLowerCase().includes('properties') ||
+    profile.id === 're-agents' ||
+    profile.id === 're-builders' ||
+    profile.id === 're-plots' ||
+    profile.id === 're-villas' ||
+    profile.id === 're-consultants';
+
   const isWebsiteMode = !isMockup && viewMode === 'website';
 
   return (
@@ -618,45 +640,17 @@ export default function ProfileCardView({
       )}
 
       {/* Main Experience: Industry Specific Mini-Website OR Smartphone Card */}
-      {isWebsiteMode ? (
-        (() => {
-          const isRealEstate = 
-            profile.slug === 'kishore' || 
-            profile.id?.startsWith('re-') ||
-            (profile as any).templateId?.startsWith('re-') ||
-            (profile as any).category === 'Real Estate' ||
-            profile.company?.toLowerCase().includes('reality') ||
-            profile.company?.toLowerCase().includes('estate') ||
-            profile.company?.toLowerCase().includes('realty') ||
-            profile.company?.toLowerCase().includes('builder') ||
-            profile.company?.toLowerCase().includes('infra') ||
-            profile.company?.toLowerCase().includes('properties') ||
-            profile.designation?.toLowerCase().includes('real estate') ||
-            profile.designation?.toLowerCase().includes('realtor') ||
-            profile.designation?.toLowerCase().includes('broker') ||
-            profile.bio?.toLowerCase().includes('real estate') ||
-            profile.bio?.toLowerCase().includes('properties') ||
-            profile.id === 're-agents' ||
-            profile.id === 're-builders' ||
-            profile.id === 're-plots' ||
-            profile.id === 're-villas' ||
-            profile.id === 're-consultants';
-
-          if (isRealEstate) {
-            return (
-              <RealEstateMiniWebsiteView
-                profile={profile}
-                trackAction={trackAction}
-                getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-                getEmbedUrl={getEmbedUrl}
-                viewMode={viewMode}
-                setViewMode={setViewMode}
-                showViewToggle={showViewToggle}
-              />
-            );
-          }
-
-          return (
+      {isRealEstate ? (
+        <RealEstateMiniWebsiteView
+          profile={profile}
+          trackAction={trackAction}
+          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+          getEmbedUrl={getEmbedUrl}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          showViewToggle={showViewToggle}
+        />
+      ) : isWebsiteMode ? (
             <MBLMiniWebsiteView
               profile={profile}
               cart={cart}
@@ -692,8 +686,6 @@ export default function ProfileCardView({
               setIsReviewModalOpen={setIsReviewModalOpen}
               dynamicTestimonials={dynamicTestimonials || undefined}
             />
-          );
-        })()
       ) : (
         <div className={`w-full max-w-md ${isMockup ? 'rounded-[36px]' : 'sm:rounded-[44px] sm:border-4 sm:border-slate-800 sm:p-1.5 sm:bg-slate-900'} mx-auto ${theme.bg} min-h-screen relative font-sans transition-all duration-300 pb-24 shadow-2xl overflow-hidden`}>
           {/* Top Cover Image */}
