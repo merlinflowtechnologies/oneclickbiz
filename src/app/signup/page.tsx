@@ -36,13 +36,20 @@ import {
   TrendingUp,
   ShoppingBag,
   Compass,
-  GraduationCap
+  GraduationCap,
+  Shirt,
+  Car,
+  Camera,
+  Plane,
+  Wrench,
+  ChevronDown
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { initiateCashfreePayment } from '@/lib/cashfree-client';
 import { exportInvoicePDF } from '@/lib/pdf-export';
 import { validateAndCalculateCoupon, CouponApplicationResult } from '@/lib/coupons';
 import { getTemplateProfile } from '@/data/templatePresets';
+import { VCARD_CATEGORY_LIST, VCardCategory, normalizeCategory } from '@/data/vcardTemplates';
 
 function GoogleIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -122,7 +129,7 @@ const DEFAULT_PLANS_CONFIG = {
 const INDUSTRY_OPTIONS = [
   {
     id: 'real-estate',
-    category: 'Real Estate',
+    category: 'Real Estate' as VCardCategory,
     templateId: 're-builders',
     label: 'Real Estate & Builders',
     badge: '⭐ Flagship Mini-Website',
@@ -134,7 +141,7 @@ const INDUSTRY_OPTIONS = [
   },
   {
     id: 'interior-design',
-    category: 'Interior Design',
+    category: 'Interior Design' as VCardCategory,
     templateId: 'home-interior',
     label: 'Interior Design & Architecture',
     badge: '✨ Flagship 3D Studio',
@@ -145,23 +152,95 @@ const INDUSTRY_OPTIONS = [
     highlightText: 'Pre-loaded with 3D Lookbook, Living & Dining transformations, Modular Kitchens, IIID Certification, Cost Estimator, and 10-Yr Warranty guarantees.'
   },
   {
+    id: 'fashion',
+    category: 'Fashion & Clothing' as VCardCategory,
+    templateId: 'fash-boutique',
+    label: 'Fashion, Boutiques & Apparel',
+    badge: '👗 Couture & Retail',
+    desc: 'Designer Boutiques, Silk Sarees, Bespoke Suits, Men & Women Ethnic Wear',
+    icon: Shirt,
+    gradient: 'from-pink-500/10 via-rose-500/10 to-pink-500/5',
+    activeBorder: 'border-pink-600 bg-pink-50/90 text-pink-950',
+    highlightText: 'Pre-loaded with Digital Lookbook, Fabric Details, Custom Tailoring Consultations, and 1-Click WhatsApp Catalog Store.'
+  },
+  {
+    id: 'beauty',
+    category: 'Beauty & Personal Care' as VCardCategory,
+    templateId: 'beauty-salon',
+    label: 'Beauty, Salons & Wellness',
+    badge: '💄 Salon & Spa',
+    desc: 'Luxury Salons, Bridal Makeup Studios, Wellness Spas & Elite Fitness Gyms',
+    icon: Sparkles,
+    gradient: 'from-purple-500/10 via-pink-500/10 to-purple-500/5',
+    activeBorder: 'border-purple-600 bg-purple-50/90 text-purple-950',
+    highlightText: 'Pre-loaded with Service Rate Card, Bridal Makeover Portfolio, and Instant Doorstep / Salon Appointment Booking.'
+  },
+  {
+    id: 'food',
+    category: 'Food Business' as VCardCategory,
+    templateId: 'restaurant-menu',
+    label: 'Restaurants & Dining',
+    badge: '🍽️ Digital Menu',
+    desc: 'Fine Dining, Cafes, Bakeries, Homemade Pickles, Lounges & Cloud Kitchens',
+    icon: UtensilsCrossed,
+    gradient: 'from-rose-500/10 via-pink-500/10 to-rose-500/5',
+    activeBorder: 'border-rose-600 bg-rose-50/90 text-rose-950',
+    highlightText: 'Pre-loaded with Interactive WhatsApp Food Menu, Table Reservations & 0% Commission Direct UPI Ordering.'
+  },
+  {
     id: 'healthcare',
-    category: 'Healthcare',
+    category: 'Healthcare' as VCardCategory,
     templateId: 'vcard36',
     label: 'Healthcare & Doctors',
-    badge: 'OPD & Clinic',
-    desc: 'Physicians, Clinics, Dentists, Diagnostics & Healthcare Centers',
+    badge: '🏥 OPD & Clinic',
+    desc: 'Physicians, Clinics, Dentists, Diagnostics, Physiotherapy & Healthcare Centers',
     icon: HeartPulse,
     gradient: 'from-emerald-500/10 via-teal-500/10 to-emerald-500/5',
     activeBorder: 'border-emerald-600 bg-emerald-50/90 text-emerald-950',
     highlightText: 'Pre-loaded with Doctor OPD Timings, Treatment Packages & Instant Consultation Booking.'
   },
   {
+    id: 'automobile',
+    category: 'Automobile' as VCardCategory,
+    templateId: 'auto-cardeal',
+    label: 'Automobile & Garages',
+    badge: '🚗 Auto Suite',
+    desc: 'Car Dealerships, Bike Showrooms, Multi-Brand Garages & Ceramic Detailing',
+    icon: Car,
+    gradient: 'from-sky-500/10 via-blue-500/10 to-sky-500/5',
+    activeBorder: 'border-sky-600 bg-sky-50/90 text-sky-950',
+    highlightText: 'Pre-loaded with Pre-Owned Vehicle Inventory, Test Drive Bookings, and Service Rate Cards.'
+  },
+  {
+    id: 'education',
+    category: 'Education' as VCardCategory,
+    templateId: 'edu-coaching',
+    label: 'Education & Academies',
+    badge: '🎓 Academy Hub',
+    desc: 'Coaching Institutes, Academies, Tutors, Music Schools & Training Centres',
+    icon: GraduationCap,
+    gradient: 'from-violet-500/10 via-purple-500/10 to-violet-500/5',
+    activeBorder: 'border-violet-600 bg-violet-50/90 text-violet-950',
+    highlightText: 'Pre-loaded with Course Curriculum, Demo Class Slots & Student Admissions.'
+  },
+  {
+    id: 'events',
+    category: 'Events & Creative' as VCardCategory,
+    templateId: 'events-planner',
+    label: 'Events, Photography & Studios',
+    badge: '📸 Creative Studio',
+    desc: 'Wedding Planners, Photographers, Cinematographers, Florists & DJs',
+    icon: Camera,
+    gradient: 'from-indigo-500/10 via-purple-500/10 to-indigo-500/5',
+    activeBorder: 'border-indigo-600 bg-indigo-50/90 text-indigo-950',
+    highlightText: 'Pre-loaded with Event Showcase Reels, Photography Portfolios, and Wedding Date Consultation Desk.'
+  },
+  {
     id: 'legal',
-    category: 'Professional Services',
-    templateId: 'vcard37',
+    category: 'Professional Services' as VCardCategory,
+    templateId: 'vcard16',
     label: 'Law & Legal Advocates',
-    badge: 'Legal Suite',
+    badge: '⚖️ Legal Suite',
     desc: 'High Court Advocates, Corporate Law Firms, Legal Counsel & Notaries',
     icon: Scale,
     gradient: 'from-blue-500/10 via-indigo-500/10 to-blue-500/5',
@@ -169,23 +248,11 @@ const INDUSTRY_OPTIONS = [
     highlightText: 'Pre-loaded with Practice Areas, Retainers, Bar Association Affiliation & Case Queries.'
   },
   {
-    id: 'food',
-    category: 'Food Business',
-    templateId: 'vcard38',
-    label: 'Restaurants & Dining',
-    badge: 'Digital Menu',
-    desc: 'Fine Dining, Cafes, Bakeries, Lounges & Cloud Kitchens',
-    icon: UtensilsCrossed,
-    gradient: 'from-rose-500/10 via-pink-500/10 to-rose-500/5',
-    activeBorder: 'border-rose-600 bg-rose-50/90 text-rose-950',
-    highlightText: 'Pre-loaded with Interactive WhatsApp Food Menu, Table Reservations & Direct Ordering.'
-  },
-  {
     id: 'tech',
-    category: 'Professional Services',
-    templateId: 'vcard39',
+    category: 'Professional Services' as VCardCategory,
+    templateId: 'tech-portfolio',
     label: 'IT, Tech & SaaS Labs',
-    badge: 'Tech Studio',
+    badge: '💻 Tech Studio',
     desc: 'Software Companies, AI Labs, SaaS Startups & Developers',
     icon: Laptop,
     gradient: 'from-indigo-500/10 via-purple-500/10 to-indigo-500/5',
@@ -194,10 +261,10 @@ const INDUSTRY_OPTIONS = [
   },
   {
     id: 'finance',
-    category: 'Professional Services',
-    templateId: 'vcard40',
+    category: 'Professional Services' as VCardCategory,
+    templateId: 'prof-ca',
     label: 'Finance & CA (Tax)',
-    badge: 'Financial Suite',
+    badge: '📊 Financial Suite',
     desc: 'Chartered Accountants, Tax Filers & Wealth Advisory',
     icon: TrendingUp,
     gradient: 'from-teal-500/10 via-cyan-500/10 to-teal-500/5',
@@ -205,35 +272,11 @@ const INDUSTRY_OPTIONS = [
     highlightText: 'Pre-loaded with GST / Income Tax Advisory, Auditing & Portfolio Wealth Desk.'
   },
   {
-    id: 'retail',
-    category: 'Retail & Local Shops',
-    templateId: 'vcard41',
-    label: 'Retail & Boutiques',
-    badge: 'WhatsApp Store',
-    desc: 'Boutiques, Jewelry, Apparel, Electronics & Local Retail',
-    icon: ShoppingBag,
-    gradient: 'from-purple-500/10 via-fuchsia-500/10 to-purple-500/5',
-    activeBorder: 'border-purple-600 bg-purple-50/90 text-purple-950',
-    highlightText: 'Pre-loaded with WhatsApp Catalog Store, Instant UPI QR Pay & New Arrivals Showcase.'
-  },
-  {
-    id: 'architecture',
-    category: 'Home & Professional Services',
-    templateId: 'vcard42',
-    label: 'Architecture & Interiors',
-    badge: '3D Studio',
-    desc: 'Architects, Interior Designers & Turnkey Contractors',
-    icon: Compass,
-    gradient: 'from-cyan-500/10 via-sky-500/10 to-cyan-500/5',
-    activeBorder: 'border-cyan-600 bg-cyan-50/90 text-cyan-950',
-    highlightText: 'Pre-loaded with 3D Elevation Blueprints, Finished Projects & Site Consultation Desk.'
-  },
-  {
     id: 'corporate',
-    category: 'Professional Services',
+    category: 'Professional Services' as VCardCategory,
     templateId: 'vcard43',
     label: 'Executives & Founders',
-    badge: 'Executive Suite',
+    badge: '👑 Executive Suite',
     desc: 'Managing Directors, Corporate CXOs & Board Members',
     icon: Crown,
     gradient: 'from-amber-500/10 via-yellow-500/10 to-amber-500/5',
@@ -241,16 +284,40 @@ const INDUSTRY_OPTIONS = [
     highlightText: 'Pre-loaded with Executive Credentials, Media Features, Speaking & Boardroom Profile.'
   },
   {
-    id: 'education',
-    category: 'Education',
-    templateId: 'vcard44',
-    label: 'Education & Academies',
-    badge: 'Academy Hub',
-    desc: 'Coaching Institutes, Academies, Tutors & Training Centres',
-    icon: GraduationCap,
-    gradient: 'from-violet-500/10 via-purple-500/10 to-violet-500/5',
-    activeBorder: 'border-violet-600 bg-violet-50/90 text-violet-950',
-    highlightText: 'Pre-loaded with Course Curriculum, Demo Class Slots & Student Admissions.'
+    id: 'retail',
+    category: 'Retail & Local Shops' as VCardCategory,
+    templateId: 'ret-electronics',
+    label: 'Retail, Supermarkets & Shops',
+    badge: '🛍️ WhatsApp Store',
+    desc: 'Electronics, Jewelry, Supermarkets, Opticals & Local Retail',
+    icon: ShoppingBag,
+    gradient: 'from-purple-500/10 via-fuchsia-500/10 to-purple-500/5',
+    activeBorder: 'border-purple-600 bg-purple-50/90 text-purple-950',
+    highlightText: 'Pre-loaded with WhatsApp Catalog Store, Instant UPI QR Pay & New Arrivals Showcase.'
+  },
+  {
+    id: 'home-services',
+    category: 'Home & Professional Services' as VCardCategory,
+    templateId: 'home-plumber',
+    label: 'Home & Technical Services',
+    badge: '🛠️ Emergency Services',
+    desc: 'Plumbers, Electricians, AC & HVAC, Pest Control & Home Repair',
+    icon: Wrench,
+    gradient: 'from-cyan-500/10 via-sky-500/10 to-cyan-500/5',
+    activeBorder: 'border-cyan-600 bg-cyan-50/90 text-cyan-950',
+    highlightText: 'Pre-loaded with 24/7 Emergency Dialing, Transparent Rate Cards, and Instant Doorstep Visits.'
+  },
+  {
+    id: 'travel',
+    category: 'Travel & Hospitality' as VCardCategory,
+    templateId: 'trav-agency',
+    label: 'Travel, Hospitality & Tourism',
+    badge: '✈️ Travel Suite',
+    desc: 'Travel Agencies, Luxury Resorts, Hotels, Cabs & Homestays',
+    icon: Plane,
+    gradient: 'from-teal-500/10 via-emerald-500/10 to-teal-500/5',
+    activeBorder: 'border-teal-600 bg-teal-50/90 text-teal-950',
+    highlightText: 'Pre-loaded with Tour Packages, Hotel Booking Inquiries, and Airport Taxi Dispatch.'
   }
 ];
 
@@ -307,11 +374,26 @@ function SignUpForm() {
   const [step, setStep] = useState<1 | 2 | 3>(paramStep === '2' || paramUnpaid ? 2 : 1);
 
   // Industry & Profession Selection
-  const isInteriorParam = paramTemplate === 'home-interior' || paramTemplate === 'interior' || paramCategory?.toLowerCase().includes('interior');
-  const initialCategory = paramCategory || (isInteriorParam ? 'Interior Design' : (paramTemplate?.startsWith('re-') ? 'Real Estate' : 'Real Estate'));
-  const initialTemplateId = paramTemplate || (initialCategory === 'Interior Design' ? 'home-interior' : (initialCategory === 'Real Estate' ? 're-builders' : 're-builders'));
+  const initialCategory: VCardCategory = paramCategory 
+    ? normalizeCategory(paramCategory, paramTemplate) 
+    : (paramTemplate ? normalizeCategory(null, paramTemplate) : 'Real Estate');
+  const initialTemplateId = paramTemplate || (
+    initialCategory === 'Interior Design' ? 'home-interior' :
+    initialCategory === 'Real Estate' ? 're-builders' :
+    initialCategory === 'Fashion & Clothing' ? 'fash-boutique' :
+    initialCategory === 'Beauty & Personal Care' ? 'beauty-salon' :
+    initialCategory === 'Food Business' ? 'restaurant-menu' :
+    initialCategory === 'Healthcare' ? 'vcard36' :
+    initialCategory === 'Automobile' ? 'auto-cardeal' :
+    initialCategory === 'Education' ? 'edu-coaching' :
+    initialCategory === 'Events & Creative' ? 'events-planner' :
+    initialCategory === 'Retail & Local Shops' ? 'ret-electronics' :
+    initialCategory === 'Home & Professional Services' ? 'home-plumber' :
+    initialCategory === 'Travel & Hospitality' ? 'trav-agency' :
+    'vcard16'
+  );
 
-  const [category, setCategory] = useState(initialCategory);
+  const [category, setCategory] = useState<VCardCategory>(initialCategory);
   const [templateId, setTemplateId] = useState(initialTemplateId);
 
   // Form State
@@ -956,19 +1038,95 @@ function SignUpForm() {
               </div>
 
               {/* Step 2: Profession / Business Industry Selector */}
-              <div className="space-y-2.5 pt-1">
-                <div className="flex items-center justify-between">
+              <div className="space-y-3 pt-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Step 2: Choose Your Profession / Industry
                   </label>
-                  <span className="text-[11px] font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
-                    Active Studio: {category === 'Interior Design' ? 'Interior Design & Architecture' : category}
+                  <span className="text-[11px] font-bold text-indigo-800 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200 self-start sm:self-auto">
+                    Active Suite: {category}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {/* PROMINENT BUSINESS CATEGORY SELECTION BOX */}
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-50/90 via-purple-50/70 to-sky-50/80 border border-indigo-200/90 shadow-xs space-y-2.5">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                    <div className="space-y-0.5">
+                      <div className="flex items-center gap-1.5 text-xs font-extrabold text-slate-900">
+                        <Sparkles className="w-4 h-4 text-indigo-600" />
+                        <span>Business Category Selection Box</span>
+                        <span className="px-2 py-0.2 rounded-full text-[10px] font-bold bg-indigo-600 text-white">
+                          13 Industry Suites
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-600 leading-normal">
+                        Select your business category to instantly unlock your tailored template suite and features:
+                      </p>
+                    </div>
+
+                    <div className="relative min-w-[260px] sm:min-w-[280px]">
+                      <select
+                        value={category}
+                        onChange={(e) => {
+                          const newCat = e.target.value as VCardCategory;
+                          setCategory(newCat);
+                          const matchOpt = INDUSTRY_OPTIONS.find(i => i.category === newCat);
+                          if (matchOpt) {
+                            setTemplateId(matchOpt.templateId);
+                          }
+                          if (!businessName || businessName.includes('Business') || businessName.includes('Builders') || businessName.includes('Interiors')) {
+                            if (newCat === 'Real Estate') setBusinessName(fullName ? `${fullName} Builders & Realty` : 'Skyline Builders & Developers');
+                            else if (newCat === 'Interior Design') setBusinessName(fullName ? `${fullName} Studio & Interiors` : 'Luxe Living Interiors & Architecture');
+                            else setBusinessName(fullName ? `${fullName}'s Business` : '');
+                          }
+                        }}
+                        className="w-full pl-3.5 pr-9 py-2.5 rounded-xl bg-white border-2 border-indigo-300 text-xs font-extrabold text-slate-900 shadow-sm focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-500/20 appearance-none cursor-pointer transition-all"
+                      >
+                        {VCARD_CATEGORY_LIST.map((catItem) => (
+                          <option key={catItem.id} value={catItem.id}>
+                            {catItem.icon} {catItem.name} Suite
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="w-4 h-4 text-indigo-600 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    </div>
+                  </div>
+
+                  {/* Category Quick Filter Pills */}
+                  <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-indigo-200/60">
+                    <span className="text-[10px] font-bold uppercase text-slate-400 mr-1">Quick Select:</span>
+                    {VCARD_CATEGORY_LIST.map((catItem) => {
+                      const isActive = category === catItem.id;
+                      return (
+                        <button
+                          key={catItem.id}
+                          type="button"
+                          onClick={() => {
+                            setCategory(catItem.id);
+                            const matchOpt = INDUSTRY_OPTIONS.find(i => i.category === catItem.id);
+                            if (matchOpt) {
+                              setTemplateId(matchOpt.templateId);
+                            }
+                          }}
+                          className={`px-2 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer select-none ${
+                            isActive
+                              ? 'bg-indigo-600 text-white shadow-xs scale-105'
+                              : 'bg-white hover:bg-slate-100 text-slate-600 border border-slate-200'
+                          }`}
+                        >
+                          <span>{catItem.icon}</span>
+                          <span>{catItem.name.split(' ')[0]}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Grid of Templates for All Industries */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[460px] overflow-y-auto pr-1">
                   {INDUSTRY_OPTIONS.map((ind) => {
                     const isSelected = category === ind.category && (ind.templateId ? templateId === ind.templateId : true);
+                    const isCategoryMatch = category === ind.category;
                     const IconComponent = ind.icon;
                     return (
                       <div
@@ -984,14 +1142,16 @@ function SignUpForm() {
                         }}
                         className={`p-3 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between space-y-1.5 relative select-none ${
                           isSelected
-                            ? ind.activeBorder + ' shadow-md ring-2 ring-indigo-500/30'
+                            ? ind.activeBorder + ' shadow-md ring-2 ring-indigo-500/40 scale-[1.01]'
+                            : isCategoryMatch
+                            ? 'bg-indigo-50/50 border-indigo-200 text-slate-800'
                             : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300 shadow-xs'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-1.5">
                           <div className="flex items-center gap-2 min-w-0">
                             <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
-                              isSelected ? 'bg-amber-600 text-white' : 'bg-slate-100 text-slate-600'
+                              isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'
                             }`}>
                               <IconComponent className="w-4 h-4" />
                             </div>
