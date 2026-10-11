@@ -371,7 +371,7 @@ export default function LandingPage() {
               </h1>
 
               <p className="text-sm sm:text-base lg:text-base xl:text-lg text-slate-600 max-w-2xl leading-relaxed font-normal mx-auto lg:mx-0">
-                Replace outdated paper business cards with dynamic vCards, 1-click WhatsApp mini-stores, appointment booking calendars, and blog publishing studios.
+                Replace outdated paper business cards with smart digital visiting cards, 1-click WhatsApp stores, appointment booking calendars, and turnkey mini-websites.
               </p>
 
               {/* Live URL Alias Claimer */}
