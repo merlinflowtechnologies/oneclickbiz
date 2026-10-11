@@ -53,6 +53,9 @@ import EducationMiniWebsiteView from './EducationMiniWebsiteView';
 import BeautyMiniWebsiteView from './BeautyMiniWebsiteView';
 import EventsMiniWebsiteView from './EventsMiniWebsiteView';
 import TravelMiniWebsiteView from './TravelMiniWebsiteView';
+import ProfessionalMiniWebsiteView from './ProfessionalMiniWebsiteView';
+import HomeServicesMiniWebsiteView from './HomeServicesMiniWebsiteView';
+import RetailMiniWebsiteView from './RetailMiniWebsiteView';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -862,6 +865,63 @@ export default function ProfileCardView({
     Boolean(profile.sectionData?.travel)
   );
 
+  const isProfessional = Boolean(
+    (profile as any).category === 'Professional Services' ||
+    (profile as any).templateId?.includes('prof') ||
+    (profile as any).templateId?.includes('legal') ||
+    (profile as any).templateId?.includes('tax') ||
+    (profile as any).templateId?.includes('ca-') ||
+    (profile as any).templateId?.includes('consult') ||
+    profile.designation?.toLowerCase().includes('advocate') ||
+    profile.designation?.toLowerCase().includes('lawyer') ||
+    profile.designation?.toLowerCase().includes('chartered accountant') ||
+    profile.designation?.toLowerCase().includes('consultant') ||
+    profile.company?.toLowerCase().includes('legal') ||
+    profile.company?.toLowerCase().includes('associates') ||
+    profile.company?.toLowerCase().includes('consulting') ||
+    profile.company?.toLowerCase().includes('tax') ||
+    Boolean(profile.sectionData?.professional)
+  );
+
+  const isHomeServices = Boolean(
+    (profile as any).category === 'Home & Professional Services' ||
+    (profile as any).templateId?.includes('home') ||
+    (profile as any).templateId?.includes('repair') ||
+    (profile as any).templateId?.includes('clean') ||
+    (profile as any).templateId?.includes('plumb') ||
+    (profile as any).templateId?.includes('electric') ||
+    (profile as any).templateId?.includes('hvac') ||
+    (profile as any).templateId?.includes('pest') ||
+    profile.designation?.toLowerCase().includes('technician') ||
+    profile.designation?.toLowerCase().includes('plumber') ||
+    profile.designation?.toLowerCase().includes('electrician') ||
+    profile.designation?.toLowerCase().includes('cleaning') ||
+    profile.company?.toLowerCase().includes('services') ||
+    profile.company?.toLowerCase().includes('repairs') ||
+    profile.company?.toLowerCase().includes('pest') ||
+    profile.company?.toLowerCase().includes('cooling') ||
+    Boolean(profile.sectionData?.homeServices)
+  );
+
+  const isRetail = Boolean(
+    (profile as any).category === 'Retail & Local Shops' ||
+    (profile as any).templateId?.includes('retail') ||
+    (profile as any).templateId?.includes('shop') ||
+    (profile as any).templateId?.includes('store') ||
+    (profile as any).templateId?.includes('jewel') ||
+    (profile as any).templateId?.includes('supermarket') ||
+    (profile as any).templateId?.includes('gadget') ||
+    profile.designation?.toLowerCase().includes('proprietor') ||
+    profile.designation?.toLowerCase().includes('store manager') ||
+    profile.designation?.toLowerCase().includes('merchant') ||
+    profile.company?.toLowerCase().includes('store') ||
+    profile.company?.toLowerCase().includes('shop') ||
+    profile.company?.toLowerCase().includes('mart') ||
+    profile.company?.toLowerCase().includes('jewellers') ||
+    profile.company?.toLowerCase().includes('bazaar') ||
+    Boolean(profile.sectionData?.retail)
+  );
+
   return (
     <div className="w-full relative">
       {/* Top Device View Switcher (Visible on both mobile & desktop) */}
@@ -1005,6 +1065,21 @@ export default function ProfileCardView({
           />
         ) : isTravel ? (
           <TravelMiniWebsiteView
+            profile={profile}
+            getEmbedUrl={getEmbedUrl}
+          />
+        ) : isProfessional ? (
+          <ProfessionalMiniWebsiteView
+            profile={profile}
+            getEmbedUrl={getEmbedUrl}
+          />
+        ) : isHomeServices ? (
+          <HomeServicesMiniWebsiteView
+            profile={profile}
+            getEmbedUrl={getEmbedUrl}
+          />
+        ) : isRetail ? (
+          <RetailMiniWebsiteView
             profile={profile}
             getEmbedUrl={getEmbedUrl}
           />

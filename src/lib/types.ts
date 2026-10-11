@@ -191,6 +191,33 @@ export interface TravelTrustConfig {
   [key: string]: any;
 }
 
+export interface ProfessionalTrustConfig {
+  barCouncilOrIcaId?: string;
+  practiceYears?: string;
+  casesOrClientsCount?: string;
+  consultationMode?: string;
+  confidentialityPolicy?: string;
+  [key: string]: any;
+}
+
+export interface HomeServicesTrustConfig {
+  serviceWarrantyDays?: string;
+  verifiedTechniciansCount?: string;
+  responseTime?: string;
+  pricingStandard?: string;
+  emergencyAvailability?: string;
+  [key: string]: any;
+}
+
+export interface RetailTrustConfig {
+  storeType?: string;
+  returnExchangePolicy?: string;
+  deliveryRadius?: string;
+  billingGst?: string;
+  loyaltyPerks?: string;
+  [key: string]: any;
+}
+
 export interface ProfileSectionConfig {
   about?: { content: string };
   services?: { items: ServiceItem[] };
@@ -210,6 +237,9 @@ export interface ProfileSectionConfig {
   beauty?: BeautyTrustConfig;
   events?: EventsTrustConfig;
   travel?: TravelTrustConfig;
+  professional?: ProfessionalTrustConfig;
+  homeServices?: HomeServicesTrustConfig;
+  retail?: RetailTrustConfig;
   [key: string]: any;
   contact?: {
     showEmail: boolean;

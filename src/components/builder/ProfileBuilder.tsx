@@ -64,7 +64,10 @@ import {
   GraduationCap,
   Scissors,
   PartyPopper,
-  Plane
+  Plane,
+  Scale,
+  Wrench,
+  Store
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { DigitalProfile, ThemeType, SectionType, VideoItem, GalleryItem, BlogPostItem, ProductItem, ServiceItem } from '@/lib/types';
@@ -414,6 +417,60 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     Boolean(profile.sectionData?.travel)
   );
 
+  const isProfessional = Boolean(
+    profile.templateId?.startsWith('prof-') ||
+    profile.templateId?.startsWith('legal-') ||
+    profile.templateId?.startsWith('tax-') ||
+    profile.templateId?.startsWith('ca-') ||
+    profile.templateId?.startsWith('consult-') ||
+    profile.category === 'Professional Services' ||
+    profile.designation?.toLowerCase().includes('advocate') ||
+    profile.designation?.toLowerCase().includes('lawyer') ||
+    profile.designation?.toLowerCase().includes('chartered accountant') ||
+    profile.designation?.toLowerCase().includes('consultant') ||
+    profile.company?.toLowerCase().includes('legal') ||
+    profile.company?.toLowerCase().includes('associates') ||
+    profile.company?.toLowerCase().includes('consulting') ||
+    profile.company?.toLowerCase().includes('tax') ||
+    Boolean(profile.sectionData?.professional)
+  );
+
+  const isHomeServices = Boolean(
+    profile.templateId?.startsWith('home-') ||
+    profile.templateId?.startsWith('repair-') ||
+    profile.templateId?.startsWith('clean-') ||
+    profile.templateId?.startsWith('plumb-') ||
+    profile.templateId?.startsWith('electric-') ||
+    profile.templateId?.startsWith('hvac-') ||
+    profile.templateId?.startsWith('pest-') ||
+    profile.category === 'Home & Professional Services' ||
+    profile.designation?.toLowerCase().includes('technician') ||
+    profile.designation?.toLowerCase().includes('plumber') ||
+    profile.designation?.toLowerCase().includes('electrician') ||
+    profile.designation?.toLowerCase().includes('cleaning') ||
+    profile.company?.toLowerCase().includes('services') ||
+    profile.company?.toLowerCase().includes('repairs') ||
+    profile.company?.toLowerCase().includes('pest') ||
+    Boolean(profile.sectionData?.homeServices)
+  );
+
+  const isRetail = Boolean(
+    profile.templateId?.startsWith('retail-') ||
+    profile.templateId?.startsWith('shop-') ||
+    profile.templateId?.startsWith('store-') ||
+    profile.templateId?.startsWith('jewel-') ||
+    profile.templateId?.startsWith('supermarket-') ||
+    profile.category === 'Retail & Local Shops' ||
+    profile.designation?.toLowerCase().includes('proprietor') ||
+    profile.designation?.toLowerCase().includes('store manager') ||
+    profile.designation?.toLowerCase().includes('merchant') ||
+    profile.company?.toLowerCase().includes('store') ||
+    profile.company?.toLowerCase().includes('shop') ||
+    profile.company?.toLowerCase().includes('mart') ||
+    profile.company?.toLowerCase().includes('jewellers') ||
+    Boolean(profile.sectionData?.retail)
+  );
+
   const activeCategory: VCardCategory = React.useMemo(() => {
     if (profile.category) return normalizeCategory(profile.category, profile.templateId);
     if (isRealEstate) return 'Real Estate';
@@ -425,8 +482,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     if (isBeauty) return 'Beauty & Personal Care';
     if (isEvents) return 'Events & Creative';
     if (isTravel) return 'Travel & Hospitality';
+    if (isProfessional) return 'Professional Services';
+    if (isHomeServices) return 'Home & Professional Services';
+    if (isRetail) return 'Retail & Local Shops';
     return normalizeCategory(null, profile.templateId);
-  }, [profile.category, profile.templateId, isRealEstate, isInterior, isHealthcare, isAutomobile, isFashion, isEducation, isBeauty, isEvents, isTravel]);
+  }, [profile.category, profile.templateId, isRealEstate, isInterior, isHealthcare, isAutomobile, isFashion, isEducation, isBeauty, isEvents, isTravel, isProfessional, isHomeServices, isRetail]);
 
   const lockConfig = CATEGORY_LOCK_CONFIG[activeCategory] || CATEGORY_LOCK_CONFIG['Professional Services'];
 
@@ -1063,6 +1123,27 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               supportHours: '24/7 Dedicated Ground Concierge',
               customizationPolicy: '100% Tailored Private Itineraries'
             }) : preset.sectionData?.travel,
+            professional: (activeCategory === 'Professional Services' || isProfessional) ? (preset.sectionData?.professional || prev.sectionData?.professional || {
+              barCouncilOrIcaId: 'Bar Council / ICAI Enrolled • High Court Practice',
+              practiceYears: '15+ Years Industry Experience',
+              casesOrClientsCount: '1,200+ Corporate & Individual Matters Handled',
+              consultationMode: 'In-Chamber & Secure Virtual Advisory Desk',
+              confidentialityPolicy: '100% Strict Attorney-Client Privilege & NDA'
+            }) : preset.sectionData?.professional,
+            homeServices: (activeCategory === 'Home & Professional Services' || isHomeServices) ? (preset.sectionData?.homeServices || prev.sectionData?.homeServices || {
+              serviceWarrantyDays: '30-Day Workmanship Warranty',
+              verifiedTechniciansCount: '100% Police & Background Verified Crew',
+              responseTime: 'Within 45-60 Mins On-Site Arrival',
+              pricingStandard: 'Standard Upfront Rate Card • No Hidden Charges',
+              emergencyAvailability: '24/7 Rapid Emergency Dispatch'
+            }) : preset.sectionData?.homeServices,
+            retail: (activeCategory === 'Retail & Local Shops' || isRetail) ? (preset.sectionData?.retail || prev.sectionData?.retail || {
+              storeType: '100% Genuine Authorized Dealer & Brand Stock',
+              returnExchangePolicy: '7-Day Easy Store Exchange Policy',
+              deliveryRadius: 'Same-Day Express Local Delivery',
+              billingGst: 'Official GST Invoice with Full Brand Warranty',
+              loyaltyPerks: 'Instant Member Discounts & Cashback Points'
+            }) : preset.sectionData?.retail,
           }
         };
       });
@@ -1450,7 +1531,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : isHealthcare ? 'Doctor & Clinic' : isAutomobile ? 'Dealership Info' : isFashion ? 'Boutique & Atelier' : isEducation ? 'Academy & Affiliation' : isBeauty ? 'Salon & Studio' : isEvents ? 'Studio & Production' : isTravel ? 'Agency & Gateways' : 'Basic Info'}
+              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : isHealthcare ? 'Doctor & Clinic' : isAutomobile ? 'Dealership Info' : isFashion ? 'Boutique & Atelier' : isEducation ? 'Academy & Affiliation' : isBeauty ? 'Salon & Studio' : isEvents ? 'Studio & Production' : isTravel ? 'Agency & Gateways' : isProfessional ? 'Counsel & Firm Info' : isHomeServices ? 'Agency & Dispatch Info' : isRetail ? 'Storefront & Hub Info' : 'Basic Info'}
             </button>
             <button 
               onClick={() => setActiveTab('products')}
@@ -1502,6 +1583,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <>
                   <Plane className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Holiday Itineraries ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isProfessional ? (
+                <>
+                  <Briefcase className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Retainers &amp; Advisory ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isHomeServices ? (
+                <>
+                  <Wrench className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Annual AMCs &amp; Packages ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isRetail ? (
+                <>
+                  <Store className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Store Inventory ({profile.sectionData?.products?.items?.length || 0})</span>
                 </>
               ) : (
                 <>
@@ -1561,6 +1657,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <Compass className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Travel Services</span>
                 </>
+              ) : isProfessional ? (
+                <>
+                  <Scale className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Practice Areas &amp; Consult</span>
+                </>
+              ) : isHomeServices ? (
+                <>
+                  <Wrench className="w-3.5 h-3.5 text-amber-400" />
+                  <span>On-Demand Repairs &amp; Services</span>
+                </>
+              ) : isRetail ? (
+                <>
+                  <ShoppingBag className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Store Services &amp; Delivery</span>
+                </>
               ) : (
                 <>
                   <Briefcase className="w-3.5 h-3.5 text-blue-400" />
@@ -1618,6 +1729,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <>
                   <ImageIcon className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Destinations &amp; Moments</span>
+                </>
+              ) : isProfessional ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Chambers &amp; Credentials</span>
+                </>
+              ) : isHomeServices ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
+                  <span>On-Site Work &amp; Equipment</span>
+                </>
+              ) : isRetail ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Storefront &amp; Showroom</span>
                 </>
               ) : (
                 <>
@@ -3801,6 +3927,453 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   </div>
                 )}
 
+                {/* 12. PROFESSIONAL SERVICES (LEGAL, CA, CONSULTANTS) CREDENTIALS */}
+                {isProfessional && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-amber-950/40 to-slate-900 border border-amber-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center">
+                          <Scale className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
+                            Professional Bar / ICAI Accreditation &amp; Chambers
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your advisory trust strip, consultation desk, and practice credentials.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-300 font-bold border border-amber-500/30">
+                        Senior Counsel
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Bar Council / ICAI / Council Reg No.</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.professional?.barCouncilOrIcaId ?? 'Bar Council / ICAI Enrolled • High Court Practice'}
+                          placeholder="e.g. Bar Council Enrolled"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                professional: {
+                                  ...(prev.sectionData?.professional || {}),
+                                  barCouncilOrIcaId: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 focus:outline-none focus:border-amber-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Award className="w-3.5 h-3.5 text-yellow-400" />
+                          <span>Confidentiality &amp; NDA Policy</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.professional?.confidentialityPolicy ?? '100% Strict Attorney-Client Privilege & NDA'}
+                          placeholder="e.g. 100% Strict Attorney-Client Privilege"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                professional: {
+                                  ...(prev.sectionData?.professional || {}),
+                                  confidentialityPolicy: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Years in Practice</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.professional?.practiceYears ?? '15+ Years Industry Experience'}
+                          placeholder="e.g. 15+ Years"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                professional: {
+                                  ...(prev.sectionData?.professional || {}),
+                                  practiceYears: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Cases / Matters Handled</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.professional?.casesOrClientsCount ?? '1,200+ Corporate & Individual Matters Handled'}
+                          placeholder="e.g. 1,200+ Matters"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                professional: {
+                                  ...(prev.sectionData?.professional || {}),
+                                  casesOrClientsCount: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Consultation Format</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.professional?.consultationMode ?? 'In-Chamber & Secure Virtual Advisory Desk'}
+                          placeholder="e.g. In-Chamber & Virtual"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                professional: {
+                                  ...(prev.sectionData?.professional || {}),
+                                  consultationMode: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 13. HOME & PROFESSIONAL SERVICES (PLUMBING, ELECTRICAL, HVAC, PEST, CLEANING) */}
+                {isHomeServices && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950/40 to-slate-900 border border-blue-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-blue-500/20 border border-blue-500/40 text-blue-400 flex items-center justify-center">
+                          <Wrench className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-blue-300">
+                            Service Fleet Standards &amp; Workmanship Guarantee
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your emergency top banner, technician badges, and rate card.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-300 font-bold border border-amber-500/30">
+                        Rapid Dispatch
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+                          <span>Service Warranty Duration</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.homeServices?.serviceWarrantyDays ?? '30-Day Workmanship Warranty'}
+                          placeholder="e.g. 30-Day Workmanship Warranty"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                homeServices: {
+                                  ...(prev.sectionData?.homeServices || {}),
+                                  serviceWarrantyDays: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-blue-300 focus:outline-none focus:border-blue-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Arrival Window / Response Time</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.homeServices?.responseTime ?? 'Within 45-60 Mins On-Site Arrival'}
+                          placeholder="e.g. Within 45-60 Mins"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                homeServices: {
+                                  ...(prev.sectionData?.homeServices || {}),
+                                  responseTime: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Crew Background Checks</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.homeServices?.verifiedTechniciansCount ?? '100% Police & Background Verified Crew'}
+                          placeholder="e.g. 100% Background Verified"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                homeServices: {
+                                  ...(prev.sectionData?.homeServices || {}),
+                                  verifiedTechniciansCount: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Pricing Transparency</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.homeServices?.pricingStandard ?? 'Standard Upfront Rate Card • No Hidden Charges'}
+                          placeholder="e.g. Transparent Rate Card"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                homeServices: {
+                                  ...(prev.sectionData?.homeServices || {}),
+                                  pricingStandard: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Emergency Availability</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.homeServices?.emergencyAvailability ?? '24/7 Rapid Emergency Dispatch'}
+                          placeholder="e.g. 24/7 Rapid Dispatch"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                homeServices: {
+                                  ...(prev.sectionData?.homeServices || {}),
+                                  emergencyAvailability: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 14. RETAIL & LOCAL SHOPS CREDENTIALS */}
+                {isRetail && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-emerald-950/40 to-slate-900 border border-emerald-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center">
+                          <Store className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-300">
+                            Store Authenticity &amp; Retail Fulfillment
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your store header, product cards, and WhatsApp checkout desk.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 font-bold border border-emerald-500/30">
+                        Authorized Dealer
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>Storefront / Stock Authenticity</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.retail?.storeType ?? '100% Genuine Authorized Dealer & Brand Stock'}
+                          placeholder="e.g. 100% Genuine Authorized Dealer"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                retail: {
+                                  ...(prev.sectionData?.retail || {}),
+                                  storeType: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-emerald-300 focus:outline-none focus:border-emerald-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Award className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Return &amp; Exchange Policy</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.retail?.returnExchangePolicy ?? '7-Day Easy Store Exchange Policy'}
+                          placeholder="e.g. 7-Day Easy Store Exchange"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                retail: {
+                                  ...(prev.sectionData?.retail || {}),
+                                  returnExchangePolicy: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Local Delivery Radius</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.retail?.deliveryRadius ?? 'Same-Day Express Local Delivery'}
+                          placeholder="e.g. Same-Day Express Delivery"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                retail: {
+                                  ...(prev.sectionData?.retail || {}),
+                                  deliveryRadius: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Tax Invoice &amp; Warranty</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.retail?.billingGst ?? 'Official GST Invoice with Full Brand Warranty'}
+                          placeholder="e.g. Official GST Invoice"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                retail: {
+                                  ...(prev.sectionData?.retail || {}),
+                                  billingGst: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">VIP Loyalty Perks</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.retail?.loyaltyPerks ?? 'Instant Member Discounts & Cashback Points'}
+                          placeholder="e.g. Instant Member Discounts"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                retail: {
+                                  ...(prev.sectionData?.retail || {}),
+                                  loyaltyPerks: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Quick Social Media & Networks (LinkedIn, Instagram, Twitter/X, YouTube, Facebook, Telegram) */}
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 space-y-3 pt-3 mt-2">
                   <div className="flex items-center justify-between">
@@ -4724,21 +5297,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-white">
-                      {isHealthcare ? 'Clinical Treatments & OPD Consultations' : isAutomobile ? 'VIP Test Drives & Services' : isFashion ? 'Bridal Styling & Custom Stitching' : isEducation ? 'Academic Counseling & Demo Classes' : isBeauty ? 'Salon Treatments & Beauty Services' : isEvents ? 'Event Production & Creative Services' : isTravel ? 'Custom Travel & Concierge Services' : 'Bookable Services'}
+                      {isHealthcare ? 'Clinical Treatments & OPD Consultations' : isAutomobile ? 'VIP Test Drives & Services' : isFashion ? 'Bridal Styling & Custom Stitching' : isEducation ? 'Academic Counseling & Demo Classes' : isBeauty ? 'Salon Treatments & Beauty Services' : isEvents ? 'Event Production & Creative Services' : isTravel ? 'Custom Travel & Concierge Services' : isProfessional ? 'Legal & Advisory Practice Areas' : isHomeServices ? 'On-Demand Repairs & Maintenance Fleet' : isRetail ? 'Storefront Services & Value-Adds' : 'Bookable Services'}
                     </h3>
                     <p className="text-xs text-slate-400">
-                      {isHealthcare ? 'Configure diagnostic consultations, health checkups, and doctor appointment slots.' : isAutomobile ? 'Configure vehicle test drives, doorstep evaluations, and periodic service checkups.' : isFashion ? 'Configure bespoke bridal consultations, couture measurements, and styling sessions.' : isEducation ? 'Configure 1-on-1 career guidance, batch counseling, and free trial demo sessions.' : isBeauty ? 'Configure luxury haircuts, skin treatments, bridal makeovers, and spa bookings.' : isEvents ? 'Configure wedding planning, candid shoot sessions, intelligent stage lighting, and sound rigs.' : isTravel ? 'Configure honeymoon itineraries, express visa filing, private cab transfers, and tour consultation.' : 'Services clients can choose from to book appointments on your calendar.'}
+                      {isHealthcare ? 'Configure diagnostic consultations, health checkups, and doctor appointment slots.' : isAutomobile ? 'Configure vehicle test drives, doorstep evaluations, and periodic service checkups.' : isFashion ? 'Configure bespoke bridal consultations, couture measurements, and styling sessions.' : isEducation ? 'Configure 1-on-1 career guidance, batch counseling, and free trial demo sessions.' : isBeauty ? 'Configure luxury haircuts, skin treatments, bridal makeovers, and spa bookings.' : isEvents ? 'Configure wedding planning, candid shoot sessions, intelligent stage lighting, and sound rigs.' : isTravel ? 'Configure honeymoon itineraries, express visa filing, private cab transfers, and tour consultation.' : isProfessional ? 'Configure chamber consultations, corporate contract vetting, tax retainers, and litigation briefs.' : isHomeServices ? 'Configure plumbing, AC power jet cleaning, electrical repairs, and pest control appointments.' : isRetail ? 'Configure same-day express delivery, WhatsApp live shopping tours, and demo appointments.' : 'Services clients can choose from to book appointments on your calendar.'}
                     </p>
                   </div>
                   <button
                     onClick={() => {
                       const newService = {
                         id: `svc_${Date.now()}`,
-                        title: isHealthcare ? 'Specialist Clinical Consultation' : isAutomobile ? 'VIP Showroom Test Drive Session' : isFashion ? 'Bespoke Bridal Fitting & Styling' : isEducation ? 'Academic Counseling & Free Demo Class' : isBeauty ? 'Signature Hair & Facial Spa Treatment' : isEvents ? 'Complete Wedding Planning & Directing' : isTravel ? 'Bespoke Honeymoon & Private Tour Curating' : 'New Service',
-                        description: isHealthcare ? 'Comprehensive clinical examination, vitals check, and prescription advisory.' : isAutomobile ? 'Complimentary 45-min test drive with technical product specialist and route demo.' : isFashion ? '1-on-1 private bridal consultation, silhouette selection, and fabric customization.' : isEducation ? 'Interactive 1-on-1 career guidance, batch counseling, and syllabus walkthrough.' : isBeauty ? 'Deluxe haircut, scalp rejuvenating treatment, and professional styling session.' : isEvents ? 'End-to-end wedding choreography, vendor coordination, hospitality, guest concierge & ritual planning.' : isTravel ? '1-on-1 itinerary planning, candle-light dinners, private transfers, visa assistance & 24/7 dedicated trip concierge.' : 'Describe this service offering...',
-                        price: isHealthcare ? 800 : isAutomobile ? 0 : isFashion ? 1500 : isEducation ? 0 : isBeauty ? 1200 : isEvents ? 150000 : isTravel ? 0 : 999,
+                        title: isHealthcare ? 'Specialist Clinical Consultation' : isAutomobile ? 'VIP Showroom Test Drive Session' : isFashion ? 'Bespoke Bridal Fitting & Styling' : isEducation ? 'Academic Counseling & Free Demo Class' : isBeauty ? 'Signature Hair & Facial Spa Treatment' : isEvents ? 'Complete Wedding Planning & Directing' : isTravel ? 'Bespoke Honeymoon & Private Tour Curating' : isProfessional ? 'Corporate Advisory & Contract Review' : isHomeServices ? 'Emergency Plumbing & Leakage Repair' : isRetail ? 'Same-Day Express Doorstep Delivery' : 'New Service',
+                        description: isHealthcare ? 'Comprehensive clinical examination, vitals check, and prescription advisory.' : isAutomobile ? 'Complimentary 45-min test drive with technical product specialist and route demo.' : isFashion ? '1-on-1 private bridal consultation, silhouette selection, and fabric customization.' : isEducation ? 'Interactive 1-on-1 career guidance, batch counseling, and syllabus walkthrough.' : isBeauty ? 'Deluxe haircut, scalp rejuvenating treatment, and professional styling session.' : isEvents ? 'End-to-end wedding choreography, vendor coordination, hospitality, guest concierge & ritual planning.' : isTravel ? '1-on-1 itinerary planning, candle-light dinners, private transfers, visa assistance & 24/7 dedicated trip concierge.' : isProfessional ? 'Thorough review of NDA/MOU agreements, legal risk analysis, and drafting advisory.' : isHomeServices ? 'Immediate dispatch of certified plumber for burst pipes, tap leaks, and drain blockages.' : isRetail ? 'Doorstep express delivery within city limits with package verification and live tracking.' : 'Describe this service offering...',
+                        price: isHealthcare ? 800 : isAutomobile ? 0 : isFashion ? 1500 : isEducation ? 0 : isBeauty ? 1200 : isEvents ? 150000 : isTravel ? 0 : isProfessional ? 2500 : isHomeServices ? 299 : isRetail ? 0 : 999,
                         currency: '₹',
-                        durationMinutes: isHealthcare ? 30 : isAutomobile ? 45 : isFashion ? 60 : isEducation ? 45 : isBeauty ? 60 : isEvents ? 1440 : isTravel ? 45 : 45,
+                        durationMinutes: isHealthcare ? 30 : isAutomobile ? 45 : isFashion ? 60 : isEducation ? 45 : isBeauty ? 60 : isEvents ? 1440 : isTravel ? 45 : isProfessional ? 60 : isHomeServices ? 45 : isRetail ? 30 : 45,
                         isAvailable: true
                       };
                       const updated = [...(profile.sectionData.services?.items || []), newService];
@@ -4748,10 +5321,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       }));
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0 ${
-                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : isEvents ? 'bg-violet-600 hover:bg-violet-500' : isTravel ? 'bg-cyan-600 hover:bg-cyan-500' : 'bg-indigo-600 hover:bg-indigo-500'
+                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : isEvents ? 'bg-violet-600 hover:bg-violet-500' : isTravel ? 'bg-cyan-600 hover:bg-cyan-500' : isProfessional ? 'bg-amber-600 hover:bg-amber-500' : isHomeServices ? 'bg-amber-600 hover:bg-amber-500' : isRetail ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-indigo-600 hover:bg-indigo-500'
                     }`}
                   >
-                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Clinical Slot' : isAutomobile ? 'Add Test Drive' : isFashion ? 'Add Styling Service' : isEducation ? 'Add Demo / Counseling Slot' : isBeauty ? 'Add Salon Service' : isEvents ? 'Add Event Service' : isTravel ? 'Add Travel Service' : 'Add Service'}
+                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Clinical Slot' : isAutomobile ? 'Add Test Drive' : isFashion ? 'Add Styling Service' : isEducation ? 'Add Demo / Counseling Slot' : isBeauty ? 'Add Salon Service' : isEvents ? 'Add Event Service' : isTravel ? 'Add Travel Service' : isProfessional ? 'Add Practice Area' : isHomeServices ? 'Add Repair Service' : isRetail ? 'Add Store Service' : 'Add Service'}
                   </button>
                 </div>
 
@@ -5408,22 +5981,22 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-white">
-                      {isHealthcare ? 'Health Packages & Wellness Checkups' : isAutomobile ? 'Vehicle Showroom Fleet & Inventory' : isFashion ? 'Couture Collections & Saree Lookbook' : isEducation ? 'Course Programs & Certifications' : isBeauty ? 'Bridal & Luxury Spa Packages' : isEvents ? 'Signature Event Packages & Rigs' : isTravel ? 'Curated Holiday Itineraries & Gateways' : 'WhatsApp Store Catalog'}
+                      {isHealthcare ? 'Health Packages & Wellness Checkups' : isAutomobile ? 'Vehicle Showroom Fleet & Inventory' : isFashion ? 'Couture Collections & Saree Lookbook' : isEducation ? 'Course Programs & Certifications' : isBeauty ? 'Bridal & Luxury Spa Packages' : isEvents ? 'Signature Event Packages & Rigs' : isTravel ? 'Curated Holiday Itineraries & Gateways' : isProfessional ? 'Advisory Retainers & Legal Frameworks' : isHomeServices ? 'Deep Cleaning & Facility Packages' : isRetail ? 'Store Inventory & Featured Products' : 'WhatsApp Store Catalog'}
                     </h3>
                     <p className="text-xs text-slate-400">
-                      {isHealthcare ? 'Offer comprehensive medical checkup packages, full body screening, and diagnostic profiles.' : isAutomobile ? 'Showcase verified vehicles with pricing, mileage, fuel type, transmission, and instant WhatsApp booking.' : isFashion ? 'Showcase pure silk sarees, designer gowns, lehengas with live pricing and direct WhatsApp checkout.' : isEducation ? 'Showcase specialized courses, diploma batches, and certification roadmaps with instant inquiry.' : isBeauty ? 'Showcase complete bridal makeovers, hydra facials, and wellness combos with direct reservation.' : isEvents ? 'Showcase complete royal wedding packages, 2-day candid photo cinema sets, and sangeet stage rigs with pricing.' : isTravel ? 'Showcase international escapes, domestic honeymoon retreats, and custom tour packages with transparent pricing.' : 'Products or packages customers can add to their cart and order directly on WhatsApp.'}
+                      {isHealthcare ? 'Offer comprehensive medical checkup packages, full body screening, and diagnostic profiles.' : isAutomobile ? 'Showcase verified vehicles with pricing, mileage, fuel type, transmission, and instant WhatsApp booking.' : isFashion ? 'Showcase pure silk sarees, designer gowns, lehengas with live pricing and direct WhatsApp checkout.' : isEducation ? 'Showcase specialized courses, diploma batches, and certification roadmaps with instant inquiry.' : isBeauty ? 'Showcase complete bridal makeovers, hydra facials, and wellness combos with direct reservation.' : isEvents ? 'Showcase complete royal wedding packages, 2-day candid photo cinema sets, and sangeet stage rigs with pricing.' : isTravel ? 'Showcase international escapes, domestic honeymoon retreats, and custom tour packages with transparent pricing.' : isProfessional ? 'Showcase startup legal packages, monthly retainer plans, trademark filings, and compliance audits.' : isHomeServices ? 'Showcase complete 2BHK/3BHK deep cleaning, anti-termite structural warranty, and annual maintenance plans.' : isRetail ? 'Showcase in-store inventory, latest arrivals, hallmark jewelry, and gadgets with instant WhatsApp checkout.' : 'Products or packages customers can add to their cart and order directly on WhatsApp.'}
                     </p>
                   </div>
                   <button
                     onClick={() => {
                       const newProd = {
                         id: `prod_${Date.now()}`,
-                        name: isHealthcare ? 'Executive Master Health Checkup' : isAutomobile ? '2023 Certified Automatic Sedan' : isFashion ? 'Pure Kanjeevaram Bridal Silk Saree' : isEducation ? 'Full Stack Web Development & AI Masterclass' : isBeauty ? 'Royal Bridal Glow & Pre-Wedding Rituals' : isEvents ? 'Grand Royal 3-Day Destination Wedding Package' : isTravel ? 'Bali Private Pool Villa & Island Escape (6D/5N)' : 'New Product / Service Package',
-                        description: isHealthcare ? '85+ blood tests, cardiac echo, liver profile, kidney panel & senior physician review.' : isAutomobile ? 'Single owner, 24,000 km, 150-point inspection certified with 1-year comprehensive warranty.' : isFashion ? 'Pure mulberry silk with real gold zari border, contrast pallu and unstitched blouse piece.' : isEducation ? '6-month intensive diploma with live real-world projects, mentor feedback, and 100% placement support.' : isBeauty ? '24k gold hydra-glow facial, premium bridal hairstyling, mineral airbrush HD makeup, and nail art.' : isEvents ? 'Full decor & production for Mehendi, Sangeet, Muhurtham & Reception. 6-member cinematic crew, celebrity DJ setup & hospitality desk.' : isTravel ? 'Seminyak private luxury pool villa, Ubud sacred monkey forest, Nusa Penida island speedboat cruise, sunset beach dinners & daily breakfast.' : 'High quality deliverable or service package.',
-                        price: isHealthcare ? 2999 : isAutomobile ? 1250000 : isFashion ? 18500 : isEducation ? 34999 : isBeauty ? 14999 : isEvents ? 499999 : isTravel ? 48999 : 1999,
+                        name: isHealthcare ? 'Executive Master Health Checkup' : isAutomobile ? '2023 Certified Automatic Sedan' : isFashion ? 'Pure Kanjeevaram Bridal Silk Saree' : isEducation ? 'Full Stack Web Development & AI Masterclass' : isBeauty ? 'Royal Bridal Glow & Pre-Wedding Rituals' : isEvents ? 'Grand Royal 3-Day Destination Wedding Package' : isTravel ? 'Bali Private Pool Villa & Island Escape (6D/5N)' : isProfessional ? 'Annual Startup Corporate Legal Retainer' : isHomeServices ? 'Complete 3BHK Deep Cleaning Package' : isRetail ? 'Flagship Premium Wireless Audio Headset' : 'New Product / Service Package',
+                        description: isHealthcare ? '85+ blood tests, cardiac echo, liver profile, kidney panel & senior physician review.' : isAutomobile ? 'Single owner, 24,000 km, 150-point inspection certified with 1-year comprehensive warranty.' : isFashion ? 'Pure mulberry silk with real gold zari border, contrast pallu and unstitched blouse piece.' : isEducation ? '6-month intensive diploma with live real-world projects, mentor feedback, and 100% placement support.' : isBeauty ? '24k gold hydra-glow facial, premium bridal hairstyling, mineral airbrush HD makeup, and nail art.' : isEvents ? 'Full decor & production for Mehendi, Sangeet, Muhurtham & Reception. 6-member cinematic crew, celebrity DJ setup & hospitality desk.' : isTravel ? 'Seminyak private luxury pool villa, Ubud sacred monkey forest, Nusa Penida island speedboat cruise, sunset beach dinners & daily breakfast.' : isProfessional ? 'Monthly contract vetting, Board advisory minutes, founder equity governance, IP filings & unlimited routine legal queries.' : isHomeServices ? 'Exhaustive machine scrubbing of tiles, grout steam disinfection, chimney degreasing, sofa shampooing & window pane polishing.' : isRetail ? 'Active noise cancellation, 40-hour battery life, lossless spatial audio with official 1-year brand warranty card.' : 'High quality deliverable or service package.',
+                        price: isHealthcare ? 2999 : isAutomobile ? 1250000 : isFashion ? 18500 : isEducation ? 34999 : isBeauty ? 14999 : isEvents ? 499999 : isTravel ? 48999 : isProfessional ? 24999 : isHomeServices ? 3499 : isRetail ? 4999 : 1999,
                         currency: '₹',
-                        imageUrl: isHealthcare ? 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80' : isAutomobile ? 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80' : isFashion ? 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80' : isEducation ? 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80' : isBeauty ? 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80' : isEvents ? 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80' : isTravel ? 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
-                        category: isHealthcare ? 'Health Checkup' : isAutomobile ? 'Showroom Fleet' : isFashion ? 'Bridal Couture' : isEducation ? 'Certified Course' : isBeauty ? 'Bridal Package' : isEvents ? 'Complete Wedding' : isTravel ? 'International Escape' : 'Services',
+                        imageUrl: isHealthcare ? 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80' : isAutomobile ? 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80' : isFashion ? 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80' : isEducation ? 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80' : isBeauty ? 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80' : isEvents ? 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80' : isTravel ? 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80' : isProfessional ? 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80' : isHomeServices ? 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80' : isRetail ? 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
+                        category: isHealthcare ? 'Health Checkup' : isAutomobile ? 'Showroom Fleet' : isFashion ? 'Bridal Couture' : isEducation ? 'Certified Course' : isBeauty ? 'Bridal Package' : isEvents ? 'Complete Wedding' : isTravel ? 'International Escape' : isProfessional ? 'Legal Retainer' : isHomeServices ? 'Cleaning Package' : isRetail ? 'Electronics & Audio' : 'Services',
                         isAvailable: true
                       };
                       const updated = [...(profile.sectionData.products?.items || []), newProd];
@@ -5433,10 +6006,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       }));
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0 ${
-                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : isEvents ? 'bg-violet-600 hover:bg-violet-500' : isTravel ? 'bg-cyan-600 hover:bg-cyan-500' : 'bg-pink-600 hover:bg-pink-500'
+                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : isEvents ? 'bg-violet-600 hover:bg-violet-500' : isTravel ? 'bg-cyan-600 hover:bg-cyan-500' : isProfessional ? 'bg-amber-600 hover:bg-amber-500' : isHomeServices ? 'bg-amber-600 hover:bg-amber-500' : isRetail ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-pink-600 hover:bg-pink-500'
                     }`}
                   >
-                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Health Package' : isAutomobile ? 'Add Vehicle' : isFashion ? 'Add Couture Piece' : isEducation ? 'Add Course Program' : isBeauty ? 'Add Bridal Package' : isEvents ? 'Add Event Package' : isTravel ? 'Add Holiday Package' : 'Add Product'}
+                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Health Package' : isAutomobile ? 'Add Vehicle' : isFashion ? 'Add Couture Piece' : isEducation ? 'Add Course Program' : isBeauty ? 'Add Bridal Package' : isEvents ? 'Add Event Package' : isTravel ? 'Add Holiday Package' : isProfessional ? 'Add Retainer Plan' : isHomeServices ? 'Add Service Package' : isRetail ? 'Add Product' : 'Add Product'}
                   </button>
                 </div>
 
