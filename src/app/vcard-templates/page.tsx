@@ -77,7 +77,7 @@ export default function VCardTemplatesPage() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
-              vCard{' '}
+              Business{' '}
               <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Templates
               </span>
@@ -216,7 +216,7 @@ export default function VCardTemplatesPage() {
                     <div className="absolute top-0 inset-x-0 h-12 bg-gradient-to-b from-slate-900/30 to-transparent pointer-events-none" />
                     <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-slate-950/70 via-slate-950/30 to-transparent pointer-events-none flex items-end justify-center pb-2">
                       <span className="text-[10px] font-medium text-slate-100 flex items-center gap-1 bg-slate-900/80 px-2.5 py-0.5 rounded-full border border-white/20 backdrop-blur-md shadow-sm">
-                        Hover to scroll vCard
+                        Hover to scroll card
                       </span>
                     </div>
 

@@ -4743,7 +4743,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-800">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-bold text-white">vCard Templates Library</h3>
+                    <h3 className="text-sm font-bold text-white">Business Templates Library</h3>
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
                       {categoryTemplates.length} Templates
                     </span>
@@ -4928,7 +4928,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white group-hover:text-indigo-300 transition-colors">
-                      Browse 28 Industry vCard Templates
+                      Browse 28 Industry Business Templates
                     </h4>
                     <p className="text-[11px] text-slate-400">
                       Doctor, Lawyer, Reporter, Architecture, Gym, Flower Garden &amp; more with pre-filled catalogs.
