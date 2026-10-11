@@ -165,7 +165,17 @@ export default function RealEstateMiniWebsiteView({
 
   // Dynamic projects derived from user's custom products or default templates
   const userProjects: RealEstateProject[] = useMemo(() => {
-    const customProducts = profile.sectionData?.products?.items || [];
+    const rawProducts = profile.sectionData?.products?.items || [];
+    
+    // Only map custom products if they are genuinely real estate items (ignore retail/apparel/clothing)
+    const isRealEstateItem = (prod: any) => {
+      const text = `${prod.name || ''} ${prod.category || ''} ${prod.description || ''}`.toLowerCase();
+      const hasRE = /(?:plot|villa|apartment|residence|flat|tower|bhk|sq\.?\s*yd|acre|farm|gated|commercial|rera|real\s*estate|layout|corridor|housing|building|infra|property|floor|penthouse|suite)/i.test(text);
+      const isRetail = /(?:suit|blazer|sherwani|apparel|clothing|shirt|pant|tailor|textile|fashion|kurta|fabric|wear)/i.test(text);
+      return hasRE && !isRetail;
+    };
+
+    const customProducts = rawProducts.filter(isRealEstateItem);
     if (customProducts.length > 0) {
       return customProducts.map((prod, index) => {
         const bhkMatches = prod.name.match(/\d+\s*(?:BHK|Sq\.?Yards?|Acres?)/gi) || prod.description.match(/\d+\s*(?:BHK|Sq\.?Yards?|Acres?)/gi) || ['150, 200, 300 Sq. Yds'];
@@ -712,8 +722,54 @@ export default function RealEstateMiniWebsiteView({
     }
   };
 
-  const servicesList = profile.sectionData?.services?.items || [];
-  const testimonialsList = profile.sectionData?.testimonials?.items || [];
+  // Clean real estate designation (guards against clothing/apparel terms)
+  const displayDesignation = useMemo(() => {
+    const des = (profile.designation || '').trim();
+    if (!des || /(?:suit|blazer|sherwani|apparel|clothing|fashion|tailor|wear|ethnic)/i.test(des)) {
+      return 'Managing Director • Real Estate Developer';
+    }
+    return des;
+  }, [profile.designation]);
+
+  const featuredProject = useMemo(() => {
+    return userProjects[0] || null;
+  }, [userProjects]);
+
+  const featuredProjectTitle = useMemo(() => {
+    const t = featuredProject?.title || '';
+    if (!t || /(?:suit|blazer|sherwani|apparel|clothing|fashion|tailor|wear)/i.test(t)) {
+      return `${profile.company || profile.name || 'Skyline'} Landmark Residences & Plots`;
+    }
+    return t;
+  }, [featuredProject, profile.company, profile.name]);
+
+  const featuredPropertyType = useMemo(() => {
+    return featuredProject?.propertyType || 'Luxury Residences & Plots';
+  }, [featuredProject]);
+
+  const featuredLocation = useMemo(() => {
+    return featuredProject?.location || profile.address || `${userCity} Growth Corridor`;
+  }, [featuredProject, profile.address, userCity]);
+
+  // Clean real estate services (filters out custom tailoring / retail services)
+  const servicesList = useMemo(() => {
+    const raw = profile.sectionData?.services?.items || [];
+    return raw.filter(srv => {
+      const text = `${srv.title || ''} ${srv.category || ''} ${srv.description || ''}`.toLowerCase();
+      const isRetail = /(?:suit|blazer|sherwani|apparel|clothing|shirt|pant|tailor|textile|fashion|kurta|fabric|wear)/i.test(text);
+      return !isRetail;
+    });
+  }, [profile.sectionData?.services?.items]);
+
+  const testimonialsList = useMemo(() => {
+    const raw = profile.sectionData?.testimonials?.items || [];
+    return raw.filter(t => {
+      const text = `${t.content || ''} ${t.clientRole || ''}`.toLowerCase();
+      const isRetail = /(?:suit|blazer|sherwani|apparel|clothing|tailor)/i.test(text);
+      return !isRetail;
+    });
+  }, [profile.sectionData?.testimonials?.items]);
+
   const videosList = profile.sectionData?.videos?.items || [];
   const galleryList = profile.sectionData?.gallery?.items || [];
 
@@ -980,7 +1036,7 @@ export default function RealEstateMiniWebsiteView({
                 </div>
               </div>
               
-              <div className="flex flex-col min-w-0 max-w-[170px] sm:max-w-[260px] xl:max-w-xs">
+              <div className="flex flex-col min-w-0 max-w-[170px] sm:max-w-[240px] xl:max-w-xs">
                 <div className="flex items-center gap-1">
                   <span className={`${isMockup ? 'text-xs' : 'text-xs sm:text-base'} font-black text-slate-900 leading-tight truncate`}>
                     {profile.company || profile.name || 'Premium Developers'}
@@ -988,19 +1044,13 @@ export default function RealEstateMiniWebsiteView({
                   <BadgeCheck className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
                 </div>
                 <span className="text-[10px] text-slate-500 font-medium truncate">
-                  {profile.name} • {profile.designation || 'Real Estate Specialist'}
+                  {profile.name} • {displayDesignation}
                 </span>
               </div>
             </a>
 
             {/* Desktop Navigation Links (Compact & Responsive) */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 text-xs font-bold text-slate-700 shrink-0">
-              <a 
-                href="#home" 
-                className="hidden 2xl:inline-block px-2.5 py-1.5 rounded-lg text-[#005DAA] bg-[#005DAA]/8 border border-[#005DAA]/20 transition whitespace-nowrap shadow-2xs font-extrabold"
-              >
-                <span>Home</span>
-              </a>
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-xs font-bold text-slate-700 shrink min-w-0">
               <a 
                 href="#projects" 
                 className="px-2.5 py-1.5 rounded-lg hover:text-[#005DAA] hover:bg-[#005DAA]/5 transition whitespace-nowrap flex items-center gap-1"
@@ -1025,25 +1075,19 @@ export default function RealEstateMiniWebsiteView({
               </a>
               <a 
                 href="#reviews" 
-                className="hidden xl:inline-block px-2.5 py-1.5 rounded-lg hover:text-[#005DAA] hover:bg-[#005DAA]/5 transition whitespace-nowrap"
+                className="hidden 2xl:inline-block px-2.5 py-1.5 rounded-lg hover:text-[#005DAA] hover:bg-[#005DAA]/5 transition whitespace-nowrap"
               >
                 Reviews
               </a>
               <a 
-                href="#why-us" 
-                className="hidden 2xl:inline-block px-2.5 py-1.5 rounded-lg hover:text-[#005DAA] hover:bg-[#005DAA]/5 transition whitespace-nowrap"
-              >
-                Why Us
-              </a>
-              <a 
                 href="#tools" 
-                className="px-2.5 py-1.5 rounded-lg hover:text-[#005DAA] hover:bg-[#005DAA]/5 transition whitespace-nowrap"
+                className="hidden xl:inline-block px-2.5 py-1.5 rounded-lg hover:text-[#005DAA] hover:bg-[#005DAA]/5 transition whitespace-nowrap"
               >
                 EMI Calc
               </a>
               <a 
                 href="#about" 
-                className="hidden xl:inline-block px-2.5 py-1.5 rounded-lg hover:text-[#005DAA] hover:bg-[#005DAA]/5 transition whitespace-nowrap"
+                className="hidden 2xl:inline-block px-2.5 py-1.5 rounded-lg hover:text-[#005DAA] hover:bg-[#005DAA]/5 transition whitespace-nowrap"
               >
                 About
               </a>
@@ -1056,13 +1100,13 @@ export default function RealEstateMiniWebsiteView({
             </nav>
 
             {/* Header Right Action Area */}
-            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-auto">
               {showViewToggle && setViewMode && (
-                <div className="hidden md:flex items-center gap-1 p-1 rounded-full bg-slate-100 border border-slate-200 shadow-2xs">
+                <div className="hidden xl:flex items-center gap-1 p-1 rounded-full bg-slate-100 border border-slate-200 shadow-2xs">
                   <button
                     type="button"
                     onClick={() => setViewMode('website')}
-                    className={`px-3 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
                       viewMode === 'website' ? 'bg-[#005DAA] text-white shadow-xs' : 'text-slate-600 hover:text-black'
                     }`}
                   >
@@ -1071,11 +1115,11 @@ export default function RealEstateMiniWebsiteView({
                   <button
                     type="button"
                     onClick={() => setViewMode('mobile')}
-                    className={`px-3 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
                       viewMode === 'mobile' ? 'bg-[#005DAA] text-white shadow-xs' : 'text-slate-600 hover:text-black'
                     }`}
                   >
-                    📱 Mobile Card
+                    📱 Card
                   </button>
                 </div>
               )}
@@ -1084,11 +1128,11 @@ export default function RealEstateMiniWebsiteView({
               <button
                 type="button"
                 onClick={() => setIsQrModalOpen(true)}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-slate-100 hover:bg-[#005DAA]/10 border border-slate-200 hover:border-[#005DAA]/30 text-slate-700 hover:text-[#005DAA] text-xs font-bold transition shadow-2xs cursor-pointer"
+                className="hidden 2xl:inline-flex items-center gap-1.5 px-2.5 py-1.5 sm:py-2 rounded-xl bg-slate-100 hover:bg-[#005DAA]/10 border border-slate-200 hover:border-[#005DAA]/30 text-slate-700 hover:text-[#005DAA] text-xs font-bold transition shadow-2xs cursor-pointer"
                 title="Scan QR Code / Open Mobile Profile"
               >
                 <QrCode className="w-3.5 h-3.5 text-[#005DAA]" />
-                <span className="hidden xl:inline">QR Code</span>
+                <span>QR Code</span>
               </button>
 
               {/* Save vCard Contact Button */}
@@ -1102,47 +1146,22 @@ export default function RealEstateMiniWebsiteView({
                 <span>Save Contact</span>
               </button>
 
-              {/* Telephone Pill Button */}
-              {profile.phone && (
-                <a 
-                  href={`tel:${profile.phone}`} 
-                  className="hidden 2xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200/80 hover:border-[#005DAA]/40 hover:bg-[#005DAA]/5 text-xs font-bold text-slate-800 hover:text-[#005DAA] transition-all shrink-0"
-                  title="Call Sales Office"
-                >
-                  <div className="w-4 h-4 rounded-full bg-[#005DAA]/10 flex items-center justify-center text-[#005DAA] shrink-0">
-                    <PhoneCall className="w-2.5 h-2.5" />
-                  </div>
-                  <span className="tracking-wide whitespace-nowrap">{profile.phone}</span>
-                </a>
-              )}
-
               {/* Primary Schedule Site Visit Button */}
               <button
                 type="button"
                 onClick={() => setIsSiteVisitModalOpen(true)}
                 style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer hover:bg-[#004580] whitespace-nowrap shrink-0"
+                className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer hover:bg-[#004580] whitespace-nowrap shrink-0"
               >
                 <Calendar className="w-3.5 h-3.5 text-white shrink-0" />
                 <span className="text-white font-bold whitespace-nowrap">Schedule Visit</span>
-              </button>
-
-              {/* Mobile Compact Schedule Visit Button */}
-              <button
-                type="button"
-                onClick={() => setIsSiteVisitModalOpen(true)}
-                style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
-                className="sm:hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-xs text-white shadow-xs active:scale-95 transition shrink-0 whitespace-nowrap"
-              >
-                <Calendar className="w-3.5 h-3.5 text-white shrink-0" />
-                <span>Visit</span>
               </button>
 
               {/* Mobile Menu Button (Hamburger) */}
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="xl:hidden p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-[#005DAA] hover:bg-slate-200 transition cursor-pointer shrink-0"
+                className="lg:hidden p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-[#005DAA] hover:bg-slate-200 transition cursor-pointer shrink-0"
                 aria-label="Toggle navigation menu"
               >
                 {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -1326,44 +1345,53 @@ export default function RealEstateMiniWebsiteView({
         <div className={`max-w-7xl mx-auto ${isMockup ? 'px-2' : 'px-4 sm:px-6 lg:px-8'} relative z-10`}>
           <div className={`text-center max-w-5xl mx-auto ${isMockup ? 'space-y-3.5' : 'space-y-4 sm:space-y-6'}`}>
             
-            {/* Developer / Business Avatar Logo */}
-            <div className="flex justify-center pt-2">
-              {profile.avatarUrl ? (
-                <div className={`${isMockup ? 'w-16 h-16' : 'w-16 h-16 sm:w-24 sm:h-24'} rounded-full border-4 border-white shadow-xl overflow-hidden bg-white flex items-center justify-center p-1`}>
-                  <img 
-                    src={profile.avatarUrl} 
-                    alt={profile.company || profile.name} 
-                    className="w-full h-full object-contain rounded-full" 
-                  />
+            {/* Unified Luxury Real Estate Developer Trust Badge */}
+            <div className="flex items-center justify-center pt-1">
+              <div className="inline-flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/95 border border-[#005DAA]/25 shadow-md backdrop-blur-md">
+                <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-[#005DAA]/30 shrink-0 bg-slate-100 shadow-2xs">
+                  {profile.avatarUrl ? (
+                    <img
+                      src={profile.avatarUrl}
+                      alt={profile.company || profile.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-tr from-[#005DAA] to-sky-500 text-white flex items-center justify-center font-bold text-xs">
+                      {(profile.company || profile.name || 'RE').slice(0, 2).toUpperCase()}
+                    </div>
+                  )}
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border border-white" />
                 </div>
-              ) : (
-                <div className={`${isMockup ? 'w-16 h-16 text-lg' : 'w-16 h-16 sm:w-24 sm:h-24 text-xl sm:text-2xl'} rounded-full border-4 border-white shadow-xl bg-gradient-to-tr from-[#005DAA] to-sky-500 text-white flex items-center justify-center font-black tracking-wider`}>
-                  {(profile.company || profile.name || 'SK').slice(0, 2).toUpperCase()}
+                <div className="text-left flex flex-col justify-center">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight leading-none">
+                      {profile.company || profile.name || 'Skyline Builders & Developers'}
+                    </span>
+                    <BadgeCheck className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
+                  </div>
+                  <div className="flex items-center gap-1.5 mt-0.5 text-[10px] sm:text-[11px] font-bold text-[#005DAA]">
+                    <ShieldCheck className="w-3 h-3 shrink-0" />
+                    <span>{displayRera}</span>
+                    <span className="text-slate-300">•</span>
+                    <span className="text-emerald-700 font-semibold">{profile.sectionData?.realEstate?.trackRecordYears || '18+ Years'} Legal Track Record</span>
+                  </div>
                 </div>
-              )}
-            </div>
-
-            {/* Top Badge */}
-            <div className={`inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white border border-[#005DAA]/30 text-[#005DAA] ${isMockup ? 'text-[10px]' : 'text-[11px] sm:text-xs'} font-bold shadow-xs`}>
-              <Award className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
-              <span className="truncate">
-                {displayRera} • {profile.sectionData?.realEstate?.trackRecordYears || '18+ Years'} Legal Track Record
-              </span>
+              </div>
             </div>
 
             {/* Main Headline */}
-            <h2 className={`font-sans ${isMockup ? 'text-2xl' : 'text-2xl sm:text-4xl lg:text-5xl xl:text-6xl'} font-extrabold text-slate-900 tracking-tight leading-[1.15]`}>
+            <h1 className={`font-sans ${isMockup ? 'text-2xl' : 'text-3xl sm:text-5xl lg:text-6xl'} font-black text-slate-900 tracking-tight leading-[1.12]`}>
               Building Generational Wealth Through{' '}
-              <span className="text-[#005DAA] block sm:inline font-extrabold">
+              <span className="text-[#005DAA] block sm:inline font-black">
                 Prime Real Estate.
               </span>
-            </h2>
+            </h1>
 
             {/* Sub-headline */}
             <p className={`font-sans ${isMockup ? 'text-xs' : 'text-xs sm:text-base lg:text-lg'} text-slate-600 max-w-3xl mx-auto leading-relaxed px-1`}>
               {profile.company || profile.name || 'Premier Developers'} presenting{' '}
-              <strong className="text-slate-900 font-bold">{userProjects[0]?.title || 'Signature Real Estate Portfolio'}</strong> —{' '}
-              <strong className="text-slate-900 font-bold">{userProjects[0]?.propertyType || 'Luxury Residences & Plots'}</strong> in {userProjects[0]?.location || profile.address || userCity} with 100% verified approvals, world-class amenities, and high capital appreciation.
+              <strong className="text-slate-900 font-bold">{featuredProjectTitle}</strong> —{' '}
+              <strong className="text-slate-900 font-bold">{featuredPropertyType}</strong> in {featuredLocation} with 100% verified approvals, world-class amenities, and high capital appreciation.
             </p>
 
             {/* Location Address Strip */}
@@ -1391,7 +1419,7 @@ export default function RealEstateMiniWebsiteView({
                       <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" />
                     </svg>
                   </div>
-                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
+                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     CALL
                   </span>
                 </a>
@@ -1409,7 +1437,7 @@ export default function RealEstateMiniWebsiteView({
                       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.57 14.37C16.32 14.24 15.1 13.64 14.87 13.56C14.64 13.48 14.48 13.44 14.31 13.69C14.15 13.94 13.68 14.49 13.54 14.65C13.4 14.81 13.26 14.83 13.01 14.71C12.76 14.59 11.96 14.33 11.01 13.48C10.27 12.82 9.77 12 9.63 11.75C9.49 11.5 9.62 11.37 9.74 11.25C9.85 11.14 9.99 10.96 10.11 10.82C10.23 10.68 10.27 10.58 10.35 10.42C10.43 10.26 10.39 10.12 10.33 10C10.27 9.88 9.77 8.66 9.57 8.16C9.37 7.68 9.17 7.74 9.02 7.73C8.88 7.72 8.71 7.72 8.55 7.72C8.38 7.72 8.12 7.78 7.89 8.03C7.66 8.28 7.02 8.88 7.02 10.1C7.02 11.32 7.91 12.5 8.03 12.66C8.15 12.82 9.78 15.33 12.28 16.41C12.87 16.67 13.33 16.82 13.69 16.94C14.29 17.13 14.83 17.1 15.26 17.04C15.74 16.97 16.74 16.44 16.95 15.85C17.16 15.26 17.16 14.76 17.09 14.65C17.03 14.54 16.82 14.49 16.57 14.37Z" />
                     </svg>
                   </div>
-                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
+                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     WHATSAPP
                   </span>
                 </a>
@@ -1427,7 +1455,7 @@ export default function RealEstateMiniWebsiteView({
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                     </svg>
                   </div>
-                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
+                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     INSTAGRAM
                   </span>
                 </a>
@@ -1445,28 +1473,24 @@ export default function RealEstateMiniWebsiteView({
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     </svg>
                   </div>
-                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
+                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     FACEBOOK
                   </span>
                 </a>
 
-                {/* 5. OTHER SOFTWARE */}
+                {/* 5. WEBSITE */}
                 <a
-                  href={profile.website || '#finder'}
+                  href={profile.website || '#projects'}
                   target={profile.website ? '_blank' : '_self'}
                   rel="noreferrer"
-                  onClick={() => trackAction('software_hero_click')}
+                  onClick={() => trackAction('website_hero_click')}
                   className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
                 >
-                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#8B5CF6] flex items-center justify-center text-white shadow-lg shadow-purple-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
-                    <div className="flex items-center justify-center text-white font-black tracking-tight select-none">
-                      <span className="font-mono text-xs sm:text-base mr-0.5">&lt;</span>
-                      <Zap className={`${isMockup ? 'w-3.5 h-3.5' : 'w-4 h-4 sm:w-5 sm:h-5'} fill-white text-white shrink-0`} />
-                      <span className="font-mono text-xs sm:text-base ml-0.5">&gt;</span>
-                    </div>
+                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#0284C7] flex items-center justify-center text-white shadow-lg shadow-sky-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
+                    <Globe className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} text-white`} />
                   </div>
-                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
-                    OTHER SOFTWARE
+                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
+                    WEBSITE
                   </span>
                 </a>
 
@@ -1483,7 +1507,7 @@ export default function RealEstateMiniWebsiteView({
                       <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
                     </svg>
                   </div>
-                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
+                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     DIRECTIONS
                   </span>
                 </a>
@@ -1499,7 +1523,7 @@ export default function RealEstateMiniWebsiteView({
                       <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
                   </div>
-                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
+                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     EMAIL
                   </span>
                 </a>
@@ -1516,7 +1540,7 @@ export default function RealEstateMiniWebsiteView({
                       <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                     </svg>
                   </div>
-                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
+                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     SAVE VCARD
                   </span>
                 </button>
@@ -1540,7 +1564,7 @@ export default function RealEstateMiniWebsiteView({
                       <rect x="16" y="16" width="2" height="2" fill="white" stroke="none" />
                     </svg>
                   </div>
-                  <span className={`font-serif ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
+                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
                     SCAN QR
                   </span>
                 </button>
@@ -1598,6 +1622,85 @@ export default function RealEstateMiniWebsiteView({
                 <Film className="w-4 h-4 text-rose-500" />
                 <span>4K Drone Tours &amp; Reels</span>
               </a>
+            </div>
+
+            {/* Premier Architectural Showcase Card */}
+            <div className="pt-6 max-w-4xl mx-auto w-full">
+              <div className="group relative rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-2xl transition-all duration-300 hover:shadow-3xl">
+                {/* Top Image Showcase with Gradient Overlays */}
+                <div className="relative h-64 sm:h-80 md:h-96 w-full overflow-hidden bg-slate-900">
+                  <img
+                    src={userProjects[0]?.imageUrl || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'}
+                    alt={featuredProjectTitle}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
+
+                  {/* Top Badges */}
+                  <div className="absolute top-4 inset-x-4 flex items-center justify-between gap-2 z-10">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/85 backdrop-blur-md text-white border border-white/20 text-xs font-bold shadow-lg">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>{userProjects[0]?.reraId || displayRera}</span>
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500 text-white text-xs font-extrabold shadow-lg">
+                      <Sparkles className="w-3.5 h-3.5 text-white" />
+                      <span>{userProjects[0]?.status || 'Under Construction'}</span>
+                    </span>
+                  </div>
+
+                  {/* Bottom Image Overlay Details */}
+                  <div className="absolute bottom-4 inset-x-4 sm:inset-x-6 text-left z-10 space-y-1 text-white">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded-md bg-[#005DAA] text-white text-[11px] font-extrabold uppercase tracking-wider">
+                        {featuredPropertyType}
+                      </span>
+                      <span className="text-xs font-semibold text-slate-200 flex items-center gap-1">
+                        <MapPin className="w-3.5 h-3.5 text-[#005DAA]" />
+                        {featuredLocation}
+                      </span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight drop-shadow-md">
+                      {featuredProjectTitle}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Card Bottom Highlights Bar */}
+                <div className="p-4 sm:p-6 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 text-left">
+                  <div className="flex items-center gap-4 sm:gap-6">
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Investment Range</span>
+                      <span className="text-base sm:text-lg font-black text-[#005DAA]">{userProjects[0]?.priceDisplay || '₹ 1.85 Cr - ₹ 3.45 Cr'}</span>
+                    </div>
+                    <div className="h-8 w-px bg-slate-300 hidden sm:block" />
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Configurations</span>
+                      <span className="text-xs sm:text-sm font-bold text-slate-800">{userProjects[0]?.bhkTypes?.[0] || '3 & 4 BHK Sky Residences'}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => setIsSiteVisitModalOpen(true)}
+                      style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
+                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-white font-bold text-xs shadow-md hover:bg-[#004580] transition active:scale-95 cursor-pointer"
+                    >
+                      <Calendar className="w-3.5 h-3.5 text-white" />
+                      <span>Book Site Visit</span>
+                    </button>
+                    <a
+                      href={`https://wa.me/${cleanPhone || '919876543210'}?text=${encodeURIComponent(`Hi, please share the official brochure and floor plans for ${featuredProjectTitle}.`)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition active:scale-95 cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5 text-white" />
+                      <span>Brochure &amp; Plans</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* 4 Trust Counters Row (Developer Credentials) */}
