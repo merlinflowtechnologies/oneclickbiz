@@ -24,7 +24,7 @@ export default function CareersPage() {
       department: 'Marketing & Community',
       location: 'Hyderabad / Remote',
       type: 'Full-Time',
-      description: 'Scale creator acquisition, forge B2B enterprise partnerships, and lead community viral loops for NFC smart business cards.',
+      description: 'Scale creator acquisition, forge B2B enterprise partnerships, and lead community viral loops for smart digital business profiles.',
       requirements: ['Proven track record scaling SaaS / consumer tech products', 'Deep understanding of WhatsApp marketing funnels & Instagram reels', 'Data-driven mindset with analytics proficiency']
     },
     {
@@ -32,7 +32,7 @@ export default function CareersPage() {
       department: 'Support & Operations',
       location: 'Hybrid / Remote',
       type: 'Full-Time',
-      description: 'Guide enterprise clients through bulk employee card provisioning, NFC custom branding, and WhatsApp catalog setups.',
+      description: 'Guide enterprise clients through bulk employee card provisioning, branded digital templates, and WhatsApp catalog setups.',
       requirements: ['Excellent written and verbal communication skills', 'High customer empathy with quick problem-solving agility', 'Comfortable assisting users over WhatsApp Live Chat and phone']
     }
   ];

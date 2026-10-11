@@ -123,11 +123,11 @@ export default function QRScannerPage() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-            Contactless QR & Card Scanner
+            Dynamic QR Scanner
           </h1>
 
           <p className="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto">
-            Scan any OneClickBiz NFC smart card or dynamic QR code with your camera to open digital profiles, save contacts, and view WhatsApp stores.
+            Scan any OneClickBiz dynamic QR code with your camera to open digital profiles, save contacts, and view WhatsApp stores.
           </p>
         </div>
 

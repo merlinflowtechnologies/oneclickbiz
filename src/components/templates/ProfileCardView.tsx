@@ -232,8 +232,8 @@ export default function ProfileCardView({
           </p>
           <p className="text-slate-400 leading-relaxed text-[11px]">
             {isUnpaid
-              ? 'This digital business card has not been activated. A verified annual plan payment processed via Cashfree is strictly required before this profile, WhatsApp store, and NFC links can go live.'
-              : 'This digital business card has completed its annual cycle. All profile interactions, lead capture, and NFC links are temporarily paused until renewed.'}
+              ? 'This digital business card has not been activated. A verified annual plan payment processed via Cashfree is strictly required before this profile, WhatsApp store, and smart profile links can go live.'
+              : 'This digital business card has completed its annual cycle. All profile interactions, lead capture, and smart profile links are temporarily paused until renewed.'}
           </p>
         </div>
 

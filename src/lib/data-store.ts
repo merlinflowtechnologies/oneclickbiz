@@ -117,7 +117,7 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
         items: [
           {
             id: 'vid_1',
-            title: 'OneClickBiz - Next-Gen Smart Business Card & NFC Showcase',
+            title: 'OneClickBiz - Next-Gen Smart Business Card Showcase',
             url: 'https://youtu.be/F1wdT1CA5gA',
             type: 'youtube',
             embedUrl: 'https://www.youtube.com/embed/F1wdT1CA5gA',
@@ -133,11 +133,11 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
           },
           {
             id: 'vid_ig_1',
-            title: 'OneClickBiz Smart NFC Card in Action',
+            title: 'OneClickBiz Smart Digital Card in Action',
             url: 'https://www.instagram.com/reel/Dboeh4BTscY/',
             type: 'instagram',
             embedUrl: 'https://www.instagram.com/reel/Dboeh4BTscY/embed',
-            caption: 'Watch real-time contactless NFC tapping and instant digital profile sharing in action.'
+            caption: 'Watch real-time dynamic digital profile sharing in action.'
           },
           {
             id: 'vid_ig_2',

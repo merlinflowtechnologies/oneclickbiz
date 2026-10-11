@@ -142,7 +142,7 @@ export default function VCardTemplatesPage() {
                 Have a Custom Design from Canva or Adobe Express?
               </h2>
               <p className="text-xs sm:text-sm text-slate-300 max-w-2xl">
-                Import your custom front &amp; back artwork directly into OneClickBiz. We automatically overlay dynamic QR codes, contactless NFC triggers, and generate 300 DPI print-ready PDFs.
+                Import your custom front &amp; back artwork directly into OneClickBiz. We automatically overlay dynamic QR codes, custom links, and generate 300 DPI print-ready PDFs.
               </p>
             </div>
 
@@ -163,7 +163,7 @@ export default function VCardTemplatesPage() {
             </p>
             <div className="flex items-center gap-2 text-xs font-medium text-slate-600 bg-white/70 px-3 py-1 rounded-full border border-slate-200/80 shadow-sm backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-              All templates include 1-Click .VCF &amp; NFC Pairing
+              All templates include 1-Click .VCF &amp; Dynamic QR Sharing
             </div>
           </div>
 

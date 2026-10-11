@@ -163,11 +163,11 @@ export default function WalletPassPreview({ profile, onClose }: WalletPassPrevie
         <div className="grid grid-cols-2 gap-2 text-[10px] text-slate-400 border-t border-slate-800 pt-3 relative z-10">
           <div>
             <span className="block text-[8px] uppercase tracking-wider text-slate-500 font-bold">TYPE</span>
-            <span className="font-semibold text-slate-200">Contactless vCard</span>
+            <span className="font-semibold text-slate-200">Digital Business Card</span>
           </div>
           <div className="text-right">
-            <span className="block text-[8px] uppercase tracking-wider text-slate-500 font-bold">NFC COMPLIANCE</span>
-            <span className="font-semibold text-emerald-400">ISO/IEC 14443 Type A</span>
+            <span className="block text-[8px] uppercase tracking-wider text-slate-500 font-bold">PASS FORMAT</span>
+            <span className="font-semibold text-emerald-400">Apple &amp; Google Wallet</span>
           </div>
         </div>
 

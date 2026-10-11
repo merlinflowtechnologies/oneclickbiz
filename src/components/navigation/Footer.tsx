@@ -116,7 +116,7 @@ export default function Footer() {
             </Link>
 
             <p className="text-slate-600 leading-relaxed text-xs max-w-md">
-              Next-generation digital business identity platform. Empowering entrepreneurs, sales teams, and modern professionals with contactless NFC cards, dynamic vCards, and WhatsApp mini-stores.
+              Next-generation digital business identity platform. Empowering entrepreneurs, sales teams, and modern professionals with smart digital business profiles, dynamic QR codes, and WhatsApp mini-stores.
             </p>
 
             {/* Verified Support & Contact Card */}
@@ -234,7 +234,7 @@ export default function Footer() {
                 <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-600 transition">Dynamic vCard</Link></li>
                 <li><Link href="/#whatsapp-store" onClick={(e) => handleAnchorClick(e, 'whatsapp-store')} className="hover:text-indigo-600 transition">WhatsApp Store</Link></li>
                 <li><Link href="/scan" className="hover:text-indigo-600 transition">Dynamic QR Studio</Link></li>
-                <li><Link href="/#products" onClick={(e) => handleAnchorClick(e, 'products')} className="hover:text-indigo-600 transition">NFC Smart Cards</Link></li>
+                <li><Link href="/#services" onClick={(e) => handleAnchorClick(e, 'services')} className="hover:text-indigo-600 transition">Mini Websites</Link></li>
                 <li><Link href="/#templates" onClick={(e) => handleAnchorClick(e, 'templates')} className="hover:text-indigo-600 transition">Brochure Studio</Link></li>
                 <li><Link href="/vcard-templates" className="hover:text-indigo-700 transition text-indigo-600 font-semibold flex items-center gap-1">Templates Gallery</Link></li>
               </ul>

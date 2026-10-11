@@ -119,87 +119,87 @@ export const FEATURES_DATA: FeatureDetail[] = [
     ]
   },
   {
-    id: 'nfc-smart-tap',
-    name: 'Contactless NFC Smart Tap',
-    tagline: 'Instant 0.2s profile transfer to iPhone & Android without any app',
-    badge: 'Zero App Required',
-    iconName: 'Wifi',
+    id: 'mini-websites',
+    name: 'Mini Websites & Business Profiles',
+    tagline: 'Turnkey mobile-first business websites with custom domain support',
+    badge: '93+ Templates',
+    iconName: 'Smartphone',
     themeColor: 'indigo',
-    description: 'Tap your physical smart NFC card to the back of any modern smartphone. Instantly launches your full interactive digital profile, contact vCard, video portfolio, and WhatsApp store in under 0.2 seconds.',
+    description: 'Launch a complete, interactive mobile mini-website for your business in under 2 minutes. Showcase your story, services, galleries, client reviews, and custom domain — 100% cloud-hosted with zero coding or hardware.',
     metrics: [
-      { value: '0.2s', label: 'Instant Connection' },
-      { value: '100%', label: 'No App Required' },
-      { value: '∞', label: 'Unlimited Taps' }
+      { value: '93+', label: 'Ready Templates' },
+      { value: '100%', label: 'Cloud Hosted' },
+      { value: '< 2m', label: 'Instant Launch' }
     ],
     keyCapabilities: [
-      'Works natively on iOS (iPhone 7+) and all modern Android devices',
-      'Embedded encrypted NTAG216 high-speed microchip',
-      'No app or scanner required on the recipient’s phone',
-      'Available in Premium Matte PVC, Carbon Fiber, Bamboo & Brushed Metal'
+      'Tailored layouts across 13 major industries (Real Estate, Doctors, Dining, Agencies & more)',
+      'Custom branded handle (oneclickbiz.in/v/your-brand) or custom white-label domain',
+      'Interactive service showcases, photo lookbooks, and embedded Google Maps directions',
+      '100% pure software solution — no hardware, no app installation required for visitors'
     ],
     sectorImpacts: [
       {
         sectorId: 'real_estate',
         sectorName: 'Real Estate & Builders',
         sectorIcon: '🏢',
-        painPoint: 'Brokers fumble with flyers while standing inside construction sites or model villas.',
-        howItHelps: 'Tap the NFC card to the buyer’s phone. The buyer immediately sees the 3D walkthrough, floor plans, and price sheet right in their hands.',
-        roiBenefit: 'Instant "Wow" factor that sets you apart from 99% of competing brokers.',
-        realWorldScenario: 'At an open house, an agent taps their bamboo NFC card on a prospective buyer\'s phone, instantly loading the virtual penthouse walkthrough.'
+        painPoint: 'Brokers fumble with paper flyers while standing inside construction sites or model villas.',
+        howItHelps: 'Share your dynamic mini-website via QR or WhatsApp. Buyers immediately explore 3D walkthroughs, floor plans, and pricing in their browser.',
+        roiBenefit: 'Instant professional credibility that sets you apart from 99% of competing brokers.',
+        realWorldScenario: 'At an open house, an agent shares their mini-website link, letting prospective buyers explore floor plans and virtual walkthroughs.'
       },
       {
         sectorId: 'healthcare',
         sectorName: 'Doctors & Clinics',
         sectorIcon: '🏥',
-        painPoint: 'Medical reps and hospital directors attend medical conferences with heavy paperwork.',
-        howItHelps: 'One sleek card shares doctor qualifications, clinic locations, research publications, and consultation booking with a single tap.',
-        roiBenefit: 'Reduces medical conference collateral expense to zero.',
-        realWorldScenario: 'A senior surgeon taps their card against an international delegate\'s phone at a medical conference to share surgical case studies.'
+        painPoint: 'Patients and medical conference attendees need fast access to doctor credentials, clinic locations, and appointment booking.',
+        howItHelps: 'One single digital profile showcases doctor qualifications, clinic timings, hospital affiliations, and instant booking slots.',
+        roiBenefit: 'Eliminates paper brochures while providing a modern 24/7 patient gateway.',
+        realWorldScenario: 'A senior specialist shares their digital business profile with conference delegates, showcasing clinic locations and surgical case studies.'
       },
       {
         sectorId: 'consulting',
         sectorName: 'Consultants, Lawyers & CAs',
         sectorIcon: '💼',
         painPoint: 'Carrying hundreds of paper cards to business luncheons, often running out midway.',
-        howItHelps: 'One single card lasts for years. Never run out of business cards at high-profile networking events or international summits.',
-        roiBenefit: 'Zero recurring printing costs and seamless executive presentation.',
-        realWorldScenario: 'A corporate lawyer taps their metal card on a client\'s phone during lunch, saving direct contact details with one click.'
+        howItHelps: 'One permanent cloud-hosted digital profile is always ready to share via QR, WhatsApp, or link. Never run out of cards again.',
+        roiBenefit: 'Zero recurring printing costs, always up-to-date, and seamless executive presentation.',
+        realWorldScenario: 'A corporate advocate shares their branded mini-website link at an industry summit, displaying landmark case summaries and booking slots.'
       },
       {
         sectorId: 'retail',
         sectorName: 'Retail, Boutiques & D2C',
         sectorIcon: '🛍️',
-        painPoint: 'Exhibitors at trade expos lose potential distributors due to lost paper brochures.',
-        howItHelps: 'Tap buyer phones to instantly pass wholesale pricing, minimum order quantities, and WhatsApp order desks.',
-        roiBenefit: 'Doubles wholesale distributor contact capture rates.',
-        realWorldScenario: 'A jewelry designer taps their NFC card on boutique buyers\' phones at a trade fair, instantly sharing their wholesale lookbook.'
+        painPoint: 'Boutique owners lose out on customer re-orders after shoppers leave the retail store.',
+        howItHelps: 'Customers save the store\'s mini-website directly on their phone home screen to browse new collections anytime.',
+        roiBenefit: 'Turns one-time walk-in retail shoppers into repeat lifetime customers.',
+        realWorldScenario: 'A designer boutique places a stylish QR standee at checkout; shoppers scan to bookmark the digital store lookbook.'
       },
       {
         sectorId: 'agency_tech',
         sectorName: 'Tech, SaaS & Agencies',
         sectorIcon: '💻',
         painPoint: 'Traditional cards cannot convey complex software solutions or agency portfolios.',
-        howItHelps: '1 tap opens your interactive client showcase, case study videos, and live Calendly booking link.',
+        howItHelps: 'Combines case studies, video reels, client reviews, and consultation scheduling into one responsive mobile link.',
         roiBenefit: '+240% increase in scheduled intro calls post-meeting.',
-        realWorldScenario: 'An agency founder taps their card with an enterprise CMO, who immediately watches their 60-second agency sizzle reel.'
+        realWorldScenario: 'An agency founder shares their OneClickBiz profile link in their email signature and LinkedIn bio, driving 40+ client inquiries monthly.'
       },
       {
         sectorId: 'coaching',
         sectorName: 'Coaches & Institutes',
         sectorIcon: '🎓',
-        painPoint: 'Personal trainers and career mentors struggle to share social proof and workout/course schedules.',
-        howItHelps: 'Tap a gym member\'s phone to instantly share training packages, transformation photos, and WhatsApp booking.',
-        roiBenefit: '+50% conversion from gym floor chats to paying personal training clients.',
-        realWorldScenario: 'A fitness coach taps their NFC band on a gym member\'s phone, loading client transformation reels and diet consultation slots.'
+        painPoint: 'Students and parents ask for course syllabi, fee structures, and demo class bookings across disjointed channels.',
+        howItHelps: 'Organizes course catalogs, faculty credentials, student testimonials, and demo registrations on one sleek page.',
+        roiBenefit: 'Streamlines student lead capture with zero third-party platform cuts.',
+        realWorldScenario: 'A coaching institute displays their profile QR code on campus flyers; students scan to register for upcoming batches.'
       },
       {
         sectorId: 'hospitality',
         sectorName: 'Salons, Dining & Events',
         sectorIcon: '🍽️',
-        painPoint: 'Event planners and salon owners need to showcase style portfolios on the go.',
-        howItHelps: 'Instant tap opens wedding decor galleries, bridal package pricing, and customer video reviews.',
-        roiBenefit: 'Closes on-the-spot bookings during venue walkthroughs.',
-        realWorldScenario: 'A wedding planner taps their card on a bride\'s phone to instantly load photo albums from 50+ past destination weddings.'
+        painPoint: 'Restaurants and salons want diners to browse visual photo menus and book tables without downloading apps.',
+        howItHelps: 'Guests open a fast-loading digital menu with high-res food photos, chef specials, and 1-tap table booking.',
+        roiBenefit: 'Increases direct customer engagement and commission-free reservations.',
+        realWorldScenario: 'A restaurant guest scans a table QR code to explore the dessert photo menu and reserve a table for their upcoming anniversary.'
       }
     ]
   },
@@ -716,11 +716,11 @@ export const FEATURES_DATA: FeatureDetail[] = [
   {
     id: 'analytics-insights',
     name: 'Real-Time Event & Lead Analytics',
-    tagline: 'Track NFC taps, QR scans, WhatsApp clicks, and visitor locations in real time',
+    tagline: 'Track QR scans, WhatsApp clicks, and visitor locations in real time',
     badge: 'Live Insights',
     iconName: 'TrendingUp',
     themeColor: 'violet',
-    description: 'Get actionable data on who is viewing your brand. Track NFC taps vs. QR scans, unique visitors, geographic city locations, WhatsApp inquiry triggers, phone dials, and contact save conversion rates.',
+    description: 'Get actionable data on who is viewing your brand. Track QR scans vs. profile visits, unique visitors, geographic city locations, WhatsApp inquiry triggers, phone dials, and contact save conversion rates.',
     metrics: [
       { value: 'Real-time', label: 'Instant Event Logging' },
       { value: 'City-Level', label: 'Geo-Location Analytics' },
@@ -740,7 +740,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
         painPoint: 'Management has no idea which sales agents or outdoor hoardings are generating real buyer leads.',
         howItHelps: 'Track scan metrics per agent and per hoarding. Measure exact WhatsApp inquiries generated from each campaign.',
         roiBenefit: 'Identifies top-performing sales reps and eliminates non-performing ad spend.',
-        realWorldScenario: 'A sales director sees that Agent A\'s NFC card generated 48 WhatsApp leads this month compared to 12 from Agent B.'
+        realWorldScenario: 'A sales director sees that Agent A\'s digital profile generated 48 WhatsApp leads this month compared to 12 from Agent B.'
       },
       {
         sectorId: 'retail',
@@ -756,7 +756,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
         sectorName: 'Consultants, Lawyers & CAs',
         sectorIcon: '💼',
         painPoint: 'Partners cannot measure the ROI of attending expensive industry sponsorship summits.',
-        howItHelps: 'Track how many conference attendees tapped the card, downloaded the vCard, and scheduled follow-up calls.',
+        howItHelps: 'Track how many conference attendees viewed the profile, downloaded the vCard, and scheduled follow-up calls.',
         roiBenefit: 'Clear, quantifiable ROI data for annual marketing budget allocation.',
         realWorldScenario: 'A consulting firm tracks 120 profile views and 14 consultation bookings directly attributable to a single trade summit.'
       },
@@ -774,9 +774,9 @@ export const FEATURES_DATA: FeatureDetail[] = [
         sectorName: 'Tech, SaaS & Agencies',
         sectorIcon: '💻',
         painPoint: 'Marketing teams struggle to calculate client acquisition cost from offline networking.',
-        howItHelps: 'Integrate offline NFC taps directly into digital lead funnels with conversion event tracking.',
+        howItHelps: 'Integrate offline QR scans and digital shares directly into lead funnels with conversion event tracking.',
         roiBenefit: 'Connects offline networking to digital CRM pipeline revenue.',
-        realWorldScenario: 'An agency attributes a ₹5,00,000 enterprise contract to an NFC card tap at a networking breakfast.'
+        realWorldScenario: 'An agency attributes a ₹5,00,000 enterprise contract to a digital card share at a networking breakfast.'
       },
       {
         sectorId: 'coaching',

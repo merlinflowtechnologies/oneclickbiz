@@ -738,7 +738,7 @@ export default function VisitingCardStudio() {
             Design &amp; Print Smart Visiting Cards
           </h1>
           <p className="text-xs text-slate-400">
-            Import custom Canva/Adobe Express artwork or customize luxury 300 DPI vector templates with dynamic QR &amp; NFC.
+            Import custom Canva/Adobe Express artwork or customize luxury 300 DPI vector templates with dynamic QR codes.
           </p>
         </div>
 
@@ -800,7 +800,7 @@ export default function VisitingCardStudio() {
                     : 'text-slate-400 hover:text-white hover:bg-slate-800'
                 }`}
               >
-                Back View (QR &amp; NFC)
+                Back View (Dynamic QR)
               </button>
             </div>
 
@@ -918,11 +918,11 @@ export default function VisitingCardStudio() {
                         </div>
                       )}
 
-                      {/* NFC Wave Badge Overlay */}
+                      {/* QR Badge Overlay */}
                       {canvaArtworkConfig.showNfcBadge && (
                         <div className="absolute top-3 right-3 z-20 px-2 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/20 flex items-center gap-1.5 text-amber-300">
-                          <Wifi className="w-3.5 h-3.5 rotate-90" />
-                          <span className="text-[9px] font-mono font-bold tracking-wider uppercase">NFC</span>
+                          <QrCode className="w-3.5 h-3.5" />
+                          <span className="text-[9px] font-mono font-bold tracking-wider uppercase">QR</span>
                         </div>
                       )}
                     </div>
@@ -937,7 +937,7 @@ export default function VisitingCardStudio() {
                   {/* FRONT SIDE */}
                   {activeSide === 'front' && (
                     <div className="h-full flex flex-col justify-between">
-                      {/* Top Header: Business Logo + Company Brand + NFC Wave */}
+                      {/* Top Header: Business Logo + Company Brand */}
                       <div className="flex items-start justify-between">
                         <div className="flex items-center space-x-3">
                           {renderLogoElement(false)}
@@ -953,9 +953,9 @@ export default function VisitingCardStudio() {
 
                         {cardData.showNfcIcon && (
                           <div className="flex items-center space-x-1 opacity-75">
-                            <Wifi className={`w-4 h-4 rotate-90 ${isLight ? 'text-slate-600' : 'text-amber-400'}`} />
+                            <QrCode className={`w-3.5 h-3.5 ${isLight ? 'text-slate-600' : 'text-amber-400'}`} />
                             <span className={`text-[9px] font-mono uppercase tracking-wider font-semibold ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                              NFC Tap
+                              Smart QR
                             </span>
                           </div>
                         )}
@@ -1058,10 +1058,10 @@ export default function VisitingCardStudio() {
                       {/* Bottom Footer */}
                       <div className="flex items-center justify-between border-t border-white/10 pt-2 text-[9px]">
                         <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
-                          Tap NFC chip to smartphone for instant vCard save
+                          Scan QR code with smartphone camera for instant vCard save
                         </span>
                         <span className={`font-bold uppercase ${isLight ? 'text-slate-950' : 'text-white'}`}>
-                          Contactless NFC
+                          Scan to Connect
                         </span>
                       </div>
                     </div>
@@ -1165,7 +1165,7 @@ export default function VisitingCardStudio() {
                   : 'text-slate-400 border-transparent hover:text-white'
               }`}
             >
-              <QrCode className="w-3.5 h-3.5" /> QR / NFC
+              <QrCode className="w-3.5 h-3.5" /> Dynamic QR
             </button>
           </div>
 
@@ -1471,7 +1471,7 @@ export default function VisitingCardStudio() {
                   { id: 'matte-black', name: 'Laser-Engraved Matte Black', desc: 'Soft-touch velvet finish with high scratch resistance.' },
                   { id: 'gold-foil', name: 'Metallic Gold Foil Stamp', desc: 'Reflective gold metallic foil stamped on text & logo.' },
                   { id: 'glossy-uv', name: 'Spot Gloss UV Texture', desc: 'Elevated glossy UV coating over typography for tactile feel.' },
-                  { id: 'frosted-acrylic', name: 'Frosted Translucent Acrylic', desc: 'Semi-transparent frosted PVC card with waterproof NFC.' },
+                  { id: 'frosted-acrylic', name: 'Frosted Translucent Acrylic', desc: 'Semi-transparent frosted PVC card with waterproof finish.' },
                   { id: 'carbon-fiber', name: 'Carbon Fiber Weave Texture', desc: 'Ultra-modern textured weave for automotive & tech executives.' }
                 ].map(f => (
                   <div
@@ -1496,12 +1496,12 @@ export default function VisitingCardStudio() {
             </div>
           )}
 
-          {/* TAB 5: QR & NFC CONTROLS */}
+          {/* TAB 5: QR & PROFILE CONTROLS */}
           {activeTab === 'qr' && (
             <div className="space-y-4">
               <div className="space-y-1">
-                <h3 className="text-sm font-bold text-white">Dynamic QR &amp; Contactless NFC</h3>
-                <p className="text-xs text-slate-400">Configure how clients connect when scanning or tapping your card.</p>
+                <h3 className="text-sm font-bold text-white">Dynamic QR Code Configuration</h3>
+                <p className="text-xs text-slate-400">Configure how clients connect when scanning your card.</p>
               </div>
 
               <div className="space-y-3 pt-2">
@@ -1528,8 +1528,8 @@ export default function VisitingCardStudio() {
 
                 <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-950 border border-slate-800">
                   <div>
-                    <h4 className="text-xs font-bold text-white">Show NFC Contactless Wave</h4>
-                    <p className="text-[10px] text-slate-400">Indicates smartphone tap capability</p>
+                    <h4 className="text-xs font-bold text-white">Show Smart QR Badge</h4>
+                    <p className="text-[10px] text-slate-400">Displays digital badge on front of card</p>
                   </div>
                   <button
                     onClick={() => setCardData(prev => ({ ...prev, showNfcIcon: !prev.showNfcIcon }))}
@@ -1723,9 +1723,9 @@ export default function VisitingCardStudio() {
 
                 {cardData.showNfcIcon && (
                   <div className="flex items-center space-x-2 opacity-85">
-                    <Wifi className={`w-7 h-7 rotate-90 ${isLight ? 'text-slate-600' : 'text-amber-400'}`} />
+                    <QrCode className={`w-6 h-6 ${isLight ? 'text-slate-600' : 'text-amber-400'}`} />
                     <span className={`text-sm font-mono uppercase tracking-wider font-bold ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
-                      NFC Tap
+                      Smart QR
                     </span>
                   </div>
                 )}
@@ -1862,13 +1862,13 @@ export default function VisitingCardStudio() {
                 </div>
               </div>
 
-              {/* Bottom NFC Footer */}
+              {/* Bottom Footer */}
               <div className="flex items-center justify-between border-t border-white/10 pt-4 text-xs relative z-10">
                 <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
-                  Tap NFC chip to smartphone for instant vCard save
+                  Scan QR code with smartphone camera for instant vCard save
                 </span>
                 <span className={`font-bold uppercase ${isLight ? 'text-slate-950' : 'text-white'}`}>
-                  Contactless NFC
+                  Scan to Connect
                 </span>
               </div>
             </>

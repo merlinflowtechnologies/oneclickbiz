@@ -84,7 +84,7 @@ const VCARD_TEMPLATES = [
       '1-Click iOS & Android .VCF Address Book Download',
       'Interactive Pitch Video & Media Embed Player',
       'WhatsApp 1-Tap Direct Chat & Inquiry',
-      'Dynamic QR Code & NFC Hardware Compatible'
+      'Dynamic QR Code & Instant Link Sharing'
     ]
   },
   {
@@ -110,7 +110,7 @@ const VCARD_TEMPLATES = [
       'Discreet VIP Contact Download & VCF Sync',
       'Private Concierge Appointment Booking Form',
       'High-Resolution Luxury Asset & Property Showcase',
-      'Pairs with Matte Black & Bamboo NFC Smart Cards'
+      'Works on all iPhone & Android browsers without any app'
     ]
   },
   {
@@ -497,7 +497,7 @@ export default function LandingPage() {
                         </span>
                       </div>
                       <p className="text-[11px] text-slate-500 truncate sm:text-clip">
-                        Contactless NFC cards, dynamic QR &amp; 1-click address book save (.vcf)
+                        Instant dynamic QR, custom link &amp; 1-click address book save (.vcf)
                       </p>
                     </div>
                   </div>
@@ -780,9 +780,9 @@ export default function LandingPage() {
               <div className="hidden lg:flex flex-col gap-4 w-72">
                 <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
                   <div className="flex items-center gap-2 text-purple-600 font-bold text-xs uppercase">
-                    <Wifi className="w-4 h-4 rotate-90" /> NFC Touchless Tap
+                    <Sparkles className="w-4 h-4" /> 100% Cloud Software
                   </div>
-                  <p className="text-xs text-slate-600">Tap your physical smart card on any smartphone to open card instantly.</p>
+                  <p className="text-xs text-slate-600">Pure digital web software — zero hardware required, nothing to carry or lose.</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
                   <div className="flex items-center gap-2 text-sky-600 font-bold text-xs uppercase">
@@ -1151,28 +1151,28 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            {/* Service 1: Custom NFC Hardware */}
+            {/* Service 1: Direct 0% Fee UPI QR Payments */}
             <div className="p-7 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-amber-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
               <div className="space-y-3">
                 <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-amber-200">
-                  <Wifi className="w-6 h-6 rotate-90" />
+                  <CreditCard className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600">Hardware &amp; Production</span>
-                  <h3 className="text-base font-bold text-slate-900">Custom NFC &amp; Laser Engraving</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600">Digital Payments</span>
+                  <h3 className="text-base font-bold text-slate-900">Direct UPI QR &amp; Instant Pay</h3>
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Precision-crafted Matte PVC, Brushed Metal, and Eco-Bamboo NFC smart cards customized with your brand logo, employee name, and dynamic NFC chip encoding.
+                  Integrated dynamic QR code and 1-tap payment buttons for GPay, PhonePe, Paytm, and BHIM UPI. Money deposits directly into your bank account with zero gateway fee deductions.
                 </p>
                 <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Matte Black, Gold Metal &amp; Wood</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> High-speed NTAG216 contactless chip</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Waterproof &amp; scratch-resistant build</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> 0% commission on all UPI transactions</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Instant GPay, PhonePe &amp; Paytm links</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Direct bank account instant settlement</li>
                 </ul>
               </div>
               <div className="pt-2 border-t border-slate-100">
                 <span className="text-[11px] font-semibold text-amber-700 flex items-center gap-1.5">
-                  <BadgeCheck className="w-3.5 h-3.5 text-amber-600" /> Physical Hardware Delivery
+                  <BadgeCheck className="w-3.5 h-3.5 text-amber-600" /> 100% Software • 0% Gateway Cuts
                 </span>
               </div>
             </div>
@@ -1373,7 +1373,7 @@ export default function LandingPage() {
             </div>
             <div className="flex items-center gap-3">
               <a
-                href="https://wa.me/916304989071?text=Hi%20OneClickBiz%2C%20I%20would%20like%20to%20inquire%20about%20your%20services%20and%20hardware."
+                href="https://wa.me/916304989071?text=Hi%20OneClickBiz%2C%20I%20would%20like%20to%20inquire%20about%20your%20software%20plans%20and%20services."
                 target="_blank"
                 rel="noreferrer"
                 className="px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-emerald-600/20 transition-all active:scale-95"
@@ -1608,7 +1608,7 @@ export default function LandingPage() {
                   <span className="block text-[10px] font-normal text-slate-400 mt-0.5">(Linktree, Carrd)</span>
                 </div>
                 <div className="col-span-2.5 p-5 text-center text-slate-500">
-                  Western NFC Cards
+                  Traditional Digital Cards
                   <span className="block text-[10px] font-normal text-slate-400 mt-0.5">(Popl, Blinq, HiHello)</span>
                 </div>
                 <div className="col-span-3 p-5 text-center bg-indigo-600 text-white rounded-t-2xl shadow-md">

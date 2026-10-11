@@ -224,7 +224,7 @@ export default function TemplateQuickPreviewModal({
                   ))}
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="font-medium">1-Tap .VCF Contact Download &amp; NFC Tap Ready</span>
+                    <span className="font-medium">1-Tap .VCF Contact Download &amp; Dynamic QR Ready</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />

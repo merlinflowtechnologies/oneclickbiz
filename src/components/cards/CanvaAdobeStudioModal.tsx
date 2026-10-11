@@ -109,7 +109,7 @@ export default function CanvaAdobeStudioModal({
               Import Custom Card Artwork
             </h2>
             <p className="text-xs text-slate-400">
-              Design in Canva or Adobe Express, export high-res artwork, and let OneClickBiz overlay dynamic QR &amp; NFC.
+              Design in Canva or Adobe Express, export high-res artwork, and let OneClickBiz overlay dynamic QR codes.
             </p>
           </div>
 
@@ -362,9 +362,9 @@ export default function CanvaAdobeStudioModal({
                     </select>
                   </div>
 
-                  {/* NFC Indicator */}
+                  {/* QR Indicator */}
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-semibold text-slate-400">NFC Wave Badge</label>
+                    <label className="text-[11px] font-semibold text-slate-400">Smart QR Badge</label>
                     <button
                       onClick={() => onUpdateConfig({ showNfcBadge: !config.showNfcBadge })}
                       className={`w-full px-3 py-2 rounded-xl border text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
@@ -373,8 +373,8 @@ export default function CanvaAdobeStudioModal({
                           : 'bg-slate-900 border-slate-700 text-slate-400'
                       }`}
                     >
-                      <Wifi className="w-3.5 h-3.5" />
-                      <span>{config.showNfcBadge ? 'NFC Badge ON' : 'NFC Badge OFF'}</span>
+                      <QrCode className="w-3.5 h-3.5" />
+                      <span>{config.showNfcBadge ? 'QR Badge ON' : 'QR Badge OFF'}</span>
                     </button>
                   </div>
 
@@ -571,7 +571,7 @@ export default function CanvaAdobeStudioModal({
                   <div className="space-y-1">
                     <h4 className="text-xs font-bold text-white">Upload to OneClickBiz &amp; Download 300 DPI PDF</h4>
                     <p className="text-[11px] text-slate-400">
-                      Upload your front and back images in the <strong>Upload</strong> tab. OneClickBiz automatically hooks up the live 3D flip card, embeds the dynamic QR and NFC triggers, and generates the print-ready PDF for your printer!
+                      Upload your front and back images in the <strong>Upload</strong> tab. OneClickBiz automatically hooks up the live 3D flip card, embeds your dynamic QR code, and generates the print-ready PDF for your printer!
                     </p>
                   </div>
                 </div>

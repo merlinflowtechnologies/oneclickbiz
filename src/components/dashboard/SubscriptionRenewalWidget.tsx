@@ -264,7 +264,7 @@ export default function SubscriptionRenewalWidget({
             1-Year Plan Renewal Center
           </h2>
           <p className="text-xs sm:text-sm text-slate-600">
-            Keep your digital business cards, NFC taps, and online WhatsApp store active 24/7.
+            Keep your digital business cards, smart QR links, and online WhatsApp store active 24/7.
           </p>
         </div>
 

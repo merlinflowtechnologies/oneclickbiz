@@ -76,13 +76,13 @@ const TUTORIAL_MODES: TutorialMode[] = [
     duration: '02:00',
     totalSeconds: 120,
     badge: '★ Recommended End-to-End Walkthrough',
-    description: 'Watch the complete workflow: Creating a free account, building your smart digital profile, adding your WhatsApp store catalog, publishing your dynamic QR, and sharing across users via NFC and 1-click .VCF.',
+    description: 'Watch the complete workflow: Creating a free account, building your smart digital profile, adding your WhatsApp store catalog, publishing your dynamic QR, and sharing across users via smart links and 1-click .VCF.',
     keyHighlights: [
       'Instant 30-second account sign-up with unique URL claim',
       'Drag-and-drop profile builder with avatar, bio & verified socials',
       'Luxury designer theme picker & 0% commission WhatsApp store',
       'Dynamic high-res QR code with centered logo branding',
-      'Seamless NFC card tap & 1-tap .VCF phone address book save'
+      'Dynamic QR code scan & 1-tap .VCF phone address book save'
     ],
     chapters: [
       {
@@ -124,9 +124,9 @@ const TUTORIAL_MODES: TutorialMode[] = [
       {
         time: '01:40',
         seconds: 100,
-        title: '5. Share Across Users (NFC & .VCF)',
-        action: 'Contactless NFC tap & 1-tap address book download',
-        narration: 'Tap your NFC card or share QR. Clients view your profile with zero apps and save your .VCF contact in 1 tap.',
+        title: '5. Instant Sharing (QR & .VCF)',
+        action: 'Dynamic QR scan & 1-tap address book download',
+        narration: 'Share your dynamic QR or custom link. Clients view your profile with zero apps and save your .VCF contact in 1 tap.',
         dynamicIslandText: '📲 Saved to iPhone Contacts',
         mockupType: 'share-nfc'
       }
@@ -224,7 +224,7 @@ const TUTORIAL_MODES: TutorialMode[] = [
         time: '00:00',
         seconds: 0,
         title: 'Add Catalog Products',
-        action: 'Adding NFC cards & consulting services',
+        action: 'Adding software plans & consulting services',
         narration: 'Showcase your items with multi-currency pricing and rich descriptions.',
         dynamicIslandText: '🛍️ Store Catalog Active',
         mockupType: 'theme-store'
@@ -242,13 +242,13 @@ const TUTORIAL_MODES: TutorialMode[] = [
   },
   {
     id: 'share-nfc',
-    title: 'Step 4: Sharing Across Users via NFC & QR',
-    shortTitle: '4. Sharing & NFC',
+    title: 'Step 4: Sharing Across Users via Dynamic QR & Links',
+    shortTitle: '4. QR & Link Sharing',
     icon: QrCode,
     duration: '01:00',
     totalSeconds: 60,
-    badge: 'Hardware & Contactless',
-    description: 'Share your card across users using contactless NFC hardware taps, dynamic high-res QR codes, and 1-click .VCF address book downloads.',
+    badge: '100% Pure Software',
+    description: 'Share your card across users using dynamic high-res QR codes, branded web links, and 1-click .VCF address book downloads.',
     keyHighlights: [
       'Universal compatibility with all iPhone & Android smartphones',
       'Dynamic QR codes that update automatically when you edit your card',
@@ -268,9 +268,9 @@ const TUTORIAL_MODES: TutorialMode[] = [
       {
         time: '00:30',
         seconds: 30,
-        title: 'Contactless NFC Tap & .VCF',
-        action: 'Receiver tapping NFC & saving to address book',
-        narration: 'The receiver taps your NFC card or scans QR and saves your contact in 1 tap.',
+        title: 'Dynamic QR Scan & .VCF',
+        action: 'Receiver scanning QR & saving to address book',
+        narration: 'The receiver scans your QR or clicks your link and saves your contact in 1 tap.',
         dynamicIslandText: '👤 Contact Saved to Phone',
         mockupType: 'share-nfc'
       }
@@ -438,7 +438,7 @@ export default function DemoVideoSection() {
           </h2>
 
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            From creating an account and designing your smart profile to generating dynamic QR codes and sharing across users via contactless NFC & 1-click .VCF.
+            From creating an account and designing your smart profile to generating dynamic QR codes and sharing across users via dynamic QR &amp; 1-click .VCF.
           </p>
         </div>
 
@@ -638,7 +638,7 @@ export default function DemoVideoSection() {
 
                           {/* Bio / Services snippet */}
                           <div className="p-1.5 rounded-lg bg-slate-950/80 border border-slate-800 text-[8px] sm:text-[8.5px] text-slate-300 leading-snug line-clamp-2">
-                            &ldquo;NFC smart digital business cards, interactive WhatsApp catalogs & 1-tap contact sharing.&rdquo;
+                            &ldquo;Smart digital business profiles, interactive WhatsApp catalogs & 1-tap contact sharing.&rdquo;
                           </div>
 
                           <div className="p-1.5 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 text-[8.5px] sm:text-[9px] font-medium flex items-center justify-between">
@@ -665,7 +665,7 @@ export default function DemoVideoSection() {
                           {/* Mini Store Item */}
                           <div className="p-1.5 sm:p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
                             <div className="space-y-0.5 min-w-0 flex-1 mr-2">
-                              <p className="text-[10px] sm:text-[11px] font-bold text-white truncate">UltraSmart Matte NFC Card</p>
+                              <p className="text-[10px] sm:text-[11px] font-bold text-white truncate">Pro Digital Brand Package</p>
                               <p className="text-[8.5px] sm:text-[9px] text-emerald-400 font-bold">₹999 <span className="line-through text-slate-500 font-normal">₹1,999</span></p>
                             </div>
                             <div className="relative shrink-0">
@@ -747,18 +747,18 @@ export default function DemoVideoSection() {
                         <div className="p-2.5 sm:p-3 rounded-2xl bg-amber-950/60 border border-amber-500/40 space-y-2 shadow-xl">
                           <div className="flex items-center justify-between">
                             <span className="text-[9.5px] sm:text-[10px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
-                              <Zap className="w-3 h-3 text-amber-400" /> Step 5 • Contactless Sharing
+                              <Zap className="w-3 h-3 text-amber-400" /> Step 5 • Instant Sharing
                             </span>
                             <span className="px-1.5 sm:px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[8px] sm:text-[9px] font-bold">iOS & Android</span>
                           </div>
 
-                          {/* Contactless Tap Banner */}
+                          {/* Dynamic QR & Link Banner */}
                           <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-2.5 relative overflow-hidden">
                             <div className="w-9 h-7 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-center text-[8px] font-black text-slate-950 shadow shrink-0">
-                              NFC
+                              QR
                             </div>
                             <div className="min-w-0 flex-1">
-                              <p className="text-[10px] sm:text-[11px] font-bold text-white truncate">Contactless NFC Card Tap</p>
+                              <p className="text-[10px] sm:text-[11px] font-bold text-white truncate">Dynamic QR &amp; Smart Link</p>
                               <p className="text-[8px] sm:text-[9px] text-slate-400 truncate">Zero App Required • Opens in Safari/Chrome</p>
                             </div>
                             {nfcTapped && (
@@ -1085,10 +1085,10 @@ export default function DemoVideoSection() {
                 3
               </div>
               <h5 className="text-base font-bold text-slate-900 group-hover:text-pink-600 transition-colors">
-                Tap, Share & Close Leads
+                Share, Connect &amp; Close Leads
               </h5>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Share your dynamic card via QR code, NFC card tap, WhatsApp or email. Clients save your contact with 1-click .VCF and order instantly.
+                Share your dynamic card via QR code, WhatsApp, custom link, or email. Clients save your contact with 1-click .VCF and order instantly.
               </p>
             </div>
 

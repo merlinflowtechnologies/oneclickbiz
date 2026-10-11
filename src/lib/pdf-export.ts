@@ -619,13 +619,13 @@ export async function exportVisitingCardPDF(
   doc.setFillColor(99, 102, 241); // indigo
   doc.rect(0, 0, 4, height, 'F');
 
-  // Top NFC Smart Indicator Badge
+  // Top Smart QR Indicator Badge
   doc.setFillColor(30, 41, 59);
   doc.roundedRect(width - 52, 8, 44, 13, 3, 3, 'F');
   doc.setTextColor(52, 211, 153);
   doc.setFontSize(6);
   doc.setFont('helvetica', 'bold');
-  doc.text('NFC TAP ENABLED', width - 30, 17, { align: 'center' });
+  doc.text('SMART SCAN READY', width - 30, 17, { align: 'center' });
 
   // Company Name & Tagline
   doc.setTextColor(255, 255, 255);
@@ -721,7 +721,7 @@ export async function exportVisitingCardPDF(
   doc.setFontSize(5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(100, 116, 139);
-  doc.text('Powered by OneClickBiz | Smart NFC Cloud Profile', 90, 96);
+  doc.text('Powered by OneClickBiz | Smart Digital Cloud Profile', 90, 96);
 
   // Save the PDF and open on screen
   const filename = `oneclickbiz-visiting-card-${(card.slug || 'card').toLowerCase()}.pdf`;

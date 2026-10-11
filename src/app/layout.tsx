@@ -117,7 +117,7 @@ export default function RootLayout({
     legalName: 'Merlinflow Technologies Pvt Ltd',
     url: 'https://oneclickbiz.in',
     logo: 'https://oneclickbiz.in/logo.png',
-    description: 'Smart Digital Business Cards, Contactless NFC Solutions, WhatsApp Mini-Store & Blog Publishing Studio.',
+    description: 'Smart Digital Business Profiles, Dynamic QR Solutions, WhatsApp Mini-Store & Blog Publishing Studio.',
     founder: {
       '@type': 'Person',
       name: 'Merlinflow Technologies Team',
