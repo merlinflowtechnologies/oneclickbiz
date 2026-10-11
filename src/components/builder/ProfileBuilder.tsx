@@ -67,7 +67,8 @@ import {
   Plane,
   Scale,
   Wrench,
-  Store
+  Store,
+  Utensils
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { DigitalProfile, ThemeType, SectionType, VideoItem, GalleryItem, BlogPostItem, ProductItem, ServiceItem } from '@/lib/types';
@@ -471,10 +472,35 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     Boolean(profile.sectionData?.retail)
   );
 
+  const isRestaurant = Boolean(
+    profile.templateId?.startsWith('food-') ||
+    profile.templateId?.startsWith('restaurant') ||
+    profile.templateId?.includes('restaurant') ||
+    profile.templateId?.includes('pickle') ||
+    profile.id?.startsWith('food-') ||
+    profile.id?.includes('restaurant') ||
+    profile.slug?.includes('restaurant') ||
+    profile.slug?.includes('food') ||
+    profile.slug?.includes('dining') ||
+    profile.slug?.includes('cafe') ||
+    profile.category === 'Food Business' ||
+    profile.category === 'Restaurant' ||
+    profile.designation?.toLowerCase().includes('chef') ||
+    profile.designation?.toLowerCase().includes('restaurant') ||
+    profile.company?.toLowerCase().includes('restaurant') ||
+    profile.company?.toLowerCase().includes('kitchen') ||
+    profile.company?.toLowerCase().includes('cafe') ||
+    profile.company?.toLowerCase().includes('bistro') ||
+    profile.company?.toLowerCase().includes('dining') ||
+    profile.company?.toLowerCase().includes('bakery') ||
+    Boolean(profile.sectionData?.restaurant)
+  );
+
   const activeCategory: VCardCategory = React.useMemo(() => {
     if (profile.category) return normalizeCategory(profile.category, profile.templateId);
     if (isRealEstate) return 'Real Estate';
     if (isInterior) return 'Interior Design';
+    if (isRestaurant) return 'Food Business';
     if (isHealthcare) return 'Healthcare';
     if (isAutomobile) return 'Automobile';
     if (isFashion) return 'Fashion & Clothing';
@@ -486,7 +512,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     if (isHomeServices) return 'Home & Professional Services';
     if (isRetail) return 'Retail & Local Shops';
     return normalizeCategory(null, profile.templateId);
-  }, [profile.category, profile.templateId, isRealEstate, isInterior, isHealthcare, isAutomobile, isFashion, isEducation, isBeauty, isEvents, isTravel, isProfessional, isHomeServices, isRetail]);
+  }, [profile.category, profile.templateId, isRealEstate, isInterior, isRestaurant, isHealthcare, isAutomobile, isFashion, isEducation, isBeauty, isEvents, isTravel, isProfessional, isHomeServices, isRetail]);
 
   const lockConfig = CATEGORY_LOCK_CONFIG[activeCategory] || CATEGORY_LOCK_CONFIG['Professional Services'];
 
@@ -1144,6 +1170,15 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               billingGst: 'Official GST Invoice with Full Brand Warranty',
               loyaltyPerks: 'Instant Member Discounts & Cashback Points'
             }) : preset.sectionData?.retail,
+            restaurant: (activeCategory === 'Food Business' || isRestaurant) ? (preset.sectionData?.restaurant || prev.sectionData?.restaurant || {
+              fssaiNumber: 'FSSAI Lic. No. 13624014000892',
+              cuisineType: 'Hyderabadi Dum Biryani, Tandoor & North Indian Delicacies',
+              diningTimings: '11:30 AM – 11:30 PM (All 7 Days)',
+              seatingCapacity: '120 Pax (AC Family Hall & Open Rooftop)',
+              reservationPolicy: 'Table hold for 15 mins. Prior booking advised on weekends.',
+              deliveryRadius: 'Up to 12 km via WhatsApp Direct & Swiggy/Zomato',
+              dietaryHighlights: 'Pure Desi Ghee • Halal Certified • Jain Options Available'
+            }) : preset.sectionData?.restaurant,
           }
         };
       });
@@ -1531,7 +1566,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : isHealthcare ? 'Doctor & Clinic' : isAutomobile ? 'Dealership Info' : isFashion ? 'Boutique & Atelier' : isEducation ? 'Academy & Affiliation' : isBeauty ? 'Salon & Studio' : isEvents ? 'Studio & Production' : isTravel ? 'Agency & Gateways' : isProfessional ? 'Counsel & Firm Info' : isHomeServices ? 'Agency & Dispatch Info' : isRetail ? 'Storefront & Hub Info' : 'Basic Info'}
+              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : isRestaurant ? 'Restaurant & Dining Info' : isHealthcare ? 'Doctor & Clinic' : isAutomobile ? 'Dealership Info' : isFashion ? 'Boutique & Atelier' : isEducation ? 'Academy & Affiliation' : isBeauty ? 'Salon & Studio' : isEvents ? 'Studio & Production' : isTravel ? 'Agency & Gateways' : isProfessional ? 'Counsel & Firm Info' : isHomeServices ? 'Agency & Dispatch Info' : isRetail ? 'Storefront & Hub Info' : 'Basic Info'}
             </button>
             <button 
               onClick={() => setActiveTab('products')}
@@ -1548,6 +1583,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <>
                   <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                   <span>Spaces &amp; Projects ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isRestaurant ? (
+                <>
+                  <Utensils className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Dining Menu ({profile.sectionData?.products?.items?.length || 0})</span>
                 </>
               ) : isHealthcare ? (
                 <>
@@ -1622,6 +1662,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <Compass className="w-3.5 h-3.5 text-amber-400" />
                   <span>Consultation &amp; Packages</span>
                 </>
+              ) : isRestaurant ? (
+                <>
+                  <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Table Booking &amp; Catering</span>
+                </>
               ) : isHealthcare ? (
                 <>
                   <Stethoscope className="w-3.5 h-3.5 text-teal-400" />
@@ -1694,6 +1739,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <>
                   <Layers className="w-3.5 h-3.5 text-amber-400" />
                   <span>Lookbooks &amp; 3D</span>
+                </>
+              ) : isRestaurant ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Ambiance &amp; Dishes</span>
                 </>
               ) : isHealthcare ? (
                 <>
@@ -4374,6 +4424,203 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   </div>
                 )}
 
+                {/* 15. FOOD BUSINESS & RESTAURANT TRUST & CREDENTIALS */}
+                {isRestaurant && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-amber-950/40 to-slate-900 border border-amber-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center">
+                          <Utensils className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
+                            Restaurant Trust, Dining &amp; FSSAI Standards
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your digital menu header, table booking desk, and WhatsApp order cart.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-300 font-bold border border-amber-500/30">
+                        FSSAI Verified
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                          <span>FSSAI License / Registration No.</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.restaurant?.fssaiNumber ?? 'FSSAI Lic. No. 13624014000892'}
+                          placeholder="e.g. FSSAI Lic. No. 13624014000892"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                restaurant: {
+                                  ...(prev.sectionData?.restaurant || {}),
+                                  fssaiNumber: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 focus:outline-none focus:border-amber-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Utensils className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Cuisine &amp; Specialty</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.restaurant?.cuisineType ?? 'Hyderabadi Dum Biryani, Tandoor & North Indian Delicacies'}
+                          placeholder="e.g. Hyderabadi Dum Biryani & Tandoor"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                restaurant: {
+                                  ...(prev.sectionData?.restaurant || {}),
+                                  cuisineType: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Dining &amp; Kitchen Timings</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.restaurant?.diningTimings ?? '11:30 AM – 11:30 PM (All 7 Days)'}
+                          placeholder="e.g. 11:30 AM – 11:30 PM"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                restaurant: {
+                                  ...(prev.sectionData?.restaurant || {}),
+                                  diningTimings: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Dine-in Seating Capacity</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.restaurant?.seatingCapacity ?? '120 Pax (AC Family Hall & Open Rooftop)'}
+                          placeholder="e.g. 120 Pax (AC & Rooftop)"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                restaurant: {
+                                  ...(prev.sectionData?.restaurant || {}),
+                                  seatingCapacity: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Delivery Radius / Partners</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.restaurant?.deliveryRadius ?? 'Up to 12 km via WhatsApp Direct & Swiggy/Zomato'}
+                          placeholder="e.g. Up to 12 km Delivery"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                restaurant: {
+                                  ...(prev.sectionData?.restaurant || {}),
+                                  deliveryRadius: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Table Reservation Policy</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.restaurant?.reservationPolicy ?? 'Table hold for 15 mins. Prior booking advised on weekends.'}
+                          placeholder="e.g. Table hold for 15 mins"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                restaurant: {
+                                  ...(prev.sectionData?.restaurant || {}),
+                                  reservationPolicy: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Dietary &amp; Hygiene Badges</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.restaurant?.dietaryHighlights ?? 'Pure Desi Ghee • Halal Certified • Jain Options Available'}
+                          placeholder="e.g. Pure Desi Ghee • Halal / Jain Available"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                restaurant: {
+                                  ...(prev.sectionData?.restaurant || {}),
+                                  dietaryHighlights: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Quick Social Media & Networks (LinkedIn, Instagram, Twitter/X, YouTube, Facebook, Telegram) */}
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 space-y-3 pt-3 mt-2">
                   <div className="flex items-center justify-between">
@@ -5297,21 +5544,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-white">
-                      {isHealthcare ? 'Clinical Treatments & OPD Consultations' : isAutomobile ? 'VIP Test Drives & Services' : isFashion ? 'Bridal Styling & Custom Stitching' : isEducation ? 'Academic Counseling & Demo Classes' : isBeauty ? 'Salon Treatments & Beauty Services' : isEvents ? 'Event Production & Creative Services' : isTravel ? 'Custom Travel & Concierge Services' : isProfessional ? 'Legal & Advisory Practice Areas' : isHomeServices ? 'On-Demand Repairs & Maintenance Fleet' : isRetail ? 'Storefront Services & Value-Adds' : 'Bookable Services'}
+                      {isRestaurant ? 'Table Reservations & Outdoor Catering' : isHealthcare ? 'Clinical Treatments & OPD Consultations' : isAutomobile ? 'VIP Test Drives & Services' : isFashion ? 'Bridal Styling & Custom Stitching' : isEducation ? 'Academic Counseling & Demo Classes' : isBeauty ? 'Salon Treatments & Beauty Services' : isEvents ? 'Event Production & Creative Services' : isTravel ? 'Custom Travel & Concierge Services' : isProfessional ? 'Legal & Advisory Practice Areas' : isHomeServices ? 'On-Demand Repairs & Maintenance Fleet' : isRetail ? 'Storefront Services & Value-Adds' : 'Bookable Services'}
                     </h3>
                     <p className="text-xs text-slate-400">
-                      {isHealthcare ? 'Configure diagnostic consultations, health checkups, and doctor appointment slots.' : isAutomobile ? 'Configure vehicle test drives, doorstep evaluations, and periodic service checkups.' : isFashion ? 'Configure bespoke bridal consultations, couture measurements, and styling sessions.' : isEducation ? 'Configure 1-on-1 career guidance, batch counseling, and free trial demo sessions.' : isBeauty ? 'Configure luxury haircuts, skin treatments, bridal makeovers, and spa bookings.' : isEvents ? 'Configure wedding planning, candid shoot sessions, intelligent stage lighting, and sound rigs.' : isTravel ? 'Configure honeymoon itineraries, express visa filing, private cab transfers, and tour consultation.' : isProfessional ? 'Configure chamber consultations, corporate contract vetting, tax retainers, and litigation briefs.' : isHomeServices ? 'Configure plumbing, AC power jet cleaning, electrical repairs, and pest control appointments.' : isRetail ? 'Configure same-day express delivery, WhatsApp live shopping tours, and demo appointments.' : 'Services clients can choose from to book appointments on your calendar.'}
+                      {isRestaurant ? 'Configure priority dining tables, candlelight dinners, banquet halls, and live party catering buffets.' : isHealthcare ? 'Configure diagnostic consultations, health checkups, and doctor appointment slots.' : isAutomobile ? 'Configure vehicle test drives, doorstep evaluations, and periodic service checkups.' : isFashion ? 'Configure bespoke bridal consultations, couture measurements, and styling sessions.' : isEducation ? 'Configure 1-on-1 career guidance, batch counseling, and free trial demo sessions.' : isBeauty ? 'Configure luxury haircuts, skin treatments, bridal makeovers, and spa bookings.' : isEvents ? 'Configure wedding planning, candid shoot sessions, intelligent stage lighting, and sound rigs.' : isTravel ? 'Configure honeymoon itineraries, express visa filing, private cab transfers, and tour consultation.' : isProfessional ? 'Configure chamber consultations, corporate contract vetting, tax retainers, and litigation briefs.' : isHomeServices ? 'Configure plumbing, AC power jet cleaning, electrical repairs, and pest control appointments.' : isRetail ? 'Configure same-day express delivery, WhatsApp live shopping tours, and demo appointments.' : 'Services clients can choose from to book appointments on your calendar.'}
                     </p>
                   </div>
                   <button
                     onClick={() => {
                       const newService = {
                         id: `svc_${Date.now()}`,
-                        title: isHealthcare ? 'Specialist Clinical Consultation' : isAutomobile ? 'VIP Showroom Test Drive Session' : isFashion ? 'Bespoke Bridal Fitting & Styling' : isEducation ? 'Academic Counseling & Free Demo Class' : isBeauty ? 'Signature Hair & Facial Spa Treatment' : isEvents ? 'Complete Wedding Planning & Directing' : isTravel ? 'Bespoke Honeymoon & Private Tour Curating' : isProfessional ? 'Corporate Advisory & Contract Review' : isHomeServices ? 'Emergency Plumbing & Leakage Repair' : isRetail ? 'Same-Day Express Doorstep Delivery' : 'New Service',
-                        description: isHealthcare ? 'Comprehensive clinical examination, vitals check, and prescription advisory.' : isAutomobile ? 'Complimentary 45-min test drive with technical product specialist and route demo.' : isFashion ? '1-on-1 private bridal consultation, silhouette selection, and fabric customization.' : isEducation ? 'Interactive 1-on-1 career guidance, batch counseling, and syllabus walkthrough.' : isBeauty ? 'Deluxe haircut, scalp rejuvenating treatment, and professional styling session.' : isEvents ? 'End-to-end wedding choreography, vendor coordination, hospitality, guest concierge & ritual planning.' : isTravel ? '1-on-1 itinerary planning, candle-light dinners, private transfers, visa assistance & 24/7 dedicated trip concierge.' : isProfessional ? 'Thorough review of NDA/MOU agreements, legal risk analysis, and drafting advisory.' : isHomeServices ? 'Immediate dispatch of certified plumber for burst pipes, tap leaks, and drain blockages.' : isRetail ? 'Doorstep express delivery within city limits with package verification and live tracking.' : 'Describe this service offering...',
-                        price: isHealthcare ? 800 : isAutomobile ? 0 : isFashion ? 1500 : isEducation ? 0 : isBeauty ? 1200 : isEvents ? 150000 : isTravel ? 0 : isProfessional ? 2500 : isHomeServices ? 299 : isRetail ? 0 : 999,
+                        title: isRestaurant ? 'Candlelight Dinner & Rooftop Table Reservation' : isHealthcare ? 'Specialist Clinical Consultation' : isAutomobile ? 'VIP Showroom Test Drive Session' : isFashion ? 'Bespoke Bridal Fitting & Styling' : isEducation ? 'Academic Counseling & Free Demo Class' : isBeauty ? 'Signature Hair & Facial Spa Treatment' : isEvents ? 'Complete Wedding Planning & Directing' : isTravel ? 'Bespoke Honeymoon & Private Tour Curating' : isProfessional ? 'Corporate Advisory & Contract Review' : isHomeServices ? 'Emergency Plumbing & Leakage Repair' : isRetail ? 'Same-Day Express Doorstep Delivery' : 'New Service',
+                        description: isRestaurant ? 'Priority reserved table on open-air rooftop, chef welcome mocktail, and dedicated server.' : isHealthcare ? 'Comprehensive clinical examination, vitals check, and prescription advisory.' : isAutomobile ? 'Complimentary 45-min test drive with technical product specialist and route demo.' : isFashion ? '1-on-1 private bridal consultation, silhouette selection, and fabric customization.' : isEducation ? 'Interactive 1-on-1 career guidance, batch counseling, and syllabus walkthrough.' : isBeauty ? 'Deluxe haircut, scalp rejuvenating treatment, and professional styling session.' : isEvents ? 'End-to-end wedding choreography, vendor coordination, hospitality, guest concierge & ritual planning.' : isTravel ? '1-on-1 itinerary planning, candle-light dinners, private transfers, visa assistance & 24/7 dedicated trip concierge.' : isProfessional ? 'Thorough review of NDA/MOU agreements, legal risk analysis, and drafting advisory.' : isHomeServices ? 'Immediate dispatch of certified plumber for burst pipes, tap leaks, and drain blockages.' : isRetail ? 'Doorstep express delivery within city limits with package verification and live tracking.' : 'Describe this service offering...',
+                        price: isRestaurant ? 499 : isHealthcare ? 800 : isAutomobile ? 0 : isFashion ? 1500 : isEducation ? 0 : isBeauty ? 1200 : isEvents ? 150000 : isTravel ? 0 : isProfessional ? 2500 : isHomeServices ? 299 : isRetail ? 0 : 999,
                         currency: '₹',
-                        durationMinutes: isHealthcare ? 30 : isAutomobile ? 45 : isFashion ? 60 : isEducation ? 45 : isBeauty ? 60 : isEvents ? 1440 : isTravel ? 45 : isProfessional ? 60 : isHomeServices ? 45 : isRetail ? 30 : 45,
+                        durationMinutes: isRestaurant ? 90 : isHealthcare ? 30 : isAutomobile ? 45 : isFashion ? 60 : isEducation ? 45 : isBeauty ? 60 : isEvents ? 1440 : isTravel ? 45 : isProfessional ? 60 : isHomeServices ? 45 : isRetail ? 30 : 45,
                         isAvailable: true
                       };
                       const updated = [...(profile.sectionData.services?.items || []), newService];
@@ -5321,10 +5568,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       }));
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0 ${
-                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : isEvents ? 'bg-violet-600 hover:bg-violet-500' : isTravel ? 'bg-cyan-600 hover:bg-cyan-500' : isProfessional ? 'bg-amber-600 hover:bg-amber-500' : isHomeServices ? 'bg-amber-600 hover:bg-amber-500' : isRetail ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-indigo-600 hover:bg-indigo-500'
+                      isRestaurant ? 'bg-amber-600 hover:bg-amber-500' : isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : isEvents ? 'bg-violet-600 hover:bg-violet-500' : isTravel ? 'bg-cyan-600 hover:bg-cyan-500' : isProfessional ? 'bg-amber-600 hover:bg-amber-500' : isHomeServices ? 'bg-amber-600 hover:bg-amber-500' : isRetail ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-indigo-600 hover:bg-indigo-500'
                     }`}
                   >
-                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Clinical Slot' : isAutomobile ? 'Add Test Drive' : isFashion ? 'Add Styling Service' : isEducation ? 'Add Demo / Counseling Slot' : isBeauty ? 'Add Salon Service' : isEvents ? 'Add Event Service' : isTravel ? 'Add Travel Service' : isProfessional ? 'Add Practice Area' : isHomeServices ? 'Add Repair Service' : isRetail ? 'Add Store Service' : 'Add Service'}
+                    <Plus className="w-3.5 h-3.5" /> {isRestaurant ? 'Add Table / Catering Service' : isHealthcare ? 'Add Clinical Slot' : isAutomobile ? 'Add Test Drive' : isFashion ? 'Add Styling Service' : isEducation ? 'Add Demo / Counseling Slot' : isBeauty ? 'Add Salon Service' : isEvents ? 'Add Event Service' : isTravel ? 'Add Travel Service' : isProfessional ? 'Add Practice Area' : isHomeServices ? 'Add Repair Service' : isRetail ? 'Add Store Service' : 'Add Service'}
                   </button>
                 </div>
 
@@ -5981,22 +6228,22 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-white">
-                      {isHealthcare ? 'Health Packages & Wellness Checkups' : isAutomobile ? 'Vehicle Showroom Fleet & Inventory' : isFashion ? 'Couture Collections & Saree Lookbook' : isEducation ? 'Course Programs & Certifications' : isBeauty ? 'Bridal & Luxury Spa Packages' : isEvents ? 'Signature Event Packages & Rigs' : isTravel ? 'Curated Holiday Itineraries & Gateways' : isProfessional ? 'Advisory Retainers & Legal Frameworks' : isHomeServices ? 'Deep Cleaning & Facility Packages' : isRetail ? 'Store Inventory & Featured Products' : 'WhatsApp Store Catalog'}
+                      {isRestaurant ? 'Digital Food & Dining Menu' : isHealthcare ? 'Health Packages & Wellness Checkups' : isAutomobile ? 'Vehicle Showroom Fleet & Inventory' : isFashion ? 'Couture Collections & Saree Lookbook' : isEducation ? 'Course Programs & Certifications' : isBeauty ? 'Bridal & Luxury Spa Packages' : isEvents ? 'Signature Event Packages & Rigs' : isTravel ? 'Curated Holiday Itineraries & Gateways' : isProfessional ? 'Advisory Retainers & Legal Frameworks' : isHomeServices ? 'Deep Cleaning & Facility Packages' : isRetail ? 'Store Inventory & Featured Products' : 'WhatsApp Store Catalog'}
                     </h3>
                     <p className="text-xs text-slate-400">
-                      {isHealthcare ? 'Offer comprehensive medical checkup packages, full body screening, and diagnostic profiles.' : isAutomobile ? 'Showcase verified vehicles with pricing, mileage, fuel type, transmission, and instant WhatsApp booking.' : isFashion ? 'Showcase pure silk sarees, designer gowns, lehengas with live pricing and direct WhatsApp checkout.' : isEducation ? 'Showcase specialized courses, diploma batches, and certification roadmaps with instant inquiry.' : isBeauty ? 'Showcase complete bridal makeovers, hydra facials, and wellness combos with direct reservation.' : isEvents ? 'Showcase complete royal wedding packages, 2-day candid photo cinema sets, and sangeet stage rigs with pricing.' : isTravel ? 'Showcase international escapes, domestic honeymoon retreats, and custom tour packages with transparent pricing.' : isProfessional ? 'Showcase startup legal packages, monthly retainer plans, trademark filings, and compliance audits.' : isHomeServices ? 'Showcase complete 2BHK/3BHK deep cleaning, anti-termite structural warranty, and annual maintenance plans.' : isRetail ? 'Showcase in-store inventory, latest arrivals, hallmark jewelry, and gadgets with instant WhatsApp checkout.' : 'Products or packages customers can add to their cart and order directly on WhatsApp.'}
+                      {isRestaurant ? 'Showcase signature clay-pot dum biryanis, tandoori starters, curries, and beverages with live prices and 1-tap WhatsApp cart.' : isHealthcare ? 'Offer comprehensive medical checkup packages, full body screening, and diagnostic profiles.' : isAutomobile ? 'Showcase verified vehicles with pricing, mileage, fuel type, transmission, and instant WhatsApp booking.' : isFashion ? 'Showcase pure silk sarees, designer gowns, lehengas with live pricing and direct WhatsApp checkout.' : isEducation ? 'Showcase specialized courses, diploma batches, and certification roadmaps with instant inquiry.' : isBeauty ? 'Showcase complete bridal makeovers, hydra facials, and wellness combos with direct reservation.' : isEvents ? 'Showcase complete royal wedding packages, 2-day candid photo cinema sets, and sangeet stage rigs with pricing.' : isTravel ? 'Showcase international escapes, domestic honeymoon retreats, and custom tour packages with transparent pricing.' : isProfessional ? 'Showcase startup legal packages, monthly retainer plans, trademark filings, and compliance audits.' : isHomeServices ? 'Showcase complete 2BHK/3BHK deep cleaning, anti-termite structural warranty, and annual maintenance plans.' : isRetail ? 'Showcase in-store inventory, latest arrivals, hallmark jewelry, and gadgets with instant WhatsApp checkout.' : 'Products or packages customers can add to their cart and order directly on WhatsApp.'}
                     </p>
                   </div>
                   <button
                     onClick={() => {
                       const newProd = {
                         id: `prod_${Date.now()}`,
-                        name: isHealthcare ? 'Executive Master Health Checkup' : isAutomobile ? '2023 Certified Automatic Sedan' : isFashion ? 'Pure Kanjeevaram Bridal Silk Saree' : isEducation ? 'Full Stack Web Development & AI Masterclass' : isBeauty ? 'Royal Bridal Glow & Pre-Wedding Rituals' : isEvents ? 'Grand Royal 3-Day Destination Wedding Package' : isTravel ? 'Bali Private Pool Villa & Island Escape (6D/5N)' : isProfessional ? 'Annual Startup Corporate Legal Retainer' : isHomeServices ? 'Complete 3BHK Deep Cleaning Package' : isRetail ? 'Flagship Premium Wireless Audio Headset' : 'New Product / Service Package',
-                        description: isHealthcare ? '85+ blood tests, cardiac echo, liver profile, kidney panel & senior physician review.' : isAutomobile ? 'Single owner, 24,000 km, 150-point inspection certified with 1-year comprehensive warranty.' : isFashion ? 'Pure mulberry silk with real gold zari border, contrast pallu and unstitched blouse piece.' : isEducation ? '6-month intensive diploma with live real-world projects, mentor feedback, and 100% placement support.' : isBeauty ? '24k gold hydra-glow facial, premium bridal hairstyling, mineral airbrush HD makeup, and nail art.' : isEvents ? 'Full decor & production for Mehendi, Sangeet, Muhurtham & Reception. 6-member cinematic crew, celebrity DJ setup & hospitality desk.' : isTravel ? 'Seminyak private luxury pool villa, Ubud sacred monkey forest, Nusa Penida island speedboat cruise, sunset beach dinners & daily breakfast.' : isProfessional ? 'Monthly contract vetting, Board advisory minutes, founder equity governance, IP filings & unlimited routine legal queries.' : isHomeServices ? 'Exhaustive machine scrubbing of tiles, grout steam disinfection, chimney degreasing, sofa shampooing & window pane polishing.' : isRetail ? 'Active noise cancellation, 40-hour battery life, lossless spatial audio with official 1-year brand warranty card.' : 'High quality deliverable or service package.',
-                        price: isHealthcare ? 2999 : isAutomobile ? 1250000 : isFashion ? 18500 : isEducation ? 34999 : isBeauty ? 14999 : isEvents ? 499999 : isTravel ? 48999 : isProfessional ? 24999 : isHomeServices ? 3499 : isRetail ? 4999 : 1999,
+                        name: isRestaurant ? 'Royal Special Hyderabadi Mutton Dum Biryani' : isHealthcare ? 'Executive Master Health Checkup' : isAutomobile ? '2023 Certified Automatic Sedan' : isFashion ? 'Pure Kanjeevaram Bridal Silk Saree' : isEducation ? 'Full Stack Web Development & AI Masterclass' : isBeauty ? 'Royal Bridal Glow & Pre-Wedding Rituals' : isEvents ? 'Grand Royal 3-Day Destination Wedding Package' : isTravel ? 'Bali Private Pool Villa & Island Escape (6D/5N)' : isProfessional ? 'Annual Startup Corporate Legal Retainer' : isHomeServices ? 'Complete 3BHK Deep Cleaning Package' : isRetail ? 'Flagship Premium Wireless Audio Headset' : 'New Product / Service Package',
+                        description: isRestaurant ? 'Slow-cooked succulent tender goat meat with long-grain basmati, served with Mirchi ka Salan & Raita.' : isHealthcare ? '85+ blood tests, cardiac echo, liver profile, kidney panel & senior physician review.' : isAutomobile ? 'Single owner, 24,000 km, 150-point inspection certified with 1-year comprehensive warranty.' : isFashion ? 'Pure mulberry silk with real gold zari border, contrast pallu and unstitched blouse piece.' : isEducation ? '6-month intensive diploma with live real-world projects, mentor feedback, and 100% placement support.' : isBeauty ? '24k gold hydra-glow facial, premium bridal hairstyling, mineral airbrush HD makeup, and nail art.' : isEvents ? 'Full decor & production for Mehendi, Sangeet, Muhurtham & Reception. 6-member cinematic crew, celebrity DJ setup & hospitality desk.' : isTravel ? 'Seminyak private luxury pool villa, Ubud sacred monkey forest, Nusa Penida island speedboat cruise, sunset beach dinners & daily breakfast.' : isProfessional ? 'Monthly contract vetting, Board advisory minutes, founder equity governance, IP filings & unlimited routine legal queries.' : isHomeServices ? 'Exhaustive machine scrubbing of tiles, grout steam disinfection, chimney degreasing, sofa shampooing & window pane polishing.' : isRetail ? 'Active noise cancellation, 40-hour battery life, lossless spatial audio with official 1-year brand warranty card.' : 'High quality deliverable or service package.',
+                        price: isRestaurant ? 420 : isHealthcare ? 2999 : isAutomobile ? 1250000 : isFashion ? 18500 : isEducation ? 34999 : isBeauty ? 14999 : isEvents ? 499999 : isTravel ? 48999 : isProfessional ? 24999 : isHomeServices ? 3499 : isRetail ? 4999 : 1999,
                         currency: '₹',
-                        imageUrl: isHealthcare ? 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80' : isAutomobile ? 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80' : isFashion ? 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80' : isEducation ? 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80' : isBeauty ? 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80' : isEvents ? 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80' : isTravel ? 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80' : isProfessional ? 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80' : isHomeServices ? 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80' : isRetail ? 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
-                        category: isHealthcare ? 'Health Checkup' : isAutomobile ? 'Showroom Fleet' : isFashion ? 'Bridal Couture' : isEducation ? 'Certified Course' : isBeauty ? 'Bridal Package' : isEvents ? 'Complete Wedding' : isTravel ? 'International Escape' : isProfessional ? 'Legal Retainer' : isHomeServices ? 'Cleaning Package' : isRetail ? 'Electronics & Audio' : 'Services',
+                        imageUrl: isRestaurant ? 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80' : isHealthcare ? 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80' : isAutomobile ? 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80' : isFashion ? 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80' : isEducation ? 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80' : isBeauty ? 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80' : isEvents ? 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80' : isTravel ? 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80' : isProfessional ? 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80' : isHomeServices ? 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80' : isRetail ? 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
+                        category: isRestaurant ? 'Signature Biryanis' : isHealthcare ? 'Health Checkup' : isAutomobile ? 'Showroom Fleet' : isFashion ? 'Bridal Couture' : isEducation ? 'Certified Course' : isBeauty ? 'Bridal Package' : isEvents ? 'Complete Wedding' : isTravel ? 'International Escape' : isProfessional ? 'Legal Retainer' : isHomeServices ? 'Cleaning Package' : isRetail ? 'Electronics & Audio' : 'Services',
                         isAvailable: true
                       };
                       const updated = [...(profile.sectionData.products?.items || []), newProd];
@@ -6006,10 +6253,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       }));
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0 ${
-                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : isEvents ? 'bg-violet-600 hover:bg-violet-500' : isTravel ? 'bg-cyan-600 hover:bg-cyan-500' : isProfessional ? 'bg-amber-600 hover:bg-amber-500' : isHomeServices ? 'bg-amber-600 hover:bg-amber-500' : isRetail ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-pink-600 hover:bg-pink-500'
+                      isRestaurant ? 'bg-amber-600 hover:bg-amber-500' : isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : isEvents ? 'bg-violet-600 hover:bg-violet-500' : isTravel ? 'bg-cyan-600 hover:bg-cyan-500' : isProfessional ? 'bg-amber-600 hover:bg-amber-500' : isHomeServices ? 'bg-amber-600 hover:bg-amber-500' : isRetail ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-pink-600 hover:bg-pink-500'
                     }`}
                   >
-                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Health Package' : isAutomobile ? 'Add Vehicle' : isFashion ? 'Add Couture Piece' : isEducation ? 'Add Course Program' : isBeauty ? 'Add Bridal Package' : isEvents ? 'Add Event Package' : isTravel ? 'Add Holiday Package' : isProfessional ? 'Add Retainer Plan' : isHomeServices ? 'Add Service Package' : isRetail ? 'Add Product' : 'Add Product'}
+                    <Plus className="w-3.5 h-3.5" /> {isRestaurant ? 'Add Menu Dish' : isHealthcare ? 'Add Health Package' : isAutomobile ? 'Add Vehicle' : isFashion ? 'Add Couture Piece' : isEducation ? 'Add Course Program' : isBeauty ? 'Add Bridal Package' : isEvents ? 'Add Event Package' : isTravel ? 'Add Holiday Package' : isProfessional ? 'Add Retainer Plan' : isHomeServices ? 'Add Service Package' : isRetail ? 'Add Product' : 'Add Product'}
                   </button>
                 </div>
 

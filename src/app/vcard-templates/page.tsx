@@ -73,7 +73,7 @@ export default function VCardTemplatesPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-indigo-200/80 text-indigo-700 text-xs font-bold uppercase tracking-wider shadow-sm backdrop-blur-md">
               <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-              12 Industry Categories &bull; {VCARD_TEMPLATES_CATALOG.length}+ Designer Templates
+              13 Industry Categories &bull; {VCARD_TEMPLATES_CATALOG.length}+ Designer Templates
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">

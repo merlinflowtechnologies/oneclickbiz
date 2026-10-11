@@ -218,6 +218,17 @@ export interface RetailTrustConfig {
   [key: string]: any;
 }
 
+export interface RestaurantTrustConfig {
+  fssaiNumber?: string;
+  cuisineType?: string;
+  diningTimings?: string;
+  seatingCapacity?: string;
+  reservationPolicy?: string;
+  deliveryRadius?: string;
+  dietaryHighlights?: string;
+  [key: string]: any;
+}
+
 export interface ProfileSectionConfig {
   about?: { content: string };
   services?: { items: ServiceItem[] };
@@ -230,6 +241,7 @@ export interface ProfileSectionConfig {
   customLinks?: { items: CustomLinkItem[] };
   realEstate?: RealEstateTrustConfig;
   interior?: InteriorTrustConfig;
+  restaurant?: RestaurantTrustConfig;
   healthcare?: HealthcareTrustConfig;
   automobile?: AutomobileTrustConfig;
   fashion?: FashionTrustConfig;

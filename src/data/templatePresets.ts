@@ -783,6 +783,13 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
 
 TEMPLATE_PRESETS_DATA['food-home'] = TEMPLATE_PRESETS_DATA['food-restaurant'];
 TEMPLATE_PRESETS_DATA['brahmin-food'] = TEMPLATE_PRESETS_DATA['food-restaurant'];
+TEMPLATE_PRESETS_DATA['food-cafe'] = TEMPLATE_PRESETS_DATA['restaurant-menu'];
+TEMPLATE_PRESETS_DATA['food-biryani'] = TEMPLATE_PRESETS_DATA['restaurant-menu'];
+TEMPLATE_PRESETS_DATA['food-fastfood'] = TEMPLATE_PRESETS_DATA['food-restaurant'];
+TEMPLATE_PRESETS_DATA['food-icecream'] = TEMPLATE_PRESETS_DATA['food-restaurant'];
+TEMPLATE_PRESETS_DATA['food-pub'] = TEMPLATE_PRESETS_DATA['restaurant-menu'];
+TEMPLATE_PRESETS_DATA['food-dhaba'] = TEMPLATE_PRESETS_DATA['restaurant-menu'];
+TEMPLATE_PRESETS_DATA['food-southindian'] = TEMPLATE_PRESETS_DATA['restaurant-menu'];
 
 
 /**
@@ -922,6 +929,15 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
         happyClients: '350+ Happy Homeowners',
         city: 'Hyderabad',
         experienceCenter: 'Road No. 36, Jubilee Hills, Hyderabad'
+      } : undefined,
+      restaurant: ((meta.category as string) === 'Food Business' || effectiveId.startsWith('food-') || effectiveId.includes('restaurant')) ? {
+        fssaiNumber: 'FSSAI Lic. No. 13624014000892',
+        cuisineType: 'Hyderabadi Dum Biryani, Tandoor & North Indian Delicacies',
+        diningTimings: '11:30 AM – 11:30 PM (All 7 Days)',
+        seatingCapacity: '120 Pax (AC Family Hall & Open Rooftop)',
+        reservationPolicy: 'Table hold for 15 mins. Prior booking advised on weekends.',
+        deliveryRadius: 'Up to 12 km via WhatsApp Direct & Swiggy/Zomato',
+        dietaryHighlights: 'Pure Desi Ghee • Halal Certified • Jain Options Available'
       } : undefined,
       contact: {
         showEmail: true,

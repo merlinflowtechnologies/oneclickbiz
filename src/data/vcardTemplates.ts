@@ -385,6 +385,83 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     tagline: 'Mithai, dry fruits, gift hampers & savory snacks',
     features: ['Festive sweet box catalogs', 'Bulk corporate gifting orders', 'Same day home delivery', 'Pure ghee guarantee']
   },
+  {
+    id: 'food-cafe',
+    templateNumber: 407,
+    name: 'Artisan Cafe, Specialty Coffee Bar & Italian Bistro vCard',
+    category: 'Food Business',
+    subCategory: 'Cafes & Bistros',
+    imgUrl: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
+    badge: '☕ Popular Cafe',
+    tagline: 'Specialty pour-overs, sourdough wood-fired pizzas, artisanal pasta & all-day European breakfast',
+    features: ['Interactive espresso & cafe brunch menu', 'Direct table-side QR digital ordering', 'Advance cafe table & party booking', 'WhatsApp parcel takeaway cart']
+  },
+  {
+    id: 'food-biryani',
+    templateNumber: 408,
+    name: 'Royal Biryani House, Mughlai Darbar & Kebab Grills vCard',
+    category: 'Food Business',
+    subCategory: 'Biryani & Mughlai Dining',
+    imgUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80',
+    badge: '🔥 Hyderabadi Royal',
+    tagline: 'Authentic clay-pot dum biryanis, succulent galouti kebabs, rumali rotis & shahi tukda',
+    features: ['Kacchi dum biryani portion guide & photos', 'Bulk party handi pre-order with WhatsApp cart', 'Dine-in family cabin & dastarkhwan reservation', 'FSSAI hygienic kitchen certificate']
+  },
+  {
+    id: 'food-fastfood',
+    templateNumber: 409,
+    name: 'Gourmet Burger Shack, Loaded Wraps & Crispy Fried Chicken vCard',
+    category: 'Food Business',
+    subCategory: 'Fast Food & Quick Service',
+    imgUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80',
+    badge: '🍔 Smashed Burgers',
+    tagline: 'Smoked brioche burgers, loaded peri-peri fries, crunchy fried chicken & thick shakes',
+    features: ['Combo meals with custom dip selectors', 'Quick drive-thru pickup & takeaway booking', 'Instant WhatsApp order invoice generator', 'Contactless UPI payment desk']
+  },
+  {
+    id: 'food-icecream',
+    templateNumber: 410,
+    name: 'Artisan Gelato, Ice Cream & Thick Shake Parlour vCard',
+    category: 'Food Business',
+    subCategory: 'Ice Cream & Desserts',
+    imgUrl: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80',
+    badge: '🍨 Natural Gelato',
+    tagline: 'Italian handcrafted gelato scoops, bubble waffles, thick milkshakes & sundae towers',
+    features: ['Seasonal fresh fruit flavor radar', 'Party tub pre-booking & dry ice delivery pack', 'Sundae builder with custom topping add-ons', 'Live store location & WhatsApp delivery']
+  },
+  {
+    id: 'food-pub',
+    templateNumber: 411,
+    name: 'Rooftop Craft Brewery, Sunset Lounge & Taproom vCard',
+    category: 'Food Business',
+    subCategory: 'Breweries & Rooftop Lounges',
+    imgUrl: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80',
+    badge: '🍸 Rooftop Lounge',
+    tagline: 'Fresh microbrewery craft beers, woodfire appetizers, sunset cocktails & live DJ gigs',
+    features: ['Live tap beers & craft cocktail menu with ABV', 'VIP sunset table & couple candlelight reservation', 'Weekend live band entry pass & guestlist', 'Uber/cab valet pickup assistance']
+  },
+  {
+    id: 'food-dhaba',
+    templateNumber: 412,
+    name: 'Highway Grand Punjabi Dhaba & Charpai Tandoor Hut vCard',
+    category: 'Food Business',
+    subCategory: 'Dhaba & North Indian Dining',
+    imgUrl: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80',
+    badge: '🫓 Desi Makhan Dhaba',
+    tagline: 'Amritsari kulchas, sarson ka saag with makki roti, dal makhani in desi ghee & tall lassi patialas',
+    features: ['Authentic dhaba tandoor menu & thali combos', 'Highway pitstop family charpai seating booking', 'Highway bus tour & family catering orders', 'Clean highway washrooms & 24/7 dining']
+  },
+  {
+    id: 'food-southindian',
+    templateNumber: 413,
+    name: 'Authentic South Indian Tiffin Room & Pure Veg Udupi vCard',
+    category: 'Food Business',
+    subCategory: 'Pure Veg & Tiffin Rooms',
+    imgUrl: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    badge: '🟢 100% Pure Veg',
+    tagline: 'Crispy ghee podi dosas, button idlis, filter coffee degree, vada sambar & traditional meals',
+    features: ['Morning tiffin & evening snack live menus', 'Filter coffee & podi jar retail counter', 'Quick self-service token & takeaway desk', 'Satvik & pure vegetarian ghee guarantee']
+  },
 
   // ==========================================
   // 5. 🏥 HEALTHCARE
@@ -1294,8 +1371,12 @@ export const CATEGORY_QUICK_PRESETS: Record<VCardCategory, QuickPresetItem[]> = 
   ],
   'Food Business': [
     { id: 'restaurant-menu', title: 'Dining Restaurant & Bar', icon: '🍽️', slug: 'dining-menu', name: 'Chef Sanjeev Roy', company: 'Saffron Courtyard Restaurant', desig: 'Executive Chef & Partner' },
-    { id: 'pickles-snacks', title: 'Homemade Sweets & Pickles', icon: '🍯', slug: 'traditional-foods', name: 'Lakshmi Devi', company: 'Amma Gari Sweets & Pickles', desig: 'Founder & Master Cook' },
+    { id: 'food-biryani', title: 'Royal Biryani & Mughlai', icon: '🔥', slug: 'royal-biryani', name: 'Nawabzada Imran', company: 'Dastarkhwan Biryani Darbar', desig: 'Head Khansama & Master Chef' },
     { id: 'food-cafe', title: 'Artisan Cafe & Bakery', icon: '☕', slug: 'artisan-cafe', name: 'Rohan Deshmukh', company: 'The Roasted Bean Cafe', desig: 'Head Roaster & Co-Founder' },
+    { id: 'food-pub', title: 'Rooftop Brewery & Lounge', icon: '🍸', slug: 'rooftop-lounge', name: 'Varun Singhal', company: 'Skyline Craft Brewery & Lounge', desig: 'Managing Director & Mixologist' },
+    { id: 'food-dhaba', title: 'Highway Punjabi Dhaba', icon: '🫓', slug: 'highway-dhaba', name: 'Sardar Manjit Singh', company: 'Sher-e-Punjab Highway Dhaba', desig: 'Proprietor & Master Cook' },
+    { id: 'food-southindian', title: 'Pure Veg Tiffin Room', icon: '🟢', slug: 'pure-veg-tiffin', name: 'K. S. Ramanathan', company: 'Sri Krishna Vilas Tiffin Room', desig: 'Managing Partner' },
+    { id: 'pickles-snacks', title: 'Homemade Sweets & Pickles', icon: '🍯', slug: 'traditional-foods', name: 'Lakshmi Devi', company: 'Amma Gari Sweets & Pickles', desig: 'Founder & Master Cook' },
     { id: 'food-cloud', title: 'Cloud Kitchen & Delivery', icon: '🥡', slug: 'cloud-kitchen', name: 'Aditya Kapoor', company: 'Biryani Central Cloud Kitchens', desig: 'Operations Director' },
   ],
   'Fashion & Clothing': [

@@ -566,7 +566,7 @@ export default function LandingPage() {
               vCard Templates
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              Select from {VCARD_TEMPLATES_CATALOG.length}+ professional digital business cards engineered across 12 major industries for rapid networking, instant 1-click contact downloads, and integrated WhatsApp orders.
+              Select from {VCARD_TEMPLATES_CATALOG.length}+ professional digital business cards engineered across 13 major industries for rapid networking, instant 1-click contact downloads, and integrated WhatsApp orders.
             </p>
           </div>
 
