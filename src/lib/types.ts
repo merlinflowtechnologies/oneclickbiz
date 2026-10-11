@@ -154,6 +154,25 @@ export interface FashionTrustConfig {
   [key: string]: any;
 }
 
+export interface EducationTrustConfig {
+  boardAffiliation?: string;
+  accreditation?: string;
+  establishedYear?: string;
+  totalStudentsTrained?: string;
+  placementRate?: string;
+  demoTimings?: string;
+  [key: string]: any;
+}
+
+export interface BeautyTrustConfig {
+  stylistCertification?: string;
+  hygieneProtocol?: string;
+  operatingHours?: string;
+  bridalSlotsNotice?: string;
+  productBrandsUsed?: string;
+  [key: string]: any;
+}
+
 export interface ProfileSectionConfig {
   about?: { content: string };
   services?: { items: ServiceItem[] };
@@ -169,6 +188,8 @@ export interface ProfileSectionConfig {
   healthcare?: HealthcareTrustConfig;
   automobile?: AutomobileTrustConfig;
   fashion?: FashionTrustConfig;
+  education?: EducationTrustConfig;
+  beauty?: BeautyTrustConfig;
   [key: string]: any;
   contact?: {
     showEmail: boolean;

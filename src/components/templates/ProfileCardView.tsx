@@ -49,6 +49,8 @@ import InteriorMiniWebsiteView from './InteriorMiniWebsiteView';
 import HealthcareMiniWebsiteView from './HealthcareMiniWebsiteView';
 import AutomobileMiniWebsiteView from './AutomobileMiniWebsiteView';
 import FashionMiniWebsiteView from './FashionMiniWebsiteView';
+import EducationMiniWebsiteView from './EducationMiniWebsiteView';
+import BeautyMiniWebsiteView from './BeautyMiniWebsiteView';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -785,6 +787,43 @@ export default function ProfileCardView({
     Boolean(profile.sectionData?.fashion)
   );
 
+  const isEducation = Boolean(
+    (profile as any).category === 'Education' ||
+    (profile as any).templateId?.includes('edu') ||
+    (profile as any).templateId?.includes('school') ||
+    (profile as any).templateId?.includes('academy') ||
+    (profile as any).templateId?.includes('coaching') ||
+    profile.designation?.toLowerCase().includes('teacher') ||
+    profile.designation?.toLowerCase().includes('professor') ||
+    profile.designation?.toLowerCase().includes('faculty') ||
+    profile.designation?.toLowerCase().includes('tutor') ||
+    profile.designation?.toLowerCase().includes('principal') ||
+    profile.company?.toLowerCase().includes('academy') ||
+    profile.company?.toLowerCase().includes('school') ||
+    profile.company?.toLowerCase().includes('classes') ||
+    profile.company?.toLowerCase().includes('institute') ||
+    profile.company?.toLowerCase().includes('education') ||
+    Boolean(profile.sectionData?.education)
+  );
+
+  const isBeauty = Boolean(
+    (profile as any).category === 'Beauty & Personal Care' ||
+    (profile as any).templateId?.includes('beauty') ||
+    (profile as any).templateId?.includes('salon') ||
+    (profile as any).templateId?.includes('spa') ||
+    (profile as any).templateId?.includes('makeup') ||
+    profile.designation?.toLowerCase().includes('stylist') ||
+    profile.designation?.toLowerCase().includes('beautician') ||
+    profile.designation?.toLowerCase().includes('makeup') ||
+    profile.designation?.toLowerCase().includes('esthetician') ||
+    profile.company?.toLowerCase().includes('salon') ||
+    profile.company?.toLowerCase().includes('spa') ||
+    profile.company?.toLowerCase().includes('parlour') ||
+    profile.company?.toLowerCase().includes('beauty') ||
+    profile.company?.toLowerCase().includes('makeover') ||
+    Boolean(profile.sectionData?.beauty)
+  );
+
   return (
     <div className="w-full relative">
       {/* Top Device View Switcher (Visible on both mobile & desktop) */}
@@ -893,6 +932,26 @@ export default function ProfileCardView({
           />
         ) : isFashion ? (
           <FashionMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : isEducation ? (
+          <EducationMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : isBeauty ? (
+          <BeautyMiniWebsiteView
             profile={profile}
             trackAction={trackAction}
             getCleanWhatsAppNumber={getCleanWhatsAppNumber}

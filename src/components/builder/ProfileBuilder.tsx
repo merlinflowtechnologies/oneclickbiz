@@ -61,7 +61,9 @@ import {
   Car,
   Shirt,
   Activity,
-  PhoneCall
+  PhoneCall,
+  GraduationCap,
+  Scissors
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { DigitalProfile, ThemeType, SectionType, VideoItem, GalleryItem, BlogPostItem, ProductItem, ServiceItem } from '@/lib/types';
@@ -349,6 +351,41 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     Boolean(profile.sectionData?.fashion)
   );
 
+  const isEducation = Boolean(
+    profile.templateId?.startsWith('edu-') ||
+    profile.templateId?.startsWith('school-') ||
+    profile.templateId === 'vcard9' ||
+    profile.templateId === 'vcard10' ||
+    profile.category === 'Education' ||
+    profile.designation?.toLowerCase().includes('teacher') ||
+    profile.designation?.toLowerCase().includes('professor') ||
+    profile.designation?.toLowerCase().includes('faculty') ||
+    profile.designation?.toLowerCase().includes('tutor') ||
+    profile.company?.toLowerCase().includes('academy') ||
+    profile.company?.toLowerCase().includes('school') ||
+    profile.company?.toLowerCase().includes('classes') ||
+    profile.company?.toLowerCase().includes('institute') ||
+    profile.company?.toLowerCase().includes('education') ||
+    Boolean(profile.sectionData?.education)
+  );
+
+  const isBeauty = Boolean(
+    profile.templateId?.startsWith('beauty-') ||
+    profile.templateId?.startsWith('salon-') ||
+    profile.templateId?.startsWith('spa-') ||
+    profile.templateId === 'vcard3' ||
+    profile.templateId === 'vcard4' ||
+    profile.category === 'Beauty & Personal Care' ||
+    profile.designation?.toLowerCase().includes('beautician') ||
+    profile.designation?.toLowerCase().includes('makeup') ||
+    profile.designation?.toLowerCase().includes('esthetician') ||
+    profile.company?.toLowerCase().includes('salon') ||
+    profile.company?.toLowerCase().includes('spa') ||
+    profile.company?.toLowerCase().includes('parlour') ||
+    profile.company?.toLowerCase().includes('makeover') ||
+    Boolean(profile.sectionData?.beauty)
+  );
+
   const activeCategory: VCardCategory = React.useMemo(() => {
     if (profile.category) return normalizeCategory(profile.category, profile.templateId);
     if (isRealEstate) return 'Real Estate';
@@ -356,8 +393,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     if (isHealthcare) return 'Healthcare';
     if (isAutomobile) return 'Automobile';
     if (isFashion) return 'Fashion & Clothing';
+    if (isEducation) return 'Education';
+    if (isBeauty) return 'Beauty & Personal Care';
     return normalizeCategory(null, profile.templateId);
-  }, [profile.category, profile.templateId, isRealEstate, isInterior, isHealthcare, isAutomobile, isFashion]);
+  }, [profile.category, profile.templateId, isRealEstate, isInterior, isHealthcare, isAutomobile, isFashion, isEducation, isBeauty]);
 
   const lockConfig = CATEGORY_LOCK_CONFIG[activeCategory] || CATEGORY_LOCK_CONFIG['Professional Services'];
 
@@ -621,6 +660,29 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           consultationTimings: 'By Appointment: 11:00 AM - 07:30 PM',
           shippingCoverage: 'Pan-India Free Express + DHL Worldwide',
           exchangePolicy: '7-Day Hassle-Free Exchange Guarantee'
+        }
+      };
+    } else if (activeCategory === 'Education' && !newProfile.sectionData?.education) {
+      newProfile.sectionData = {
+        ...(newProfile.sectionData || {}),
+        education: {
+          boardAffiliation: 'Central Board & State Council Accredited',
+          accreditation: 'ISO 9001:2015 & Govt. Recognized',
+          establishedYear: '2012',
+          totalStudentsTrained: '12,500+',
+          placementRate: '96.8% Success Rate',
+          demoTimings: 'Mon - Sat: 09:00 AM - 07:00 PM'
+        }
+      };
+    } else if (activeCategory === 'Beauty & Personal Care' && !newProfile.sectionData?.beauty) {
+      newProfile.sectionData = {
+        ...(newProfile.sectionData || {}),
+        beauty: {
+          stylistCertification: 'CIDESCO & L’Oréal Certified Master Stylists',
+          hygieneProtocol: '100% Autoclaved Tools & Single-Use Linens',
+          operatingHours: '10:00 AM - 08:30 PM (Daily)',
+          bridalSlotsNotice: 'Advance Booking Required for Wedding Dates',
+          productBrandsUsed: 'Dyson, Kérastase, Olaplex & Charlotte Tilbury'
         }
       };
     }
@@ -920,6 +982,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               shippingCoverage: 'Pan-India Free Express + DHL Worldwide',
               exchangePolicy: '7-Day Hassle-Free Exchange Guarantee'
             }) : preset.sectionData?.fashion,
+            education: (activeCategory === 'Education' || isEducation) ? (preset.sectionData?.education || prev.sectionData?.education || {
+              boardAffiliation: 'Central Board & State Council Accredited',
+              accreditation: 'ISO 9001:2015 & Govt. Recognized',
+              establishedYear: '2012',
+              totalStudentsTrained: '12,500+',
+              placementRate: '96.8% Success Rate',
+              demoTimings: 'Mon - Sat: 09:00 AM - 07:00 PM'
+            }) : preset.sectionData?.education,
+            beauty: (activeCategory === 'Beauty & Personal Care' || isBeauty) ? (preset.sectionData?.beauty || prev.sectionData?.beauty || {
+              stylistCertification: 'CIDESCO & L’Oréal Certified Master Stylists',
+              hygieneProtocol: '100% Autoclaved Tools & Single-Use Linens',
+              operatingHours: '10:00 AM - 08:30 PM (Daily)',
+              bridalSlotsNotice: 'Advance Booking Required for Wedding Dates',
+              productBrandsUsed: 'Dyson, Kérastase, Olaplex & Charlotte Tilbury'
+            }) : preset.sectionData?.beauty,
           }
         };
       });
@@ -1307,7 +1384,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : isHealthcare ? 'Doctor & Clinic' : isAutomobile ? 'Dealership Info' : isFashion ? 'Boutique & Atelier' : 'Basic Info'}
+              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : isHealthcare ? 'Doctor & Clinic' : isAutomobile ? 'Dealership Info' : isFashion ? 'Boutique & Atelier' : isEducation ? 'Academy & Affiliation' : isBeauty ? 'Salon & Studio' : 'Basic Info'}
             </button>
             <button 
               onClick={() => setActiveTab('products')}
@@ -1339,6 +1416,16 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <>
                   <Shirt className="w-3.5 h-3.5 text-rose-400" />
                   <span>Couture Lookbook ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isEducation ? (
+                <>
+                  <GraduationCap className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Courses &amp; Batches ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isBeauty ? (
+                <>
+                  <Crown className="w-3.5 h-3.5 text-rose-400" />
+                  <span>Bridal Packages ({profile.sectionData?.products?.items?.length || 0})</span>
                 </>
               ) : (
                 <>
@@ -1378,6 +1465,16 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <Sparkles className="w-3.5 h-3.5 text-rose-400" />
                   <span>Bespoke Fitting</span>
                 </>
+              ) : isEducation ? (
+                <>
+                  <BookOpen className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Mentorship &amp; Demos</span>
+                </>
+              ) : isBeauty ? (
+                <>
+                  <Scissors className="w-3.5 h-3.5 text-rose-400" />
+                  <span>Services &amp; Hair Menu</span>
+                </>
               ) : (
                 <>
                   <Briefcase className="w-3.5 h-3.5 text-blue-400" />
@@ -1415,6 +1512,16 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <>
                   <ImageIcon className="w-3.5 h-3.5 text-pink-400" />
                   <span>Couture Gallery</span>
+                </>
+              ) : isEducation ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Campus &amp; Labs</span>
+                </>
+              ) : isBeauty ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-rose-400" />
+                  <span>Salon &amp; Lookbook</span>
                 </>
               ) : (
                 <>
@@ -3002,6 +3109,304 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   </div>
                 )}
 
+                {/* 8. EDUCATION ACADEMY & ACCREDITATION STANDARDS */}
+                {isEducation && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950/40 to-slate-900 border border-blue-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-blue-500/20 border border-blue-500/40 text-blue-400 flex items-center justify-center">
+                          <GraduationCap className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-blue-300">
+                            Academic Accreditation &amp; Board Affiliation
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your campus trust banner, student admission desk, and rankers strip.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-300 font-bold border border-blue-500/30">
+                        Govt. Accredited
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+                          <span>Board / Council Affiliation</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.education?.boardAffiliation ?? 'Central Board & State Council Accredited'}
+                          placeholder="e.g. CBSE / State Council Accredited"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                education: {
+                                  ...(prev.sectionData?.education || {}),
+                                  boardAffiliation: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-blue-300 focus:outline-none focus:border-blue-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Award className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Accreditation / ISO Standard</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.education?.accreditation ?? 'ISO 9001:2015 & Govt. Recognized'}
+                          placeholder="e.g. ISO 9001:2015 Certified"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                education: {
+                                  ...(prev.sectionData?.education || {}),
+                                  accreditation: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Total Students Mentored</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.education?.totalStudentsTrained ?? '12,500+'}
+                          placeholder="e.g. 12,500+"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                education: {
+                                  ...(prev.sectionData?.education || {}),
+                                  totalStudentsTrained: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Placement / Selection Rate</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.education?.placementRate ?? '96.8% Success Rate'}
+                          placeholder="e.g. 96.8% Success Rate"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                education: {
+                                  ...(prev.sectionData?.education || {}),
+                                  placementRate: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Demo &amp; Counseling Hours</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.education?.demoTimings ?? 'Mon - Sat: 09:00 AM - 07:00 PM'}
+                          placeholder="e.g. Mon - Sat: 09:00 AM - 07:00 PM"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                education: {
+                                  ...(prev.sectionData?.education || {}),
+                                  demoTimings: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 9. BEAUTY & LUXURY SALON CERTIFICATIONS */}
+                {isBeauty && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-[#0C0A09] via-rose-950/40 to-[#0C0A09] border border-rose-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-stone-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-400 flex items-center justify-center">
+                          <Scissors className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-rose-300">
+                            Stylist Certifications &amp; Hygiene Standards
+                          </h4>
+                          <p className="text-[11px] text-stone-400">
+                            Displayed on your salon trust strip, service menu, and appointment scheduler.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-300 font-bold border border-rose-500/30">
+                        Luxury Certified
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-stone-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-rose-400" />
+                          <span>Stylist &amp; Aesthetician Certification</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.beauty?.stylistCertification ?? 'CIDESCO & L’Oréal Certified Master Stylists'}
+                          placeholder="e.g. CIDESCO / L'Oréal Certified"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                beauty: {
+                                  ...(prev.sectionData?.beauty || {}),
+                                  stylistCertification: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-stone-950 border border-stone-700 text-xs text-rose-300 focus:outline-none focus:border-rose-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-stone-300 flex items-center gap-1.5">
+                          <Award className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Hygiene Protocol &amp; Sterilization</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.beauty?.hygieneProtocol ?? '100% Autoclaved Tools & Single-Use Linens'}
+                          placeholder="e.g. 100% Autoclaved Tools"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                beauty: {
+                                  ...(prev.sectionData?.beauty || {}),
+                                  hygieneProtocol: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-stone-950 border border-stone-700 text-xs text-white focus:outline-none focus:border-rose-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-stone-400">Salon Operating Hours</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.beauty?.operatingHours ?? '10:00 AM - 08:30 PM (Daily)'}
+                          placeholder="e.g. 10:00 AM - 08:30 PM"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                beauty: {
+                                  ...(prev.sectionData?.beauty || {}),
+                                  operatingHours: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-stone-950 border border-stone-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-stone-400">Luxury Product Brands</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.beauty?.productBrandsUsed ?? 'Dyson, Kérastase, Olaplex & Charlotte Tilbury'}
+                          placeholder="e.g. Dyson, Kérastase, Olaplex"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                beauty: {
+                                  ...(prev.sectionData?.beauty || {}),
+                                  productBrandsUsed: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-stone-950 border border-stone-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-stone-400">Bridal Advance Notice</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.beauty?.bridalSlotsNotice ?? 'Advance Booking Required for Wedding Dates'}
+                          placeholder="e.g. Advance Booking Required"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                beauty: {
+                                  ...(prev.sectionData?.beauty || {}),
+                                  bridalSlotsNotice: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-stone-950 border border-stone-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Quick Social Media & Networks (LinkedIn, Instagram, Twitter/X, YouTube, Facebook, Telegram) */}
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 space-y-3 pt-3 mt-2">
                   <div className="flex items-center justify-between">
@@ -3925,21 +4330,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-white">
-                      {isHealthcare ? 'Clinical Treatments & OPD Consultations' : isAutomobile ? 'VIP Test Drives & Services' : isFashion ? 'Bridal Styling & Custom Stitching' : 'Bookable Services'}
+                      {isHealthcare ? 'Clinical Treatments & OPD Consultations' : isAutomobile ? 'VIP Test Drives & Services' : isFashion ? 'Bridal Styling & Custom Stitching' : isEducation ? 'Academic Counseling & Demo Classes' : isBeauty ? 'Salon Treatments & Beauty Services' : 'Bookable Services'}
                     </h3>
                     <p className="text-xs text-slate-400">
-                      {isHealthcare ? 'Configure diagnostic consultations, health checkups, and doctor appointment slots.' : isAutomobile ? 'Configure vehicle test drives, doorstep evaluations, and periodic service checkups.' : isFashion ? 'Configure bespoke bridal consultations, couture measurements, and styling sessions.' : 'Services clients can choose from to book appointments on your calendar.'}
+                      {isHealthcare ? 'Configure diagnostic consultations, health checkups, and doctor appointment slots.' : isAutomobile ? 'Configure vehicle test drives, doorstep evaluations, and periodic service checkups.' : isFashion ? 'Configure bespoke bridal consultations, couture measurements, and styling sessions.' : isEducation ? 'Configure 1-on-1 career guidance, batch counseling, and free trial demo sessions.' : isBeauty ? 'Configure luxury haircuts, skin treatments, bridal makeovers, and spa bookings.' : 'Services clients can choose from to book appointments on your calendar.'}
                     </p>
                   </div>
                   <button
                     onClick={() => {
                       const newService = {
                         id: `svc_${Date.now()}`,
-                        title: isHealthcare ? 'Specialist Clinical Consultation' : isAutomobile ? 'VIP Showroom Test Drive Session' : isFashion ? 'Bespoke Bridal Fitting & Styling' : 'New Service',
-                        description: isHealthcare ? 'Comprehensive clinical examination, vitals check, and prescription advisory.' : isAutomobile ? 'Complimentary 45-min test drive with technical product specialist and route demo.' : isFashion ? '1-on-1 private bridal consultation, silhouette selection, and fabric customization.' : 'Describe this service offering...',
-                        price: isHealthcare ? 800 : isAutomobile ? 0 : isFashion ? 1500 : 999,
+                        title: isHealthcare ? 'Specialist Clinical Consultation' : isAutomobile ? 'VIP Showroom Test Drive Session' : isFashion ? 'Bespoke Bridal Fitting & Styling' : isEducation ? 'Academic Counseling & Free Demo Class' : isBeauty ? 'Signature Hair & Facial Spa Treatment' : 'New Service',
+                        description: isHealthcare ? 'Comprehensive clinical examination, vitals check, and prescription advisory.' : isAutomobile ? 'Complimentary 45-min test drive with technical product specialist and route demo.' : isFashion ? '1-on-1 private bridal consultation, silhouette selection, and fabric customization.' : isEducation ? 'Interactive 1-on-1 career guidance, batch counseling, and syllabus walkthrough.' : isBeauty ? 'Deluxe haircut, scalp rejuvenating treatment, and professional styling session.' : 'Describe this service offering...',
+                        price: isHealthcare ? 800 : isAutomobile ? 0 : isFashion ? 1500 : isEducation ? 0 : isBeauty ? 1200 : 999,
                         currency: '₹',
-                        durationMinutes: isHealthcare ? 30 : isAutomobile ? 45 : 60,
+                        durationMinutes: isHealthcare ? 30 : isAutomobile ? 45 : isFashion ? 60 : isEducation ? 45 : isBeauty ? 60 : 45,
                         isAvailable: true
                       };
                       const updated = [...(profile.sectionData.services?.items || []), newService];
@@ -3948,9 +4353,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         sectionData: { ...prev.sectionData, services: { items: updated } }
                       }));
                     }}
-                    className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0"
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0 ${
+                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : 'bg-indigo-600 hover:bg-indigo-500'
+                    }`}
                   >
-                    <Plus className="w-3.5 h-3.5" /> Add Service
+                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Clinical Slot' : isAutomobile ? 'Add Test Drive' : isFashion ? 'Add Styling Service' : isEducation ? 'Add Demo / Counseling Slot' : isBeauty ? 'Add Salon Service' : 'Add Service'}
                   </button>
                 </div>
 
@@ -4607,22 +5014,22 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-white">
-                      {isHealthcare ? 'Health Packages & Wellness Checkups' : isAutomobile ? 'Vehicle Showroom Fleet & Inventory' : isFashion ? 'Couture Collections & Saree Lookbook' : 'WhatsApp Store Catalog'}
+                      {isHealthcare ? 'Health Packages & Wellness Checkups' : isAutomobile ? 'Vehicle Showroom Fleet & Inventory' : isFashion ? 'Couture Collections & Saree Lookbook' : isEducation ? 'Course Programs & Certifications' : isBeauty ? 'Bridal & Luxury Spa Packages' : 'WhatsApp Store Catalog'}
                     </h3>
                     <p className="text-xs text-slate-400">
-                      {isHealthcare ? 'Offer comprehensive medical checkup packages, full body screening, and diagnostic profiles.' : isAutomobile ? 'Showcase verified vehicles with pricing, mileage, fuel type, transmission, and instant WhatsApp booking.' : isFashion ? 'Showcase pure silk sarees, designer gowns, lehengas with live pricing and direct WhatsApp checkout.' : 'Products or packages customers can add to their cart and order directly on WhatsApp.'}
+                      {isHealthcare ? 'Offer comprehensive medical checkup packages, full body screening, and diagnostic profiles.' : isAutomobile ? 'Showcase verified vehicles with pricing, mileage, fuel type, transmission, and instant WhatsApp booking.' : isFashion ? 'Showcase pure silk sarees, designer gowns, lehengas with live pricing and direct WhatsApp checkout.' : isEducation ? 'Showcase specialized courses, diploma batches, and certification roadmaps with instant inquiry.' : isBeauty ? 'Showcase complete bridal makeovers, hydra facials, and wellness combos with direct reservation.' : 'Products or packages customers can add to their cart and order directly on WhatsApp.'}
                     </p>
                   </div>
                   <button
                     onClick={() => {
                       const newProd = {
                         id: `prod_${Date.now()}`,
-                        name: isHealthcare ? 'Executive Master Health Checkup' : isAutomobile ? '2023 Certified Automatic Sedan' : isFashion ? 'Pure Kanjeevaram Bridal Silk Saree' : 'New Product / Service Package',
-                        description: isHealthcare ? '85+ blood tests, cardiac echo, liver profile, kidney panel & senior physician review.' : isAutomobile ? 'Single owner, 24,000 km, 150-point inspection certified with 1-year comprehensive warranty.' : isFashion ? 'Pure mulberry silk with real gold zari border, contrast pallu and unstitched blouse piece.' : 'High quality deliverable or service package.',
-                        price: isHealthcare ? 2999 : isAutomobile ? 1250000 : isFashion ? 18500 : 1999,
+                        name: isHealthcare ? 'Executive Master Health Checkup' : isAutomobile ? '2023 Certified Automatic Sedan' : isFashion ? 'Pure Kanjeevaram Bridal Silk Saree' : isEducation ? 'Full Stack Web Development & AI Masterclass' : isBeauty ? 'Royal Bridal Glow & Pre-Wedding Rituals' : 'New Product / Service Package',
+                        description: isHealthcare ? '85+ blood tests, cardiac echo, liver profile, kidney panel & senior physician review.' : isAutomobile ? 'Single owner, 24,000 km, 150-point inspection certified with 1-year comprehensive warranty.' : isFashion ? 'Pure mulberry silk with real gold zari border, contrast pallu and unstitched blouse piece.' : isEducation ? '6-month intensive diploma with live real-world projects, mentor feedback, and 100% placement support.' : isBeauty ? '24k gold hydra-glow facial, premium bridal hairstyling, mineral airbrush HD makeup, and nail art.' : 'High quality deliverable or service package.',
+                        price: isHealthcare ? 2999 : isAutomobile ? 1250000 : isFashion ? 18500 : isEducation ? 34999 : isBeauty ? 14999 : 1999,
                         currency: '₹',
-                        imageUrl: isHealthcare ? 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80' : isAutomobile ? 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80' : isFashion ? 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
-                        category: isHealthcare ? 'Health Checkup' : isAutomobile ? 'Showroom Fleet' : isFashion ? 'Bridal Couture' : 'Services',
+                        imageUrl: isHealthcare ? 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80' : isAutomobile ? 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80' : isFashion ? 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80' : isEducation ? 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80' : isBeauty ? 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
+                        category: isHealthcare ? 'Health Checkup' : isAutomobile ? 'Showroom Fleet' : isFashion ? 'Bridal Couture' : isEducation ? 'Certified Course' : isBeauty ? 'Bridal Package' : 'Services',
                         isAvailable: true
                       };
                       const updated = [...(profile.sectionData.products?.items || []), newProd];
@@ -4632,10 +5039,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       }));
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0 ${
-                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : 'bg-pink-600 hover:bg-pink-500'
+                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : 'bg-pink-600 hover:bg-pink-500'
                     }`}
                   >
-                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Health Package' : isAutomobile ? 'Add Vehicle' : isFashion ? 'Add Couture Piece' : 'Add Product'}
+                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Health Package' : isAutomobile ? 'Add Vehicle' : isFashion ? 'Add Couture Piece' : isEducation ? 'Add Course Program' : isBeauty ? 'Add Bridal Package' : 'Add Product'}
                   </button>
                 </div>
 
