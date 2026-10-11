@@ -941,7 +941,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
   ];
 
   return (
-    <div className="flex flex-col md:flex-row flex-1 h-full min-h-0 overflow-hidden bg-slate-950 text-slate-100">
+    <div className="flex flex-col lg:flex-row flex-1 h-full min-h-0 overflow-hidden bg-slate-950 text-slate-100">
       
       {/* Left Control & Editor Panel */}
       <div className="flex-1 min-w-0 flex flex-col h-full min-h-0 bg-slate-900/50 overflow-hidden">
@@ -5220,7 +5220,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
       {/* Right Real-Time Mobile Device Mockup View */}
       {showPreview && (
-        <div className="w-full md:w-[290px] lg:w-[320px] xl:w-[350px] 2xl:w-[390px] p-2 sm:p-2.5 md:p-3 bg-slate-950 flex flex-col items-center justify-start h-full min-h-0 overflow-y-auto scrollbar-none shrink-0 border-t md:border-t-0 md:border-l border-slate-800 animate-in fade-in duration-200">
+        <div className="w-full lg:w-[320px] xl:w-[350px] 2xl:w-[390px] p-2 sm:p-2.5 lg:p-3 bg-slate-950 flex flex-col items-center justify-start h-full min-h-0 overflow-y-auto scrollbar-none shrink-0 border-t lg:border-t-0 lg:border-l border-slate-800 animate-in fade-in duration-200">
           <div className="flex items-center justify-between w-full max-w-[280px] sm:max-w-[300px] xl:max-w-[330px] mb-1.5 px-1 shrink-0">
             <div className="flex items-center gap-1.5">
               <Smartphone className="w-3.5 h-3.5 text-indigo-400" />

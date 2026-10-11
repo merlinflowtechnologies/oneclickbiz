@@ -64,8 +64,8 @@ export default function ShareCardModal({ profile, onClose }: ShareCardModalProps
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 text-white shadow-2xl space-y-5 relative">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 animate-in fade-in">
+      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-6 text-white shadow-2xl space-y-5 relative max-h-[92vh] overflow-y-auto">
         
         {/* Top Header */}
         <div className="flex items-center justify-between pb-3 border-b border-slate-800">

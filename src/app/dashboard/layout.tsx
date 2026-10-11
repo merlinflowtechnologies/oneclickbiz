@@ -381,7 +381,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Org Selector Badge */}
           <div className="hidden sm:flex items-center space-x-2 pl-4 border-l border-slate-200 min-w-0">
             <div className="px-2.5 py-1 rounded-lg bg-indigo-50 border border-indigo-200/80 text-indigo-700 text-xs font-semibold flex items-center gap-1.5 truncate shadow-xs">
-              <span className="truncate">{userSession.businessName}</span>
+              <span className="truncate max-w-[100px] md:max-w-[160px] lg:max-w-[220px]">{userSession.businessName}</span>
               <span className="text-[10px] px-1 rounded bg-indigo-100 text-indigo-800 font-bold shrink-0">{userSession.plan.toUpperCase()}</span>
             </div>
           </div>

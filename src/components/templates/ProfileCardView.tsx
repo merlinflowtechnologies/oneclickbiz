@@ -2121,7 +2121,7 @@ export default function ProfileCardView({
       {/* Appointment Booking Modal */}
       {bookingService && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl p-5 text-white shadow-2xl animate-in slide-in-from-bottom">
+          <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl p-5 text-white shadow-2xl max-h-[90vh] overflow-y-auto animate-in slide-in-from-bottom">
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
               <div className="flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-indigo-400" />
@@ -2251,8 +2251,8 @@ export default function ProfileCardView({
 
       {/* QR Code Modal Popup */}
       {isQrOpen && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-xs bg-slate-900 border border-slate-800 rounded-3xl p-6 text-white text-center shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="w-full max-w-xs bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-6 text-white text-center shadow-2xl relative max-h-[92vh] overflow-y-auto">
             <button onClick={() => setIsQrOpen(false)} className="absolute top-4 right-4 p-1 text-slate-400 hover:text-white">
               <X className="w-4 h-4" />
             </button>
@@ -2305,7 +2305,7 @@ export default function ProfileCardView({
         >
           <div 
             onClick={e => e.stopPropagation()}
-            className="w-full max-w-lg bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden text-white shadow-2xl relative animate-in zoom-in-95 duration-200"
+            className="w-full max-w-lg bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden text-white shadow-2xl relative max-h-[92vh] overflow-y-auto animate-in zoom-in-95 duration-200"
           >
             <button 
               onClick={() => setActiveGalleryItem(null)} 

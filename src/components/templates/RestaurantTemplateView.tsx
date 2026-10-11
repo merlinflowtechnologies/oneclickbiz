@@ -3063,7 +3063,7 @@ export default function RestaurantTemplateView({
       {/* ============================================================== */}
       {isTableBookingOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl max-w-md w-full border-2 border-[#D8A63D]/40 shadow-2xl p-5 sm:p-8 relative space-y-4 sm:space-y-5">
+          <div className="bg-white rounded-3xl max-w-md w-full max-h-[92vh] overflow-y-auto border-2 border-[#D8A63D]/40 shadow-2xl p-5 sm:p-8 relative space-y-4 sm:space-y-5">
             
             <button
               onClick={() => setIsTableBookingOpen(false)}
@@ -3179,7 +3179,7 @@ export default function RestaurantTemplateView({
       {/* ============================================================== */}
       {isWebsiteQrModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="relative w-full max-w-md bg-white rounded-3xl p-5 sm:p-8 border-2 border-[#D8A63D]/60 shadow-2xl space-y-4 sm:space-y-5 animate-in zoom-in-95 duration-200">
+          <div className="relative w-full max-w-md bg-white rounded-3xl p-5 sm:p-8 border-2 border-[#D8A63D]/60 shadow-2xl space-y-4 sm:space-y-5 max-h-[92vh] overflow-y-auto animate-in zoom-in-95 duration-200">
             
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-3 border-b border-[#D8A63D]/30">

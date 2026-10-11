@@ -144,28 +144,28 @@ export default function TemplateQuickPreviewModal({
         </div>
 
         {/* Modal Main Content */}
-        <div className="flex-1 overflow-hidden grid grid-cols-1 lg:grid-cols-12 bg-slate-50">
+        <div className="flex-1 overflow-y-auto lg:overflow-hidden grid grid-cols-1 lg:grid-cols-12 bg-slate-50">
           
           {/* Left Column: Interactive Phone Mockup / Poster */}
-          <div className="lg:col-span-7 bg-slate-900/95 p-4 sm:p-6 flex flex-col items-center justify-center overflow-y-auto relative min-h-[440px] sm:min-h-[580px]">
+          <div className="lg:col-span-7 bg-slate-900/95 p-3 sm:p-6 flex flex-col items-center justify-center overflow-y-auto relative min-h-[380px] sm:min-h-[500px] lg:min-h-[560px]">
             {/* Ambient Backlight */}
             <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-indigo-500/20 rounded-full blur-[100px] pointer-events-none" />
             <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-purple-500/20 rounded-full blur-[100px] pointer-events-none" />
 
             {activeTab === 'interactive' ? (
-              <div className="w-full max-w-[360px] sm:max-w-[390px] relative z-10 flex flex-col items-center">
+              <div className="w-full max-w-[310px] sm:max-w-[360px] md:max-w-[380px] relative z-10 flex flex-col items-center">
                 {/* Smartphone Device Frame */}
-                <div className="w-full bg-slate-950 rounded-[44px] p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border-[5px] border-slate-700/80 relative ring-1 ring-white/10">
+                <div className="w-full bg-slate-950 rounded-[40px] sm:rounded-[44px] p-2.5 sm:p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border-[4px] sm:border-[5px] border-slate-700/80 relative ring-1 ring-white/10">
                   {/* Speaker Ear Notch */}
-                  <div className="absolute top-3 inset-x-0 flex justify-center z-30 pointer-events-none">
-                    <div className="w-24 h-4 bg-slate-950 rounded-full flex items-center justify-center gap-2 border border-slate-800/80 shadow-inner">
-                      <div className="w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-800" />
-                      <div className="w-10 h-1 bg-slate-800 rounded-full" />
+                  <div className="absolute top-2.5 sm:top-3 inset-x-0 flex justify-center z-30 pointer-events-none">
+                    <div className="w-20 sm:w-24 h-3.5 sm:h-4 bg-slate-950 rounded-full flex items-center justify-center gap-2 border border-slate-800/80 shadow-inner">
+                      <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-slate-900 border border-slate-800" />
+                      <div className="w-8 sm:w-10 h-1 bg-slate-800 rounded-full" />
                     </div>
                   </div>
 
                   {/* Phone Screen Container */}
-                  <div className="w-full h-[520px] sm:h-[580px] bg-slate-900 rounded-[34px] overflow-y-auto scrollbar-none relative border border-slate-800/60 pt-4">
+                  <div className="w-full h-[460px] sm:h-[540px] lg:h-[580px] bg-slate-900 rounded-[30px] sm:rounded-[34px] overflow-y-auto scrollbar-none relative border border-slate-800/60 pt-4">
                     <ProfileCardView profile={demoProfile} isMockup={true} />
                   </div>
                 </div>
@@ -176,7 +176,7 @@ export default function TemplateQuickPreviewModal({
                 </div>
               </div>
             ) : (
-              <div className="w-full max-w-[360px] sm:max-w-[390px] h-[520px] sm:h-[580px] bg-slate-950 rounded-[36px] overflow-y-auto scrollbar-none border border-slate-800 p-2 shadow-2xl relative z-10">
+              <div className="w-full max-w-[310px] sm:max-w-[360px] md:max-w-[380px] h-[460px] sm:h-[540px] lg:h-[580px] bg-slate-950 rounded-[34px] sm:rounded-[36px] overflow-y-auto scrollbar-none border border-slate-800 p-2 shadow-2xl relative z-10">
                 <img
                   src={template.imgUrl}
                   alt={template.name}
@@ -187,7 +187,7 @@ export default function TemplateQuickPreviewModal({
           </div>
 
           {/* Right Column: Template Info, Actions & Mobile QR Scan */}
-          <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto space-y-6 bg-white border-t lg:border-t-0 lg:border-l border-slate-200">
+          <div className="lg:col-span-5 p-5 sm:p-7 lg:p-8 flex flex-col justify-between overflow-y-auto space-y-6 bg-white border-t lg:border-t-0 lg:border-l border-slate-200">
             <div className="space-y-5">
               {/* Category & Tag */}
               <div>

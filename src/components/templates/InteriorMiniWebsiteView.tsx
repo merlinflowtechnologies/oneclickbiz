@@ -1739,7 +1739,7 @@ END:VCARD`;
           onClick={() => setIsQrModalOpen(false)}
         >
           <div 
-            className="w-full max-w-sm bg-white rounded-3xl p-6 text-center space-y-4 shadow-2xl relative"
+            className="w-full max-w-sm bg-white rounded-3xl p-5 sm:p-6 text-center space-y-4 shadow-2xl relative max-h-[92vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
