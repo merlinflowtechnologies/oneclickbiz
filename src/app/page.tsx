@@ -359,7 +359,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-center">
             
             {/* Left Hero Content */}
-            <div className="lg:col-span-6 xl:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
+            <div className="lg:col-span-6 xl:col-span-6 space-y-6 sm:space-y-8 text-center lg:text-left">
               
               <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-200/80 text-indigo-700 text-xs font-bold uppercase tracking-wider shadow-xs backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
@@ -426,12 +426,12 @@ export default function LandingPage() {
                   <span>Build Your Smart Card</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link 
-                  href="/v/kishore"
+                <a 
+                  href="#demo"
                   className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white/90 hover:bg-slate-50 text-slate-800 border border-slate-300/80 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow"
                 >
-                  <span>Explore Live Card Demo</span>
-                </Link>
+                  <span>Explore Live Card Demo ↓</span>
+                </a>
               </div>
 
               {/* Social Proof Badges */}
@@ -456,99 +456,442 @@ export default function LandingPage() {
 
             </div>
 
-            {/* Right Hero Visual: Real-Time Interactive Card & Mini-Website Preview */}
-            <div className="lg:col-span-6 xl:col-span-5 flex flex-col items-center justify-center w-full mt-6 lg:mt-0">
-              
-              {/* Dual View Mode Switcher: Mini-Website vs Phone Card */}
-              <div className="flex items-center gap-1 sm:gap-1.5 p-1 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 mb-2.5 sm:mb-3 shadow-lg shadow-slate-200/60">
-                <button
-                  type="button"
-                  onClick={() => setHeroDemoMode('website')}
-                  className={`px-3 sm:px-4 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
-                    heroDemoMode === 'website'
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                  }`}
-                >
-                  <Monitor className="w-3.5 h-3.5" />
-                  <span>Mini-Website View</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setHeroDemoMode('mobile')}
-                  className={`px-3 sm:px-4 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
-                    heroDemoMode === 'mobile'
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                  }`}
-                >
-                  <Smartphone className="w-3.5 h-3.5" />
-                  <span>Mobile Card</span>
-                </button>
-              </div>
+            {/* Right Hero Content: Point-by-Point Services We Offer */}
+            <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center w-full mt-8 lg:mt-0">
+              <div className="p-5 sm:p-6 lg:p-7 rounded-3xl bg-white/95 backdrop-blur-xl border border-indigo-200/80 shadow-2xl shadow-indigo-500/10 space-y-4 relative overflow-hidden">
+                
+                {/* Subtle Decorative Ambient Glow */}
+                <div className="absolute -top-16 -right-16 w-52 h-52 bg-gradient-to-br from-indigo-500/15 via-purple-500/15 to-pink-500/10 rounded-full blur-2xl pointer-events-none" />
 
-              {/* Theme Switcher Chips */}
-              <div className="flex items-center justify-center gap-1 p-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/90 mb-3 sm:mb-4 shadow-sm flex-wrap max-w-full">
-                {(['modern-indigo', 'dark-onyx', 'glassmorphic', 'emerald-pro', 'sunset-gold'] as const).map(t => (
-                  <button
-                    key={t}
-                    onClick={() => setSelectedDemoTheme(t)}
-                    className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all shrink-0 cursor-pointer ${
-                      selectedDemoTheme === t 
-                        ? 'bg-slate-900 text-white shadow-xs' 
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                    }`}
-                  >
-                    {t === 'modern-indigo' ? 'LIGHT' : t.split('-')[0].toUpperCase()}
-                  </button>
-                ))}
-              </div>
+                {/* Section Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                  <div>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200/80 text-indigo-700 text-[11px] font-bold uppercase tracking-wider mb-1">
+                      <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
+                      <span>Services We Offer</span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold font-serif text-slate-900 tracking-tight">
+                      Everything Your Business Needs to Grow
+                    </h3>
+                  </div>
+                  <span className="hidden sm:inline-flex px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-bold shrink-0">
+                    All-in-One Suite
+                  </span>
+                </div>
 
-              {heroDemoMode === 'website' ? (
-                /* Desktop Browser Shell Frame Mockup */
-                <div className="w-full max-w-[380px] sm:max-w-[440px] lg:max-w-[460px] xl:max-w-[540px] rounded-2xl bg-white border border-slate-300 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden transition-all duration-300">
-                  {/* Browser Chrome Window Bar */}
-                  <div className="bg-slate-900 px-3.5 py-2.5 flex items-center justify-between border-b border-slate-800">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
-                      <div className="hidden sm:flex items-center gap-1 ml-2 px-2.5 py-0.5 rounded-md bg-slate-950 text-[10px] text-slate-300 font-mono">
-                        <span className="text-emerald-400">https://</span>
-                        <span>oneclickbiz.in/v/kishore</span>
+                {/* Point-by-Point Service List */}
+                <div className="space-y-2.5 sm:space-y-3">
+                  
+                  {/* Service Point 1: Smart Digital vCards & NFC Tap */}
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-slate-50/80 hover:bg-indigo-50/40 border border-slate-200/80 hover:border-indigo-300 transition-all group">
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-indigo-100/80 text-indigo-600 flex items-center justify-center shrink-0 border border-indigo-200/70 group-hover:scale-105 transition-transform mt-0.5">
+                        <Smartphone className="w-4.5 h-4.5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                            1. Smart Digital vCards &amp; NFC Tap Cards
+                          </h4>
+                          <span className="px-2 py-0.5 rounded-md bg-indigo-100/70 text-indigo-700 text-[10px] font-bold shrink-0">
+                            1-Click Save
+                          </span>
+                        </div>
+                        <ul className="space-y-1 text-[11px] text-slate-600">
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-indigo-600 shrink-0" />
+                            <span><strong>1-Click Contact Save:</strong> Auto-downloads .vcf file directly into phone contacts</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-indigo-600 shrink-0" />
+                            <span><strong>Contactless NFC &amp; Dynamic QR:</strong> Tap physical card (Matte, Metal &amp; Wood) or scan QR</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-indigo-600 shrink-0" />
+                            <span><strong>Unlimited Edits:</strong> Update phone, email &amp; links anytime without reprinting</span>
+                          </li>
+                        </ul>
                       </div>
                     </div>
-                    <a
-                      href="/v/kishore"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-[10px] font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition"
-                    >
-                      <span>Open Live Demo</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
                   </div>
-                  {/* Inner Scrollable Website Content */}
-                  <div className="h-[440px] sm:h-[480px] lg:h-[480px] xl:h-[520px] overflow-y-auto scrollbar-none bg-slate-50">
-                    <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
-                  </div>
-                </div>
-              ) : (
-                /* Phone Mockup Frame */
-                <div className="w-full max-w-[300px] sm:max-w-[340px] rounded-[44px] sm:rounded-[48px] p-2 sm:p-2.5 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300">
-                  {/* Dynamic Island Speaker Notch */}
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-3.5 sm:h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
-                    <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-slate-800" />
-                  </div>
-                  <div className="rounded-[34px] sm:rounded-[38px] overflow-hidden bg-white max-h-[520px] sm:max-h-[580px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
-                    <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="mobile" showViewToggle={false} />
-                  </div>
-                </div>
-              )}
 
+                  {/* Service Point 2: Turnkey Mini-Websites & Portfolios */}
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-slate-50/80 hover:bg-purple-50/40 border border-slate-200/80 hover:border-purple-300 transition-all group">
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-purple-100/80 text-purple-600 flex items-center justify-center shrink-0 border border-purple-200/70 group-hover:scale-105 transition-transform mt-0.5">
+                        <Monitor className="w-4.5 h-4.5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-purple-600 transition-colors">
+                            2. Turnkey Mini-Websites &amp; Portfolios
+                          </h4>
+                          <span className="px-2 py-0.5 rounded-md bg-purple-100/70 text-purple-700 text-[10px] font-bold shrink-0">
+                            93+ Templates
+                          </span>
+                        </div>
+                        <ul className="space-y-1 text-[11px] text-slate-600">
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-purple-600 shrink-0" />
+                            <span><strong>93+ Industry Designs:</strong> Specialized layouts for Real Estate, Doctors, Dining, Agencies &amp; more</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-purple-600 shrink-0" />
+                            <span><strong>Custom Branded Link:</strong> <code className="text-purple-700 bg-purple-50 px-1 rounded font-semibold">oneclickbiz.in/v/your-name</code> or custom domain</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-purple-600 shrink-0" />
+                            <span><strong>Rich Media Showcase:</strong> High-res photo galleries, client reviews &amp; Google Maps</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Service Point 3: WhatsApp Commerce & Instant Store */}
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-slate-50/80 hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-300 transition-all group">
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-emerald-100/80 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-200/70 group-hover:scale-105 transition-transform mt-0.5">
+                        <ShoppingBag className="w-4.5 h-4.5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
+                            3. WhatsApp Commerce &amp; Mini-Store
+                          </h4>
+                          <span className="px-2 py-0.5 rounded-md bg-emerald-100/70 text-emerald-700 text-[10px] font-bold shrink-0">
+                            0% Commission
+                          </span>
+                        </div>
+                        <ul className="space-y-1 text-[11px] text-slate-600">
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-emerald-600 shrink-0" />
+                            <span><strong>Visual Product Catalog:</strong> Showcase items, food menus, prices &amp; variations</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-emerald-600 shrink-0" />
+                            <span><strong>1-Click WhatsApp Orders:</strong> Interactive shopping cart with auto-formatted chat invoice</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-emerald-600 shrink-0" />
+                            <span><strong>Zero Transaction Cut:</strong> Direct customer ordering with 0% marketplace commission</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Service Point 4: Appointment & Reservation Booking */}
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-slate-50/80 hover:bg-sky-50/40 border border-slate-200/80 hover:border-sky-300 transition-all group">
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-sky-100/80 text-sky-600 flex items-center justify-center shrink-0 border border-sky-200/70 group-hover:scale-105 transition-transform mt-0.5">
+                        <Calendar className="w-4.5 h-4.5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
+                            4. Appointment &amp; Table Booking Engine
+                          </h4>
+                          <span className="px-2 py-0.5 rounded-md bg-sky-100/70 text-sky-700 text-[10px] font-bold shrink-0">
+                            Instant Alerts
+                          </span>
+                        </div>
+                        <ul className="space-y-1 text-[11px] text-slate-600">
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-sky-600 shrink-0" />
+                            <span><strong>Slot &amp; Table Booking:</strong> Consultations, client sessions &amp; dining reservations</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-sky-600 shrink-0" />
+                            <span><strong>Real-Time WhatsApp Alerts:</strong> Immediate notifications upon customer booking request</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-sky-600 shrink-0" />
+                            <span><strong>Zero Extra Software:</strong> Built directly into your business profile without 3rd-party fees</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Service Point 5: Direct 0% Fee UPI QR Payments */}
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-slate-50/80 hover:bg-amber-50/40 border border-slate-200/80 hover:border-amber-300 transition-all group">
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-amber-100/80 text-amber-600 flex items-center justify-center shrink-0 border border-amber-200/70 group-hover:scale-105 transition-transform mt-0.5">
+                        <CreditCard className="w-4.5 h-4.5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
+                            5. Direct 0% Fee UPI QR Payments
+                          </h4>
+                          <span className="px-2 py-0.5 rounded-md bg-amber-100/70 text-amber-700 text-[10px] font-bold shrink-0">
+                            0% Fee UPI
+                          </span>
+                        </div>
+                        <ul className="space-y-1 text-[11px] text-slate-600">
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-amber-600 shrink-0" />
+                            <span><strong>Instant QR &amp; App Links:</strong> GPay, PhonePe, Paytm, and BHIM UPI integration</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-amber-600 shrink-0" />
+                            <span><strong>Direct Bank Settlement:</strong> 100% money credited directly into your account</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-amber-600 shrink-0" />
+                            <span><strong>Zero Deduction:</strong> Avoid payment gateway deductions of 2%–3% per transaction</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Service Point 6: Visiting Card Studio & SEO Blogs */}
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-slate-50/80 hover:bg-rose-50/40 border border-slate-200/80 hover:border-rose-300 transition-all group">
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-rose-100/80 text-rose-600 flex items-center justify-center shrink-0 border border-rose-200/70 group-hover:scale-105 transition-transform mt-0.5">
+                        <Layers className="w-4.5 h-4.5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-rose-600 transition-colors">
+                            6. 300 DPI Print Studio &amp; SEO Blogs
+                          </h4>
+                          <span className="px-2 py-0.5 rounded-md bg-rose-100/70 text-rose-700 text-[10px] font-bold shrink-0">
+                            Print &amp; Rank
+                          </span>
+                        </div>
+                        <ul className="space-y-1 text-[11px] text-slate-600">
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-rose-600 shrink-0" />
+                            <span><strong>300 DPI Vector PDF:</strong> 3D dual-sided flip view + commercial print-ready download</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <Check className="w-3 h-3 text-rose-600 shrink-0" />
+                            <span><strong>SEO Blog Publishing:</strong> Built-in blogging studio to rank on Google &amp; attract local leads</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Footer Navigation within Services Panel */}
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <a href="#demo" className="font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 transition-colors">
+                    <span>Try Interactive Demo Below</span>
+                    <ArrowRight className="w-3.5 h-3.5 animate-bounce" />
+                  </a>
+                  <a href="#services" className="text-slate-500 hover:text-slate-800 font-medium transition-colors">
+                    View Full Services Suite →
+                  </a>
+                </div>
+
+              </div>
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* LIVE INTERACTIVE DEMO SECTION (Shifted Below Hero Section) */}
+      <section id="demo" className="py-20 lg:py-24 bg-gradient-to-b from-sky-50/95 via-white to-indigo-50/70 border-b border-indigo-200/80 relative overflow-hidden scroll-mt-20">
+        
+        {/* Soft Ambient Background Highlights */}
+        <div className="absolute top-10 left-1/4 w-[650px] h-[380px] bg-indigo-300/25 blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute bottom-10 right-1/4 w-[550px] h-[320px] bg-purple-300/20 blur-[120px] pointer-events-none -z-10" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-200/80 text-indigo-700 text-xs font-bold uppercase tracking-wider shadow-xs backdrop-blur-md">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
+              <span>Live Interactive Experience</span>
+            </div>
+            
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              Experience Your Smart Card &amp; Mini-Website in Action
+            </h2>
+
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+              Toggle between the full desktop Mini-Website view and the pocket-sized Mobile Card. Switch themes in real-time to preview how your brand will impress customers.
+            </p>
+          </div>
+
+          {/* Interactive Controls Bar: Dual View Mode Switcher + Theme Switcher */}
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10">
+            
+            {/* Dual View Mode Switcher */}
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white border border-slate-200/90 shadow-md shadow-slate-200/60">
+              <button
+                type="button"
+                onClick={() => setHeroDemoMode('website')}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer ${
+                  heroDemoMode === 'website'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <Monitor className="w-4 h-4" />
+                <span>Mini-Website View</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setHeroDemoMode('mobile')}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer ${
+                  heroDemoMode === 'mobile'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <Smartphone className="w-4 h-4" />
+                <span>Mobile Card</span>
+              </button>
+            </div>
+
+            {/* Theme Switcher Chips */}
+            <div className="flex items-center gap-1 sm:gap-1.5 p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex-wrap">
+              <span className="text-[11px] font-bold text-slate-400 px-2 uppercase hidden sm:inline">Theme:</span>
+              {(['modern-indigo', 'dark-onyx', 'glassmorphic', 'emerald-pro', 'sunset-gold'] as const).map(t => (
+                <button
+                  key={t}
+                  onClick={() => setSelectedDemoTheme(t)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    selectedDemoTheme === t 
+                      ? 'bg-slate-900 text-white shadow-xs' 
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  }`}
+                >
+                  {t === 'modern-indigo' ? 'LIGHT' : t.split('-')[0].toUpperCase()}
+                </button>
+              ))}
+            </div>
+
+            {/* Direct Open Tab Link */}
+            <a
+              href="/v/kishore"
+              target="_blank"
+              rel="noreferrer"
+              className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-xs"
+            >
+              <span>Open in New Tab</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          {/* Interactive Frame Rendering */}
+          {heroDemoMode === 'website' ? (
+            /* Desktop Browser Shell Frame Mockup (Expanded Width) */
+            <div className="w-full max-w-4xl xl:max-w-5xl mx-auto rounded-2xl sm:rounded-3xl bg-white border border-slate-300 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.25)] overflow-hidden transition-all duration-300">
+              {/* Browser Chrome Window Bar */}
+              <div className="bg-slate-900 px-4 py-3 flex items-center justify-between border-b border-slate-800">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-red-500 inline-block" />
+                  <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
+                  <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
+                  <div className="hidden sm:flex items-center gap-1.5 ml-3 px-3 py-1 rounded-lg bg-slate-950 text-xs text-slate-300 font-mono border border-slate-800">
+                    <Lock className="w-3 h-3 text-emerald-400" />
+                    <span className="text-emerald-400">https://</span>
+                    <span>oneclickbiz.in/v/kishore</span>
+                  </div>
+                </div>
+                <a
+                  href="/v/kishore"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xs font-bold text-indigo-300 hover:text-white flex items-center gap-1.5 transition px-3 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700/50"
+                >
+                  <span>Full Screen View</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+              {/* Inner Scrollable Website Content */}
+              <div className="h-[520px] sm:h-[580px] lg:h-[620px] overflow-y-auto scrollbar-none bg-slate-50">
+                <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
+              </div>
+            </div>
+          ) : (
+            /* Mobile Phone Mockup Frame with Companion Callouts */
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 max-w-5xl mx-auto">
+              
+              {/* Left Companion Highlights */}
+              <div className="hidden lg:flex flex-col gap-4 w-72">
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
+                  <div className="flex items-center gap-2 text-indigo-600 font-bold text-xs uppercase">
+                    <Download className="w-4 h-4" /> 1-Click Contact Save
+                  </div>
+                  <p className="text-xs text-slate-600">Downloads complete .vcf contact card straight into phone address book.</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
+                  <div className="flex items-center gap-2 text-emerald-600 font-bold text-xs uppercase">
+                    <MessageCircle className="w-4 h-4" /> Direct WhatsApp Orders
+                  </div>
+                  <p className="text-xs text-slate-600">Instant customer messaging, pre-filled enquiries and WhatsApp orders.</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
+                  <div className="flex items-center gap-2 text-amber-600 font-bold text-xs uppercase">
+                    <CreditCard className="w-4 h-4" /> 0% Fee UPI Pay
+                  </div>
+                  <p className="text-xs text-slate-600">Customers pay directly via GPay, PhonePe, Paytm with zero gateway cuts.</p>
+                </div>
+              </div>
+
+              {/* Center Phone Mockup Frame */}
+              <div className="w-full max-w-[320px] sm:max-w-[360px] rounded-[48px] p-2.5 sm:p-3 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300">
+                {/* Dynamic Island Speaker Notch */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
+                  <div className="w-2 h-2 rounded-full bg-slate-800" />
+                </div>
+                <div className="rounded-[38px] overflow-hidden bg-white max-h-[580px] sm:max-h-[620px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
+                  <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="mobile" showViewToggle={false} />
+                </div>
+              </div>
+
+              {/* Right Companion Highlights */}
+              <div className="hidden lg:flex flex-col gap-4 w-72">
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
+                  <div className="flex items-center gap-2 text-purple-600 font-bold text-xs uppercase">
+                    <Wifi className="w-4 h-4 rotate-90" /> NFC Touchless Tap
+                  </div>
+                  <p className="text-xs text-slate-600">Tap your physical smart card on any smartphone to open card instantly.</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
+                  <div className="flex items-center gap-2 text-sky-600 font-bold text-xs uppercase">
+                    <QrCode className="w-4 h-4" /> Permanent Dynamic QR
+                  </div>
+                  <p className="text-xs text-slate-600">Scan anywhere. Update your card profile anytime without changing the QR.</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
+                  <div className="flex items-center gap-2 text-pink-600 font-bold text-xs uppercase">
+                    <Sparkles className="w-4 h-4" /> No App Needed
+                  </div>
+                  <p className="text-xs text-slate-600">Opens instantly in Safari, Chrome, and any browser on iOS &amp; Android.</p>
+                </div>
+              </div>
+
+            </div>
+          )}
+
+          {/* Bottom CTAs inside Demo Section */}
+          <div className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/signup?intent=build_card"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+            >
+              <span>Build Your Smart Card Now</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <a
+              href="#templates"
+              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm"
+            >
+              <span>Browse 93+ Live Templates ↓</span>
+            </a>
+          </div>
+
         </div>
       </section>
 
