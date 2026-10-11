@@ -356,21 +356,21 @@ export default function LandingPage() {
         <div className="absolute -bottom-10 left-1/3 w-[600px] h-[400px] bg-gradient-to-r from-pink-400/35 to-amber-300/40 blur-[110px] -z-10 pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-center">
             
             {/* Left Hero Content */}
-            <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+            <div className="lg:col-span-6 xl:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
               
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-200/80 text-indigo-700 text-xs font-semibold tracking-wide shadow-xs backdrop-blur-md">
+              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-200/80 text-indigo-700 text-xs font-semibold tracking-wide shadow-xs backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
                 <span>Smart Digital Visiting Cards &amp; WhatsApp Commerce</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold font-serif tracking-tight text-slate-900 leading-[1.15]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-6xl 2xl:text-7xl font-bold font-serif tracking-tight text-slate-900 leading-[1.18] lg:leading-[1.15]">
                 Your Complete <span className="italic font-serif bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Digital Identity</span> In One Click.
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed font-normal">
+              <p className="text-sm sm:text-base lg:text-base xl:text-lg text-slate-600 max-w-2xl leading-relaxed font-normal mx-auto lg:mx-0">
                 Replace outdated paper business cards with dynamic vCards, 1-click WhatsApp mini-stores, appointment booking calendars, and blog publishing studios.
               </p>
 
@@ -393,7 +393,7 @@ export default function LandingPage() {
                   />
                   <button 
                     type="submit"
-                    className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white text-xs font-bold transition-all shadow-md shadow-indigo-500/20 shrink-0 hover:scale-[1.02] active:scale-95"
+                    className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white text-xs font-bold transition-all shadow-md shadow-indigo-500/20 shrink-0 hover:scale-[1.02] active:scale-95 cursor-pointer"
                   >
                     Check Handle
                   </button>
@@ -418,10 +418,10 @@ export default function LandingPage() {
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1 sm:pt-2">
                 <Link 
                   href="/signup?intent=build_card"
-                  className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all active:scale-95"
+                  className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
                 >
                   <span>Build Your Smart Card</span>
                   <ArrowRight className="w-4 h-4" />
@@ -435,7 +435,7 @@ export default function LandingPage() {
               </div>
 
               {/* Social Proof Badges */}
-              <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-600">
+              <div className="pt-2 sm:pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 text-xs text-slate-600">
                 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-semibold shadow-xs">
                   <RefreshCw className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Unlimited Real-Time Edits (Edit N Times)</span>
@@ -457,14 +457,14 @@ export default function LandingPage() {
             </div>
 
             {/* Right Hero Visual: Real-Time Interactive Card & Mini-Website Preview */}
-            <div className="lg:col-span-5 flex flex-col items-center justify-center w-full">
+            <div className="lg:col-span-6 xl:col-span-5 flex flex-col items-center justify-center w-full mt-6 lg:mt-0">
               
               {/* Dual View Mode Switcher: Mini-Website vs Phone Card */}
-              <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 mb-3 shadow-lg shadow-slate-200/60">
+              <div className="flex items-center gap-1 sm:gap-1.5 p-1 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 mb-2.5 sm:mb-3 shadow-lg shadow-slate-200/60">
                 <button
                   type="button"
                   onClick={() => setHeroDemoMode('website')}
-                  className={`px-3 sm:px-4 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all ${
+                  className={`px-3 sm:px-4 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
                     heroDemoMode === 'website'
                       ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -476,7 +476,7 @@ export default function LandingPage() {
                 <button
                   type="button"
                   onClick={() => setHeroDemoMode('mobile')}
-                  className={`px-3 sm:px-4 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all ${
+                  className={`px-3 sm:px-4 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
                     heroDemoMode === 'mobile'
                       ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -488,12 +488,12 @@ export default function LandingPage() {
               </div>
 
               {/* Theme Switcher Chips */}
-              <div className="flex items-center gap-1 p-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/90 mb-4 shadow-sm overflow-x-auto max-w-full">
+              <div className="flex items-center justify-center gap-1 p-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/90 mb-3 sm:mb-4 shadow-sm flex-wrap max-w-full">
                 {(['modern-indigo', 'dark-onyx', 'glassmorphic', 'emerald-pro', 'sunset-gold'] as const).map(t => (
                   <button
                     key={t}
                     onClick={() => setSelectedDemoTheme(t)}
-                    className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all shrink-0 ${
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all shrink-0 cursor-pointer ${
                       selectedDemoTheme === t 
                         ? 'bg-slate-900 text-white shadow-xs' 
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -506,7 +506,7 @@ export default function LandingPage() {
 
               {heroDemoMode === 'website' ? (
                 /* Desktop Browser Shell Frame Mockup */
-                <div className="w-full max-w-[500px] xl:max-w-[540px] rounded-2xl bg-white border border-slate-300 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden transition-all duration-300">
+                <div className="w-full max-w-[380px] sm:max-w-[440px] lg:max-w-[460px] xl:max-w-[540px] rounded-2xl bg-white border border-slate-300 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden transition-all duration-300">
                   {/* Browser Chrome Window Bar */}
                   <div className="bg-slate-900 px-3.5 py-2.5 flex items-center justify-between border-b border-slate-800">
                     <div className="flex items-center gap-1.5">
@@ -529,18 +529,18 @@ export default function LandingPage() {
                     </a>
                   </div>
                   {/* Inner Scrollable Website Content */}
-                  <div className="h-[480px] sm:h-[520px] overflow-y-auto scrollbar-none bg-slate-50">
+                  <div className="h-[440px] sm:h-[480px] lg:h-[480px] xl:h-[520px] overflow-y-auto scrollbar-none bg-slate-50">
                     <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
                   </div>
                 </div>
               ) : (
                 /* Phone Mockup Frame */
-                <div className="w-full max-w-[340px] rounded-[48px] p-2.5 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300">
+                <div className="w-full max-w-[300px] sm:max-w-[340px] rounded-[44px] sm:rounded-[48px] p-2 sm:p-2.5 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300">
                   {/* Dynamic Island Speaker Notch */}
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
-                    <div className="w-2 h-2 rounded-full bg-slate-800" />
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-3.5 sm:h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
+                    <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-slate-800" />
                   </div>
-                  <div className="rounded-[38px] overflow-hidden bg-white max-h-[580px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
+                  <div className="rounded-[34px] sm:rounded-[38px] overflow-hidden bg-white max-h-[520px] sm:max-h-[580px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
                     <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="mobile" showViewToggle={false} />
                   </div>
                 </div>
