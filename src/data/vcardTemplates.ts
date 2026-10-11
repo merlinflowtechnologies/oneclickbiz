@@ -94,19 +94,103 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
     id: 're-builders',
     templateNumber: 101,
-    name: 'Real Estate Master vCard',
+    name: 'Real Estate Master & High-Rise Developers',
     category: 'Real Estate',
-    subCategory: 'Builders, Plots, Villas & Realtors',
-    imgUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
-    badge: 'Flagship 5-in-1',
-    tagline: 'Builders, gated layouts, open plots, luxury villas & property advisors',
+    subCategory: 'High-Rise Towers, Gated Communities & Infra',
+    imgUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+    badge: '⭐ Flagship Mini-Website',
+    tagline: 'Builders, gated layouts, luxury towers & infrastructure',
     features: [
       'TS-RERA certified builder & 100% clear title credentials',
-      'All property types: Open Plots, Villas, Apartments & IT Parks',
-      'Doorstep chauffeur site visit & inspection booking',
+      'All property types: Towers, Gated Villas, Plots & IT Parks',
+      'Doorstep chauffeur site visit & model inspection booking',
       'Master layout blueprints & 4K aerial drone walkthroughs',
-      'Growth corridor filter & EMI / per-sq-yd calculator',
+      'Interactive EMI calculator & per-sq-ft estimator',
       'Instant WhatsApp lead router & 1-tap contact save'
+    ]
+  },
+  {
+    id: 're-plots',
+    templateNumber: 102,
+    name: 'Open Plots & Farmland Ventures',
+    category: 'Real Estate',
+    subCategory: 'Plotted Layouts, Farmlands & County',
+    imgUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
+    badge: 'HMDA & DTCP Approved',
+    tagline: 'HMDA / DTCP approved open plots, farmlands & county layouts',
+    features: [
+      'HMDA, DTCP & TS-RERA approved gated layout communities',
+      '100% clear title 30-year link document verification',
+      'Organic farmland projects with drip irrigation & fencing',
+      'Highway growth corridors (Airport & ORR / RRR junctions)',
+      'Free chauffeured weekend site visit booking'
+    ]
+  },
+  {
+    id: 're-villas',
+    templateNumber: 103,
+    name: 'Luxury Gated Villas & Triplex Communities',
+    category: 'Real Estate',
+    subCategory: 'Triplex Gated Villas & Clubhouse Estates',
+    imgUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
+    badge: 'Ultra Luxury',
+    tagline: 'Triplex gated villas, clubhouse amenities & private plunge pools',
+    features: [
+      '4 & 5 BHK Triplex Villas with private plunge pools',
+      'Clubhouse amenities: tennis court, spa & banquet hall',
+      '100% Vastu compliant architecture & solar power',
+      '3D virtual walkthrough & high-res interior lookbook',
+      'VIP model villa appointment booking'
+    ]
+  },
+  {
+    id: 're-agents',
+    templateNumber: 104,
+    name: 'Certified Realtors & Property Advisors',
+    category: 'Real Estate',
+    subCategory: 'Channel Partners & Property Brokers',
+    imgUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80',
+    badge: 'Top Broker',
+    tagline: 'Verified luxury apartments, villas & investment advisory',
+    features: [
+      'Verified luxury apartments, villas & resale inventories',
+      'NRI property investment portfolio management',
+      'Zero-brokerage bank loan tie-ups (HDFC, SBI, ICICI)',
+      'Direct 1-tap WhatsApp consultation & instant contact card',
+      'RERA compliant broker credentials'
+    ]
+  },
+  {
+    id: 're-consultants',
+    templateNumber: 105,
+    name: 'Commercial Real Estate & Pre-Leased Assets',
+    category: 'Real Estate',
+    subCategory: 'Pre-Leased Banks, IT Parks & High Street',
+    imgUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+    badge: '8%+ Rental Yield',
+    tagline: 'Grade-A IT parks, bank branches & high-yield commercial assets',
+    features: [
+      'Grade-A IT park office spaces & MNC tenant portfolios',
+      'Pre-leased bank branches & high street retail with 9-yr lock-in',
+      'Comprehensive ROI yield analysis & lease covenant review',
+      'Institutional & HNI family office land aggregation',
+      'Confidential deal room & NDA consultation'
+    ]
+  },
+  {
+    id: 'vcard35',
+    templateNumber: 106,
+    name: 'Minimalist Real Estate vCard',
+    category: 'Real Estate',
+    subCategory: 'Executive Property Brokers',
+    imgUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
+    badge: 'Sleek vCard',
+    tagline: 'Prime property broker & digital visiting card',
+    features: [
+      'Clean luxury digital business card & QR code',
+      '1-tap contact save (VCF) to phonebook',
+      'Featured property listings with instant WhatsApp enquiry',
+      'Google Maps office location & social links'
     ]
   },
 

@@ -789,12 +789,12 @@ TEMPLATE_PRESETS_DATA['brahmin-food'] = TEMPLATE_PRESETS_DATA['food-restaurant']
  * Returns a fully populated, production-ready DigitalProfile for any of the 28 templates.
  */
 export function getTemplateProfile(templateId: string): DigitalProfile {
-  // Alias all real estate templates to the unified master real estate card
+  // Fallback alias for real estate templates
   const effectiveId = (templateId.startsWith('re-') || templateId === 'vcard35') ? 're-builders' : templateId;
-  const meta = VCARD_TEMPLATES_CATALOG.find((t) => t.id === effectiveId) || 
-               VCARD_TEMPLATES_CATALOG.find((t) => t.id === templateId) || 
+  const meta = VCARD_TEMPLATES_CATALOG.find((t) => t.id === templateId) || 
+               VCARD_TEMPLATES_CATALOG.find((t) => t.id === effectiveId) || 
                VCARD_TEMPLATES_CATALOG[0];
-  const custom = TEMPLATE_PRESETS_DATA[effectiveId] || TEMPLATE_PRESETS_DATA[templateId] || {};
+  const custom = TEMPLATE_PRESETS_DATA[templateId] || TEMPLATE_PRESETS_DATA[effectiveId] || {};
 
   const name = custom.name || meta.name.replace(' vCard', '');
   const designation = custom.designation || meta.tagline;

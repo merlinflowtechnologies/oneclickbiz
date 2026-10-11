@@ -115,12 +115,15 @@ function BuilderContent() {
             try {
               localFallback = JSON.parse(customSaved);
               if (isReTarget) {
-                localFallback.templateId = 're-builders';
+                const isExistingRe = localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35';
+                if (!isExistingRe) {
+                  localFallback.templateId = (effectiveTemplateId?.startsWith('re-') || effectiveTemplateId === 'vcard35') ? effectiveTemplateId : 're-builders';
+                }
                 localFallback.category = 'Real Estate';
                 if (!localFallback.sectionData?.realEstate) {
                   localFallback.sectionData = {
                     ...(localFallback.sectionData || {}),
-                    realEstate: getTemplateProfile('re-builders').sectionData.realEstate
+                    realEstate: getTemplateProfile(localFallback.templateId || 're-builders').sectionData.realEstate
                   };
                 }
               } else if (isInteriorTarget) {
@@ -144,12 +147,15 @@ function BuilderContent() {
           }
 
           if (isReTarget) {
-            localFallback.templateId = 're-builders';
+            const isExistingRe = localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35';
+            if (!isExistingRe) {
+              localFallback.templateId = (effectiveTemplateId?.startsWith('re-') || effectiveTemplateId === 'vcard35') ? effectiveTemplateId : 're-builders';
+            }
             localFallback.category = 'Real Estate';
             if (!localFallback.sectionData?.realEstate) {
               localFallback.sectionData = {
                 ...(localFallback.sectionData || {}),
-                realEstate: getTemplateProfile('re-builders').sectionData.realEstate
+                realEstate: getTemplateProfile(localFallback.templateId || 're-builders').sectionData.realEstate
               };
             }
           } else if (isInteriorTarget) {
@@ -201,7 +207,9 @@ function BuilderContent() {
                 const merged: DigitalProfile = {
                   ...localFallback,
                   ...dbProfile,
-                  templateId: dbIsRe ? 're-builders' : isInteriorTarget ? 'home-interior' : (dbProfile.templateId || localFallback.templateId || effectiveTemplateId || undefined),
+                  templateId: dbIsRe 
+                    ? ((dbProfile.templateId?.startsWith('re-') || dbProfile.templateId === 'vcard35') ? dbProfile.templateId : (localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35') ? localFallback.templateId : 're-builders') 
+                    : isInteriorTarget ? 'home-interior' : (dbProfile.templateId || localFallback.templateId || effectiveTemplateId || undefined),
                   category: dbIsRe ? 'Real Estate' : isInteriorTarget ? 'Interior Design' : (dbProfile.category || localFallback.category || parsedSession?.category || undefined),
                   // Ensure sectionData.about.content reflects the DB bio & trust configs are preserved
                   sectionData: {

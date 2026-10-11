@@ -39,8 +39,11 @@ export async function POST(req: NextRequest) {
 
     // Resolve template and industry preset
     const isInteriorCategory = body.category === 'Interior Design' || body.category === 'Interior' || cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') || body.templateId === 'home-interior' || body.templateId === 'interior';
-    const effectiveCategory = body.category || (isInteriorCategory ? 'Interior Design' : (cleanSlug.startsWith('re-') || body.templateId?.startsWith('re-') ? 'Real Estate' : 'Real Estate'));
-    const effectiveTemplateId = body.templateId || (isInteriorCategory ? 'home-interior' : (effectiveCategory === 'Real Estate' ? 're-builders' : 're-builders'));
+    const isRealEstateCategory = body.category === 'Real Estate' || cleanSlug.startsWith('re-') || body.templateId?.startsWith('re-') || body.templateId === 'vcard35';
+    const effectiveCategory = isRealEstateCategory ? 'Real Estate' : (isInteriorCategory ? 'Interior Design' : (body.category || 'Real Estate'));
+    const effectiveTemplateId = (isRealEstateCategory && (body.templateId?.startsWith('re-') || body.templateId === 'vcard35'))
+      ? body.templateId
+      : (isRealEstateCategory ? 're-builders' : (isInteriorCategory ? 'home-interior' : (body.templateId || 're-builders')));
     const templatePreset = getTemplateProfile(effectiveTemplateId);
 
     // Create User, Organization, and Default Profile in a transaction (with fallback)

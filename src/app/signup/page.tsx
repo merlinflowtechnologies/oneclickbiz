@@ -536,6 +536,8 @@ function SignUpForm() {
 
                 try {
                   const initialCustomProfile = getTemplateProfile(templateId);
+                  initialCustomProfile.category = category;
+                  initialCustomProfile.templateId = templateId;
                   initialCustomProfile.name = data.user.name;
                   initialCustomProfile.company = generatedBizName;
                   initialCustomProfile.phone = phone;
@@ -641,6 +643,8 @@ function SignUpForm() {
 
         try {
           const initialCustomProfile = getTemplateProfile(templateId);
+          initialCustomProfile.category = category;
+          initialCustomProfile.templateId = templateId;
           initialCustomProfile.name = fullName;
           initialCustomProfile.company = cleanBiz;
           initialCustomProfile.phone = phone;
