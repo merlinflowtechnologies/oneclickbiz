@@ -51,6 +51,8 @@ import AutomobileMiniWebsiteView from './AutomobileMiniWebsiteView';
 import FashionMiniWebsiteView from './FashionMiniWebsiteView';
 import EducationMiniWebsiteView from './EducationMiniWebsiteView';
 import BeautyMiniWebsiteView from './BeautyMiniWebsiteView';
+import EventsMiniWebsiteView from './EventsMiniWebsiteView';
+import TravelMiniWebsiteView from './TravelMiniWebsiteView';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -824,6 +826,42 @@ export default function ProfileCardView({
     Boolean(profile.sectionData?.beauty)
   );
 
+  const isEvents = Boolean(
+    (profile as any).category === 'Events & Creative' ||
+    (profile as any).templateId?.includes('event') ||
+    (profile as any).templateId?.includes('photo') ||
+    (profile as any).templateId?.includes('wedding') ||
+    (profile as any).templateId?.includes('dj') ||
+    profile.designation?.toLowerCase().includes('photographer') ||
+    profile.designation?.toLowerCase().includes('event planner') ||
+    profile.designation?.toLowerCase().includes('cinematographer') ||
+    profile.designation?.toLowerCase().includes('decor') ||
+    profile.company?.toLowerCase().includes('events') ||
+    profile.company?.toLowerCase().includes('wedding') ||
+    profile.company?.toLowerCase().includes('photography') ||
+    profile.company?.toLowerCase().includes('production') ||
+    profile.company?.toLowerCase().includes('studio') ||
+    Boolean(profile.sectionData?.events)
+  );
+
+  const isTravel = Boolean(
+    (profile as any).category === 'Travel & Hospitality' ||
+    (profile as any).templateId?.includes('travel') ||
+    (profile as any).templateId?.includes('tour') ||
+    (profile as any).templateId?.includes('holiday') ||
+    (profile as any).templateId?.includes('resort') ||
+    (profile as any).templateId?.includes('hotel') ||
+    profile.designation?.toLowerCase().includes('travel') ||
+    profile.designation?.toLowerCase().includes('tour') ||
+    profile.designation?.toLowerCase().includes('holiday') ||
+    profile.company?.toLowerCase().includes('travels') ||
+    profile.company?.toLowerCase().includes('tours') ||
+    profile.company?.toLowerCase().includes('holidays') ||
+    profile.company?.toLowerCase().includes('resort') ||
+    profile.company?.toLowerCase().includes('getaways') ||
+    Boolean(profile.sectionData?.travel)
+  );
+
   return (
     <div className="w-full relative">
       {/* Top Device View Switcher (Visible on both mobile & desktop) */}
@@ -959,6 +997,16 @@ export default function ProfileCardView({
             viewMode={viewMode}
             setViewMode={setViewMode}
             showViewToggle={showViewToggle}
+          />
+        ) : isEvents ? (
+          <EventsMiniWebsiteView
+            profile={profile}
+            getEmbedUrl={getEmbedUrl}
+          />
+        ) : isTravel ? (
+          <TravelMiniWebsiteView
+            profile={profile}
+            getEmbedUrl={getEmbedUrl}
           />
         ) : (
           <MBLMiniWebsiteView

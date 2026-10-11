@@ -61,9 +61,10 @@ import {
   Car,
   Shirt,
   Activity,
-  PhoneCall,
   GraduationCap,
-  Scissors
+  Scissors,
+  PartyPopper,
+  Plane
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { DigitalProfile, ThemeType, SectionType, VideoItem, GalleryItem, BlogPostItem, ProductItem, ServiceItem } from '@/lib/types';
@@ -386,6 +387,33 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     Boolean(profile.sectionData?.beauty)
   );
 
+  const isEvents = Boolean(
+    profile.templateId?.startsWith('event-') ||
+    profile.templateId?.startsWith('photo-') ||
+    profile.templateId?.startsWith('wedding-') ||
+    profile.category === 'Events & Creative' ||
+    profile.designation?.toLowerCase().includes('photographer') ||
+    profile.designation?.toLowerCase().includes('event planner') ||
+    profile.company?.toLowerCase().includes('events') ||
+    profile.company?.toLowerCase().includes('wedding') ||
+    profile.company?.toLowerCase().includes('production') ||
+    Boolean(profile.sectionData?.events)
+  );
+
+  const isTravel = Boolean(
+    profile.templateId?.startsWith('travel-') ||
+    profile.templateId?.startsWith('tour-') ||
+    profile.templateId?.startsWith('holiday-') ||
+    profile.category === 'Travel & Hospitality' ||
+    profile.designation?.toLowerCase().includes('travel') ||
+    profile.designation?.toLowerCase().includes('holiday') ||
+    profile.company?.toLowerCase().includes('travels') ||
+    profile.company?.toLowerCase().includes('tours') ||
+    profile.company?.toLowerCase().includes('holidays') ||
+    profile.company?.toLowerCase().includes('resort') ||
+    Boolean(profile.sectionData?.travel)
+  );
+
   const activeCategory: VCardCategory = React.useMemo(() => {
     if (profile.category) return normalizeCategory(profile.category, profile.templateId);
     if (isRealEstate) return 'Real Estate';
@@ -395,8 +423,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     if (isFashion) return 'Fashion & Clothing';
     if (isEducation) return 'Education';
     if (isBeauty) return 'Beauty & Personal Care';
+    if (isEvents) return 'Events & Creative';
+    if (isTravel) return 'Travel & Hospitality';
     return normalizeCategory(null, profile.templateId);
-  }, [profile.category, profile.templateId, isRealEstate, isInterior, isHealthcare, isAutomobile, isFashion, isEducation, isBeauty]);
+  }, [profile.category, profile.templateId, isRealEstate, isInterior, isHealthcare, isAutomobile, isFashion, isEducation, isBeauty, isEvents, isTravel]);
 
   const lockConfig = CATEGORY_LOCK_CONFIG[activeCategory] || CATEGORY_LOCK_CONFIG['Professional Services'];
 
@@ -683,6 +713,28 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           operatingHours: '10:00 AM - 08:30 PM (Daily)',
           bridalSlotsNotice: 'Advance Booking Required for Wedding Dates',
           productBrandsUsed: 'Dyson, Kérastase, Olaplex & Charlotte Tilbury'
+        }
+      };
+    } else if (activeCategory === 'Events & Creative' && !newProfile.sectionData?.events) {
+      newProfile.sectionData = {
+        ...(newProfile.sectionData || {}),
+        events: {
+          eventSpecialization: 'Destination Weddings & Luxury Celebrations',
+          eventsExecuted: '350+ Celebrations Executed',
+          experienceYears: '12+ Years',
+          productionCapability: 'In-House Sound, 4K Drones & Stage Decor',
+          serviceLocations: 'Pan-India & Destination Weddings'
+        }
+      };
+    } else if (activeCategory === 'Travel & Hospitality' && !newProfile.sectionData?.travel) {
+      newProfile.sectionData = {
+        ...(newProfile.sectionData || {}),
+        travel: {
+          agencyRegistration: 'IATA Accredited & Ministry of Tourism Recognized',
+          destinationsCovered: '75+ Domestic & Global Gateways',
+          happyTravelers: '25,000+ Happy Explorers',
+          supportHours: '24/7 Dedicated Ground Concierge',
+          customizationPolicy: '100% Tailored Private Itineraries'
         }
       };
     }
@@ -997,6 +1049,20 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               bridalSlotsNotice: 'Advance Booking Required for Wedding Dates',
               productBrandsUsed: 'Dyson, Kérastase, Olaplex & Charlotte Tilbury'
             }) : preset.sectionData?.beauty,
+            events: (activeCategory === 'Events & Creative' || isEvents) ? (preset.sectionData?.events || prev.sectionData?.events || {
+              eventSpecialization: 'Destination Weddings & Luxury Celebrations',
+              eventsExecuted: '350+ Celebrations Executed',
+              experienceYears: '12+ Years',
+              productionCapability: 'In-House Sound, 4K Drones & Stage Decor',
+              serviceLocations: 'Pan-India & Destination Weddings'
+            }) : preset.sectionData?.events,
+            travel: (activeCategory === 'Travel & Hospitality' || isTravel) ? (preset.sectionData?.travel || prev.sectionData?.travel || {
+              agencyRegistration: 'IATA Accredited & Ministry of Tourism Recognized',
+              destinationsCovered: '75+ Domestic & Global Gateways',
+              happyTravelers: '25,000+ Happy Explorers',
+              supportHours: '24/7 Dedicated Ground Concierge',
+              customizationPolicy: '100% Tailored Private Itineraries'
+            }) : preset.sectionData?.travel,
           }
         };
       });
@@ -1384,7 +1450,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : isHealthcare ? 'Doctor & Clinic' : isAutomobile ? 'Dealership Info' : isFashion ? 'Boutique & Atelier' : isEducation ? 'Academy & Affiliation' : isBeauty ? 'Salon & Studio' : 'Basic Info'}
+              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : isHealthcare ? 'Doctor & Clinic' : isAutomobile ? 'Dealership Info' : isFashion ? 'Boutique & Atelier' : isEducation ? 'Academy & Affiliation' : isBeauty ? 'Salon & Studio' : isEvents ? 'Studio & Production' : isTravel ? 'Agency & Gateways' : 'Basic Info'}
             </button>
             <button 
               onClick={() => setActiveTab('products')}
@@ -1426,6 +1492,16 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <>
                   <Crown className="w-3.5 h-3.5 text-rose-400" />
                   <span>Bridal Packages ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isEvents ? (
+                <>
+                  <PartyPopper className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Event Packages ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isTravel ? (
+                <>
+                  <Plane className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Holiday Itineraries ({profile.sectionData?.products?.items?.length || 0})</span>
                 </>
               ) : (
                 <>
@@ -1475,6 +1551,16 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <Scissors className="w-3.5 h-3.5 text-rose-400" />
                   <span>Services &amp; Hair Menu</span>
                 </>
+              ) : isEvents ? (
+                <>
+                  <Camera className="w-3.5 h-3.5 text-violet-400" />
+                  <span>Production &amp; Shoots</span>
+                </>
+              ) : isTravel ? (
+                <>
+                  <Compass className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Travel Services</span>
+                </>
               ) : (
                 <>
                   <Briefcase className="w-3.5 h-3.5 text-blue-400" />
@@ -1522,6 +1608,16 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <>
                   <ImageIcon className="w-3.5 h-3.5 text-rose-400" />
                   <span>Salon &amp; Lookbook</span>
+                </>
+              ) : isEvents ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-violet-400" />
+                  <span>Celebration Lookbook</span>
+                </>
+              ) : isTravel ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Destinations &amp; Moments</span>
                 </>
               ) : (
                 <>
@@ -3407,6 +3503,304 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   </div>
                 )}
 
+                {/* 10. EVENTS & CREATIVE PRODUCTION STANDARDS */}
+                {isEvents && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-violet-950/40 to-slate-900 border border-violet-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-violet-500/20 border border-violet-500/40 text-violet-400 flex items-center justify-center">
+                          <PartyPopper className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-violet-300">
+                            Event Specialization &amp; Production Standards
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your event trust banner, package cards, and date check scheduler.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-violet-500/10 text-violet-300 font-bold border border-violet-500/30">
+                        Lead Producer
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-violet-400" />
+                          <span>Event Specialization</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.events?.eventSpecialization ?? 'Destination Weddings & Luxury Celebrations'}
+                          placeholder="e.g. Destination Weddings & Luxury Celebrations"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                events: {
+                                  ...(prev.sectionData?.events || {}),
+                                  eventSpecialization: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-violet-300 focus:outline-none focus:border-violet-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Award className="w-3.5 h-3.5 text-amber-400" />
+                          <span>In-House Production Capability</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.events?.productionCapability ?? 'In-House Sound, 4K Drones & Stage Decor'}
+                          placeholder="e.g. In-House Sound, 4K Drones & Stage Decor"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                events: {
+                                  ...(prev.sectionData?.events || {}),
+                                  productionCapability: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-violet-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Events Executed</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.events?.eventsExecuted ?? '350+ Celebrations Executed'}
+                          placeholder="e.g. 350+ Celebrations"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                events: {
+                                  ...(prev.sectionData?.events || {}),
+                                  eventsExecuted: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Experience in Years</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.events?.experienceYears ?? '12+ Years'}
+                          placeholder="e.g. 12+ Years"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                events: {
+                                  ...(prev.sectionData?.events || {}),
+                                  experienceYears: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Locations Covered</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.events?.serviceLocations ?? 'Pan-India & Destination Weddings'}
+                          placeholder="e.g. Pan-India & Destination Weddings"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                events: {
+                                  ...(prev.sectionData?.events || {}),
+                                  serviceLocations: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 11. TRAVEL & HOSPITALITY AGENCY CREDENTIALS */}
+                {isTravel && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center">
+                          <Plane className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-300">
+                            Agency Accreditation &amp; Travel Concierge
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your agency trust banner, itinerary cards, and trip planner desk.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-300 font-bold border border-cyan-500/30">
+                        IATA Partner
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                          <span>Agency Accreditation / Registration</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.travel?.agencyRegistration ?? 'IATA Accredited & Ministry of Tourism Recognized'}
+                          placeholder="e.g. IATA Accredited"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                travel: {
+                                  ...(prev.sectionData?.travel || {}),
+                                  agencyRegistration: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-cyan-300 focus:outline-none focus:border-cyan-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Award className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Customization Policy</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.travel?.customizationPolicy ?? '100% Tailored Private Itineraries'}
+                          placeholder="e.g. 100% Tailored Private Itineraries"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                travel: {
+                                  ...(prev.sectionData?.travel || {}),
+                                  customizationPolicy: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-cyan-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Gateways &amp; Destinations</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.travel?.destinationsCovered ?? '75+ Domestic & Global Gateways'}
+                          placeholder="e.g. 75+ Gateways"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                travel: {
+                                  ...(prev.sectionData?.travel || {}),
+                                  destinationsCovered: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Happy Explorers</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.travel?.happyTravelers ?? '25,000+ Happy Explorers'}
+                          placeholder="e.g. 25,000+ Happy Explorers"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                travel: {
+                                  ...(prev.sectionData?.travel || {}),
+                                  happyTravelers: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Concierge Support Hours</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.travel?.supportHours ?? '24/7 Dedicated Ground Concierge'}
+                          placeholder="e.g. 24/7 Dedicated Ground Concierge"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                travel: {
+                                  ...(prev.sectionData?.travel || {}),
+                                  supportHours: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Quick Social Media & Networks (LinkedIn, Instagram, Twitter/X, YouTube, Facebook, Telegram) */}
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 space-y-3 pt-3 mt-2">
                   <div className="flex items-center justify-between">
@@ -4330,21 +4724,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-white">
-                      {isHealthcare ? 'Clinical Treatments & OPD Consultations' : isAutomobile ? 'VIP Test Drives & Services' : isFashion ? 'Bridal Styling & Custom Stitching' : isEducation ? 'Academic Counseling & Demo Classes' : isBeauty ? 'Salon Treatments & Beauty Services' : 'Bookable Services'}
+                      {isHealthcare ? 'Clinical Treatments & OPD Consultations' : isAutomobile ? 'VIP Test Drives & Services' : isFashion ? 'Bridal Styling & Custom Stitching' : isEducation ? 'Academic Counseling & Demo Classes' : isBeauty ? 'Salon Treatments & Beauty Services' : isEvents ? 'Event Production & Creative Services' : isTravel ? 'Custom Travel & Concierge Services' : 'Bookable Services'}
                     </h3>
                     <p className="text-xs text-slate-400">
-                      {isHealthcare ? 'Configure diagnostic consultations, health checkups, and doctor appointment slots.' : isAutomobile ? 'Configure vehicle test drives, doorstep evaluations, and periodic service checkups.' : isFashion ? 'Configure bespoke bridal consultations, couture measurements, and styling sessions.' : isEducation ? 'Configure 1-on-1 career guidance, batch counseling, and free trial demo sessions.' : isBeauty ? 'Configure luxury haircuts, skin treatments, bridal makeovers, and spa bookings.' : 'Services clients can choose from to book appointments on your calendar.'}
+                      {isHealthcare ? 'Configure diagnostic consultations, health checkups, and doctor appointment slots.' : isAutomobile ? 'Configure vehicle test drives, doorstep evaluations, and periodic service checkups.' : isFashion ? 'Configure bespoke bridal consultations, couture measurements, and styling sessions.' : isEducation ? 'Configure 1-on-1 career guidance, batch counseling, and free trial demo sessions.' : isBeauty ? 'Configure luxury haircuts, skin treatments, bridal makeovers, and spa bookings.' : isEvents ? 'Configure wedding planning, candid shoot sessions, intelligent stage lighting, and sound rigs.' : isTravel ? 'Configure honeymoon itineraries, express visa filing, private cab transfers, and tour consultation.' : 'Services clients can choose from to book appointments on your calendar.'}
                     </p>
                   </div>
                   <button
                     onClick={() => {
                       const newService = {
                         id: `svc_${Date.now()}`,
-                        title: isHealthcare ? 'Specialist Clinical Consultation' : isAutomobile ? 'VIP Showroom Test Drive Session' : isFashion ? 'Bespoke Bridal Fitting & Styling' : isEducation ? 'Academic Counseling & Free Demo Class' : isBeauty ? 'Signature Hair & Facial Spa Treatment' : 'New Service',
-                        description: isHealthcare ? 'Comprehensive clinical examination, vitals check, and prescription advisory.' : isAutomobile ? 'Complimentary 45-min test drive with technical product specialist and route demo.' : isFashion ? '1-on-1 private bridal consultation, silhouette selection, and fabric customization.' : isEducation ? 'Interactive 1-on-1 career guidance, batch counseling, and syllabus walkthrough.' : isBeauty ? 'Deluxe haircut, scalp rejuvenating treatment, and professional styling session.' : 'Describe this service offering...',
-                        price: isHealthcare ? 800 : isAutomobile ? 0 : isFashion ? 1500 : isEducation ? 0 : isBeauty ? 1200 : 999,
+                        title: isHealthcare ? 'Specialist Clinical Consultation' : isAutomobile ? 'VIP Showroom Test Drive Session' : isFashion ? 'Bespoke Bridal Fitting & Styling' : isEducation ? 'Academic Counseling & Free Demo Class' : isBeauty ? 'Signature Hair & Facial Spa Treatment' : isEvents ? 'Complete Wedding Planning & Directing' : isTravel ? 'Bespoke Honeymoon & Private Tour Curating' : 'New Service',
+                        description: isHealthcare ? 'Comprehensive clinical examination, vitals check, and prescription advisory.' : isAutomobile ? 'Complimentary 45-min test drive with technical product specialist and route demo.' : isFashion ? '1-on-1 private bridal consultation, silhouette selection, and fabric customization.' : isEducation ? 'Interactive 1-on-1 career guidance, batch counseling, and syllabus walkthrough.' : isBeauty ? 'Deluxe haircut, scalp rejuvenating treatment, and professional styling session.' : isEvents ? 'End-to-end wedding choreography, vendor coordination, hospitality, guest concierge & ritual planning.' : isTravel ? '1-on-1 itinerary planning, candle-light dinners, private transfers, visa assistance & 24/7 dedicated trip concierge.' : 'Describe this service offering...',
+                        price: isHealthcare ? 800 : isAutomobile ? 0 : isFashion ? 1500 : isEducation ? 0 : isBeauty ? 1200 : isEvents ? 150000 : isTravel ? 0 : 999,
                         currency: '₹',
-                        durationMinutes: isHealthcare ? 30 : isAutomobile ? 45 : isFashion ? 60 : isEducation ? 45 : isBeauty ? 60 : 45,
+                        durationMinutes: isHealthcare ? 30 : isAutomobile ? 45 : isFashion ? 60 : isEducation ? 45 : isBeauty ? 60 : isEvents ? 1440 : isTravel ? 45 : 45,
                         isAvailable: true
                       };
                       const updated = [...(profile.sectionData.services?.items || []), newService];
@@ -4354,10 +4748,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       }));
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0 ${
-                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : 'bg-indigo-600 hover:bg-indigo-500'
+                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : isEvents ? 'bg-violet-600 hover:bg-violet-500' : isTravel ? 'bg-cyan-600 hover:bg-cyan-500' : 'bg-indigo-600 hover:bg-indigo-500'
                     }`}
                   >
-                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Clinical Slot' : isAutomobile ? 'Add Test Drive' : isFashion ? 'Add Styling Service' : isEducation ? 'Add Demo / Counseling Slot' : isBeauty ? 'Add Salon Service' : 'Add Service'}
+                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Clinical Slot' : isAutomobile ? 'Add Test Drive' : isFashion ? 'Add Styling Service' : isEducation ? 'Add Demo / Counseling Slot' : isBeauty ? 'Add Salon Service' : isEvents ? 'Add Event Service' : isTravel ? 'Add Travel Service' : 'Add Service'}
                   </button>
                 </div>
 
@@ -5014,22 +5408,22 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-white">
-                      {isHealthcare ? 'Health Packages & Wellness Checkups' : isAutomobile ? 'Vehicle Showroom Fleet & Inventory' : isFashion ? 'Couture Collections & Saree Lookbook' : isEducation ? 'Course Programs & Certifications' : isBeauty ? 'Bridal & Luxury Spa Packages' : 'WhatsApp Store Catalog'}
+                      {isHealthcare ? 'Health Packages & Wellness Checkups' : isAutomobile ? 'Vehicle Showroom Fleet & Inventory' : isFashion ? 'Couture Collections & Saree Lookbook' : isEducation ? 'Course Programs & Certifications' : isBeauty ? 'Bridal & Luxury Spa Packages' : isEvents ? 'Signature Event Packages & Rigs' : isTravel ? 'Curated Holiday Itineraries & Gateways' : 'WhatsApp Store Catalog'}
                     </h3>
                     <p className="text-xs text-slate-400">
-                      {isHealthcare ? 'Offer comprehensive medical checkup packages, full body screening, and diagnostic profiles.' : isAutomobile ? 'Showcase verified vehicles with pricing, mileage, fuel type, transmission, and instant WhatsApp booking.' : isFashion ? 'Showcase pure silk sarees, designer gowns, lehengas with live pricing and direct WhatsApp checkout.' : isEducation ? 'Showcase specialized courses, diploma batches, and certification roadmaps with instant inquiry.' : isBeauty ? 'Showcase complete bridal makeovers, hydra facials, and wellness combos with direct reservation.' : 'Products or packages customers can add to their cart and order directly on WhatsApp.'}
+                      {isHealthcare ? 'Offer comprehensive medical checkup packages, full body screening, and diagnostic profiles.' : isAutomobile ? 'Showcase verified vehicles with pricing, mileage, fuel type, transmission, and instant WhatsApp booking.' : isFashion ? 'Showcase pure silk sarees, designer gowns, lehengas with live pricing and direct WhatsApp checkout.' : isEducation ? 'Showcase specialized courses, diploma batches, and certification roadmaps with instant inquiry.' : isBeauty ? 'Showcase complete bridal makeovers, hydra facials, and wellness combos with direct reservation.' : isEvents ? 'Showcase complete royal wedding packages, 2-day candid photo cinema sets, and sangeet stage rigs with pricing.' : isTravel ? 'Showcase international escapes, domestic honeymoon retreats, and custom tour packages with transparent pricing.' : 'Products or packages customers can add to their cart and order directly on WhatsApp.'}
                     </p>
                   </div>
                   <button
                     onClick={() => {
                       const newProd = {
                         id: `prod_${Date.now()}`,
-                        name: isHealthcare ? 'Executive Master Health Checkup' : isAutomobile ? '2023 Certified Automatic Sedan' : isFashion ? 'Pure Kanjeevaram Bridal Silk Saree' : isEducation ? 'Full Stack Web Development & AI Masterclass' : isBeauty ? 'Royal Bridal Glow & Pre-Wedding Rituals' : 'New Product / Service Package',
-                        description: isHealthcare ? '85+ blood tests, cardiac echo, liver profile, kidney panel & senior physician review.' : isAutomobile ? 'Single owner, 24,000 km, 150-point inspection certified with 1-year comprehensive warranty.' : isFashion ? 'Pure mulberry silk with real gold zari border, contrast pallu and unstitched blouse piece.' : isEducation ? '6-month intensive diploma with live real-world projects, mentor feedback, and 100% placement support.' : isBeauty ? '24k gold hydra-glow facial, premium bridal hairstyling, mineral airbrush HD makeup, and nail art.' : 'High quality deliverable or service package.',
-                        price: isHealthcare ? 2999 : isAutomobile ? 1250000 : isFashion ? 18500 : isEducation ? 34999 : isBeauty ? 14999 : 1999,
+                        name: isHealthcare ? 'Executive Master Health Checkup' : isAutomobile ? '2023 Certified Automatic Sedan' : isFashion ? 'Pure Kanjeevaram Bridal Silk Saree' : isEducation ? 'Full Stack Web Development & AI Masterclass' : isBeauty ? 'Royal Bridal Glow & Pre-Wedding Rituals' : isEvents ? 'Grand Royal 3-Day Destination Wedding Package' : isTravel ? 'Bali Private Pool Villa & Island Escape (6D/5N)' : 'New Product / Service Package',
+                        description: isHealthcare ? '85+ blood tests, cardiac echo, liver profile, kidney panel & senior physician review.' : isAutomobile ? 'Single owner, 24,000 km, 150-point inspection certified with 1-year comprehensive warranty.' : isFashion ? 'Pure mulberry silk with real gold zari border, contrast pallu and unstitched blouse piece.' : isEducation ? '6-month intensive diploma with live real-world projects, mentor feedback, and 100% placement support.' : isBeauty ? '24k gold hydra-glow facial, premium bridal hairstyling, mineral airbrush HD makeup, and nail art.' : isEvents ? 'Full decor & production for Mehendi, Sangeet, Muhurtham & Reception. 6-member cinematic crew, celebrity DJ setup & hospitality desk.' : isTravel ? 'Seminyak private luxury pool villa, Ubud sacred monkey forest, Nusa Penida island speedboat cruise, sunset beach dinners & daily breakfast.' : 'High quality deliverable or service package.',
+                        price: isHealthcare ? 2999 : isAutomobile ? 1250000 : isFashion ? 18500 : isEducation ? 34999 : isBeauty ? 14999 : isEvents ? 499999 : isTravel ? 48999 : 1999,
                         currency: '₹',
-                        imageUrl: isHealthcare ? 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80' : isAutomobile ? 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80' : isFashion ? 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80' : isEducation ? 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80' : isBeauty ? 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
-                        category: isHealthcare ? 'Health Checkup' : isAutomobile ? 'Showroom Fleet' : isFashion ? 'Bridal Couture' : isEducation ? 'Certified Course' : isBeauty ? 'Bridal Package' : 'Services',
+                        imageUrl: isHealthcare ? 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80' : isAutomobile ? 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80' : isFashion ? 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80' : isEducation ? 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80' : isBeauty ? 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80' : isEvents ? 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80' : isTravel ? 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
+                        category: isHealthcare ? 'Health Checkup' : isAutomobile ? 'Showroom Fleet' : isFashion ? 'Bridal Couture' : isEducation ? 'Certified Course' : isBeauty ? 'Bridal Package' : isEvents ? 'Complete Wedding' : isTravel ? 'International Escape' : 'Services',
                         isAvailable: true
                       };
                       const updated = [...(profile.sectionData.products?.items || []), newProd];
@@ -5039,10 +5433,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       }));
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0 ${
-                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : 'bg-pink-600 hover:bg-pink-500'
+                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : isEducation ? 'bg-blue-600 hover:bg-blue-500' : isBeauty ? 'bg-rose-600 hover:bg-rose-500' : isEvents ? 'bg-violet-600 hover:bg-violet-500' : isTravel ? 'bg-cyan-600 hover:bg-cyan-500' : 'bg-pink-600 hover:bg-pink-500'
                     }`}
                   >
-                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Health Package' : isAutomobile ? 'Add Vehicle' : isFashion ? 'Add Couture Piece' : isEducation ? 'Add Course Program' : isBeauty ? 'Add Bridal Package' : 'Add Product'}
+                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Health Package' : isAutomobile ? 'Add Vehicle' : isFashion ? 'Add Couture Piece' : isEducation ? 'Add Course Program' : isBeauty ? 'Add Bridal Package' : isEvents ? 'Add Event Package' : isTravel ? 'Add Holiday Package' : 'Add Product'}
                   </button>
                 </div>
 

@@ -111,7 +111,7 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
         const resolvedCategory = heroConfig.category || (dbProfile as any).category || fallback.category || (isFoodSlug ? 'Food Business' : cleanSlug.startsWith('re-') ? 'Real Estate' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'Interior Design' : undefined);
 
         // Ensure all industry-specific configs are accessible
-        const entityKeys = ['realEstate', 'interior', 'healthcare', 'automobile', 'fashion', 'education', 'beauty'];
+        const entityKeys = ['realEstate', 'interior', 'healthcare', 'automobile', 'fashion', 'education', 'beauty', 'events', 'travel'];
         entityKeys.forEach(key => {
           if (heroConfig[key] && !reconstructedSectionData[key]) {
             reconstructedSectionData[key] = heroConfig[key];

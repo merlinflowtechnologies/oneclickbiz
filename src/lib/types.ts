@@ -173,6 +173,24 @@ export interface BeautyTrustConfig {
   [key: string]: any;
 }
 
+export interface EventsTrustConfig {
+  eventSpecialization?: string;
+  eventsExecuted?: string;
+  experienceYears?: string;
+  productionCapability?: string;
+  serviceLocations?: string;
+  [key: string]: any;
+}
+
+export interface TravelTrustConfig {
+  agencyRegistration?: string;
+  destinationsCovered?: string;
+  happyTravelers?: string;
+  supportHours?: string;
+  customizationPolicy?: string;
+  [key: string]: any;
+}
+
 export interface ProfileSectionConfig {
   about?: { content: string };
   services?: { items: ServiceItem[] };
@@ -190,6 +208,8 @@ export interface ProfileSectionConfig {
   fashion?: FashionTrustConfig;
   education?: EducationTrustConfig;
   beauty?: BeautyTrustConfig;
+  events?: EventsTrustConfig;
+  travel?: TravelTrustConfig;
   [key: string]: any;
   contact?: {
     showEmail: boolean;
