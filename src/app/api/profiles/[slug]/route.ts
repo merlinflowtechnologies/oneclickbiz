@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import prisma from '@/lib/prisma';
 import { getSessionUser } from '@/lib/auth';
 
@@ -215,36 +216,38 @@ export async function PUT(
           });
         }
 
-        // Dedicated realEstate section if applicable
-        if (body.sectionData?.realEstate) {
-          await prisma.profileSection.create({
-            data: {
-              profileId: targetProfile.id,
-              type: 'realEstate',
-              title: 'RERA & Track Record',
-              isVisible: true,
-              order: 11,
-              config: body.sectionData.realEstate
+        // Dynamically persist all industry-specific configurations (healthcare, automobile, fashion, education, beauty, realEstate, interior, etc.)
+        const standardTypes = new Set(['hero', 'about', 'socials', 'contact', 'services', 'products', 'gallery', 'videos', 'testimonials', 'businessHours', 'paymentQr']);
+        if (body.sectionData && typeof body.sectionData === 'object') {
+          for (const [secKey, secVal] of Object.entries(body.sectionData)) {
+            if (!standardTypes.has(secKey) && secVal && typeof secVal === 'object') {
+              await prisma.profileSection.create({
+                data: {
+                  profileId: targetProfile.id,
+                  type: secKey,
+                  title: secKey.charAt(0).toUpperCase() + secKey.slice(1),
+                  isVisible: true,
+                  order: 15,
+                  config: secVal as any
+                }
+              }).catch(() => {});
             }
-          }).catch(() => {});
-        }
-
-        // Dedicated interior section if applicable
-        if (body.sectionData?.interior) {
-          await prisma.profileSection.create({
-            data: {
-              profileId: targetProfile.id,
-              type: 'interior',
-              title: 'IIID & Studio Credentials',
-              isVisible: true,
-              order: 12,
-              config: body.sectionData.interior
-            }
-          }).catch(() => {});
+          }
         }
       } catch (secErr) {
         console.error('Error updating profile sections:', secErr);
       }
+    }
+
+    // Instantly invalidate server-side cache for public profile and builder routes
+    try {
+      revalidatePath(`/v/${cleanSlug}`);
+      revalidatePath(`/v/${cleanSlug}`, 'page');
+      revalidatePath('/dashboard/builder');
+      revalidatePath('/dashboard');
+      revalidatePath('/');
+    } catch (cacheErr) {
+      console.warn('Revalidation notice:', cacheErr);
     }
 
     return NextResponse.json({ 

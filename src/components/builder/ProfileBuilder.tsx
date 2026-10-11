@@ -56,7 +56,12 @@ import {
   PanelRightClose,
   PanelRightOpen,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Stethoscope,
+  Car,
+  Shirt,
+  Activity,
+  PhoneCall
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { DigitalProfile, ThemeType, SectionType, VideoItem, GalleryItem, BlogPostItem, ProductItem, ServiceItem } from '@/lib/types';
@@ -283,12 +288,76 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     profile.bio?.toLowerCase().includes('interior')
   );
 
+  const isHealthcare = Boolean(
+    profile.templateId?.startsWith('med-') ||
+    profile.templateId?.startsWith('health-') ||
+    profile.templateId === 'vcard5' ||
+    profile.templateId === 'vcard45' ||
+    profile.templateId === 'vcard46' ||
+    profile.category === 'Healthcare & Clinics' ||
+    profile.category === 'Healthcare' ||
+    profile.category === 'Medical & Healthcare' ||
+    profile.category === 'Doctor' ||
+    profile.designation?.toLowerCase().includes('doctor') ||
+    profile.designation?.toLowerCase().includes('physician') ||
+    profile.designation?.toLowerCase().includes('surgeon') ||
+    profile.designation?.toLowerCase().includes('dentist') ||
+    profile.designation?.toLowerCase().includes('clinic') ||
+    profile.company?.toLowerCase().includes('hospital') ||
+    profile.company?.toLowerCase().includes('clinic') ||
+    profile.company?.toLowerCase().includes('healthcare') ||
+    profile.company?.toLowerCase().includes('dental') ||
+    Boolean(profile.sectionData?.healthcare)
+  );
+
+  const isAutomobile = Boolean(
+    profile.templateId?.startsWith('auto-') ||
+    profile.templateId?.startsWith('car-') ||
+    profile.templateId === 'vcard12' ||
+    profile.templateId === 'vcard13' ||
+    profile.category === 'Automobile & Showrooms' ||
+    profile.category === 'Automobile' ||
+    profile.category === 'Automotive' ||
+    profile.designation?.toLowerCase().includes('auto') ||
+    profile.designation?.toLowerCase().includes('motor') ||
+    profile.designation?.toLowerCase().includes('car') ||
+    profile.designation?.toLowerCase().includes('showroom') ||
+    profile.company?.toLowerCase().includes('auto') ||
+    profile.company?.toLowerCase().includes('motors') ||
+    profile.company?.toLowerCase().includes('cars') ||
+    profile.company?.toLowerCase().includes('dealership') ||
+    Boolean(profile.sectionData?.automobile)
+  );
+
+  const isFashion = Boolean(
+    profile.templateId?.startsWith('fashion-') ||
+    profile.templateId?.startsWith('boutique-') ||
+    profile.templateId === 'vcard7' ||
+    profile.templateId === 'vcard8' ||
+    profile.templateId === 'vcard47' ||
+    profile.category === 'Fashion & Boutiques' ||
+    profile.category === 'Fashion & Lifestyle' ||
+    profile.category === 'Fashion' ||
+    profile.category === 'Boutique' ||
+    profile.designation?.toLowerCase().includes('designer') ||
+    profile.designation?.toLowerCase().includes('couturier') ||
+    profile.designation?.toLowerCase().includes('stylist') ||
+    profile.company?.toLowerCase().includes('boutique') ||
+    profile.company?.toLowerCase().includes('fashion') ||
+    profile.company?.toLowerCase().includes('couture') ||
+    profile.company?.toLowerCase().includes('silks') ||
+    Boolean(profile.sectionData?.fashion)
+  );
+
   const activeCategory: VCardCategory = React.useMemo(() => {
     if (profile.category) return normalizeCategory(profile.category, profile.templateId);
     if (isRealEstate) return 'Real Estate';
     if (isInterior) return 'Interior Design';
+    if (isHealthcare) return 'Healthcare';
+    if (isAutomobile) return 'Automobile';
+    if (isFashion) return 'Fashion & Clothing';
     return normalizeCategory(null, profile.templateId);
-  }, [profile.category, profile.templateId, isRealEstate, isInterior]);
+  }, [profile.category, profile.templateId, isRealEstate, isInterior, isHealthcare, isAutomobile, isFashion]);
 
   const lockConfig = CATEGORY_LOCK_CONFIG[activeCategory] || CATEGORY_LOCK_CONFIG['Professional Services'];
 
@@ -518,6 +587,41 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
       newProfile.sectionData = {
         ...(newProfile.sectionData || {}),
         interior: getTemplateProfile('home-interior').sectionData.interior
+      };
+    } else if (activeCategory === 'Healthcare' && !newProfile.sectionData?.healthcare) {
+      newProfile.sectionData = {
+        ...(newProfile.sectionData || {}),
+        healthcare: {
+          regNumber: 'TSMC/DOC/2018/8892',
+          degrees: 'MBBS, MD, FACC (USA)',
+          specialization: 'Senior Interventional Cardiologist',
+          opdTimings: 'Mon - Sat: 10:00 AM - 02:00 PM',
+          consultationFee: '₹800',
+          hospitalAffiliation: 'Apollo Hospitals & Heart Clinic',
+          emergencyPhone: '+91 98765 00108'
+        }
+      };
+    } else if (activeCategory === 'Automobile' && !newProfile.sectionData?.automobile) {
+      newProfile.sectionData = {
+        ...(newProfile.sectionData || {}),
+        automobile: {
+          brandAuthorized: 'Certified Multi-Brand & Pre-Owned Arena',
+          inspectionCertification: '150-Point Certified Quality Inspection',
+          testDriveTimings: 'Mon - Sun: 09:30 AM - 08:00 PM',
+          financePartners: 'HDFC Bank, SBI Auto, ICICI Bank, Kotak Prime',
+          warrantyCoverage: '3 Years Comprehensive + Roadside Assistance'
+        }
+      };
+    } else if (activeCategory === 'Fashion & Clothing' && !newProfile.sectionData?.fashion) {
+      newProfile.sectionData = {
+        ...(newProfile.sectionData || {}),
+        fashion: {
+          certification: '100% Pure Silk Mark & Handloom Certified',
+          coutureSpecialization: 'Bridal Kanjeevarams & Haute Couture',
+          consultationTimings: 'By Appointment: 11:00 AM - 07:30 PM',
+          shippingCoverage: 'Pan-India Free Express + DHL Worldwide',
+          exchangePolicy: '7-Day Hassle-Free Exchange Guarantee'
+        }
       };
     }
 
@@ -793,6 +897,29 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             videos: hasCustomVideos ? prev.sectionData.videos : preset.sectionData.videos,
             realEstate: activeCategory === 'Real Estate' ? (preset.sectionData?.realEstate || prev.sectionData?.realEstate || getTemplateProfile('re-builders').sectionData?.realEstate) : preset.sectionData?.realEstate,
             interior: activeCategory === 'Interior Design' ? (preset.sectionData?.interior || prev.sectionData?.interior || getTemplateProfile('home-interior').sectionData?.interior) : preset.sectionData?.interior,
+            healthcare: (activeCategory === 'Healthcare' || isHealthcare) ? (preset.sectionData?.healthcare || prev.sectionData?.healthcare || {
+              regNumber: 'TSMC/DOC/2018/8892',
+              degrees: 'MBBS, MD, FACC (USA)',
+              specialization: 'Senior Interventional Cardiologist',
+              opdTimings: 'Mon - Sat: 10:00 AM - 02:00 PM',
+              consultationFee: '₹800',
+              hospitalAffiliation: 'Apollo Hospitals & Heart Clinic',
+              emergencyPhone: '+91 98765 00108'
+            }) : preset.sectionData?.healthcare,
+            automobile: (activeCategory === 'Automobile' || isAutomobile) ? (preset.sectionData?.automobile || prev.sectionData?.automobile || {
+              brandAuthorized: 'Certified Multi-Brand & Pre-Owned Arena',
+              inspectionCertification: '150-Point Certified Quality Inspection',
+              testDriveTimings: 'Mon - Sun: 09:30 AM - 08:00 PM',
+              financePartners: 'HDFC Bank, SBI Auto, ICICI Bank, Kotak Prime',
+              warrantyCoverage: '3 Years Comprehensive + Roadside Assistance'
+            }) : preset.sectionData?.automobile,
+            fashion: (activeCategory === 'Fashion & Clothing' || isFashion) ? (preset.sectionData?.fashion || prev.sectionData?.fashion || {
+              certification: '100% Pure Silk Mark & Handloom Certified',
+              coutureSpecialization: 'Bridal Kanjeevarams & Haute Couture',
+              consultationTimings: 'By Appointment: 11:00 AM - 07:30 PM',
+              shippingCoverage: 'Pan-India Free Express + DHL Worldwide',
+              exchangePolicy: '7-Day Hassle-Free Exchange Guarantee'
+            }) : preset.sectionData?.fashion,
           }
         };
       });
@@ -1180,7 +1307,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : 'Basic Info'}
+              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : isHealthcare ? 'Doctor & Clinic' : isAutomobile ? 'Dealership Info' : isFashion ? 'Boutique & Atelier' : 'Basic Info'}
             </button>
             <button 
               onClick={() => setActiveTab('products')}
@@ -1197,6 +1324,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <>
                   <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                   <span>Spaces &amp; Projects ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isHealthcare ? (
+                <>
+                  <Activity className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Health Packages ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isAutomobile ? (
+                <>
+                  <Car className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Vehicle Fleet ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isFashion ? (
+                <>
+                  <Shirt className="w-3.5 h-3.5 text-rose-400" />
+                  <span>Couture Lookbook ({profile.sectionData?.products?.items?.length || 0})</span>
                 </>
               ) : (
                 <>
@@ -1221,6 +1363,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <Compass className="w-3.5 h-3.5 text-amber-400" />
                   <span>Consultation &amp; Packages</span>
                 </>
+              ) : isHealthcare ? (
+                <>
+                  <Stethoscope className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Treatments &amp; OPD</span>
+                </>
+              ) : isAutomobile ? (
+                <>
+                  <Car className="w-3.5 h-3.5 text-sky-400" />
+                  <span>VIP Test Drives</span>
+                </>
+              ) : isFashion ? (
+                <>
+                  <Sparkles className="w-3.5 h-3.5 text-rose-400" />
+                  <span>Bespoke Fitting</span>
+                </>
               ) : (
                 <>
                   <Briefcase className="w-3.5 h-3.5 text-blue-400" />
@@ -1243,6 +1400,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <>
                   <Layers className="w-3.5 h-3.5 text-amber-400" />
                   <span>Lookbooks &amp; 3D</span>
+                </>
+              ) : isHealthcare ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Clinic &amp; Facilities</span>
+                </>
+              ) : isAutomobile ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Showroom &amp; Fleet</span>
+                </>
+              ) : isFashion ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-pink-400" />
+                  <span>Couture Gallery</span>
                 </>
               ) : (
                 <>
@@ -2329,6 +2501,507 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   </div>
                 )}
 
+                {/* 5. HEALTHCARE & MEDICAL COUNCIL REGISTRATION CREDENTIALS */}
+                {isHealthcare && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-teal-950/40 to-slate-900 border border-teal-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center">
+                          <Stethoscope className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-teal-300">
+                            MCI / NMC Medical Council Registration &amp; Clinic Credentials
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your doctor badge, trust verification ribbon, and appointment desk.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-teal-500/10 text-teal-300 font-bold border border-teal-500/30">
+                        Doctor Verified
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+                          <span>Medical Council Reg. ID / License</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.healthcare?.regNumber ?? 'TSMC/DOC/2018/8892'}
+                          placeholder="e.g. TSMC/DOC/2018/8892"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                healthcare: {
+                                  ...(prev.sectionData?.healthcare || {}),
+                                  regNumber: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-teal-300 font-mono focus:outline-none focus:border-teal-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Award className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Degrees, Qualifications &amp; Fellowships</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.healthcare?.degrees ?? 'MBBS, MD, FACC (USA)'}
+                          placeholder="e.g. MBBS, MD, DM Cardiology"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                healthcare: {
+                                  ...(prev.sectionData?.healthcare || {}),
+                                  degrees: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-teal-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Activity className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>Clinical Specialization / Department</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.healthcare?.specialization ?? 'Senior Interventional Cardiologist'}
+                          placeholder="e.g. Senior Interventional Cardiologist"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                healthcare: {
+                                  ...(prev.sectionData?.healthcare || {}),
+                                  specialization: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-teal-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Building2 className="w-3.5 h-3.5 text-sky-400" />
+                          <span>Hospital / Clinic Affiliation</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.healthcare?.hospitalAffiliation ?? 'Apollo Hospitals & Heart Clinic'}
+                          placeholder="e.g. Apollo Hospitals & Heart Clinic"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                healthcare: {
+                                  ...(prev.sectionData?.healthcare || {}),
+                                  hospitalAffiliation: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-teal-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">OPD Timings</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.healthcare?.opdTimings ?? 'Mon - Sat: 10:00 AM - 02:00 PM'}
+                          placeholder="e.g. Mon - Sat: 10:00 AM - 02:00 PM"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                healthcare: {
+                                  ...(prev.sectionData?.healthcare || {}),
+                                  opdTimings: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Consultation Fee</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.healthcare?.consultationFee ?? '₹800'}
+                          placeholder="e.g. ₹800"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                healthcare: {
+                                  ...(prev.sectionData?.healthcare || {}),
+                                  consultationFee: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">24/7 Emergency Helpline</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.healthcare?.emergencyPhone ?? '+91 98765 00108'}
+                          placeholder="e.g. +91 98765 00108"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                healthcare: {
+                                  ...(prev.sectionData?.healthcare || {}),
+                                  emergencyPhone: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-teal-300 font-mono"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 6. AUTOMOBILE DEALERSHIP & 150-POINT INSPECTION CREDENTIALS */}
+                {isAutomobile && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-sky-950/40 to-slate-900 border border-sky-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-sky-500/20 border border-sky-500/40 text-sky-400 flex items-center justify-center">
+                          <Car className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-sky-300">
+                            Dealership Authorization &amp; Quality Inspection Standards
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your showroom trust banner, vehicle warranty ribbon, and test drive scheduler.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-300 font-bold border border-sky-500/30">
+                        150-Pt Inspected
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Award className="w-3.5 h-3.5 text-sky-400" />
+                          <span>Authorized Brand / Dealership Category</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.automobile?.brandAuthorized ?? 'Certified Multi-Brand & Pre-Owned Arena'}
+                          placeholder="e.g. Maruti Suzuki Arena / Hyundai Signature"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                automobile: {
+                                  ...(prev.sectionData?.automobile || {}),
+                                  brandAuthorized: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-sky-300 focus:outline-none focus:border-sky-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>Quality Guarantee / Inspection Seal</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.automobile?.inspectionCertification ?? '150-Point Certified Quality Inspection'}
+                          placeholder="e.g. 150-Point Certified Quality Inspection"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                automobile: {
+                                  ...(prev.sectionData?.automobile || {}),
+                                  inspectionCertification: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-sky-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">VIP Test Drive Hours</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.automobile?.testDriveTimings ?? 'Mon - Sun: 09:30 AM - 08:00 PM'}
+                          placeholder="e.g. Mon - Sun: 09:30 AM - 08:00 PM"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                automobile: {
+                                  ...(prev.sectionData?.automobile || {}),
+                                  testDriveTimings: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Warranty Coverage</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.automobile?.warrantyCoverage ?? '3 Years Comprehensive + RSA'}
+                          placeholder="e.g. 3 Years Comprehensive"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                automobile: {
+                                  ...(prev.sectionData?.automobile || {}),
+                                  warrantyCoverage: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Finance &amp; EMI Partners</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.automobile?.financePartners ?? 'HDFC Bank, SBI Auto, ICICI Bank'}
+                          placeholder="e.g. HDFC, SBI Auto, ICICI"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                automobile: {
+                                  ...(prev.sectionData?.automobile || {}),
+                                  financePartners: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 7. FASHION & COUTURE ATELIER CREDENTIALS */}
+                {isFashion && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-rose-950/40 to-slate-900 border border-rose-500/40 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-400 flex items-center justify-center">
+                          <Shirt className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-rose-300">
+                            Boutique Verification &amp; Couture Standards
+                          </h4>
+                          <p className="text-[11px] text-slate-400">
+                            Displayed on your silk mark trust banner, bridal consultation desk, and shipping guarantee.
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-300 font-bold border border-rose-500/30">
+                        Silk Mark Verified
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Award className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Certification / Handloom Registration</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.fashion?.certification ?? '100% Pure Silk Mark & Handloom Certified'}
+                          placeholder="e.g. 100% Pure Silk Mark Certified"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                fashion: {
+                                  ...(prev.sectionData?.fashion || {}),
+                                  certification: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-rose-300 focus:outline-none focus:border-rose-500 shadow-inner"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-rose-400" />
+                          <span>Couture Specialization</span>
+                        </label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.fashion?.coutureSpecialization ?? 'Bridal Kanjeevarams & Haute Couture'}
+                          placeholder="e.g. Bridal Kanjeevarams & Designer Lehengas"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                fashion: {
+                                  ...(prev.sectionData?.fashion || {}),
+                                  coutureSpecialization: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-rose-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Bridal Fitting Hours</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.fashion?.consultationTimings ?? 'By Appointment: 11:00 AM - 07:30 PM'}
+                          placeholder="e.g. By Appointment: 11:00 AM - 07:30 PM"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                fashion: {
+                                  ...(prev.sectionData?.fashion || {}),
+                                  consultationTimings: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Shipping Scope</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.fashion?.shippingCoverage ?? 'Pan-India Free Express + DHL Worldwide'}
+                          placeholder="e.g. Pan-India Express + DHL Worldwide"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                fashion: {
+                                  ...(prev.sectionData?.fashion || {}),
+                                  shippingCoverage: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Exchange Guarantee</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.fashion?.exchangePolicy ?? '7-Day Hassle-Free Exchange Guarantee'}
+                          placeholder="e.g. 7-Day Hassle-Free Exchange"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                fashion: {
+                                  ...(prev.sectionData?.fashion || {}),
+                                  exchangePolicy: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Quick Social Media & Networks (LinkedIn, Instagram, Twitter/X, YouTube, Facebook, Telegram) */}
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-purple-950/40 border border-purple-500/30 space-y-3 pt-3 mt-2">
                   <div className="flex items-center justify-between">
@@ -3251,18 +3924,22 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               <div className="space-y-4 max-w-xl">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-bold text-white">Bookable Services</h3>
-                    <p className="text-xs text-slate-400">Services clients can choose from to book appointments on your calendar.</p>
+                    <h3 className="text-sm font-bold text-white">
+                      {isHealthcare ? 'Clinical Treatments & OPD Consultations' : isAutomobile ? 'VIP Test Drives & Services' : isFashion ? 'Bridal Styling & Custom Stitching' : 'Bookable Services'}
+                    </h3>
+                    <p className="text-xs text-slate-400">
+                      {isHealthcare ? 'Configure diagnostic consultations, health checkups, and doctor appointment slots.' : isAutomobile ? 'Configure vehicle test drives, doorstep evaluations, and periodic service checkups.' : isFashion ? 'Configure bespoke bridal consultations, couture measurements, and styling sessions.' : 'Services clients can choose from to book appointments on your calendar.'}
+                    </p>
                   </div>
                   <button
                     onClick={() => {
                       const newService = {
                         id: `svc_${Date.now()}`,
-                        title: 'New Service',
-                        description: 'Describe this service offering...',
-                        price: 999,
+                        title: isHealthcare ? 'Specialist Clinical Consultation' : isAutomobile ? 'VIP Showroom Test Drive Session' : isFashion ? 'Bespoke Bridal Fitting & Styling' : 'New Service',
+                        description: isHealthcare ? 'Comprehensive clinical examination, vitals check, and prescription advisory.' : isAutomobile ? 'Complimentary 45-min test drive with technical product specialist and route demo.' : isFashion ? '1-on-1 private bridal consultation, silhouette selection, and fabric customization.' : 'Describe this service offering...',
+                        price: isHealthcare ? 800 : isAutomobile ? 0 : isFashion ? 1500 : 999,
                         currency: '₹',
-                        durationMinutes: 60,
+                        durationMinutes: isHealthcare ? 30 : isAutomobile ? 45 : 60,
                         isAvailable: true
                       };
                       const updated = [...(profile.sectionData.services?.items || []), newService];
@@ -3271,7 +3948,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         sectionData: { ...prev.sectionData, services: { items: updated } }
                       }));
                     }}
-                    className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow"
+                    className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0"
                   >
                     <Plus className="w-3.5 h-3.5" /> Add Service
                   </button>
@@ -3929,19 +4606,23 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               <div className="space-y-4 max-w-xl">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-bold text-white">WhatsApp Store Catalog</h3>
-                    <p className="text-xs text-slate-400">Products or packages customers can add to their cart and order directly on WhatsApp.</p>
+                    <h3 className="text-sm font-bold text-white">
+                      {isHealthcare ? 'Health Packages & Wellness Checkups' : isAutomobile ? 'Vehicle Showroom Fleet & Inventory' : isFashion ? 'Couture Collections & Saree Lookbook' : 'WhatsApp Store Catalog'}
+                    </h3>
+                    <p className="text-xs text-slate-400">
+                      {isHealthcare ? 'Offer comprehensive medical checkup packages, full body screening, and diagnostic profiles.' : isAutomobile ? 'Showcase verified vehicles with pricing, mileage, fuel type, transmission, and instant WhatsApp booking.' : isFashion ? 'Showcase pure silk sarees, designer gowns, lehengas with live pricing and direct WhatsApp checkout.' : 'Products or packages customers can add to their cart and order directly on WhatsApp.'}
+                    </p>
                   </div>
                   <button
                     onClick={() => {
                       const newProd = {
                         id: `prod_${Date.now()}`,
-                        name: 'New Product / Service Package',
-                        description: 'High quality deliverable or service package.',
-                        price: 1999,
+                        name: isHealthcare ? 'Executive Master Health Checkup' : isAutomobile ? '2023 Certified Automatic Sedan' : isFashion ? 'Pure Kanjeevaram Bridal Silk Saree' : 'New Product / Service Package',
+                        description: isHealthcare ? '85+ blood tests, cardiac echo, liver profile, kidney panel & senior physician review.' : isAutomobile ? 'Single owner, 24,000 km, 150-point inspection certified with 1-year comprehensive warranty.' : isFashion ? 'Pure mulberry silk with real gold zari border, contrast pallu and unstitched blouse piece.' : 'High quality deliverable or service package.',
+                        price: isHealthcare ? 2999 : isAutomobile ? 1250000 : isFashion ? 18500 : 1999,
                         currency: '₹',
-                        imageUrl: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
-                        category: 'Services',
+                        imageUrl: isHealthcare ? 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80' : isAutomobile ? 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80' : isFashion ? 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
+                        category: isHealthcare ? 'Health Checkup' : isAutomobile ? 'Showroom Fleet' : isFashion ? 'Bridal Couture' : 'Services',
                         isAvailable: true
                       };
                       const updated = [...(profile.sectionData.products?.items || []), newProd];
@@ -3950,9 +4631,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         sectionData: { ...prev.sectionData, products: { items: updated } }
                       }));
                     }}
-                    className="px-3 py-1.5 rounded-lg bg-pink-600 hover:bg-pink-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow"
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition-all shadow shrink-0 ${
+                      isHealthcare ? 'bg-teal-600 hover:bg-teal-500' : isAutomobile ? 'bg-blue-600 hover:bg-blue-500' : isFashion ? 'bg-rose-600 hover:bg-rose-500' : 'bg-pink-600 hover:bg-pink-500'
+                    }`}
                   >
-                    <Plus className="w-3.5 h-3.5" /> Add Product
+                    <Plus className="w-3.5 h-3.5" /> {isHealthcare ? 'Add Health Package' : isAutomobile ? 'Add Vehicle' : isFashion ? 'Add Couture Piece' : 'Add Product'}
                   </button>
                 </div>
 

@@ -125,6 +125,35 @@ export interface InteriorTrustConfig {
   experienceCenter?: string;
 }
 
+export interface HealthcareTrustConfig {
+  regNumber?: string;
+  degrees?: string;
+  specialization?: string;
+  opdTimings?: string;
+  consultationFee?: string;
+  hospitalAffiliation?: string;
+  emergencyPhone?: string;
+  [key: string]: any;
+}
+
+export interface AutomobileTrustConfig {
+  brandAuthorized?: string;
+  inspectionCertification?: string;
+  testDriveTimings?: string;
+  financePartners?: string;
+  warrantyCoverage?: string;
+  [key: string]: any;
+}
+
+export interface FashionTrustConfig {
+  certification?: string;
+  coutureSpecialization?: string;
+  consultationTimings?: string;
+  shippingCoverage?: string;
+  exchangePolicy?: string;
+  [key: string]: any;
+}
+
 export interface ProfileSectionConfig {
   about?: { content: string };
   services?: { items: ServiceItem[] };
@@ -137,6 +166,10 @@ export interface ProfileSectionConfig {
   customLinks?: { items: CustomLinkItem[] };
   realEstate?: RealEstateTrustConfig;
   interior?: InteriorTrustConfig;
+  healthcare?: HealthcareTrustConfig;
+  automobile?: AutomobileTrustConfig;
+  fashion?: FashionTrustConfig;
+  [key: string]: any;
   contact?: {
     showEmail: boolean;
     showPhone: boolean;

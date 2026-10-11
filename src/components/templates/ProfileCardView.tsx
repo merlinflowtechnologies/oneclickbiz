@@ -46,6 +46,9 @@ import MBLMiniWebsiteView from './MBLMiniWebsiteView';
 import RestaurantTemplateView from './RestaurantTemplateView';
 import RealEstateMiniWebsiteView from './RealEstateMiniWebsiteView';
 import InteriorMiniWebsiteView from './InteriorMiniWebsiteView';
+import HealthcareMiniWebsiteView from './HealthcareMiniWebsiteView';
+import AutomobileMiniWebsiteView from './AutomobileMiniWebsiteView';
+import FashionMiniWebsiteView from './FashionMiniWebsiteView';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -734,6 +737,54 @@ export default function ProfileCardView({
     profile.designation?.toLowerCase().includes('dining') ||
     profile.theme === 'brahmin-food';
 
+  const isHealthcare = Boolean(
+    (profile as any).category === 'Healthcare' ||
+    (profile as any).templateId?.includes('doctor') ||
+    (profile as any).templateId?.includes('clinic') ||
+    (profile as any).templateId?.includes('hospital') ||
+    profile.designation?.toLowerCase().includes('doctor') ||
+    profile.designation?.toLowerCase().includes('dr.') ||
+    profile.designation?.toLowerCase().includes('physician') ||
+    profile.designation?.toLowerCase().includes('surgeon') ||
+    profile.designation?.toLowerCase().includes('dentist') ||
+    profile.designation?.toLowerCase().includes('clinic') ||
+    profile.company?.toLowerCase().includes('hospital') ||
+    profile.company?.toLowerCase().includes('clinic') ||
+    profile.company?.toLowerCase().includes('dental') ||
+    Boolean(profile.sectionData?.healthcare)
+  );
+
+  const isAutomobile = Boolean(
+    (profile as any).category === 'Automobile' ||
+    (profile as any).templateId?.includes('auto') ||
+    (profile as any).templateId?.includes('car') ||
+    (profile as any).templateId?.includes('bike') ||
+    profile.designation?.toLowerCase().includes('automobile') ||
+    profile.designation?.toLowerCase().includes('car') ||
+    profile.company?.toLowerCase().includes('motors') ||
+    profile.company?.toLowerCase().includes('automobiles') ||
+    profile.company?.toLowerCase().includes('cars') ||
+    profile.company?.toLowerCase().includes('dealership') ||
+    profile.company?.toLowerCase().includes('garage') ||
+    Boolean(profile.sectionData?.automobile)
+  );
+
+  const isFashion = Boolean(
+    (profile as any).category === 'Fashion & Clothing' ||
+    (profile as any).templateId?.includes('boutique') ||
+    (profile as any).templateId?.includes('fashion') ||
+    (profile as any).templateId?.includes('saree') ||
+    profile.designation?.toLowerCase().includes('designer') ||
+    profile.designation?.toLowerCase().includes('couturier') ||
+    profile.designation?.toLowerCase().includes('stylist') ||
+    profile.company?.toLowerCase().includes('boutique') ||
+    profile.company?.toLowerCase().includes('fashion') ||
+    profile.company?.toLowerCase().includes('silks') ||
+    profile.company?.toLowerCase().includes('saree') ||
+    profile.company?.toLowerCase().includes('couture') ||
+    Boolean(profile.sectionData?.fashion)
+  );
+
   return (
     <div className="w-full relative">
       {/* Top Device View Switcher (Visible on both mobile & desktop) */}
@@ -812,6 +863,36 @@ export default function ProfileCardView({
           />
         ) : isInterior ? (
           <InteriorMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : isHealthcare ? (
+          <HealthcareMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : isAutomobile ? (
+          <AutomobileMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : isFashion ? (
+          <FashionMiniWebsiteView
             profile={profile}
             trackAction={trackAction}
             getCleanWhatsAppNumber={getCleanWhatsAppNumber}

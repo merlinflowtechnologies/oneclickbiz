@@ -104,18 +104,19 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
           };
         }
 
-        // Extract templateId, category, realEstate, and interior from hero or section configs
+        // Extract templateId, category, and entity configurations from hero or section configs
         const heroConfig = (reconstructedSectionData as any).hero || {};
         const isFoodSlug = cleanSlug.startsWith('food-') || cleanSlug.includes('restaurant') || cleanSlug.includes('dining') || cleanSlug.includes('brahmin');
-        const resolvedTemplateId = heroConfig.templateId || fallback.templateId || (isFoodSlug ? 'food-restaurant' : cleanSlug.startsWith('re-') ? 're-builders' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'home-interior' : undefined);
-        const resolvedCategory = heroConfig.category || fallback.category || (isFoodSlug ? 'Food Business' : cleanSlug.startsWith('re-') ? 'Real Estate' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'Interior Design' : undefined);
+        const resolvedTemplateId = heroConfig.templateId || (dbProfile as any).templateId || fallback.templateId || (isFoodSlug ? 'food-restaurant' : cleanSlug.startsWith('re-') ? 're-builders' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'home-interior' : undefined);
+        const resolvedCategory = heroConfig.category || (dbProfile as any).category || fallback.category || (isFoodSlug ? 'Food Business' : cleanSlug.startsWith('re-') ? 'Real Estate' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'Interior Design' : undefined);
 
-        if (heroConfig.realEstate && !reconstructedSectionData.realEstate) {
-          reconstructedSectionData.realEstate = heroConfig.realEstate;
-        }
-        if (heroConfig.interior && !reconstructedSectionData.interior) {
-          reconstructedSectionData.interior = heroConfig.interior;
-        }
+        // Ensure all industry-specific configs are accessible
+        const entityKeys = ['realEstate', 'interior', 'healthcare', 'automobile', 'fashion', 'education', 'beauty'];
+        entityKeys.forEach(key => {
+          if (heroConfig[key] && !reconstructedSectionData[key]) {
+            reconstructedSectionData[key] = heroConfig[key];
+          }
+        });
 
         return {
           ...fallback,
