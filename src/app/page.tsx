@@ -361,9 +361,9 @@ export default function LandingPage() {
             {/* Left Hero Content */}
             <div className="lg:col-span-6 xl:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
               
-              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-200/80 text-indigo-700 text-xs font-semibold tracking-wide shadow-xs backdrop-blur-md">
+              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-200/80 text-indigo-700 text-xs font-bold uppercase tracking-wider shadow-xs backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
-                <span>Smart Digital Visiting Cards &amp; WhatsApp Commerce</span>
+                <span>Connect &bull; Build &bull; Grow</span>
               </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-6xl 2xl:text-7xl font-bold font-serif tracking-tight text-slate-900 leading-[1.18] lg:leading-[1.15]">
