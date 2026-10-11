@@ -60,7 +60,15 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { DigitalProfile, ThemeType, SectionType, VideoItem, GalleryItem, BlogPostItem, ProductItem, ServiceItem } from '@/lib/types';
-import { VCARD_TEMPLATES_CATALOG, VCardTemplateItem } from '@/data/vcardTemplates';
+import { 
+  VCARD_TEMPLATES_CATALOG, 
+  VCardTemplateItem, 
+  VCardCategory, 
+  normalizeCategory, 
+  isTemplateAllowedForCategory, 
+  CATEGORY_LOCK_CONFIG, 
+  CATEGORY_QUICK_PRESETS 
+} from '@/data/vcardTemplates';
 import { getTemplateProfile } from '@/data/templatePresets';
 import { getProfileBySlug } from '@/lib/data-store';
 import ProfileCardView from '../templates/ProfileCardView';
@@ -274,6 +282,30 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     profile.company?.toLowerCase().includes('interior') ||
     profile.bio?.toLowerCase().includes('interior')
   );
+
+  const activeCategory: VCardCategory = React.useMemo(() => {
+    if (profile.category) return normalizeCategory(profile.category, profile.templateId);
+    if (isRealEstate) return 'Real Estate';
+    if (isInterior) return 'Interior Design';
+    return normalizeCategory(null, profile.templateId);
+  }, [profile.category, profile.templateId, isRealEstate, isInterior]);
+
+  const lockConfig = CATEGORY_LOCK_CONFIG[activeCategory] || CATEGORY_LOCK_CONFIG['Professional Services'];
+
+  const categoryTemplates = React.useMemo(() => {
+    return VCARD_TEMPLATES_CATALOG.filter(t => isTemplateAllowedForCategory(t.id, activeCategory));
+  }, [activeCategory]);
+
+  const availableSubCategories = React.useMemo(() => {
+    const list: string[] = [];
+    categoryTemplates.forEach(t => {
+      if (t.subCategory && !list.includes(t.subCategory)) {
+        list.push(t.subCategory);
+      }
+    });
+    return list;
+  }, [categoryTemplates]);
+
   const [activeTab, setActiveTab] = useState<'cards' | 'info' | 'templates' | 'theme' | 'sections' | 'services' | 'products' | 'videos' | 'blogs' | 'gallery' | 'socials'>('info');
   const [isSaved, setIsSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -417,11 +449,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     setNewCardName(profile.name);
     setNewCardCompany(profile.company);
     setNewCardDesignation(profile.designation);
-    if (isRealEstate) {
-      setNewCardTemplateId('re-builders');
-      setNewCardTitle(`${profile.company || profile.name} Real Estate Card`);
-      setNewCardSlug(`${(profile.slug || 'estate').replace(/-card-\d+$/, '')}-card-${userCards.length + 1}`);
-    }
+    const defaultTpl = categoryTemplates[0]?.id || (activeCategory === 'Real Estate' ? 're-builders' : 'vcard39');
+    setNewCardTemplateId(defaultTpl);
+    setNewCardTitle(`${profile.company || profile.name} ${activeCategory} Card`);
+    setNewCardSlug(`${(profile.slug || 'card').replace(/-card-\d+$/, '')}-card-${userCards.length + 1}`);
     setCardCreateError('');
     setIsAddCardModalOpen(true);
   };
@@ -456,10 +487,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
       return;
     }
 
-    // Real Estate Entity Guard
-    const isTargetRealEstate = newCardTemplateId.startsWith('re-') || newCardTemplateId === 'vcard35';
-    if (isRealEstate && !isTargetRealEstate) {
-      setCardCreateError('Your account is registered as a Real Estate entity. You can only create Real Estate cards (Builders, Plots, Villas, Realtors, Commercial).');
+    // Universal Entity Guard for activeCategory
+    const isTargetAllowed = isTemplateAllowedForCategory(newCardTemplateId, activeCategory);
+    if (!isTargetAllowed) {
+      setCardCreateError(`Your account is registered under ${lockConfig.label}. You can only create cards using your respective ${activeCategory} templates.`);
       return;
     }
 
@@ -472,16 +503,21 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
       name: newCardName.trim() || profile.name || basePreset.name,
       company: newCardCompany.trim() || profile.company || basePreset.company,
       designation: newCardDesignation.trim() || profile.designation || basePreset.designation,
-      category: isRealEstate ? 'Real Estate' : (basePreset.category || profile.category),
+      category: activeCategory,
       phone: profile.phone || basePreset.phone,
       whatsapp: profile.whatsapp || profile.phone || basePreset.whatsapp,
       email: profile.email || basePreset.email,
     };
 
-    if (isRealEstate && !newProfile.sectionData?.realEstate) {
+    if (activeCategory === 'Real Estate' && !newProfile.sectionData?.realEstate) {
       newProfile.sectionData = {
         ...(newProfile.sectionData || {}),
         realEstate: getTemplateProfile('re-builders').sectionData.realEstate
+      };
+    } else if (activeCategory === 'Interior Design' && !newProfile.sectionData?.interior) {
+      newProfile.sectionData = {
+        ...(newProfile.sectionData || {}),
+        interior: getTemplateProfile('home-interior').sectionData.interior
       };
     }
 
@@ -711,10 +747,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
   // Apply full template preset or theme only
   const handleApplyTemplate = (templateId: string, fullPreset: boolean = true) => {
     const templateMeta = VCARD_TEMPLATES_CATALOG.find(t => t.id === templateId);
-    const isTargetRealEstate = templateId.startsWith('re-') || templateId === 'vcard35' || templateMeta?.category === 'Real Estate';
+    const isAllowed = isTemplateAllowedForCategory(templateId, activeCategory);
 
-    if (isRealEstate && !isTargetRealEstate) {
-      alert("🔒 Real Estate Business Entity Lock\n\nYour account is registered as a Real Estate entity. Only Real Estate templates (Builders, Plots, Villas, Realtors, Commercial) can be applied to ensure your property listings, TS-RERA badges, and layout integrity are preserved.");
+    if (!isAllowed) {
+      alert(`🔒 ${lockConfig.label} Lock\n\nYour account is registered under ${lockConfig.label}. You can only apply templates from your respective ${activeCategory} business suite.`);
       return;
     }
 
@@ -739,7 +775,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
         return {
           ...preset,
-          category: isRealEstate ? 'Real Estate' : (preset.category || templateMeta?.category),
+          category: activeCategory,
           templateId: templateId,
           slug: prev.slug || preset.slug,
           name: (prev.name && prev.name !== 'Kishore Patel') ? prev.name : preset.name,
@@ -755,7 +791,8 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             socials: { items: updatedSocials },
             gallery: hasCustomGallery ? prev.sectionData.gallery : preset.sectionData.gallery,
             videos: hasCustomVideos ? prev.sectionData.videos : preset.sectionData.videos,
-            realEstate: isRealEstate ? (preset.sectionData.realEstate || prev.sectionData.realEstate || getTemplateProfile('re-builders').sectionData.realEstate) : preset.sectionData.realEstate
+            realEstate: activeCategory === 'Real Estate' ? (preset.sectionData?.realEstate || prev.sectionData?.realEstate || getTemplateProfile('re-builders').sectionData?.realEstate) : preset.sectionData?.realEstate,
+            interior: activeCategory === 'Interior Design' ? (preset.sectionData?.interior || prev.sectionData?.interior || getTemplateProfile('home-interior').sectionData?.interior) : preset.sectionData?.interior,
           }
         };
       });
@@ -764,7 +801,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
         ...prev,
         theme: preset.theme,
         templateId: templateId,
-        category: isRealEstate ? 'Real Estate' : (templateMeta?.category || (preset as any).category),
+        category: activeCategory,
         avatarUrl: preset.avatarUrl,
         coverUrl: preset.coverUrl
       }));
@@ -2416,38 +2453,35 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <div className="flex items-center gap-2">
                     <h3 className="text-sm font-bold text-white">vCard Templates Library</h3>
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                      {VCARD_TEMPLATES_CATALOG.length} Templates
+                      {categoryTemplates.length} Templates
                     </span>
                   </div>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    {isRealEstate 
-                      ? 'Exclusive Real Estate commercial suite: Switch between builders, plotted ventures, luxury villas, realtors & commercial assets.'
-                      : 'Select any industry template to instantly switch your layout, colors, services, and WhatsApp store.'}
+                    {lockConfig.label}: Switch between your tailored business templates, layouts, and WhatsApp store designs.
                   </p>
                 </div>
               </div>
 
-              {/* Real Estate Entity Lock Badge Banner */}
-              {isRealEstate && (
-                <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-600/10 to-orange-500/10 border border-amber-500/30 text-xs flex items-start gap-3 shadow-sm">
-                  <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0 mt-0.5">
-                    <Lock className="w-4 h-4" />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h4 className="font-bold text-amber-200 text-xs">
-                        Real Estate Commercial Suite (Industry Locked)
-                      </h4>
-                      <span className="text-[10px] font-bold bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30">
-                        Entity: Real Estate
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-amber-200/80 leading-relaxed">
-                      Your business entity is registered under <strong>Real Estate &amp; Infrastructure</strong>. The template library is curated exclusively to verified Real Estate templates (Builders, Gated Plots, Triplex Villas, Realtors, and Commercial Assets) to safeguard your TS-RERA credentials, floor plans, and layout integrity.
-                    </p>
-                  </div>
+              {/* Universal Entity Lock Badge Banner */}
+              <div className={`p-3.5 rounded-2xl bg-gradient-to-r ${lockConfig.bannerGradient} border ${lockConfig.badgeBorder} text-xs flex items-start gap-3 shadow-sm`}>
+                <div className={`w-8 h-8 rounded-xl ${lockConfig.badgeBg} ${lockConfig.badgeText} border ${lockConfig.badgeBorder} flex items-center justify-center shrink-0 mt-0.5`}>
+                  <Lock className="w-4 h-4" />
                 </div>
-              )}
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h4 className="font-bold text-white text-xs flex items-center gap-1.5">
+                      <span>{lockConfig.icon}</span>
+                      <span>{lockConfig.label} (Industry Locked)</span>
+                    </h4>
+                    <span className={`text-[10px] font-bold ${lockConfig.badgeBg} ${lockConfig.badgeText} px-2 py-0.5 rounded-full border ${lockConfig.badgeBorder}`}>
+                      Entity: {activeCategory}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-relaxed">
+                    {lockConfig.description}
+                  </p>
+                </div>
+              </div>
 
               {/* Toast confirmation */}
               {appliedTemplateName && (
@@ -2466,93 +2500,50 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   type="text"
                   value={templateSearch}
                   onChange={e => setTemplateSearch(e.target.value)}
-                  placeholder={isRealEstate 
-                    ? "Search Real Estate templates (e.g. Builders, Plots, Villas, Realtors, Commercial)..." 
-                    : `Search ${VCARD_TEMPLATES_CATALOG.length} templates (e.g. Boutique, Doctor, Saree, Real Estate, Hotel)...`}
+                  placeholder={`Search ${activeCategory} templates (e.g. ${categoryTemplates.slice(0, 3).map(t => t.name.split(' ')[0]).join(', ')})...`}
                   className="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                 />
 
-                {isRealEstate ? (
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    {[
-                      { id: 'all', label: 'All Real Estate (6)', icon: '🏰' },
-                      { id: 'High-Rise Towers, Gated Communities & Infra', label: 'Builders & Towers', icon: '🏢' },
-                      { id: 'Plotted Layouts, Farmlands & County', label: 'Plots & Farmlands', icon: '🏞️' },
-                      { id: 'Triplex Gated Villas & Clubhouse Estates', label: 'Luxury Villas', icon: '🏡' },
-                      { id: 'Channel Partners & Property Brokers', label: 'Realtors & Brokers', icon: '🤝' },
-                      { id: 'Pre-Leased Banks, IT Parks & High Street', label: 'Commercial & Pre-Leased', icon: '🏦' },
-                    ].map(cat => (
-                      <button
-                        key={cat.id}
-                        onClick={() => setTemplateCategory(cat.id)}
-                        className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all flex items-center gap-1 ${
-                          templateCategory === cat.id
-                            ? 'bg-amber-600 text-white shadow-sm ring-1 ring-amber-400/50'
-                            : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
-                        }`}
-                      >
-                        <span>{cat.icon}</span>
-                        <span>{cat.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    {[
-                      { id: 'all', label: `All (${VCARD_TEMPLATES_CATALOG.length})`, icon: '✨' },
-                      { id: 'Real Estate', label: 'Real Estate', icon: '🏠' },
-                      { id: 'Interior Design', label: 'Interior & Architecture', icon: '🛋️' },
-                      { id: 'Fashion & Clothing', label: 'Fashion', icon: '👗' },
-                      { id: 'Beauty & Personal Care', label: 'Beauty', icon: '💄' },
-                      { id: 'Food Business', label: 'Food', icon: '🍽️' },
-                      { id: 'Healthcare', label: 'Health', icon: '🏥' },
-                      { id: 'Education', label: 'Education', icon: '🎓' },
-                      { id: 'Home & Professional Services', label: 'Home Services', icon: '🛠️' },
-                      { id: 'Automobile', label: 'Auto', icon: '🚗' },
-                      { id: 'Events & Creative', label: 'Events', icon: '📸' },
-                      { id: 'Professional Services', label: 'Professional', icon: '💼' },
-                      { id: 'Retail & Local Shops', label: 'Retail', icon: '🛍️' },
-                      { id: 'Travel & Hospitality', label: 'Travel', icon: '✈️' },
-                    ].map(cat => (
-                      <button
-                        key={cat.id}
-                        onClick={() => setTemplateCategory(cat.id)}
-                        className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all flex items-center gap-1 ${
-                          templateCategory === cat.id
-                            ? 'bg-indigo-600 text-white shadow-sm'
-                            : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
-                        }`}
-                      >
-                        <span>{cat.icon}</span>
-                        <span>{cat.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <button
+                    onClick={() => setTemplateCategory('all')}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all flex items-center gap-1 ${
+                      templateCategory === 'all'
+                        ? `${lockConfig.badgeBg} ${lockConfig.badgeText} border ${lockConfig.badgeBorder} shadow-sm ring-1 ring-white/10`
+                        : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
+                    }`}
+                  >
+                    <span>{lockConfig.icon}</span>
+                    <span>All {activeCategory} ({categoryTemplates.length})</span>
+                  </button>
+                  {availableSubCategories.map(sub => (
+                    <button
+                      key={sub}
+                      onClick={() => setTemplateCategory(sub)}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all flex items-center gap-1 ${
+                        templateCategory === sub
+                          ? `${lockConfig.badgeBg} ${lockConfig.badgeText} border ${lockConfig.badgeBorder} shadow-sm ring-1 ring-white/10`
+                          : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
+                      }`}
+                    >
+                      <span>🏷️</span>
+                      <span>{sub}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Grid of Templates */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 max-h-[580px] overflow-y-auto pr-1">
-                {VCARD_TEMPLATES_CATALOG
+                {categoryTemplates
                   .filter(t => {
-                    if (isRealEstate) {
-                      const isRe = t.category === 'Real Estate' || t.id.startsWith('re-') || t.id === 'vcard35';
-                      if (!isRe) return false;
-                      const matchSub = templateCategory === 'all' || t.subCategory === templateCategory || t.category === templateCategory;
-                      const q = templateSearch.toLowerCase();
-                      const matchSearch = !q || t.name.toLowerCase().includes(q) ||
-                        t.tagline.toLowerCase().includes(q) ||
-                        (t.subCategory && t.subCategory.toLowerCase().includes(q)) ||
-                        t.features.some(f => f.toLowerCase().includes(q));
-                      return matchSub && matchSearch;
-                    }
-                    const matchCat = templateCategory === 'all' || t.category === templateCategory;
+                    const matchSub = templateCategory === 'all' || t.subCategory === templateCategory || t.category === templateCategory;
                     const q = templateSearch.toLowerCase();
-                    const matchSearch = t.name.toLowerCase().includes(q) ||
+                    const matchSearch = !q || t.name.toLowerCase().includes(q) ||
                       t.tagline.toLowerCase().includes(q) ||
                       (t.subCategory && t.subCategory.toLowerCase().includes(q)) ||
                       t.features.some(f => f.toLowerCase().includes(q));
-                    return matchCat && matchSearch;
+                    return matchSub && matchSearch;
                   })
                   .map(tpl => (
                     <div 
@@ -5506,40 +5497,24 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             <div className="space-y-2">
               <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                {isRealEstate ? 'Select Real Estate Business Preset' : 'Select Business Entity / Industry'}
+                {lockConfig.icon} Select {activeCategory} Business Preset ({lockConfig.label})
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
-                {(isRealEstate ? [
-                  { id: 're-builders', title: 'High-Rise & Gated Towers', icon: '🏢', slug: `${(profile.slug || 'estate').replace(/-card-\d+$/, '')}-builders`, name: profile.name || 'Vikramaditya Roy', company: profile.company || 'Skyline Landmark Developers', desig: 'Managing Director & Builder' },
-                  { id: 're-plots', title: 'Open Plots & Farmlands', icon: '🏞️', slug: `${(profile.slug || 'estate').replace(/-card-\d+$/, '')}-plots`, name: profile.name || 'Srikanth Reddy', company: profile.company || 'Reddy Lands & County Infrastructure', desig: 'Managing Partner' },
-                  { id: 're-villas', title: 'Luxury Gated Villas', icon: '🏡', slug: `${(profile.slug || 'estate').replace(/-card-\d+$/, '')}-villas`, name: profile.name || 'Kishore Varma', company: profile.company || 'Grandeur Villa Communities', desig: 'Founding Partner' },
-                  { id: 're-agents', title: 'Realtor & Property Advisor', icon: '🤝', slug: `${(profile.slug || 'estate').replace(/-card-\d+$/, '')}-realtor`, name: profile.name || 'Rajesh Varma', company: profile.company || 'Varma Prime Realty Advisory', desig: 'Senior Real Estate Consultant' },
-                  { id: 're-consultants', title: 'Commercial & Pre-Leased', icon: '🏦', slug: `${(profile.slug || 'estate').replace(/-card-\d+$/, '')}-commercial`, name: profile.name || 'Anand Rao', company: profile.company || 'Commercial Realty Capital', desig: 'Commercial Asset Director' },
-                  { id: 'vcard35', title: 'Prime Property Broker', icon: '🏷️', slug: `${(profile.slug || 'estate').replace(/-card-\d+$/, '')}-broker`, name: profile.name || 'David Sterling', company: profile.company || 'Sterling Global Estates', desig: 'Principal Property Broker' },
-                ] : [
-                  { id: 'vcard34', title: 'Photography & Studio', icon: '📸', slug: 'photography-studio', name: 'Aarav Mehta', company: 'Lumière Visual Studio', desig: 'Lead Photographer & Cinematographer' },
-                  { id: 'vcard35', title: 'Real Estate & Property', icon: '🏢', slug: 'prime-estates', name: 'David Sterling', company: 'Sterling Global Estates', desig: 'Principal Property Broker' },
-                  { id: 'vcard13', title: 'Doctor & Healthcare', icon: '🏥', slug: 'dr-consultation', name: 'Dr. Alistair Chen', company: 'Apex Medical Center', desig: 'Consultant Specialist' },
-                  { id: 'vcard37', title: 'Florist & Decorator', icon: '🌸', slug: 'luxury-florals', name: 'Bella Fiore', company: 'Bella Flora Luxury Studio', desig: 'Botanical Designer' },
-                  { id: 'vcard38', title: 'Architecture & Design', icon: '📐', slug: 'vance-design', name: 'Marcus Vance', company: 'Vance Architecture', desig: 'Principal Architect' },
-                  { id: 'vcard12', title: 'Fitness & Gym Coach', icon: '🏋️', slug: 'ironpeak-fit', name: 'Alex Thorne', company: 'IronPeak Performance', desig: 'Elite Strength Coach' },
-                  { id: 'vcard16', title: 'Legal & Advocate', icon: '⚖️', slug: 'legal-counsel', name: 'Harrison Reed', company: 'Reed & Chambers Law', desig: 'Corporate Legal Advocate' },
-                  { id: 'vcard39', title: 'Media & Creator', icon: '🎙️', slug: 'media-press', name: 'Richard Madden', company: 'Global Press Bureau', desig: 'Senior Media Correspondent' },
-                ]).map((ent) => (
+                {(CATEGORY_QUICK_PRESETS[activeCategory] || CATEGORY_QUICK_PRESETS['Professional Services']).map((ent) => (
                   <button
                     key={ent.id}
                     type="button"
                     onClick={() => {
                       setNewCardTemplateId(ent.id);
                       setNewCardTitle(ent.title);
-                      setNewCardSlug(ent.slug);
-                      setNewCardName(ent.name);
-                      setNewCardCompany(ent.company);
+                      setNewCardSlug(`${(profile.slug || 'card').replace(/-card-\d+$/, '')}-${ent.slug}`);
+                      setNewCardName(profile.name || ent.name);
+                      setNewCardCompany(profile.company || ent.company);
                       setNewCardDesignation(ent.desig);
                     }}
                     className={`p-2 rounded-xl text-left border transition-all flex flex-col justify-between ${
                       newCardTemplateId === ent.id
-                        ? 'bg-amber-600/25 border-amber-500 text-white shadow-md ring-1 ring-amber-500/40'
+                        ? `${lockConfig.badgeBg} border-indigo-500 text-white shadow-md ring-1 ring-indigo-500/40`
                         : 'bg-slate-950/70 border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white'
                     }`}
                   >
@@ -5559,7 +5534,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   type="text"
                   required
                   value={newCardTitle}
-                  placeholder={isRealEstate ? "e.g. Skyline Landmark Towers, Tellapur Villa County" : "e.g. Sales vCard, Real Estate Portfolio, Speaker Pass"}
+                  placeholder={`e.g. ${profile.company || profile.name || 'My Brand'} ${activeCategory} Card`}
                   onChange={e => {
                     setNewCardTitle(e.target.value);
                     if (!newCardSlug) {
@@ -5591,20 +5566,16 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
               <div>
                 <label className="text-xs font-semibold text-slate-300">
-                  {isRealEstate 
-                    ? 'Select Real Estate Template (Commercial Suite)' 
-                    : `Select Base Industry Template (${VCARD_TEMPLATES_CATALOG.length} Presets)`}
+                  Select {activeCategory} Template ({categoryTemplates.length} Available)
                 </label>
                 <div className="mt-1.5 grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-44 overflow-y-auto pr-1">
-                  {VCARD_TEMPLATES_CATALOG
-                    .filter(tpl => !isRealEstate || tpl.category === 'Real Estate' || tpl.id.startsWith('re-') || tpl.id === 'vcard35')
-                    .map(tpl => (
+                  {categoryTemplates.map(tpl => (
                     <div
                       key={tpl.id}
                       onClick={() => setNewCardTemplateId(tpl.id)}
                       className={`p-2 rounded-xl border cursor-pointer transition flex items-center gap-2 ${
                         newCardTemplateId === tpl.id
-                          ? 'border-amber-500 bg-amber-500/20 text-white shadow ring-1 ring-amber-500/40'
+                          ? 'border-indigo-500 bg-indigo-500/20 text-white shadow ring-1 ring-indigo-500/40'
                           : 'border-slate-800 bg-slate-950/60 text-slate-300 hover:border-slate-700'
                       }`}
                     >
@@ -5613,7 +5584,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       </div>
                       <div className="truncate text-left">
                         <p className="text-[11px] font-bold truncate">{tpl.name}</p>
-                        <p className="text-[9px] text-slate-400 truncate">{tpl.category}</p>
+                        <p className="text-[9px] text-slate-400 truncate">{tpl.subCategory || tpl.category}</p>
                       </div>
                     </div>
                   ))}

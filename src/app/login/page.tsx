@@ -18,6 +18,7 @@ import {
   Phone,
   Shield
 } from 'lucide-react';
+import { normalizeCategory } from '@/data/vcardTemplates';
 
 function GoogleIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -109,12 +110,12 @@ function LoginForm() {
             email: data.user.email,
             businessName: data.user.businessName || `${data.user.name || cleanEmail.split('@')[0]}'s Business`,
             entityType: 'Private Limited / LLC',
-            category: data.user.category || ((data.user.slug?.startsWith('home-interior') || data.user.slug?.startsWith('interior') || data.user.template === 'home-interior') ? 'Interior Design' : (data.user.slug?.startsWith('re-') ? 'Real Estate' : 'Real Estate')),
-            designation: (data.user.category === 'Interior Design' || data.user.template === 'home-interior' || data.user.slug?.startsWith('home-interior') || data.user.slug?.startsWith('interior')) ? 'Principal Architect & Founder' : (data.user.category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director'),
+            category: data.user.category || normalizeCategory(null, data.user.template || data.user.slug),
+            designation: data.user.designation || (data.user.category === 'Interior Design' ? 'Principal Architect & Founder' : (data.user.category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director')),
             phone: '+91 98765 43210',
             slug: data.user.slug || 'card',
             plan: userPlan,
-            template: data.user.template || ((data.user.category === 'Interior Design' || data.user.slug?.startsWith('home-interior') || data.user.slug?.startsWith('interior')) ? 'home-interior' : (data.user.slug?.startsWith('re-') ? 're-builders' : 're-builders')),
+            template: data.user.template || (data.user.slug?.startsWith('re-') ? 're-builders' : 'vcard39'),
             subscriptionStatus: userStatus,
             hasActivePaidPlan: hasPaid,
             isBusinessEntity: true,
@@ -192,12 +193,12 @@ function LoginForm() {
                   email: data.user.email,
                   businessName: data.user.businessName || `${data.user.name}'s Business`,
                   entityType: 'Private Limited / LLC',
-                  category: data.user.category || ((data.user.slug?.startsWith('home-interior') || data.user.slug?.startsWith('interior') || data.user.template === 'home-interior') ? 'Interior Design' : (data.user.slug?.startsWith('re-') ? 'Real Estate' : 'Real Estate')),
-                  designation: (data.user.category === 'Interior Design' || data.user.template === 'home-interior' || data.user.slug?.startsWith('home-interior') || data.user.slug?.startsWith('interior')) ? 'Principal Architect & Founder' : (data.user.category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director'),
+                  category: data.user.category || normalizeCategory(null, data.user.template || data.user.slug),
+                  designation: data.user.designation || (data.user.category === 'Interior Design' ? 'Principal Architect & Founder' : (data.user.category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director')),
                   phone: '+91 98765 43210',
                   slug: data.user.slug || 'card',
                   plan: userPlan,
-                  template: data.user.template || ((data.user.category === 'Interior Design' || data.user.slug?.startsWith('home-interior') || data.user.slug?.startsWith('interior')) ? 'home-interior' : (data.user.slug?.startsWith('re-') ? 're-builders' : 're-builders')),
+                  template: data.user.template || (data.user.slug?.startsWith('re-') ? 're-builders' : 'vcard39'),
                   subscriptionStatus: userStatus,
                   hasActivePaidPlan: hasPaid,
                   isBusinessEntity: true,

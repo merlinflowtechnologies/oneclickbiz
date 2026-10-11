@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { hashPassword, signToken, setAuthCookie } from '@/lib/auth';
 import { getTemplateProfile } from '@/data/templatePresets';
+import { normalizeCategory, isTemplateAllowedForCategory, VCARD_TEMPLATES_CATALOG } from '@/data/vcardTemplates';
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,13 +38,13 @@ export async function POST(req: NextRequest) {
 
     const passwordHash = await hashPassword(password);
 
-    // Resolve template and industry preset
-    const isInteriorCategory = body.category === 'Interior Design' || body.category === 'Interior' || cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') || body.templateId === 'home-interior' || body.templateId === 'interior';
-    const isRealEstateCategory = body.category === 'Real Estate' || cleanSlug.startsWith('re-') || body.templateId?.startsWith('re-') || body.templateId === 'vcard35';
-    const effectiveCategory = isRealEstateCategory ? 'Real Estate' : (isInteriorCategory ? 'Interior Design' : (body.category || 'Real Estate'));
-    const effectiveTemplateId = (isRealEstateCategory && (body.templateId?.startsWith('re-') || body.templateId === 'vcard35'))
-      ? body.templateId
-      : (isRealEstateCategory ? 're-builders' : (isInteriorCategory ? 'home-interior' : (body.templateId || 're-builders')));
+    // Resolve template and industry preset universally for any business entity
+    const effectiveCategory = normalizeCategory(body.category || null, body.templateId || cleanSlug);
+    let effectiveTemplateId = body.templateId;
+    if (!effectiveTemplateId || !isTemplateAllowedForCategory(effectiveTemplateId, effectiveCategory)) {
+      const allowedTemplates = VCARD_TEMPLATES_CATALOG.filter(t => isTemplateAllowedForCategory(t.id, effectiveCategory));
+      effectiveTemplateId = allowedTemplates[0]?.id || (effectiveCategory === 'Real Estate' ? 're-builders' : 'vcard39');
+    }
     const templatePreset = getTemplateProfile(effectiveTemplateId);
 
     // Create User, Organization, and Default Profile in a transaction (with fallback)
