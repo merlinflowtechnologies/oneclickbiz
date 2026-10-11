@@ -13,6 +13,7 @@ import {
   Eye, 
   EyeOff, 
   AlertCircle,
+  AlertTriangle,
   Building,
   User,
   Phone,
@@ -333,6 +334,10 @@ function SignUpForm() {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [error, setError] = useState('');
   const [completedOrder, setCompletedOrder] = useState<any>(null);
+
+  // Mandatory Legal Acceptance Checkbox (Terms & Conditions and Privacy Policy)
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [termsError, setTermsError] = useState(false);
 
   // Coupon State
   const [couponInput, setCouponInput] = useState(paramCoupon || '');
@@ -685,8 +690,16 @@ function SignUpForm() {
 
   // Step 2 Action: Initiates Cashfree PG Checkout Modal Directly!
   const handleLaunchCashfreePayment = async () => {
-    setIsProcessingPayment(true);
     setError('');
+
+    // Strict Legal Gate: Customer must accept Terms and Conditions & Privacy Policy
+    if (!agreedToTerms) {
+      setTermsError(true);
+      setError('You must accept the OneClickBiz Terms & Conditions and Privacy Policy before proceeding to payment.');
+      return;
+    }
+
+    setIsProcessingPayment(true);
 
     const finalPayable = appliedCoupon?.valid ? appliedCoupon.finalPrice : activePlan.price;
 
@@ -1435,6 +1448,61 @@ function SignUpForm() {
                 </div>
               </div>
 
+              {/* Mandatory Terms & Conditions + Privacy Policy Consent Checkbox */}
+              <div className={`p-4 rounded-2xl border transition-all ${
+                termsError && !agreedToTerms
+                  ? 'bg-rose-50 border-rose-300 ring-2 ring-rose-200'
+                  : agreedToTerms
+                  ? 'bg-emerald-50/70 border-emerald-300 ring-1 ring-emerald-200/50'
+                  : 'bg-slate-50 border-slate-200 hover:border-slate-300'
+              }`}>
+                <label className="flex items-start gap-3 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={agreedToTerms}
+                    onChange={(e) => {
+                      setAgreedToTerms(e.target.checked);
+                      if (e.target.checked) setTermsError(false);
+                    }}
+                    className="mt-0.5 w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer shrink-0 accent-indigo-600"
+                  />
+                  <div className="space-y-1">
+                    <p className="text-xs text-slate-800 leading-relaxed font-semibold">
+                      I have read, understood, and agree to the{' '}
+                      <Link 
+                        href="/terms" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-indigo-600 hover:text-indigo-800 underline font-bold"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Terms &amp; Conditions
+                      </Link>
+                      {' '}and{' '}
+                      <Link 
+                        href="/privacy" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-indigo-600 hover:text-indigo-800 underline font-bold"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Privacy Policy
+                      </Link>
+                      {' '}(Effective Date: Oct 10, 2026).
+                    </p>
+                    <p className="text-[11px] text-slate-500 leading-normal">
+                      By proceeding, I confirm my subscription details and acknowledge that digital services are provisioned electronically upon payment verification.
+                    </p>
+                    {termsError && !agreedToTerms && (
+                      <p className="text-[11px] text-rose-600 font-bold flex items-center gap-1 pt-0.5">
+                        <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                        Please check this box to confirm acceptance before paying.
+                      </p>
+                    )}
+                  </div>
+                </label>
+              </div>
+
               {/* Action Buttons */}
               <div className="flex items-center gap-3 pt-2">
                 <button
@@ -1450,8 +1518,12 @@ function SignUpForm() {
                 <button
                   type="button"
                   onClick={handleLaunchCashfreePayment}
-                  disabled={isProcessingPayment}
-                  className="flex-1 py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 hover:from-emerald-700 hover:to-indigo-700 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-600/25 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                  disabled={isProcessingPayment || !agreedToTerms}
+                  className={`flex-1 py-3.5 px-5 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer ${
+                    !agreedToTerms
+                      ? 'bg-slate-200 text-slate-400 cursor-not-allowed opacity-80'
+                      : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 hover:from-emerald-700 hover:to-indigo-700 text-white shadow-xl shadow-emerald-600/25'
+                  }`}
                 >
                   {isProcessingPayment ? (
                     <>

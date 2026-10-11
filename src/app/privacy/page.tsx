@@ -17,7 +17,12 @@ import {
   Server, 
   Users, 
   Sparkles,
-  Ban
+  Ban,
+  Calendar,
+  Clock,
+  Building2,
+  AlertTriangle,
+  Scale
 } from 'lucide-react';
 
 export default function PrivacyPolicyPage() {
@@ -39,331 +44,344 @@ export default function PrivacyPolicyPage() {
         {/* Hero Header */}
         <div className="space-y-4 mb-12 pb-8 border-b border-slate-800">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider">
-            <ShieldCheck className="w-3.5 h-3.5" /> Legal & Privacy
+            <ShieldCheck className="w-3.5 h-3.5" /> Legal &amp; Privacy Protection
           </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Privacy Policy
           </h1>
           <p className="text-sm text-slate-400 max-w-3xl leading-relaxed">
-            OneClickBiz (“OneClickBiz”, “we”, “us”, or “our”) respects your privacy and is committed to protecting the personal information you provide while using our website, applications, digital business card services, networking features, and related services.
+            OneClickBiz (“OneClickBiz”, “Company”, “we”, “us” or “our”) is operated by <strong>Merlinflow Technologies Private Limited</strong>. This Privacy Policy explains how we collect, use, store, disclose, retain and protect personal data across our website, subscription plans, digital business cards, vCard profiles, QR codes, and business management services.
           </p>
-          <div className="pt-2 text-xs text-slate-500 font-medium">
-            Last Updated: September 11, 2026
+          <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-slate-400 font-medium">
+            <span className="flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+              <strong>Effective Date:</strong> October 10, 2026
+            </span>
+            <span>•</span>
+            <span className="flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-emerald-400" />
+              <strong>Last Updated:</strong> October 10, 2026
+            </span>
+            <span>•</span>
+            <span className="flex items-center gap-1.5">
+              <Scale className="w-3.5 h-3.5 text-emerald-400" />
+              DPDP Act, 2023 Compliant
+            </span>
           </div>
         </div>
 
-        {/* Zero-Ads Feature Highlight Card */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-indigo-950/50 via-purple-950/30 to-slate-900/60 border border-indigo-500/20 mb-12 space-y-4 shadow-xl">
-          <div className="flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-wider">
+        {/* Highlights Banner: Zero-Ads & No Data Selling */}
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-indigo-950/40 border border-emerald-500/30 mb-12 space-y-4 shadow-xl">
+          <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
             <Ban className="w-4 h-4 text-emerald-400" />
-            <span>Zero-Ads Policy</span>
+            <span>Zero-Ads &amp; No Data Selling Guarantee</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            A Business Experience Without Distractions
+            Built for Clean, Professional Business Profiles
           </h2>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            OneClickBiz is designed to help you present your business professionally. That’s why OneClickBiz profiles are designed to be ad-free. We do not intend to place third-party advertising banners, pop-ups, or unrelated promotional advertisements on your public digital business profile.
+            We process personal data in accordance with applicable Indian data protection and information technology laws, including the <strong>Digital Personal Data Protection Act, 2023 (DPDP Act)</strong>.
           </p>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Your customers should focus on your brand, your services, your products, and your contact options—not advertisements from unrelated businesses.
-          </p>
-          
-          <div className="pt-2">
-            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-2">What Zero-Ads Means With OneClickBiz:</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-300">
-              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>No third-party banner advertisements on your profile</span>
-              </div>
-              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>No unrelated pop-up advertisements</span>
-              </div>
-              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>No advertising clutter competing with your brand</span>
-              </div>
-              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>Your profile remains focused on your business identity</span>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300 pt-1">
+            <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span><strong>Zero Ads:</strong> No third-party banner ads or popups on your profiles.</span>
             </div>
-            <p className="text-[11px] text-slate-500 mt-3">
-              OneClickBiz may still display its own service-related notices, system messages, upgrade information, or other communications necessary to operate the platform. Your business deserves the spotlight.
-            </p>
+            <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span><strong>No Data Selling:</strong> We never sell customer lead lists to advertising brokers.</span>
+            </div>
           </div>
         </div>
 
-        {/* Policy Body */}
-        <div className="space-y-10 text-xs sm:text-sm text-slate-300 leading-relaxed">
+        {/* Table of Contents */}
+        <div className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 mb-12 space-y-3">
+          <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <FileText className="w-4 h-4 text-emerald-400" />
+            Privacy Policy Sections
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 text-xs text-slate-400">
+            <a href="#p-1" className="hover:text-emerald-300 transition">1. Introduction</a>
+            <a href="#p-2" className="hover:text-emerald-300 transition">2. Our Role in Data Processing</a>
+            <a href="#p-3" className="hover:text-emerald-300 transition">3. Personal Data We Collect</a>
+            <a href="#p-4" className="hover:text-emerald-300 transition">4. How We Use Data</a>
+            <a href="#p-5" className="hover:text-emerald-300 transition">5. Payments & Billing</a>
+            <a href="#p-6" className="hover:text-emerald-300 transition">6. Automatic Renewal</a>
+            <a href="#p-7" className="hover:text-emerald-300 transition">7. Public Profiles</a>
+            <a href="#p-8" className="hover:text-emerald-300 transition">8. Customer Leads</a>
+            <a href="#p-9" className="hover:text-emerald-300 transition">9. Cookies & Tracking</a>
+            <a href="#p-10" className="hover:text-emerald-300 transition">10. Data Sharing & Disclosure</a>
+            <a href="#p-11" className="hover:text-emerald-300 transition">11. Data Security</a>
+            <a href="#p-12" className="hover:text-emerald-300 transition">12. Retention & Deletion</a>
+            <a href="#p-13" className="hover:text-emerald-300 transition">13. Your Privacy Rights</a>
+            <a href="#p-14" className="hover:text-emerald-300 transition">14. Children's Privacy</a>
+            <a href="#p-15" className="hover:text-emerald-300 transition">15. International Processing</a>
+            <a href="#p-16" className="hover:text-emerald-300 transition">16. Marketing Communications</a>
+            <a href="#p-17" className="hover:text-emerald-300 transition">17. Changes to Policy</a>
+            <a href="#p-18" className="hover:text-emerald-300 transition">18. Contact & Grievance</a>
+          </div>
+        </div>
+
+        {/* Detailed Sections */}
+        <div className="space-y-8 text-xs sm:text-sm text-slate-300 leading-relaxed">
           
-          {/* 1. Information We Collect */}
-          <section className="space-y-4 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
+          {/* 1. Introduction */}
+          <section id="p-1" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <FileText className="w-4 h-4 text-indigo-400" />
-              1. Information We Collect
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              1. Introduction
             </h2>
-            <p className="text-slate-400">
-              Depending on how you use OneClickBiz, we may collect:
+            <p>
+              OneClickBiz (“OneClickBiz”, “Company”, “we”, “us” or “our”) is operated by <strong>Merlinflow Technologies Private Limited</strong>.
             </p>
-
-            <div className="space-y-4 pt-1">
-              <div>
-                <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-2 text-indigo-300">Account Information</h3>
-                <ul className="list-disc pl-5 space-y-1 text-slate-400 text-xs">
-                  <li>Name</li>
-                  <li>Email address</li>
-                  <li>Phone number</li>
-                  <li>Password or authentication information</li>
-                  <li>Business or organization information</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-2 text-indigo-300">Digital Profile Information</h3>
-                <p className="text-xs text-slate-400 mb-1.5">Information you choose to publish through your OneClickBiz profile, including:</p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-slate-400">
-                  <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800">• Profile photograph</div>
-                  <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800">• Business name</div>
-                  <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800">• Designation</div>
-                  <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800">• Contact information</div>
-                  <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800">• Website & Social links</div>
-                  <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800">• Business description</div>
-                  <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800">• Services & Products</div>
-                  <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800">• Images, videos & docs</div>
-                  <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800">• Business address & other info</div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-2 text-indigo-300">Transaction Information</h3>
-                <p className="text-xs text-slate-400">
-                  When you purchase a subscription, NFC card, or other service, payment-related information may be processed through our payment service providers. We may receive transaction details such as payment status, transaction reference and subscription information.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-2 text-indigo-300">Usage & Analytics Information</h3>
-                <p className="text-xs text-slate-400 mb-1.5">We may collect information about how the platform is used, including:</p>
-                <ul className="list-disc pl-5 space-y-1 text-slate-400 text-xs">
-                  <li>Profile views and unique visitor metrics</li>
-                  <li>QR code scans and NFC interactions</li>
-                  <li>Link clicks and contact download triggers</li>
-                  <li>Device and browser information</li>
-                  <li>Approximate geographic information</li>
-                  <li>Referring sources, date and time of interactions</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-2 text-indigo-300">Communications</h3>
-                <p className="text-xs text-slate-400">
-                  We may collect information you provide when contacting us, submitting inquiries, requesting support, or communicating with us.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* 2. How We Use Information */}
-          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-indigo-400" />
-              2. How We Use Information
-            </h2>
-            <p className="text-slate-400 text-xs">We may use information to:</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-400">
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Create and manage accounts</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Provide digital card & profile services</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Publish user-created profiles</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Process subscriptions and payments</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Process NFC card orders</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Provide analytics and insights</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Facilitate bookings and inquiries</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Facilitate WhatsApp customer interactions</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Provide customer support</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Send service-related notifications</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Improve our products and services</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Detect fraud, abuse and security threats</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Maintain platform security</div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/40 border border-slate-800">• Comply with applicable legal obligations</div>
-            </div>
-          </section>
-
-          {/* 3. Public Information */}
-          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Eye className="w-4 h-4 text-indigo-400" />
-              3. Public Information
-            </h2>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              OneClickBiz allows users to create public digital profiles. Information that a user chooses to publish on a public profile may be accessible to anyone who receives or discovers the profile URL, QR code, NFC card, or other sharing mechanism.
+            <p>
+              This Privacy Policy explains how we collect, use, store, disclose, retain and protect personal data when you visit <a href="https://www.oneclickbiz.in" className="text-emerald-400 hover:underline">https://www.oneclickbiz.in</a>, create an account, purchase or manage a subscription, publish a digital business card, use business tools, purchase physical products or contact support.
             </p>
-            <p className="text-slate-400 text-xs">
-              Users are responsible for ensuring that they do not publish information they do not want publicly accessible.
+            <p>
+              We aim to process personal data in accordance with applicable Indian data protection and information technology laws, including the <strong>Digital Personal Data Protection Act, 2023</strong>.
             </p>
           </section>
 
-          {/* 4. Customer Leads & Client Data Sovereignty (Zero Data Broker Selling) */}
-          <section className="space-y-4 p-6 sm:p-8 rounded-3xl bg-slate-900/50 border border-emerald-500/30 shadow-xl">
-            <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-emerald-400" />
-              4. Customer Leads &amp; Client Data Sovereignty (Zero Data Broker Selling)
-            </h2>
-            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-              When prospective clients, patients, or buyers interact with your digital profile (submitting inquiry forms, requesting appointments, or placing WhatsApp orders), OneClickBiz acts strictly as your secure technology processor.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1.5">
-                <h3 className="font-bold text-emerald-400 flex items-center gap-1.5 text-xs">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> 100% Exclusive Ownership
-                </h3>
-                <p className="text-slate-400 text-[11px] leading-relaxed">
-                  You own 100% of your customer contacts, phone numbers, and lead inquiries. OneClickBiz will never claim ownership over your client relationships or customer lists.
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1.5">
-                <h3 className="font-bold text-emerald-400 flex items-center gap-1.5 text-xs">
-                  <Ban className="w-4 h-4 text-rose-400 shrink-0" /> Zero Data Broker Selling
-                </h3>
-                <p className="text-slate-400 text-[11px] leading-relaxed">
-                  We will NEVER sell, lease, rent, or monetize your leads or customer contact details to third-party ad networks, marketing brokers, or data aggregators.
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1.5">
-                <h3 className="font-bold text-emerald-400 flex items-center gap-1.5 text-xs">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> Direct P2P Privacy
-                </h3>
-                <p className="text-slate-400 text-[11px] leading-relaxed">
-                  WhatsApp chats and bank UPI payments route directly peer-to-peer between you and your customers without intermediary escrow or middleman cuts.
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1.5">
-                <h3 className="font-bold text-emerald-400 flex items-center gap-1.5 text-xs">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> 1-Click Export &amp; DPDP Rights
-                </h3>
-                <p className="text-slate-400 text-[11px] leading-relaxed">
-                  Export your leads to open CSV/Excel and PDF anytime. Full compliance with India’s DPDP Act 2023 including rights to access, portability, and permanent erasure.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* 5. Cookies & Similar Technologies */}
-          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Cookie className="w-4 h-4 text-indigo-400" />
-              5. Cookies and Similar Technologies
-            </h2>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              We may use cookies and similar technologies for purposes such as authentication, security, preferences, analytics and improving the user experience. Users may be able to control certain cookies through their browser settings.
-            </p>
-          </section>
-
-          {/* 6. Payment Information */}
-          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <CreditCard className="w-4 h-4 text-indigo-400" />
-              6. Payment Information
-            </h2>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              Payments may be processed through third-party payment providers. OneClickBiz does not intend to store complete payment card details on its own servers unless specifically stated otherwise. Payment providers may process information according to their own privacy policies and terms.
-            </p>
-          </section>
-
-          {/* 7. Third-Party Services */}
-          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Globe className="w-4 h-4 text-indigo-400" />
-              7. Third-Party Services
-            </h2>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              OneClickBiz may integrate with third-party services such as payment gateways, cloud storage providers, communication providers, analytics services, hosting providers, and other integrations necessary to provide the platform. These providers may process information according to their respective policies.
-            </p>
-          </section>
-
-          {/* 8. Data Security */}
-          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Lock className="w-4 h-4 text-emerald-400" />
-              8. Data Security
-            </h2>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              We use reasonable technical and organizational safeguards designed to protect information from unauthorized access, alteration, disclosure or destruction. However, no internet-based service can guarantee absolute security.
-            </p>
-          </section>
-
-          {/* 9. Data Retention */}
-          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Server className="w-4 h-4 text-indigo-400" />
-              9. Data Retention
-            </h2>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              We retain information for as long as reasonably necessary to provide our services, maintain business and transaction records, comply with legal obligations, resolve disputes, and enforce our agreements.
-            </p>
-          </section>
-
-          {/* 10. Your Rights & DPDP Act 2023 Compliance */}
-          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
+          {/* 2. Our Role in Processing Personal Data */}
+          <section id="p-2" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Users className="w-4 h-4 text-indigo-400" />
-              10. Your Rights &amp; India DPDP Act 2023 Compliance
+              2. Our Role in Processing Personal Data
             </h2>
-            <p className="text-slate-300 text-xs leading-relaxed">
-              Under India’s <strong>Digital Personal Data Protection (DPDP) Act 2023</strong> and international data protection standards (GDPR), you possess legally enforceable rights over your personal data:
-            </p>
-            <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-300 pl-2">
-              <li><strong>Right to Access &amp; Summary:</strong> Request a complete summary of your personal data processed by OneClickBiz.</li>
-              <li><strong>Right to Correction &amp; Updation:</strong> Rectify inaccurate, incomplete, or outdated personal or profile details.</li>
-              <li><strong>Right to Data Erasure / Deletion:</strong> Request full permanent deletion of your account and associated lead records.</li>
-              <li><strong>Right to Grievance Redressal:</strong> Direct escalation to our designated Grievance Officer in Hyderabad, India.</li>
-            </ul>
-          </section>
-
-          {/* 10. Children's Privacy */}
-          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
-            <h2 className="text-base font-bold text-white">
-              10. Children’s Privacy
-            </h2>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              OneClickBiz is not intended for children who are below the minimum age required to legally use the service in their jurisdiction.
-            </p>
-          </section>
-
-          {/* 11. Changes to This Policy */}
-          <section className="space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800/80">
-            <h2 className="text-base font-bold text-white">
-              11. Changes to This Policy
-            </h2>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              We may update this Privacy Policy from time to time. Changes will be published on this page with an updated effective date.
-            </p>
-          </section>
-
-          {/* 12. Contact Us */}
-          <section className="p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950/30 to-slate-900 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div className="space-y-1.5">
-              <h2 className="text-base font-bold text-white">
-                12. Contact Us
-              </h2>
-              <p className="text-xs text-slate-400">
-                For privacy-related questions or requests:
-              </p>
-              <div className="text-xs text-slate-300 space-y-0.5 pt-1">
-                <p><strong>Primary Contact:</strong> Adduri Sai Kishore (+91 63049 89071)</p>
-                <p><strong>Email:</strong> <a href="mailto:support@oneclickbiz.in" className="text-indigo-400 hover:underline">support@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-indigo-400 hover:underline">contact@oneclickbiz.in</a></p>
-                <p><strong>Office Location:</strong> Nagole, Hyderabad, Telangana, India</p>
-                <p><strong>Website:</strong> <a href="https://oneclickbiz.in" className="text-indigo-400 hover:underline">oneclickbiz.in</a></p>
+            <div className="space-y-3">
+              <div>
+                <h3 className="font-bold text-white text-xs mb-1">2.1 Information Collected for Our Own Operations (Data Fiduciary)</h3>
+                <p className="text-xs text-slate-400">
+                  For account registration, subscription administration, billing, security, customer support and our own platform operations, OneClickBiz determines the relevant purposes and means of processing, subject to applicable law.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-bold text-white text-xs mb-1">2.2 Information Processed for Business Subscribers (Data Processor)</h3>
+                <p className="text-xs text-slate-400">
+                  When a business uses OneClickBiz to publish profiles, collect leads, receive inquiries, manage appointments or organise customer records, we process personal data on that business's behalf to provide the Services. The business independently determines why and how it collects that information.
+                </p>
               </div>
             </div>
-            <div className="shrink-0">
-              <Link
-                href="/contact" 
-                className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-lg inline-flex items-center gap-1.5"
-              >
-                <span>Contact Support Desk</span>
-              </Link>
+          </section>
+
+          {/* 3. Personal Data We Collect */}
+          <section id="p-3" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <FileText className="w-4 h-4 text-indigo-400" />
+              3. Personal Data We Collect
+            </h2>
+            <div className="space-y-3 text-xs">
+              <p><strong>3.1 Account & Registration:</strong> Name, username, email address, mobile number, business name, designation, organization details, and account settings. We never ask users to disclose passwords, UPI PINs, or OTPs to support personnel.</p>
+              <p><strong>3.2 Subscription & Billing:</strong> Selected plan, price, activation/expiry dates, subscription status, invoices, transaction references, and refund status.</p>
+              <p><strong>3.3 Recurring Payment & Mandate:</strong> Plan renewal interval, mandate references, renewal schedule, and cancellation status.</p>
+              <p><strong>3.4 Payment Information:</strong> Processed through authorized third-party gateways (Cashfree PG). We do not store complete payment-card credentials or CVV on our own servers.</p>
+              <p><strong>3.5 Digital Business Profile:</strong> Photos, logos, contact numbers, email, bio, social media links, product catalogs, brochures, videos, QR codes, and custom domain settings.</p>
+              <p><strong>3.6 Customer Inquiries, Leads & Appointments:</strong> Inquiry submissions, appointment bookings, lead notes, and order messages generated for WhatsApp.</p>
+              <p><strong>3.7 Device, Technical & Usage:</strong> IP address, browser type, device details, access timestamps, QR scans, and link clicks.</p>
+              <p><strong>3.8 Support & Communications:</strong> Messages, tickets, and feedback submitted to customer support.</p>
             </div>
+          </section>
+
+          {/* 4. How We Use Personal Data */}
+          <section id="p-4" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-emerald-400" />
+              4. How We Use Personal Data
+            </h2>
+            <p>We process personal data for specified lawful purposes:</p>
+            <ol className="list-decimal pl-5 space-y-1 text-xs">
+              <li><strong>Account management:</strong> To register users, authenticate accounts and maintain settings.</li>
+              <li><strong>Subscription delivery:</strong> To activate plans and provide premium features.</li>
+              <li><strong>Payment administration:</strong> To verify transactions, maintain billing records and process refunds.</li>
+              <li><strong>Recurring payments:</strong> To administer separately authorised renewal arrangements.</li>
+              <li><strong>Service delivery:</strong> To host profiles, generate QR codes, provide vCards and operate tools.</li>
+              <li><strong>Lead & booking management:</strong> To route customer inquiries and appointment slots.</li>
+              <li><strong>Analytics:</strong> To provide engagement reports and understand platform usage.</li>
+              <li><strong>Security:</strong> To detect fraud, prevent abuse and protect infrastructure.</li>
+              <li><strong>Customer support:</strong> To resolve technical issues and billing inquiries.</li>
+              <li><strong>Service improvement:</strong> To identify defects, improve reliability and develop features.</li>
+              <li><strong>Communications:</strong> To send account, billing, security and service notices.</li>
+              <li><strong>Legal compliance:</strong> To meet applicable accounting, tax, regulatory and statutory obligations.</li>
+            </ol>
+          </section>
+
+          {/* 5. Subscription Payments and Billing */}
+          <section id="p-5" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <CreditCard className="w-4 h-4 text-emerald-400" />
+              5. Subscription Payments and Billing
+            </h2>
+            <p>
+              When you purchase a subscription, we use account and transaction information to confirm payment, activate your plan, and maintain tax invoices. Sensitive payment credentials are encrypted and collected directly by authorized payment gateways.
+            </p>
+          </section>
+
+          {/* 6. Automatic Renewal and Recurring Payment Authorisation */}
+          <section id="p-6" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Clock className="w-4 h-4 text-indigo-400" />
+              6. Automatic Renewal and Recurring Payment Authorisation
+            </h2>
+            <div className="space-y-2 text-xs">
+              <p><strong>6.1 Separate Authorisation:</strong> Automatic renewal is separate from acceptance of this Privacy Policy and the Terms &amp; Conditions. Accepting this Privacy Policy does not, by itself, authorise recurring deductions.</p>
+              <p><strong>6.2 Information Processed:</strong> Plan details, renewal schedule, and mandate status needed to administer the arrangement.</p>
+              <p><strong>6.3 Payment-Provider Sharing:</strong> We share minimum data necessary with banks, card networks, and UPI gateways to manage the mandate.</p>
+              <p><strong>6.4 Cancellation & Retention:</strong> You may cancel future renewal anytime without affecting access during your active paid period.</p>
+            </div>
+          </section>
+
+          {/* 7. Public Profiles and User-Published Content */}
+          <section id="p-7" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Eye className="w-4 h-4 text-emerald-400" />
+              7. Public Profiles and User-Published Content
+            </h2>
+            <p>
+              OneClickBiz allows users to publish public digital business cards. Content you choose to display (phones, emails, catalogs, social links) will be accessible to anyone who visits your profile URL, scans your QR code, or taps your NFC card.
+            </p>
+          </section>
+
+          {/* 8. Customer Leads and Business Data */}
+          <section id="p-8" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Lock className="w-4 h-4 text-indigo-400" />
+              8. Customer Leads and Business Data
+            </h2>
+            <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+              🔒 We do not sell customer lead lists or personal contact details to advertising brokers or data brokers as a business model.
+            </div>
+            <p>
+              Where we process customer inquiries on behalf of a subscriber, we use it solely to deliver the service and maintain security.
+            </p>
+          </section>
+
+          {/* 9. Cookies and Similar Technologies */}
+          <section id="p-9" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Cookie className="w-4 h-4 text-amber-400" />
+              9. Cookies and Similar Technologies
+            </h2>
+            <p>
+              OneClickBiz uses essential cookies and local storage for authentication, dashboard session management, and security. Full details are available in our <a href="/cookies" className="text-indigo-400 hover:underline">Cookie Policy</a>.
+            </p>
+          </section>
+
+          {/* 10. Sharing and Disclosure of Personal Data */}
+          <section id="p-10" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Globe className="w-4 h-4 text-indigo-400" />
+              10. Sharing and Disclosure of Personal Data
+            </h2>
+            <div className="space-y-1.5 text-xs text-slate-300">
+              <p><strong>10.1 Service Providers:</strong> Cloud hosting, payment gateways, and security providers bound by strict confidentiality.</p>
+              <p><strong>10.2 Authorised Users:</strong> Team members assigned by account administrators.</p>
+              <p><strong>10.3 Third-Party Integrations:</strong> WhatsApp, social platforms, or DNS systems when initiated by you.</p>
+              <p><strong>10.4 Legal & Security:</strong> To comply with lawful government or court orders in India.</p>
+              <p><strong>10.5 Business Transfers:</strong> In connection with a merger, reorganization, or sale of assets.</p>
+            </div>
+          </section>
+
+          {/* 11. Data Security */}
+          <section id="p-11" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Lock className="w-4 h-4 text-emerald-400" />
+              11. Data Security
+            </h2>
+            <p>
+              We use 256-bit SSL encryption, automated database backups, secure authentication cookies, and role-based access controls to safeguard data against unauthorized access, loss, or misuse.
+            </p>
+          </section>
+
+          {/* 12. Data Retention and Deletion */}
+          <section id="p-12" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Clock className="w-4 h-4 text-slate-400" />
+              12. Data Retention and Deletion
+            </h2>
+            <p>
+              We retain personal data only for as long as necessary to provide your active subscription, maintain tax records, prevent fraud, and comply with statutory legal requirements. Users can export their business data anytime before closure.
+            </p>
+          </section>
+
+          {/* 13. Your Privacy Rights and Choices */}
+          <section id="p-13" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              13. Your Privacy Rights and Choices (DPDP Act, 2023)
+            </h2>
+            <p>
+              Subject to applicable law, you have the right to request access, correction of inaccurate data, deletion where applicable, withdrawal of consent, and filing grievances with our Grievance Officer.
+            </p>
+          </section>
+
+          {/* 14. Children's Privacy */}
+          <section id="p-14" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Users className="w-4 h-4 text-indigo-400" />
+              14. Children's Privacy
+            </h2>
+            <p>
+              OneClickBiz is intended for working professionals and businesses. We do not knowingly collect personal data from minors under applicable legal thresholds without parental or guardian consent.
+            </p>
+          </section>
+
+          {/* 15. International Processing */}
+          <section id="p-15" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Globe className="w-4 h-4 text-indigo-400" />
+              15. International Processing
+            </h2>
+            <p>
+              Data is hosted and managed in compliance with Indian regulations and relevant data protection directives.
+            </p>
+          </section>
+
+          {/* 16. Marketing and Service Communications */}
+          <section id="p-16" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-indigo-400" />
+              16. Marketing and Service Communications
+            </h2>
+            <p>
+              We send critical service notices (plan activation, payment invoices, security alerts). You may opt out of promotional emails at any time.
+            </p>
+          </section>
+
+          {/* 17. Changes to This Privacy Policy */}
+          <section id="p-17" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-800">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Clock className="w-4 h-4 text-indigo-400" />
+              17. Changes to This Privacy Policy
+            </h2>
+            <p>
+              We may update this Policy to reflect operational improvements or statutory revisions. Updated versions will always display the effective date.
+            </p>
+          </section>
+
+          {/* 18. Privacy Contact and Grievance Redressal */}
+          <section id="p-18" className="scroll-mt-24 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-emerald-950/40 to-slate-900 border border-emerald-500/30 space-y-4">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-emerald-400" />
+              18. Privacy Contact and Grievance Redressal
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div className="space-y-1">
+                <p><strong className="text-slate-400">Platform:</strong> <span className="text-white">OneClickBiz</span></p>
+                <p><strong className="text-slate-400">Website:</strong> <a href="https://www.oneclickbiz.in" className="text-emerald-400 hover:underline">https://www.oneclickbiz.in</a></p>
+                <p><strong className="text-slate-400">Operator:</strong> <span className="text-white font-semibold">Merlinflow Technologies Private Limited</span></p>
+                <p><strong className="text-slate-400">Office Location:</strong> <span className="text-slate-300">Nagole, Hyderabad, Telangana 500068, India</span></p>
+                <p><strong className="text-slate-400">Phone / WhatsApp:</strong> <a href="tel:+916304989071" className="text-emerald-300">+91 63049 89071</a></p>
+              </div>
+              <div className="space-y-1">
+                <p><strong className="text-slate-400">Official Privacy Email:</strong> <a href="mailto:privacy@oneclickbiz.in" className="text-emerald-400 hover:underline">privacy@oneclickbiz.in</a></p>
+                <p><strong className="text-slate-400">Grievance Officer:</strong> <span className="text-white font-semibold">Adduri Sai Kishore</span></p>
+                <p><strong className="text-slate-400">Grievance Email:</strong> <a href="mailto:grievance@oneclickbiz.in" className="text-emerald-400 hover:underline">grievance@oneclickbiz.in</a></p>
+                <p><strong className="text-slate-400">Registered Office:</strong> <span className="text-slate-300">Nagole, Hyderabad, Telangana 500068, India</span></p>
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-400 pt-2 border-t border-slate-800">
+              For privacy inquiries, DPDP Act data rights, or statutory complaints, contact the Grievance Officer above.
+            </p>
           </section>
 
         </div>

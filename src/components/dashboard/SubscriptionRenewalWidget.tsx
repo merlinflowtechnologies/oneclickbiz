@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { 
   CreditCard, 
   ShieldCheck, 
@@ -81,6 +82,10 @@ export default function SubscriptionRenewalWidget({
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Mandatory Terms & Privacy Policy Acceptance
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [termsError, setTermsError] = useState(false);
+
   // Coupon state
   const [couponInput, setCouponInput] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState<CouponApplicationResult | null>(null);
@@ -149,8 +154,16 @@ export default function SubscriptionRenewalWidget({
   }, []);
 
   const handleOnlineRenewal = async () => {
-    setLoading(true);
     setError(null);
+
+    // Strict Legal Gate
+    if (!agreedToTerms) {
+      setTermsError(true);
+      setError('You must read and accept the OneClickBiz Terms & Conditions and Privacy Policy before proceeding to renewal.');
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const targetPlan = plans[selectedTier];
@@ -393,6 +406,61 @@ export default function SubscriptionRenewalWidget({
         )}
       </div>
 
+      {/* Mandatory Terms & Privacy Policy Acceptance Checkbox */}
+      <div className={`p-4 rounded-2xl border transition-all ${
+        termsError && !agreedToTerms
+          ? 'bg-rose-50 border-rose-300 ring-2 ring-rose-200'
+          : agreedToTerms
+          ? 'bg-emerald-50/70 border-emerald-300'
+          : 'bg-slate-50 border-slate-200'
+      }`}>
+        <label className="flex items-start gap-3 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={agreedToTerms}
+            onChange={(e) => {
+              setAgreedToTerms(e.target.checked);
+              if (e.target.checked) setTermsError(false);
+            }}
+            className="mt-0.5 w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer shrink-0 accent-indigo-600"
+          />
+          <div className="space-y-1">
+            <p className="text-xs text-slate-800 leading-relaxed font-semibold">
+              I accept the{' '}
+              <Link 
+                href="/terms" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-indigo-600 hover:text-indigo-800 underline font-bold"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Terms &amp; Conditions
+              </Link>
+              {' '}and{' '}
+              <Link 
+                href="/privacy" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-indigo-600 hover:text-indigo-800 underline font-bold"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Privacy Policy
+              </Link>
+              {' '}(Effective Date: Oct 10, 2026).
+            </p>
+            <p className="text-[11px] text-slate-500 leading-normal">
+              I agree to the renewal of my 365-day annual subscription plan. Cloud services are provisioned electronically.
+            </p>
+            {termsError && !agreedToTerms && (
+              <p className="text-[11px] text-rose-600 font-bold flex items-center gap-1 pt-0.5">
+                <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                Please check this box to confirm acceptance before proceeding with payment.
+              </p>
+            )}
+          </div>
+        </label>
+      </div>
+
       {/* Action Area & Strict Policy Notice */}
       <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         
@@ -408,8 +476,12 @@ export default function SubscriptionRenewalWidget({
 
         <button
           onClick={handleOnlineRenewal}
-          disabled={loading}
-          className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600 hover:from-rose-700 hover:to-indigo-700 text-white font-bold text-xs shadow-xl shadow-rose-600/25 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50 whitespace-nowrap cursor-pointer"
+          disabled={loading || !agreedToTerms}
+          className={`px-6 py-3.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all active:scale-95 whitespace-nowrap cursor-pointer ${
+            !agreedToTerms
+              ? 'bg-slate-200 text-slate-400 cursor-not-allowed opacity-80'
+              : 'bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600 hover:from-rose-700 hover:to-indigo-700 text-white shadow-xl shadow-rose-600/25'
+          }`}
         >
           {loading ? (
             <>
