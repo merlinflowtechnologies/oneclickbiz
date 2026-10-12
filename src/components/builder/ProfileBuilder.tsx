@@ -1833,7 +1833,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'templates' ? 'bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-md' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Templates ({VCARD_TEMPLATES_CATALOG.length})
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Templates ({categoryTemplates.length})
             </button>
             <button 
               onClick={() => setActiveTab('theme')}
