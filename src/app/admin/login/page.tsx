@@ -92,8 +92,8 @@ export default function AdminLoginPage() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center space-y-3 relative z-10">
         <Link href="/" className="inline-flex flex-col items-center group mb-2 space-y-2">
           <img 
-            src="/logo-brand.png?v=2" 
-            alt="OneClickBiz - Connect | Build | Grow" 
+            src="/logo-brand.png?v=4" 
+            alt="OneClickBiz - Connect | Build | Share" 
             className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] object-contain transition-transform group-hover:scale-105 duration-200"
           />
           <span className="text-[10px] uppercase font-extrabold tracking-widest text-rose-700 bg-rose-100 px-3 py-1 rounded-full border border-rose-300 shadow-sm">

@@ -165,8 +165,8 @@ export default function ForgotPasswordPage() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center mb-6">
         <Link href="/" className="inline-block group mb-2">
           <img 
-            src="/logo-brand.png?v=2" 
-            alt="OneClickBiz - Connect | Build | Grow" 
+            src="/logo-brand.png?v=4" 
+            alt="OneClickBiz - Connect | Build | Share" 
             className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] mx-auto object-contain transition-transform group-hover:scale-105 duration-200"
           />
         </Link>

@@ -239,8 +239,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="space-y-2">
             <Link href="/admin" className="flex items-center space-x-2 group py-1">
               <img 
-                src="/logo-brand.png?v=2" 
-                alt="OneClickBiz - Connect | Build | Grow" 
+                src="/logo-brand.png?v=4" 
+                alt="OneClickBiz - Connect | Build | Share" 
                 className="h-10 sm:h-11 w-auto max-w-[180px] sm:max-w-[200px] object-contain transition-transform group-hover:scale-105 duration-200"
               />
               <span className="text-[8px] uppercase font-extrabold tracking-widest text-rose-700 bg-rose-100 px-1.5 py-0.5 rounded border border-rose-300 shrink-0 shadow-sm">
@@ -355,8 +355,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="md:hidden sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-sm">
         <Link href="/admin" className="flex items-center space-x-2">
           <img 
-            src="/logo-brand.png?v=2" 
-            alt="OneClickBiz - Connect | Build | Grow" 
+            src="/logo-brand.png?v=4" 
+            alt="OneClickBiz - Connect | Build | Share" 
             className="h-7 w-auto max-w-[130px] object-contain"
           />
           <span className="text-[8px] uppercase font-extrabold tracking-widest text-rose-700 bg-rose-100 px-1.5 py-0.5 rounded border border-rose-300">
