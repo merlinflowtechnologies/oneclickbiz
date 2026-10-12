@@ -890,49 +890,6 @@ END:VCARD`;
               </a>
             </div>
 
-            {/* 4 Minimal Trust Counters */}
-            <div className="pt-8 sm:pt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-left">
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex items-center gap-3.5 hover:border-[#C5A880] transition">
-                <div className="w-11 h-11 rounded-xl bg-amber-50 text-[#8C6D46] flex items-center justify-center font-bold shrink-0">
-                  <CheckCircle2 className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <div className="font-serif font-bold text-xl sm:text-2xl text-stone-900">{completedHomesLabel}</div>
-                  <div className="text-[11px] text-stone-500 font-medium">Delivered Homes</div>
-                </div>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex items-center gap-3.5 hover:border-[#C5A880] transition">
-                <div className="w-11 h-11 rounded-xl bg-amber-50 text-[#8C6D46] flex items-center justify-center font-bold shrink-0">
-                  <Clock className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <div className="font-serif font-bold text-xl sm:text-2xl text-stone-900">{handoverLabel.includes('Guarantee') ? handoverLabel.replace('Guarantee', '').trim() : handoverLabel}</div>
-                  <div className="text-[11px] text-stone-500 font-medium">Turnkey Handover</div>
-                </div>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex items-center gap-3.5 hover:border-emerald-500/50 transition">
-                <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0">
-                  <ShieldCheck className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <div className="font-serif font-bold text-xl sm:text-2xl text-emerald-700">{warrantyLabel.includes('Warranty') ? warrantyLabel.replace('Flat Replacement Warranty', '').replace('Flat Warranty', '').replace('Warranty', '').trim() || warrantyLabel : warrantyLabel}</div>
-                  <div className="text-[11px] text-stone-500 font-medium">Flat Warranty</div>
-                </div>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex items-center gap-3.5 hover:border-amber-500/50 transition">
-                <div className="w-11 h-11 rounded-xl bg-stone-100 text-stone-800 flex items-center justify-center font-bold shrink-0">
-                  <Hammer className="w-5.5 h-5.5" />
-                </div>
-                <div>
-                  <div className="font-serif font-bold text-xl sm:text-2xl text-stone-900">100%</div>
-                  <div className="text-[11px] text-stone-500 font-medium">In-House Factory</div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>

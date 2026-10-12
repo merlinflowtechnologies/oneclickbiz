@@ -353,28 +353,6 @@ END:VCARD`;
         </div>
       </header>
 
-      {/* 3. KEY METRICS STRIP */}
-      <section className="border-b border-slate-800/80 bg-slate-950/60 py-6 px-4">
-        <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
-            <span className="text-xl sm:text-2xl font-black text-amber-400">1,200+</span>
-            <p className="text-[11px] font-semibold text-slate-400 mt-1 uppercase tracking-wider">Clients Advised</p>
-          </div>
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
-            <span className="text-xl sm:text-2xl font-black text-white">15+ Yrs</span>
-            <p className="text-[11px] font-semibold text-slate-400 mt-1 uppercase tracking-wider">Bar Track Record</p>
-          </div>
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
-            <span className="text-xl sm:text-2xl font-black text-emerald-400">100%</span>
-            <p className="text-[11px] font-semibold text-slate-400 mt-1 uppercase tracking-wider">Privilege Protected</p>
-          </div>
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
-            <span className="text-xl sm:text-2xl font-black text-amber-300">Tier-1</span>
-            <p className="text-[11px] font-semibold text-slate-400 mt-1 uppercase tracking-wider">Advisory Standards</p>
-          </div>
-        </div>
-      </section>
-
       {/* 4. NAVIGATION TABS */}
       <nav className="sticky top-0 z-30 bg-[#060A12]/95 backdrop-blur-md border-b border-slate-800/80 py-3 px-4">
         <div className="max-w-5xl mx-auto flex items-center justify-start sm:justify-center gap-2 overflow-x-auto scrollbar-none">

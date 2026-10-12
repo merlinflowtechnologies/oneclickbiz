@@ -1582,57 +1582,6 @@ export default function RealEstateMiniWebsiteView({
               </div>
             </div>
 
-            {/* 4 Trust Counters Row (Developer Credentials) */}
-            <div className={`pt-8 sm:pt-10 grid ${isMockup ? 'grid-cols-2 gap-3' : 'grid-cols-2 lg:grid-cols-4 gap-4'} text-left`}>
-              <div className={`${isMockup ? 'p-3.5' : 'p-5'} rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-3 hover:border-[#005DAA]/40 transition min-w-0`}>
-                <div className={`${isMockup ? 'w-10 h-10' : 'w-12 h-12'} rounded-xl bg-[#005DAA]/10 text-[#005DAA] flex items-center justify-center font-bold shrink-0`}>
-                  <CheckCircle2 className={`${isMockup ? 'w-5 h-5' : 'w-6 h-6'}`} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className={`font-black ${isMockup ? 'text-xl' : 'text-2xl sm:text-3xl'} text-slate-900 truncate`}>
-                    {profile.sectionData?.realEstate?.deliveredProjects ?? '18+'}
-                  </div>
-                  <div className="text-[11px] sm:text-xs text-slate-600 font-semibold truncate">Delivered Projects</div>
-                </div>
-              </div>
-
-              <div className={`${isMockup ? 'p-3.5' : 'p-5'} rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-3 hover:border-[#005DAA]/40 transition min-w-0`}>
-                <div className={`${isMockup ? 'w-10 h-10' : 'w-12 h-12'} rounded-xl bg-[#005DAA]/10 text-[#005DAA] flex items-center justify-center font-bold shrink-0`}>
-                  <MapPin className={`${isMockup ? 'w-5 h-5' : 'w-6 h-6'}`} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className={`font-black ${isMockup ? 'text-xl' : 'text-2xl sm:text-3xl'} text-slate-900 truncate`}>
-                    {profile.sectionData?.realEstate?.developedAcres ?? '450+'}
-                  </div>
-                  <div className="text-[11px] sm:text-xs text-slate-600 font-semibold truncate">Developed Acres</div>
-                </div>
-              </div>
-
-              <div className={`${isMockup ? 'p-3.5' : 'p-5'} rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-3 hover:border-emerald-500/40 transition min-w-0`}>
-                <div className={`${isMockup ? 'w-10 h-10' : 'w-12 h-12'} rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0`}>
-                  <Sparkles className={`${isMockup ? 'w-5 h-5' : 'w-6 h-6'}`} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className={`font-black ${isMockup ? 'text-xl' : 'text-2xl sm:text-3xl'} text-slate-900 truncate`}>
-                    {profile.sectionData?.realEstate?.happyFamilies ?? '2,400+'}
-                  </div>
-                  <div className="text-[11px] sm:text-xs text-slate-600 font-semibold truncate">Happy Families</div>
-                </div>
-              </div>
-
-              <div className={`${isMockup ? 'p-3.5' : 'p-5'} rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-3 hover:border-emerald-500/40 transition min-w-0`}>
-                <div className={`${isMockup ? 'w-10 h-10' : 'w-12 h-12'} rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0`}>
-                  <ShieldCheck className={`${isMockup ? 'w-5 h-5' : 'w-6 h-6'}`} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className={`font-black ${isMockup ? 'text-xs sm:text-sm' : 'text-sm sm:text-base lg:text-lg'} text-emerald-700 leading-snug line-clamp-2`}>
-                    {profile.sectionData?.realEstate?.clearTitleRating ?? '100% Clear Title Guaranteed'}
-                  </div>
-                  <div className="text-[11px] sm:text-xs text-slate-600 font-semibold truncate mt-0.5">Clear Title Rating</div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
