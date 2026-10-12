@@ -82,7 +82,7 @@ export default function TemplateQuickPreviewModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header Bar */}
-        <div className="px-5 py-4 sm:px-6 sm:py-4.5 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 shrink-0">
+        <div className="px-3.5 py-3 sm:px-6 sm:py-4.5 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 border-b border-slate-800 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-2xl bg-indigo-600/30 border border-indigo-400/40 flex items-center justify-center text-indigo-400">
               <Sparkles className="w-5 h-5 text-indigo-300" />
@@ -153,7 +153,7 @@ export default function TemplateQuickPreviewModal({
             <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-purple-500/20 rounded-full blur-[100px] pointer-events-none" />
 
             {activeTab === 'interactive' ? (
-              <div className="w-full max-w-[310px] sm:max-w-[360px] md:max-w-[380px] relative z-10 flex flex-col items-center">
+              <div className="w-full max-w-[275px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[380px] relative z-10 flex flex-col items-center">
                 {/* Smartphone Device Frame */}
                 <div className="w-full bg-slate-950 rounded-[40px] sm:rounded-[44px] p-2.5 sm:p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border-[4px] sm:border-[5px] border-slate-700/80 relative ring-1 ring-white/10">
                   {/* Speaker Ear Notch */}
@@ -176,7 +176,7 @@ export default function TemplateQuickPreviewModal({
                 </div>
               </div>
             ) : (
-              <div className="w-full max-w-[310px] sm:max-w-[360px] md:max-w-[380px] h-[460px] sm:h-[540px] lg:h-[580px] bg-slate-950 rounded-[34px] sm:rounded-[36px] overflow-y-auto scrollbar-none border border-slate-800 p-2 shadow-2xl relative z-10">
+              <div className="w-full max-w-[275px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[380px] h-[460px] sm:h-[540px] lg:h-[580px] bg-slate-950 rounded-[34px] sm:rounded-[36px] overflow-y-auto scrollbar-none border border-slate-800 p-2 shadow-2xl relative z-10">
                 <img
                   src={template.imgUrl}
                   alt={template.name}

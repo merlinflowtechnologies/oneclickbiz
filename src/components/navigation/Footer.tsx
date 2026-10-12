@@ -147,7 +147,7 @@ export default function Footer() {
 
                 <a 
                   href="mailto:support@oneclickbiz.in" 
-                  className="flex items-center gap-2 hover:text-indigo-600 transition group"
+                  className="flex flex-wrap items-center gap-1.5 hover:text-indigo-600 transition group break-all"
                 >
                   <Mail className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
                   <span className="font-mono text-slate-700 group-hover:text-indigo-700">support@oneclickbiz.in</span>

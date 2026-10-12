@@ -35,7 +35,7 @@ export default function Navbar() {
             <img 
               src="/logo-brand.png?v=4" 
               alt="OneClickBiz - Connect | Build | Share" 
-              className="h-10 sm:h-12 w-auto max-w-[210px] sm:max-w-[260px] object-contain transition-transform group-hover:scale-105 duration-200"
+              className="h-8 xs:h-10 sm:h-12 w-auto max-w-[145px] xs:max-w-[190px] sm:max-w-[260px] object-contain transition-transform group-hover:scale-105 duration-200"
             />
           </Link>
 
@@ -136,7 +136,7 @@ export default function Navbar() {
             
             <Link 
               href="/signup?intent=create_card"
-              className="px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 transition-all shadow-md shadow-indigo-500/20 flex items-center gap-1.5 active:scale-95 shrink-0"
+              className="px-3 sm:px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 transition-all shadow-md shadow-indigo-500/20 flex items-center gap-1.5 active:scale-95 shrink-0"
             >
               <span>Create Card</span>
               <ArrowRight className="w-3.5 h-3.5" />

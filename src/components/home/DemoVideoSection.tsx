@@ -530,7 +530,7 @@ export default function DemoVideoSection() {
                 </div>
 
                 {/* Simulated iPhone 16 Pro Device Frame Container */}
-                <div className="relative w-full max-w-[310px] sm:max-w-[360px] h-[410px] sm:h-[450px] lg:h-[95%] rounded-[28px] sm:rounded-[36px] bg-slate-900 p-2 sm:p-2.5 border-2 border-slate-700/90 shadow-2xl shadow-indigo-950/80 flex flex-col justify-between overflow-hidden ring-1 ring-white/15 transition-all">
+                <div className="relative w-full max-w-[275px] xs:max-w-[310px] sm:max-w-[360px] h-[410px] sm:h-[450px] lg:h-[95%] rounded-[28px] sm:rounded-[36px] bg-slate-900 p-2 sm:p-2.5 border-2 border-slate-700/90 shadow-2xl shadow-indigo-950/80 flex flex-col justify-between overflow-hidden ring-1 ring-white/15 transition-all">
                   
                   {/* Dynamic Island Header */}
                   <div className="w-full bg-slate-950 rounded-t-[24px] sm:rounded-t-[28px] pt-2 pb-1.5 px-3 sm:px-4 flex items-center justify-between text-[10px] text-slate-300 font-semibold border-b border-slate-800 shrink-0">

@@ -353,7 +353,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-indigo-500 selection:text-white relative overflow-x-clip overflow-x-hidden w-full max-w-full">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
@@ -379,7 +379,7 @@ export default function LandingPage() {
                 <span>Connect &bull; Build &bull; Share</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-6xl 2xl:text-7xl font-bold font-serif tracking-tight text-slate-900 leading-[1.18] lg:leading-[1.15]">
+              <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-6xl 2xl:text-7xl font-bold font-serif tracking-tight text-slate-900 leading-[1.18] lg:leading-[1.15]">
                 Your Complete <span className="italic font-serif bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Business Identity</span> In One Click.
               </h1>
 
@@ -509,7 +509,7 @@ export default function LandingPage() {
                           93+ Templates
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-500 truncate sm:text-clip">
+                      <p className="text-[11px] text-slate-500 leading-tight">
                         Turnkey websites across 13 business niches with custom domain support
                       </p>
                     </div>
@@ -529,7 +529,7 @@ export default function LandingPage() {
                           1-Click Save
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-500 truncate sm:text-clip">
+                      <p className="text-[11px] text-slate-500 leading-tight">
                         Instant dynamic QR, custom link &amp; 1-click address book save (.vcf)
                       </p>
                     </div>
@@ -549,7 +549,7 @@ export default function LandingPage() {
                           0% Fee
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-500 truncate sm:text-clip">
+                      <p className="text-[11px] text-slate-500 leading-tight">
                         Interactive catalog, live shopping cart &amp; 1-tap WhatsApp direct checkout
                       </p>
                     </div>
@@ -569,7 +569,7 @@ export default function LandingPage() {
                           Rich Media
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-500 truncate sm:text-clip">
+                      <p className="text-[11px] text-slate-500 leading-tight">
                         High-res photo lookbooks, menus, pricing cards &amp; portfolio reels
                       </p>
                     </div>
@@ -589,7 +589,7 @@ export default function LandingPage() {
                           Instant Load
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-500 truncate sm:text-clip">
+                      <p className="text-[11px] text-slate-500 leading-tight">
                         Permanent dynamic QR codes, fast-loading SEO pages &amp; lead capture
                       </p>
                     </div>
@@ -609,8 +609,8 @@ export default function LandingPage() {
                           One Smart Link
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-500 truncate sm:text-clip">
-                        <code className="text-indigo-600 bg-indigo-50 px-1 rounded font-semibold">oneclickbiz.in/v/your-name</code> — share across Instagram bio, WhatsApp &amp; ads
+                      <p className="text-[11px] text-slate-500 leading-tight">
+                        <code className="text-indigo-600 bg-indigo-50 px-1 rounded font-semibold break-all">oneclickbiz.in/v/your-name</code> — share across Instagram bio, WhatsApp &amp; ads
                       </p>
                     </div>
                   </div>
@@ -664,41 +664,41 @@ export default function LandingPage() {
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10">
             
             {/* Dual View Mode Switcher */}
-            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white border border-slate-200/90 shadow-md shadow-slate-200/60">
+            <div className="flex items-center gap-1 sm:gap-1.5 p-1 rounded-2xl bg-white border border-slate-200/90 shadow-md shadow-slate-200/60 max-w-full">
               <button
                 type="button"
                 onClick={() => setHeroDemoMode('website')}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer ${
+                className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
                   heroDemoMode === 'website'
                     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
-                <Monitor className="w-4 h-4" />
-                <span>Mini-Website View</span>
+                <Monitor className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                <span className="whitespace-nowrap">Mini-Website View</span>
               </button>
               <button
                 type="button"
                 onClick={() => setHeroDemoMode('mobile')}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer ${
+                className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
                   heroDemoMode === 'mobile'
                     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
-                <Smartphone className="w-4 h-4" />
-                <span>Mobile Card</span>
+                <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                <span className="whitespace-nowrap">Mobile Card</span>
               </button>
             </div>
 
             {/* Theme Switcher Chips */}
-            <div className="flex items-center gap-1 sm:gap-1.5 p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex-wrap">
+            <div className="flex items-center justify-center gap-1 sm:gap-1.5 p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex-wrap">
               <span className="text-[11px] font-bold text-slate-400 px-2 uppercase hidden sm:inline">Theme:</span>
               {(['modern-indigo', 'dark-onyx', 'glassmorphic', 'emerald-pro', 'sunset-gold'] as const).map(t => (
                 <button
                   key={t}
                   onClick={() => setSelectedDemoTheme(t)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer ${
                     selectedDemoTheme === t 
                       ? 'bg-slate-900 text-white shadow-xs' 
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -779,12 +779,12 @@ export default function LandingPage() {
               </div>
 
               {/* Center Phone Mockup Frame */}
-              <div className="w-full max-w-[320px] sm:max-w-[360px] rounded-[48px] p-2.5 sm:p-3 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300">
+              <div className="w-full max-w-[285px] xs:max-w-[320px] sm:max-w-[360px] rounded-[40px] sm:rounded-[48px] p-2.5 sm:p-3 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300">
                 {/* Dynamic Island Speaker Notch */}
                 <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
                   <div className="w-2 h-2 rounded-full bg-slate-800" />
                 </div>
-                <div className="rounded-[38px] overflow-hidden bg-white max-h-[580px] sm:max-h-[620px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
+                <div className="rounded-[32px] sm:rounded-[38px] overflow-hidden bg-white max-h-[580px] sm:max-h-[620px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
                   <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="mobile" showViewToggle={false} />
                 </div>
               </div>
@@ -889,7 +889,7 @@ export default function LandingPage() {
             {/* Left Scroll Arrow */}
             <button
               onClick={() => scrollSlider('left')}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/95 border border-slate-200 text-slate-700 shadow-xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
+              className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/95 border border-slate-200 text-slate-700 shadow-xl items-center justify-center hover:bg-indigo-600 hover:text-white transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-6 h-6" />
@@ -898,7 +898,7 @@ export default function LandingPage() {
             {/* Right Scroll Arrow */}
             <button
               onClick={() => scrollSlider('right')}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/95 border border-slate-200 text-slate-700 shadow-xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
+              className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/95 border border-slate-200 text-slate-700 shadow-xl items-center justify-center hover:bg-indigo-600 hover:text-white transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
               aria-label="Scroll right"
             >
               <ChevronRight className="w-6 h-6" />
@@ -907,7 +907,7 @@ export default function LandingPage() {
             {/* Scrollable Templates Track */}
             <div
               ref={sliderRef}
-              className="flex items-stretch gap-6 overflow-x-auto scrollbar-none scroll-smooth py-4 px-2 select-none"
+              className="flex items-stretch gap-4 sm:gap-6 overflow-x-auto scrollbar-none scroll-smooth py-4 px-2 select-none"
               style={{ scrollSnapType: 'x mandatory' }}
             >
               {VCARD_TEMPLATES_CATALOG
@@ -917,7 +917,7 @@ export default function LandingPage() {
                     <div
                       key={template.id}
                       style={{ scrollSnapAlign: 'start' }}
-                      className="w-[280px] sm:w-[320px] shrink-0 rounded-3xl border border-slate-200/90 bg-white/90 backdrop-blur-xl hover:border-indigo-400/60 transition-all duration-300 flex flex-col justify-between overflow-hidden group/card shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] hover:-translate-y-1 relative"
+                      className="w-[260px] xs:w-[280px] sm:w-[320px] shrink-0 rounded-3xl border border-slate-200/90 bg-white/90 backdrop-blur-xl hover:border-indigo-400/60 transition-all duration-300 flex flex-col justify-between overflow-hidden group/card shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] hover:-translate-y-1 relative"
                     >
                       {/* Ribbon or Badge */}
                       {template.badge && (
@@ -1041,75 +1041,75 @@ export default function LandingPage() {
               <Quote className="w-3.5 h-3.5 text-indigo-600" /> Founder Story
             </div>
             
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
               Why <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">OneClickBiz?</span>
             </h2>
 
-            <p className="text-lg sm:text-2xl font-bold text-slate-800 tracking-tight">
+            <p className="text-base sm:text-xl lg:text-2xl font-bold text-slate-800 tracking-tight">
               One Platform. Every Business. Endless Possibilities.
             </p>
           </div>
 
           {/* Vision vs The Real Problem - 2 Side-by-Side Narrative Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             
             {/* Our Vision Card */}
-            <div className="p-8 sm:p-10 rounded-3xl bg-white/90 backdrop-blur-xl border border-indigo-200/90 shadow-[0_12px_40px_rgb(0,0,0,0.05)] hover:shadow-xl transition-all space-y-5 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shadow-sm">
-                  <Lightbulb className="w-6 h-6" />
+            <div className="p-5 sm:p-8 md:p-10 rounded-3xl bg-white/90 backdrop-blur-xl border border-indigo-200/90 shadow-[0_12px_40px_rgb(0,0,0,0.05)] hover:shadow-xl transition-all space-y-4 sm:space-y-5 flex flex-col justify-between">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shadow-sm">
+                  <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                <h3 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">
                   Our Vision
                 </h3>
-                <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
+                <p className="text-slate-700 text-sm sm:text-base lg:text-lg leading-relaxed">
                   In today’s digital world, every business needs an online presence. Whether it is real estate, interior design, food, fashion, beauty, insurance, banking, or any other industry, having a website is no longer just an option — it is an essential part of business growth.
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-100 text-xs font-semibold uppercase tracking-wider text-indigo-600 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4" /> Essential for Modern Business Growth
+              <div className="pt-4 border-t border-slate-100 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-indigo-600 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Essential for Modern Business Growth
               </div>
             </div>
 
             {/* The Common Problem Card */}
-            <div className="p-8 sm:p-10 rounded-3xl bg-white/90 backdrop-blur-xl border border-rose-200/90 shadow-[0_12px_40px_rgb(0,0,0,0.05)] hover:shadow-xl transition-all space-y-5 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shadow-sm">
-                  <Clock className="w-6 h-6" />
+            <div className="p-5 sm:p-8 md:p-10 rounded-3xl bg-white/90 backdrop-blur-xl border border-rose-200/90 shadow-[0_12px_40px_rgb(0,0,0,0.05)] hover:shadow-xl transition-all space-y-4 sm:space-y-5 flex flex-col justify-between">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shadow-sm">
+                  <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                <h3 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">
                   But There is a Common Problem.
                 </h3>
-                <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
+                <p className="text-slate-700 text-sm sm:text-base lg:text-lg leading-relaxed">
                   Businesses that already have websites often depend on developers even for small changes. Updating prices, changing photos, adding products, modifying services, or updating business information can become time-consuming and expensive. Small businesses deserve a simpler solution.
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-100 text-xs font-semibold uppercase tracking-wider text-rose-600 flex items-center gap-1.5">
-                <Zap className="w-4 h-4" /> Eliminating Costly Developer Bottlenecks
+              <div className="pt-4 border-t border-slate-100 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-rose-600 flex items-center gap-1.5">
+                <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Eliminating Costly Developer Bottlenecks
               </div>
             </div>
 
           </div>
 
           {/* Breakthrough: That is why we created OneClickBiz */}
-          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-indigo-900 via-slate-900 to-purple-950 text-white shadow-2xl border border-indigo-800/80 relative overflow-hidden">
+          <div className="p-6 sm:p-8 md:p-12 rounded-3xl bg-gradient-to-br from-indigo-900 via-slate-900 to-purple-950 text-white shadow-2xl border border-indigo-800/80 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-pink-500/20 to-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
             
-            <div className="relative z-10 max-w-4xl space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold tracking-wider uppercase">
+            <div className="relative z-10 max-w-4xl space-y-4 sm:space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-[11px] sm:text-xs font-semibold tracking-wider uppercase">
                 <Rocket className="w-3.5 h-3.5 text-indigo-400" /> The Turning Point
               </div>
 
-              <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight">
+              <h3 className="text-xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
                 That is why we created OneClickBiz.
               </h3>
 
-              <p className="text-base sm:text-xl text-indigo-100/90 leading-relaxed font-medium">
+              <p className="text-sm sm:text-lg md:text-xl text-indigo-100/90 leading-relaxed font-medium">
                 Our vision is to make digital business tools simple, accessible, and affordable for everyone — even for people without technical knowledge.
               </p>
 
-              <div className="p-5 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-white shadow-inner">
-                <p className="text-sm sm:text-lg font-bold text-amber-200 leading-relaxed">
+              <div className="p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-white shadow-inner">
+                <p className="text-xs sm:text-base md:text-lg font-bold text-amber-200 leading-relaxed">
                   &ldquo;We believe every business owner should have the freedom to create, manage, edit, and grow their online presence independently.&rdquo;
                 </p>
               </div>
@@ -1173,20 +1173,20 @@ export default function LandingPage() {
           </div>
 
           {/* Designed for Every Industry */}
-          <div className="p-8 sm:p-12 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-[0_10px_35px_rgb(0,0,0,0.05)] space-y-8">
+          <div className="p-5 sm:p-8 md:p-12 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-[0_10px_35px_rgb(0,0,0,0.05)] space-y-6 sm:space-y-8">
             <div className="max-w-3xl space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-[11px] sm:text-xs font-bold uppercase tracking-wider">
                 <Building2 className="w-3.5 h-3.5 text-amber-600" /> Broad Industry Reach
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
                 Designed for Every Industry
               </h3>
-              <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
+              <p className="text-slate-700 text-sm sm:text-base lg:text-lg leading-relaxed">
                 Whether you are a real estate developer, interior designer, restaurant owner, fashion retailer, beauty salon owner, insurance professional, banking service provider, or entrepreneur, OneClickBiz helps bring your digital business presence together.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-2.5 sm:gap-3 pt-2">
+            <div className="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3 pt-2">
               {[
                 { name: 'Real Estate Developers', icon: Building2 },
                 { name: 'Interior Designers', icon: Palette },
@@ -1201,7 +1201,7 @@ export default function LandingPage() {
                 return (
                   <span 
                     key={idx}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-800 hover:text-indigo-700 text-xs sm:text-sm font-semibold transition-all shadow-sm"
+                    className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-800 hover:text-indigo-700 text-xs sm:text-sm font-semibold transition-all shadow-sm"
                   >
                     <IndIcon className="w-3.5 h-3.5 text-indigo-600" />
                     {ind.name}
@@ -1212,14 +1212,14 @@ export default function LandingPage() {
           </div>
 
           {/* Your Business. Your Website. Your Control. */}
-          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-indigo-50/90 via-purple-50/90 to-pink-50/90 border border-indigo-200 shadow-sm backdrop-blur-md space-y-6">
-            <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+          <div className="p-5 sm:p-8 md:p-12 rounded-3xl bg-gradient-to-r from-indigo-50/90 via-purple-50/90 to-pink-50/90 border border-indigo-200 shadow-sm backdrop-blur-md space-y-6">
+            <h3 className="text-xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
               Your Business. Your Website. <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Your Control.</span>
             </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-700">
-              <div className="p-5 rounded-2xl bg-white/80 border border-indigo-100 space-y-2">
-                <div className="flex items-center gap-2 text-indigo-700 font-bold text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-slate-700">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/80 border border-indigo-100 space-y-2">
+                <div className="flex items-center gap-2 text-indigo-700 font-bold text-xs sm:text-sm">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> Zero Developer Hassle
                 </div>
                 <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
@@ -1227,8 +1227,8 @@ export default function LandingPage() {
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white/80 border border-indigo-100 space-y-2">
-                <div className="flex items-center gap-2 text-indigo-700 font-bold text-sm">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/80 border border-indigo-100 space-y-2">
+                <div className="flex items-center gap-2 text-indigo-700 font-bold text-xs sm:text-sm">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> One Smart Link
                 </div>
                 <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
@@ -1239,18 +1239,18 @@ export default function LandingPage() {
           </div>
 
           {/* Our Mission & Call to Action Footer */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 sm:p-10 rounded-3xl bg-slate-900 text-white shadow-xl border border-slate-800">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center p-5 sm:p-8 md:p-10 rounded-3xl bg-slate-900 text-white shadow-xl border border-slate-800">
             <div className="lg:col-span-8 space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-indigo-300 text-xs font-bold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-indigo-300 text-[11px] sm:text-xs font-bold uppercase tracking-wider">
                 <Target className="w-3.5 h-3.5 text-indigo-400" /> Our Mission
               </div>
-              <h4 className="text-xl sm:text-3xl font-black text-white tracking-tight">
+              <h4 className="text-lg sm:text-2xl md:text-3xl font-black text-white tracking-tight">
                 Empowering Independent Digital Growth
               </h4>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+              <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl">
                 To help every business build a stronger digital presence, simplify online business management, and make digital growth more accessible and affordable.
               </p>
-              <div className="pt-2 text-sm sm:text-base font-bold text-transparent bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text">
+              <div className="pt-2 text-xs sm:text-sm md:text-base font-bold text-transparent bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text">
                 OneClickBiz — One Platform. Every Business. Your Control.
               </div>
             </div>
@@ -1258,7 +1258,7 @@ export default function LandingPage() {
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center items-stretch lg:items-end">
               <Link
                 href="/signup"
-                className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25 transition-all text-center"
+                className="w-full px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25 transition-all text-center"
               >
                 <span>Explore: oneclickbiz.in</span>
                 <ArrowRight className="w-4 h-4" />
@@ -1556,9 +1556,14 @@ export default function LandingPage() {
             </p>
           </div>
 
+          {/* Mobile Swipe Notice */}
+          <div className="flex items-center justify-center gap-1.5 mb-3 sm:hidden text-[11px] font-semibold text-indigo-700 bg-indigo-50/90 px-3.5 py-1.5 rounded-full border border-indigo-200/90 w-fit mx-auto shadow-xs">
+            <span>👈 Swipe horizontally to view full comparison 👉</span>
+          </div>
+
           {/* Comparison Table */}
-          <div className="overflow-x-auto pb-4">
-            <div className="min-w-[760px] rounded-3xl bg-white border border-slate-200 shadow-xl overflow-hidden">
+          <div className="overflow-x-auto pb-4 -mx-2 px-2 sm:mx-0 sm:px-0 scrollbar-none">
+            <div className="min-w-[720px] xs:min-w-[760px] rounded-3xl bg-white border border-slate-200 shadow-xl overflow-hidden">
               <div className="grid grid-cols-12 bg-slate-50/90 border-b border-slate-200 text-xs font-bold text-slate-700">
                 <div className="col-span-4 p-5 text-slate-500 uppercase tracking-wider text-[11px]">
                   Capability / Feature
@@ -1684,7 +1689,7 @@ export default function LandingPage() {
           </div>
 
           {/* Consolidate & Save Banner */}
-          <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-purple-950 to-slate-900 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="mt-12 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-purple-950 to-slate-900 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-1 text-center md:text-left">
               <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
                 COST CONSOLIDATION
@@ -1698,7 +1703,7 @@ export default function LandingPage() {
             </div>
             <Link
               href="/signup?intent=build_card"
-              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-xs shrink-0 shadow-lg transition-all active:scale-95 flex items-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-xs shrink-0 shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 text-center"
             >
               <span>Build Your Smart Card Free</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -1806,7 +1811,7 @@ export default function LandingPage() {
           </div>
 
           {/* Zero Vendor Lock-In & Physical Print Longevity Guarantee Banner */}
-          <div className="mb-16 p-8 rounded-3xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-indigo-500/10 border-2 border-amber-500/30 backdrop-blur-md shadow-lg shadow-amber-500/5">
+          <div className="mb-16 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-indigo-500/10 border-2 border-amber-500/30 backdrop-blur-md shadow-lg shadow-amber-500/5">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div className="space-y-2 max-w-3xl">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-[11px] font-bold">
@@ -1915,7 +1920,7 @@ export default function LandingPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Plan 1: Basic */}
-          <div className="p-8 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/90 flex flex-col justify-between space-y-6 hover:border-slate-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all">
+          <div className="p-5 sm:p-8 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/90 flex flex-col justify-between space-y-6 hover:border-slate-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all">
             <div className="space-y-4">
               <div className="space-y-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Solo Professionals</span>
@@ -1943,7 +1948,7 @@ export default function LandingPage() {
           </div>
 
           {/* Plan 2: Pro (Highlighted) */}
-          <div className="p-8 rounded-3xl bg-gradient-to-b from-indigo-50/90 via-white to-white border-2 border-indigo-500 flex flex-col justify-between space-y-6 relative shadow-[0_20px_50px_rgba(99,102,241,0.15)]">
+          <div className="p-5 sm:p-8 rounded-3xl bg-gradient-to-b from-indigo-50/90 via-white to-white border-2 border-indigo-500 flex flex-col justify-between space-y-6 relative shadow-[0_20px_50px_rgba(99,102,241,0.15)]">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-gradient-to-r from-indigo-600 to-pink-500 text-white font-bold text-[10px] uppercase tracking-wider shadow-lg shadow-indigo-500/25">
               ⭐ Most Popular
             </div>
@@ -1975,7 +1980,7 @@ export default function LandingPage() {
           </div>
 
           {/* Plan 3: Advanced */}
-          <div className="p-8 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/90 flex flex-col justify-between space-y-6 hover:border-slate-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all">
+          <div className="p-5 sm:p-8 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/90 flex flex-col justify-between space-y-6 hover:border-slate-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all">
             <div className="space-y-4">
               <div className="space-y-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600">Growing Businesses &amp; Executives</span>
@@ -2144,7 +2149,7 @@ export default function LandingPage() {
             </div>
 
             {/* Right Col: Interactive Inquiry Form */}
-            <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-2xl relative">
+            <div className="lg:col-span-7 p-4 xs:p-6 sm:p-8 rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-2xl relative">
               <div className="space-y-2 mb-6">
                 <h3 className="text-lg font-bold text-slate-900">Send Us a Direct Message</h3>
                 <p className="text-xs text-slate-600">
