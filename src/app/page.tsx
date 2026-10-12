@@ -48,7 +48,14 @@ import {
   Wifi,
   RefreshCw,
   X,
-  Lock
+  Lock,
+  Quote,
+  Lightbulb,
+  Building2,
+  Store,
+  FileText,
+  Edit3,
+  Image as ImageIcon
 } from 'lucide-react';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/navigation/Footer';
@@ -1020,107 +1027,245 @@ export default function LandingPage() {
       {/* INTERACTIVE BENTO GRID FEATURE MATRIX WITH SECTOR IMPACT DEEP-DIVE */}
       <InteractiveFeaturesSection />
 
-      {/* DETAILED ABOUT ONECLICKBIZ SECTION with Warm Amber-Indigo Glow */}
-      <section id="about" className="py-24 bg-gradient-to-b from-amber-100/80 via-indigo-100/85 to-sky-100/85 border-y border-indigo-200/80 relative overflow-hidden scroll-mt-24">
+      {/* DETAILED FOUNDER STORY SECTION: WHY ONECLICKBIZ? */}
+      <section id="about" className="py-24 bg-gradient-to-b from-amber-100/75 via-indigo-100/80 to-purple-100/75 border-y border-indigo-200/80 relative overflow-hidden scroll-mt-24">
         
         {/* Glow Background Accent */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[550px] bg-gradient-to-r from-amber-300/35 via-purple-400/35 to-pink-400/30 blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[850px] h-[650px] bg-gradient-to-r from-amber-300/30 via-indigo-400/30 to-purple-400/30 blur-[140px] pointer-events-none -z-10" />
 
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600" /> About OneClickBiz
-          </div>
-          
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Your Business. <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">One Smart Identity.</span>
-          </h2>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
 
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            OneClickBiz is a smart digital business platform built to help professionals, entrepreneurs, and businesses create a powerful digital presence and connect with customers effortlessly.
-          </p>
-        </div>
-
-        {/* Core Narrative Feature Box */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/90 shadow-[0_15px_45px_rgb(0,0,0,0.06)] mb-12 space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Section Header */}
+          <div className="text-center max-w-4xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-indigo-200 shadow-sm text-indigo-700 text-xs font-bold uppercase tracking-wider">
+              <Quote className="w-3.5 h-3.5 text-indigo-600" /> Founder Story
+            </div>
             
-            <div className="lg:col-span-8 space-y-4">
-              <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
-                We bring your essential business information, contact details, social links, services, products, bookings, and customer interactions together in one easy-to-share digital profile.
-              </p>
-              
-              <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
-                With a personalized digital business card, dynamic QR code, and WhatsApp mini-store, you can share your business with anyone, anywhere—without relying on traditional paper cards.
-              </p>
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+              Why <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">OneClickBiz?</span>
+            </h2>
 
-              <div className="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200/80 text-indigo-900 text-xs sm:text-sm font-medium">
-                ✨ <strong>More than just a digital card:</strong> OneClickBiz is a complete networking and business engagement platform designed to turn every connection into an opportunity.
+            <p className="text-lg sm:text-2xl font-bold text-slate-800 tracking-tight">
+              One Platform. Every Business. Endless Possibilities.
+            </p>
+          </div>
+
+          {/* Vision vs The Real Problem - 2 Side-by-Side Narrative Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            {/* Our Vision Card */}
+            <div className="p-8 sm:p-10 rounded-3xl bg-white/90 backdrop-blur-xl border border-indigo-200/90 shadow-[0_12px_40px_rgb(0,0,0,0.05)] hover:shadow-xl transition-all space-y-5 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shadow-sm">
+                  <Lightbulb className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                  Our Vision
+                </h3>
+                <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
+                  In today’s digital world, every business needs an online presence. Whether it is real estate, interior design, food, fashion, beauty, insurance, banking, or any other industry, having a website is no longer just an option — it is an essential part of business growth.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-slate-100 text-xs font-semibold uppercase tracking-wider text-indigo-600 flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4" /> Essential for Modern Business Growth
+              </div>
+            </div>
+
+            {/* The Common Problem Card */}
+            <div className="p-8 sm:p-10 rounded-3xl bg-white/90 backdrop-blur-xl border border-rose-200/90 shadow-[0_12px_40px_rgb(0,0,0,0.05)] hover:shadow-xl transition-all space-y-5 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shadow-sm">
+                  <Clock className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                  But There is a Common Problem.
+                </h3>
+                <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
+                  Businesses that already have websites often depend on developers even for small changes. Updating prices, changing photos, adding products, modifying services, or updating business information can become time-consuming and expensive. Small businesses deserve a simpler solution.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-slate-100 text-xs font-semibold uppercase tracking-wider text-rose-600 flex items-center gap-1.5">
+                <Zap className="w-4 h-4" /> Eliminating Costly Developer Bottlenecks
+              </div>
+            </div>
+
+          </div>
+
+          {/* Breakthrough: That is why we created OneClickBiz */}
+          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-indigo-900 via-slate-900 to-purple-950 text-white shadow-2xl border border-indigo-800/80 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-pink-500/20 to-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="relative z-10 max-w-4xl space-y-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold tracking-wider uppercase">
+                <Rocket className="w-3.5 h-3.5 text-indigo-400" /> The Turning Point
               </div>
 
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Whether you’re meeting a new client, attending an event, promoting your services, or growing your business online, OneClickBiz gives you one smart identity to represent your brand, engage with customers, and grow.
+              <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight">
+                That is why we created OneClickBiz.
+              </h3>
+
+              <p className="text-base sm:text-xl text-indigo-100/90 leading-relaxed font-medium">
+                Our vision is to make digital business tools simple, accessible, and affordable for everyone — even for people without technical knowledge.
+              </p>
+
+              <div className="p-5 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-white shadow-inner">
+                <p className="text-sm sm:text-lg font-bold text-amber-200 leading-relaxed">
+                  &ldquo;We believe every business owner should have the freedom to create, manage, edit, and grow their online presence independently.&rdquo;
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Everything Your Business Needs. All in One Place. (19 Tools) */}
+          <div className="space-y-8">
+            <div className="text-center max-w-3xl mx-auto space-y-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-purple-200 text-purple-700 text-xs font-bold uppercase tracking-wider shadow-sm">
+                <Layers className="w-3.5 h-3.5 text-purple-600" /> Unified Business Ecosystem
+              </div>
+              <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                Everything Your Business Needs. All in One Place.
+              </h3>
+              <p className="text-slate-600 text-sm sm:text-base">
+                OneClickBiz brings together essential digital business tools on a single platform:
               </p>
             </div>
 
-            <div className="lg:col-span-4 bg-gradient-to-br from-slate-900 to-indigo-950 p-6 rounded-2xl border border-slate-800 text-center space-y-4 text-white shadow-xl">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white mx-auto shadow-lg shadow-indigo-500/25">
-                <Rocket className="w-7 h-7" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+              {[
+                { title: 'Personal Profile & Digital vCard', icon: Smartphone, color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
+                { title: 'Mini Website & Live Business Profile', icon: Globe2, color: 'text-sky-600 bg-sky-50 border-sky-200' },
+                { title: 'WhatsApp Store & E-commerce', icon: ShoppingBag, color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
+                { title: 'Digital Visiting Cards, Flyers & Brochures', icon: CreditCard, color: 'text-purple-600 bg-purple-50 border-purple-200' },
+                { title: 'Lead Extraction Tools', icon: Target, color: 'text-amber-600 bg-amber-50 border-amber-200' },
+                { title: 'Custom Domains & Landing Pages', icon: Monitor, color: 'text-cyan-600 bg-cyan-50 border-cyan-200' },
+                { title: 'Customer Reviews & Ratings', icon: Star, color: 'text-yellow-600 bg-yellow-50 border-yellow-200' },
+                { title: 'Image Gallery & Product Space', icon: ImageIcon, color: 'text-rose-600 bg-rose-50 border-rose-200' },
+                { title: 'Articles & Blogs', icon: FileText, color: 'text-blue-600 bg-blue-50 border-blue-200' },
+                { title: 'Products & Services Showcase', icon: Layers, color: 'text-violet-600 bg-violet-50 border-violet-200' },
+                { title: 'Customizable Templates', icon: Palette, color: 'text-pink-600 bg-pink-50 border-pink-200' },
+                { title: 'Easy Website Designing & Multiple Edits', icon: Edit3, color: 'text-teal-600 bg-teal-50 border-teal-200' },
+                { title: 'Customized QR Codes', icon: QrCode, color: 'text-slate-700 bg-slate-100 border-slate-300' },
+                { title: 'Payment Gateway Integration', icon: ShieldCheck, color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
+                { title: 'Canva & Adobe Integration, where supported', icon: Zap, color: 'text-orange-600 bg-orange-50 border-orange-200' },
+                { title: 'Email Signature Generator', icon: Mail, color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
+                { title: 'PDF Report Generation', icon: Download, color: 'text-blue-600 bg-blue-50 border-blue-200' },
+                { title: 'Commercial Usage & Business Scaling', icon: TrendingUp, color: 'text-green-600 bg-green-50 border-green-200' },
+                { title: 'Installable App-like Experience with a Direct Installation Prompt, where supported', icon: Rocket, color: 'text-purple-600 bg-purple-50 border-purple-200' },
+              ].map((item, idx) => {
+                const IconComponent = item.icon;
+                return (
+                  <div 
+                    key={idx}
+                    className={`p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-md hover:border-indigo-300 transition-all flex items-start gap-3.5 group ${idx === 18 ? 'sm:col-span-2 lg:col-span-3 xl:col-span-2' : ''}`}
+                  >
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border transition-transform group-hover:scale-110 ${item.color}`}>
+                      <IconComponent className="w-4 h-4" />
+                    </div>
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-slate-800 leading-snug group-hover:text-indigo-700 transition-colors">
+                        {item.title}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Designed for Every Industry */}
+          <div className="p-8 sm:p-12 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-[0_10px_35px_rgb(0,0,0,0.05)] space-y-8">
+            <div className="max-w-3xl space-y-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold uppercase tracking-wider">
+                <Building2 className="w-3.5 h-3.5 text-amber-600" /> Broad Industry Reach
               </div>
-              <h3 className="text-base font-bold text-white">Ready to Elevate Your Brand?</h3>
-              <p className="text-xs text-slate-300">Empowering Indian small businesses &amp; professionals to connect instantly.</p>
-              <Link 
-                href="/signup?intent=build_card" 
-                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all"
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                Designed for Every Industry
+              </h3>
+              <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
+                Whether you are a real estate developer, interior designer, restaurant owner, fashion retailer, beauty salon owner, insurance professional, banking service provider, or entrepreneur, OneClickBiz helps bring your digital business presence together.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2.5 sm:gap-3 pt-2">
+              {[
+                { name: 'Real Estate Developers', icon: Building2 },
+                { name: 'Interior Designers', icon: Palette },
+                { name: 'Restaurant & Food Owners', icon: Store },
+                { name: 'Fashion Retailers', icon: ShoppingBag },
+                { name: 'Beauty & Salon Owners', icon: Sparkles },
+                { name: 'Insurance Professionals', icon: ShieldCheck },
+                { name: 'Banking & Financial Services', icon: CreditCard },
+                { name: 'Entrepreneurs & Creators', icon: Rocket }
+              ].map((ind, idx) => {
+                const IndIcon = ind.icon;
+                return (
+                  <span 
+                    key={idx}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-800 hover:text-indigo-700 text-xs sm:text-sm font-semibold transition-all shadow-sm"
+                  >
+                    <IndIcon className="w-3.5 h-3.5 text-indigo-600" />
+                    {ind.name}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Your Business. Your Website. Your Control. */}
+          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-indigo-50/90 via-purple-50/90 to-pink-50/90 border border-indigo-200 shadow-sm backdrop-blur-md space-y-6">
+            <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              Your Business. Your Website. <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Your Control.</span>
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-700">
+              <div className="p-5 rounded-2xl bg-white/80 border border-indigo-100 space-y-2">
+                <div className="flex items-center gap-2 text-indigo-700 font-bold text-sm">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> Zero Developer Hassle
+                </div>
+                <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
+                  No unnecessary dependency on developers for every small update. No need to manage your entire digital presence through multiple disconnected tools when the required features are available in one place.
+                </p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-white/80 border border-indigo-100 space-y-2">
+                <div className="flex items-center gap-2 text-indigo-700 font-bold text-sm">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> One Smart Link
+                </div>
+                <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
+                  Create your business presence, update your information, showcase your products and services, connect with customers, and promote your business through one smart link.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Our Mission & Call to Action Footer */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 sm:p-10 rounded-3xl bg-slate-900 text-white shadow-xl border border-slate-800">
+            <div className="lg:col-span-8 space-y-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-indigo-300 text-xs font-bold uppercase tracking-wider">
+                <Target className="w-3.5 h-3.5 text-indigo-400" /> Our Mission
+              </div>
+              <h4 className="text-xl sm:text-3xl font-black text-white tracking-tight">
+                Empowering Independent Digital Growth
+              </h4>
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+                To help every business build a stronger digital presence, simplify online business management, and make digital growth more accessible and affordable.
+              </p>
+              <div className="pt-2 text-sm sm:text-base font-bold text-transparent bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text">
+                OneClickBiz — One Platform. Every Business. Your Control.
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center items-stretch lg:items-end">
+              <Link
+                href="/signup"
+                className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25 transition-all text-center"
               >
-                <span>Create Your Mini-Website</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>Explore: oneclickbiz.in</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-
-          </div>
-        </div>
-
-        {/* 3 Pillars: Connect • Build • Share */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          
-          <div className="p-6 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200/80 space-y-3 hover:border-indigo-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-md transition-all">
-            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center font-extrabold text-sm">
-              01
-            </div>
-            <h4 className="text-base font-bold text-slate-900">Connect</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Instantly connect with clients and prospects via dynamic QR codes, personalized URL aliases, or direct WhatsApp links.
-            </p>
           </div>
 
-          <div className="p-6 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200/80 space-y-3 hover:border-purple-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-md transition-all">
-            <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center font-extrabold text-sm">
-              02
-            </div>
-            <h4 className="text-base font-bold text-slate-900">Build</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Build your complete digital presence with turnkey mini-websites, digital visiting cards, product catalogs, and booking calendars.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200/80 space-y-3 hover:border-pink-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-md transition-all">
-            <div className="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 border border-pink-100 flex items-center justify-center font-extrabold text-sm">
-              03
-            </div>
-            <h4 className="text-base font-bold text-slate-900">Share</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Share your business story, services, 1-click downloadable .VCF contact cards, and rich portfolio lookbooks across all touchpoints.
-            </p>
-          </div>
-
-        </div>
-
-        {/* Closing Motto Banner */}
-        <div className="text-center p-8 rounded-3xl bg-gradient-to-r from-indigo-50/90 via-purple-50/90 to-pink-50/90 border border-indigo-200/80 shadow-sm backdrop-blur-md">
-          <p className="text-lg sm:text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Connect. Build. Share. — with OneClickBiz.
-          </p>
         </div>
 
       </section>

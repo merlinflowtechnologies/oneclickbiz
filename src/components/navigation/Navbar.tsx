@@ -71,7 +71,7 @@ export default function Navbar() {
               onClick={(e) => handleAnchorClick(e, 'about')}
               className="px-3 py-1.5 rounded-xl text-xs font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-100/80 transition-all"
             >
-              About
+              Why OneClickBiz
             </Link>
             
             <Link 
@@ -186,7 +186,7 @@ export default function Navbar() {
             onClick={(e) => handleAnchorClick(e, 'about')}
             className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-indigo-600 hover:bg-slate-100"
           >
-            About OneClickBiz
+            Why OneClickBiz
           </Link>
           <Link 
             href="/#services" 
