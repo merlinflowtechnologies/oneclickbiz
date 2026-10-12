@@ -34,91 +34,6 @@ export const SECTORS = [
 
 export const FEATURES_DATA: FeatureDetail[] = [
   {
-    id: 'smart-visiting-card',
-    name: 'Smart Visiting Card Studio',
-    tagline: 'Luxury 300 DPI print-ready cards with 3D interactive flip preview',
-    badge: '300 DPI Print & Digital',
-    iconName: 'CreditCard',
-    themeColor: 'amber',
-    description: 'Design luxury business cards with 6 premium templates, 3D interactive flip preview, custom company logos, and download print-ready 300 DPI front & back PDFs paired with dynamic digital links.',
-    metrics: [
-      { value: '100%', label: 'Zero Paper Waste' },
-      { value: '300 DPI', label: 'Ultra High Print Resolution' },
-      { value: '3 Min', label: 'Fast Customization' }
-    ],
-    keyCapabilities: [
-      '6 Designer luxury templates with front & back preview',
-      'Instant 300 DPI vector PDF export ready for local offset printers',
-      'Embedded dynamic QR code linking directly to your live mobile profile',
-      'Custom company branding, gold foil aesthetics, and custom typography'
-    ],
-    sectorImpacts: [
-      {
-        sectorId: 'real_estate',
-        sectorName: 'Real Estate & Builders',
-        sectorIcon: '🏢',
-        painPoint: 'Agents hand out outdated paper cards where project names and phone numbers frequently change.',
-        howItHelps: 'Cards feature a permanent dynamic QR code. Even when your active property inventory updates, the printed card always connects buyers to your live listings.',
-        roiBenefit: '+40% repeat site visit inquiries from existing networking cards.',
-        realWorldScenario: 'An agent meets a property investor at an expo, hands over a matte metallic OneClickBiz card. The investor scans the QR code 3 weeks later and sees newly launched luxury villas.'
-      },
-      {
-        sectorId: 'healthcare',
-        sectorName: 'Doctors & Clinics',
-        sectorIcon: '🏥',
-        painPoint: 'Patients lose paper visiting cards and struggle to find emergency clinic timings or address.',
-        howItHelps: 'Front displays doctor credentials and emergency phone number; back QR code opens full Google Maps directions, clinic hours, and 1-tap WhatsApp appointment booking.',
-        roiBenefit: 'Eliminates missed patient follow-ups and wrong-address visits.',
-        realWorldScenario: 'A patient takes the doctor\'s card from the hospital reception and easily navigates to the clinic via the integrated Google Maps link.'
-      },
-      {
-        sectorId: 'consulting',
-        sectorName: 'Consultants, Lawyers & CAs',
-        sectorIcon: '💼',
-        painPoint: 'High-net-worth clients expect sleek, executive-tier corporate branding, not cheap paper.',
-        howItHelps: 'Provides executive Dark Onyx & Gold templates that project institutional authority and instantly save partners\' direct line into client contact lists.',
-        roiBenefit: 'Elevates perceived brand value, justifying premium retainer pricing.',
-        realWorldScenario: 'A senior tax advisor hands a luxury card at a corporate board meeting, prompting the CEO to scan and immediately book a tax audit review.'
-      },
-      {
-        sectorId: 'retail',
-        sectorName: 'Retail, Boutiques & D2C',
-        sectorIcon: '🛍️',
-        painPoint: 'Walk-in shoppers take a card but rarely remember to visit your store again.',
-        howItHelps: 'Every card includes an instant QR link to your WhatsApp product catalog and Instagram page with festive discounts.',
-        roiBenefit: '+28% repeat purchases from showroom visitors.',
-        realWorldScenario: 'A fashion boutique places smart cards in shopping bags. Shoppers scan the card at home to browse new festive arrivals on WhatsApp.'
-      },
-      {
-        sectorId: 'agency_tech',
-        sectorName: 'Tech, SaaS & Agencies',
-        sectorIcon: '💻',
-        painPoint: 'Tech founders look outdated handing over plain paper cards at venture summits.',
-        howItHelps: 'Delivers Modern Indigo cyber-gradient styling linking to interactive pitch decks, client demo reels, and Calendly integration.',
-        roiBenefit: '3X higher follow-up conversion from investor conferences.',
-        realWorldScenario: 'A startup founder shares their card at Web Summit. Angels scan and immediately view the interactive product demo video.'
-      },
-      {
-        sectorId: 'coaching',
-        sectorName: 'Coaches & Institutes',
-        sectorIcon: '🎓',
-        painPoint: 'Prospective students and parents want immediate syllabus details and batch timings.',
-        howItHelps: 'Cards link to course outlines, student video testimonials, and direct WhatsApp counseling enrollment chat.',
-        roiBenefit: '+35% higher student conversion from education fairs.',
-        realWorldScenario: 'An academy director distributes cards at a seminar; parents scan to enroll their children in upcoming weekend batches.'
-      },
-      {
-        sectorId: 'hospitality',
-        sectorName: 'Salons, Dining & Events',
-        sectorIcon: '🍽️',
-        painPoint: 'Guests lose menu cards and struggle to find reservation numbers during peak hours.',
-        howItHelps: 'Compact table cards allow guests to scan for digital menu specials, Instagram tags, and direct table booking.',
-        roiBenefit: 'Drives direct commission-free reservations without third-party app fees.',
-        realWorldScenario: 'A restaurant customer scans the card at the table and easily books a table for family dinner next weekend.'
-      }
-    ]
-  },
-  {
     id: 'mini-websites',
     name: 'Mini Websites & Business Profiles',
     tagline: 'Turnkey mobile-first business websites with custom domain support',
@@ -200,6 +115,91 @@ export const FEATURES_DATA: FeatureDetail[] = [
         howItHelps: 'Guests open a fast-loading digital menu with high-res food photos, chef specials, and 1-tap table booking.',
         roiBenefit: 'Increases direct customer engagement and commission-free reservations.',
         realWorldScenario: 'A restaurant guest scans a table QR code to explore the dessert photo menu and reserve a table for their upcoming anniversary.'
+      }
+    ]
+  },
+  {
+    id: 'smart-visiting-card',
+    name: 'Smart Visiting Card Studio',
+    tagline: 'Luxury 300 DPI print-ready cards with 3D interactive flip preview',
+    badge: '300 DPI Print & Digital',
+    iconName: 'CreditCard',
+    themeColor: 'amber',
+    description: 'Design luxury business cards with 6 premium templates, 3D interactive flip preview, custom company logos, and download print-ready 300 DPI front & back PDFs paired with dynamic digital links.',
+    metrics: [
+      { value: '100%', label: 'Zero Paper Waste' },
+      { value: '300 DPI', label: 'Ultra High Print Resolution' },
+      { value: '3 Min', label: 'Fast Customization' }
+    ],
+    keyCapabilities: [
+      '6 Designer luxury templates with front & back preview',
+      'Instant 300 DPI vector PDF export ready for local offset printers',
+      'Embedded dynamic QR code linking directly to your live mobile profile',
+      'Custom company branding, gold foil aesthetics, and custom typography'
+    ],
+    sectorImpacts: [
+      {
+        sectorId: 'real_estate',
+        sectorName: 'Real Estate & Builders',
+        sectorIcon: '🏢',
+        painPoint: 'Agents hand out outdated paper cards where project names and phone numbers frequently change.',
+        howItHelps: 'Cards feature a permanent dynamic QR code. Even when your active property inventory updates, the printed card always connects buyers to your live listings.',
+        roiBenefit: '+40% repeat site visit inquiries from existing networking cards.',
+        realWorldScenario: 'An agent meets a property investor at an expo, hands over a matte metallic OneClickBiz card. The investor scans the QR code 3 weeks later and sees newly launched luxury villas.'
+      },
+      {
+        sectorId: 'healthcare',
+        sectorName: 'Doctors & Clinics',
+        sectorIcon: '🏥',
+        painPoint: 'Patients lose paper visiting cards and struggle to find emergency clinic timings or address.',
+        howItHelps: 'Front displays doctor credentials and emergency phone number; back QR code opens full Google Maps directions, clinic hours, and 1-tap WhatsApp appointment booking.',
+        roiBenefit: 'Eliminates missed patient follow-ups and wrong-address visits.',
+        realWorldScenario: 'A patient takes the doctor\'s card from the hospital reception and easily navigates to the clinic via the integrated Google Maps link.'
+      },
+      {
+        sectorId: 'consulting',
+        sectorName: 'Consultants, Lawyers & CAs',
+        sectorIcon: '💼',
+        painPoint: 'High-net-worth clients expect sleek, executive-tier corporate branding, not cheap paper.',
+        howItHelps: 'Provides executive Dark Onyx & Gold templates that project institutional authority and instantly save partners\' direct line into client contact lists.',
+        roiBenefit: 'Elevates perceived brand value, justifying premium retainer pricing.',
+        realWorldScenario: 'A senior tax advisor hands a luxury card at a corporate board meeting, prompting the CEO to scan and immediately book a tax audit review.'
+      },
+      {
+        sectorId: 'retail',
+        sectorName: 'Retail, Boutiques & D2C',
+        sectorIcon: '🛍️',
+        painPoint: 'Walk-in shoppers take a card but rarely remember to visit your store again.',
+        howItHelps: 'Every card includes an instant QR link to your WhatsApp product catalog and Instagram page with festive discounts.',
+        roiBenefit: '+28% repeat purchases from showroom visitors.',
+        realWorldScenario: 'A fashion boutique places smart cards in shopping bags. Shoppers scan the card at home to browse new festive arrivals on WhatsApp.'
+      },
+      {
+        sectorId: 'agency_tech',
+        sectorName: 'Tech, SaaS & Agencies',
+        sectorIcon: '💻',
+        painPoint: 'Tech founders look outdated handing over plain paper cards at venture summits.',
+        howItHelps: 'Delivers Modern Indigo cyber-gradient styling linking to interactive pitch decks, client demo reels, and Calendly integration.',
+        roiBenefit: '3X higher follow-up conversion from investor conferences.',
+        realWorldScenario: 'A startup founder shares their card at Web Summit. Angels scan and immediately view the interactive product demo video.'
+      },
+      {
+        sectorId: 'coaching',
+        sectorName: 'Coaches & Institutes',
+        sectorIcon: '🎓',
+        painPoint: 'Prospective students and parents want immediate syllabus details and batch timings.',
+        howItHelps: 'Cards link to course outlines, student video testimonials, and direct WhatsApp counseling enrollment chat.',
+        roiBenefit: '+35% higher student conversion from education fairs.',
+        realWorldScenario: 'An academy director distributes cards at a seminar; parents scan to enroll their children in upcoming weekend batches.'
+      },
+      {
+        sectorId: 'hospitality',
+        sectorName: 'Salons, Dining & Events',
+        sectorIcon: '🍽️',
+        painPoint: 'Guests lose menu cards and struggle to find reservation numbers during peak hours.',
+        howItHelps: 'Compact table cards allow guests to scan for digital menu specials, Instagram tags, and direct table booking.',
+        roiBenefit: 'Drives direct commission-free reservations without third-party app fees.',
+        realWorldScenario: 'A restaurant customer scans the card at the table and easily books a table for family dinner next weekend.'
       }
     ]
   },

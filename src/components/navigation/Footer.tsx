@@ -231,11 +231,11 @@ export default function Footer() {
                 <span>Products</span>
               </h4>
               <ul className="space-y-2 text-slate-600 text-xs">
-                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-600 transition">Dynamic vCard</Link></li>
+                <li><Link href="/#services" onClick={(e) => handleAnchorClick(e, 'services')} className="hover:text-indigo-600 transition">Mini Websites &amp; Profiles</Link></li>
+                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-600 transition">Dynamic vCards</Link></li>
                 <li><Link href="/#whatsapp-store" onClick={(e) => handleAnchorClick(e, 'whatsapp-store')} className="hover:text-indigo-600 transition">WhatsApp Store</Link></li>
                 <li><Link href="/scan" className="hover:text-indigo-600 transition">Dynamic QR Studio</Link></li>
-                <li><Link href="/#services" onClick={(e) => handleAnchorClick(e, 'services')} className="hover:text-indigo-600 transition">Mini Websites</Link></li>
-                <li><Link href="/#templates" onClick={(e) => handleAnchorClick(e, 'templates')} className="hover:text-indigo-600 transition">Brochure Studio</Link></li>
+                <li><Link href="/#blogs" onClick={(e) => handleAnchorClick(e, 'blogs')} className="hover:text-indigo-600 transition">Brochure &amp; Blog Studio</Link></li>
                 <li><Link href="/vcard-templates" className="hover:text-indigo-700 transition text-indigo-600 font-semibold flex items-center gap-1">Templates Gallery</Link></li>
               </ul>
             </div>

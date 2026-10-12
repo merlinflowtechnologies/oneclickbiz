@@ -371,7 +371,7 @@ export default function LandingPage() {
               </h1>
 
               <p className="text-sm sm:text-base lg:text-base xl:text-lg text-slate-600 max-w-2xl leading-relaxed font-normal mx-auto lg:mx-0">
-                Replace outdated paper business cards with smart digital visiting cards, 1-click WhatsApp stores, appointment booking calendars, and turnkey mini-websites.
+                Replace outdated paper business cards with turnkey mini-websites, smart digital visiting cards, 1-click WhatsApp stores, and appointment booking calendars.
               </p>
 
               {/* Live URL Alias Claimer */}
@@ -482,27 +482,7 @@ export default function LandingPage() {
                 {/* Point-by-Point Service List */}
                 <div className="space-y-2 sm:space-y-2.5">
                   
-                  {/* Point 1: Digital Visiting Cards */}
-                  <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-300 transition-all flex items-center gap-3 group">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-                      <Check className="w-4 h-4 stroke-[3]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
-                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                          Digital Visiting Cards
-                        </h4>
-                        <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md shrink-0">
-                          1-Click Save
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-slate-500 truncate sm:text-clip">
-                        Instant dynamic QR, custom link &amp; 1-click address book save (.vcf)
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Point 2: Mini Websites & Business Profiles */}
+                  {/* Point 1: Mini Websites & Business Profiles */}
                   <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-300 transition-all flex items-center gap-3 group">
                     <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25 group-hover:scale-105 transition-transform">
                       <Check className="w-4 h-4 stroke-[3]" />
@@ -518,6 +498,26 @@ export default function LandingPage() {
                       </div>
                       <p className="text-[11px] text-slate-500 truncate sm:text-clip">
                         Turnkey websites across 13 business niches with custom domain support
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Point 2: Digital Visiting Cards */}
+                  <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-300 transition-all flex items-center gap-3 group">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25 group-hover:scale-105 transition-transform">
+                      <Check className="w-4 h-4 stroke-[3]" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                          Digital Visiting Cards
+                        </h4>
+                        <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md shrink-0">
+                          1-Click Save
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 truncate sm:text-clip">
+                        Instant dynamic QR, custom link &amp; 1-click address book save (.vcf)
                       </p>
                     </div>
                   </div>
@@ -1151,28 +1151,28 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            {/* Service 1: Direct 0% Fee UPI QR Payments */}
-            <div className="p-7 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-amber-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
+            {/* Service 1: Turnkey Mini Websites & Business Profiles */}
+            <div className="p-7 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-indigo-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
               <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-amber-200">
-                  <CreditCard className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-indigo-200">
+                  <Smartphone className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600">Digital Payments</span>
-                  <h3 className="text-base font-bold text-slate-900">Direct UPI QR &amp; Instant Pay</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600">Web &amp; Digital Presence</span>
+                  <h3 className="text-base font-bold text-slate-900">Mini Websites &amp; Business Profiles</h3>
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Integrated dynamic QR code and 1-tap payment buttons for GPay, PhonePe, Paytm, and BHIM UPI. Money deposits directly into your bank account with zero gateway fee deductions.
+                  Launch a turnkey, mobile-optimized business mini-website in under 2 minutes. Showcase your story, services, photo lookbooks, client testimonials, and connect your custom domain.
                 </p>
                 <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> 0% commission on all UPI transactions</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Instant GPay, PhonePe &amp; Paytm links</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Direct bank account instant settlement</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" /> 93+ Ready industry niche templates</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" /> Custom domain &amp; white-label support</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" /> 100% cloud-hosted — zero coding or apps</li>
                 </ul>
               </div>
               <div className="pt-2 border-t border-slate-100">
-                <span className="text-[11px] font-semibold text-amber-700 flex items-center gap-1.5">
-                  <BadgeCheck className="w-3.5 h-3.5 text-amber-600" /> 100% Software • 0% Gateway Cuts
+                <span className="text-[11px] font-semibold text-indigo-700 flex items-center gap-1.5">
+                  <BadgeCheck className="w-3.5 h-3.5 text-indigo-600" /> Instant Cloud Deployment
                 </span>
               </div>
             </div>
@@ -1281,28 +1281,28 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Service 6: White Label & Custom Domains */}
-            <div className="p-7 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-indigo-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
+            {/* Service 6: Direct 0% Fee UPI QR Payments */}
+            <div className="p-7 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-amber-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all space-y-4 flex flex-col justify-between group">
               <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-indigo-200">
-                  <Globe2 className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-amber-200">
+                  <CreditCard className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600">Multi-Card Infrastructure</span>
-                  <h3 className="text-base font-bold text-slate-900">Custom Domain &amp; Team Setup</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600">Digital Payments</span>
+                  <h3 className="text-base font-bold text-slate-900">Direct UPI QR &amp; Instant Pay</h3>
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Connect your company’s custom domain (e.g., <code className="text-indigo-600 font-mono text-[10px]">cards.yourbrand.com</code>), remove all OneClickBiz badges, and manage hundreds of employee smart cards under unified admin controls.
+                  Integrated dynamic QR code and 1-tap payment buttons for GPay, PhonePe, Paytm, and BHIM UPI. Money deposits directly into your bank account with zero gateway fee deductions.
                 </p>
                 <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" /> Custom CNAME &amp; auto SSL</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" /> 100% 0-badge white labeling</li>
-                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" /> Centralized team permissions</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> 0% commission on all UPI transactions</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Instant GPay, PhonePe &amp; Paytm links</li>
+                  <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Direct bank account instant settlement</li>
                 </ul>
               </div>
               <div className="pt-2 border-t border-slate-100">
-                <span className="text-[11px] font-semibold text-indigo-700 flex items-center gap-1.5">
-                  <BadgeCheck className="w-3.5 h-3.5 text-indigo-600" /> Automated DNS &amp; SSL Config
+                <span className="text-[11px] font-semibold text-amber-700 flex items-center gap-1.5">
+                  <BadgeCheck className="w-3.5 h-3.5 text-amber-600" /> 100% Software • 0% Gateway Cuts
                 </span>
               </div>
             </div>
@@ -1415,52 +1415,52 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            {/* Product 1: Digital Smart vCards */}
+            {/* Product 1: Mini Websites & Business Profiles */}
             <div className="p-8 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-indigo-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all flex flex-col justify-between space-y-6 group">
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-indigo-200">
                   <Smartphone className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600">Digital Identity</span>
-                  <h3 className="text-xl font-bold text-slate-900">Smart vCard Profiles</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600">Web &amp; Digital Presence</span>
+                  <h3 className="text-xl font-bold text-slate-900">Mini Websites &amp; Business Profiles</h3>
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Interactive digital business cards with custom URL slugs, 5 curated visual themes, photo/video portfolios, social links, and 1-click .VCF contact address book downloads.
+                  Turnkey mobile-first business websites with custom domain support, 93+ industry niche templates, rich service showcases, photo lookbooks, and 1-tap contact actions.
                 </p>
                 <ul className="space-y-2 text-xs text-slate-700 pt-2">
-                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-indigo-600" /> Instant iOS &amp; Android .VCF Saving</li>
-                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-indigo-600" /> Dynamic Links &amp; Embeds (YouTube, Portfolio)</li>
-                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-indigo-600" /> WhatsApp Direct Chat Action</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-indigo-600" /> 93+ Designer Templates across 13 Industries</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-indigo-600" /> Custom Branded Handle or Custom Domain</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-indigo-600" /> Zero Coding &amp; 100% Cloud-Hosted Architecture</li>
                 </ul>
               </div>
               <Link href="/signup?intent=build_card" className="text-xs font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
-                <span>Build a Smart vCard</span>
+                <span>Build Mini Website</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
-            {/* Product 2: Blog & Brochure Studios */}
-            <div className="p-8 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-amber-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all flex flex-col justify-between space-y-6 group scroll-mt-24" id="blogs">
+            {/* Product 2: Smart Digital Visiting Cards */}
+            <div className="p-8 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-sky-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all flex flex-col justify-between space-y-6 group">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-amber-200">
-                  <BookOpen className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-sky-200">
+                  <CreditCard className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600">Publishing Suite</span>
-                  <h3 className="text-xl font-bold text-slate-900">Blog &amp; Brochure Studios</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-sky-600">Digital Identity &amp; Print</span>
+                  <h3 className="text-xl font-bold text-slate-900">Smart Digital Visiting Cards</h3>
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Craft SEO articles with custom categories and featured covers. Build luxury visiting cards and multi-page printable brochures.
+                  Interactive digital business cards with custom URL slugs, 3D interactive flip preview, 300 DPI vector PDF export ready for printing, and 1-click .VCF contact saving.
                 </p>
                 <ul className="space-y-2 text-xs text-slate-700 pt-2">
-                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-600" /> Rich Blog Article Publishing Studio</li>
-                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-600" /> Multi-Page PDF Brochure Creator</li>
-                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-600" /> 300 DPI Print-Ready PDF Generation</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-sky-600" /> Instant iOS &amp; Android .VCF Address Book Saving</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-sky-600" /> 300 DPI Commercial Print-Ready Front &amp; Back PDF</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-sky-600" /> Embedded Dynamic Cloud QR Code</li>
                 </ul>
               </div>
-              <Link href="/dashboard/blogs" className="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
-                <span>Explore Blog Studio</span>
+              <Link href="/vcard-templates" className="text-xs font-bold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                <span>Explore Card Templates</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -1521,32 +1521,32 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Product 5: Dynamic QR & Virtual Backgrounds */}
-            <div className="p-8 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-pink-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all flex flex-col justify-between space-y-6 group">
+            {/* Product 5: Blog & Brochure Studios */}
+            <div className="p-8 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-amber-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all flex flex-col justify-between space-y-6 group scroll-mt-24" id="blogs">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-pink-200">
-                  <QrCode className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-amber-200">
+                  <BookOpen className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-pink-600">Smart QR &amp; Media</span>
-                  <h3 className="text-xl font-bold text-slate-900">Dynamic QR &amp; Backgrounds</h3>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600">Publishing Suite</span>
+                  <h3 className="text-xl font-bold text-slate-900">Blog &amp; Brochure Studios</h3>
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Generate high-resolution branded vector QR codes with your company logo, plus download personalized Zoom, Teams, and Google Meet virtual backgrounds.
+                  Craft SEO articles with custom categories and featured covers. Build luxury visiting cards and multi-page printable brochures.
                 </p>
                 <ul className="space-y-2 text-xs text-slate-700 pt-2">
-                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-pink-600" /> High-Resolution PNG &amp; SVG Downloads</li>
-                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-pink-600" /> Custom Colors &amp; Logo Center Placement</li>
-                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-pink-600" /> Virtual Video Meeting Backgrounds</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-600" /> Rich Blog Article Publishing Studio</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-600" /> Multi-Page PDF Brochure Creator</li>
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-600" /> 300 DPI Print-Ready PDF Generation</li>
                 </ul>
               </div>
-              <Link href="/signup?intent=build_card" className="text-xs font-bold text-pink-600 hover:text-pink-700 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
-                <span>Customize QR Codes</span>
+              <Link href="/dashboard/blogs" className="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                <span>Explore Blog Studio</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
-            {/* Product 6: Lead CRM & Analytics */}
+            {/* Product 6: Dynamic QR & Lead Analytics */}
             <div className="p-8 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-sky-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all flex flex-col justify-between space-y-6 group">
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-110 transition-transform border border-sky-200">
@@ -1554,15 +1554,15 @@ export default function LandingPage() {
                 </div>
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-sky-600">Growth &amp; CRM</span>
-                  <h3 className="text-xl font-bold text-slate-900">Lead Capture &amp; Analytics</h3>
+                  <h3 className="text-xl font-bold text-slate-900">Dynamic QR &amp; Lead Analytics</h3>
                 </div>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Capture inbound leads directly through your card&apos;s inquiry form, track engagement events, and manage pipeline statuses (*New, Qualified, Contacted, Converted*).
+                  Generate branded vector QR codes, capture inbound customer leads through inquiry forms, and track scan telemetry and conversion analytics.
                 </p>
                 <ul className="space-y-2 text-xs text-slate-700 pt-2">
+                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-sky-600" /> High-Resolution PNG &amp; SVG Vector QR Codes</li>
                   <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-sky-600" /> Real-time Profile Views &amp; QR Scan Tracking</li>
                   <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-sky-600" /> CRM Pipeline Inbox with 1-Click Reply</li>
-                  <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-sky-600" /> White-Label Custom Domain Support</li>
                 </ul>
               </div>
               <Link href="/dashboard/leads" className="text-xs font-bold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
