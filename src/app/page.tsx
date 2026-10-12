@@ -362,7 +362,7 @@ export default function LandingPage() {
               
               <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-200/80 text-indigo-700 text-xs font-bold uppercase tracking-wider shadow-xs backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
-                <span>Connect &bull; Build &bull; Grow</span>
+                <span>Connect &bull; Build &bull; Share</span>
               </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-6xl 2xl:text-7xl font-bold font-serif tracking-tight text-slate-900 leading-[1.18] lg:leading-[1.15]">
@@ -1066,7 +1066,7 @@ export default function LandingPage() {
                 href="/signup?intent=build_card" 
                 className="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all"
               >
-                <span>Create Your Smart Card</span>
+                <span>Create Your Mini-Website</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -1074,8 +1074,8 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* 4 Pillars: Connect • Share • Engage • Grow */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {/* 3 Pillars: Connect • Build • Share */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           
           <div className="p-6 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200/80 space-y-3 hover:border-indigo-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-md transition-all">
             <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center font-extrabold text-sm">
@@ -1083,7 +1083,7 @@ export default function LandingPage() {
             </div>
             <h4 className="text-base font-bold text-slate-900">Connect</h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Instantly share via dynamic QR codes, personalized URL aliases, or direct WhatsApp links.
+              Instantly connect with clients and prospects via dynamic QR codes, personalized URL aliases, or direct WhatsApp links.
             </p>
           </div>
 
@@ -1091,29 +1091,19 @@ export default function LandingPage() {
             <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center font-extrabold text-sm">
               02
             </div>
-            <h4 className="text-base font-bold text-slate-900">Share</h4>
+            <h4 className="text-base font-bold text-slate-900">Build</h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Distribute contact numbers, emails, social media, portfolios, and downloadable .VCF address book files in 1 click.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200/80 space-y-3 hover:border-emerald-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-md transition-all">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center font-extrabold text-sm">
-              03
-            </div>
-            <h4 className="text-base font-bold text-slate-900">Engage</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Showcase products, receive structured WhatsApp orders, and let clients schedule consultation meetings directly.
+              Build your complete digital presence with turnkey mini-websites, digital visiting cards, product catalogs, and booking calendars.
             </p>
           </div>
 
           <div className="p-6 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200/80 space-y-3 hover:border-pink-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-md transition-all">
             <div className="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 border border-pink-100 flex items-center justify-center font-extrabold text-sm">
-              04
+              03
             </div>
-            <h4 className="text-base font-bold text-slate-900">Grow</h4>
+            <h4 className="text-base font-bold text-slate-900">Share</h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Gain actionable insights with real-time tap/scan analytics, manage client leads, and organize your team cards.
+              Share your business story, services, 1-click downloadable .VCF contact cards, and rich portfolio lookbooks across all touchpoints.
             </p>
           </div>
 
@@ -1122,7 +1112,7 @@ export default function LandingPage() {
         {/* Closing Motto Banner */}
         <div className="text-center p-8 rounded-3xl bg-gradient-to-r from-indigo-50/90 via-purple-50/90 to-pink-50/90 border border-indigo-200/80 shadow-sm backdrop-blur-md">
           <p className="text-lg sm:text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Connect. Share. Engage. Grow — with OneClickBiz.
+            Connect. Build. Share. — with OneClickBiz.
           </p>
         </div>
 
