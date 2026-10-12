@@ -707,7 +707,7 @@ export default function ProfileCardView({
     profile.bio?.toLowerCase().includes('interior') ||
     profile.bio?.toLowerCase().includes('architect');
 
-  const isWebsiteMode = !isMockup && viewMode === 'website';
+  const isWebsiteMode = viewMode === 'website';
   const isRestaurantTemplate = 
     profile.slug === 'food-restaurant' || 
     profile.slug === 'restaurant-menu' ||
@@ -997,6 +997,7 @@ export default function ProfileCardView({
             viewMode={viewMode}
             setViewMode={setViewMode}
             showViewToggle={showViewToggle}
+            isMockup={isMockup}
           />
         ) : isInterior ? (
           <InteriorMiniWebsiteView

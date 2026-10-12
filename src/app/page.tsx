@@ -264,7 +264,14 @@ export default function LandingPage() {
 
   const demoProfile = {
     ...INITIAL_PROFILES[0],
-    theme: selectedDemoTheme
+    theme: selectedDemoTheme,
+    sectionData: {
+      ...(INITIAL_PROFILES[0].sectionData || {}),
+      about: {
+        ...((INITIAL_PROFILES[0].sectionData?.about as any) || {}),
+        content: INITIAL_PROFILES[0].bio || (INITIAL_PROFILES[0].sectionData?.about as any)?.content
+      }
+    }
   };
 
   const handleCheckAlias = (e: React.FormEvent) => {
@@ -734,7 +741,7 @@ export default function LandingPage() {
                 </a>
               </div>
               {/* Inner Scrollable Website Content */}
-              <div className="h-[520px] sm:h-[580px] lg:h-[620px] overflow-y-auto scrollbar-none bg-slate-50">
+              <div className="h-[560px] sm:h-[620px] lg:h-[680px] overflow-y-auto scrollbar-none bg-slate-50">
                 <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
               </div>
             </div>
