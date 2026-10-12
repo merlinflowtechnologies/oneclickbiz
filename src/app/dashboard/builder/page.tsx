@@ -183,8 +183,8 @@ function BuilderContent() {
           // Show local data immediately, then fetch fresh from DB
           setProfile(localFallback);
 
-          // Fetch latest profile from the server DB (source of truth)
-          fetch(`/api/profiles/${targetSlug}`)
+          // Fetch latest profile from the server DB (source of truth with zero cache)
+          fetch(`/api/profiles/${targetSlug}?_t=${Date.now()}`, { cache: 'no-store' })
             .then(res => res.ok ? res.json() : null)
             .then(data => {
               if (data?.profile) {
@@ -203,7 +203,7 @@ function BuilderContent() {
                   dbProfile.designation?.toLowerCase().includes('builder') ||
                   dbProfile.sectionData?.realEstate
                 );
-                // Merge: DB fields override local, but keep local-only fields
+                // Source of truth: DB fields strictly take precedence
                 const merged: DigitalProfile = {
                   ...localFallback,
                   ...dbProfile,
@@ -211,7 +211,15 @@ function BuilderContent() {
                     ? ((dbProfile.templateId?.startsWith('re-') || dbProfile.templateId === 'vcard35') ? dbProfile.templateId : (localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35') ? localFallback.templateId : 're-builders') 
                     : isInteriorTarget ? 'home-interior' : (dbProfile.templateId || localFallback.templateId || effectiveTemplateId || undefined),
                   category: dbIsRe ? 'Real Estate' : isInteriorTarget ? 'Interior Design' : (dbProfile.category || localFallback.category || parsedSession?.category || undefined),
-                  // Ensure sectionData.about.content reflects the DB bio & trust configs are preserved
+                  name: dbProfile.name || localFallback.name,
+                  company: dbProfile.company || localFallback.company,
+                  designation: dbProfile.designation || localFallback.designation,
+                  bio: dbProfile.bio !== undefined ? dbProfile.bio : localFallback.bio,
+                  phone: dbProfile.phone || localFallback.phone,
+                  email: dbProfile.email || localFallback.email,
+                  whatsapp: dbProfile.whatsapp || localFallback.whatsapp,
+                  address: dbProfile.address !== undefined ? dbProfile.address : localFallback.address,
+                  // Ensure custom sectionData is strictly preserved without stale demo injection
                   sectionData: {
                     ...(localFallback.sectionData || {}),
                     ...(dbProfile.sectionData || {}),
@@ -232,6 +240,7 @@ function BuilderContent() {
                 // Update localStorage with fresh DB data
                 try {
                   localStorage.setItem(`oneclickbiz_custom_profile_${targetSlug}`, JSON.stringify(merged));
+                  localStorage.setItem('oneclickbiz_active_profile', JSON.stringify(merged));
                 } catch (_) {}
               }
             })

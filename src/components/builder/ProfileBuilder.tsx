@@ -552,6 +552,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
   const [cardCreateError, setCardCreateError] = useState('');
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [studioWebsitePreviewOpen, setStudioWebsitePreviewOpen] = useState(false);
+  const [studioPreviewDevice, setStudioPreviewDevice] = useState<'mobile' | 'website'>('mobile');
   const [isStudioQrModalOpen, setIsStudioQrModalOpen] = useState(false);
   const [studioQrCopied, setStudioQrCopied] = useState(false);
 
@@ -1082,21 +1083,29 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           category: activeCategory,
           templateId: templateId,
           slug: prev.slug || preset.slug,
-          name: (prev.name && prev.name !== 'Kishore Patel') ? prev.name : preset.name,
-          company: (prev.company && prev.company !== 'Himastech Digital Reality') ? prev.company : preset.company,
+          name: prev.name || preset.name,
+          company: prev.company || preset.company,
           designation: prev.designation || preset.designation,
-          bio: prev.bio || preset.bio,
+          bio: prev.bio !== undefined ? prev.bio : preset.bio,
           phone: prev.phone || preset.phone,
           whatsapp: prev.whatsapp || (cleanWa ? cleanWa : preset.whatsapp),
           email: prev.email || preset.email,
+          address: prev.address || preset.address,
           sectionData: {
             ...preset.sectionData,
             about: { content: prev.bio || preset.bio },
             socials: { items: updatedSocials },
             gallery: hasCustomGallery ? prev.sectionData.gallery : preset.sectionData.gallery,
             videos: hasCustomVideos ? prev.sectionData.videos : preset.sectionData.videos,
-            realEstate: activeCategory === 'Real Estate' ? (preset.sectionData?.realEstate || prev.sectionData?.realEstate || getTemplateProfile('re-builders').sectionData?.realEstate) : preset.sectionData?.realEstate,
-            interior: activeCategory === 'Interior Design' ? (preset.sectionData?.interior || prev.sectionData?.interior || getTemplateProfile('home-interior').sectionData?.interior) : preset.sectionData?.interior,
+            products: (prev.sectionData?.products?.items && prev.sectionData.products.items.length > 0)
+              ? prev.sectionData.products
+              : preset.sectionData.products,
+            realEstate: activeCategory === 'Real Estate' 
+              ? (prev.sectionData?.realEstate || preset.sectionData?.realEstate || getTemplateProfile('re-builders').sectionData?.realEstate) 
+              : preset.sectionData?.realEstate,
+            interior: activeCategory === 'Interior Design' 
+              ? (prev.sectionData?.interior || preset.sectionData?.interior || getTemplateProfile('home-interior').sectionData?.interior) 
+              : preset.sectionData?.interior,
             healthcare: (activeCategory === 'Healthcare' || isHealthcare) ? (preset.sectionData?.healthcare || prev.sectionData?.healthcare || {
               regNumber: 'TSMC/DOC/2018/8892',
               degrees: 'MBBS, MD, FACC (USA)',
@@ -2566,7 +2575,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         </label>
                         <input 
                           type="text"
-                          value={profile.sectionData?.realEstate?.reraId ?? (profile.templateId === 're-builders' ? 'TS-RERA/P02400008920' : 'TS-RERA/P02400008921')}
+                          value={profile.sectionData?.realEstate?.reraId ?? ''}
                           placeholder="e.g. TS-RERA/P02400008921"
                           onChange={e => {
                             const val = e.target.value;
@@ -2592,7 +2601,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         </label>
                         <input 
                           type="text"
-                          value={profile.sectionData?.realEstate?.city ?? 'Hyderabad • Future City Corridor'}
+                          value={profile.sectionData?.realEstate?.city ?? ''}
                           placeholder="e.g. Hyderabad • Future City Corridor"
                           onChange={e => {
                             const val = e.target.value;
@@ -2617,7 +2626,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         <label className="text-[11px] font-semibold text-slate-400">Legal Track Record</label>
                         <input 
                           type="text"
-                          value={profile.sectionData?.realEstate?.trackRecordYears ?? '18+ Years'}
+                          value={profile.sectionData?.realEstate?.trackRecordYears ?? ''}
                           placeholder="e.g. 18+ Years"
                           onChange={e => {
                             const val = e.target.value;
@@ -2640,7 +2649,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         <label className="text-[11px] font-semibold text-slate-400">Delivered Projects</label>
                         <input 
                           type="text"
-                          value={profile.sectionData?.realEstate?.deliveredProjects ?? '18+'}
+                          value={profile.sectionData?.realEstate?.deliveredProjects ?? ''}
                           placeholder="e.g. 18+"
                           onChange={e => {
                             const val = e.target.value;
@@ -2663,7 +2672,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         <label className="text-[11px] font-semibold text-slate-400">Developed Acres</label>
                         <input 
                           type="text"
-                          value={profile.sectionData?.realEstate?.developedAcres ?? '450+'}
+                          value={profile.sectionData?.realEstate?.developedAcres ?? ''}
                           placeholder="e.g. 450+"
                           onChange={e => {
                             const val = e.target.value;
@@ -2686,7 +2695,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         <label className="text-[11px] font-semibold text-slate-400">Happy Families</label>
                         <input 
                           type="text"
-                          value={profile.sectionData?.realEstate?.happyFamilies ?? '2,400+'}
+                          value={profile.sectionData?.realEstate?.happyFamilies ?? ''}
                           placeholder="e.g. 2,400+"
                           onChange={e => {
                             const val = e.target.value;
@@ -7522,27 +7531,58 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
         </div>
       </div>
 
-      {/* Right Real-Time Mobile Device Mockup View */}
+      {/* Right Real-Time Dual Device Mockup & Mini-Website Preview View */}
       {showPreview && (
-        <div className="w-full lg:w-[320px] xl:w-[350px] 2xl:w-[390px] p-2 sm:p-2.5 lg:p-3 bg-slate-950 flex flex-col items-center justify-start h-full min-h-0 overflow-y-auto scrollbar-none shrink-0 border-t lg:border-t-0 lg:border-l border-slate-800 animate-in fade-in duration-200">
-          <div className="flex items-center justify-between w-full max-w-[280px] sm:max-w-[300px] xl:max-w-[330px] mb-1.5 px-1 shrink-0">
-            <div className="flex items-center gap-1.5">
-              <Smartphone className="w-3.5 h-3.5 text-indigo-400" />
-              <span className="text-xs font-semibold text-slate-300">
-                Live Card
-              </span>
+        <div className={`w-full ${studioPreviewDevice === 'website' ? 'lg:w-[500px] xl:w-[620px] 2xl:w-[720px]' : 'lg:w-[320px] xl:w-[350px] 2xl:w-[390px]'} p-2 sm:p-2.5 lg:p-3 bg-slate-950 flex flex-col items-center justify-start h-full min-h-0 overflow-y-auto scrollbar-none shrink-0 border-t lg:border-t-0 lg:border-l border-slate-800 transition-all duration-200 animate-in fade-in`}>
+          <div className="flex items-center justify-between w-full mb-2 px-1 shrink-0">
+            {/* Viewport Mode Switcher: Mobile Card vs Desktop Mini Website */}
+            <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-900 border border-slate-800">
+              <button
+                type="button"
+                onClick={() => setStudioPreviewDevice('mobile')}
+                className={`px-2 py-1 rounded-md text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                  studioPreviewDevice === 'mobile'
+                    ? 'bg-indigo-600 text-white shadow-xs'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+                title="Live Mobile Card (vCard) View"
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+                <span>Mobile View</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setStudioPreviewDevice('website')}
+                className={`px-2 py-1 rounded-md text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                  studioPreviewDevice === 'website'
+                    ? 'bg-indigo-600 text-white shadow-xs'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+                title="Live Mini Website Desktop View"
+              >
+                <Monitor className="w-3.5 h-3.5" />
+                <span>Mini Website</span>
+              </button>
             </div>
 
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => setStudioWebsitePreviewOpen(true)}
-                className="px-2 py-0.5 rounded-lg text-[11px] font-bold text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center gap-1 transition active:scale-95 cursor-pointer shadow-xs"
-                title="Open Fullscreen Desktop Website Preview"
+                className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+                title="Fullscreen Preview Modal"
               >
-                <Monitor className="w-3 h-3 text-indigo-400" />
-                <span>Full Website</span>
+                <Maximize2 className="w-3.5 h-3.5" />
               </button>
+              <a
+                href={`/v/${profile.slug}`}
+                target="_blank"
+                rel="noreferrer"
+                className="p-1 rounded-lg text-cyan-400 hover:text-cyan-300 hover:bg-slate-800 transition"
+                title={`Open live card: /v/${profile.slug}`}
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
               <button
                 type="button"
                 onClick={() => setShowPreview(false)}
@@ -7554,24 +7594,50 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             </div>
           </div>
 
-          {/* Device Frame with responsive scaling for laptop displays */}
-          <div className="w-full max-w-[280px] sm:max-w-[295px] lg:max-w-[315px] xl:max-w-[335px] rounded-[36px] p-2 bg-slate-900 border-4 border-slate-700 shadow-2xl ring-1 ring-white/10 relative shrink-0 transition-transform origin-top scale-[0.84] sm:scale-[0.88] md:scale-[0.90] lg:scale-[0.95] xl:scale-100 my-auto">
-            
-            {/* Top Speaker / Camera Notch */}
-            <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-16 h-2.5 bg-slate-950 rounded-full z-30 flex items-center justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-slate-900 mr-1.5" />
-              <div className="w-5 h-1 rounded-full bg-slate-900" />
-            </div>
+          {/* Conditional Preview Rendering: Mobile Frame vs Mini-Website Window */}
+          {studioPreviewDevice === 'mobile' ? (
+            <div className="w-full max-w-[280px] sm:max-w-[295px] lg:max-w-[315px] xl:max-w-[335px] rounded-[36px] p-2 bg-slate-900 border-4 border-slate-700 shadow-2xl ring-1 ring-white/10 relative shrink-0 transition-transform origin-top scale-[0.84] sm:scale-[0.88] md:scale-[0.90] lg:scale-[0.95] xl:scale-100 my-auto">
+              {/* Top Speaker / Camera Notch */}
+              <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-16 h-2.5 bg-slate-950 rounded-full z-30 flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-slate-900 mr-1.5" />
+                <div className="w-5 h-1 rounded-full bg-slate-900" />
+              </div>
 
-            {/* Screen Content */}
-            <div className="rounded-[28px] overflow-hidden bg-slate-950 h-[440px] sm:h-[480px] md:h-[calc(100vh-230px)] max-h-[550px] min-h-[350px] overflow-y-auto scrollbar-none border border-slate-800">
-              <ProfileCardView 
-                profile={profile} 
-                isMockup={true} 
-                initialViewMode="mobile" 
-              />
+              {/* Screen Content */}
+              <div className="rounded-[28px] overflow-hidden bg-slate-950 h-[440px] sm:h-[480px] md:h-[calc(100vh-230px)] max-h-[550px] min-h-[350px] overflow-y-auto scrollbar-none border border-slate-800">
+                <ProfileCardView 
+                  profile={profile} 
+                  isMockup={true} 
+                  initialViewMode="mobile" 
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="w-full flex-1 flex flex-col rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl overflow-hidden min-h-[460px] h-[calc(100vh-170px)]">
+              {/* Browser Window Chrome Top Bar */}
+              <div className="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between gap-2 shrink-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
+                </div>
+                <div className="flex-1 max-w-xs mx-auto px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-[10px] text-slate-400 font-mono text-center truncate">
+                  🔒 oneclickbiz.in/v/{profile.slug}
+                </div>
+                <div className="w-10" />
+              </div>
+
+              {/* Live Mini-Website Frame */}
+              <div className="flex-1 overflow-y-auto bg-slate-100 dark:bg-slate-950 scrollbar-thin">
+                <ProfileCardView 
+                  profile={profile} 
+                  isMockup={false} 
+                  initialViewMode="website" 
+                  showViewToggle={true} 
+                />
+              </div>
+            </div>
+          )}
         </div>
       )}
 

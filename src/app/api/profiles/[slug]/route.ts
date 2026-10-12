@@ -98,6 +98,12 @@ export async function GET(
         subscriptionStatus,
         isExpired
       } 
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
     });
   } catch (error: any) {
     console.error('Fetch profile by slug error:', error);
@@ -259,6 +265,12 @@ export async function PUT(
         sections: body.sections, 
         sectionData: body.sectionData 
       } 
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
     });
   } catch (error: any) {
     console.error('Update profile error:', error);

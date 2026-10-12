@@ -51,7 +51,8 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
 
         const fallback = getProfileBySlug(cleanSlug);
 
-        let reconstructedSectionData = { ...(fallback.sectionData || {}) };
+        // When DB profile exists with saved sections, strictly use DB sections (no demo cache bleed)
+        let reconstructedSectionData: Record<string, any> = {};
         let reconstructedSections = fallback.sections;
 
         if (dbProfile.sections && dbProfile.sections.length > 0) {
@@ -65,9 +66,11 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
 
           dbProfile.sections.forEach(s => {
             if (s.config && typeof s.config === 'object' && Object.keys(s.config).length > 0) {
-              (reconstructedSectionData as any)[s.type] = s.config;
+              reconstructedSectionData[s.type] = s.config;
             }
           });
+        } else {
+          reconstructedSectionData = { ...(fallback.sectionData || {}) };
         }
 
         const cleanPhone = dbProfile.phone || fallback.phone;

@@ -33,7 +33,9 @@ import {
   PenTool,
   CreditCard,
   Smartphone,
-  Gift
+  Gift,
+  ShieldCheck,
+  Building2
 } from 'lucide-react';
 import { DigitalProfile, ProductItem, ServiceItem, OrderCartItem, VideoItem, GalleryItem, BlogPostItem, TestimonialItem } from '@/lib/types';
 import { downloadVcfFile } from '@/lib/vcf';
@@ -987,19 +989,19 @@ export default function ProfileCardView({
           setViewMode={setViewMode}
           showViewToggle={showViewToggle}
         />
-      ) : isRealEstate ? (
-        <RealEstateMiniWebsiteView
-          profile={profile}
-          trackAction={trackAction}
-          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-          getEmbedUrl={getEmbedUrl}
-          viewMode={viewMode}
-          setViewMode={setViewMode}
-          showViewToggle={showViewToggle}
-          isMockup={isMockup}
-        />
       ) : isWebsiteMode ? (
-        isInterior ? (
+        isRealEstate ? (
+          <RealEstateMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+            isMockup={isMockup}
+          />
+        ) : isInterior ? (
           <InteriorMiniWebsiteView
             profile={profile}
             trackAction={trackAction}
@@ -1356,6 +1358,30 @@ export default function ProfileCardView({
               <p className={`text-sm font-semibold ${theme.textSecondary} mt-0.5`}>{profile.designation}</p>
               {profile.company && (
                 <p className={`text-xs font-bold ${theme.accentText} mt-0.5`}>{profile.company}</p>
+              )}
+
+              {/* Real Estate Statutory Credentials & Highlights */}
+              {isRealEstate && (
+                <div className="mt-2.5 flex flex-wrap items-center justify-center gap-1.5 max-w-xs">
+                  {profile.sectionData?.realEstate?.reraId && (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-[10px] font-bold shadow-2xs">
+                      <ShieldCheck className="w-3 h-3 text-amber-500 shrink-0" />
+                      <span>{profile.sectionData.realEstate.reraId}</span>
+                    </span>
+                  )}
+                  {profile.sectionData?.realEstate?.city && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 text-[10px] font-medium">
+                      <MapPin className="w-2.5 h-2.5 text-sky-500 shrink-0" />
+                      <span>{profile.sectionData.realEstate.city}</span>
+                    </span>
+                  )}
+                  {profile.sectionData?.realEstate?.deliveredProjects && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[10px] font-bold">
+                      <Building2 className="w-2.5 h-2.5 text-emerald-500 shrink-0" />
+                      <span>{profile.sectionData.realEstate.deliveredProjects} Projects Delivered</span>
+                    </span>
+                  )}
+                </div>
               )}
 
               {/* Action CTA Buttons: Save Contact & WhatsApp */}
