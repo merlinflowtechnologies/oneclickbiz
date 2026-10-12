@@ -1490,14 +1490,14 @@ export default function RealEstateMiniWebsiteView({
             </div>
 
             {/* Primary Action Buttons */}
-            <div className={`flex ${isMockup ? 'flex-col sm:flex-row gap-2' : 'flex-col sm:flex-row gap-3'} items-center justify-center pt-4`}>
+            <div className={`flex ${isMockup ? 'flex-wrap gap-2 justify-center' : 'flex-col sm:flex-row gap-3'} items-center justify-center pt-4`}>
               <a
                 href="#projects"
                 style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
                 className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2.5 text-xs' : 'px-7 py-3.5 text-sm sm:text-base'} rounded-2xl text-white font-black shadow-lg hover:bg-[#004580] transition-transform active:scale-98 cursor-pointer`}
               >
-                <span className="text-white font-extrabold">Explore All {userProjects.length} {userProjects.length === 1 ? 'Project' : 'Projects'}</span>
-                <ChevronRight className="w-4 h-4 text-white" />
+                <span className="text-white font-extrabold whitespace-nowrap">Explore All {userProjects.length} {userProjects.length === 1 ? 'Project' : 'Projects'}</span>
+                <ChevronRight className="w-4 h-4 text-white shrink-0" />
               </a>
 
               <button
@@ -1505,39 +1505,39 @@ export default function RealEstateMiniWebsiteView({
                 style={{ backgroundColor: '#ffffff', color: '#0f172a', borderColor: '#cbd5e1' }}
                 className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2.5 text-xs' : 'px-7 py-3.5 text-sm sm:text-base'} rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-[#005DAA] text-slate-900 font-bold shadow-xs transition cursor-pointer`}
               >
-                <Calendar className="w-4 h-4 text-[#005DAA]" />
-                <span>Schedule VIP Site Tour</span>
+                <Calendar className="w-4 h-4 text-[#005DAA] shrink-0" />
+                <span className="whitespace-nowrap">Schedule VIP Site Tour</span>
               </button>
 
               <a
                 href="#videos"
                 className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2.5 text-xs' : 'px-6 py-3.5 text-sm sm:text-base'} rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-bold shadow-xs transition cursor-pointer`}
               >
-                <Film className="w-4 h-4 text-rose-500" />
-                <span>4K Drone Tours</span>
+                <Film className="w-4 h-4 text-rose-500 shrink-0" />
+                <span className="whitespace-nowrap">4K Drone Tours</span>
               </a>
             </div>
 
             {/* Developer Sales Desk & Direct Connect Bar */}
             <div className="pt-3 w-full max-w-4xl mx-auto">
-              <div className="p-3 sm:p-4 rounded-2xl bg-slate-900 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="flex items-center gap-3 text-left">
+              <div className={`p-3 sm:p-4 rounded-2xl bg-slate-900 text-white shadow-xl flex flex-col ${isMockup ? 'gap-3' : 'sm:flex-row'} items-center justify-between gap-3`}>
+                <div className="flex items-center gap-3 text-left w-full sm:w-auto">
                   <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold shrink-0">
                     <Phone className="w-5 h-5" />
                   </div>
-                  <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Developer Sales Desk</span>
-                    <span className="text-xs sm:text-sm font-extrabold text-white">Direct Advisory &amp; RERA Booking Desk</span>
+                  <div className="min-w-0">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block truncate">Developer Sales Desk</span>
+                    <span className="text-xs sm:text-sm font-extrabold text-white truncate block">Direct Advisory &amp; RERA Booking Desk</span>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-center gap-2 w-full sm:w-auto">
+                <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto">
                   <a
                     href={`tel:${cleanCallNumber || '+919876543210'}`}
                     onClick={() => trackAction('call_hero_click')}
                     className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#10B981] hover:bg-emerald-600 text-white font-bold text-xs shadow transition active:scale-95 cursor-pointer"
                   >
-                    <Phone className="w-3.5 h-3.5" />
+                    <Phone className="w-3.5 h-3.5 shrink-0" />
                     <span>Call Sales</span>
                   </a>
                   <a
@@ -1547,7 +1547,7 @@ export default function RealEstateMiniWebsiteView({
                     onClick={() => trackAction('whatsapp_hero_click')}
                     className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#25D366] hover:bg-emerald-500 text-white font-bold text-xs shadow transition active:scale-95 cursor-pointer"
                   >
-                    <MessageCircle className="w-3.5 h-3.5" />
+                    <MessageCircle className="w-3.5 h-3.5 shrink-0" />
                     <span>WhatsApp</span>
                   </a>
                   <a
@@ -1557,7 +1557,7 @@ export default function RealEstateMiniWebsiteView({
                     onClick={() => trackAction('directions_hero_click')}
                     className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition active:scale-95 cursor-pointer"
                   >
-                    <Navigation className="w-3.5 h-3.5 text-sky-400" />
+                    <Navigation className="w-3.5 h-3.5 text-sky-400 shrink-0" />
                     <span className="hidden xs:inline">Directions</span>
                   </a>
                   <button
@@ -1566,7 +1566,7 @@ export default function RealEstateMiniWebsiteView({
                     className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition active:scale-95 cursor-pointer"
                     title="Save Developer Contact to Phone"
                   >
-                    <Download className="w-3.5 h-3.5 text-amber-400" />
+                    <Download className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                     <span>Save Contact</span>
                   </button>
                   <button
@@ -1575,7 +1575,7 @@ export default function RealEstateMiniWebsiteView({
                     className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition active:scale-95 cursor-pointer"
                     title="Scan QR Code"
                   >
-                    <QrCode className="w-3.5 h-3.5 text-amber-400" />
+                    <QrCode className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                     <span>QR</span>
                   </button>
                 </div>
@@ -1583,52 +1583,52 @@ export default function RealEstateMiniWebsiteView({
             </div>
 
             {/* 4 Trust Counters Row (Developer Credentials) */}
-            <div className="pt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 text-left">
-              <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-4 hover:border-[#005DAA]/40 transition">
-                <div className="w-12 h-12 rounded-xl bg-[#005DAA]/10 text-[#005DAA] flex items-center justify-center font-bold">
-                  <CheckCircle2 className="w-6 h-6" />
+            <div className={`pt-8 sm:pt-10 grid ${isMockup ? 'grid-cols-2 gap-3' : 'grid-cols-2 lg:grid-cols-4 gap-4'} text-left`}>
+              <div className={`${isMockup ? 'p-3.5' : 'p-5'} rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-3 hover:border-[#005DAA]/40 transition min-w-0`}>
+                <div className={`${isMockup ? 'w-10 h-10' : 'w-12 h-12'} rounded-xl bg-[#005DAA]/10 text-[#005DAA] flex items-center justify-center font-bold shrink-0`}>
+                  <CheckCircle2 className={`${isMockup ? 'w-5 h-5' : 'w-6 h-6'}`} />
                 </div>
-                <div>
-                  <div className="font-black text-2xl sm:text-3xl text-slate-900">
+                <div className="min-w-0 flex-1">
+                  <div className={`font-black ${isMockup ? 'text-xl' : 'text-2xl sm:text-3xl'} text-slate-900 truncate`}>
                     {profile.sectionData?.realEstate?.deliveredProjects ?? '18+'}
                   </div>
-                  <div className="text-xs text-slate-600 font-semibold">Delivered Projects</div>
+                  <div className="text-[11px] sm:text-xs text-slate-600 font-semibold truncate">Delivered Projects</div>
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-4 hover:border-[#005DAA]/40 transition">
-                <div className="w-12 h-12 rounded-xl bg-[#005DAA]/10 text-[#005DAA] flex items-center justify-center font-bold">
-                  <MapPin className="w-6 h-6" />
+              <div className={`${isMockup ? 'p-3.5' : 'p-5'} rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-3 hover:border-[#005DAA]/40 transition min-w-0`}>
+                <div className={`${isMockup ? 'w-10 h-10' : 'w-12 h-12'} rounded-xl bg-[#005DAA]/10 text-[#005DAA] flex items-center justify-center font-bold shrink-0`}>
+                  <MapPin className={`${isMockup ? 'w-5 h-5' : 'w-6 h-6'}`} />
                 </div>
-                <div>
-                  <div className="font-black text-2xl sm:text-3xl text-slate-900">
+                <div className="min-w-0 flex-1">
+                  <div className={`font-black ${isMockup ? 'text-xl' : 'text-2xl sm:text-3xl'} text-slate-900 truncate`}>
                     {profile.sectionData?.realEstate?.developedAcres ?? '450+'}
                   </div>
-                  <div className="text-xs text-slate-600 font-semibold">Developed Acres</div>
+                  <div className="text-[11px] sm:text-xs text-slate-600 font-semibold truncate">Developed Acres</div>
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-4 hover:border-emerald-500/40 transition">
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-                  <Sparkles className="w-6 h-6" />
+              <div className={`${isMockup ? 'p-3.5' : 'p-5'} rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-3 hover:border-emerald-500/40 transition min-w-0`}>
+                <div className={`${isMockup ? 'w-10 h-10' : 'w-12 h-12'} rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0`}>
+                  <Sparkles className={`${isMockup ? 'w-5 h-5' : 'w-6 h-6'}`} />
                 </div>
-                <div>
-                  <div className="font-black text-2xl sm:text-3xl text-slate-900">
+                <div className="min-w-0 flex-1">
+                  <div className={`font-black ${isMockup ? 'text-xl' : 'text-2xl sm:text-3xl'} text-slate-900 truncate`}>
                     {profile.sectionData?.realEstate?.happyFamilies ?? '2,400+'}
                   </div>
-                  <div className="text-xs text-slate-600 font-semibold">Happy Families</div>
+                  <div className="text-[11px] sm:text-xs text-slate-600 font-semibold truncate">Happy Families</div>
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-4 hover:border-emerald-500/40 transition">
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-                  <ShieldCheck className="w-6 h-6" />
+              <div className={`${isMockup ? 'p-3.5' : 'p-5'} rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-3 hover:border-emerald-500/40 transition min-w-0`}>
+                <div className={`${isMockup ? 'w-10 h-10' : 'w-12 h-12'} rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0`}>
+                  <ShieldCheck className={`${isMockup ? 'w-5 h-5' : 'w-6 h-6'}`} />
                 </div>
-                <div>
-                  <div className="font-black text-lg sm:text-2xl text-emerald-700 leading-tight">
-                    {profile.sectionData?.realEstate?.clearTitleRating ?? '100% Clear Title'}
+                <div className="min-w-0 flex-1">
+                  <div className={`font-black ${isMockup ? 'text-xs sm:text-sm' : 'text-sm sm:text-base lg:text-lg'} text-emerald-700 leading-snug line-clamp-2`}>
+                    {profile.sectionData?.realEstate?.clearTitleRating ?? '100% Clear Title Guaranteed'}
                   </div>
-                  <div className="text-xs text-slate-600 font-semibold">Clear Title Rating</div>
+                  <div className="text-[11px] sm:text-xs text-slate-600 font-semibold truncate mt-0.5">Clear Title Rating</div>
                 </div>
               </div>
             </div>
@@ -1640,11 +1640,11 @@ export default function RealEstateMiniWebsiteView({
       {/* ─────────────────────────────────────────────────────────────
           4. QUICK PROPERTY FINDER & CORRIDOR FILTER
       ───────────────────────────────────────────────────────────── */}
-      <section id="finder" className="py-10 bg-white border-b border-slate-200 relative -mt-8 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-6 sm:p-8 rounded-3xl bg-white border-2 border-[#005DAA]/20 shadow-xl space-y-6">
+      <section id="finder" className={`${isMockup ? 'py-5 -mt-4' : 'py-10 -mt-8'} bg-white border-b border-slate-200 relative z-20`}>
+        <div className={`max-w-7xl mx-auto ${isMockup ? 'px-2' : 'px-4 sm:px-6 lg:px-8'}`}>
+          <div className={`${isMockup ? 'p-4 rounded-2xl space-y-4' : 'p-6 sm:p-8 rounded-3xl space-y-6'} bg-white border-2 border-[#005DAA]/20 shadow-xl`}>
             
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-100">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#005DAA] animate-ping" />
                 <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-900">
@@ -1667,7 +1667,7 @@ export default function RealEstateMiniWebsiteView({
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+            <div className={`grid grid-cols-1 ${isMockup ? 'sm:grid-cols-2 gap-3' : 'sm:grid-cols-2 lg:grid-cols-5 gap-4'} items-end`}>
               
               {/* Field 1: Corridor */}
               <div className="space-y-1.5">

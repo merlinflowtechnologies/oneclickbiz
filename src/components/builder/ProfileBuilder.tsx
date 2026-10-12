@@ -2621,7 +2621,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-1">
+                    <div className="grid grid-cols-2 gap-3 pt-1">
                       <div>
                         <label className="text-[11px] font-semibold text-slate-400">Legal Track Record</label>
                         <input 
@@ -2714,8 +2714,8 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         />
                       </div>
 
-                      <div>
-                        <label className="text-[11px] font-semibold text-slate-400">Clear Title Rating</label>
+                      <div className="col-span-2">
+                        <label className="text-[11px] font-semibold text-slate-400">Clear Title Rating / Guarantee</label>
                         <input 
                           type="text"
                           value={profile.sectionData?.realEstate?.clearTitleRating ?? ''}
@@ -7654,7 +7654,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               <div className="flex-1 overflow-y-auto bg-slate-100 dark:bg-slate-950 scrollbar-thin">
                 <ProfileCardView 
                   profile={profile} 
-                  isMockup={false} 
+                  isMockup={true} 
                   initialViewMode="website" 
                   showViewToggle={true} 
                 />
