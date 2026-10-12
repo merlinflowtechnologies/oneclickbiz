@@ -255,14 +255,14 @@ function LoginForm() {
 
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200/80 text-indigo-700 text-[11px] font-semibold shadow-xs">
           <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-          <span>Enterprise Smart Card & WhatsApp Studio</span>
+          <span>Enterprise Mini-Website & WhatsApp Studio</span>
         </div>
 
         <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
           Sign In as Business Entity
         </h1>
         <p className="text-xs text-slate-600 max-w-sm mx-auto">
-          Access your smart card profile studio, WhatsApp mini-store, appointment bookings, and customer leads.
+          Access your mini-website studio, WhatsApp mini-store, appointment bookings, and customer leads.
         </p>
       </div>
 

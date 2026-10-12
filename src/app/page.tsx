@@ -638,7 +638,7 @@ export default function LandingPage() {
             </div>
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Experience Your Smart Card &amp; Mini-Website in Action
+              Experience Your Mini-Website in Action
             </h2>
 
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
