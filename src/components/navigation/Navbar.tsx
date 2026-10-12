@@ -82,14 +82,6 @@ export default function Navbar() {
               Services
             </Link>
 
-            {/* Direct Products Link */}
-            <Link 
-              href="/#products" 
-              onClick={(e) => handleAnchorClick(e, 'products')}
-              className="px-3 py-1.5 rounded-xl text-xs font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-100/80 transition-all"
-            >
-              Products
-            </Link>
 
             <Link 
               href="/#pricing" 
@@ -203,13 +195,7 @@ export default function Navbar() {
           >
             Services Offered
           </Link>
-          <Link 
-            href="/#products" 
-            onClick={(e) => handleAnchorClick(e, 'products')}
-            className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-indigo-600 hover:bg-slate-100"
-          >
-            Products Ecosystem
-          </Link>
+
           <Link 
             href="/#pricing" 
             onClick={(e) => handleAnchorClick(e, 'pricing')}
