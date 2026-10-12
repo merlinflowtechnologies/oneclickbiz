@@ -749,7 +749,7 @@ export default function LandingPage() {
                 </a>
               </div>
               {/* Inner Scrollable Website Content */}
-              <div className="h-[520px] xs:h-[580px] sm:h-[640px] lg:h-[700px] overflow-y-auto scrollbar-none bg-slate-50 relative">
+              <div className="h-[600px] xs:h-[660px] sm:h-[720px] lg:h-[780px] overflow-y-auto scrollbar-none bg-slate-50 relative">
                 <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
                 {/* Floating Bottom Scroll Hint for Mobile Users */}
                 <div className="sticky bottom-2 inset-x-0 flex justify-center pointer-events-none pb-1 sm:hidden z-30">
@@ -791,7 +791,7 @@ export default function LandingPage() {
                 <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
                   <div className="w-2 h-2 rounded-full bg-slate-800" />
                 </div>
-                <div className="rounded-[32px] sm:rounded-[38px] overflow-hidden bg-white max-h-[580px] sm:max-h-[620px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
+                <div className="rounded-[32px] sm:rounded-[38px] overflow-hidden bg-white h-[580px] xs:h-[620px] sm:h-[660px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
                   <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="mobile" showViewToggle={false} />
                 </div>
               </div>

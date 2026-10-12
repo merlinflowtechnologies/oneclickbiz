@@ -167,10 +167,12 @@ export default function RealEstateMiniWebsiteView({
   const userProjects: RealEstateProject[] = useMemo(() => {
     const rawProducts = profile.sectionData?.products?.items || [];
     
-    // Only map custom products if they are genuinely real estate items (ignore retail/apparel/clothing)
+    // Only map custom products if they are genuinely real estate items (ignore software/retail/apparel)
     const isRealEstateItem = (prod: any) => {
       const text = `${prod.name || ''} ${prod.category || ''} ${prod.description || ''}`.toLowerCase();
-      const hasRE = /(?:plot|villa|apartment|residence|flat|tower|bhk|sq\.?\s*yd|acre|farm|gated|commercial|rera|real\s*estate|layout|corridor|housing|building|infra|property|floor|penthouse|suite)/i.test(text);
+      const isNotProperty = /(?:funnel|landing\s*page|software|crm|vcard|visiting\s*card|master\s*kit|digital\s*good|course|ebook|marketing\s*demo)/i.test(text);
+      if (isNotProperty) return false;
+      const hasRE = /(?:plot|villa|apartment|residence|flat|tower|bhk|sq\.?\s*yd|acre|farm|gated|commercial|rera|layout|corridor|housing|building|infra|property|floor|penthouse|suite|township)/i.test(text);
       const isRetail = /(?:suit|blazer|sherwani|apparel|clothing|shirt|pant|tailor|textile|fashion|kurta|fabric|wear)/i.test(text);
       return hasRE && !isRetail;
     };
@@ -184,7 +186,7 @@ export default function RealEstateMiniWebsiteView({
         const isFarm = prod.name.toLowerCase().includes('farm') || prod.category?.toLowerCase().includes('farm') || prod.description.toLowerCase().includes('farm');
         const isCommercial = prod.name.toLowerCase().includes('commercial') || prod.category?.toLowerCase().includes('commercial') || prod.description.toLowerCase().includes('commercial');
         
-        let propType: 'Open Plots' | 'Villas' | 'Apartments' | 'Commercial' | 'Farmlands' = 'Open Plots';
+        let propType: 'Open Plots' | 'Villas' | 'Apartments' | 'Commercial' | 'Farmlands' = 'Apartments';
         if (isPlot) propType = 'Open Plots';
         else if (isVilla) propType = 'Villas';
         else if (isFarm) propType = 'Farmlands';
@@ -1381,7 +1383,7 @@ export default function RealEstateMiniWebsiteView({
             </div>
 
             {/* Main Headline */}
-            <h1 className={`font-sans ${isMockup ? 'text-lg xs:text-xl sm:text-2xl md:text-3xl' : 'text-2xl sm:text-5xl lg:text-6xl'} font-black text-slate-900 tracking-tight leading-[1.15] px-1`}>
+            <h1 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.18] px-1">
               Building Generational Wealth Through{' '}
               <span className="text-[#005DAA] block sm:inline font-black">
                 Prime Real Estate.
@@ -1389,7 +1391,7 @@ export default function RealEstateMiniWebsiteView({
             </h1>
 
             {/* Sub-headline */}
-            <p className={`font-sans ${isMockup ? 'text-[11px] sm:text-xs leading-normal line-clamp-3 sm:line-clamp-none' : 'text-xs sm:text-base lg:text-lg leading-relaxed'} text-slate-600 max-w-3xl mx-auto px-1`}>
+            <p className="font-sans text-xs sm:text-base lg:text-lg leading-relaxed text-slate-600 max-w-3xl mx-auto px-1">
               {profile.company || profile.name || 'Premier Developers'} presenting{' '}
               <strong className="text-slate-900 font-bold">{featuredProjectTitle}</strong> —{' '}
               <strong className="text-slate-900 font-bold">{featuredPropertyType}</strong> in {featuredLocation} with 100% verified approvals, world-class amenities, and high capital appreciation.
@@ -1397,281 +1399,61 @@ export default function RealEstateMiniWebsiteView({
 
             {/* Location Address Strip */}
             <div className="flex justify-center">
-              <div className={`inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 ${isMockup ? 'text-[10px]' : 'text-xs sm:text-sm'} font-semibold shadow-xs max-w-full`}>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 text-xs sm:text-sm font-semibold shadow-xs max-w-full">
                 <MapPin className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
                 <span className="truncate">{profile.address || `${userCity} Growth Corridor, Telangana`}</span>
               </div>
             </div>
 
             {/* ─────────────────────────────────────────────────────────────
-                HERO APP-STYLE CONTACT SQUIRCLES (All 9 in 1 Single Clean Line)
+                PREMIER ARCHITECTURAL SHOWCASE CARD (Hero Centerpiece)
             ───────────────────────────────────────────────────────────── */}
-            <div className={`${isMockup ? 'pt-1.5 pb-1' : 'pt-2 sm:pt-4 pb-2'} w-full max-w-full overflow-x-auto no-scrollbar scroll-smooth`}>
-              <div className="flex flex-nowrap items-center justify-start lg:justify-center gap-2 sm:gap-3 md:gap-4 w-max lg:w-auto px-2 sm:px-4 lg:px-0 lg:mx-auto">
-                
-                {/* 1. CALL */}
-                <a
-                  href={`tel:${cleanCallNumber || '+919876543210'}`}
-                  onClick={() => trackAction('call_hero_click')}
-                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
-                >
-                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#10B981] flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
-                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
-                      <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" />
-                    </svg>
-                  </div>
-                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
-                    CALL
-                  </span>
-                </a>
-
-                {/* 2. WHATSAPP */}
-                <a
-                  href={`https://wa.me/${cleanPhone || '919876543210'}?text=${encodeURIComponent(`Hi ${profile.name || profile.company || 'Team'}, I am inquiring from your website regarding real estate properties.`)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => trackAction('whatsapp_hero_click')}
-                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
-                >
-                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#25D366] flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
-                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
-                      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.57 14.37C16.32 14.24 15.1 13.64 14.87 13.56C14.64 13.48 14.48 13.44 14.31 13.69C14.15 13.94 13.68 14.49 13.54 14.65C13.4 14.81 13.26 14.83 13.01 14.71C12.76 14.59 11.96 14.33 11.01 13.48C10.27 12.82 9.77 12 9.63 11.75C9.49 11.5 9.62 11.37 9.74 11.25C9.85 11.14 9.99 10.96 10.11 10.82C10.23 10.68 10.27 10.58 10.35 10.42C10.43 10.26 10.39 10.12 10.33 10C10.27 9.88 9.77 8.66 9.57 8.16C9.37 7.68 9.17 7.74 9.02 7.73C8.88 7.72 8.71 7.72 8.55 7.72C8.38 7.72 8.12 7.78 7.89 8.03C7.66 8.28 7.02 8.88 7.02 10.1C7.02 11.32 7.91 12.5 8.03 12.66C8.15 12.82 9.78 15.33 12.28 16.41C12.87 16.67 13.33 16.82 13.69 16.94C14.29 17.13 14.83 17.1 15.26 17.04C15.74 16.97 16.74 16.44 16.95 15.85C17.16 15.26 17.16 14.76 17.09 14.65C17.03 14.54 16.82 14.49 16.57 14.37Z" />
-                    </svg>
-                  </div>
-                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
-                    WHATSAPP
-                  </span>
-                </a>
-
-                {/* 3. INSTAGRAM */}
-                <a
-                  href={instagramLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => trackAction('instagram_hero_click')}
-                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
-                >
-                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-lg shadow-pink-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
-                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                    </svg>
-                  </div>
-                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
-                    INSTAGRAM
-                  </span>
-                </a>
-
-                {/* 4. FACEBOOK */}
-                <a
-                  href={facebookLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => trackAction('facebook_hero_click')}
-                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
-                >
-                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#1877F2] flex items-center justify-center text-white shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
-                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
-                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                    </svg>
-                  </div>
-                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
-                    FACEBOOK
-                  </span>
-                </a>
-
-                {/* 5. WEBSITE */}
-                <a
-                  href={profile.website || '#projects'}
-                  target={profile.website ? '_blank' : '_self'}
-                  rel="noreferrer"
-                  onClick={() => trackAction('website_hero_click')}
-                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
-                >
-                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#0284C7] flex items-center justify-center text-white shadow-lg shadow-sky-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
-                    <Globe className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} text-white`} />
-                  </div>
-                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
-                    WEBSITE
-                  </span>
-                </a>
-
-                {/* 6. DIRECTIONS */}
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(profile.address || `${profile.company || profile.name} ${userCity}`)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => trackAction('directions_hero_click')}
-                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
-                >
-                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#2563EB] flex items-center justify-center text-white shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
-                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
-                      <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
-                    </svg>
-                  </div>
-                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
-                    DIRECTIONS
-                  </span>
-                </a>
-
-                {/* 7. EMAIL */}
-                <a
-                  href={`mailto:${profile.email || 'info@oneclickbiz.in'}`}
-                  onClick={() => trackAction('email_hero_click')}
-                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
-                >
-                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#EF4444] flex items-center justify-center text-white shadow-lg shadow-red-500/25 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
-                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
-                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                    </svg>
-                  </div>
-                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
-                    EMAIL
-                  </span>
-                </a>
-
-                {/* 8. SAVE VCARD */}
-                <button
-                  type="button"
-                  onClick={handleVcfDownload}
-                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
-                  title="Save Contact to Phone Contacts"
-                >
-                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-[#F59E0B] flex items-center justify-center text-white shadow-lg shadow-amber-500/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
-                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'} fill-white`} viewBox="0 0 24 24">
-                      <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
-                    </svg>
-                  </div>
-                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
-                    SAVE VCARD
-                  </span>
-                </button>
-
-                {/* 9. SCAN QR */}
-                <button
-                  type="button"
-                  onClick={() => setIsQrModalOpen(true)}
-                  className="flex flex-col items-center gap-1 shrink-0 group transition-transform active:scale-95 cursor-pointer"
-                  title="Scan QR Code to open on mobile"
-                >
-                  <div className={`${isMockup ? 'w-11 h-11 rounded-[14px]' : 'w-13 h-13 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-[18px] sm:rounded-[22px]'} bg-slate-900 border border-slate-700 flex items-center justify-center text-white shadow-lg shadow-slate-900/30 transition-transform group-hover:scale-105 group-hover:-translate-y-1`}>
-                    <svg className={`${isMockup ? 'w-5.5 h-5.5' : 'w-6.5 h-6.5 sm:w-8 sm:h-8'}`} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="3" width="7" height="7" rx="1.5" />
-                      <rect x="14" y="3" width="7" height="7" rx="1.5" />
-                      <rect x="14" y="14" width="7" height="7" rx="1.5" />
-                      <rect x="3" y="14" width="7" height="7" rx="1.5" />
-                      <rect x="6" y="6" width="1.5" height="1.5" fill="white" stroke="none" />
-                      <rect x="17" y="6" width="1.5" height="1.5" fill="white" stroke="none" />
-                      <rect x="6" y="17" width="1.5" height="1.5" fill="white" stroke="none" />
-                      <rect x="16" y="16" width="2" height="2" fill="white" stroke="none" />
-                    </svg>
-                  </div>
-                  <span className={`font-sans ${isMockup ? 'text-[8.5px]' : 'text-[10px] sm:text-[11px]'} font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#005DAA] transition-colors whitespace-nowrap`}>
-                    SCAN QR
-                  </span>
-                </button>
-
-              </div>
-            </div>
-
-            {/* Primary Action Buttons */}
-            <div className={`flex ${isMockup ? 'flex-col sm:flex-row gap-2' : 'flex-col sm:flex-row gap-3 sm:gap-4'} items-center justify-center ${isMockup ? 'pt-2' : 'pt-3'}`}>
-              <a
-                href="#projects"
-                style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
-                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2 text-xs' : 'px-8 py-3.5 sm:py-4 text-sm sm:text-base'} rounded-2xl text-white font-black shadow-lg hover:bg-[#004580] transition-transform active:scale-98 cursor-pointer`}
-              >
-                <span className="text-white font-extrabold">Explore Featured Projects</span>
-                <ChevronRight className="w-4 h-4 text-white" />
-              </a>
-
-              <button
-                onClick={() => setIsSiteVisitModalOpen(true)}
-                style={{ backgroundColor: '#ffffff', color: '#0f172a', borderColor: '#cbd5e1' }}
-                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2 text-xs' : 'px-8 py-3.5 sm:py-4 text-sm sm:text-base'} rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-[#005DAA] text-slate-900 font-bold shadow-xs transition cursor-pointer`}
-              >
-                <Calendar className="w-4 h-4 text-[#005DAA]" />
-                <span>Schedule Site Visit</span>
-              </button>
-            </div>
-
-            {/* Real Estate Digital Card & QR Action Row */}
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3.5 pt-2">
-              <button
-                type="button"
-                onClick={() => setIsQrModalOpen(true)}
-                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs shadow-md transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
-                title="Scan QR Code to open this mini-website on phone"
-              >
-                <QrCode className="w-4 h-4 text-amber-400" />
-                <span>Scan Website QR</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={handleVcfDownload}
-                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
-                title="Save Developer Contact to Phone Address Book"
-              >
-                <Download className="w-4 h-4 text-white" />
-                <span>Save Contact (vCard)</span>
-              </button>
-
-              <a
-                href="#videos"
-                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-bold text-xs shadow-xs transition transform hover:-translate-y-0.5 active:scale-95"
-              >
-                <Film className="w-4 h-4 text-rose-500" />
-                <span>4K Drone Tours &amp; Reels</span>
-              </a>
-            </div>
-
-            {/* Premier Architectural Showcase Card */}
-            <div className="pt-6 max-w-4xl mx-auto w-full">
-              <div className="group relative rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-2xl transition-all duration-300 hover:shadow-3xl">
+            <div className="pt-4 sm:pt-6 max-w-4xl mx-auto w-full">
+              <div className="group relative rounded-3xl overflow-hidden bg-white border border-slate-200/90 shadow-2xl transition-all duration-300 hover:shadow-3xl">
                 {/* Top Image Showcase with Gradient Overlays */}
-                <div className="relative h-64 sm:h-80 md:h-96 w-full overflow-hidden bg-slate-900">
+                <div className={`relative ${isMockup ? 'h-52 sm:h-64' : 'h-64 sm:h-80 md:h-96'} w-full overflow-hidden bg-slate-900`}>
                   <img
                     src={userProjects[0]?.imageUrl || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'}
                     alt={featuredProjectTitle}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
 
                   {/* Top Badges */}
-                  <div className="absolute top-4 inset-x-4 flex items-center justify-between gap-2 z-10">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/85 backdrop-blur-md text-white border border-white/20 text-xs font-bold shadow-lg">
+                  <div className="absolute top-3 sm:top-4 inset-x-3 sm:inset-x-4 flex items-center justify-between gap-2 z-10">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-slate-900/85 backdrop-blur-md text-white border border-white/20 text-[11px] sm:text-xs font-bold shadow-lg">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                       <span>{userProjects[0]?.reraId || displayRera}</span>
                     </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500 text-white text-xs font-extrabold shadow-lg">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-emerald-500 text-white text-[11px] sm:text-xs font-extrabold shadow-lg">
                       <Sparkles className="w-3.5 h-3.5 text-white" />
                       <span>{userProjects[0]?.status || 'Under Construction'}</span>
                     </span>
                   </div>
 
                   {/* Bottom Image Overlay Details */}
-                  <div className="absolute bottom-4 inset-x-4 sm:inset-x-6 text-left z-10 space-y-1 text-white">
+                  <div className="absolute bottom-3 sm:bottom-4 inset-x-3 sm:inset-x-6 text-left z-10 space-y-1 text-white">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-md bg-[#005DAA] text-white text-[11px] font-extrabold uppercase tracking-wider">
+                      <span className="px-2.5 py-0.5 rounded-md bg-[#005DAA] text-white text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider">
                         {featuredPropertyType}
                       </span>
-                      <span className="text-xs font-semibold text-slate-200 flex items-center gap-1">
+                      <span className="text-[11px] sm:text-xs font-semibold text-slate-200 flex items-center gap-1">
                         <MapPin className="w-3.5 h-3.5 text-[#005DAA]" />
                         {featuredLocation}
                       </span>
                     </div>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight drop-shadow-md">
+                    <h3 className="text-lg sm:text-2xl md:text-3xl font-black text-white tracking-tight drop-shadow-md">
                       {featuredProjectTitle}
                     </h3>
                   </div>
                 </div>
 
                 {/* Card Bottom Highlights Bar */}
-                <div className="p-4 sm:p-6 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 text-left">
+                <div className="p-3.5 sm:p-5 md:p-6 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 text-left">
                   <div className="flex items-center gap-4 sm:gap-6">
                     <div>
                       <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Investment Range</span>
-                      <span className="text-base sm:text-lg font-black text-[#005DAA]">{userProjects[0]?.priceDisplay || '₹ 1.85 Cr - ₹ 3.45 Cr'}</span>
+                      <span className="text-sm sm:text-base md:text-lg font-black text-[#005DAA]">{userProjects[0]?.priceDisplay || '₹ 1.85 Cr - ₹ 3.45 Cr'}</span>
                     </div>
                     <div className="h-8 w-px bg-slate-300 hidden sm:block" />
                     <div>
@@ -1680,12 +1462,12 @@ export default function RealEstateMiniWebsiteView({
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => setIsSiteVisitModalOpen(true)}
                       style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
-                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-white font-bold text-xs shadow-md hover:bg-[#004580] transition active:scale-95 cursor-pointer"
+                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-white font-bold text-xs shadow-md hover:bg-[#004580] transition active:scale-95 cursor-pointer"
                     >
                       <Calendar className="w-3.5 h-3.5 text-white" />
                       <span>Book Site Visit</span>
@@ -1694,12 +1476,105 @@ export default function RealEstateMiniWebsiteView({
                       href={`https://wa.me/${cleanPhone || '919876543210'}?text=${encodeURIComponent(`Hi, please share the official brochure and floor plans for ${featuredProjectTitle}.`)}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition active:scale-95 cursor-pointer"
+                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition active:scale-95 cursor-pointer"
                     >
                       <Download className="w-3.5 h-3.5 text-white" />
                       <span>Brochure &amp; Plans</span>
                     </a>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Primary Action Buttons */}
+            <div className={`flex ${isMockup ? 'flex-col sm:flex-row gap-2' : 'flex-col sm:flex-row gap-3'} items-center justify-center pt-4`}>
+              <a
+                href="#projects"
+                style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
+                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2.5 text-xs' : 'px-7 py-3.5 text-sm sm:text-base'} rounded-2xl text-white font-black shadow-lg hover:bg-[#004580] transition-transform active:scale-98 cursor-pointer`}
+              >
+                <span className="text-white font-extrabold">Explore All {userProjects.length > 0 ? userProjects.length : '4'} Projects</span>
+                <ChevronRight className="w-4 h-4 text-white" />
+              </a>
+
+              <button
+                onClick={() => setIsSiteVisitModalOpen(true)}
+                style={{ backgroundColor: '#ffffff', color: '#0f172a', borderColor: '#cbd5e1' }}
+                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2.5 text-xs' : 'px-7 py-3.5 text-sm sm:text-base'} rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-[#005DAA] text-slate-900 font-bold shadow-xs transition cursor-pointer`}
+              >
+                <Calendar className="w-4 h-4 text-[#005DAA]" />
+                <span>Schedule VIP Site Tour</span>
+              </button>
+
+              <a
+                href="#videos"
+                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2.5 text-xs' : 'px-6 py-3.5 text-sm sm:text-base'} rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-bold shadow-xs transition cursor-pointer`}
+              >
+                <Film className="w-4 h-4 text-rose-500" />
+                <span>4K Drone Tours</span>
+              </a>
+            </div>
+
+            {/* Developer Sales Desk & Direct Connect Bar */}
+            <div className="pt-3 w-full max-w-4xl mx-auto">
+              <div className="p-3 sm:p-4 rounded-2xl bg-slate-900 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="flex items-center gap-3 text-left">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold shrink-0">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Developer Sales Desk</span>
+                    <span className="text-xs sm:text-sm font-extrabold text-white">Direct Advisory &amp; RERA Booking Desk</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-center gap-2 w-full sm:w-auto">
+                  <a
+                    href={`tel:${cleanCallNumber || '+919876543210'}`}
+                    onClick={() => trackAction('call_hero_click')}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#10B981] hover:bg-emerald-600 text-white font-bold text-xs shadow transition active:scale-95 cursor-pointer"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>Call Sales</span>
+                  </a>
+                  <a
+                    href={`https://wa.me/${cleanPhone || '919876543210'}?text=${encodeURIComponent(`Hi ${profile.name || profile.company || 'Team'}, I am inquiring regarding your luxury properties.`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackAction('whatsapp_hero_click')}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#25D366] hover:bg-emerald-500 text-white font-bold text-xs shadow transition active:scale-95 cursor-pointer"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>WhatsApp</span>
+                  </a>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(profile.address || `${profile.company || profile.name} ${userCity}`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackAction('directions_hero_click')}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition active:scale-95 cursor-pointer"
+                  >
+                    <Navigation className="w-3.5 h-3.5 text-sky-400" />
+                    <span className="hidden xs:inline">Directions</span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleVcfDownload}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition active:scale-95 cursor-pointer"
+                    title="Save Developer Contact to Phone"
+                  >
+                    <Download className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Save Contact</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsQrModalOpen(true)}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition active:scale-95 cursor-pointer"
+                    title="Scan QR Code"
+                  >
+                    <QrCode className="w-3.5 h-3.5 text-amber-400" />
+                    <span>QR</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -1825,6 +1700,7 @@ export default function RealEstateMiniWebsiteView({
                   className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-3 text-xs sm:text-sm text-slate-900 font-medium focus:outline-none focus:border-[#005DAA]"
                 >
                   <option value="all">All Property Types</option>
+                  <option value="Apartments">Luxury High-Rise Apartments</option>
                   <option value="Open Plots">DTCP / HMDA Open Plots</option>
                   <option value="Villas">Luxury Gated Villas</option>
                   <option value="Farmlands">Managed Farm Estates</option>

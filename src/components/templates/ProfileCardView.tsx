@@ -987,19 +987,19 @@ export default function ProfileCardView({
           setViewMode={setViewMode}
           showViewToggle={showViewToggle}
         />
+      ) : isRealEstate ? (
+        <RealEstateMiniWebsiteView
+          profile={profile}
+          trackAction={trackAction}
+          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+          getEmbedUrl={getEmbedUrl}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          showViewToggle={showViewToggle}
+          isMockup={isMockup}
+        />
       ) : isWebsiteMode ? (
-        isRealEstate ? (
-          <RealEstateMiniWebsiteView
-            profile={profile}
-            trackAction={trackAction}
-            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-            getEmbedUrl={getEmbedUrl}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-            showViewToggle={showViewToggle}
-            isMockup={isMockup}
-          />
-        ) : isInterior ? (
+        isInterior ? (
           <InteriorMiniWebsiteView
             profile={profile}
             trackAction={trackAction}
