@@ -812,50 +812,6 @@ export default function MBLMiniWebsiteView({
         </div>
       </section>
 
-      {/* 3. METRIC COUNTER BAR (4 COLUMNS - DYNAMIC) */}
-      <section className="py-10 sm:py-12 bg-white border-b border-black/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-left">
-            
-            <div className="space-y-1">
-              <span className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-                {profile.stats?.views ? `${profile.stats.views}+` : `${services.length > 0 ? services.length + '+' : '100%'}`}
-              </span>
-              <p className="text-[11px] sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
-                {profile.stats?.views ? 'Active Profile Views' : 'Dedicated Focus'}
-              </p>
-            </div>
-
-            <div className="space-y-1">
-              <span className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-                {products.length > 0 ? `${products.length}+` : `${services.length > 0 ? services.length + '+' : 'Custom'}`}
-              </span>
-              <p className="text-[11px] sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
-                {products.length > 0 ? 'Digital Products & Items' : 'Service Deliverables'}
-              </p>
-            </div>
-
-            <div className="space-y-1">
-              <span className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-                {testimonials.length > 0 ? `${testimonials.length}+` : '99.8%'}
-              </span>
-              <p className="text-[11px] sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
-                {testimonials.length > 0 ? 'Verified Client Reviews' : 'Client Satisfaction'}
-              </p>
-            </div>
-
-            <div className="space-y-1">
-              <span className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-                &lt; 15 M
-              </span>
-              <p className="text-[11px] sm:text-sm font-bold text-slate-500 uppercase tracking-wide">
-                WhatsApp Desk Response
-              </p>
-            </div>
-
-          </div>
-        </div>
-      </section>
 
       {/* 4. "THE APPROACH" / ABOUT BENTO GRID */}
       <section id="about" className="py-12 sm:py-20 bg-[#F8F9FA] border-b border-black/5 scroll-mt-20">
