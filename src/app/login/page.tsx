@@ -247,7 +247,7 @@ function LoginForm() {
       <div className="w-full max-w-md text-center space-y-3 mb-6">
         <Link href="/" className="inline-block group mb-1">
           <img 
-            src="/logo-light.png" 
+            src="/logo-brand.png?v=2" 
             alt="OneClickBiz - Connect | Build | Grow" 
             className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] mx-auto object-contain transition-transform group-hover:scale-105 duration-200"
           />

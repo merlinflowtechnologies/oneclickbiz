@@ -109,7 +109,7 @@ export default function Footer() {
             {/* Logo with transparent background matching Light Theme */}
             <Link href="/" className="inline-block group py-0.5">
               <img 
-                src="/logo-light.png" 
+                src="/logo-brand.png?v=2" 
                 alt="OneClickBiz - Connect | Build | Grow" 
                 className="h-10 sm:h-12 w-auto max-w-[200px] sm:max-w-[240px] object-contain transition-transform group-hover:scale-105 duration-200"
               />

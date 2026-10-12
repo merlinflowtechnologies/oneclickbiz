@@ -16,7 +16,7 @@ export default function BlogFooter() {
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="inline-flex items-center gap-2 group">
               <img
-                src="/logo.png"
+                src="/logo-brand.png?v=2"
                 alt="OneClickBiz - Connect | Build | Grow"
                 className="h-10 w-auto max-w-[200px] object-contain"
                 onError={(e) => {
