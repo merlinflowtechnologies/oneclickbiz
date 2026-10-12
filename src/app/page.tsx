@@ -1132,7 +1132,7 @@ export default function LandingPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
               {[
-                { title: 'Personal Profile & Digital vCard', icon: Smartphone, color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
+                { title: 'Personal Profile', icon: Smartphone, color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
                 { title: 'Mini Website & Live Business Profile', icon: Globe2, color: 'text-sky-600 bg-sky-50 border-sky-200' },
                 { title: 'WhatsApp Store & E-commerce', icon: ShoppingBag, color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
                 { title: 'Digital Visiting Cards, Flyers & Brochures', icon: CreditCard, color: 'text-purple-600 bg-purple-50 border-purple-200' },
@@ -1836,7 +1836,7 @@ export default function LandingPage() {
                     <p className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
                       <Check className="w-3.5 h-3.5 text-emerald-600" /> 1-Click Data Portability
                     </p>
-                    <p className="text-[11px] text-slate-500">Export leads, products &amp; vCards to CSV anytime.</p>
+                    <p className="text-[11px] text-slate-500">Export leads, products &amp; contacts to CSV anytime.</p>
                   </div>
                 </div>
               </div>
