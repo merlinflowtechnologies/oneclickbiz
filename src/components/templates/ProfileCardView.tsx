@@ -133,14 +133,19 @@ export default function ProfileCardView({
         if (cached) {
           const parsed = JSON.parse(cached);
           if (parsed && parsed.slug === initialProfile.slug) {
-            setProfile(prev => ({
-              ...prev,
-              ...parsed,
-              sectionData: {
-                ...(prev.sectionData || {}),
-                ...(parsed.sectionData || {})
-              }
-            }));
+            // Guard: if cached profile for kishore contains accidental real-estate builder data, purge it so authentic Himastech Digital Reality loads
+            if (['kishore', 'kishore-patel'].includes(initialProfile.slug) && (parsed.company?.includes('Landmark Developers') || parsed.sectionData?.realEstate)) {
+              localStorage.removeItem(`oneclickbiz_custom_profile_${initialProfile.slug}`);
+            } else {
+              setProfile(prev => ({
+                ...prev,
+                ...parsed,
+                sectionData: {
+                  ...(prev.sectionData || {}),
+                  ...(parsed.sectionData || {})
+                }
+              }));
+            }
           }
         }
       } catch (e) {}
@@ -658,34 +663,40 @@ export default function ProfileCardView({
   const hasGallery = Boolean(profile.sectionData?.gallery?.items?.length);
   const hasTestimonials = Boolean((dynamicTestimonials || profile.sectionData?.testimonials?.items || []).length);
   const hasBlogs = Boolean(profile.sectionData?.blogs?.items?.length);
-  const isRealEstate = 
-    profile.slug === 'venu' ||
+  const isKishore = 
     profile.slug === 'kishore' || 
+    profile.slug === 'kishore-patel' || 
+    profile.id === 'prof_kishore_1';
+
+  const isRealEstate = !isKishore && Boolean(
+    profile.slug === 'venu' ||
+    profile.slug === 'builders' ||
+    profile.slug === 're-builders' ||
+    profile.slug === 'villas' ||
+    profile.slug === 're-villas' ||
+    profile.slug === 'plots' ||
+    profile.slug === 're-plots' ||
+    profile.slug === 'skyline' ||
     (profile as any).templateId === 'vcard35' ||
     profile.id?.startsWith('re-') ||
     (profile as any).templateId?.startsWith('re-') ||
     (profile as any).category === 'Real Estate' ||
-    profile.company?.toLowerCase().includes('reality') ||
-    profile.company?.toLowerCase().includes('estate') ||
+    Boolean(profile.sectionData?.realEstate) ||
     profile.company?.toLowerCase().includes('realty') ||
+    profile.company?.toLowerCase().includes('real estate') ||
     profile.company?.toLowerCase().includes('builder') ||
     profile.company?.toLowerCase().includes('developer') ||
-    profile.company?.toLowerCase().includes('infra') ||
     profile.company?.toLowerCase().includes('properties') ||
     profile.company?.toLowerCase().includes('constructions') ||
-    profile.designation?.toLowerCase().includes('real estate') ||
     profile.designation?.toLowerCase().includes('realtor') ||
-    profile.designation?.toLowerCase().includes('broker') ||
     profile.designation?.toLowerCase().includes('builder') ||
     profile.designation?.toLowerCase().includes('infrastructure') ||
-    profile.bio?.toLowerCase().includes('real estate') ||
-    profile.bio?.toLowerCase().includes('properties') ||
-    Boolean(profile.sectionData?.realEstate) ||
     profile.id === 're-agents' ||
     profile.id === 're-builders' ||
     profile.id === 're-plots' ||
     profile.id === 're-villas' ||
-    profile.id === 're-consultants';
+    profile.id === 're-consultants'
+  );
 
   const isInterior = 
     profile.slug === 'interior' ||

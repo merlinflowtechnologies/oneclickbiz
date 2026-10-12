@@ -10,15 +10,15 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
     slug: 'kishore',
     name: 'Kishore Patel',
     designation: 'Founder & Managing Director',
-    company: 'Himastech Landmark Developers & Builders',
-    bio: 'Crafting landmark residential towers, TS-RERA approved gated luxury townships, and next-generation commercial IT business parks. Over 2.5 million sq.ft of on-time delivered excellence across Hyderabad.',
-    email: 'projects@himastech.com',
+    company: 'Himastech Digital Reality',
+    bio: 'Empowering real estate developers, commercial builders, and modern enterprises with high-ROI digital reality marketing, 3D immersive virtual walkthroughs, and automated buyer lead funnels.',
+    email: 'kishore@himastech.com',
     phone: '+91 98765 43210',
     whatsapp: '919876543210',
     website: 'https://himastech.com',
-    address: 'Road No. 36, Jubilee Hills & Kokapet Financial District, Hyderabad, Telangana',
+    address: 'Road No. 36, Jubilee Hills, Hyderabad, Telangana, India',
     avatarUrl: '/kishore-profile-v2.png',
-    coverUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
     theme: 'modern-indigo',
     isPublished: true,
     sections: [
@@ -37,50 +37,41 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
     ],
     sectionData: {
       about: {
-        content: 'With over 18 years of benchmark excellence in prime real estate construction and luxury urban developments, Himastech Landmark Developers & Builders delivers iconic high-rise residential towers, gated villa sanctuaries, and Grade-A commercial hubs with 100% clear titles, TS-RERA statutory compliance, and premier architectural aesthetics.'
+        content: 'With over 12 years of specialized leadership in real estate digital marketing and interactive reality solutions, Himastech Digital Reality partners with leading property developers, architects, and enterprise brands to scale qualified buyer inquiries and build commanding digital authority.'
       },
       socials: {
         items: [
-          { id: 'soc_1', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'Sales WhatsApp' },
+          { id: 'soc_1', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp' },
           { id: 'soc_2', platform: 'linkedin', url: 'https://linkedin.com/in/kishorepatel', label: 'LinkedIn' },
           { id: 'soc_3', platform: 'instagram', url: 'https://instagram.com/himastech.reality', label: 'Instagram' },
-          { id: 'soc_4', platform: 'phone', url: 'tel:+919876543210', label: 'Call Desk' },
-          { id: 'soc_5', platform: 'website', url: 'https://himastech.com', label: 'Official Website' },
+          { id: 'soc_4', platform: 'twitter', url: 'https://twitter.com/himastech', label: 'X (Twitter)' },
+          { id: 'soc_5', platform: 'website', url: 'https://himastech.com', label: 'Website' },
         ]
-      },
-      realEstate: {
-        city: 'Hyderabad',
-        reraId: 'TS-RERA/P02400008920',
-        trackRecordYears: '18+ Years',
-        deliveredProjects: '18+',
-        developedAcres: '450+',
-        happyFamilies: '2,400+',
-        clearTitleRating: '100%'
       },
       services: {
         items: [
           {
             id: 'srv_1',
-            title: 'Schedule VIP Chauffeured Site Visit & Model Flat Tour',
-            description: 'Personalized private chauffeured tour of 3 & 4 BHK model sky apartments, 50,000 sq.ft sky clubhouse, and amenities in Kokapet.',
-            durationMinutes: 60,
-            price: 0,
+            title: 'Real Estate Performance Marketing & Buyer Lead Generation',
+            description: 'Targeted Google, Meta, and LinkedIn advertising campaigns delivering verified, high-intent property investors and home buyers.',
+            durationMinutes: 45,
+            price: 49999,
             currency: '₹'
           },
           {
             id: 'srv_2',
-            title: 'Architectural Blueprint & Floor Plan Consultation',
-            description: '1-on-1 consultation for custom interior configurations, vastu compliance audit, and carpet area breakdowns.',
-            durationMinutes: 45,
-            price: 0,
+            title: 'Immersive 3D Digital Walkthroughs & VR Tours',
+            description: 'Photorealistic interactive 3D virtual site tours accessible seamlessly from any smartphone, tablet, or web browser.',
+            durationMinutes: 60,
+            price: 34999,
             currency: '₹'
           },
           {
             id: 'srv_3',
-            title: 'Home Loan Pre-Approval & Financial Advisory',
-            description: 'Zero-processing fee partner bank tie-ups with SBI, HDFC & ICICI Bank with pre-sanctioned preferential interest rates.',
-            durationMinutes: 30,
-            price: 0,
+            title: 'Real Estate Launch Strategy & Growth Consultation',
+            description: 'Direct 1-on-1 strategy session to audit project positioning, sales collateral, and digital marketing funnels.',
+            durationMinutes: 60,
+            price: 4999,
             currency: '₹'
           }
         ]
@@ -89,68 +80,35 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
         items: [
           {
             id: 'prod_1',
-            name: 'Himastech Imperia 3 & 4 BHK Luxury Residences',
-            description: 'High-rise ultra luxury residential towers in Kokapet Financial District with 50,000 sq.ft sky clubhouse, infinity pool & 100% Vastu. TS-RERA Approved.',
-            price: 18500000,
+            name: 'Real Estate High-Conversion Sales Landing Page & CRM Funnel',
+            description: 'Complete sales funnel with automated WhatsApp lead alerts, interactive floor plans, and EMI calculator.',
+            price: 14999,
             currency: '₹',
-            imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
-            category: 'Residential Towers',
-            sku: 'HIMAS-IMP-01',
+            imageUrl: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
+            category: 'Digital Goods',
+            sku: 'HIMAS-RE-01',
             isAvailable: true
           },
           {
             id: 'prod_2',
-            name: 'Himastech Grandeur 4 & 5 BHK Triplex Gated Villas',
-            description: '22-acre gated villa community in Mokila with private temperature-controlled plunge pool, solar power & European fittings.',
-            price: 27500000,
+            name: 'Smart Digital vCard & Dynamic QR Suite for Sales Teams',
+            description: 'Luxury digital visiting cards with instant 1-tap contact saving, catalog browsing, and WhatsApp booking.',
+            price: 1999,
             currency: '₹',
-            imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
-            category: 'Luxury Villas',
-            sku: 'HIMAS-GRD-02',
+            imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80',
+            category: 'Digital Goods',
+            sku: 'VC-HIMAS',
             isAvailable: true
           },
           {
             id: 'prod_3',
-            name: 'Himastech Aeropolis 150-350 Sq.Yds Plotted Township',
-            description: 'HMDA & TS-RERA approved gated open plot community near Shamshabad Airport & ORR with 40ft blacktop roads & 24/7 security.',
-            price: 3650000,
+            name: 'Virtual Reality Architectural 3D Asset Master Kit',
+            description: 'Production-ready 3D architectural models, interior lighting presets, and ultra-high-resolution aerial renders.',
+            price: 8999,
             currency: '₹',
-            imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
-            category: 'Open Plots',
-            sku: 'HIMAS-AERO-03',
-            isAvailable: true
-          },
-          {
-            id: 'prod_4',
-            name: 'Himastech Business Hub Grade-A Commercial IT Suites',
-            description: 'Grade-A tech park office spaces with 100% power backup, high-speed elevators & instant metro connectivity in Hitec City.',
-            price: 9500000,
-            currency: '₹',
-            imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
-            category: 'Commercial Suites',
-            sku: 'HIMAS-HUB-04',
-            isAvailable: true
-          },
-          {
-            id: 'prod_5',
-            name: 'Himastech Waterfront 4 BHK Ultra-Luxury Lakeview Residences',
-            description: 'Kokapet Lake promenade ultra-luxury residences with panoramic 270-degree water views, private elevator foyer & sky lounge.',
-            price: 32500000,
-            currency: '₹',
-            imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
-            category: 'Residential Towers',
-            sku: 'HIMAS-WTR-05',
-            isAvailable: true
-          },
-          {
-            id: 'prod_6',
-            name: 'Himastech Palm Meadows 1 & 2 Acre Farm Estates',
-            description: 'Managed luxury gated farmland estates in Shankarpally - Chevella green corridor with drip irrigation, clubhouse & fruit orchard.',
-            price: 7500000,
-            currency: '₹',
-            imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
-            category: 'Farmlands',
-            sku: 'HIMAS-PLM-06',
+            imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
+            category: 'Services',
+            sku: 'VR-ASSET-01',
             isAvailable: true
           }
         ]
@@ -159,35 +117,35 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
         items: [
           {
             id: 'vid_1',
-            title: 'Himastech Imperia — 4K Aerial Drone Layout Tour & Surroundings',
-            url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            title: 'OneClickBiz - Next-Gen Smart Business Card Showcase',
+            url: 'https://youtu.be/F1wdT1CA5gA',
             type: 'youtube',
-            embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            caption: '4K aerial drone flight showcasing 100ft arterial roads, upcoming metro line, and clubhouse elevation in Kokapet.'
+            embedUrl: 'https://www.youtube.com/embed/F1wdT1CA5gA',
+            caption: 'Watch how OneClickBiz transforms physical networking into dynamic leads, instant WhatsApp sales, and automated appointment bookings.'
           },
           {
             id: 'vid_2',
-            title: 'Model 4 BHK Sky Residence — Complete Architectural Walkthrough',
-            url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            title: 'Himastech Digital Reality - Immersive Virtual Walkthrough & Marketing Demo',
+            url: 'https://youtu.be/jI_19Wuno9M',
             type: 'youtube',
-            embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            caption: 'Walkthrough of master suite, panoramic lake-view deck balcony, Italian marble foyer, and smart home automation.'
+            embedUrl: 'https://www.youtube.com/embed/jI_19Wuno9M',
+            caption: 'Explore our high-converting 3D architectural reality marketing walkthroughs and client project case studies.'
           },
           {
             id: 'vid_ig_1',
-            title: 'Himastech Grandeur Triplex Villas — Clubhouse & Pool Tour',
-            url: 'https://www.instagram.com/reel/C3M8W98oG12/',
+            title: 'OneClickBiz Smart Digital Card in Action',
+            url: 'https://www.instagram.com/reel/Dboeh4BTscY/',
             type: 'instagram',
-            embedUrl: 'https://www.instagram.com/reel/C3M8W98oG12/embed',
-            caption: 'Exclusive reel walkthrough of private plunge pool, double-height living room, and landscaped lawns in Mokila.'
+            embedUrl: 'https://www.instagram.com/reel/Dboeh4BTscY/embed',
+            caption: 'Watch real-time dynamic digital profile sharing in action.'
           },
           {
             id: 'vid_ig_2',
-            title: 'Himastech Aeropolis — Rapid Site Progression & 40ft Roads',
+            title: 'Next-Gen Business Identity & Networking Experience',
             url: 'https://www.instagram.com/reel/DbNGzEmRwlb/',
             type: 'instagram',
             embedUrl: 'https://www.instagram.com/reel/DbNGzEmRwlb/embed',
-            caption: 'Latest on-site reel: Underground cabling, street illumination, and demarcated boundary stones.'
+            caption: 'Empower your business with smart digital visiting cards, WhatsApp catalog, and instant contact saving.'
           }
         ]
       },
@@ -196,44 +154,23 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
           { 
             id: 'gal_1', 
             imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80', 
-            title: 'Himastech Imperia High-Rise Elevation',
-            category: 'Residential Towers',
-            description: 'High-rise luxury sky towers with panoramic city and lake views in Kokapet Financial District.'
+            title: 'Luxury High-Rise Residential Tower Launch',
+            category: 'Real Estate Marketing',
+            description: 'Multi-channel digital marketing campaign resulting in 80% phase-1 inventory bookings.'
           },
           { 
             id: 'gal_2', 
             imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', 
-            title: 'Model 4 BHK Sky Suite Living & Dining Lounge',
-            category: 'Interiors',
-            description: 'Double-height Italian marble living lounge with panoramic lake-view sundeck balconies.'
+            title: 'Interactive 3D Virtual Villa Walkthrough',
+            category: 'VR Reality',
+            description: 'Photorealistic real-time 3D walkthrough accessible on mobile & VR headsets.'
           },
           { 
             id: 'gal_3', 
-            imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80', 
-            title: 'Himastech Grandeur Triplex Villa Facade',
-            category: 'Gated Villas',
-            description: 'Triplex luxury villa with private landscaped lawn and rooftop plunge pool in Mokila.'
-          },
-          { 
-            id: 'gal_4', 
-            imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80', 
-            title: 'On-Site Construction Progress & Quality Audit',
-            category: 'Construction Progress',
-            description: 'Uncompromising engineering standards with MIVAN formwork and forensic structural audits.'
-          },
-          { 
-            id: 'gal_5', 
-            imageUrl: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80', 
-            title: 'Himastech Sky Deck Infinity Pool & Clubhouse Lounge',
-            category: 'Clubhouse Amenities',
-            description: 'Olympic-size temperature-controlled sky-deck pool overlooking financial district.'
-          },
-          { 
-            id: 'gal_6', 
-            imageUrl: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80', 
-            title: 'Double-Height Master Suite with Lakeview Balcony',
-            category: 'Interiors',
-            description: 'Ultra-luxurious master bedroom with floor-to-ceiling glass and private jacuzzi.'
+            imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80', 
+            title: 'Commercial Tech Park Digital Campaign & Brand Identity',
+            category: 'Branding',
+            description: 'Comprehensive digital brand identity and dynamic broker sales enablement suite.'
           }
         ]
       },
@@ -241,29 +178,20 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
         items: [
           {
             id: 'tst_1',
-            clientName: 'Dr. Srinivas Rao',
-            clientRole: 'Chief Neurosurgeon & Property Investor',
-            clientCompany: 'Continental Hospitals',
-            clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-            content: 'We booked our 4 BHK residence in Himastech Imperia. The construction quality, floor-to-ceiling glass balconies, and prompt legal documentation made it completely seamless.',
+            clientName: 'Rajesh Varma',
+            clientRole: 'Managing Director',
+            clientCompany: 'Prestige Urban Spaces',
+            clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+            content: 'Himastech Digital Reality delivered a 350% surge in verified site-visit bookings for our luxury villa project within the first 30 days. Their 3D walkthroughs are best-in-class!',
             rating: 5
           },
           {
             id: 'tst_2',
-            clientName: 'Pooja & Harish Nair',
-            clientRole: 'Tech VP, Google Hyderabad',
-            clientCompany: 'Google India',
-            clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-            content: 'Himastech Landmark Developers delivered our home right on time with verified TS-RERA certificates. Their team is exceptionally transparent and professional.',
-            rating: 5
-          },
-          {
-            id: 'tst_3',
-            clientName: 'K. Venkat Reddy',
-            clientRole: 'NRI Investor (San Jose, California)',
-            clientCompany: 'Silicon Valley Tech',
-            clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
-            content: 'Being based in the US, I relied on Himastech Developers for our plot investment in Aeropolis. From title search to spot registration, the transparency was 100%.',
+            clientName: 'Sneha Kulkarni',
+            clientRole: 'Head of Sales',
+            clientCompany: 'Skyline Infra Projects',
+            clientAvatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
+            content: 'The smart digital business cards and WhatsApp automation simplified our on-site property sales workflow completely. Every buyer now has our direct contact and brochures saved in one click.',
             rating: 5
           }
         ]
@@ -319,6 +247,39 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
   if (found) {
     return {
       ...found,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
+  // Dedicated real estate slugs
+  if (['re-builders', 'builders', 'skyline', 'venu'].includes(cleanSlug)) {
+    const tProf = getTemplateProfile('re-builders');
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      name: cleanSlug === 'venu' ? 'Venu' : tProf.name,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+  if (['re-villas', 'villas'].includes(cleanSlug)) {
+    const tProf = getTemplateProfile('re-villas');
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+  if (['re-plots', 'plots'].includes(cleanSlug)) {
+    const tProf = getTemplateProfile('re-plots');
+    return {
+      ...tProf,
+      slug: cleanSlug,
       isPublished: true,
       isExpired: false,
       subscriptionStatus: 'ACTIVE'
