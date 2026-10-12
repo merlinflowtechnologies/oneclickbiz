@@ -17,8 +17,8 @@ export default function BlogFooter() {
             <Link href="/" className="inline-flex items-center gap-2 group">
               <img
                 src="/logo.png"
-                alt="OneClickBiz"
-                className="h-9 w-auto object-contain"
+                alt="OneClickBiz - Connect | Build | Grow"
+                className="h-10 w-auto max-w-[200px] object-contain"
                 onError={(e) => {
                   const t = e.target as HTMLImageElement;
                   t.style.display = 'none';

@@ -885,7 +885,7 @@ function SignUpForm() {
         <Link href="/" className="inline-block group mb-2">
           <img 
             src="/logo-light.png" 
-            alt="OneClickBiz - Business Made Simpler" 
+            alt="OneClickBiz - Connect | Build | Grow" 
             className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] mx-auto object-contain transition-transform group-hover:scale-105 duration-200"
           />
         </Link>

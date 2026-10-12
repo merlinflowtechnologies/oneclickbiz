@@ -29,8 +29,8 @@ export default function BlogNavbar() {
           <Link href="/" className="flex items-center group flex-shrink-0">
             <img
               src="/logo.png"
-              alt="OneClickBiz"
-              className="h-9 w-auto object-contain transition-transform group-hover:scale-105 duration-200"
+              alt="OneClickBiz - Connect | Build | Grow"
+              className="h-10 w-auto max-w-[200px] object-contain transition-transform group-hover:scale-105 duration-200"
               onError={(e) => {
                 const t = e.target as HTMLImageElement;
                 t.style.display = 'none';

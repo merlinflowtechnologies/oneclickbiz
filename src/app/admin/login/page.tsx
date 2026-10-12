@@ -93,7 +93,7 @@ export default function AdminLoginPage() {
         <Link href="/" className="inline-flex flex-col items-center group mb-2 space-y-2">
           <img 
             src="/logo-light.png" 
-            alt="OneClickBiz - Business Made Simpler" 
+            alt="OneClickBiz - Connect | Build | Grow" 
             className="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] object-contain transition-transform group-hover:scale-105 duration-200"
           />
           <span className="text-[10px] uppercase font-extrabold tracking-widest text-rose-700 bg-rose-100 px-3 py-1 rounded-full border border-rose-300 shadow-sm">

@@ -34,8 +34,8 @@ export default function Navbar() {
           <Link href="/" className="flex items-center group flex-shrink-0 py-1">
             <img 
               src="/logo-light.png" 
-              alt="OneClickBiz - Business Made Simpler" 
-              className="h-9 sm:h-11 w-auto max-w-[190px] sm:max-w-[240px] object-contain transition-transform group-hover:scale-105 duration-200"
+              alt="OneClickBiz - Connect | Build | Grow" 
+              className="h-10 sm:h-12 w-auto max-w-[210px] sm:max-w-[260px] object-contain transition-transform group-hover:scale-105 duration-200"
             />
           </Link>
 

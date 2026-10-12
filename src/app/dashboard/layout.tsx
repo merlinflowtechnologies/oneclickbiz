@@ -373,8 +373,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <Link href="/" className="flex items-center group py-0.5 shrink-0">
             <img 
               src="/logo-light.png" 
-              alt="OneClickBiz - Business Made Simpler" 
-              className="h-8 sm:h-11 w-auto max-w-[140px] sm:max-w-[210px] object-contain transition-transform group-hover:scale-105 duration-200"
+              alt="OneClickBiz - Connect | Build | Grow" 
+              className="h-9 sm:h-11 w-auto max-w-[160px] sm:max-w-[220px] object-contain transition-transform group-hover:scale-105 duration-200"
             />
           </Link>
 
