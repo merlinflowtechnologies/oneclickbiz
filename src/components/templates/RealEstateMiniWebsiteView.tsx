@@ -173,7 +173,7 @@ export default function RealEstateMiniWebsiteView({
       const isNotProperty = /(?:funnel|landing\s*page|software|crm|vcard|visiting\s*card|master\s*kit|digital\s*good|course|ebook|marketing\s*demo)/i.test(text);
       if (isNotProperty) return false;
       const hasRE = /(?:plot|villa|apartment|residence|flat|tower|bhk|sq\.?\s*yd|acre|farm|gated|commercial|rera|layout|corridor|housing|building|infra|property|floor|penthouse|suite|township)/i.test(text);
-      const isRetail = /(?:suit|blazer|sherwani|apparel|clothing|shirt|pant|tailor|textile|fashion|kurta|fabric|wear)/i.test(text);
+      const isRetail = /(?:mens?\s*suit|blazer|sherwani|apparel|clothing|shirt|pant\b|tailoring|tailor\b|textile|fashion|kurta|fabric|garment|footwear)/i.test(text);
       return hasRE && !isRetail;
     };
 
@@ -776,59 +776,70 @@ export default function RealEstateMiniWebsiteView({
   const galleryList = profile.sectionData?.gallery?.items || [];
 
   const effectiveGallery = useMemo(() => {
+    const defaultLuxuryGallery = [
+      {
+        title: 'Grand Designer Entrance Arch & Boulevard',
+        desc: `Monumental pergola entrance archway with paved approach avenue, 24/7 security cabin, and 100ft road access for ${profile.company || profile.name}.`,
+        img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
+        tag: 'Entrance Arch',
+        status: 'HMDA & RERA'
+      },
+      {
+        title: 'Olympic-Size Infinity Swimming Pool & Sky Lounge',
+        desc: 'Temperature-controlled infinity pool on 45th floor overlooking the city skyline and landscaped gardens.',
+        img: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80',
+        tag: 'Clubhouse Amenities',
+        status: 'Operational'
+      },
+      {
+        title: 'Ultra-Luxury Double-Height Living & Dining Lounge',
+        desc: 'Italian Statuario marble flooring with 22-foot double-height ceilings and panoramic sun-deck balconies.',
+        img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+        tag: 'Signature Interiors',
+        status: 'Model Flat Ready'
+      },
+      {
+        title: 'Heavy-Duty 40ft Asphalt Avenues with Underground Drainage',
+        desc: 'Smooth asphalt roads with red-and-white checkered footpaths, storm-water drains, and energized streetlights.',
+        img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
+        tag: 'Infrastructure',
+        status: '100% Finished'
+      },
+      {
+        title: 'Gated Villa Triplex Architecture & Private Plunge Pool Deck',
+        desc: 'Modern European villa design with private plunge pool, solar roof integration, and landscaped private lawn.',
+        img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
+        tag: 'Villa Enclave',
+        status: 'Ready to Move'
+      },
+      {
+        title: 'On-Site Construction Progress & Forensic Quality Audit',
+        desc: 'Uncompromising engineering standards with MIVAN formwork and forensic structural audits.',
+        img: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=800&q=80',
+        tag: 'Construction Audit',
+        status: 'TS-RERA Verified'
+      }
+    ];
+
     if (galleryList.length > 0) {
-      return galleryList.map((g, idx) => ({
+      const mapped = galleryList.map((g, idx) => ({
         title: g.title || `Site View #${idx + 1}`,
         desc: g.description || `On-site development progression photo for ${profile.company || profile.name}.`,
         img: g.imageUrl,
         tag: g.category || 'Site Photo',
         status: 'Verified'
       }));
-    }
-    return [
-      {
-        title: 'Grand Designer Entrance Arch — Clear Daylight View',
-        desc: 'Monumental pergola entrance archway with paved approach avenue, 24/7 security cabin, and 100ft road access.',
-        img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
-        tag: 'Entrance Arch',
-        status: 'HMDA Approved'
-      },
-      {
-        title: 'Blacktop Avenue with Checkered Footpaths & Palm Trees',
-        desc: 'Smooth blacktop roads, red-and-white checkered pedestrian footpaths, yellow-black kerbs, and palm tree avenues.',
-        img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
-        tag: 'Blacktop Avenue',
-        status: '100% Finished'
-      },
-      {
-        title: 'Full Layout Illumination with High-Mast LED Street Lights',
-        desc: 'Fully energized electrification grid with glowing street lights, demarcated avenue kerbs, and secure night ambiance.',
-        img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
-        tag: 'Night Illumination',
-        status: 'Energized Grid'
-      },
-      {
-        title: 'Demarcated Individual Plot with Precast Boundary Wall & Gate',
-        desc: 'Clearly demarcated individual plots with precast boundary walls, painted kerbs, dedicated gate access, and avenue trees.',
-        img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-        tag: 'Demarcated Plot',
-        status: 'Spot Registration'
-      },
-      {
-        title: 'Main Layout Avenue Perspective with Boundary Fencing',
-        desc: 'Scenic perspective down the primary layout avenue flanked by palm trees, demarcated plots, and perimeter fencing.',
-        img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-        tag: 'Avenue View',
-        status: '10.2 Acres HMDA'
-      },
-      {
-        title: 'Nature Farm Plot with Grand Shade Tree & Fertile Soil',
-        desc: 'Scenic leveled farmland unit with mature shade tree, ideal for weekend cottages, organic fruit plantations, and family getaways.',
-        img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
-        tag: 'Farm Plot',
-        status: 'Verified Layout'
+
+      // Ensure gallery always fills complete rows of 3 (no trailing empty slots in 3-col grid)
+      const remainder = mapped.length % 3;
+      if (remainder !== 0) {
+        const needed = 3 - remainder;
+        const extra = defaultLuxuryGallery.filter(d => !mapped.some(m => m.img === d.img)).slice(0, needed);
+        return [...mapped, ...extra];
       }
-    ];
+      return mapped;
+    }
+    return defaultLuxuryGallery;
   }, [galleryList, profile.company, profile.name]);
 
   // Default rich real estate drone walkthroughs and reels if user has not yet added custom videos

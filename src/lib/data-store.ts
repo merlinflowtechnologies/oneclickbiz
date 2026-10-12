@@ -130,6 +130,28 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
             category: 'Commercial Suites',
             sku: 'HIMAS-HUB-04',
             isAvailable: true
+          },
+          {
+            id: 'prod_5',
+            name: 'Himastech Waterfront 4 BHK Ultra-Luxury Lakeview Residences',
+            description: 'Kokapet Lake promenade ultra-luxury residences with panoramic 270-degree water views, private elevator foyer & sky lounge.',
+            price: 32500000,
+            currency: '₹',
+            imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
+            category: 'Residential Towers',
+            sku: 'HIMAS-WTR-05',
+            isAvailable: true
+          },
+          {
+            id: 'prod_6',
+            name: 'Himastech Palm Meadows 1 & 2 Acre Farm Estates',
+            description: 'Managed luxury gated farmland estates in Shankarpally - Chevella green corridor with drip irrigation, clubhouse & fruit orchard.',
+            price: 7500000,
+            currency: '₹',
+            imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
+            category: 'Farmlands',
+            sku: 'HIMAS-PLM-06',
+            isAvailable: true
           }
         ]
       },
@@ -198,6 +220,20 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
             title: 'On-Site Construction Progress & Quality Audit',
             category: 'Construction Progress',
             description: 'Uncompromising engineering standards with MIVAN formwork and forensic structural audits.'
+          },
+          { 
+            id: 'gal_5', 
+            imageUrl: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80', 
+            title: 'Himastech Sky Deck Infinity Pool & Clubhouse Lounge',
+            category: 'Clubhouse Amenities',
+            description: 'Olympic-size temperature-controlled sky-deck pool overlooking financial district.'
+          },
+          { 
+            id: 'gal_6', 
+            imageUrl: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80', 
+            title: 'Double-Height Master Suite with Lakeview Balcony',
+            category: 'Interiors',
+            description: 'Ultra-luxurious master bedroom with floor-to-ceiling glass and private jacuzzi.'
           }
         ]
       },
