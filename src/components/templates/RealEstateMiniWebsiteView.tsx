@@ -172,9 +172,8 @@ export default function RealEstateMiniWebsiteView({
       const text = `${prod.name || ''} ${prod.category || ''} ${prod.description || ''}`.toLowerCase();
       const isNotProperty = /(?:funnel|landing\s*page|software|crm|vcard|visiting\s*card|master\s*kit|digital\s*good|course|ebook|marketing\s*demo)/i.test(text);
       if (isNotProperty) return false;
-      const hasRE = /(?:plot|villa|apartment|residence|flat|tower|bhk|sq\.?\s*yd|acre|farm|gated|commercial|rera|layout|corridor|housing|building|infra|property|floor|penthouse|suite|township)/i.test(text);
       const isRetail = /(?:mens?\s*suit|blazer|sherwani|apparel|clothing|shirt|pant\b|tailoring|tailor\b|textile|fashion|kurta|fabric|garment|footwear)/i.test(text);
-      return hasRE && !isRetail;
+      return !isRetail;
     };
 
     const customProducts = rawProducts.filter(isRealEstateItem);
@@ -382,8 +381,10 @@ export default function RealEstateMiniWebsiteView({
           reraId: prodRera || `TS-RERA/P0240000${8920 + index * 11}`,
           possessionDate: prodStatus || (isPlot ? 'Immediate Spot Registration' : (isVilla ? 'Ready for Possession' : 'December 2026')),
           carpetAreaRange: prodDimensions || (isPlot ? '150, 200, 300 Sq. Yds' : (isVilla ? '3,200 - 5,500 sq.ft' : (isCommercial ? '1,000 - 4,000 sq.ft' : '1,250 - 3,450 sq.ft'))),
-          imageUrl: prod.imageUrl || currentTypeMedia.gallery[0] || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
-          galleryUrls: currentTypeMedia.gallery.concat(extraProfileGallery.slice(0, 2)),
+          imageUrl: prod.imageUrl || (extraProfileGallery[0] || currentTypeMedia.gallery[0] || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80'),
+          galleryUrls: (prod.imageUrl || extraProfileGallery.length > 0)
+            ? Array.from(new Set([prod.imageUrl, ...extraProfileGallery].filter(Boolean)))
+            : currentTypeMedia.gallery,
           featuredTags: prodApproval
             ? [prodApproval, prodDimensions || '100% Clear Title', 'Spot Registration']
             : (isPlot
@@ -822,22 +823,13 @@ export default function RealEstateMiniWebsiteView({
     ];
 
     if (galleryList.length > 0) {
-      const mapped = galleryList.map((g, idx) => ({
+      return galleryList.map((g, idx) => ({
         title: g.title || `Site View #${idx + 1}`,
         desc: g.description || `On-site development progression photo for ${profile.company || profile.name}.`,
         img: g.imageUrl,
         tag: g.category || 'Site Photo',
         status: 'Verified'
       }));
-
-      // Ensure gallery always fills complete rows of 3 (no trailing empty slots in 3-col grid)
-      const remainder = mapped.length % 3;
-      if (remainder !== 0) {
-        const needed = 3 - remainder;
-        const extra = defaultLuxuryGallery.filter(d => !mapped.some(m => m.img === d.img)).slice(0, needed);
-        return [...mapped, ...extra];
-      }
-      return mapped;
     }
     return defaultLuxuryGallery;
   }, [galleryList, profile.company, profile.name]);
@@ -1504,7 +1496,7 @@ export default function RealEstateMiniWebsiteView({
                 style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
                 className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2.5 text-xs' : 'px-7 py-3.5 text-sm sm:text-base'} rounded-2xl text-white font-black shadow-lg hover:bg-[#004580] transition-transform active:scale-98 cursor-pointer`}
               >
-                <span className="text-white font-extrabold">Explore All {userProjects.length > 0 ? userProjects.length : '4'} Projects</span>
+                <span className="text-white font-extrabold">Explore All {userProjects.length} {userProjects.length === 1 ? 'Project' : 'Projects'}</span>
                 <ChevronRight className="w-4 h-4 text-white" />
               </a>
 
@@ -1598,7 +1590,7 @@ export default function RealEstateMiniWebsiteView({
                 </div>
                 <div>
                   <div className="font-black text-2xl sm:text-3xl text-slate-900">
-                    {profile.sectionData?.realEstate?.deliveredProjects || '18+'}
+                    {profile.sectionData?.realEstate?.deliveredProjects ?? '18+'}
                   </div>
                   <div className="text-xs text-slate-600 font-semibold">Delivered Projects</div>
                 </div>
@@ -1610,7 +1602,7 @@ export default function RealEstateMiniWebsiteView({
                 </div>
                 <div>
                   <div className="font-black text-2xl sm:text-3xl text-slate-900">
-                    {profile.sectionData?.realEstate?.developedAcres || '450+'}
+                    {profile.sectionData?.realEstate?.developedAcres ?? '450+'}
                   </div>
                   <div className="text-xs text-slate-600 font-semibold">Developed Acres</div>
                 </div>
@@ -1622,7 +1614,7 @@ export default function RealEstateMiniWebsiteView({
                 </div>
                 <div>
                   <div className="font-black text-2xl sm:text-3xl text-slate-900">
-                    {profile.sectionData?.realEstate?.happyFamilies || '2,400+'}
+                    {profile.sectionData?.realEstate?.happyFamilies ?? '2,400+'}
                   </div>
                   <div className="text-xs text-slate-600 font-semibold">Happy Families</div>
                 </div>
@@ -1633,8 +1625,8 @@ export default function RealEstateMiniWebsiteView({
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="font-black text-2xl sm:text-3xl text-emerald-700">
-                    {profile.sectionData?.realEstate?.clearTitleRating || '100%'}
+                  <div className="font-black text-lg sm:text-2xl text-emerald-700 leading-tight">
+                    {profile.sectionData?.realEstate?.clearTitleRating ?? '100% Clear Title'}
                   </div>
                   <div className="text-xs text-slate-600 font-semibold">Clear Title Rating</div>
                 </div>

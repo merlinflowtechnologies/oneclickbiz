@@ -2621,7 +2621,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-1">
                       <div>
                         <label className="text-[11px] font-semibold text-slate-400">Legal Track Record</label>
                         <input 
@@ -2706,6 +2706,29 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                                 realEstate: {
                                   ...(prev.sectionData?.realEstate || {}),
                                   happyFamilies: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Clear Title Rating</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.realEstate?.clearTitleRating ?? ''}
+                          placeholder="e.g. 100% Clear Title Guaranteed"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                realEstate: {
+                                  ...(prev.sectionData?.realEstate || {}),
+                                  clearTitleRating: val
                                 }
                               }
                             }));
