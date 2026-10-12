@@ -726,30 +726,37 @@ export default function LandingPage() {
             /* Desktop Browser Shell Frame Mockup (Expanded Width) */
             <div className="w-full max-w-4xl xl:max-w-5xl mx-auto rounded-2xl sm:rounded-3xl bg-white border border-slate-300 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.25)] overflow-hidden transition-all duration-300">
               {/* Browser Chrome Window Bar */}
-              <div className="bg-slate-900 px-4 py-3 flex items-center justify-between border-b border-slate-800">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-red-500 inline-block" />
-                  <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
-                  <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
-                  <div className="hidden sm:flex items-center gap-1.5 ml-3 px-3 py-1 rounded-lg bg-slate-950 text-xs text-slate-300 font-mono border border-slate-800">
-                    <Lock className="w-3 h-3 text-emerald-400" />
-                    <span className="text-emerald-400">https://</span>
-                    <span>oneclickbiz.in/v/kishore</span>
+              <div className="bg-slate-900 px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between border-b border-slate-800">
+                <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500 inline-block shrink-0" />
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500 inline-block shrink-0" />
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500 inline-block shrink-0" />
+                  <div className="flex items-center gap-1 sm:gap-1.5 ml-1 sm:ml-3 px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg bg-slate-950 text-[10px] sm:text-xs text-slate-300 font-mono border border-slate-800 truncate">
+                    <Lock className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 shrink-0" />
+                    <span className="text-emerald-400 hidden xs:inline">https://</span>
+                    <span className="truncate">oneclickbiz.in/v/kishore</span>
                   </div>
                 </div>
                 <a
                   href="/v/kishore"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-xs font-bold text-indigo-300 hover:text-white flex items-center gap-1.5 transition px-3 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700/50"
+                  className="text-[11px] sm:text-xs font-bold text-indigo-300 hover:text-white flex items-center gap-1 sm:gap-1.5 transition px-2.5 sm:px-3 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700/50 shrink-0 ml-1.5"
                 >
-                  <span>Full Screen View</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span className="hidden xs:inline">Full Screen View</span>
+                  <span className="xs:hidden">Full Screen</span>
+                  <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 </a>
               </div>
               {/* Inner Scrollable Website Content */}
-              <div className="h-[560px] sm:h-[620px] lg:h-[680px] overflow-y-auto scrollbar-none bg-slate-50">
+              <div className="h-[520px] xs:h-[580px] sm:h-[640px] lg:h-[700px] overflow-y-auto scrollbar-none bg-slate-50 relative">
                 <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
+                {/* Floating Bottom Scroll Hint for Mobile Users */}
+                <div className="sticky bottom-2 inset-x-0 flex justify-center pointer-events-none pb-1 sm:hidden z-30">
+                  <div className="px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md text-white text-[10px] font-bold shadow-lg border border-white/20 flex items-center gap-1.5 animate-pulse">
+                    <span>Scroll inside window to explore projects ↓</span>
+                  </div>
+                </div>
               </div>
             </div>
           ) : (

@@ -1036,7 +1036,7 @@ export default function RealEstateMiniWebsiteView({
                 </div>
               </div>
               
-              <div className="flex flex-col min-w-0 max-w-[170px] sm:max-w-[240px] xl:max-w-xs">
+              <div className="flex flex-col min-w-0 max-w-[125px] xs:max-w-[170px] sm:max-w-[240px] xl:max-w-xs">
                 <div className="flex items-center gap-1">
                   <span className={`${isMockup ? 'text-xs' : 'text-xs sm:text-base'} font-black text-slate-900 leading-tight truncate`}>
                     {profile.company || profile.name || 'Premium Developers'}
@@ -1151,17 +1151,18 @@ export default function RealEstateMiniWebsiteView({
                 type="button"
                 onClick={() => setIsSiteVisitModalOpen(true)}
                 style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
-                className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer hover:bg-[#004580] whitespace-nowrap shrink-0"
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-bold text-[11px] sm:text-xs tracking-wide shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer hover:bg-[#004580] whitespace-nowrap shrink-0"
               >
                 <Calendar className="w-3.5 h-3.5 text-white shrink-0" />
-                <span className="text-white font-bold whitespace-nowrap">Schedule Visit</span>
+                <span className="hidden xs:inline text-white font-bold whitespace-nowrap">Schedule </span>
+                <span className="text-white font-bold whitespace-nowrap">Visit</span>
               </button>
 
               {/* Mobile Menu Button (Hamburger) */}
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-[#005DAA] hover:bg-slate-200 transition cursor-pointer shrink-0"
+                className="lg:hidden p-1.5 sm:p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-[#005DAA] hover:bg-slate-200 transition cursor-pointer shrink-0"
                 aria-label="Toggle navigation menu"
               >
                 {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -1334,7 +1335,7 @@ export default function RealEstateMiniWebsiteView({
       {/* ─────────────────────────────────────────────────────────────
           3. HERO SECTION (Nest Infra Signature Headline & Backdrop)
       ───────────────────────────────────────────────────────────── */}
-      <section id="home" className="relative pt-14 sm:pt-20 pb-16 sm:pb-24 overflow-hidden bg-gradient-to-b from-[#EBF4FA] via-white to-slate-50 border-b border-slate-200">
+      <section id="home" className={`relative ${isMockup ? 'pt-3 sm:pt-6 pb-5 sm:pb-8' : 'pt-10 sm:pt-20 pb-14 sm:pb-24'} overflow-hidden bg-gradient-to-b from-[#EBF4FA] via-white to-slate-50 border-b border-slate-200`}>
         
         {/* Ambient Real Estate Backdrop */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -1343,12 +1344,12 @@ export default function RealEstateMiniWebsiteView({
         </div>
 
         <div className={`max-w-7xl mx-auto ${isMockup ? 'px-2' : 'px-4 sm:px-6 lg:px-8'} relative z-10`}>
-          <div className={`text-center max-w-5xl mx-auto ${isMockup ? 'space-y-3.5' : 'space-y-4 sm:space-y-6'}`}>
+          <div className={`text-center max-w-5xl mx-auto ${isMockup ? 'space-y-2 sm:space-y-3' : 'space-y-4 sm:space-y-6'}`}>
             
             {/* Unified Luxury Real Estate Developer Trust Badge */}
-            <div className="flex items-center justify-center pt-1">
-              <div className="inline-flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/95 border border-[#005DAA]/25 shadow-md backdrop-blur-md">
-                <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-[#005DAA]/30 shrink-0 bg-slate-100 shadow-2xs">
+            <div className="flex items-center justify-center pt-0.5 sm:pt-1">
+              <div className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full bg-white/95 border border-[#005DAA]/25 shadow-md backdrop-blur-md max-w-full">
+                <div className="relative w-7 h-7 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-[#005DAA]/30 shrink-0 bg-slate-100 shadow-2xs">
                   {profile.avatarUrl ? (
                     <img
                       src={profile.avatarUrl}
@@ -1360,27 +1361,27 @@ export default function RealEstateMiniWebsiteView({
                       {(profile.company || profile.name || 'RE').slice(0, 2).toUpperCase()}
                     </div>
                   )}
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border border-white" />
+                  <span className="absolute bottom-0 right-0 w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-500 border border-white" />
                 </div>
-                <div className="text-left flex flex-col justify-center">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight leading-none">
+                <div className="text-left flex flex-col justify-center min-w-0">
+                  <div className="flex items-center gap-1 min-w-0">
+                    <span className="text-[11px] sm:text-sm font-extrabold text-slate-900 tracking-tight leading-none truncate">
                       {profile.company || profile.name || 'Skyline Builders & Developers'}
                     </span>
                     <BadgeCheck className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
                   </div>
-                  <div className="flex items-center gap-1.5 mt-0.5 text-[10px] sm:text-[11px] font-bold text-[#005DAA]">
+                  <div className="flex items-center gap-1 sm:gap-1.5 mt-0.5 text-[9px] sm:text-[11px] font-bold text-[#005DAA]">
                     <ShieldCheck className="w-3 h-3 shrink-0" />
-                    <span>{displayRera}</span>
+                    <span className="truncate">{displayRera}</span>
                     <span className="text-slate-300">•</span>
-                    <span className="text-emerald-700 font-semibold">{profile.sectionData?.realEstate?.trackRecordYears || '18+ Years'} Legal Track Record</span>
+                    <span className="text-emerald-700 font-semibold truncate">{profile.sectionData?.realEstate?.trackRecordYears || '18+ Years'} Legal Track Record</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Main Headline */}
-            <h1 className={`font-sans ${isMockup ? 'text-2xl' : 'text-3xl sm:text-5xl lg:text-6xl'} font-black text-slate-900 tracking-tight leading-[1.12]`}>
+            <h1 className={`font-sans ${isMockup ? 'text-lg xs:text-xl sm:text-2xl md:text-3xl' : 'text-2xl sm:text-5xl lg:text-6xl'} font-black text-slate-900 tracking-tight leading-[1.15] px-1`}>
               Building Generational Wealth Through{' '}
               <span className="text-[#005DAA] block sm:inline font-black">
                 Prime Real Estate.
@@ -1388,7 +1389,7 @@ export default function RealEstateMiniWebsiteView({
             </h1>
 
             {/* Sub-headline */}
-            <p className={`font-sans ${isMockup ? 'text-xs' : 'text-xs sm:text-base lg:text-lg'} text-slate-600 max-w-3xl mx-auto leading-relaxed px-1`}>
+            <p className={`font-sans ${isMockup ? 'text-[11px] sm:text-xs leading-normal line-clamp-3 sm:line-clamp-none' : 'text-xs sm:text-base lg:text-lg leading-relaxed'} text-slate-600 max-w-3xl mx-auto px-1`}>
               {profile.company || profile.name || 'Premier Developers'} presenting{' '}
               <strong className="text-slate-900 font-bold">{featuredProjectTitle}</strong> —{' '}
               <strong className="text-slate-900 font-bold">{featuredPropertyType}</strong> in {featuredLocation} with 100% verified approvals, world-class amenities, and high capital appreciation.
@@ -1396,7 +1397,7 @@ export default function RealEstateMiniWebsiteView({
 
             {/* Location Address Strip */}
             <div className="flex justify-center">
-              <div className={`inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 ${isMockup ? 'text-[10px]' : 'text-xs sm:text-sm'} font-semibold shadow-xs`}>
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 ${isMockup ? 'text-[10px]' : 'text-xs sm:text-sm'} font-semibold shadow-xs max-w-full`}>
                 <MapPin className="w-3.5 h-3.5 text-[#005DAA] shrink-0" />
                 <span className="truncate">{profile.address || `${userCity} Growth Corridor, Telangana`}</span>
               </div>
@@ -1405,8 +1406,8 @@ export default function RealEstateMiniWebsiteView({
             {/* ─────────────────────────────────────────────────────────────
                 HERO APP-STYLE CONTACT SQUIRCLES (All 9 in 1 Single Clean Line)
             ───────────────────────────────────────────────────────────── */}
-            <div className="pt-2 sm:pt-4 pb-2 w-full max-w-full overflow-x-auto no-scrollbar scroll-smooth">
-              <div className="flex flex-nowrap items-center justify-start lg:justify-center gap-2 sm:gap-3 md:gap-4 w-max lg:w-auto px-3 sm:px-4 lg:px-0 lg:mx-auto">
+            <div className={`${isMockup ? 'pt-1.5 pb-1' : 'pt-2 sm:pt-4 pb-2'} w-full max-w-full overflow-x-auto no-scrollbar scroll-smooth`}>
+              <div className="flex flex-nowrap items-center justify-start lg:justify-center gap-2 sm:gap-3 md:gap-4 w-max lg:w-auto px-2 sm:px-4 lg:px-0 lg:mx-auto">
                 
                 {/* 1. CALL */}
                 <a
@@ -1573,11 +1574,11 @@ export default function RealEstateMiniWebsiteView({
             </div>
 
             {/* Primary Action Buttons */}
-            <div className={`flex ${isMockup ? 'flex-col gap-2' : 'flex-col sm:flex-row gap-3 sm:gap-4'} items-center justify-center pt-3`}>
+            <div className={`flex ${isMockup ? 'flex-col sm:flex-row gap-2' : 'flex-col sm:flex-row gap-3 sm:gap-4'} items-center justify-center ${isMockup ? 'pt-2' : 'pt-3'}`}>
               <a
                 href="#projects"
                 style={{ backgroundColor: '#005DAA', color: '#ffffff' }}
-                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-5 py-2.5 text-xs' : 'px-8 py-3.5 sm:py-4 text-sm sm:text-base'} rounded-2xl text-white font-black shadow-lg hover:bg-[#004580] transition-transform active:scale-98 cursor-pointer`}
+                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2 text-xs' : 'px-8 py-3.5 sm:py-4 text-sm sm:text-base'} rounded-2xl text-white font-black shadow-lg hover:bg-[#004580] transition-transform active:scale-98 cursor-pointer`}
               >
                 <span className="text-white font-extrabold">Explore Featured Projects</span>
                 <ChevronRight className="w-4 h-4 text-white" />
@@ -1586,7 +1587,7 @@ export default function RealEstateMiniWebsiteView({
               <button
                 onClick={() => setIsSiteVisitModalOpen(true)}
                 style={{ backgroundColor: '#ffffff', color: '#0f172a', borderColor: '#cbd5e1' }}
-                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-5 py-2.5 text-xs' : 'px-8 py-3.5 sm:py-4 text-sm sm:text-base'} rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-[#005DAA] text-slate-900 font-bold shadow-xs transition cursor-pointer`}
+                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 ${isMockup ? 'px-4 py-2 text-xs' : 'px-8 py-3.5 sm:py-4 text-sm sm:text-base'} rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-[#005DAA] text-slate-900 font-bold shadow-xs transition cursor-pointer`}
               >
                 <Calendar className="w-4 h-4 text-[#005DAA]" />
                 <span>Schedule Site Visit</span>
@@ -1594,11 +1595,11 @@ export default function RealEstateMiniWebsiteView({
             </div>
 
             {/* Real Estate Digital Card & QR Action Row */}
-            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3.5 pt-2">
               <button
                 type="button"
                 onClick={() => setIsQrModalOpen(true)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs shadow-md transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs shadow-md transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
                 title="Scan QR Code to open this mini-website on phone"
               >
                 <QrCode className="w-4 h-4 text-amber-400" />
@@ -1608,7 +1609,7 @@ export default function RealEstateMiniWebsiteView({
               <button
                 type="button"
                 onClick={handleVcfDownload}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
                 title="Save Developer Contact to Phone Address Book"
               >
                 <Download className="w-4 h-4 text-white" />
@@ -1617,7 +1618,7 @@ export default function RealEstateMiniWebsiteView({
 
               <a
                 href="#videos"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-bold text-xs shadow-xs transition transform hover:-translate-y-0.5 active:scale-95"
+                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-bold text-xs shadow-xs transition transform hover:-translate-y-0.5 active:scale-95"
               >
                 <Film className="w-4 h-4 text-rose-500" />
                 <span>4K Drone Tours &amp; Reels</span>
