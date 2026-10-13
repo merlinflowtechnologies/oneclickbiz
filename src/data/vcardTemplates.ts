@@ -200,13 +200,13 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
     id: 'fash-boutique',
     templateNumber: 201,
-    name: 'Designer Boutique vCard',
+    name: 'Grand Fashion & Clothing Mall vCard',
     category: 'Fashion & Clothing',
-    subCategory: 'Boutiques',
-    imgUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80',
+    subCategory: 'Shopping Malls & Multi-Brand Apparel',
+    imgUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
     badge: 'Trending',
-    tagline: 'Custom couture, bespoke tailoring & designer outfits',
-    features: ['Lookbook photo slider', 'Custom stitching inquiry', 'WhatsApp store catalog', 'Instagram feed sync']
+    tagline: 'Multi-Floor Fashion Mall • Men’s, Women’s & Kids’ Collections',
+    features: ['Multi-Level Dept Mall (Men/Women/Kids)', 'In-Store Trial Rooms & Tailoring', 'WhatsApp 1-Click Ordering', 'Express Doorstep Delivery']
   },
   {
     id: 'fash-ladies',

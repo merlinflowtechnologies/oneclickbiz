@@ -35,7 +35,9 @@ import {
   Smartphone,
   Gift,
   ShieldCheck,
-  Building2
+  Building2,
+  HelpCircle,
+  ChevronDown
 } from 'lucide-react';
 import { DigitalProfile, ProductItem, ServiceItem, OrderCartItem, VideoItem, GalleryItem, BlogPostItem, TestimonialItem } from '@/lib/types';
 import { downloadVcfFile } from '@/lib/vcf';
@@ -46,6 +48,7 @@ import PWAInstallPrompt from '@/components/common/PWAInstallPrompt';
 import DirectUPIPaymentModal from '@/components/common/DirectUPIPaymentModal';
 import MBLMiniWebsiteView from './MBLMiniWebsiteView';
 import RestaurantTemplateView from './RestaurantTemplateView';
+import FashionTemplateView from './FashionTemplateView';
 import RealEstateMiniWebsiteView from './RealEstateMiniWebsiteView';
 import InteriorMiniWebsiteView from './InteriorMiniWebsiteView';
 import HealthcareMiniWebsiteView from './HealthcareMiniWebsiteView';
@@ -743,9 +746,11 @@ export default function ProfileCardView({
     (profile as any).templateId === 'brahmin-food' ||
     (profile as any).templateId?.startsWith('food-') ||
     (profile as any).category === 'Food Business' ||
+    (profile as any).category === 'Restaurants & Dining' ||
     (profile as any).category === 'Restaurant' ||
     (profile as any).category === 'Restaurants & Lounges' ||
     (profile as any).category === 'Smart Dining & Digital Menus' ||
+    Boolean(profile.sectionData?.restaurant) ||
     profile.company?.toLowerCase().includes('restaurant') ||
     profile.company?.toLowerCase().includes('dining') ||
     profile.company?.toLowerCase().includes('kitchen') ||
@@ -935,6 +940,79 @@ export default function ProfileCardView({
     Boolean(profile.sectionData?.retail)
   );
 
+  const isFashionTemplate = 
+    isFashion ||
+    profile.slug === 'fash-boutique' || 
+    profile.slug === 'fash-ladies' ||
+    profile.slug === 'fash-mens' ||
+    profile.slug === 'fash-saree' ||
+    profile.slug === 'fash-online' ||
+    profile.slug?.startsWith('fash-') ||
+    profile.slug?.startsWith('fashion-') ||
+    profile.slug?.includes('boutique') ||
+    profile.slug?.includes('couture') ||
+    profile.slug?.includes('tailor') ||
+    profile.slug?.includes('apparel') ||
+    profile.id === 'fash-boutique' ||
+    profile.id?.startsWith('fash-') ||
+    (profile as any).templateId === 'fash-boutique' ||
+    (profile as any).templateId?.startsWith('fash-') ||
+    (profile as any).category === 'Fashion & Clothing' ||
+    (profile as any).category === 'Fashion' ||
+    (profile as any).category === 'Clothing & Boutiques';
+
+  const [cardOpenFaqId, setCardOpenFaqId] = useState<string | null>(null);
+
+  const cardFaqs = isRestaurantTemplate ? [
+    {
+      id: 'c-faq-1',
+      question: 'How do I reserve a dining table in advance?',
+      answer: 'You can reserve a table in 30 seconds directly using our Book Appointment / Reserve Table button or via WhatsApp. Specify your date, time, and guest count for instant confirmation.'
+    },
+    {
+      id: 'c-faq-2',
+      question: 'Do you prepare Pure Vegetarian food separately?',
+      answer: 'Yes! All vegetarian dishes are prepared in dedicated cookware and earthen handis with separate ladles and cold-pressed oils. We strictly honor Jain and pure vegetarian dining preferences.'
+    },
+    {
+      id: 'c-faq-3',
+      question: 'How does WhatsApp doorstep food delivery work?',
+      answer: 'Browse our menu, add your favorites to cart, and click "Order via WhatsApp". Your complete order, address, lane, and landmark will be pre-filled for 1-click confirmation.'
+    },
+    {
+      id: 'c-faq-4',
+      question: 'What are your operational hours for dining & delivery?',
+      answer: 'We are open all 7 days from 11:30 AM to 11:30 PM. Table lunch slots are 12:00 PM – 4:00 PM and dinner starts from 7:00 PM onwards.'
+    }
+  ] : isFashionTemplate ? [
+    {
+      id: 'c-fash-1',
+      question: 'Do you provide in-store trial rooms & custom alterations?',
+      answer: 'Yes! We have spacious trial suites and on-site master tailors for blouse alteration, pant hemming, and waist adjustments with fast 24-hour turnaround.'
+    },
+    {
+      id: 'c-fash-2',
+      question: 'Are all your silk sarees certified Silk Mark pure?',
+      answer: 'Every pure Kanchipuram and Banarasi handloom saree carries the authentic Silk Mark India QR certificate ensuring 100% genuine mulberry silk and authentic zari.'
+    },
+    {
+      id: 'c-fash-3',
+      question: 'Do you offer worldwide DHL courier delivery?',
+      answer: 'Yes! We ship across India within 2-4 days and deliver worldwide (USA, UK, UAE, Canada, Australia) in 5-7 business days with DHL express tracking.'
+    }
+  ] : [
+    {
+      id: 'c-gen-1',
+      question: 'How do I save this digital business card to my phone?',
+      answer: 'Tap the "Save Contact (.VCF)" button above to instantly add all phone numbers, email, website, and office address directly to your smartphone contacts.'
+    },
+    {
+      id: 'c-gen-2',
+      question: 'How do I place orders or inquire via WhatsApp?',
+      answer: 'Tap any product or the WhatsApp button to start an instant direct chat with all service details pre-filled.'
+    }
+  ];
+
   return (
     <div className="w-full relative">
       {/* Top Device View Switcher (Visible on both mobile & desktop) */}
@@ -943,7 +1021,7 @@ export default function ProfileCardView({
           <div className="flex items-center gap-1.5 sm:gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
             <span className="text-[11px] sm:text-xs font-bold text-slate-800 bg-white/90 backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-full border border-slate-200 shadow-xs whitespace-nowrap">
-              Mobile Card
+              {isFashionTemplate ? 'Smart Fashion Card' : isRestaurantTemplate ? 'Smart Dining Card' : 'Mobile Card'}
             </span>
           </div>
           <div className="flex items-center gap-1 p-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md">
@@ -952,22 +1030,56 @@ export default function ProfileCardView({
               className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100 cursor-pointer"
             >
               <Globe className="w-3.5 h-3.5 shrink-0" />
-              <span>Mini-Website</span>
+              <span>{isFashionTemplate ? 'Fashion Mall Website' : isRestaurantTemplate ? 'Dining Website' : 'Mini-Website'}</span>
             </button>
             <button
               onClick={() => setViewMode('mobile')}
               className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all bg-black text-white shadow-sm cursor-pointer"
             >
               <Smartphone className="w-3.5 h-3.5 shrink-0" />
-              <span>Card</span>
+              <span>{isFashionTemplate ? 'Fashion Card' : 'Card'}</span>
             </button>
           </div>
         </div>
       )}
 
-      {/* Main Experience: Either Restaurant Template / Real Estate / MBL Mini-Website OR Smartphone Card */}
-      {isRestaurantTemplate ? (
+      {/* Main Experience: Either Restaurant Template / Fashion Mall Website / Real Estate / MBL Mini-Website OR Smartphone Card */}
+      {isRestaurantTemplate && isWebsiteMode ? (
         <RestaurantTemplateView
+          profile={profile}
+          cart={cart}
+          addToCart={addToCart}
+          updateQuantity={updateQuantity}
+          setIsCartOpen={setIsCartOpen}
+          selectedCurrency={selectedCurrency}
+          setSelectedCurrency={setSelectedCurrency}
+          formatPrice={formatPrice}
+          totalConvertedPrice={totalConvertedPrice}
+          setIsUPIModalOpen={setIsUPIModalOpen}
+          setBookingService={setBookingService}
+          setBookingSuccess={setBookingSuccess}
+          quoteServices={quoteServices}
+          toggleQuoteService={toggleQuoteService}
+          sendWhatsAppQuotation={sendWhatsAppQuotation}
+          leadName={leadName}
+          setLeadName={setLeadName}
+          leadEmail={leadEmail}
+          setLeadEmail={setLeadEmail}
+          leadPhone={leadPhone}
+          setLeadPhone={setLeadPhone}
+          leadMessage={leadMessage}
+          setLeadMessage={setLeadMessage}
+          handleLeadSubmit={handleLeadSubmit}
+          leadSuccess={leadSuccess}
+          trackAction={trackAction}
+          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+          getEmbedUrl={getEmbedUrl}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          showViewToggle={showViewToggle}
+        />
+      ) : isFashionTemplate && isWebsiteMode ? (
+        <FashionTemplateView
           profile={profile}
           cart={cart}
           addToCart={addToCart}
@@ -2053,61 +2165,113 @@ export default function ProfileCardView({
             case 'testimonials': {
               const activeList = dynamicTestimonials || profile.sectionData.testimonials?.items || [];
               return (
-                <div key={sec.id} id="reviews" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card} space-y-4`}>
-                  <div className="flex items-center justify-between pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
-                    <div>
-                      <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
-                        <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                        <span>{sec.title || 'Client Testimonials & Feedback'}</span>
-                      </h3>
-                      {isWebsiteMode && (
-                        <p className="text-[11px] text-slate-500 mt-0.5">Real verified reviews from clients, partners, and customers.</p>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => setIsReviewModalOpen(true)}
-                      className={`px-3 py-1.5 rounded-xl ${theme.isLight ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200' : 'bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border-indigo-500/30'} text-[11px] font-bold border transition flex items-center gap-1.5 shadow-sm active:scale-95`}
-                    >
-                      <Plus className="w-3 h-3" />
-                      <span>Write Review</span>
-                    </button>
-                  </div>
-                  <div className={`grid ${isWebsiteMode ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-3 sm:gap-4`}>
-                    {activeList.map(t => (
-                      <div key={t.id} className={`p-4 rounded-xl ${theme.itemBg} flex flex-col justify-between space-y-3 border border-slate-200/60 dark:border-slate-800`}>
-                        <div>
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center gap-0.5 text-amber-400">
-                              {[...Array(t.rating || 5)].map((_, i) => (
-                                <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
-                              ))}
-                            </div>
-                            <span className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200/60 dark:border-emerald-800/40">
-                              Verified Client
-                            </span>
-                          </div>
-                          <p className={`text-xs ${theme.isLight ? 'text-slate-700' : 'text-slate-300'} italic leading-relaxed`}>
-                            &ldquo;{t.content}&rdquo;
-                          </p>
-                        </div>
-                        
-                        <div className="flex items-center gap-2.5 pt-2 border-t border-slate-200/50 dark:border-slate-800/50">
-                          {t.clientAvatar ? (
-                            <img src={t.clientAvatar} alt={t.clientName} className="w-7 h-7 rounded-full object-cover ring-2 ring-indigo-500/30" />
-                          ) : (
-                            <div className="w-7 h-7 rounded-full bg-indigo-600/20 text-indigo-500 font-bold text-xs flex items-center justify-center">
-                              {t.clientName.charAt(0)}
-                            </div>
-                          )}
-                          <div>
-                            <p className={`text-xs font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>{t.clientName}</p>
-                            <p className={`text-[10px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'}`}>{t.clientRole} {t.clientCompany ? `• ${t.clientCompany}` : ''}</p>
-                          </div>
-                        </div>
+                <React.Fragment key={sec.id}>
+                  <div id="reviews" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card} space-y-4`}>
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
+                      <div>
+                        <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
+                          <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                          <span>{sec.title || (isRestaurantTemplate ? 'Diner Reviews & Ratings' : isFashionTemplate ? 'Shopper Reviews' : 'Client Testimonials & Feedback')}</span>
+                        </h3>
+                        {isWebsiteMode && (
+                          <p className="text-[11px] text-slate-500 mt-0.5">Real verified reviews from clients, partners, and customers.</p>
+                        )}
                       </div>
-                    ))}
+                      <button
+                        onClick={() => setIsReviewModalOpen(true)}
+                        className={`px-3 py-1.5 rounded-xl ${theme.isLight ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200' : 'bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border-indigo-500/30'} text-[11px] font-bold border transition flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer`}
+                      >
+                        <Plus className="w-3 h-3" />
+                        <span>Write Review</span>
+                      </button>
+                    </div>
+                    <div className={`grid ${isWebsiteMode ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-3 sm:gap-4`}>
+                      {activeList.map(t => (
+                        <div key={t.id} className={`p-4 rounded-xl ${theme.itemBg} flex flex-col justify-between space-y-3 border border-slate-200/60 dark:border-slate-800`}>
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center gap-0.5 text-amber-400">
+                                {[...Array(t.rating || 5)].map((_, i) => (
+                                  <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                                ))}
+                              </div>
+                              <span className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200/60 dark:border-emerald-800/40">
+                                Verified {isRestaurantTemplate ? 'Diner' : isFashionTemplate ? 'Shopper' : 'Client'}
+                              </span>
+                            </div>
+                            <p className={`text-xs ${theme.isLight ? 'text-slate-700' : 'text-slate-300'} italic leading-relaxed`}>
+                              &ldquo;{t.content}&rdquo;
+                            </p>
+                          </div>
+                          
+                          <div className="flex items-center gap-2.5 pt-2 border-t border-slate-200/50 dark:border-slate-800/50">
+                            {t.clientAvatar ? (
+                              <img src={t.clientAvatar} alt={t.clientName} className="w-7 h-7 rounded-full object-cover ring-2 ring-indigo-500/30" />
+                            ) : (
+                              <div className="w-7 h-7 rounded-full bg-indigo-600/20 text-indigo-500 font-bold text-xs flex items-center justify-center">
+                                {t.clientName.charAt(0)}
+                              </div>
+                            )}
+                            <div>
+                              <p className={`text-xs font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>{t.clientName}</p>
+                              <p className={`text-[10px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'}`}>{t.clientRole} {t.clientCompany ? `• ${t.clientCompany}` : ''}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+
+                  {/* Frequently Asked Questions (FAQ) Accordion for Card Mode */}
+                  <div id="faqs" className={`scroll-mt-24 p-5 sm:p-6 rounded-2xl ${theme.card} space-y-3.5`}>
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-200/50 dark:border-slate-800/50">
+                      <h3 className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider ${theme.isLight ? 'text-slate-800' : 'text-slate-200'} flex items-center gap-2`}>
+                        <HelpCircle className="w-4 h-4 text-amber-500" />
+                        <span>Frequently Asked Questions (FAQ)</span>
+                      </h3>
+                      <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-full border border-amber-200/60">
+                        Help &amp; Answers
+                      </span>
+                    </div>
+
+                    <div className="space-y-2.5">
+                      {cardFaqs.map((faq) => {
+                        const isFaqOpen = cardOpenFaqId === faq.id;
+                        return (
+                          <div
+                            key={faq.id}
+                            className={`rounded-xl border transition-all overflow-hidden ${
+                              isFaqOpen
+                                ? `${theme.itemBg} border-amber-500/40 shadow-xs`
+                                : `${theme.itemBg} border-slate-200/60 dark:border-slate-800`
+                            }`}
+                          >
+                            <button
+                              type="button"
+                              onClick={() => setCardOpenFaqId(isFaqOpen ? null : faq.id)}
+                              className="w-full p-3 sm:p-3.5 flex items-center justify-between text-left gap-3 cursor-pointer"
+                            >
+                              <div className="flex items-center gap-2.5 min-w-0">
+                                <span className="w-5 h-5 rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold text-[10px] flex items-center justify-center shrink-0">
+                                  Q
+                                </span>
+                                <span className={`text-xs font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>
+                                  {faq.question}
+                                </span>
+                              </div>
+                              <ChevronDown className={`w-4 h-4 shrink-0 transition-transform text-slate-400 ${isFaqOpen ? 'rotate-180 text-amber-500' : ''}`} />
+                            </button>
+                            {isFaqOpen && (
+                              <div className="px-3.5 pb-3.5 pt-1 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/40 dark:border-slate-800 pl-11">
+                                {faq.answer}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </React.Fragment>
               );
             }
 

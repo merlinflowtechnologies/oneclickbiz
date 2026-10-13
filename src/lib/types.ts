@@ -48,6 +48,21 @@ export interface ProductItem {
   brochureUrl?: string;
   amenities?: string[];
   priceLabel?: string;
+  // Restaurant / Food Menu Extended Properties
+  isVeg?: boolean;
+  dietary?: 'Veg' | 'Non-Veg' | 'Pure Veg' | string;
+  spiceLevel?: 'Mild' | 'Medium' | 'Spicy' | 'mild' | 'medium' | 'spicy' | 'extra-hot' | string;
+  prepTime?: string;
+  originalPrice?: number;
+  ingredients?: string[];
+  course?: 'Starters' | 'Main Course' | 'Biryani & Rice' | 'Breads' | 'Desserts & Drinks' | string;
+  chefNote?: string;
+  isSpecial?: boolean;
+  // Fashion & Apparel Extended Properties
+  gender?: 'men' | 'women' | 'kids' | string;
+  fabric?: string;
+  sizes?: string[];
+  occasion?: string;
 }
 
 export interface GalleryItem {
@@ -218,16 +233,24 @@ export interface RetailTrustConfig {
   [key: string]: any;
 }
 
-export interface RestaurantTrustConfig {
+export interface RestaurantConfig {
   fssaiNumber?: string;
   cuisineType?: string;
+  diningType?: string;
+  operatingHours?: string;
+  seatingCapacity?: string | number;
+  avgPrepTime?: string;
+  dietaryType?: string;
+  kitchenPhone?: string;
+  landmark?: string;
   diningTimings?: string;
-  seatingCapacity?: string;
   reservationPolicy?: string;
   deliveryRadius?: string;
   dietaryHighlights?: string;
   [key: string]: any;
 }
+
+export type RestaurantTrustConfig = RestaurantConfig;
 
 export interface ProfileSectionConfig {
   about?: { content: string };
@@ -241,7 +264,7 @@ export interface ProfileSectionConfig {
   customLinks?: { items: CustomLinkItem[] };
   realEstate?: RealEstateTrustConfig;
   interior?: InteriorTrustConfig;
-  restaurant?: RestaurantTrustConfig;
+  restaurant?: RestaurantConfig;
   healthcare?: HealthcareTrustConfig;
   automobile?: AutomobileTrustConfig;
   fashion?: FashionTrustConfig;

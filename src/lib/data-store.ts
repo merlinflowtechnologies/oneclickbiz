@@ -333,6 +333,31 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     };
   }
 
+  // 3.5 Check if slug is fashion / boutique related
+  const isFashionPattern = 
+    cleanSlug === 'fash-boutique' ||
+    cleanSlug === 'fash-ladies' ||
+    cleanSlug === 'fash-mens' ||
+    cleanSlug === 'fash-saree' ||
+    cleanSlug === 'fash-online' ||
+    cleanSlug.startsWith('fash-') ||
+    cleanSlug.startsWith('fashion-') ||
+    cleanSlug.includes('boutique') ||
+    cleanSlug.includes('couture') ||
+    cleanSlug.includes('tailor') ||
+    cleanSlug.includes('apparel');
+
+  if (isFashionPattern) {
+    const tProf = getTemplateProfile('fash-boutique');
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
   // 4. Check if slug matches any catalog template (by id or normalized name)
   const matchedTemplate = VCARD_TEMPLATES_CATALOG.find(
     t => t.id.toLowerCase() === cleanSlug || 

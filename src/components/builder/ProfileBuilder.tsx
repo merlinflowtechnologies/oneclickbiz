@@ -68,7 +68,8 @@ import {
   Scale,
   Wrench,
   Store,
-  Utensils
+  Utensils,
+  UtensilsCrossed
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { DigitalProfile, ThemeType, SectionType, VideoItem, GalleryItem, BlogPostItem, ProductItem, ServiceItem } from '@/lib/types';
@@ -247,7 +248,38 @@ interface ProfileBuilderProps {
 export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilderProps) {
   const router = useRouter();
   const [profile, setProfile] = useState<DigitalProfile>(initialProfile);
-  const isRealEstate = Boolean(
+  const isRestaurant = Boolean(
+    profile.templateId === 'food-restaurant' ||
+    profile.templateId?.startsWith('food-') ||
+    profile.templateId?.startsWith('rest-') ||
+    profile.id === 'food-restaurant' ||
+    profile.id === 'restaurant-menu' ||
+    profile.id === 'food-home' ||
+    profile.slug === 'food-restaurant' ||
+    profile.slug === 'restaurant-menu' ||
+    profile.templateId?.includes('pickle') ||
+    profile.slug?.includes('cafe') ||
+    profile.slug?.includes('restaurant') ||
+    profile.slug?.includes('dining') ||
+    profile.category === 'Food Business' ||
+    profile.category === 'Restaurants & Dining' ||
+    profile.category === 'Restaurant' ||
+    profile.category === 'Restaurants & Lounges' ||
+    profile.category === 'Smart Dining & Digital Menus' ||
+    profile.designation?.toLowerCase().includes('chef') ||
+    profile.designation?.toLowerCase().includes('restaurant') ||
+    profile.designation?.toLowerCase().includes('cafe') ||
+    profile.designation?.toLowerCase().includes('bakery') ||
+    profile.company?.toLowerCase().includes('restaurant') ||
+    profile.company?.toLowerCase().includes('cafe') ||
+    profile.company?.toLowerCase().includes('kitchen') ||
+    profile.company?.toLowerCase().includes('diner') ||
+    profile.company?.toLowerCase().includes('bistro') ||
+    profile.company?.toLowerCase().includes('dhaba') ||
+    profile.company?.toLowerCase().includes('bakery') ||
+    Boolean(profile.sectionData?.restaurant)
+  );
+  const isRealEstate = !isRestaurant && Boolean(
     profile.templateId?.startsWith('re-') || 
     profile.id?.startsWith('re-') || 
     profile.slug?.startsWith('re-') ||
@@ -274,7 +306,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     Boolean(profile.sectionData?.realEstate)
   );
   const [showPreview, setShowPreview] = useState(true);
-  const isInterior = Boolean(
+  const isInterior = !isRestaurant && Boolean(
     profile.templateId === 'home-interior' ||
     profile.templateId === 'interior' ||
     profile.templateId === 'vcard36' ||
@@ -470,30 +502,6 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     profile.company?.toLowerCase().includes('mart') ||
     profile.company?.toLowerCase().includes('jewellers') ||
     Boolean(profile.sectionData?.retail)
-  );
-
-  const isRestaurant = Boolean(
-    profile.templateId?.startsWith('food-') ||
-    profile.templateId?.startsWith('restaurant') ||
-    profile.templateId?.includes('restaurant') ||
-    profile.templateId?.includes('pickle') ||
-    profile.id?.startsWith('food-') ||
-    profile.id?.includes('restaurant') ||
-    profile.slug?.includes('restaurant') ||
-    profile.slug?.includes('food') ||
-    profile.slug?.includes('dining') ||
-    profile.slug?.includes('cafe') ||
-    profile.category === 'Food Business' ||
-    profile.category === 'Restaurant' ||
-    profile.designation?.toLowerCase().includes('chef') ||
-    profile.designation?.toLowerCase().includes('restaurant') ||
-    profile.company?.toLowerCase().includes('restaurant') ||
-    profile.company?.toLowerCase().includes('kitchen') ||
-    profile.company?.toLowerCase().includes('cafe') ||
-    profile.company?.toLowerCase().includes('bistro') ||
-    profile.company?.toLowerCase().includes('dining') ||
-    profile.company?.toLowerCase().includes('bakery') ||
-    Boolean(profile.sectionData?.restaurant)
   );
 
   const activeCategory: VCardCategory = React.useMemo(() => {
@@ -1583,7 +1591,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'products' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              {isRealEstate ? (
+              {isRestaurant ? (
+                <>
+                  <UtensilsCrossed className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Digital Dining Menu ({profile.sectionData?.products?.items?.length || 0})</span>
+                </>
+              ) : isRealEstate ? (
                 <>
                   <Building2 className="w-3.5 h-3.5 text-amber-400" />
                   <span>Projects &amp; Layouts ({profile.sectionData?.products?.items?.length || 0})</span>
@@ -1661,7 +1674,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'services' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              {isRealEstate ? (
+              {isRestaurant ? (
+                <>
+                  <Calendar className="w-3.5 h-3.5 text-orange-400" />
+                  <span>Table Reservations &amp; Dining ({profile.sectionData?.services?.items?.length || 0})</span>
+                </>
+              ) : isRealEstate ? (
                 <>
                   <Calendar className="w-3.5 h-3.5 text-sky-400" />
                   <span>Site Visits &amp; Advisory</span>
@@ -1739,7 +1757,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'gallery' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              {isRealEstate ? (
+              {isRestaurant ? (
+                <>
+                  <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Food &amp; Dining Photos</span>
+                </>
+              ) : isRealEstate ? (
                 <>
                   <Layers className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Blueprints &amp; Photos</span>
@@ -1817,7 +1840,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'videos' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              <Film className="w-3.5 h-3.5 text-rose-400" /> {isRealEstate ? 'Drone & Walkthroughs' : isInterior ? '3D Tours & Reels' : 'Videos & Reels'}
+              <Film className="w-3.5 h-3.5 text-rose-400" /> {isRestaurant ? 'Kitchen Reels & Ambience' : isRealEstate ? 'Drone & Walkthroughs' : isInterior ? '3D Tours & Reels' : 'Videos & Reels'}
             </button>
             <button 
               onClick={() => setActiveTab('socials')}
@@ -4458,11 +4481,11 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
                 {/* 15. FOOD BUSINESS & RESTAURANT TRUST & CREDENTIALS */}
                 {isRestaurant && (
-                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-amber-950/40 to-slate-900 border border-amber-500/40 space-y-4 shadow-xl">
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-stone-900 to-amber-950/40 border border-amber-500/40 space-y-4 shadow-xl">
                     <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                       <div className="flex items-center gap-2.5">
                         <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center">
-                          <Utensils className="w-4 h-4" />
+                          <UtensilsCrossed className="w-4 h-4" />
                         </div>
                         <div>
                           <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
@@ -4481,7 +4504,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                          <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                           <span>FSSAI License / Registration No.</span>
                         </label>
                         <input 
@@ -4501,19 +4524,44 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                               }
                             }));
                           }}
-                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 focus:outline-none focus:border-amber-500 shadow-inner"
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 font-mono focus:outline-none focus:border-amber-500 shadow-inner"
                         />
                       </div>
 
                       <div>
                         <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                          <Utensils className="w-3.5 h-3.5 text-amber-400" />
-                          <span>Cuisine &amp; Specialty</span>
+                          <MapPin className="w-3.5 h-3.5 text-rose-400" />
+                          <span>Landmark &amp; Dining Locality</span>
                         </label>
                         <input 
                           type="text"
-                          value={profile.sectionData?.restaurant?.cuisineType ?? 'Hyderabadi Dum Biryani, Tandoor & North Indian Delicacies'}
-                          placeholder="e.g. Hyderabadi Dum Biryani & Tandoor"
+                          value={profile.sectionData?.restaurant?.landmark ?? 'Opp. Inorbit Mall, Madhapur, Hyderabad'}
+                          placeholder="e.g. Opp. City Center, Hyderabad"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                restaurant: {
+                                  ...(prev.sectionData?.restaurant || {}),
+                                  landmark: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 shadow-inner"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Cuisine Style</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.restaurant?.cuisineType ?? 'Awadhi & Mughlai Dum Biryani'}
+                          placeholder="e.g. North Indian & Tandoor"
                           onChange={e => {
                             const val = e.target.value;
                             setProfile(prev => ({
@@ -4527,17 +4575,15 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                               }
                             }));
                           }}
-                          className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 shadow-inner"
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
                         />
                       </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
                       <div>
                         <label className="text-[11px] font-semibold text-slate-400">Dining &amp; Kitchen Timings</label>
                         <input 
                           type="text"
-                          value={profile.sectionData?.restaurant?.diningTimings ?? '11:30 AM – 11:30 PM (All 7 Days)'}
+                          value={profile.sectionData?.restaurant?.diningTimings ?? profile.sectionData?.restaurant?.operatingHours ?? '11:30 AM – 11:30 PM (All 7 Days)'}
                           placeholder="e.g. 11:30 AM – 11:30 PM"
                           onChange={e => {
                             const val = e.target.value;
@@ -4547,7 +4593,31 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                                 ...prev.sectionData,
                                 restaurant: {
                                   ...(prev.sectionData?.restaurant || {}),
-                                  diningTimings: val
+                                  diningTimings: val,
+                                  operatingHours: val
+                                }
+                              }
+                            }));
+                          }}
+                          className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-400">Avg. Prep Time</label>
+                        <input 
+                          type="text"
+                          value={profile.sectionData?.restaurant?.avgPrepTime ?? '20-25 Mins'}
+                          placeholder="e.g. 20-25 Mins"
+                          onChange={e => {
+                            const val = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: {
+                                ...prev.sectionData,
+                                restaurant: {
+                                  ...(prev.sectionData?.restaurant || {}),
+                                  avgPrepTime: val
                                 }
                               }
                             }));
@@ -4578,7 +4648,9 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                           className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
                         />
                       </div>
+                    </div>
 
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
                       <div>
                         <label className="text-[11px] font-semibold text-slate-400">Delivery Radius / Partners</label>
                         <input 
@@ -4601,9 +4673,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                           className="mt-1 w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white"
                         />
                       </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                       <div>
                         <label className="text-[11px] font-semibold text-slate-400">Table Reservation Policy</label>
                         <input 
@@ -5051,7 +5121,319 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
           {/* TAB 4: SERVICES (OR REAL ESTATE SITE VISITS & ADVISORY) */}
           {activeTab === 'services' && (
-            isRealEstate ? (
+            isRestaurant ? (
+              <div className="space-y-5 max-w-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                        <Calendar className="w-4 h-4 text-orange-400" />
+                        <span>Table Reservations &amp; Dining Packages</span>
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-500/20 text-orange-300 border border-orange-500/30">
+                        {profile.sectionData.services?.items?.length || 0} Packages
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Configure candlelight dinner arrangements, rooftop tables, private dining rooms, and pre-booked celebration packages.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newService = {
+                        id: `svc_${Date.now()}`,
+                        title: 'Candlelight Dinner Romantic Table Setup',
+                        category: 'Candlelight & Romantic Seating',
+                        description: 'Reserved floral center table with candles, 2 complimentary mocktails, signature appetizer platter, and priority chef service.',
+                        price: 1499,
+                        currency: '₹',
+                        durationMinutes: 120,
+                        isAvailable: true
+                      };
+                      const updated = [...(profile.sectionData.services?.items || []), newService];
+                      setProfile(prev => ({
+                        ...prev,
+                        sectionData: { ...prev.sectionData, services: { items: updated } }
+                      }));
+                    }}
+                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow-md cursor-pointer shrink-0"
+                  >
+                    <Plus className="w-4 h-4 stroke-[2.5]" /> Add Dining Package
+                  </button>
+                </div>
+
+                {/* Quick Dining Service Presets Strip */}
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-amber-400 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                      Quick Dining &amp; Table Booking Presets:
+                    </span>
+                    <span className="text-[10px] text-slate-400">Click to instantly add package</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_1`,
+                          title: 'Romantic Candlelight Dinner Table (for 2)',
+                          category: 'Candlelight & Romantic Seating',
+                          description: 'Decorated candle table, fresh rose petals, 2 complimentary royal mocktails, chef appetizer platter & romantic music ambience.',
+                          price: 1499,
+                          currency: '₹',
+                          durationMinutes: 120,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Candlelight Table (₹1,499)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_2`,
+                          title: 'Rooftop VIP Family Lounge (Up to 8 Guests)',
+                          category: 'Rooftop / Terrace Seating',
+                          description: 'Open-air panoramic rooftop lounge sofa booth with dedicated steward, customized multi-course tasting menu, and beverage bucket.',
+                          price: 2499,
+                          currency: '₹',
+                          durationMinutes: 150,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Rooftop VIP Lounge (₹2,499)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_3`,
+                          title: 'Birthday & Anniversary Celebration Hall',
+                          category: 'Birthday & Anniversary Celebration',
+                          description: 'Thematic balloon styling, complimentary 1kg artisanal chef cake, sparkle candle presentation, party music & dedicated servers.',
+                          price: 4999,
+                          currency: '₹',
+                          durationMinutes: 180,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Birthday Celebration Hall (₹4,999)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = {
+                          id: `svc_${Date.now()}_4`,
+                          title: 'Complimentary Table Reservation (Standard Dining)',
+                          category: 'Standard Table Reservation',
+                          description: 'Guaranteed reserved table seating with zero wait-time during peak rush hours. Dedicated table assignment upon arrival.',
+                          price: 0,
+                          currency: '₹',
+                          durationMinutes: 90,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, services: { items: [...(prev.sectionData.services?.items || []), s] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-emerald-950/40 text-slate-300 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition"
+                    >
+                      + Priority Table Booking (Free)
+                    </button>
+                  </div>
+                </div>
+
+                {/* List of Dining Packages */}
+                <div className="space-y-4">
+                  {profile.sectionData.services?.items?.map((srv, idx) => (
+                    <div 
+                      key={srv.id} 
+                      className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-[#1F1208]/60 border border-slate-700 hover:border-orange-500/40 transition-all space-y-4 relative shadow-lg"
+                    >
+                      <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+                        <div className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-lg bg-orange-500/20 text-orange-400 font-black text-xs flex items-center justify-center">
+                            {idx + 1}
+                          </span>
+                          <span className="text-xs font-bold text-white truncate max-w-[200px] sm:max-w-xs">
+                            {srv.title || `Dining Package #${idx + 1}`}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].isAvailable = !updated[idx].isAvailable;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, services: { items: updated } }
+                              }));
+                            }}
+                            className={`px-2 py-0.5 rounded-full text-[10px] font-bold border transition ${
+                              srv.isAvailable !== false
+                                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                                : 'bg-red-500/10 text-red-400 border-red-500/30'
+                            }`}
+                          >
+                            {srv.isAvailable !== false ? '● Active' : '○ Booked Out'}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = (profile.sectionData.services?.items || []).filter((_, i) => i !== idx);
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, services: { items: updated } }
+                              }));
+                            }}
+                            className="text-slate-500 hover:text-red-400 p-1 rounded-lg hover:bg-slate-800 transition"
+                            title="Delete Package"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="sm:col-span-2 space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Package Title / Dining Experience</label>
+                          <input 
+                            type="text" 
+                            value={srv.title}
+                            placeholder="e.g. Romantic Candlelight Dinner Table Setup"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].title = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, services: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Seating / Dining Type</label>
+                          <select
+                            value={srv.category || 'Candlelight & Romantic Seating'}
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].category = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, services: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-2.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-orange-500 transition"
+                          >
+                            <option value="Candlelight & Romantic Seating">Candlelight &amp; Romantic Seating</option>
+                            <option value="Rooftop / Terrace Seating">Rooftop / Terrace Seating</option>
+                            <option value="Family Dining & Banquet">Family Dining &amp; Banquet</option>
+                            <option value="Private Dining Room (PDR)">Private Dining Room (PDR)</option>
+                            <option value="Birthday & Anniversary Celebration">Birthday &amp; Celebration</option>
+                            <option value="Chef's Special Tasting Table">Chef's Tasting Table</option>
+                            <option value="Standard Table Reservation">Standard Table Reservation</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between">
+                            <label className="text-[11px] font-medium text-slate-400">Reservation / Cover Charge (₹)</label>
+                            <span className="text-[10px] text-amber-400 font-bold">
+                              {srv.price === 0 ? 'Complimentary' : `₹${srv.price}`}
+                            </span>
+                          </div>
+                          <input 
+                            type="number" 
+                            value={srv.price}
+                            placeholder="0"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].price = Number(e.target.value);
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, services: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Dining Duration (Minutes)</label>
+                          <input 
+                            type="number" 
+                            value={srv.durationMinutes || 90}
+                            placeholder="90"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.services?.items || [])];
+                              updated[idx].durationMinutes = Number(e.target.value);
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, services: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-[11px] font-medium text-slate-400">Package Inclusions &amp; Setup Details</label>
+                        <textarea 
+                          rows={2}
+                          value={srv.description || ''}
+                          placeholder="e.g. Reserved floral center table with candles, 2 complimentary mocktails, signature appetizer platter..."
+                          onChange={e => {
+                            const updated = [...(profile.sectionData.services?.items || [])];
+                            updated[idx].description = e.target.value;
+                            setProfile(prev => ({
+                              ...prev,
+                              sectionData: { ...prev.sectionData, services: { items: updated } }
+                            }));
+                          }}
+                          className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition resize-none"
+                        />
+                      </div>
+                    </div>
+                  ))}
+
+                  {(!profile.sectionData.services?.items || profile.sectionData.services.items.length === 0) && (
+                    <div className="p-8 text-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/50">
+                      <Calendar className="w-8 h-8 text-orange-400 mx-auto mb-2 opacity-50" />
+                      <p className="text-xs font-semibold text-slate-300">No dining reservation packages configured yet</p>
+                      <p className="text-[11px] text-slate-500 mt-1 max-w-sm mx-auto">
+                        Add table booking packages or click a preset above to enable instant reservations on your restaurant card.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : isRealEstate ? (
               <div className="space-y-5 max-w-2xl">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
                   <div>
@@ -5666,7 +6048,569 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
           {/* TAB 5: PRODUCTS (OR REAL ESTATE VENTURES) */}
           {activeTab === 'products' && (
-            isRealEstate ? (
+            isRestaurant ? (
+              <div className="space-y-5 max-w-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                        <UtensilsCrossed className="w-4 h-4 text-amber-400" />
+                        <span>Digital Dining Menu &amp; Chef Specials</span>
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                        {profile.sectionData.products?.items?.length || 0} Menu Items
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Manage your appetizers, royal biryanis, tandoor specials, gravies, desserts, pricing, and live dietary indicators.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newDish: ProductItem = {
+                        id: `dish_${Date.now()}`,
+                        name: 'New Signature Dish',
+                        description: 'Slow-cooked with pure spices, aromatic herbs, and authentic house recipes.',
+                        price: 349,
+                        originalPrice: 399,
+                        currency: '₹',
+                        category: 'Biryani & Rice',
+                        imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80',
+                        isVeg: false,
+                        spiceLevel: 'medium',
+                        prepTime: '20-25 Mins',
+                        ingredients: ['Aged Basmati Rice', 'Pure Desi Ghee', 'Saffron', 'Whole Spices'],
+                        course: 'main',
+                        chefNote: 'House specialty prepared fresh on order.',
+                        isSpecial: true,
+                        isAvailable: true
+                      };
+                      const updated = [...(profile.sectionData.products?.items || []), newDish];
+                      setProfile(prev => ({
+                        ...prev,
+                        sectionData: { ...prev.sectionData, products: { items: updated } }
+                      }));
+                    }}
+                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-xs font-bold text-slate-950 flex items-center gap-1.5 transition-all shadow-md cursor-pointer shrink-0"
+                  >
+                    <Plus className="w-4 h-4 text-slate-950 stroke-[3]" /> Add New Dish / Item
+                  </button>
+                </div>
+
+                {/* Quick Dish Presets Strip */}
+                <div className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-amber-400 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                      Popular Menu Presets (Click to Add):
+                    </span>
+                    <span className="text-[10px] text-slate-400">Instantly populates item &amp; photo</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const d: ProductItem = {
+                          id: `dish_${Date.now()}_1`,
+                          name: 'Hyderabadi Shahi Mutton Dum Biryani',
+                          description: 'Tender baby mutton marinated in brown onions, yoghurt and mint, sealed in handi with aged saffron basmati rice.',
+                          price: 420,
+                          originalPrice: 480,
+                          currency: '₹',
+                          category: 'Biryani & Rice',
+                          imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80',
+                          isVeg: false,
+                          spiceLevel: 'spicy',
+                          prepTime: '25 Mins',
+                          ingredients: ['Tender Baby Mutton', '2-Year Aged Basmati', 'Pure Desi Ghee', 'Kesar Saffron', 'Fried Onions (Birista)'],
+                          course: 'main',
+                          chefNote: 'Slow charcoal dum-cooked in clay pots for 4 hours.',
+                          isSpecial: true,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, products: { items: [...(prev.sectionData.products?.items || []), d] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Dum Biryani (₹420)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const d: ProductItem = {
+                          id: `dish_${Date.now()}_2`,
+                          name: 'Paneer Tikka Angaara Charcoal Roast',
+                          description: 'Succulent malai cottage cheese cubes infused with Kashmiri deghi mirch, spiced hung curd, and roasted on iron skewers.',
+                          price: 290,
+                          originalPrice: 340,
+                          currency: '₹',
+                          category: 'Starters & Tandoor',
+                          imageUrl: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=600&q=80',
+                          isVeg: true,
+                          spiceLevel: 'medium',
+                          prepTime: '15 Mins',
+                          ingredients: ['Fresh Malai Paneer', 'Hung Curd', 'Kashmiri Degi Mirch', 'Bell Peppers', 'Mint Chutney'],
+                          course: 'starter',
+                          chefNote: 'Charred over burning charcoal for authentic smokiness.',
+                          isSpecial: true,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, products: { items: [...(prev.sectionData.products?.items || []), d] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-emerald-950/40 text-slate-300 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition"
+                    >
+                      + Paneer Tikka (₹290)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const d: ProductItem = {
+                          id: `dish_${Date.now()}_3`,
+                          name: 'Dal Makhani Slow-Simmered Overnight',
+                          description: 'Whole black lentils and kidney beans simmered for 18 hours on slow embers with churned butter and fresh cream.',
+                          price: 260,
+                          originalPrice: 299,
+                          currency: '₹',
+                          category: 'Main Course Gravies',
+                          imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=600&q=80',
+                          isVeg: true,
+                          spiceLevel: 'mild',
+                          prepTime: '15 Mins',
+                          ingredients: ['Black Urad Dal', 'Rajma Beans', 'Fresh White Butter', 'Dairy Cream', 'Kasuri Methi'],
+                          course: 'main',
+                          chefNote: 'Pairs heavenly with Tandoori Garlic Naan.',
+                          isSpecial: false,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, products: { items: [...(prev.sectionData.products?.items || []), d] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-emerald-950/40 text-slate-300 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition"
+                    >
+                      + Dal Makhani (₹260)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const d: ProductItem = {
+                          id: `dish_${Date.now()}_4`,
+                          name: 'Clay Oven Butter Garlic Naan (2 Pcs)',
+                          description: 'Pillowy charred flatbread baked in the intense heat of clay tandoor, brushed with roasted garlic butter.',
+                          price: 75,
+                          currency: '₹',
+                          category: 'Breads & Tandoor',
+                          imageUrl: 'https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=600&q=80',
+                          isVeg: true,
+                          spiceLevel: 'mild',
+                          prepTime: '8 Mins',
+                          ingredients: ['Refined Flour', 'Minced Garlic', 'Salted Butter', 'Fresh Cilantro', 'Nigella Seeds'],
+                          course: 'bread',
+                          chefNote: 'Served smoking hot right off the tandoor walls.',
+                          isSpecial: false,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, products: { items: [...(prev.sectionData.products?.items || []), d] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-amber-950/40 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 transition"
+                    >
+                      + Garlic Naan (₹75)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const d: ProductItem = {
+                          id: `dish_${Date.now()}_5`,
+                          name: 'Warm Gulab Jamun with Chilled Rabdi',
+                          description: 'Golden fried khoya milk dumplings soaked in cardamom sugar syrup, rested atop thick slow-reduced lachha rabdi.',
+                          price: 150,
+                          originalPrice: 180,
+                          currency: '₹',
+                          category: 'Desserts & Sweets',
+                          imageUrl: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80',
+                          isVeg: true,
+                          spiceLevel: 'mild',
+                          prepTime: '5 Mins',
+                          ingredients: ['Fresh Khoya (Mawa)', 'Chilled Lachha Rabdi', 'Cardamom & Rose Water', 'Silver Leaf', 'Pistachios'],
+                          course: 'dessert',
+                          chefNote: 'The sublime contrast of hot jamun and ice-cold rabdi.',
+                          isSpecial: true,
+                          isAvailable: true
+                        };
+                        setProfile(prev => ({
+                          ...prev,
+                          sectionData: { ...prev.sectionData, products: { items: [...(prev.sectionData.products?.items || []), d] } }
+                        }));
+                      }}
+                      className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-950 hover:bg-pink-950/40 text-slate-300 hover:text-pink-300 border border-slate-800 hover:border-pink-500/40 transition"
+                    >
+                      + Rabdi Jamun (₹150)
+                    </button>
+                  </div>
+                </div>
+
+                {/* List of Dishes */}
+                <div className="space-y-4">
+                  {profile.sectionData.products?.items?.map((prod, idx) => (
+                    <div 
+                      key={prod.id} 
+                      className="p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-[#1F1208]/60 border border-slate-700 hover:border-amber-500/40 transition-all space-y-4 relative shadow-lg"
+                    >
+                      {/* Top Header of Dish Card */}
+                      <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+                        <div className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 font-black text-xs flex items-center justify-center">
+                            {idx + 1}
+                          </span>
+                          {/* Veg / Non-Veg indicator icon */}
+                          <span 
+                            className={`w-4 h-4 rounded-sm border flex items-center justify-center ${
+                              prod.isVeg ? 'border-emerald-500 bg-emerald-950/40' : 'border-rose-600 bg-rose-950/40'
+                            }`}
+                            title={prod.isVeg ? 'Vegetarian Dish' : 'Non-Vegetarian Dish'}
+                          >
+                            <span className={`w-2 h-2 rounded-full ${prod.isVeg ? 'bg-emerald-400' : 'bg-rose-500'}`} />
+                          </span>
+                          <span className="text-xs font-bold text-white truncate max-w-[180px] sm:max-w-xs">
+                            {prod.name || `Dish #${idx + 1}`}
+                          </span>
+                          {prod.isSpecial && (
+                            <span className="text-[10px] px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-400 font-semibold border border-amber-500/20">
+                              ★ Chef Special
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].isAvailable = !updated[idx].isAvailable;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className={`px-2 py-0.5 rounded-full text-[10px] font-bold border transition ${
+                              prod.isAvailable !== false
+                                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                                : 'bg-red-500/10 text-red-400 border-red-500/30'
+                            }`}
+                          >
+                            {prod.isAvailable !== false ? '● In Stock' : '○ Sold Out (86)'}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = (profile.sectionData.products?.items || []).filter((_, i) => i !== idx);
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="text-slate-500 hover:text-red-400 p-1 rounded-lg hover:bg-slate-800 transition"
+                            title="Delete Dish"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Line 1: Name, Category, Veg/Non-Veg Toggle */}
+                      <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                        <div className="sm:col-span-6 space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Dish Name</label>
+                          <input 
+                            type="text" 
+                            value={prod.name}
+                            placeholder="e.g. Hyderabadi Dum Biryani"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].name = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition"
+                          />
+                        </div>
+
+                        <div className="sm:col-span-3 space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Course / Category</label>
+                          <select
+                            value={prod.category || 'Biryani & Rice'}
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].category = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-2.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 transition"
+                          >
+                            <option value="Starters & Tandoor">Starters &amp; Tandoor</option>
+                            <option value="Biryani & Rice">Biryani &amp; Rice</option>
+                            <option value="Main Course Gravies">Main Course Gravies</option>
+                            <option value="Breads & Tandoor">Breads &amp; Tandoor</option>
+                            <option value="Desserts & Sweets">Desserts &amp; Sweets</option>
+                            <option value="Beverages & Mocktails">Beverages &amp; Mocktails</option>
+                            <option value="Banquet Platters">Banquet Platters</option>
+                          </select>
+                        </div>
+
+                        <div className="sm:col-span-3 space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Dietary Type</label>
+                          <div className="grid grid-cols-2 gap-1.5 pt-0.5">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updated = [...(profile.sectionData.products?.items || [])];
+                                updated[idx].isVeg = true;
+                                setProfile(prev => ({
+                                  ...prev,
+                                  sectionData: { ...prev.sectionData, products: { items: updated } }
+                                }));
+                              }}
+                              className={`py-1.5 rounded-lg text-xs font-bold border flex items-center justify-center gap-1 transition ${
+                                prod.isVeg 
+                                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-sm'
+                                  : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-slate-200'
+                              }`}
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Veg
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updated = [...(profile.sectionData.products?.items || [])];
+                                updated[idx].isVeg = false;
+                                setProfile(prev => ({
+                                  ...prev,
+                                  sectionData: { ...prev.sectionData, products: { items: updated } }
+                                }));
+                              }}
+                              className={`py-1.5 rounded-lg text-xs font-bold border flex items-center justify-center gap-1 transition ${
+                                !prod.isVeg 
+                                  ? 'bg-rose-500/20 text-rose-300 border-rose-500/50 shadow-sm'
+                                  : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-slate-200'
+                              }`}
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-rose-500" /> Non-Veg
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Line 2: Price, Original Price, Spice Level, Prep Time */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Selling Price (₹)</label>
+                          <input 
+                            type="number" 
+                            value={prod.price}
+                            placeholder="349"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].price = Number(e.target.value);
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 font-bold focus:outline-none focus:border-amber-500 transition"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Strike Price (₹ optional)</label>
+                          <input 
+                            type="number" 
+                            value={prod.originalPrice || ''}
+                            placeholder="e.g. 399"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].originalPrice = e.target.value ? Number(e.target.value) : undefined;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-400 focus:outline-none focus:border-amber-500 transition"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Spice Heat Level</label>
+                          <select
+                            value={prod.spiceLevel || 'medium'}
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].spiceLevel = e.target.value as any;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-2.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 transition"
+                          >
+                            <option value="mild">Mild 🌶️</option>
+                            <option value="medium">Medium 🌶️🌶️</option>
+                            <option value="spicy">Spicy 🌶️🌶️🌶️</option>
+                            <option value="extra-hot">Extra Hot 🔥</option>
+                          </select>
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Kitchen Prep Time</label>
+                          <input 
+                            type="text" 
+                            value={prod.prepTime || '20 Mins'}
+                            placeholder="e.g. 20 Mins"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].prepTime = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 transition"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Line 3: Image URL and Ingredients */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Dish Photo URL</label>
+                          <div className="flex gap-2">
+                            {prod.imageUrl && (
+                              <img 
+                                src={prod.imageUrl} 
+                                alt={prod.name} 
+                                className="w-10 h-10 rounded-xl object-cover border border-slate-700 shrink-0" 
+                              />
+                            )}
+                            <input 
+                              type="text" 
+                              value={prod.imageUrl || ''}
+                              placeholder="https://images.unsplash.com/..."
+                              onChange={e => {
+                                const updated = [...(profile.sectionData.products?.items || [])];
+                                updated[idx].imageUrl = e.target.value;
+                                setProfile(prev => ({
+                                  ...prev,
+                                  sectionData: { ...prev.sectionData, products: { items: updated } }
+                                }));
+                              }}
+                              className="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 transition"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Key Ingredients (Comma Separated)</label>
+                          <input 
+                            type="text" 
+                            value={Array.isArray(prod.ingredients) ? prod.ingredients.join(', ') : (prod.ingredients || '')}
+                            placeholder="e.g. Malai Paneer, Kashmiri Mirch, Desi Ghee"
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].ingredients = e.target.value.split(',').map(s => s.trim()).filter(Boolean);
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 transition"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Line 4: Description & Chef Note */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400">Dish Description &amp; Taste Profile</label>
+                          <textarea 
+                            rows={2}
+                            value={prod.description || ''}
+                            placeholder="A velvety smooth reduction of ripe plum tomatoes, cashew butter, and aromatic whole spices..."
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].description = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition resize-none"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-medium text-slate-400 flex items-center justify-between">
+                            <span>Chef Pairing Note (Optional)</span>
+                            <label className="text-[10px] text-amber-400 font-bold flex items-center gap-1 cursor-pointer">
+                              <input 
+                                type="checkbox"
+                                checked={Boolean(prod.isSpecial)}
+                                onChange={e => {
+                                  const updated = [...(profile.sectionData.products?.items || [])];
+                                  updated[idx].isSpecial = e.target.checked;
+                                  setProfile(prev => ({
+                                    ...prev,
+                                    sectionData: { ...prev.sectionData, products: { items: updated } }
+                                  }));
+                                }}
+                                className="rounded text-amber-500"
+                              />
+                              Feature as Bestseller
+                            </label>
+                          </label>
+                          <textarea 
+                            rows={2}
+                            value={prod.chefNote || ''}
+                            placeholder="e.g. Cooked on open charcoal flames. Pairs best with Butter Garlic Naan."
+                            onChange={e => {
+                              const updated = [...(profile.sectionData.products?.items || [])];
+                              updated[idx].chefNote = e.target.value;
+                              setProfile(prev => ({
+                                ...prev,
+                                sectionData: { ...prev.sectionData, products: { items: updated } }
+                              }));
+                            }}
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition resize-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {(!profile.sectionData.products?.items || profile.sectionData.products.items.length === 0) && (
+                    <div className="p-8 text-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/50">
+                      <UtensilsCrossed className="w-8 h-8 text-amber-400 mx-auto mb-2 opacity-50" />
+                      <p className="text-xs font-semibold text-slate-300">No dishes in your digital menu yet</p>
+                      <p className="text-[11px] text-slate-500 mt-1 max-w-sm mx-auto">
+                        Add signature dishes or click any preset above to launch your digital WhatsApp dining menu.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : isRealEstate ? (
               <div className="space-y-5 max-w-2xl">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
                   <div>
@@ -6493,7 +7437,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                       <div className="flex items-center gap-2">
                         <HardDrive className="w-4 h-4 text-indigo-400" />
                         <span className="text-xs font-bold text-white">
-                          {isRealEstate ? 'Drone Surveys & Walkthrough Videos' : 'Videos & Storage Quotas'}
+                          {isRestaurant ? 'Kitchen Reels & Ambience Videos' : isRealEstate ? 'Drone Surveys & Walkthrough Videos' : 'Videos & Storage Quotas'}
                         </span>
                       </div>
 
@@ -6599,7 +7543,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   className="px-3.5 py-2 rounded-xl text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow-md active:scale-95 bg-red-600 hover:bg-red-500 shadow-red-500/20 cursor-pointer"
                 >
                   <SocialIcon platform="youtube" size={15} /> 
-                  <span>{isRealEstate ? 'Add YouTube 4K Link' : isInterior ? 'Add 4K Tour Link' : 'Add YouTube Link'}</span>
+                  <span>{isRestaurant ? 'Add Kitchen Prep 4K Link' : isRealEstate ? 'Add YouTube 4K Link' : isInterior ? 'Add 4K Tour Link' : 'Add YouTube Link'}</span>
                 </button>
 
                 <button
@@ -6616,14 +7560,18 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     }
                     const newVideo: VideoItem = {
                       id: `vid_${Date.now()}`,
-                      title: isRealEstate 
+                      title: isRestaurant
+                        ? 'Clay-Pot Dum Biryani Handi Open Reel'
+                        : isRealEstate 
                         ? 'On-Site Ground Progression & Master Arch Reel' 
                         : isInterior 
                         ? 'Before & After Turnkey Handover Reel' 
                         : 'Instagram Brand Reel Tour',
                       url: 'https://www.instagram.com/reel/C3M8W98oG12/',
                       type: 'instagram',
-                      caption: isRealEstate 
+                      caption: isRestaurant
+                        ? 'Live kitchen prep, charcoal tandoor sizzle, and customer dining ambience.'
+                        : isRealEstate 
                         ? 'Live on-site footage, finished CC roads, and street lighting illumination.' 
                         : isInterior 
                         ? 'Live 45-day turnkey progress, modular factory installation, and client reaction.' 
@@ -6927,6 +7875,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         slug: `new-article-${Date.now()}`,
                         excerpt: 'Summary of the key insights and actionable takeaways...',
                         content: 'Write the comprehensive article details and guidelines here...',
+                        coverImage: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80',
                         category: 'Strategy',
                         readTimeMinutes: 3,
                         publishedAt: new Date().toISOString().split('T')[0],
@@ -7105,7 +8054,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <div className="flex items-center gap-2">
                     <ImageIcon className="w-4 h-4 text-indigo-400" />
                     <span className="text-xs font-bold text-white">
-                      {isRealEstate ? 'Blueprints, Elevations & Site Progress Photos' : 'Portfolio Gallery & Photos Quota'}
+                      {isRestaurant ? 'Food, Dining Ambience & Kitchen Photo Gallery' : isRealEstate ? 'Blueprints, Elevations & Site Progress Photos' : 'Portfolio Gallery & Photos Quota'}
                     </span>
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                       (profile.sectionData.gallery?.items?.length || 0) >= MAX_GALLERY
@@ -7145,13 +8094,15 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    {isRealEstate ? 'Blueprint & Photo Category:' : 'Batch Upload Category:'}
+                    {isRestaurant ? 'Food & Ambience Category:' : isRealEstate ? 'Blueprint & Photo Category:' : 'Batch Upload Category:'}
                   </span>
                   <span className="text-[10px] text-slate-400">Tagged automatically on upload</span>
                 </div>
 
                 <div className="flex flex-wrap gap-1.5">
-                  {(isRealEstate 
+                  {(isRestaurant
+                    ? ['Dining Ambience', 'Signature Dishes', 'Tandoor & Starters', 'Biryani & Main Course', 'Desserts & Sweets', 'Bar & Mocktails', 'Kitchen Hygiene & Crew', 'VIP & Family Seating']
+                    : isRealEstate 
                     ? ['Master Layout Blueprint', '3D Architectural Elevation', 'Villa / Flat Interiors', 'Clubhouse & Amenities', 'Actual Site Progress', 'Aerial Drone Survey', 'Open Plots Demarcation', 'Venture Entrance Arch']
                     : isInterior
                     ? ['Living & Dining', 'Modular Kitchens', 'Master Bedrooms', 'Commercial & Offices', '3D Lookbooks & Renders', 'False Ceiling & Lighting', 'Wardrobes & Woodwork', 'Before & After Transformations']
@@ -7182,11 +8133,13 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all shadow-lg active:scale-95 ${
                     isRealEstate
                       ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:from-amber-400 hover:to-amber-500 shadow-amber-500/20'
+                      : isRestaurant
+                      ? 'bg-gradient-to-r from-orange-500 to-amber-600 text-white hover:from-orange-400 hover:to-amber-500 shadow-orange-500/20'
                       : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white shadow-indigo-500/20'
                   }`}
                 >
                   <Upload className={`w-4 h-4 ${isRealEstate ? 'text-slate-950 stroke-[2.5]' : 'text-white'}`} /> 
-                  <span>{isRealEstate ? 'Batch Upload Layouts & Photos' : 'Batch Upload Photos (Multi-Select)'}</span>
+                  <span>{isRestaurant ? 'Batch Upload Food & Dining Photos' : isRealEstate ? 'Batch Upload Layouts & Photos' : 'Batch Upload Photos (Multi-Select)'}</span>
                 </button>
 
                 <button
@@ -7202,12 +8155,20 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     }
                     const newGalleryItem: GalleryItem = {
                       id: `gal_${Date.now()}`,
-                      title: isRealEstate ? 'Master Layout Demarcation Blueprint' : 'New Client Showcase',
-                      category: galleryUploadTag || (isRealEstate ? 'Master Layout Blueprint' : 'Portfolio'),
-                      description: isRealEstate 
+                      title: isRestaurant 
+                        ? 'Dining Ambience & Kitchen Showcase'
+                        : isRealEstate 
+                        ? 'Master Layout Demarcation Blueprint' 
+                        : 'New Client Showcase',
+                      category: galleryUploadTag || (isRestaurant ? 'Dining Ambience' : isRealEstate ? 'Master Layout Blueprint' : 'Portfolio'),
+                      description: isRestaurant
+                        ? 'High-resolution photo of dining seating, kitchen plating, and restaurant interior.'
+                        : isRealEstate 
                         ? 'High-resolution HMDA/DTCP master zoning layout and demarcation blueprint.'
                         : 'Complete project photoshoot and visual showcase.',
-                      imageUrl: isRealEstate
+                      imageUrl: isRestaurant
+                        ? 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80'
+                        : isRealEstate
                         ? 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80'
                         : 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80'
                     };
@@ -7219,7 +8180,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   }}
                   className="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-medium text-slate-300 flex items-center gap-1.5 transition-all"
                 >
-                  <Plus className="w-3.5 h-3.5" /> {isRealEstate ? 'Add Blueprint via Web Link' : 'Add Photo via Web Link'}
+                  <Plus className="w-3.5 h-3.5" /> {isRestaurant ? 'Add Photo via Web Link' : isRealEstate ? 'Add Blueprint via Web Link' : 'Add Photo via Web Link'}
                 </button>
               </div>
 

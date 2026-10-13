@@ -81,8 +81,53 @@ function BuilderContent() {
 
         // Determine target slug: explicit queryParam > serverUser.slug > parsedSession.slug > fallback
         const targetSlug = (querySlug || serverUser?.slug || parsedSession?.slug || 'alex').toLowerCase().trim();
-        const effectiveTemplateId = queryTemplate || serverUser?.template || parsedSession?.template || (parsedSession?.category === 'Real Estate' || targetSlug.startsWith('re-') ? 're-builders' : (parsedSession?.category === 'Interior Design' || targetSlug.startsWith('home-interior') || targetSlug.startsWith('interior') ? 'home-interior' : null));
-        const isReTarget = Boolean(
+
+        const isRestaurantTarget = Boolean(
+          queryTemplate === 'food-restaurant' ||
+          queryTemplate === 'restaurant-menu' ||
+          queryTemplate === 'food-home' ||
+          queryTemplate === 'food-cloud' ||
+          queryTemplate === 'food' ||
+          queryTemplate === 'vcard38' ||
+          serverUser?.template === 'food-restaurant' ||
+          serverUser?.template === 'restaurant-menu' ||
+          serverUser?.template === 'food' ||
+          parsedSession?.template === 'food-restaurant' ||
+          parsedSession?.template === 'restaurant-menu' ||
+          parsedSession?.template === 'food' ||
+          parsedSession?.category === 'Food Business' ||
+          parsedSession?.category === 'Restaurant' ||
+          parsedSession?.category === 'Food & Dining' ||
+          parsedSession?.category === 'food' ||
+          serverUser?.category === 'Food Business' ||
+          serverUser?.category === 'Restaurant' ||
+          serverUser?.category === 'Food & Dining' ||
+          targetSlug.startsWith('food-') ||
+          targetSlug.includes('restaurant') ||
+          targetSlug.includes('dining') ||
+          targetSlug.includes('kitchen') ||
+          targetSlug.includes('cafe') ||
+          targetSlug.includes('bistro') ||
+          parsedSession?.businessName?.toLowerCase().includes('restaurant') ||
+          parsedSession?.businessName?.toLowerCase().includes('dining') ||
+          parsedSession?.businessName?.toLowerCase().includes('kitchen') ||
+          parsedSession?.businessName?.toLowerCase().includes('cafe') ||
+          parsedSession?.businessName?.toLowerCase().includes('bistro') ||
+          parsedSession?.businessName?.toLowerCase().includes('food') ||
+          queryBiz?.toLowerCase().includes('restaurant') ||
+          queryBiz?.toLowerCase().includes('dining') ||
+          queryBiz?.toLowerCase().includes('kitchen') ||
+          queryBiz?.toLowerCase().includes('cafe') ||
+          queryBiz?.toLowerCase().includes('food')
+        );
+
+        const effectiveTemplateId = queryTemplate || serverUser?.template || parsedSession?.template || (
+          isRestaurantTarget ? 'food-restaurant' :
+          (parsedSession?.category === 'Real Estate' || targetSlug.startsWith('re-') ? 're-builders' : 
+          (parsedSession?.category === 'Interior Design' || targetSlug.startsWith('home-interior') || targetSlug.startsWith('interior') ? 'home-interior' : null))
+        );
+
+        const isReTarget = !isRestaurantTarget && Boolean(
           effectiveTemplateId?.startsWith('re-') || 
           parsedSession?.category === 'Real Estate' || 
           targetSlug.startsWith('re-') ||
@@ -98,7 +143,7 @@ function BuilderContent() {
           queryBiz?.toLowerCase().includes('realty') ||
           queryBiz?.toLowerCase().includes('infra')
         );
-        const isInteriorTarget = Boolean(
+        const isInteriorTarget = !isRestaurantTarget && !isReTarget && Boolean(
           effectiveTemplateId === 'home-interior' ||
           effectiveTemplateId === 'interior' ||
           parsedSession?.category === 'Interior Design' ||
@@ -114,7 +159,17 @@ function BuilderContent() {
           if (customSaved) {
             try {
               localFallback = JSON.parse(customSaved);
-              if (isReTarget) {
+              if (isRestaurantTarget) {
+                localFallback.templateId = 'food-restaurant';
+                localFallback.category = 'Food Business';
+                if (!localFallback.sectionData?.products?.items || localFallback.sectionData.products.items.length === 0) {
+                  localFallback.sectionData = {
+                    ...(localFallback.sectionData || {}),
+                    products: getTemplateProfile('food-restaurant').sectionData.products,
+                    services: getTemplateProfile('food-restaurant').sectionData.services
+                  };
+                }
+              } else if (isReTarget) {
                 const isExistingRe = localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35';
                 if (!isExistingRe) {
                   localFallback.templateId = (effectiveTemplateId?.startsWith('re-') || effectiveTemplateId === 'vcard35') ? effectiveTemplateId : 're-builders';
@@ -139,14 +194,24 @@ function BuilderContent() {
             } catch {
               localFallback = effectiveTemplateId ? getTemplateProfile(effectiveTemplateId) : getProfileBySlug(targetSlug);
             }
-          } else if (effectiveTemplateId || isReTarget || isInteriorTarget) {
-            localFallback = getTemplateProfile(effectiveTemplateId || (isInteriorTarget ? 'home-interior' : 're-builders'));
+          } else if (effectiveTemplateId || isRestaurantTarget || isReTarget || isInteriorTarget) {
+            localFallback = getTemplateProfile(effectiveTemplateId || (isRestaurantTarget ? 'food-restaurant' : isInteriorTarget ? 'home-interior' : 're-builders'));
             if (targetSlug) localFallback.slug = targetSlug;
           } else {
             localFallback = getProfileBySlug(targetSlug);
           }
 
-          if (isReTarget) {
+          if (isRestaurantTarget) {
+            localFallback.templateId = 'food-restaurant';
+            localFallback.category = 'Food Business';
+            if (!localFallback.sectionData?.products?.items || localFallback.sectionData.products.items.length === 0) {
+              localFallback.sectionData = {
+                ...(localFallback.sectionData || {}),
+                products: getTemplateProfile('food-restaurant').sectionData.products,
+                services: getTemplateProfile('food-restaurant').sectionData.services
+              };
+            }
+          } else if (isReTarget) {
             const isExistingRe = localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35';
             if (!isExistingRe) {
               localFallback.templateId = (effectiveTemplateId?.startsWith('re-') || effectiveTemplateId === 'vcard35') ? effectiveTemplateId : 're-builders';
@@ -189,7 +254,24 @@ function BuilderContent() {
             .then(data => {
               if (data?.profile) {
                 const dbProfile = data.profile as DigitalProfile;
-                const dbIsRe = Boolean(
+                const dbIsRestaurant = Boolean(
+                  isRestaurantTarget ||
+                  dbProfile.category === 'Food Business' ||
+                  dbProfile.category === 'Restaurant' ||
+                  dbProfile.category === 'Food & Dining' ||
+                  dbProfile.templateId === 'food-restaurant' ||
+                  dbProfile.templateId === 'restaurant-menu' ||
+                  dbProfile.templateId === 'food-home' ||
+                  dbProfile.templateId?.startsWith('food-') ||
+                  dbProfile.company?.toLowerCase().includes('restaurant') ||
+                  dbProfile.company?.toLowerCase().includes('dining') ||
+                  dbProfile.company?.toLowerCase().includes('kitchen') ||
+                  dbProfile.company?.toLowerCase().includes('cafe') ||
+                  dbProfile.company?.toLowerCase().includes('food') ||
+                  dbProfile.designation?.toLowerCase().includes('chef') ||
+                  dbProfile.theme === 'brahmin-food'
+                );
+                const dbIsRe = !dbIsRestaurant && Boolean(
                   isReTarget ||
                   dbProfile.category === 'Real Estate' ||
                   dbProfile.templateId?.startsWith('re-') ||
@@ -207,10 +289,12 @@ function BuilderContent() {
                 const merged: DigitalProfile = {
                   ...localFallback,
                   ...dbProfile,
-                  templateId: dbIsRe 
+                  templateId: dbIsRestaurant
+                    ? 'food-restaurant'
+                    : dbIsRe 
                     ? ((dbProfile.templateId?.startsWith('re-') || dbProfile.templateId === 'vcard35') ? dbProfile.templateId : (localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35') ? localFallback.templateId : 're-builders') 
                     : isInteriorTarget ? 'home-interior' : (dbProfile.templateId || localFallback.templateId || effectiveTemplateId || undefined),
-                  category: dbIsRe ? 'Real Estate' : isInteriorTarget ? 'Interior Design' : (dbProfile.category || localFallback.category || parsedSession?.category || undefined),
+                  category: dbIsRestaurant ? 'Food Business' : dbIsRe ? 'Real Estate' : isInteriorTarget ? 'Interior Design' : (dbProfile.category || localFallback.category || parsedSession?.category || undefined),
                   name: dbProfile.name || localFallback.name,
                   company: dbProfile.company || localFallback.company,
                   designation: dbProfile.designation || localFallback.designation,
@@ -219,10 +303,12 @@ function BuilderContent() {
                   email: dbProfile.email || localFallback.email,
                   whatsapp: dbProfile.whatsapp || localFallback.whatsapp,
                   address: dbProfile.address !== undefined ? dbProfile.address : localFallback.address,
-                  // Ensure custom sectionData is strictly preserved without stale demo injection
                   sectionData: {
                     ...(localFallback.sectionData || {}),
                     ...(dbProfile.sectionData || {}),
+                    restaurant: dbIsRestaurant
+                      ? (dbProfile.sectionData?.restaurant || localFallback.sectionData?.restaurant || getTemplateProfile('food-restaurant').sectionData.restaurant)
+                      : dbProfile.sectionData?.restaurant,
                     realEstate: dbIsRe 
                       ? (dbProfile.sectionData?.realEstate || localFallback.sectionData?.realEstate || getTemplateProfile('re-builders').sectionData.realEstate)
                       : dbProfile.sectionData?.realEstate,

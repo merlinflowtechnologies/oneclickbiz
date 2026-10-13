@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
 
     // Resolve template and industry preset universally for any business entity
     const effectiveCategory = normalizeCategory(body.category || null, body.templateId || cleanSlug);
+    const isRestaurantCategory = effectiveCategory === 'Food Business';
     let effectiveTemplateId = body.templateId;
     if (!effectiveTemplateId || !isTemplateAllowedForCategory(effectiveTemplateId, effectiveCategory)) {
       const allowedTemplates = VCARD_TEMPLATES_CATALOG.filter(t => isTemplateAllowedForCategory(t.id, effectiveCategory));
@@ -93,12 +94,12 @@ export async function POST(req: NextRequest) {
             slug: uniqueSlug,
             name,
             company: businessName || `${name}'s Business`,
-            designation: templatePreset.designation || (effectiveCategory === 'Interior Design' ? 'Principal Architect & Founder' : (effectiveCategory === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director')),
+            designation: templatePreset.designation || (isRestaurantCategory ? 'Smart Digital Dining & Instant WhatsApp Ordering' : effectiveCategory === 'Interior Design' ? 'Principal Architect & Founder' : (effectiveCategory === 'Real Estate' ? 'Managing Director & Builder' : 'Founder / Managing Director')),
             bio: templatePreset.bio || `${businessName || name} - Smart digital business identity.`,
             email: cleanEmail,
             phone: rawPhone,
             whatsapp: formattedWa,
-            theme: templatePreset.theme || 'modern-indigo',
+            theme: templatePreset.theme || (isRestaurantCategory ? 'brahmin-food' : 'modern-indigo'),
             avatarUrl: templatePreset.avatarUrl,
             coverUrl: templatePreset.coverUrl,
             isPublished: false,
@@ -115,6 +116,7 @@ export async function POST(req: NextRequest) {
                   ...secConfig, 
                   templateId: effectiveTemplateId, 
                   category: effectiveCategory,
+                  restaurant: templatePreset.sectionData?.restaurant,
                   realEstate: templatePreset.sectionData?.realEstate,
                   interior: templatePreset.sectionData?.interior 
                 } 
@@ -157,6 +159,25 @@ export async function POST(req: NextRequest) {
               isVisible: true,
               order: 12,
               config: templatePreset.sectionData.interior as any
+            }
+          }).catch(() => {});
+        }
+
+        // Seed dedicated restaurant section if applicable
+        if (templatePreset.sectionData?.restaurant || isRestaurantCategory) {
+          await tx.profileSection.create({
+            data: {
+              profileId: profile.id,
+              type: 'restaurant',
+              title: 'Kitchen & Operations',
+              isVisible: true,
+              order: 10,
+              config: (templatePreset.sectionData?.restaurant || {
+                cuisineType: 'Fine Dining & Takeaway',
+                operatingHours: '11:30 AM – 11:30 PM (Daily)',
+                avgPrepTime: '15–20 Mins',
+                dietaryType: 'Pure Veg & Halal Non-Veg'
+              }) as any
             }
           }).catch(() => {});
         }

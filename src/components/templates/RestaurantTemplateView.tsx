@@ -30,7 +30,12 @@ import {
   Copy,
   Play,
   QrCode,
-  Mail
+  Mail,
+  HelpCircle,
+  ChevronDown,
+  ChevronUp,
+  ThumbsUp,
+  CheckCircle2
 } from 'lucide-react';
 import QRCode from 'qrcode';
 import { DigitalProfile, ServiceItem, ProductItem, VideoItem } from '@/lib/types';
@@ -607,6 +612,116 @@ const YOUTUBE_PLAYLIST_ITEMS = [
   }
 ];
 
+export interface DinerReviewItem {
+  id: string;
+  name: string;
+  location: string;
+  rating: number;
+  review: string;
+  favoriteDish?: string;
+  diningType: 'Dine-in' | 'Doorstep Delivery' | 'Family Party';
+  date: string;
+  verified: boolean;
+  likes: number;
+}
+
+export interface RestaurantFaqItem {
+  id: string;
+  category: string;
+  question: string;
+  answer: string;
+}
+
+export const RESTAURANT_FAQS: RestaurantFaqItem[] = [
+  {
+    id: 'faq-1',
+    category: 'Reservations & Seating',
+    question: 'How do I reserve a dining table or private dining room in advance?',
+    answer: 'You can book a table in 30 seconds directly using our "Reserve a Table" button above or via WhatsApp. Specify your preferred date, time slot, and guest count. We send an instant WhatsApp confirmation with table allotment details.'
+  },
+  {
+    id: 'faq-2',
+    category: 'Dietary & Pure Veg',
+    question: 'Do you offer 100% Pure Vegetarian, Jain, Halal, or Vegan food options?',
+    answer: 'Yes! We maintain strictly separate cooking stations and utensils for Pure Vegetarian preparations. We also cater to Jain requirements (no onion, no garlic, no root vegetables upon request) and offer certified Halal meat preparations.'
+  },
+  {
+    id: 'faq-3',
+    category: 'WhatsApp Online Ordering',
+    question: 'How does the direct WhatsApp ordering & doorstep delivery work?',
+    answer: 'Simply browse our menu, customize portions, and click "Order via WhatsApp". Your complete order bill, table number (for dine-in) or door address & landmarks (for delivery) are auto-formatted into WhatsApp. We deliver within a 7 km radius in 35-45 minutes.'
+  },
+  {
+    id: 'faq-4',
+    category: 'Parties & Bulk Catering',
+    question: 'Can you host family celebrations, birthday parties, or corporate buffets?',
+    answer: 'Absolutely. We provide private banquet seating for 20 to 120 guests with customized set menus, live tandoor and chaat counters, and personalized dessert platters. Message our Chef Desk on WhatsApp for a custom bulk quotation.'
+  },
+  {
+    id: 'faq-5',
+    category: 'Valet & Accessibility',
+    question: 'Is valet parking and wheelchair access available at the restaurant?',
+    answer: 'Yes, complimentary valet parking is available at our main portico entrance for all diners. Our ground-floor dining hall and washroom facilities are 100% wheelchair-accessible with gentle ramps.'
+  },
+  {
+    id: 'faq-6',
+    category: 'Timings & Schedule',
+    question: 'What are your lunch, dinner, and late-night delivery operational hours?',
+    answer: 'We serve Lunch from 11:30 AM to 03:45 PM and Dinner from 06:30 PM to 11:30 PM daily. WhatsApp express parcel delivery operates continuously from 11:30 AM to 11:30 PM without evening break.'
+  }
+];
+
+export const DEFAULT_DINER_REVIEWS: DinerReviewItem[] = [
+  {
+    id: 'rev-1',
+    name: 'Siddharth Sen',
+    location: 'Indiranagar, Bengaluru',
+    rating: 5,
+    review: 'We placed our order via WhatsApp for Table 4 while sitting down, and within 15 minutes piping hot Biryani and Paneer Tikka arrived. Super convenient!',
+    favoriteDish: 'Awadhi Dum Gosht Biryani',
+    diningType: 'Dine-in',
+    date: 'Yesterday',
+    verified: true,
+    likes: 14
+  },
+  {
+    id: 'rev-2',
+    name: 'Priya Chandran',
+    location: 'Koramangala, Bengaluru',
+    rating: 5,
+    review: 'Ordered delivery to my office. The lane and landmark fields were sent right to WhatsApp, and the delivery arrived spot on without asking for directions once.',
+    favoriteDish: 'Paneer Butter Masala Combo',
+    diningType: 'Doorstep Delivery',
+    date: '3 days ago',
+    verified: true,
+    likes: 9
+  },
+  {
+    id: 'rev-3',
+    name: 'Rajesh Hegde',
+    location: 'HSR Layout, Bengaluru',
+    rating: 5,
+    review: 'Exceptional food quality and dining presentation. Clean menu interface, transparent pricing, and instant table booking confirmation. OneClickBiz made our dinner effortless.',
+    favoriteDish: 'Tandoori Murgh Platter',
+    diningType: 'Family Party',
+    date: '1 week ago',
+    verified: true,
+    likes: 21
+  },
+  {
+    id: 'rev-4',
+    name: 'Ananya Deshmukh',
+    location: 'Whitefield, Bengaluru',
+    rating: 5,
+    review: 'The slow-cooked Dal Makhani and Garlic Butter Naan are out of this world! Staff was warm and the QR table ordering made billing seamless.',
+    favoriteDish: 'Slow Cooked Dal Makhani',
+    diningType: 'Dine-in',
+    date: '2 weeks ago',
+    verified: true,
+    likes: 17
+  }
+];
+
 export default function RestaurantTemplateView({
   profile,
   cart,
@@ -682,17 +797,131 @@ export default function RestaurantTemplateView({
   const [bookDate, setBookDate] = useState<string>('');
   const [bookTime, setBookTime] = useState<string>('19:30');
 
+  // Diner Reviews State & Form
+  const [dinerReviews, setDinerReviews] = useState<DinerReviewItem[]>(DEFAULT_DINER_REVIEWS);
+  const [reviewFilter, setReviewFilter] = useState<'all' | '5star' | 'dinein' | 'delivery'>('all');
+  const [isLeaveReviewModalOpen, setIsLeaveReviewModalOpen] = useState<boolean>(false);
+  const [newReviewName, setNewReviewName] = useState<string>('');
+  const [newReviewLocation, setNewReviewLocation] = useState<string>('');
+  const [newReviewRating, setNewReviewRating] = useState<number>(5);
+  const [newReviewText, setNewReviewText] = useState<string>('');
+  const [newReviewDish, setNewReviewDish] = useState<string>('');
+  const [newReviewType, setNewReviewType] = useState<'Dine-in' | 'Doorstep Delivery' | 'Family Party'>('Dine-in');
+  const [reviewSuccessMessage, setReviewSuccessMessage] = useState<string>('');
+
+  // Dish Details Modal Tab & Dish Review State
+  const [dishDetailModalTab, setDishDetailModalTab] = useState<'reviews' | 'recipe'>('reviews');
+  const [isWritingDishReview, setIsWritingDishReview] = useState<boolean>(false);
+  const [newDishReviewName, setNewDishReviewName] = useState<string>('');
+  const [newDishReviewCity, setNewDishReviewCity] = useState<string>('');
+  const [newDishReviewRating, setNewDishReviewRating] = useState<number>(5);
+  const [newDishReviewComment, setNewDishReviewComment] = useState<string>('');
+  const [dishReviewSuccess, setDishReviewSuccess] = useState<string>('');
+  const [userDishReviews, setUserDishReviews] = useState<Record<string, { name: string; city: string; rating: number; review: string; date: string }[]>>({});
+
+  const handleAddDishReview = (dishId: string, dishName: string) => (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newDishReviewName.trim() || !newDishReviewComment.trim()) return;
+
+    const newRev = {
+      name: newDishReviewName.trim(),
+      city: newDishReviewCity.trim() || 'Indiranagar, BLR',
+      rating: newDishReviewRating,
+      review: newDishReviewComment.trim(),
+      date: 'Just now'
+    };
+
+    setUserDishReviews(prev => ({
+      ...prev,
+      [dishId]: [newRev, ...(prev[dishId] || [])]
+    }));
+
+    // Also add to overall diner reviews so it reflects on the main page!
+    const newGlobalRev: DinerReviewItem = {
+      id: `rev-dish-${Date.now()}`,
+      name: newDishReviewName.trim(),
+      location: newDishReviewCity.trim() || 'Bengaluru',
+      rating: newDishReviewRating,
+      review: newDishReviewComment.trim(),
+      favoriteDish: dishName,
+      diningType: 'Dine-in',
+      date: 'Just now',
+      verified: true,
+      likes: 1
+    };
+    setDinerReviews(prev => [newGlobalRev, ...prev]);
+
+    setDishReviewSuccess(`Thank you ${newDishReviewName}! Your dish review is posted.`);
+    trackAction(`submit_dish_review_${dishId}`);
+
+    setTimeout(() => {
+      setDishReviewSuccess('');
+      setIsWritingDishReview(false);
+      setNewDishReviewName('');
+      setNewDishReviewCity('');
+      setNewDishReviewComment('');
+      setNewDishReviewRating(5);
+    }, 2000);
+  };
+
+  // FAQ Accordion State
+  const [openFaqId, setOpenFaqId] = useState<string | null>('faq-1');
+
+  const handleLikeReview = (id: string) => {
+    setDinerReviews(prev =>
+      prev.map(r => (r.id === id ? { ...r, likes: r.likes + 1 } : r))
+    );
+  };
+
+  const handleAddDinerReview = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newReviewName.trim() || !newReviewText.trim()) return;
+
+    const newRev: DinerReviewItem = {
+      id: `rev-${Date.now()}`,
+      name: newReviewName.trim(),
+      location: newReviewLocation.trim() || 'Diner, Bengaluru',
+      rating: newReviewRating,
+      review: newReviewText.trim(),
+      favoriteDish: newReviewDish.trim() || 'Signature Feast',
+      diningType: newReviewType,
+      date: 'Just now',
+      verified: true,
+      likes: 1
+    };
+
+    setDinerReviews([newRev, ...dinerReviews]);
+    setReviewSuccessMessage('Thank you! Your dining review has been posted.');
+    setTimeout(() => {
+      setIsLeaveReviewModalOpen(false);
+      setReviewSuccessMessage('');
+      setNewReviewName('');
+      setNewReviewLocation('');
+      setNewReviewText('');
+      setNewReviewDish('');
+    }, 1500);
+  };
+
   // OneClickBiz Profile Details
   const waNumber = getCleanWhatsAppNumber(profile) || '916304989071';
+  const restaurantConfig = profile.sectionData?.restaurant;
   const restaurantName = profile.company || profile.name || 'OneClickBiz Food & Fine Dining';
-  const restaurantAddress = profile.address || 'OneClickBiz Plaza, 100ft Road, Indiranagar, Bengaluru';
+  const restaurantAddress = restaurantConfig?.landmark || profile.address || 'OneClickBiz Plaza, 100ft Road, Indiranagar, Bengaluru';
+  const fssaiLicence = restaurantConfig?.fssaiNumber || '13623011000842';
+  const operatingHours = restaurantConfig?.operatingHours || '11:30 AM – 11:30 PM';
   const phoneDisplay = profile.phone || '+91 63049 89071';
   const cleanPhoneDigits = phoneDisplay.replace(/[^\d+]/g, '');
 
-  // Website URL for QR and sharing
-  const currentWebsiteUrl = typeof window !== 'undefined'
-    ? window.location.href
-    : (profile.website || 'https://oneclickbiz.in/v/food-restaurant');
+  // Website URL for QR and sharing (Safe against SSR hydration mismatches)
+  const [currentWebsiteUrl, setCurrentWebsiteUrl] = useState<string>(
+    profile.website || `https://oneclickbiz.in/v/${profile.slug || 'food-restaurant'}`
+  );
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentWebsiteUrl(window.location.href);
+    }
+  }, []);
 
   // Generate working QR code for the whole website
   useEffect(() => {
@@ -739,9 +968,53 @@ export default function RestaurantTemplateView({
     }));
   };
 
+  // Dynamically resolve dishes: read from profile.sectionData.products.items (Studio customizable) or fallback to defaults
+  const allDishes = useMemo(() => {
+    const customItems = profile.sectionData?.products?.items;
+    if (customItems && customItems.length > 0) {
+      return customItems.map((p, idx): MenuItemData => {
+        const isVeg = (p as any).isVeg !== undefined 
+          ? Boolean((p as any).isVeg) 
+          : !p.name.toLowerCase().includes('chicken') && 
+            !p.name.toLowerCase().includes('mutton') && 
+            !p.name.toLowerCase().includes('fish') && 
+            !p.name.toLowerCase().includes('prawn') && 
+            !p.name.toLowerCase().includes('egg') &&
+            !p.name.toLowerCase().includes('meat');
+
+        const rawIngredients = (p as any).ingredients;
+        const ingredientsList = Array.isArray(rawIngredients) 
+          ? rawIngredients 
+          : (typeof rawIngredients === 'string' && rawIngredients.trim())
+            ? rawIngredients.split(',').map((s: string) => s.trim()).filter(Boolean)
+            : (p.description ? p.description.split('.').map(s => s.trim()).filter(Boolean) : ['Farm Fresh Ingredients', 'Chef Artisanal Spices']);
+
+        return {
+          id: p.id || `dish_custom_${idx}`,
+          name: p.name,
+          price: p.price,
+          originalPrice: (p as any).originalPrice || (p.price ? Math.round(p.price * 1.15) : undefined),
+          category: p.category || 'Main Course',
+          isVeg,
+          isSpecial: (p as any).isSpecial ?? (idx === 0 || idx === 8),
+          spiceLevel: ((p as any).spiceLevel === 'Spicy' || (p as any).spiceLevel === 3) ? 3 : ((p as any).spiceLevel === 'Mild' || (p as any).spiceLevel === 1) ? 1 : 2,
+          prepTime: (p as any).prepTime || '15-20 mins',
+          serves: (p as any).serves || 'Serves 2',
+          imageUrl: p.imageUrl || 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80',
+          description: p.description || 'Authentic handcrafted gourmet delicacy prepared with fresh ingredients.',
+          ingredients: ingredientsList,
+          chefNote: (p as any).chefNote || 'Prepared fresh upon order.',
+          pairWith: (p as any).pairWith,
+          calories: (p as any).calories
+        };
+      });
+    }
+    return DEFAULT_RESTAURANT_DISHES;
+  }, [profile.sectionData?.products?.items]);
+
   // Filtered dishes (supports Search + Category + Veg/Non-Veg sections)
   const filteredDishes = useMemo(() => {
-    return DEFAULT_RESTAURANT_DISHES.filter(dish => {
+    return allDishes.filter(dish => {
       const matchesCategory = selectedCategory === 'All Items' || dish.category === selectedCategory;
       const matchesSearch = searchQuery.trim() === '' || 
         dish.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -755,10 +1028,10 @@ export default function RestaurantTemplateView({
 
       return matchesCategory && matchesSearch && matchesDiet;
     });
-  }, [selectedCategory, searchQuery, dietFilter]);
+  }, [allDishes, selectedCategory, searchQuery, dietFilter]);
 
-  const vegDishesCount = useMemo(() => DEFAULT_RESTAURANT_DISHES.filter(d => d.isVeg).length, []);
-  const nonVegDishesCount = useMemo(() => DEFAULT_RESTAURANT_DISHES.filter(d => !d.isVeg).length, []);
+  const vegDishesCount = useMemo(() => allDishes.filter(d => d.isVeg).length, [allDishes]);
+  const nonVegDishesCount = useMemo(() => allDishes.filter(d => !d.isVeg).length, [allDishes]);
 
   // Open the 2-Option WhatsApp Order Modal for a specific dish
   const handleOpenOrderModal = (dish: MenuItemData) => {
@@ -1028,6 +1301,41 @@ export default function RestaurantTemplateView({
           {/* Header Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             
+            {/* Desktop Navigation Links */}
+            <nav className="hidden lg:flex items-center gap-1 mr-1">
+              <a
+                href="#menu-section"
+                className="px-3 py-1.5 rounded-xl hover:bg-[#F5E9CC]/60 text-xs font-bold text-[#241208] transition"
+              >
+                Menu
+              </a>
+              <a
+                href="#reviews-section"
+                className="px-3 py-1.5 rounded-xl hover:bg-[#F5E9CC]/60 text-xs font-bold text-[#C1621F] flex items-center gap-1 transition"
+              >
+                <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+                <span>Reviews</span>
+              </a>
+              <a
+                href="#faq-section"
+                className="px-3 py-1.5 rounded-xl hover:bg-[#F5E9CC]/60 text-xs font-bold text-[#241208] flex items-center gap-1 transition"
+              >
+                <HelpCircle className="w-3.5 h-3.5 text-[#C1621F]" />
+                <span>FAQ</span>
+              </a>
+            </nav>
+
+            {/* Prominent Header "Leave Review" CTA Button */}
+            <button
+              onClick={() => setIsLeaveReviewModalOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#F5E9CC] hover:bg-[#eedaa8] text-[#C1621F] border border-[#D8A63D]/50 text-xs font-extrabold transition shadow-xs cursor-pointer"
+              title="Leave a dining review"
+            >
+              <Star className="w-3.5 h-3.5 fill-[#C1621F]" />
+              <span className="hidden sm:inline">Write Review</span>
+              <span className="sm:hidden">Review</span>
+            </button>
+            
             {/* Website QR Button */}
             <button
               onClick={() => {
@@ -1091,19 +1399,21 @@ export default function RestaurantTemplateView({
             </button>
 
             {/* View Mode Toggle Switcher */}
-            {showViewToggle && (
-              <div className="hidden md:flex items-center bg-[#F5E9CC]/70 p-1 rounded-xl border border-[#D8A63D]/40">
+            {showViewToggle && setViewMode && (
+              <div className="flex items-center bg-[#F5E9CC]/70 p-1 rounded-xl border border-[#D8A63D]/40 shadow-xs">
                 <button
+                  type="button"
                   onClick={() => setViewMode('website')}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     viewMode === 'website' ? 'bg-[#241208] text-white shadow-xs' : 'text-[#5C3A21] hover:text-[#241208]'
                   }`}
                 >
                   <Globe className="w-3.5 h-3.5 inline mr-1" /> Web
                 </button>
                 <button
+                  type="button"
                   onClick={() => setViewMode('mobile')}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     viewMode === 'mobile' ? 'bg-[#241208] text-white shadow-xs' : 'text-[#5C3A21] hover:text-[#241208]'
                   }`}
                 >
@@ -1153,18 +1463,34 @@ export default function RestaurantTemplateView({
 
               <button
                 onClick={() => setIsTableBookingOpen(true)}
-                className="w-full sm:w-auto px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white hover:bg-[#F5E9CC]/60 text-[#241208] border-2 border-[#D8A63D]/50 font-bold text-xs sm:text-base shadow-sm hover:scale-[1.02] transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-center"
+                className="w-full sm:w-auto px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white hover:bg-[#F5E9CC]/60 text-[#241208] border-2 border-[#D8A63D]/50 font-bold text-xs sm:text-base shadow-sm hover:scale-[1.02] transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-center cursor-pointer"
               >
                 <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#C1621F] shrink-0" />
                 <span>Reserve Table</span>
               </button>
 
               <button
+                onClick={() => setIsLeaveReviewModalOpen(true)}
+                className="w-full sm:w-auto px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-[#241208] hover:bg-[#3B2313] text-[#D8A63D] font-extrabold text-xs sm:text-base shadow-md hover:scale-[1.02] transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-center cursor-pointer border border-[#D8A63D]/40"
+              >
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-amber-400 text-amber-400 shrink-0" />
+                <span>Leave a Review</span>
+              </button>
+
+              <a
+                href="#faq-section"
+                className="w-full sm:w-auto px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white hover:bg-[#F5E9CC]/60 text-[#241208] border-2 border-[#D8A63D]/50 font-bold text-xs sm:text-base shadow-sm hover:scale-[1.02] transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-center"
+              >
+                <HelpCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#C1621F] shrink-0" />
+                <span>Dining FAQ</span>
+              </a>
+
+              <button
                 onClick={() => {
                   trackAction('hero_open_qr_modal');
                   setIsWebsiteQrModalOpen(true);
                 }}
-                className="w-full sm:w-auto px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white hover:bg-[#F5E9CC]/60 text-[#241208] border-2 border-[#D8A63D]/50 font-bold text-xs sm:text-base shadow-sm hover:scale-[1.02] transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-center"
+                className="w-full sm:w-auto px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white hover:bg-[#F5E9CC]/60 text-[#241208] border-2 border-[#D8A63D]/50 font-bold text-xs sm:text-base shadow-sm hover:scale-[1.02] transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-center cursor-pointer"
               >
                 <QrCode className="w-4 h-4 sm:w-5 sm:h-5 text-[#C1621F] shrink-0" />
                 <span>Website QR</span>
@@ -1248,6 +1574,7 @@ export default function RestaurantTemplateView({
                 {/* 5. Official Website with Original Logo */}
                 <a
                   href={currentWebsiteUrl}
+                  suppressHydrationWarning
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackAction('hero_contact_web')}
@@ -1387,7 +1714,7 @@ export default function RestaurantTemplateView({
                   {/* Dual Action Buttons */}
                   <div className="grid grid-cols-2 gap-2.5 pt-1">
                     <button
-                      onClick={() => setActiveDetailItem(DEFAULT_RESTAURANT_DISHES[8])}
+                      onClick={() => setActiveDetailItem(allDishes[8] || allDishes[0])}
                       className="py-2.5 px-2.5 sm:px-3 rounded-xl bg-white hover:bg-[#F5E9CC]/60 text-[#241208] border-2 border-[#D8A63D]/50 text-xs sm:text-sm font-bold flex items-center justify-center gap-1 sm:gap-1.5 transition"
                     >
                       <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C1621F] shrink-0" />
@@ -1395,7 +1722,7 @@ export default function RestaurantTemplateView({
                     </button>
 
                     <button
-                      onClick={() => handleOpenOrderModal(DEFAULT_RESTAURANT_DISHES[8])}
+                      onClick={() => handleOpenOrderModal(allDishes[8] || allDishes[0])}
                       className="py-2.5 px-2.5 sm:px-3 rounded-xl bg-[#25D366] hover:bg-[#1fb855] text-white text-xs sm:text-sm font-extrabold flex items-center justify-center gap-1 sm:gap-1.5 shadow-md transition"
                     >
                       <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-white shrink-0" />
@@ -1972,7 +2299,9 @@ export default function RestaurantTemplateView({
 
             <div className="p-5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-xs space-y-2">
               <span className="text-2xl">🧼</span>
-              <h4 className="font-extrabold text-base text-[#D8A63D]">Hygienic 5-Star Kitchen</h4>
+              <h4 className="font-extrabold text-base text-[#D8A63D]">
+                {fssaiLicence ? `FSSAI Lic. #${fssaiLicence}` : 'Hygienic 5-Star Kitchen'}
+              </h4>
               <p className="text-xs text-white/75 leading-relaxed">
                 FSSAI certified commercial kitchen with high-temperature steam sanitation and strict food safety protocols.
               </p>
@@ -1985,7 +2314,7 @@ export default function RestaurantTemplateView({
       {/* ============================================================== */}
       {/* 6. TABLE RESERVATION / CELEBRATION BANNER                      */}
       {/* ============================================================== */}
-      <section className="relative z-10 py-10 px-4 sm:px-6 max-w-7xl mx-auto">
+      <section className="relative z-10 py-10 px-4 sm:px-6 max-w-7xl mx-auto space-y-6">
         <div className="bg-white rounded-3xl p-8 sm:p-10 border-2 border-[#D8A63D]/40 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
             <span className="px-3 py-1 rounded-full bg-[#F5E9CC] text-[#C1621F] text-xs font-black uppercase">
@@ -2018,82 +2347,204 @@ export default function RestaurantTemplateView({
             </a>
           </div>
         </div>
+
+        {/* Dynamic Dining Packages Configured in Builder Studio */}
+        {profile.sectionData?.services?.items && profile.sectionData.services.items.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {profile.sectionData.services.items.map((srv) => (
+              <div 
+                key={srv.id}
+                className="p-6 rounded-3xl bg-white border border-[#D8A63D]/40 shadow-lg flex flex-col justify-between space-y-4 hover:border-[#C1621F] transition"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#F5E9CC] text-[#C1621F]">
+                      {srv.category || 'Dining Experience'}
+                    </span>
+                    <span className="text-sm font-black text-[#241208]">
+                      {srv.price === 0 ? 'Complimentary' : `₹${srv.price.toLocaleString()}`}
+                    </span>
+                  </div>
+                  <h4 className="font-extrabold text-lg text-[#241208]">{srv.title}</h4>
+                  <p className="text-xs text-[#5C3A21] leading-relaxed line-clamp-3">{srv.description}</p>
+                </div>
+                <button
+                  onClick={() => {
+                    setLeadMessage(`Booking package: ${srv.title} (${srv.price === 0 ? 'Free' : '₹' + srv.price})`);
+                    setIsTableBookingOpen(true);
+                  }}
+                  className="w-full py-3 rounded-xl bg-[#FBF2DE] hover:bg-[#C1621F] text-[#C1621F] hover:text-white font-extrabold text-xs transition border border-[#D8A63D]/50 flex items-center justify-center gap-2"
+                >
+                  <Calendar className="w-4 h-4" /> Book This Dining Experience
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* ============================================================== */}
       {/* 7. DINING REVIEWS & SOCIAL PROOF                              */}
       {/* ============================================================== */}
-      <section className="relative z-10 py-12 px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto space-y-2 mb-8">
-          <span className="text-xs font-extrabold uppercase tracking-widest text-[#C1621F]">
-            GUEST EXPERIENCES
-          </span>
-          <h2 className="ocb-font-serif text-3xl sm:text-4xl font-black text-[#241208]">
-            Loved by Over 1,500+ Diners
-          </h2>
+      <section id="reviews-section" className="relative z-10 py-12 px-4 sm:px-6 max-w-7xl mx-auto space-y-8">
+        
+        {/* Header with Title and "Leave a Review" CTA */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-2 border-b border-[#D8A63D]/30">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5E9CC] border border-[#D8A63D]/40 text-[#C1621F] text-xs font-black uppercase tracking-wider">
+              <Star className="w-3.5 h-3.5 fill-[#C1621F]" /> Guest Experiences & Ratings
+            </div>
+            <h2 className="ocb-font-serif text-3xl sm:text-4xl font-black text-[#241208]">
+              Loved by Over 1,500+ Diners
+            </h2>
+            <p className="text-xs sm:text-sm text-[#5C3A21]">
+              Authentic reviews from verified dine-in guests and doorstep delivery foodies across Bengaluru.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            {/* Review Stats Tag */}
+            <div className="px-4 py-2.5 rounded-2xl bg-white border border-[#D8A63D]/40 shadow-xs flex items-center gap-3">
+              <div className="flex items-center gap-1 text-amber-500">
+                <Star className="w-4 h-4 fill-amber-500" />
+                <span className="font-black text-sm text-[#241208]">4.9</span>
+              </div>
+              <span className="text-xs text-[#7A5B43]">• 1,500+ Reviews</span>
+            </div>
+
+            {/* Leave a Review Button */}
+            <button
+              onClick={() => setIsLeaveReviewModalOpen(true)}
+              className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#C1621F] via-[#D8A63D] to-[#C1621F] hover:opacity-95 text-white font-extrabold text-xs shadow-md shadow-[#C1621F]/20 flex items-center gap-2 transition active:scale-95 cursor-pointer"
+            >
+              <Star className="w-4 h-4 fill-white" />
+              <span>Leave a Review</span>
+            </button>
+          </div>
         </div>
 
+        {/* Filter Pills */}
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setReviewFilter('all')}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition cursor-pointer ${
+              reviewFilter === 'all'
+                ? 'bg-[#241208] text-white shadow-xs'
+                : 'bg-white text-[#5C3A21] border border-[#D8A63D]/30 hover:bg-[#FBF2DE]'
+            }`}
+          >
+            All Reviews ({dinerReviews.length})
+          </button>
+          <button
+            onClick={() => setReviewFilter('5star')}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition cursor-pointer flex items-center gap-1 ${
+              reviewFilter === '5star'
+                ? 'bg-[#C1621F] text-white shadow-xs'
+                : 'bg-white text-[#5C3A21] border border-[#D8A63D]/30 hover:bg-[#FBF2DE]'
+            }`}
+          >
+            <Star className="w-3 h-3 fill-amber-400" /> 5-Star Only
+          </button>
+          <button
+            onClick={() => setReviewFilter('dinein')}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition cursor-pointer ${
+              reviewFilter === 'dinein'
+                ? 'bg-[#241208] text-white shadow-xs'
+                : 'bg-white text-[#5C3A21] border border-[#D8A63D]/30 hover:bg-[#FBF2DE]'
+            }`}
+          >
+            🍽️ Table Dine-in
+          </button>
+          <button
+            onClick={() => setReviewFilter('delivery')}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition cursor-pointer ${
+              reviewFilter === 'delivery'
+                ? 'bg-[#241208] text-white shadow-xs'
+                : 'bg-white text-[#5C3A21] border border-[#D8A63D]/30 hover:bg-[#FBF2DE]'
+            }`}
+          >
+            🛵 Doorstep Delivery
+          </button>
+        </div>
+
+        {/* Reviews Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-[#D8A63D]/30 shadow-md space-y-4">
-            <div className="flex items-center gap-1 text-amber-500">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-amber-500" />
-              ))}
-            </div>
-            <p className="text-xs sm:text-sm text-[#5C3A21] leading-relaxed italic">
-              "We placed our order via WhatsApp for Table 4 while sitting down, and within 15 minutes piping hot Biryani and Paneer Tikka arrived. Super convenient!"
-            </p>
-            <div className="pt-2 border-t border-slate-100 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-[#F5E9CC] text-[#C1621F] font-black text-xs flex items-center justify-center">
-                SS
-              </div>
-              <div>
-                <p className="text-xs font-black text-[#241208]">Siddharth Sen</p>
-                <p className="text-[10px] text-[#7A5B43]">Indiranagar, Bengaluru</p>
-              </div>
-            </div>
-          </div>
+          {dinerReviews
+            .filter((rev) => {
+              if (reviewFilter === '5star') return rev.rating === 5;
+              if (reviewFilter === 'dinein') return rev.diningType === 'Dine-in';
+              if (reviewFilter === 'delivery') return rev.diningType === 'Doorstep Delivery';
+              return true;
+            })
+            .map((rev) => (
+              <div
+                key={rev.id}
+                className="p-6 rounded-3xl bg-white border-2 border-[#D8A63D]/30 shadow-md hover:shadow-xl hover:border-[#C1621F] transition-all duration-300 flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-3">
+                  {/* Top: Star rating and dining mode */}
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1 text-amber-500">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-4 h-4 ${
+                            i < rev.rating ? 'fill-amber-500 text-amber-500' : 'text-slate-300'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#FBF2DE] text-[#C1621F] border border-[#D8A63D]/30">
+                      {rev.diningType}
+                    </span>
+                  </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-[#D8A63D]/30 shadow-md space-y-4">
-            <div className="flex items-center gap-1 text-amber-500">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-amber-500" />
-              ))}
-            </div>
-            <p className="text-xs sm:text-sm text-[#5C3A21] leading-relaxed italic">
-              "Ordered delivery to my office. The lane and landmark fields were sent right to WhatsApp, and the delivery arrived spot on without asking for directions once."
-            </p>
-            <div className="pt-2 border-t border-slate-100 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-[#F5E9CC] text-[#C1621F] font-black text-xs flex items-center justify-center">
-                PC
-              </div>
-              <div>
-                <p className="text-xs font-black text-[#241208]">Priya Chandran</p>
-                <p className="text-[10px] text-[#7A5B43]">Koramangala, Bengaluru</p>
-              </div>
-            </div>
-          </div>
+                  {/* Favorite Dish tag */}
+                  {rev.favoriteDish && (
+                    <div className="inline-flex items-center gap-1 text-[11px] font-bold text-[#7E1717] bg-[#FBF2DE]/80 px-2.5 py-1 rounded-lg">
+                      <Utensils className="w-3 h-3 text-[#C1621F]" />
+                      <span>Loved: {rev.favoriteDish}</span>
+                    </div>
+                  )}
 
-          <div className="p-6 rounded-2xl bg-white border border-[#D8A63D]/30 shadow-md space-y-4">
-            <div className="flex items-center gap-1 text-amber-500">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-amber-500" />
-              ))}
-            </div>
-            <p className="text-xs sm:text-sm text-[#5C3A21] leading-relaxed italic">
-              "Exceptional food quality and dining presentation. Clean menu interface, transparent pricing, and instant table booking confirmation. OneClickBiz made our dinner effortless."
-            </p>
-            <div className="pt-2 border-t border-slate-100 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-[#F5E9CC] text-[#C1621F] font-black text-xs flex items-center justify-center">
-                RH
+                  {/* Review text */}
+                  <p className="text-xs sm:text-sm text-[#5C3A21] leading-relaxed italic">
+                    "{rev.review}"
+                  </p>
+                </div>
+
+                {/* Footer: Reviewer info and like button */}
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-9 h-9 rounded-full bg-[#F5E9CC] text-[#C1621F] font-black text-xs flex items-center justify-center shrink-0 border border-[#D8A63D]/50 shadow-xs">
+                      {rev.name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase()}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1">
+                        <p className="text-xs font-black text-[#241208] truncate">{rev.name}</p>
+                        {rev.verified && (
+                          <span title="Verified Diner">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[10px] text-[#7A5B43] truncate">{rev.location} • {rev.date}</p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleLikeReview(rev.id)}
+                    className="flex items-center gap-1 text-[11px] font-bold text-[#7A5B43] hover:text-[#C1621F] bg-[#FAF5EE] hover:bg-[#F5E9CC] px-2.5 py-1 rounded-full transition cursor-pointer shrink-0"
+                    title="Mark helpful"
+                  >
+                    <ThumbsUp className="w-3 h-3" />
+                    <span>{rev.likes}</span>
+                  </button>
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-black text-[#241208]">Rajesh Hegde</p>
-                <p className="text-[10px] text-[#7A5B43]">HSR Layout, Bengaluru</p>
-              </div>
-            </div>
-          </div>
+            ))}
         </div>
+
       </section>
 
       {/* ============================================================== */}
@@ -2318,6 +2769,95 @@ export default function RestaurantTemplateView({
       </section>
 
       {/* ============================================================== */}
+      {/* 7.8. FREQUENTLY ASKED QUESTIONS (FAQ)                          */}
+      {/* ============================================================== */}
+      <section id="faq-section" className="relative z-10 py-12 px-4 sm:px-6 max-w-5xl mx-auto space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5E9CC] border border-[#D8A63D]/40 text-[#C1621F] text-xs font-black uppercase tracking-wider">
+            <HelpCircle className="w-3.5 h-3.5 text-[#C1621F]" /> Dining & Hospitality Help Desk
+          </div>
+          <h2 className="ocb-font-serif text-3xl sm:text-4xl font-black text-[#241208]">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-xs sm:text-sm text-[#5C3A21]">
+            Everything you need to know about reservations, pure veg preparation, doorstep delivery, and party hosting.
+          </p>
+        </div>
+
+        {/* FAQ Accordion List */}
+        <div className="space-y-3.5">
+          {RESTAURANT_FAQS.map((faq) => {
+            const isOpen = openFaqId === faq.id;
+            return (
+              <div
+                key={faq.id}
+                className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+                  isOpen
+                    ? 'bg-white border-[#D8A63D] shadow-md ring-1 ring-[#D8A63D]/40'
+                    : 'bg-white/80 border-[#D8A63D]/30 hover:border-[#D8A63D]/70'
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFaqId(isOpen ? null : faq.id)}
+                  className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4 transition cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="w-7 h-7 rounded-lg bg-[#FBF2DE] text-[#C1621F] font-bold text-xs flex items-center justify-center shrink-0 border border-[#D8A63D]/40">
+                      Q
+                    </span>
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-[#C1621F] block mb-0.5">
+                        {faq.category}
+                      </span>
+                      <h3 className="font-extrabold text-sm sm:text-base text-[#241208]">
+                        {faq.question}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
+                    isOpen ? 'bg-[#241208] text-white rotate-180' : 'bg-[#F5E9CC] text-[#241208]'
+                  }`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </button>
+
+                {isOpen && (
+                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#5C3A21] leading-relaxed border-t border-slate-100 pl-14 sm:pl-15 animate-in fade-in duration-200">
+                    <p>{faq.answer}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Contact Help Desk Bar */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#FBF2DE] via-white to-[#FBF2DE] border border-[#D8A63D]/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-xs">
+              <MessageCircle className="w-5 h-5 fill-white" />
+            </div>
+            <div>
+              <p className="text-xs sm:text-sm font-black text-[#241208]">Have another query or custom banquet inquiry?</p>
+              <p className="text-[11px] text-[#7A5B43]">Chat with our Restaurant Front Desk on WhatsApp for immediate response.</p>
+            </div>
+          </div>
+
+          <a
+            href={`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi ${restaurantName}! I have a question regarding dining reservations and food service.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#1fb855] text-white text-xs font-black flex items-center gap-2 shadow-sm transition shrink-0 cursor-pointer"
+          >
+            <MessageCircle className="w-3.5 h-3.5 fill-white" />
+            <span>Ask Chef Desk</span>
+          </a>
+        </div>
+      </section>
+
+      {/* ============================================================== */}
       {/* 8. FOOTER SECTION                                              */}
       {/* ============================================================== */}
       <footer className="relative z-10 bg-[#241208] text-white pt-14 pb-8 border-t-2 border-[#D8A63D]/30 mt-12">
@@ -2382,8 +2922,10 @@ export default function RestaurantTemplateView({
               <ul className="space-y-2 text-xs sm:text-sm text-white/75">
                 <li><a href="#offers-section" className="hover:text-[#D8A63D] transition">→ Special Offers & Combos</a></li>
                 <li><a href="#menu-section" className="hover:text-[#D8A63D] transition">→ Veg & Non-Veg Menu</a></li>
+                <li><a href="#reviews-section" className="hover:text-[#D8A63D] transition">→ Guest Reviews & Ratings</a></li>
+                <li><a href="#faq-section" className="hover:text-[#D8A63D] transition">→ Frequently Asked Questions (FAQ)</a></li>
                 <li><a href="#social-hub" className="hover:text-[#D8A63D] transition">→ YouTube & Instagram Hub</a></li>
-                <li><button onClick={() => setIsTableBookingOpen(true)} className="hover:text-[#D8A63D] transition">→ Reserve Dining Table</button></li>
+                <li><button onClick={() => setIsTableBookingOpen(true)} className="hover:text-[#D8A63D] transition text-left cursor-pointer">→ Reserve Dining Table</button></li>
               </ul>
             </div>
 
@@ -2466,69 +3008,302 @@ export default function RestaurantTemplateView({
               </div>
             </div>
 
+            {/* Interactive Dish Modal Tabs: Reviews VS Recipe & Ingredients */}
+            <div className="px-4 sm:px-6 pt-3 bg-white border-b border-[#D8A63D]/20 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setDishDetailModalTab('reviews')}
+                className={`pb-2.5 px-3 text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 border-b-2 cursor-pointer ${
+                  dishDetailModalTab === 'reviews'
+                    ? 'border-[#C1621F] text-[#C1621F]'
+                    : 'border-transparent text-[#7A5B43] hover:text-[#241208]'
+                }`}
+              >
+                <Star className="w-4 h-4 fill-amber-400 text-amber-500" />
+                <span>Diner Reviews & Ratings</span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] bg-[#C1621F]/15 text-[#C1621F] font-mono">
+                  {(userDishReviews[activeDetailItem.id]?.length || 0) + 3}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setDishDetailModalTab('recipe')}
+                className={`pb-2.5 px-3 text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 border-b-2 cursor-pointer ${
+                  dishDetailModalTab === 'recipe'
+                    ? 'border-[#C1621F] text-[#C1621F]'
+                    : 'border-transparent text-[#7A5B43] hover:text-[#241208]'
+                }`}
+              >
+                <Info className="w-4 h-4 text-[#C1621F]" />
+                <span>Recipe & Ingredients</span>
+              </button>
+            </div>
+
             {/* Modal Content Body */}
             <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
               
-              {/* Quick Spec Pills */}
-              <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                <div className="p-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30">
-                  <span className="text-[#7A5B43] block font-bold">Preparation</span>
-                  <span className="font-black text-[#241208]">{activeDetailItem.prepTime}</span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30">
-                  <span className="text-[#7A5B43] block font-bold">Portion</span>
-                  <span className="font-black text-[#241208]">{activeDetailItem.serves}</span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30">
-                  <span className="text-[#7A5B43] block font-bold">Spice Level</span>
-                  <span className="font-black text-[#C1621F]">
-                    {'🌶️'.repeat(activeDetailItem.spiceLevel)} ({activeDetailItem.spiceLevel === 1 ? 'Mild' : activeDetailItem.spiceLevel === 2 ? 'Medium' : 'Spicy'})
-                  </span>
-                </div>
-              </div>
+              {dishDetailModalTab === 'reviews' ? (
+                /* ============================================================== */
+                /* TAB 1: DINER REVIEWS & LEAVE A DISH REVIEW                      */
+                /* ============================================================== */
+                <div className="space-y-5">
+                  {/* Dish Score Summary Banner */}
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-[#FBF2DE] via-white to-[#F5E9CC] border border-[#D8A63D]/40 flex flex-wrap items-center justify-between gap-3 shadow-xs">
+                    <div className="space-y-0.5">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-[#C1621F] block">
+                        Verified Diner Rating
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-0.5 text-amber-500">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-500" />
+                          ))}
+                        </div>
+                        <span className="text-base font-black text-[#241208]">4.9 / 5.0</span>
+                        <span className="text-xs text-[#7A5B43]">• {(userDishReviews[activeDetailItem.id]?.length || 0) + 48} reviews</span>
+                      </div>
+                    </div>
 
-              {/* Full Description */}
-              <div className="space-y-1.5">
-                <h4 className="text-xs font-black uppercase tracking-wider text-[#C1621F]">
-                  Culinary Description
-                </h4>
-                <p className="text-sm text-[#5C3A21] leading-relaxed">
-                  {activeDetailItem.description}
-                </p>
-              </div>
-
-              {/* Ingredients List */}
-              <div className="space-y-2">
-                <h4 className="text-xs font-black uppercase tracking-wider text-[#C1621F]">
-                  Key Ingredients & Spices
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {activeDetailItem.ingredients.map((ing, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 rounded-full bg-[#F5E9CC]/60 border border-[#D8A63D]/40 text-xs font-bold text-[#241208]"
+                    <button
+                      type="button"
+                      onClick={() => setIsWritingDishReview(!isWritingDishReview)}
+                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#C1621F] to-[#D8A63D] hover:opacity-95 text-white font-black text-xs flex items-center gap-1.5 shadow-sm transition cursor-pointer"
                     >
-                      ✓ {ing}
-                    </span>
-                  ))}
-                </div>
-              </div>
+                      <Star className="w-3.5 h-3.5 fill-white" />
+                      <span>{isWritingDishReview ? 'Close Form' : 'Write a Review for this Dish'}</span>
+                    </button>
+                  </div>
 
-              {/* Chef's Note & Pairings */}
-              {activeDetailItem.chefNote && (
-                <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 space-y-1">
-                  <p className="text-xs font-black text-amber-900 flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-600" /> Chef's Recommendation:
-                  </p>
-                  <p className="text-xs text-amber-800 leading-relaxed">
-                    {activeDetailItem.chefNote}
-                  </p>
-                  {activeDetailItem.pairWith && (
-                    <p className="text-[11px] font-bold text-amber-900 pt-1">
-                      Pairs best with: <span className="underline">{activeDetailItem.pairWith}</span>
-                    </p>
+                  {/* Leave Dish Review Form */}
+                  {isWritingDishReview && (
+                    <form
+                      onSubmit={handleAddDishReview(activeDetailItem.id, activeDetailItem.name)}
+                      className="p-4 sm:p-5 rounded-2xl bg-[#FBF2DE] border-2 border-[#D8A63D]/50 space-y-3 animate-in fade-in duration-200"
+                    >
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-black text-xs uppercase tracking-wider text-[#241208] flex items-center gap-1.5">
+                          <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                          <span>Leave Your Review for {activeDetailItem.name}</span>
+                        </h4>
+                        <span className="text-[10px] font-bold text-[#C1621F]">Verified Post</span>
+                      </div>
+
+                      {dishReviewSuccess ? (
+                        <div className="p-3 bg-emerald-100 border border-emerald-400 text-emerald-800 rounded-xl text-xs font-bold text-center">
+                          ✓ {dishReviewSuccess}
+                        </div>
+                      ) : (
+                        <>
+                          <div className="grid grid-cols-2 gap-2 text-xs">
+                            <input
+                              type="text"
+                              required
+                              placeholder="Your Name *"
+                              value={newDishReviewName}
+                              onChange={(e) => setNewDishReviewName(e.target.value)}
+                              className="px-3 py-2 rounded-xl bg-white border border-[#D8A63D]/40 text-[#241208] focus:outline-hidden"
+                            />
+                            <input
+                              type="text"
+                              placeholder="City / Area"
+                              value={newDishReviewCity}
+                              onChange={(e) => setNewDishReviewCity(e.target.value)}
+                              className="px-3 py-2 rounded-xl bg-white border border-[#D8A63D]/40 text-[#241208] focus:outline-hidden"
+                            />
+                          </div>
+
+                          <div className="flex items-center justify-between bg-white px-3 py-1.5 rounded-xl border border-[#D8A63D]/40">
+                            <span className="text-xs font-bold text-[#241208]">Rate Dish:</span>
+                            <div className="flex items-center gap-1">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <button
+                                  type="button"
+                                  key={star}
+                                  onClick={() => setNewDishReviewRating(star)}
+                                  className="cursor-pointer"
+                                >
+                                  <Star
+                                    className={`w-4 h-4 ${
+                                      star <= newDishReviewRating
+                                        ? 'fill-amber-400 text-amber-500'
+                                        : 'text-slate-300'
+                                    }`}
+                                  />
+                                </button>
+                              ))}
+                              <span className="text-xs font-bold text-[#C1621F] ml-1">{newDishReviewRating} Stars</span>
+                            </div>
+                          </div>
+
+                          <textarea
+                            required
+                            rows={2}
+                            placeholder="Tell fellow foodies how it tasted, aroma, richness, spice level, or portion size..."
+                            value={newDishReviewComment}
+                            onChange={(e) => setNewDishReviewComment(e.target.value)}
+                            className="w-full px-3 py-2 rounded-xl bg-white border border-[#D8A63D]/40 text-xs text-[#241208] focus:outline-hidden"
+                          />
+
+                          <button
+                            type="submit"
+                            className="w-full py-2.5 rounded-xl bg-[#241208] hover:bg-[#3B2313] text-white font-extrabold text-xs shadow-md transition cursor-pointer"
+                          >
+                            Submit Review for {activeDetailItem.name}
+                          </button>
+                        </>
+                      )}
+                    </form>
                   )}
+
+                  {/* List of Verified Reviews for this Dish */}
+                  <div className="space-y-3">
+                    <p className="text-xs font-black uppercase tracking-wider text-[#C1621F]">
+                      Recent Diner Experiences for this Item
+                    </p>
+
+                    {/* User submitted reviews first */}
+                    {(userDishReviews[activeDetailItem.id] || []).map((uRev, idx) => (
+                      <div
+                        key={idx}
+                        className="p-3.5 rounded-2xl bg-white border border-emerald-300 shadow-xs space-y-1.5 animate-in fade-in"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center justify-center">
+                              {uRev.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                              <p className="text-xs font-black text-[#241208]">{uRev.name}</p>
+                              <p className="text-[10px] text-[#7A5B43]">{uRev.city} • {uRev.date}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-0.5 text-amber-500">
+                            {[...Array(uRev.rating)].map((_, i) => (
+                              <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-xs text-[#5C3A21] italic leading-relaxed">
+                          "{uRev.review}"
+                        </p>
+                      </div>
+                    ))}
+
+                    {/* Default curated verified reviews for this dish */}
+                    <div className="p-3.5 rounded-2xl bg-white border border-[#D8A63D]/30 shadow-xs space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-7 h-7 rounded-full bg-[#F5E9CC] text-[#C1621F] font-bold text-xs flex items-center justify-center">
+                            S
+                          </div>
+                          <div>
+                            <p className="text-xs font-black text-[#241208]">Siddharth Sen</p>
+                            <p className="text-[10px] text-[#7A5B43]">Indiranagar, BLR • Verified Diner</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-0.5 text-amber-500">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-xs text-[#5C3A21] italic leading-relaxed">
+                        "Ordered this with our dining table. The charcoal earthen aroma and richness of pure desi ghee is world-class. Highly recommended!"
+                      </p>
+                    </div>
+
+                    <div className="p-3.5 rounded-2xl bg-white border border-[#D8A63D]/30 shadow-xs space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-7 h-7 rounded-full bg-[#F5E9CC] text-[#C1621F] font-bold text-xs flex items-center justify-center">
+                            P
+                          </div>
+                          <div>
+                            <p className="text-xs font-black text-[#241208]">Priya Chandran</p>
+                            <p className="text-[10px] text-[#7A5B43]">Koramangala, BLR • Doorstep Delivery</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-0.5 text-amber-500">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-xs text-[#5C3A21] italic leading-relaxed">
+                        "Arrived piping hot. Portions are generous and the spices are balanced without being overly oily."
+                      </p>
+                    </div>
+
+                  </div>
                 </div>
+              ) : (
+                /* ============================================================== */
+                /* TAB 2: RECIPE SPECS, INGREDIENTS & CHEF PAIRING                */
+                /* ============================================================== */
+                <>
+                  {/* Quick Spec Pills */}
+                  <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                    <div className="p-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30">
+                      <span className="text-[#7A5B43] block font-bold">Preparation</span>
+                      <span className="font-black text-[#241208]">{activeDetailItem.prepTime}</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30">
+                      <span className="text-[#7A5B43] block font-bold">Portion</span>
+                      <span className="font-black text-[#241208]">{activeDetailItem.serves}</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30">
+                      <span className="text-[#7A5B43] block font-bold">Spice Level</span>
+                      <span className="font-black text-[#C1621F]">
+                        {'🌶️'.repeat(activeDetailItem.spiceLevel)} ({activeDetailItem.spiceLevel === 1 ? 'Mild' : activeDetailItem.spiceLevel === 2 ? 'Medium' : 'Spicy'})
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Full Description */}
+                  <div className="space-y-1.5">
+                    <h4 className="text-xs font-black uppercase tracking-wider text-[#C1621F]">
+                      Culinary Description
+                    </h4>
+                    <p className="text-sm text-[#5C3A21] leading-relaxed">
+                      {activeDetailItem.description}
+                    </p>
+                  </div>
+
+                  {/* Ingredients List */}
+                  <div className="space-y-2">
+                    <h4 className="text-xs font-black uppercase tracking-wider text-[#C1621F]">
+                      Key Ingredients & Spices
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {activeDetailItem.ingredients.map((ing, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 rounded-full bg-[#F5E9CC]/60 border border-[#D8A63D]/40 text-xs font-bold text-[#241208]"
+                        >
+                          ✓ {ing}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Chef's Note & Pairings */}
+                  {activeDetailItem.chefNote && (
+                    <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 space-y-1">
+                      <p className="text-xs font-black text-amber-900 flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-600" /> Chef's Recommendation:
+                      </p>
+                      <p className="text-xs text-amber-800 leading-relaxed">
+                        {activeDetailItem.chefNote}
+                      </p>
+                      {activeDetailItem.pairWith && (
+                        <p className="text-[11px] font-bold text-amber-900 pt-1">
+                          Pairs best with: <span className="underline">{activeDetailItem.pairWith}</span>
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </>
               )}
 
               {/* Modal Bottom Actions */}
@@ -3169,6 +3944,152 @@ export default function RestaurantTemplateView({
                 <span>Confirm Reservation via WhatsApp</span>
               </button>
             </form>
+
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* 11.2. DINER LEAVE A REVIEW MODAL                               */}
+      {/* ============================================================== */}
+      {isLeaveReviewModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl max-w-md w-full border-2 border-[#D8A63D]/50 shadow-2xl p-5 sm:p-7 relative space-y-4 max-h-[92vh] overflow-y-auto">
+            
+            <button
+              onClick={() => setIsLeaveReviewModalOpen(false)}
+              className="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 flex items-center justify-center transition cursor-pointer"
+              aria-label="Close Review Modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="space-y-1">
+              <span className="px-3 py-1 rounded-full bg-[#F5E9CC] text-[#C1621F] text-xs font-black uppercase tracking-wider inline-block">
+                Share Your Dining Experience
+              </span>
+              <h3 className="ocb-font-serif text-2xl font-black text-[#241208]">
+                Write a Guest Review
+              </h3>
+              <p className="text-xs text-[#5C3A21]">
+                Your feedback helps fellow diners discover culinary gems and helps our chefs perfect every recipe.
+              </p>
+            </div>
+
+            {reviewSuccessMessage ? (
+              <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-300 text-center space-y-2 animate-in zoom-in-95">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+                  <Check className="w-6 h-6 stroke-[3]" />
+                </div>
+                <h4 className="font-extrabold text-sm text-emerald-900">{reviewSuccessMessage}</h4>
+                <p className="text-xs text-emerald-700">Your review is now visible on our Guest Experiences board.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleAddDinerReview} className="space-y-3.5 text-xs">
+                
+                {/* Star Rating Selector */}
+                <div className="p-3.5 rounded-2xl bg-[#FBF2DE]/60 border border-[#D8A63D]/30 space-y-1.5 text-center">
+                  <label className="font-bold text-[#241208] block text-xs">Rate Your Experience *</label>
+                  <div className="flex items-center justify-center gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setNewReviewRating(star)}
+                        className="p-1 transition hover:scale-125 cursor-pointer"
+                        title={`${star} Star${star > 1 ? 's' : ''}`}
+                      >
+                        <Star
+                          className={`w-7 h-7 ${
+                            star <= newReviewRating
+                              ? 'fill-amber-400 text-amber-500'
+                              : 'text-slate-300 hover:text-amber-300'
+                          }`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                  <span className="text-[11px] font-bold text-[#C1621F] block">
+                    {newReviewRating === 5 ? '⭐⭐⭐⭐⭐ Exceptional / Outstanding!' :
+                     newReviewRating === 4 ? '⭐⭐⭐⭐ Very Good Food & Service' :
+                     newReviewRating === 3 ? '⭐⭐⭐ Good Dining Experience' : 'Fair / Needs Improvement'}
+                  </span>
+                </div>
+
+                {/* Name & Location */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <div className="space-y-1">
+                    <label className="font-bold text-[#241208]">Your Name *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Meera Nair"
+                      value={newReviewName}
+                      onChange={(e) => setNewReviewName(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-[#D8A63D]/40 text-xs text-[#241208] focus:outline-none focus:border-[#C1621F]"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="font-bold text-[#241208]">City / Neighborhood</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Indiranagar, BLR"
+                      value={newReviewLocation}
+                      onChange={(e) => setNewReviewLocation(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-[#D8A63D]/40 text-xs text-[#241208] focus:outline-none focus:border-[#C1621F]"
+                    />
+                  </div>
+                </div>
+
+                {/* Dining Type & Recommended Dish */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <div className="space-y-1">
+                    <label className="font-bold text-[#241208]">Dining Type</label>
+                    <select
+                      value={newReviewType}
+                      onChange={(e) => setNewReviewType(e.target.value as any)}
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-[#D8A63D]/40 text-xs text-[#241208] focus:outline-none focus:border-[#C1621F]"
+                    >
+                      <option value="Dine-in">Table Dine-in</option>
+                      <option value="Doorstep Delivery">Doorstep Delivery</option>
+                      <option value="Family Party">Family Party / Banquet</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="font-bold text-[#241208]">Favorite Dish (Optional)</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Awadhi Dum Biryani"
+                      value={newReviewDish}
+                      onChange={(e) => setNewReviewDish(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-white border border-[#D8A63D]/40 text-xs text-[#241208] focus:outline-none focus:border-[#C1621F]"
+                    />
+                  </div>
+                </div>
+
+                {/* Review Text */}
+                <div className="space-y-1">
+                  <label className="font-bold text-[#241208]">Your Review / Comments *</label>
+                  <textarea
+                    required
+                    rows={3}
+                    placeholder="Tell other diners about the food taste, aroma, table ambiance, spice levels, or delivery speed..."
+                    value={newReviewText}
+                    onChange={(e) => setNewReviewText(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-[#D8A63D]/40 text-xs text-[#241208] focus:outline-none focus:border-[#C1621F]"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#C1621F] via-[#D8A63D] to-[#C1621F] hover:opacity-95 text-white font-black text-xs shadow-md transition active:scale-95 cursor-pointer"
+                >
+                  Submit Dining Review
+                </button>
+              </form>
+            )}
 
           </div>
         </div>

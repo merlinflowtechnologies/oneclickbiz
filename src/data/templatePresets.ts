@@ -795,6 +795,263 @@ TEMPLATE_PRESETS_DATA['food-pub'] = TEMPLATE_PRESETS_DATA['restaurant-menu'];
 TEMPLATE_PRESETS_DATA['food-dhaba'] = TEMPLATE_PRESETS_DATA['restaurant-menu'];
 TEMPLATE_PRESETS_DATA['food-southindian'] = TEMPLATE_PRESETS_DATA['restaurant-menu'];
 
+TEMPLATE_PRESETS_DATA['fash-boutique'] = {
+  name: 'Grand Fashion & Clothing Mall',
+  designation: 'Multi-Floor Fashion Shopping Mall • Men’s, Women’s & Kids’ Collections',
+  company: 'Grand Fashion & Clothing Shopping Mall',
+  bio: 'Welcome to Grand Fashion & Clothing Shopping Mall. A premier multi-level fashion shopping mall featuring the latest collections in Men’s, Women’s, and Kids’ apparel, bridal silks, festive wear, formal suits, western outfits, and accessories with worldwide doorstep express shipping.',
+  theme: 'sunset-gold',
+  avatarUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80',
+  coverUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80',
+  email: 'mall@oneclickbiz.in',
+  phone: '+91 63049 89071',
+  whatsapp: '916304989071',
+  website: 'https://oneclickbiz.in/v/fash-boutique',
+  address: 'OneClickBiz Grand Mall, 100 Feet Road, Indiranagar, Bengaluru, Karnataka 560038',
+  services: [
+    { id: 's_fb_1', title: 'Ground Floor: Women’s Silks, Bridal & Western Studio', description: 'Explore Kanchipuram silks, bridal lehengas, designer anarkalis, festive kurtis, and western fashion.', durationMinutes: 60, price: 0, currency: '₹' },
+    { id: 's_fb_2', title: 'First Floor: Men’s Studio, Suits, Sherwanis & Formals', description: 'Bespoke tuxedos, Jodhpuri suits, groom sherwanis, bandhgalas, festive kurtas, and business formals.', durationMinutes: 45, price: 0, currency: '₹' },
+    { id: 's_fb_3', title: 'Second Floor: Kids’ Kingdom & Teens Festive Collection', description: 'Pattu pavadas, junior sherwanis, party frocks, dhoti sets, and ethnic wear for boys and girls.', durationMinutes: 45, price: 0, currency: '₹' },
+    { id: 's_fb_4', title: 'Mall Services: In-Store Trial Rooms & Custom Tailoring Desk', description: 'Personal stylist consultation, master tailor measurements, alteration lounge, and worldwide DHL courier delivery.', durationMinutes: 30, price: 0, currency: '₹' }
+  ],
+  products: [
+    // ------------------------------------------
+    // 1. WOMEN'S COLLECTION (6 Items)
+    // ------------------------------------------
+    { 
+      id: 'prod_fash_w1', 
+      name: 'Royal Crimson Zardozi Bridal Lehenga', 
+      description: 'Pure raw silk bridal lehenga with hand zari, dabka embroidery and double organza dupattas.', 
+      price: 145000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80', 
+      category: 'Bridal', 
+      isAvailable: true,
+      gender: 'women' as any
+    },
+    { 
+      id: 'prod_fash_w2', 
+      name: 'Kanchipuram Pure Gold Tissue Brocade Saree', 
+      description: 'Silk Mark certified 6-ply mulberry silk with authentic pure silver & gold zari brocade.', 
+      price: 85000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80', 
+      category: 'Sarees', 
+      isAvailable: true,
+      gender: 'women' as any
+    },
+    { 
+      id: 'prod_fash_w3', 
+      name: 'Emerald Velvet Anarkali & Organza Dupatta', 
+      description: 'Micro-velvet floor length Anarkali with Jaipur Gota Patti embroidery and scalloped dupatta.', 
+      price: 42000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80', 
+      category: 'Indo-Western', 
+      isAvailable: true,
+      gender: 'women' as any
+    },
+    { 
+      id: 'prod_fash_w4', 
+      name: 'Pastel Blush Embroidered Reception Gown', 
+      description: 'French illusion tulle with Swarovski crystals, built-in corset boning, and cathedral sweep train.', 
+      price: 98000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80', 
+      category: 'Couture', 
+      isAvailable: true,
+      gender: 'women' as any
+    },
+    { 
+      id: 'prod_fash_w5', 
+      name: 'Royal Peacock Blue Banarasi Katan Silk Saree', 
+      description: 'Handwoven pure Varanasi Katan silk saree with antique gold zari floral motifs and meenakari borders.', 
+      price: 62000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80', 
+      category: 'Sarees', 
+      isAvailable: true,
+      gender: 'women' as any
+    },
+    { 
+      id: 'prod_fash_w6', 
+      name: 'Floral Organza Silk Saree with Hand-painted Pallu', 
+      description: 'Airy pastel lavender organza silk saree hand-painted by master kalamkari artisans with scalloped pearl borders.', 
+      price: 29500, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=800&q=80', 
+      category: 'Indo-Western', 
+      isAvailable: true,
+      gender: 'women' as any
+    },
+
+    // ------------------------------------------
+    // 2. MEN'S COLLECTION (6 Items)
+    // ------------------------------------------
+    { 
+      id: 'prod_fash_m1', 
+      name: 'Royal Ivory & Gold Hand-Zardozi Groom Sherwani', 
+      description: 'Regal raw silk sherwani intricately hand-embroidered with antique dabka, French sequins, and pearl buttons. Includes stole and churidar.', 
+      price: 88000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80', 
+      category: 'Groom Sherwanis', 
+      isAvailable: true,
+      gender: 'men' as any
+    },
+    { 
+      id: 'prod_fash_m2', 
+      name: 'Jodhpuri Royal Bandhgala Suit in Forest Green', 
+      description: 'Structured bespoke Italian wool-silk blend bandhgala jacket with hand-cast engraved gold crest buttons and slim trousers.', 
+      price: 45000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80', 
+      category: 'Bandhgala & Jodhpuri', 
+      isAvailable: true,
+      gender: 'men' as any
+    },
+    { 
+      id: 'prod_fash_m3', 
+      name: 'Onyx Black Silk Tuxedo & Zari Shawl Lapel', 
+      description: 'Precision bespoke single-breasted tuxedo in midnight onyx raw silk featuring an antique gold handwoven Zari shawl lapel and satin-striped trousers.', 
+      price: 58000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80', 
+      category: 'Tuxedos & Western', 
+      isAvailable: true,
+      gender: 'men' as any
+    },
+    { 
+      id: 'prod_fash_m4', 
+      name: 'Mustard Festive Silk Kurta & Nehru Jacket', 
+      description: 'Luminous mustard yellow Chanderi silk kurta paired with an intricately embroidered Bundi Nehru waistcoat featuring traditional mirror work.', 
+      price: 24500, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&fit=crop&w=800&q=80', 
+      category: 'Kurtas & Nehru Jackets', 
+      isAvailable: true,
+      gender: 'men' as any
+    },
+    { 
+      id: 'prod_fash_m5', 
+      name: 'Midnight Blue Asymmetrical Achkan Set', 
+      description: 'Contemporary midnight navy Indo-Western Achkan with an architectural crossover front, antique pewter buttons, and silk cowl kurta.', 
+      price: 38000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1621609764095-b32bbe35cf3a?auto=format&fit=crop&w=800&q=80', 
+      category: 'Indo-Western & Fusion', 
+      isAvailable: true,
+      gender: 'men' as any
+    },
+    { 
+      id: 'prod_fash_m6', 
+      name: 'Ruby Maroon Banarasi Brocade Sherwani', 
+      description: 'GI-Tagged Varanasi handloom brocade sherwani woven with pure gold zari butis, matching brocade stole, and raw silk churidar.', 
+      price: 72000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80', 
+      category: 'Groom Sherwanis', 
+      isAvailable: true,
+      gender: 'men' as any
+    },
+
+    // ------------------------------------------
+    // 3. KIDS' & TEENS' COLLECTION (6 Items)
+    // ------------------------------------------
+    { 
+      id: 'prod_fash_k1', 
+      name: 'Little Princess Gold & Magenta Pattu Pavada', 
+      description: 'Authentic South Indian traditional lehenga choli set for young girls in pure magenta and gold tissue silk with temple borders and soft cotton lining.', 
+      price: 14500, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=800&q=80', 
+      category: 'Pattu Pavada & Lehengas', 
+      isAvailable: true,
+      gender: 'kids' as any
+    },
+    { 
+      id: 'prod_fash_k2', 
+      name: 'Junior Prince Ivory & Gold Zari Sherwani', 
+      description: 'Miniature royal sherwani for boys in soft raw silk with floral dabka embroidery, matching churidar, and pre-tied miniature safa turban.', 
+      price: 16500, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80', 
+      category: 'Junior Sherwanis & Suits', 
+      isAvailable: true,
+      gender: 'kids' as any
+    },
+    { 
+      id: 'prod_fash_k3', 
+      name: 'Floral Ruffled Birthday Fairy Frock in Peach', 
+      description: 'Multi-tiered cascading ruffle princess gown for girls with floral pearl embroidery on corset yoke and skin-friendly cotton underskirt.', 
+      price: 9500, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80', 
+      category: 'Party Frocks & Gowns', 
+      isAvailable: true,
+      gender: 'kids' as any
+    },
+    { 
+      id: 'prod_fash_k4', 
+      name: 'Boys Mustard Silk Kurta & Brocade Dhoti Set', 
+      description: 'Vibrant Haldi festive outfit for boys with slip-on pre-pleated gold brocade dhoti and sunshine yellow silk kurta with gotta borders.', 
+      price: 8900, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?auto=format&fit=crop&w=800&q=80', 
+      category: 'Kurta Dhoti Sets', 
+      isAvailable: true,
+      gender: 'kids' as any
+    },
+    { 
+      id: 'prod_fash_k5', 
+      name: 'Teens Mint Green Embroidered Anarkali Gown', 
+      description: 'Graceful pastel mint green Anarkali gown tailored for teenage girls with floral thread embroidery, scalloped dupatta, and leggings.', 
+      price: 18000, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80', 
+      category: 'Pattu Pavada & Lehengas', 
+      isAvailable: true,
+      gender: 'kids' as any
+    },
+    { 
+      id: 'prod_fash_k6', 
+      name: 'Boys Royal Blue Velvet Waistcoat & Kurta Set', 
+      description: 'Smart 3-piece festive set with plush royal blue velvet Nehru jacket with lion crest buttons over a silk kurta and white churidar.', 
+      price: 12500, 
+      currency: '₹', 
+      imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=800&q=80', 
+      category: 'Junior Sherwanis & Suits', 
+      isAvailable: true,
+      gender: 'kids' as any
+    }
+  ],
+  gallery: [
+    { id: 'gal_fash_1', imageUrl: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80', title: 'Royal Crimson Bridal Lehenga', category: 'Women Floor' },
+    { id: 'gal_fash_2', imageUrl: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80', title: 'Royal Ivory Groom Sherwani', category: 'Men Floor' },
+    { id: 'gal_fash_3', imageUrl: 'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=800&q=80', title: 'Princess Gold Pattu Pavada', category: 'Kids Floor' },
+    { id: 'gal_fash_4', imageUrl: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80', title: 'Kanchipuram Pure Brocade Saree', category: 'Women Floor' }
+  ],
+  testimonials: [
+    { id: 't_fash_1', clientName: 'Divya & Rohan Singhania', clientRole: 'Wedding Couple, Bengaluru', content: 'We shopped our entire wedding trousseau at Grand Fashion Mall! My bridal lehenga and Rohan’s sherwani matched exquisitely, and the in-store trial rooms were luxurious.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+    { id: 't_fash_2', clientName: 'Meera Nambiar & Family', clientRole: 'Family Shoppers, Indiranagar', content: 'Found everything under one roof: pure silk sarees for me, formal suits for my husband, and festive pattu pavadas for our daughters. Top quality and instant alteration service.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80' }
+  ],
+  socials: [
+    { id: 'soc_fash_wa', platform: 'whatsapp', url: 'https://wa.me/916304989071', label: 'WhatsApp Chat' },
+    { id: 'soc_fash_ph', platform: 'phone', url: 'tel:+916304989071', label: 'Mall Helpdesk' },
+    { id: 'soc_fash_in', platform: 'instagram', url: 'https://instagram.com/oneclickbiz', label: 'Instagram' },
+    { id: 'soc_fash_yt', platform: 'youtube', url: 'https://youtube.com/@oneclickbiz', label: 'YouTube Channel' },
+    { id: 'soc_fash_fb', platform: 'facebook', url: 'https://facebook.com/oneclickbiz', label: 'Facebook Page' },
+    { id: 'soc_fash_em', platform: 'email', url: 'mailto:mall@oneclickbiz.in', label: 'Email Desk' },
+    { id: 'soc_fash_map', platform: 'maps', url: 'https://maps.google.com/?q=OneClickBiz+Grand+Fashion+Mall+Indiranagar+Bengaluru', label: 'Mall Location' },
+    { id: 'soc_fash_web', platform: 'website', url: 'https://oneclickbiz.in/v/fash-boutique', label: 'Official Website' }
+  ]
+};
+
+TEMPLATE_PRESETS_DATA['fash-ladies'] = TEMPLATE_PRESETS_DATA['fash-boutique'];
+TEMPLATE_PRESETS_DATA['fash-mens'] = TEMPLATE_PRESETS_DATA['fash-boutique'];
+TEMPLATE_PRESETS_DATA['fash-saree'] = TEMPLATE_PRESETS_DATA['fash-boutique'];
+TEMPLATE_PRESETS_DATA['fash-online'] = TEMPLATE_PRESETS_DATA['fash-boutique'];
+
 
 /**
  * Returns a fully populated, production-ready DigitalProfile for any of the 28 templates.
