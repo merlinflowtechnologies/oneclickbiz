@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import prisma from '@/lib/prisma';
+import prisma, { isDatabaseConfigured } from '@/lib/prisma';
 import { getProfileBySlug } from '@/lib/data-store';
 import ProfileCardView from '@/components/templates/ProfileCardView';
 import { DigitalProfile } from '@/lib/types';
@@ -16,7 +16,7 @@ interface ProfilePageProps {
 
 async function fetchProfileData(slug: string): Promise<DigitalProfile> {
   const cleanSlug = (slug || '').toLowerCase().trim();
-  if (process.env.DATABASE_URL) {
+  if (isDatabaseConfigured) {
     try {
       const dbProfile = await prisma.profile.findUnique({
         where: { slug: cleanSlug },
@@ -220,7 +220,7 @@ export default async function PublicProfilePage({
 
   // Real Analytics Tracking: increment viewCount and log event in DB only if card is active
   try {
-    if (process.env.DATABASE_URL && profile.id && profile.isPublished && !profile.isExpired) {
+    if (isDatabaseConfigured && profile.id && profile.isPublished && !profile.isExpired) {
       const eventType = resolvedQuery.src === 'qr' 
         ? 'qr_scan' 
         : resolvedQuery.src === 'nfc' 

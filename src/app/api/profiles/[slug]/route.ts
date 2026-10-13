@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
-import prisma from '@/lib/prisma';
+import prisma, { isDatabaseConfigured } from '@/lib/prisma';
 import { getSessionUser } from '@/lib/auth';
+import { getProfileBySlug } from '@/lib/data-store';
 
 // GET public profile by slug
 export async function GET(
@@ -11,6 +12,20 @@ export async function GET(
   try {
     const { slug } = await context.params;
     const cleanSlug = (slug || '').toLowerCase().trim();
+
+    if (!isDatabaseConfigured) {
+      const fallback = getProfileBySlug(cleanSlug);
+      return NextResponse.json({
+        success: true,
+        profile: fallback
+      }, {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      });
+    }
 
     const profile = await prisma.profile.findUnique({
       where: { slug: cleanSlug },
@@ -120,6 +135,14 @@ export async function PUT(
     const { slug } = await context.params;
     const cleanSlug = (slug || '').toLowerCase().trim();
     const body = await req.json();
+
+    if (!isDatabaseConfigured) {
+      return NextResponse.json({
+        success: true,
+        message: 'Profile saved in offline dev mode',
+        profile: body
+      });
+    }
 
     let targetProfile = await prisma.profile.findUnique({
       where: { slug: cleanSlug }

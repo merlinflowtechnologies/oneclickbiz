@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import prisma from '@/lib/prisma';
+import prisma, { isDatabaseConfigured } from '@/lib/prisma';
 import { INITIAL_PROFILES } from '@/lib/data-store';
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://oneclickbiz.in';
@@ -73,7 +73,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 2. Dynamic Published vCard Profiles from Database
   let dynamicProfiles: MetadataRoute.Sitemap = [];
-  if (process.env.DATABASE_URL) {
+  if (isDatabaseConfigured) {
     try {
       const dbProfiles = await prisma.profile.findMany({
         where: { isPublished: true },
@@ -115,7 +115,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 5. Dynamic Blog Post Pages
   let dynamicBlogPosts: MetadataRoute.Sitemap = [];
-  if (process.env.DATABASE_URL) {
+  if (isDatabaseConfigured) {
     try {
       const posts = await prisma.blogPost.findMany({
         where: { isPublished: true },
