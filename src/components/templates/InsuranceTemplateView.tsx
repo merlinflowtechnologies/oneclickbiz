@@ -51,7 +51,8 @@ import {
   Lock,
   FileSpreadsheet,
   RefreshCw,
-  PhoneCall
+  PhoneCall,
+  Palette
 } from 'lucide-react';
 import QRCode from 'qrcode';
 import { DigitalProfile, ServiceItem, ProductItem, VideoItem, GalleryItem, TestimonialItem } from '@/lib/types';
@@ -294,7 +295,7 @@ const VERIFIED_CLAIM_STORIES = [
     patient: 'Sunita & Newborn Twins',
     hospital: 'Apollo Cradle & Children’s Hospital, Hyderabad',
     condition: 'High-Risk Twin Delivery & 12-Day NICU Incubator Care',
-    claimedAmount: '₹8,90,00,0',
+    claimedAmount: '₹8,90,000',
     settledAmount: '₹8,90,000 (100% Cashless)',
     tat: '45 Minutes Pre-Authorization',
     rating: 5,
@@ -316,6 +317,102 @@ const VERIFIED_CLAIM_STORIES = [
     role: 'Homemaker & Mother, Pune'
   }
 ];
+
+export type LightThemeId = 'azure' | 'mint' | 'ivory' | 'iris' | 'sky';
+
+export interface LightThemeData {
+  id: LightThemeId;
+  name: string;
+  badge: string;
+  dotColor: string;
+  rootBg: string;
+  heroBg: string;
+  accentText: string;
+  accentBg: string;
+  borderTint: string;
+  glow1: string;
+  glow2: string;
+  glow3: string;
+  bannerBorder: string;
+}
+
+export const LIGHT_THEMES: Record<LightThemeId, LightThemeData> = {
+  azure: {
+    id: 'azure',
+    name: 'Arctic Azure',
+    badge: 'Institutional Trust',
+    dotColor: '#2563EB',
+    rootBg: 'bg-[#F8FAFC]',
+    heroBg: 'bg-gradient-to-b from-white via-slate-50/50 to-[#F8FAFC]',
+    accentText: 'text-blue-600',
+    accentBg: 'bg-blue-600 hover:bg-blue-700',
+    borderTint: 'border-blue-500/30',
+    glow1: 'from-blue-300/25 via-indigo-200/20 to-sky-200/15',
+    glow2: 'from-emerald-200/25 via-teal-100/20 to-blue-200/15',
+    glow3: 'from-sky-200/25 via-indigo-100/20 to-emerald-100/15',
+    bannerBorder: 'border-slate-200'
+  },
+  mint: {
+    id: 'mint',
+    name: 'Emerald Mint',
+    badge: 'Health & Protection',
+    dotColor: '#059669',
+    rootBg: 'bg-[#F3FAF6]',
+    heroBg: 'bg-gradient-to-b from-white via-emerald-50/40 to-[#F3FAF6]',
+    accentText: 'text-emerald-600',
+    accentBg: 'bg-emerald-600 hover:bg-emerald-700',
+    borderTint: 'border-emerald-500/30',
+    glow1: 'from-emerald-300/25 via-teal-200/20 to-cyan-200/15',
+    glow2: 'from-teal-200/25 via-emerald-100/20 to-green-200/15',
+    glow3: 'from-emerald-200/25 via-mint-100/20 to-teal-100/15',
+    bannerBorder: 'border-emerald-200/80'
+  },
+  ivory: {
+    id: 'ivory',
+    name: 'Warm Cashmere',
+    badge: 'Wealth & Legacy',
+    dotColor: '#D97706',
+    rootBg: 'bg-[#FAF7EE]',
+    heroBg: 'bg-gradient-to-b from-white via-amber-50/40 to-[#FAF7EE]',
+    accentText: 'text-amber-700',
+    accentBg: 'bg-amber-600 hover:bg-amber-700',
+    borderTint: 'border-amber-500/30',
+    glow1: 'from-amber-200/30 via-orange-100/25 to-yellow-100/20',
+    glow2: 'from-yellow-200/25 via-amber-100/20 to-stone-200/15',
+    glow3: 'from-orange-200/25 via-amber-100/20 to-yellow-100/15',
+    bannerBorder: 'border-amber-200/80'
+  },
+  iris: {
+    id: 'iris',
+    name: 'Tech Periwinkle',
+    badge: 'Digital InsurTech',
+    dotColor: '#6366F1',
+    rootBg: 'bg-[#F7F6FD]',
+    heroBg: 'bg-gradient-to-b from-white via-indigo-50/40 to-[#F7F6FD]',
+    accentText: 'text-indigo-600',
+    accentBg: 'bg-indigo-600 hover:bg-indigo-700',
+    borderTint: 'border-indigo-500/30',
+    glow1: 'from-violet-300/25 via-purple-200/20 to-indigo-200/15',
+    glow2: 'from-indigo-200/25 via-violet-100/20 to-purple-200/15',
+    glow3: 'from-purple-200/25 via-indigo-100/20 to-violet-100/15',
+    bannerBorder: 'border-indigo-200/80'
+  },
+  sky: {
+    id: 'sky',
+    name: 'Ocean Cyan',
+    badge: 'Calm & Reassurance',
+    dotColor: '#0284C7',
+    rootBg: 'bg-[#F0F8FF]',
+    heroBg: 'bg-gradient-to-b from-white via-sky-50/50 to-[#F0F8FF]',
+    accentText: 'text-sky-600',
+    accentBg: 'bg-sky-600 hover:bg-sky-700',
+    borderTint: 'border-sky-500/30',
+    glow1: 'from-sky-300/25 via-cyan-200/20 to-blue-200/15',
+    glow2: 'from-cyan-200/25 via-sky-100/20 to-teal-200/15',
+    glow3: 'from-blue-200/25 via-cyan-100/20 to-sky-100/15',
+    bannerBorder: 'border-sky-200/80'
+  }
+};
 
 export default function InsuranceTemplateView({
   profile,
@@ -360,6 +457,23 @@ export default function InsuranceTemplateView({
   const [websiteQrUrl, setWebsiteQrUrl] = useState<string>('');
   const [copiedLink, setCopiedLink] = useState(false);
   const [currentUrl, setCurrentUrl] = useState<string>('');
+
+  // Light Color Scheme
+  const [colorTheme, setColorTheme] = useState<LightThemeId>('azure');
+
+  const handleThemeChange = (newTheme: LightThemeId) => {
+    setColorTheme(newTheme);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('ocb_insurance_theme', newTheme);
+        const url = new URL(window.location.href);
+        url.searchParams.set('theme', newTheme);
+        window.history.replaceState({}, '', url.toString());
+      } catch (e) {}
+    }
+  };
+
+  const activeThemeData = LIGHT_THEMES[colorTheme] || LIGHT_THEMES.azure;
 
   // Emergency Claim Hotline State
   const [emergencyPatientName, setEmergencyPatientName] = useState('');
@@ -406,16 +520,28 @@ export default function InsuranceTemplateView({
   const advisorDesignation = profile.designation || 'MDRT Life Member | Senior Financial Security Advisor';
   const irdaNumber = 'IRDAI/AGN/2012/849102';
 
-  // Setup current URL and QR
+  // Setup current URL, QR and Light Theme
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const url = window.location.href;
       setCurrentUrl(url);
+
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const themeParam = params.get('theme') as LightThemeId;
+        const savedTheme = localStorage.getItem('ocb_insurance_theme') as LightThemeId;
+        if (themeParam && LIGHT_THEMES[themeParam]) {
+          setColorTheme(themeParam);
+        } else if (savedTheme && LIGHT_THEMES[savedTheme]) {
+          setColorTheme(savedTheme);
+        }
+      } catch (e) {}
+
       QRCode.toDataURL(url, {
         width: 320,
         margin: 2,
         color: {
-          dark: '#241208',
+          dark: '#0F172A',
           light: '#FFFFFF'
         }
       })
@@ -603,15 +729,15 @@ export default function InsuranceTemplateView({
   ];
 
   return (
-    <div className="w-full min-h-screen bg-[#FBF2DE] text-[#241208] font-sans relative selection:bg-[#C1621F] selection:text-white pb-20 antialiased overflow-x-hidden">
-      {/* Dynamic Keyframes & Luxury Fonts Matching Restaurant & Fashion Templates */}
+    <div className={`w-full min-h-screen ${activeThemeData.rootBg} text-[#0F172A] font-sans relative selection:bg-blue-600 selection:text-white pb-20 antialiased overflow-x-hidden transition-colors duration-300`}>
+      {/* Dynamic Keyframes & Institutional Typography */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 
         .ocb-font-serif {
-          font-family: 'Playfair Display', Georgia, serif;
+          font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         .ocb-font-sans {
           font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -635,8 +761,8 @@ export default function InsuranceTemplateView({
         }
 
         @keyframes ocbFloatGlow {
-          0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.25; }
-          50% { transform: translate(25px, -18px) scale(1.15); opacity: 0.45; }
+          0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.35; }
+          50% { transform: translate(25px, -18px) scale(1.15); opacity: 0.60; }
         }
 
         .ocb-glow-ambient-1 {
@@ -649,46 +775,46 @@ export default function InsuranceTemplateView({
         }}
       />
 
-      {/* Decorative Ambient Background Glows (Matching Restaurant & Fashion) */}
+      {/* Light Elegant Ambient Glow Backgrounds */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
-        <div className="ocb-glow-ambient-1 absolute -top-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-[#D8A63D]/25 to-[#C1621F]/20 blur-3xl" />
-        <div className="ocb-glow-ambient-2 absolute top-1/3 -right-40 w-96 h-96 rounded-full bg-gradient-to-bl from-[#C1621F]/20 to-[#7E1717]/15 blur-3xl" />
-        <div className="ocb-glow-ambient-1 absolute -bottom-40 left-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-[#D8A63D]/20 to-[#2E4D2A]/15 blur-3xl" />
+        <div className={`ocb-glow-ambient-1 absolute -top-40 -left-40 w-[420px] h-[420px] rounded-full bg-gradient-to-br ${activeThemeData.glow1} blur-3xl transition-all duration-500`} />
+        <div className={`ocb-glow-ambient-2 absolute top-1/3 -right-40 w-[450px] h-[450px] rounded-full bg-gradient-to-bl ${activeThemeData.glow2} blur-3xl transition-all duration-500`} />
+        <div className={`ocb-glow-ambient-1 absolute -bottom-40 left-1/4 w-[550px] h-[550px] rounded-full bg-gradient-to-tr ${activeThemeData.glow3} blur-3xl transition-all duration-500`} />
       </div>
 
       {/* ============================================================== */}
-      {/* 1. TOP TICKER MARQUEE (Matching Restaurant & Fashion)          */}
+      {/* 1. TOP TICKER MARQUEE (Clean Light Trust Palette)             */}
       {/* ============================================================== */}
-      <div className="relative z-40 bg-gradient-to-r from-[#241208] via-[#3B2313] to-[#241208] text-white py-2.5 overflow-hidden border-b border-[#D8A63D]/30 shadow-md">
+      <div className={`relative z-40 bg-white/95 text-slate-800 py-2.5 overflow-hidden border-b ${activeThemeData.bannerBorder} shadow-xs backdrop-blur-md transition-colors`}>
         <div className="ocb-marquee-track text-xs sm:text-sm font-semibold tracking-wider">
           <span className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#D8A63D] animate-ping" />
-            <span className="text-[#D8A63D] font-bold">ONECLICKBIZ FINANCIAL SECURITY & INSURANCE ADVISORY</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            <span className="text-blue-700 font-bold">ONECLICKBIZ FINANCIAL SECURITY & INSURANCE ADVISORY</span>
             <span>•</span>
-            <span>🛡️ IRDAI CERTIFIED PARTNER (REG: {irdaNumber})</span>
+            <span className="text-slate-700">🛡️ IRDAI CERTIFIED PARTNER (REG: {irdaNumber})</span>
             <span>•</span>
-            <span>🏆 MDRT USA LIFE MEMBER (COURT OF THE TABLE)</span>
+            <span className="text-indigo-700 font-bold">🏆 MDRT USA LIFE MEMBER (COURT OF THE TABLE)</span>
             <span>•</span>
-            <span>⚡ 99.4% VERIFIED CLAIM SETTLEMENT RATIO</span>
+            <span className="text-emerald-700 font-bold">⚡ 99.4% VERIFIED CLAIM SETTLEMENT RATIO</span>
             <span>•</span>
             <span>🏥 14,500+ CASHLESS NETWORK HOSPITALS PAN-INDIA</span>
             <span>•</span>
-            <span>📞 24/7 EMERGENCY CLAIM DESK: {phoneDisplay}</span>
+            <span className="text-rose-600 font-bold">📞 24/7 EMERGENCY CLAIM DESK: {phoneDisplay}</span>
             <span>•</span>
           </span>
           <span className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#D8A63D] animate-ping" />
-            <span className="text-[#D8A63D] font-bold">ONECLICKBIZ FINANCIAL SECURITY & INSURANCE ADVISORY</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            <span className="text-blue-700 font-bold">ONECLICKBIZ FINANCIAL SECURITY & INSURANCE ADVISORY</span>
             <span>•</span>
-            <span>🛡️ IRDAI CERTIFIED PARTNER (REG: {irdaNumber})</span>
+            <span className="text-slate-700">🛡️ IRDAI CERTIFIED PARTNER (REG: {irdaNumber})</span>
             <span>•</span>
-            <span>🏆 MDRT USA LIFE MEMBER (COURT OF THE TABLE)</span>
+            <span className="text-indigo-700 font-bold">🏆 MDRT USA LIFE MEMBER (COURT OF THE TABLE)</span>
             <span>•</span>
-            <span>⚡ 99.4% VERIFIED CLAIM SETTLEMENT RATIO</span>
+            <span className="text-emerald-700 font-bold">⚡ 99.4% VERIFIED CLAIM SETTLEMENT RATIO</span>
             <span>•</span>
             <span>🏥 14,500+ CASHLESS NETWORK HOSPITALS PAN-INDIA</span>
             <span>•</span>
-            <span>📞 24/7 EMERGENCY CLAIM DESK: {phoneDisplay}</span>
+            <span className="text-rose-600 font-bold">📞 24/7 EMERGENCY CLAIM DESK: {phoneDisplay}</span>
             <span>•</span>
           </span>
         </div>
@@ -697,64 +823,95 @@ export default function InsuranceTemplateView({
       {/* ============================================================== */}
       {/* 2. STICKY BRAND HEADER & QUICK ACTIONS                        */}
       {/* ============================================================== */}
-      <header className="sticky top-0 z-50 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#D8A63D]/30 shadow-xs transition-all w-full">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-xs transition-all w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-18 sm:h-20 flex items-center justify-between gap-3">
           {/* Brand & Advisor Info */}
           <div className="flex items-center gap-3 min-w-0">
             <div className="relative shrink-0">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden border-2 border-[#D8A63D] bg-[#F5E9CC] shadow-md p-0.5">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden border-2 border-blue-500/40 bg-blue-50 shadow-md p-0.5">
                 <img
                   src={profile.avatarUrl || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'}
                   alt={advisorName}
                   className="w-full h-full object-cover rounded-xl"
                 />
               </div>
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#C1621F] border-2 border-white flex items-center justify-center shadow-xs">
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center shadow-xs">
                 <Sparkles className="w-2.5 h-2.5 text-white" />
               </div>
             </div>
 
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <h1 className="text-base sm:text-lg font-black text-[#241208] leading-tight truncate ocb-font-serif">
+                <h1 className="text-base sm:text-lg font-black text-slate-900 leading-tight truncate ocb-font-serif">
                   {advisorName}
                 </h1>
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F5E9CC] border border-[#D8A63D]/40 text-[#C1621F] text-[10px] font-extrabold uppercase">
-                  <ShieldCheck className="w-3 h-3 text-[#C1621F]" /> IRDAI Certified
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[10px] font-extrabold uppercase">
+                  <ShieldCheck className="w-3 h-3 text-blue-600" /> IRDAI Certified
                 </span>
-                <span className="hidden md:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#FDFBF7] border border-[#D8A63D]/40 text-[#5C3A21] text-[10px] font-bold">
-                  <Award className="w-3 h-3 text-[#D8A63D]" /> MDRT 2026
+                <span className="hidden md:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-bold">
+                  <Award className="w-3 h-3 text-emerald-600" /> MDRT 2026
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-[#5C3A21] font-medium truncate">
+              <p className="text-[11px] sm:text-xs text-slate-600 font-medium truncate">
                 {advisorCompany} • {advisorDesignation}
               </p>
             </div>
           </div>
 
           {/* Quick Nav Anchors (Desktop) */}
-          <nav className="hidden xl:flex items-center gap-5 text-xs font-bold text-[#5C3A21]">
-            <a href="#calculator" className="hover:text-[#C1621F] transition-colors">Premium Calculator</a>
-            <a href="#plans" className="hover:text-[#C1621F] transition-colors">Curated Plans</a>
-            <a href="#emergency" className="text-[#B91C1C] hover:text-[#991B1B] transition-colors font-extrabold flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-[#B91C1C] animate-ping" />
+          <nav className="hidden xl:flex items-center gap-5 text-xs font-bold text-slate-600">
+            <a href="#calculator" className="hover:text-blue-600 transition-colors">Premium Calculator</a>
+            <a href="#plans" className="hover:text-blue-600 transition-colors">Curated Plans</a>
+            <a href="#emergency" className="text-rose-600 hover:text-rose-700 transition-colors font-extrabold flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-rose-600 animate-ping" />
               24/7 Claim Desk
             </a>
-            <a href="#partners" className="hover:text-[#C1621F] transition-colors">Top Insurers</a>
-            <a href="#tax" className="hover:text-[#C1621F] transition-colors">Tax Savings</a>
-            <a href="#claims" className="hover:text-[#C1621F] transition-colors">Claim Stories</a>
-            <a href="#faqs" className="hover:text-[#C1621F] transition-colors">FAQs</a>
+            <a href="#partners" className="hover:text-blue-600 transition-colors">Top Insurers</a>
+            <a href="#tax" className="hover:text-blue-600 transition-colors">Tax Savings</a>
+            <a href="#claims" className="hover:text-blue-600 transition-colors">Claim Stories</a>
+            <a href="#faqs" className="hover:text-blue-600 transition-colors">FAQs</a>
           </nav>
 
           {/* Action CTAs & View Switcher */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Light Palette Selector (Desktop) */}
+            <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100 border border-slate-200 text-xs shadow-xs">
+              <span className="pl-2 pr-1 text-[11px] font-extrabold text-slate-500 flex items-center gap-1">
+                <Palette className="w-3 h-3 text-slate-600" />
+                <span className="hidden xl:inline">Palette</span>
+              </span>
+              {(Object.keys(LIGHT_THEMES) as LightThemeId[]).map((tid) => {
+                const t = LIGHT_THEMES[tid];
+                const isSelected = colorTheme === tid;
+                return (
+                  <button
+                    key={tid}
+                    type="button"
+                    onClick={() => handleThemeChange(tid)}
+                    title={`${t.name} (${t.badge})`}
+                    className={`px-2 py-1 rounded-full text-[11px] font-bold transition flex items-center gap-1 cursor-pointer ${
+                      isSelected
+                        ? 'bg-white text-slate-900 shadow-xs border border-slate-300'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                    }`}
+                  >
+                    <span
+                      className="w-2.5 h-2.5 rounded-full border border-black/15 shrink-0"
+                      style={{ backgroundColor: t.dotColor }}
+                    />
+                    <span className="hidden xl:inline">{t.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+
             {showViewToggle && setViewMode && (
-              <div className="flex items-center gap-1 p-1 rounded-full bg-[#F5E9CC] border border-[#D8A63D]/40 text-xs shadow-xs">
+              <div className="flex items-center gap-1 p-1 rounded-full bg-slate-100 border border-slate-200 text-xs shadow-xs">
                 <button
                   type="button"
                   onClick={() => setViewMode('website')}
                   className={`px-2.5 sm:px-3 py-1 rounded-full font-bold transition flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs cursor-pointer ${
-                    viewMode === 'website' ? 'bg-[#241208] text-white shadow-xs' : 'text-[#5C3A21] hover:text-[#241208]'
+                    viewMode === 'website' ? 'bg-slate-900 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   <Globe className="w-3.5 h-3.5" />
@@ -765,7 +922,7 @@ export default function InsuranceTemplateView({
                   type="button"
                   onClick={() => setViewMode('mobile')}
                   className={`px-2.5 sm:px-3 py-1 rounded-full font-bold transition flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs cursor-pointer ${
-                    viewMode === 'mobile' ? 'bg-[#241208] text-white shadow-xs' : 'text-[#5C3A21] hover:text-[#241208]'
+                    viewMode === 'mobile' ? 'bg-slate-900 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   <Smartphone className="w-3.5 h-3.5" />
@@ -778,7 +935,7 @@ export default function InsuranceTemplateView({
             {/* Emergency Hospital Alert CTA */}
             <button
               onClick={() => setIsEmergencyModalOpen(true)}
-              className="px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-[#B91C1C] to-[#991B1B] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-[#B91C1C]/25 flex items-center gap-1.5 transition active:scale-95 cursor-pointer whitespace-nowrap"
+              className="px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-rose-600/20 flex items-center gap-1.5 transition active:scale-95 cursor-pointer whitespace-nowrap"
             >
               <PhoneCall className="w-3.5 h-3.5 animate-bounce" />
               <span className="hidden sm:inline">Emergency Claim</span>
@@ -789,38 +946,38 @@ export default function InsuranceTemplateView({
       </header>
 
       {/* ============================================================== */}
-      {/* 3. HERO SHOWCASE SECTION (Warm Luxury Ivory & Gold Aesthetics) */}
+      {/* 3. HERO SHOWCASE SECTION (Bright, Fresh Light Look)            */}
       {/* ============================================================== */}
-      <section className="relative overflow-hidden py-12 sm:py-18 lg:py-20 border-b border-[#D8A63D]/30 z-10">
+      <section className={`relative overflow-hidden py-12 sm:py-18 lg:py-20 border-b border-slate-200/80 z-10 ${activeThemeData.heroBg} transition-colors duration-300`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Content Column */}
             <div className="lg:col-span-7 space-y-6">
               {/* Trust Badges Strip */}
-              <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-full bg-[#FFFFFF]/90 border border-[#D8A63D]/40 backdrop-blur-md shadow-xs">
-                <span className="flex items-center gap-1 text-[11px] font-bold text-[#C1621F]">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#C1621F]" />
+              <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs">
+                <span className="flex items-center gap-1 text-[11px] font-bold text-blue-700">
+                  <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
                   IRDAI Certified Partner
                 </span>
-                <span className="text-[#D8A63D]">•</span>
-                <span className="flex items-center gap-1 text-[11px] font-bold text-[#241208]">
-                  <Award className="w-3.5 h-3.5 text-[#D8A63D]" />
+                <span className="text-slate-300">•</span>
+                <span className="flex items-center gap-1 text-[11px] font-bold text-indigo-700">
+                  <Award className="w-3.5 h-3.5 text-indigo-600" />
                   MDRT USA Life Member
                 </span>
-                <span className="text-[#D8A63D]">•</span>
-                <span className="flex items-center gap-1 text-[11px] font-bold text-[#15803D]">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#15803D]" />
+                <span className="text-slate-300">•</span>
+                <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-700">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   99.4% Claim Ratio
                 </span>
               </div>
 
-              {/* Main Headline with Serif Typography */}
-              <h1 className="text-3xl sm:text-5xl lg:text-5xl font-black text-[#241208] tracking-tight leading-[1.18] ocb-font-serif">
-                Uncompromising Financial Security & <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C1621F] via-[#D8A63D] to-[#C1621F]">24/7 Dedicated Cashless Claim</span> Support
+              {/* Main Headline */}
+              <h1 className="text-3xl sm:text-5xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.18] ocb-font-serif">
+                Uncompromising Financial Security & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800">24/7 Dedicated Cashless Claim</span> Support
               </h1>
 
               {/* Subheadline */}
-              <p className="text-base sm:text-lg text-[#5C3A21] leading-relaxed font-medium">
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
                 Guiding 4,500+ Indian families and global NRI professionals to navigate Term Life, Comprehensive Mediclaim, Critical Illness, and Guaranteed Retirement Planning. Independent fiduciary advisory partnering with India’s highest-rated insurers with dedicated cashless hospital desk support.
               </p>
 
@@ -828,7 +985,7 @@ export default function InsuranceTemplateView({
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <a
                   href="#calculator"
-                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#C1621F] via-[#D8A63D] to-[#C1621F] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-[#C1621F]/25 flex items-center gap-2 transition-all active:scale-95 cursor-pointer"
+                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-blue-600/25 flex items-center gap-2 transition-all active:scale-95 cursor-pointer"
                 >
                   <Calculator className="w-4 h-4" />
                   <span>Calculate Instant Premium</span>
@@ -836,24 +993,24 @@ export default function InsuranceTemplateView({
 
                 <button
                   onClick={() => setIsAuditModalOpen(true)}
-                  className="px-5 py-3.5 rounded-xl bg-white hover:bg-[#F5E9CC] text-[#241208] border border-[#D8A63D]/50 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-95"
+                  className="px-5 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-95"
                 >
-                  <FileSpreadsheet className="w-4 h-4 text-[#C1621F]" />
+                  <FileSpreadsheet className="w-4 h-4 text-blue-600" />
                   <span>Free 360° Policy Audit</span>
                 </button>
 
                 <button
                   onClick={() => downloadVcfFile(profile)}
-                  className="px-4 py-3.5 rounded-xl bg-white hover:bg-[#F5E9CC] text-[#5C3A21] border border-[#D8A63D]/40 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                  className="px-4 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
                   title="Save Advisor Contact directly to smartphone address book"
                 >
-                  <Download className="w-4 h-4 text-[#15803D]" />
+                  <Download className="w-4 h-4 text-emerald-600" />
                   <span>Save VCF</span>
                 </button>
 
                 <button
                   onClick={() => setIsQrModalOpen(true)}
-                  className="p-3.5 rounded-xl bg-white hover:bg-[#F5E9CC] text-[#5C3A21] border border-[#D8A63D]/40 transition-all cursor-pointer shadow-xs"
+                  className="p-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition-all cursor-pointer shadow-xs"
                   title="Scan QR Code"
                 >
                   <QrCode className="w-4 h-4" />
@@ -861,7 +1018,7 @@ export default function InsuranceTemplateView({
 
                 <button
                   onClick={() => setIsShareModalOpen(true)}
-                  className="p-3.5 rounded-xl bg-white hover:bg-[#F5E9CC] text-[#5C3A21] border border-[#D8A63D]/40 transition-all cursor-pointer shadow-xs"
+                  className="p-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition-all cursor-pointer shadow-xs"
                   title="Share Profile"
                 >
                   <Share2 className="w-4 h-4" />
@@ -869,87 +1026,87 @@ export default function InsuranceTemplateView({
               </div>
 
               {/* Quick Contact & Office Details */}
-              <div className="pt-4 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-[#5C3A21] border-t border-[#D8A63D]/30 font-medium">
+              <div className="pt-4 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-slate-600 border-t border-slate-200 font-medium">
                 <div className="flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-[#C1621F]" />
-                  <span>Direct: <a href={`tel:${phoneDisplay}`} className="text-[#241208] font-bold hover:underline font-mono">{phoneDisplay}</a></span>
+                  <Phone className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Direct: <a href={`tel:${phoneDisplay}`} className="text-slate-900 font-bold hover:underline font-mono">{phoneDisplay}</a></span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-[#C1621F]" />
-                  <span className="text-[#241208] font-bold font-mono">{profile.email || 'rajesh.sengupta@surakshainsurance.in'}</span>
+                  <Mail className="w-3.5 h-3.5 text-blue-600" />
+                  <span className="text-slate-900 font-bold font-mono">{profile.email || 'rajesh.sengupta@surakshainsurance.in'}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-[#C1621F]" />
-                  <span className="text-[#5C3A21]">{profile.address || 'BKC Mumbai & Hitec City, Hyderabad, India'}</span>
+                  <MapPin className="w-3.5 h-3.5 text-blue-600" />
+                  <span className="text-slate-600">{profile.address || 'BKC Mumbai & Hitec City, Hyderabad, India'}</span>
                 </div>
               </div>
             </div>
 
             {/* Right Advisor Card & Proof Metric Column */}
             <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md rounded-3xl p-1 bg-gradient-to-b from-[#D8A63D]/50 via-[#C1621F]/30 to-[#D8A63D]/40 shadow-2xl">
-                <div className="rounded-[22px] bg-white p-6 sm:p-7 space-y-6 border border-[#F5E9CC]">
+              <div className="relative mx-auto max-w-md rounded-3xl p-1 bg-gradient-to-b from-blue-400/40 via-indigo-300/30 to-slate-200 shadow-2xl">
+                <div className="rounded-[22px] bg-white p-6 sm:p-7 space-y-6 border border-slate-100 shadow-xs">
                   {/* Advisor Photo & Badge */}
                   <div className="flex items-center gap-4">
                     <div className="relative">
                       <img
                         src={profile.avatarUrl || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'}
                         alt={advisorName}
-                        className="w-20 h-20 rounded-2xl object-cover border-2 border-[#D8A63D] shadow-md"
+                        className="w-20 h-20 rounded-2xl object-cover border-2 border-blue-500 shadow-md"
                       />
-                      <span className="absolute -bottom-1.5 -right-1.5 bg-[#15803D] text-white p-1 rounded-full border-2 border-white">
+                      <span className="absolute -bottom-1.5 -right-1.5 bg-emerald-600 text-white p-1 rounded-full border-2 border-white">
                         <CheckCircle2 className="w-3.5 h-3.5" />
                       </span>
                     </div>
 
                     <div className="space-y-1">
-                      <h2 className="text-lg font-bold text-[#241208] ocb-font-serif">{advisorName}</h2>
-                      <p className="text-xs text-[#C1621F] font-bold">{advisorDesignation}</p>
-                      <p className="text-[11px] text-[#5C3A21] font-medium">{advisorCompany}</p>
+                      <h2 className="text-lg font-bold text-slate-900 ocb-font-serif">{advisorName}</h2>
+                      <p className="text-xs text-blue-700 font-bold">{advisorDesignation}</p>
+                      <p className="text-[11px] text-slate-500 font-medium">{advisorCompany}</p>
                     </div>
                   </div>
 
                   {/* 4 Hard Trust Metrics Grid */}
                   <div className="grid grid-cols-2 gap-3 pt-2">
-                    <div className="p-3.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30 shadow-xs">
-                      <p className="text-[11px] text-[#5C3A21] font-semibold">Life Cover Managed</p>
-                      <p className="text-lg font-extrabold text-[#241208] tracking-tight mt-0.5">₹480+ Cr</p>
-                      <span className="text-[10px] text-[#15803D] font-bold flex items-center gap-1 mt-0.5">
+                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 shadow-xs">
+                      <p className="text-[11px] text-slate-600 font-semibold">Life Cover Managed</p>
+                      <p className="text-lg font-extrabold text-slate-900 tracking-tight mt-0.5">₹480+ Cr</p>
+                      <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-1 mt-0.5">
                         <TrendingUp className="w-3 h-3" /> Active Portfolios
                       </span>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30 shadow-xs">
-                      <p className="text-[11px] text-[#5C3A21] font-semibold">Claim Settlement</p>
-                      <p className="text-lg font-extrabold text-[#15803D] tracking-tight mt-0.5">99.4%</p>
-                      <span className="text-[10px] text-[#5C3A21] font-medium mt-0.5">FY 2025-26</span>
+                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 shadow-xs">
+                      <p className="text-[11px] text-slate-600 font-semibold">Claim Settlement</p>
+                      <p className="text-lg font-extrabold text-emerald-600 tracking-tight mt-0.5">99.4%</p>
+                      <span className="text-[10px] text-slate-500 font-medium mt-0.5">FY 2025-26</span>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30 shadow-xs">
-                      <p className="text-[11px] text-[#5C3A21] font-semibold">Cashless Network</p>
-                      <p className="text-lg font-extrabold text-[#C1621F] tracking-tight mt-0.5">14,500+</p>
-                      <span className="text-[10px] text-[#5C3A21] font-medium mt-0.5">Pan-India Hospitals</span>
+                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 shadow-xs">
+                      <p className="text-[11px] text-slate-600 font-semibold">Cashless Network</p>
+                      <p className="text-lg font-extrabold text-blue-700 tracking-tight mt-0.5">14,500+</p>
+                      <span className="text-[10px] text-slate-500 font-medium mt-0.5">Pan-India Hospitals</span>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30 shadow-xs">
-                      <p className="text-[11px] text-[#5C3A21] font-semibold">Cashless Pre-Auth</p>
-                      <p className="text-lg font-extrabold text-[#D8A63D] tracking-tight mt-0.5">&lt; 60 Mins</p>
-                      <span className="text-[10px] text-[#5C3A21] font-medium mt-0.5">Average TAT</span>
+                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 shadow-xs">
+                      <p className="text-[11px] text-slate-600 font-semibold">Cashless Pre-Auth</p>
+                      <p className="text-lg font-extrabold text-amber-600 tracking-tight mt-0.5">&lt; 60 Mins</p>
+                      <span className="text-[10px] text-slate-500 font-medium mt-0.5">Average TAT</span>
                     </div>
                   </div>
 
                   {/* Emergency 24/7 Hotline Strip */}
-                  <div className="p-4 rounded-xl bg-[#FFF5F5] border border-[#B91C1C]/30 flex items-center justify-between">
+                  <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#B91C1C] animate-ping shrink-0" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping shrink-0" />
                       <div>
-                        <p className="text-xs font-bold text-[#B91C1C]">24x7 Emergency Claim Desk</p>
-                        <p className="text-[11px] text-[#7F1D1D]">Hospitalization admission alert</p>
+                        <p className="text-xs font-bold text-rose-700">24x7 Emergency Claim Desk</p>
+                        <p className="text-[11px] text-rose-600/80">Hospitalization admission alert</p>
                       </div>
                     </div>
                     <button
                       onClick={() => setIsEmergencyModalOpen(true)}
-                      className="px-3.5 py-1.5 rounded-lg bg-[#B91C1C] hover:bg-[#991B1B] text-white font-bold text-xs transition-colors cursor-pointer shadow-xs"
+                      className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-xs"
                     >
                       Alert Desk
                     </button>
@@ -964,32 +1121,32 @@ export default function InsuranceTemplateView({
       {/* ============================================================== */}
       {/* 4. INTERACTIVE PREMIUM CALCULATOR                              */}
       {/* ============================================================== */}
-      <section id="calculator" className="py-16 sm:py-20 relative z-10 border-b border-[#D8A63D]/30">
+      <section id="calculator" className="py-16 sm:py-20 relative z-10 border-b border-slate-200/80 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider text-[#C1621F] bg-[#F5E9CC] border border-[#D8A63D]/40">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200">
               <Calculator className="w-3.5 h-3.5" />
               Live Interactive Premium Estimator
             </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#241208] tracking-tight ocb-font-serif">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight ocb-font-serif">
               Instant Quote Calculator with 0% Commission Bias
             </h2>
-            <p className="text-sm sm:text-base text-[#5C3A21] font-medium">
+            <p className="text-sm sm:text-base text-slate-600 font-medium">
               Compare estimated premiums, tax exemptions, and customized coverage options in real time.
             </p>
           </div>
 
           {/* Calculator Container */}
-          <div className="max-w-4xl mx-auto rounded-3xl bg-white border border-[#D8A63D]/40 shadow-2xl overflow-hidden">
+          <div className="max-w-4xl mx-auto rounded-3xl bg-[#F8FAFC] border border-slate-200 shadow-xl overflow-hidden">
             {/* Tab Navigation */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 bg-[#F5E9CC]/80 border-b border-[#D8A63D]/30 p-1.5 gap-1">
+            <div className="grid grid-cols-2 sm:grid-cols-4 bg-slate-100 border-b border-slate-200 p-1.5 gap-1">
               <button
                 onClick={() => setActiveTab('term')}
                 className={`py-3 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 cursor-pointer ${
                   activeTab === 'term'
-                    ? 'bg-[#241208] text-white shadow-md'
-                    : 'text-[#5C3A21] hover:text-[#241208] hover:bg-[#F5E9CC]'
+                    ? 'bg-white text-blue-700 shadow-sm border border-slate-200/60'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
                 }`}
               >
                 <Umbrella className="w-4 h-4" />
@@ -1000,8 +1157,8 @@ export default function InsuranceTemplateView({
                 onClick={() => setActiveTab('health')}
                 className={`py-3 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 cursor-pointer ${
                   activeTab === 'health'
-                    ? 'bg-[#241208] text-white shadow-md'
-                    : 'text-[#5C3A21] hover:text-[#241208] hover:bg-[#F5E9CC]'
+                    ? 'bg-white text-blue-700 shadow-sm border border-slate-200/60'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
                 }`}
               >
                 <HeartPulse className="w-4 h-4" />
@@ -1012,8 +1169,8 @@ export default function InsuranceTemplateView({
                 onClick={() => setActiveTab('retire')}
                 className={`py-3 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 cursor-pointer ${
                   activeTab === 'retire'
-                    ? 'bg-[#241208] text-white shadow-md'
-                    : 'text-[#5C3A21] hover:text-[#241208] hover:bg-[#F5E9CC]'
+                    ? 'bg-white text-blue-700 shadow-sm border border-slate-200/60'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
                 }`}
               >
                 <Wallet className="w-4 h-4" />
@@ -1024,8 +1181,8 @@ export default function InsuranceTemplateView({
                 onClick={() => setActiveTab('child')}
                 className={`py-3 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 cursor-pointer ${
                   activeTab === 'child'
-                    ? 'bg-[#241208] text-white shadow-md'
-                    : 'text-[#5C3A21] hover:text-[#241208] hover:bg-[#F5E9CC]'
+                    ? 'bg-white text-blue-700 shadow-sm border border-slate-200/60'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
                 }`}
               >
                 <Award className="w-4 h-4" />
@@ -1035,14 +1192,14 @@ export default function InsuranceTemplateView({
 
             {/* TAB CONTENT: 1. TERM LIFE INSURANCE */}
             {activeTab === 'term' && (
-              <div className="p-6 sm:p-8 space-y-8">
+              <div className="p-6 sm:p-8 space-y-8 bg-white">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                   {/* Left Controls */}
                   <div className="space-y-6">
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-[#241208]">Your Current Age</label>
-                        <span className="text-sm font-bold text-[#C1621F] font-mono bg-[#F5E9CC] px-2.5 py-0.5 rounded-md border border-[#D8A63D]/40">
+                        <label className="text-xs font-bold text-slate-800">Your Current Age</label>
+                        <span className="text-sm font-bold text-blue-700 font-mono bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-200">
                           {termAge} Years
                         </span>
                       </div>
@@ -1053,9 +1210,9 @@ export default function InsuranceTemplateView({
                         step="1"
                         value={termAge}
                         onChange={(e) => setTermAge(Number(e.target.value))}
-                        className="w-full h-2 bg-[#F5E9CC] rounded-lg appearance-none cursor-pointer accent-[#C1621F]"
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                       />
-                      <div className="flex justify-between text-[10px] text-[#5C3A21] mt-1 font-medium">
+                      <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-medium">
                         <span>18 Yrs</span>
                         <span>35 Yrs</span>
                         <span>60 Yrs</span>
@@ -1064,8 +1221,8 @@ export default function InsuranceTemplateView({
 
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-[#241208]">Life Protection Cover (Sum Assured)</label>
-                        <span className="text-sm font-bold text-[#15803D] font-mono bg-[#EBF7EE] px-2.5 py-0.5 rounded-md border border-[#15803D]/30">
+                        <label className="text-xs font-bold text-slate-800">Life Protection Cover (Sum Assured)</label>
+                        <span className="text-sm font-bold text-emerald-700 font-mono bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200">
                           ₹{termCoverCrores} Crore
                         </span>
                       </div>
@@ -1076,27 +1233,27 @@ export default function InsuranceTemplateView({
                         step="0.25"
                         value={termCoverCrores}
                         onChange={(e) => setTermCoverCrores(Number(e.target.value))}
-                        className="w-full h-2 bg-[#F5E9CC] rounded-lg appearance-none cursor-pointer accent-[#15803D]"
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
                       />
-                      <div className="flex justify-between text-[10px] text-[#5C3A21] mt-1 font-medium">
+                      <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-medium">
                         <span>₹50 Lakhs</span>
                         <span>₹2.5 Crores</span>
                         <span>₹5 Crores</span>
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/40 space-y-3">
+                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-xs font-bold text-[#241208]">Tobacco or Smoking Habit</p>
-                          <p className="text-[11px] text-[#5C3A21]">Non-smokers receive up to 30% discount on premiums</p>
+                          <p className="text-xs font-bold text-slate-800">Tobacco or Smoking Habit</p>
+                          <p className="text-[11px] text-slate-500">Non-smokers receive up to 30% discount on premiums</p>
                         </div>
-                        <div className="flex items-center gap-1 bg-white p-1 rounded-lg border border-[#D8A63D]/40">
+                        <div className="flex items-center gap-1 bg-white p-1 rounded-lg border border-slate-200">
                           <button
                             type="button"
                             onClick={() => setTermIsSmoker(false)}
                             className={`px-3 py-1 rounded text-xs font-bold transition-all cursor-pointer ${
-                              !termIsSmoker ? 'bg-[#15803D] text-white shadow-xs' : 'text-[#5C3A21]'
+                              !termIsSmoker ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-600'
                             }`}
                           >
                             No
@@ -1105,7 +1262,7 @@ export default function InsuranceTemplateView({
                             type="button"
                             onClick={() => setTermIsSmoker(true)}
                             className={`px-3 py-1 rounded text-xs font-bold transition-all cursor-pointer ${
-                              termIsSmoker ? 'bg-[#C1621F] text-white shadow-xs' : 'text-[#5C3A21]'
+                              termIsSmoker ? 'bg-amber-600 text-white shadow-xs' : 'text-slate-600'
                             }`}
                           >
                             Yes
@@ -1113,22 +1270,22 @@ export default function InsuranceTemplateView({
                         </div>
                       </div>
 
-                      <div className="pt-2 border-t border-[#D8A63D]/30 space-y-2">
-                        <label className="flex items-center gap-2 cursor-pointer text-xs text-[#241208] font-medium">
+                      <div className="pt-2 border-t border-slate-200 space-y-2">
+                        <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-700 font-medium">
                           <input
                             type="checkbox"
                             checked={termIncludeCriticalIllness}
                             onChange={(e) => setTermIncludeCriticalIllness(e.target.checked)}
-                            className="rounded bg-white border-[#D8A63D] text-[#C1621F] focus:ring-[#C1621F] w-4 h-4 cursor-pointer"
+                            className="rounded bg-white border-slate-300 text-blue-600 focus:ring-blue-600 w-4 h-4 cursor-pointer"
                           />
                           <span>Add 64 Critical Illness Living Benefit Rider (+₹220/mo)</span>
                         </label>
-                        <label className="flex items-center gap-2 cursor-pointer text-xs text-[#241208] font-medium">
+                        <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-700 font-medium">
                           <input
                             type="checkbox"
                             checked={termIncludeAccidental}
                             onChange={(e) => setTermIncludeAccidental(e.target.checked)}
-                            className="rounded bg-white border-[#D8A63D] text-[#C1621F] focus:ring-[#C1621F] w-4 h-4 cursor-pointer"
+                            className="rounded bg-white border-slate-300 text-blue-600 focus:ring-blue-600 w-4 h-4 cursor-pointer"
                           />
                           <span>Add Accidental Death & Disability Cover (+₹110/mo)</span>
                         </label>
@@ -1136,50 +1293,50 @@ export default function InsuranceTemplateView({
                     </div>
                   </div>
 
-                  {/* Right Calculation Box (Dark Elegant Contrast Card) */}
-                  <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-b from-[#241208] via-[#321B0E] to-[#1E0F07] text-white border border-[#D8A63D]/40 shadow-2xl space-y-6">
+                  {/* Right Calculation Box */}
+                  <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white border border-blue-500/30 shadow-xl space-y-6">
                     <div>
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#D8A63D]">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-blue-400">
                         Estimated Term Plan Premium
                       </span>
                       <div className="flex items-baseline gap-2 mt-1">
                         <span className="text-4xl font-extrabold text-white font-mono">
                           ₹{calculatedTermPremium.monthly.toLocaleString()}
                         </span>
-                        <span className="text-xs text-[#F5E9CC]/80">/ month (incl. 18% GST)</span>
+                        <span className="text-xs text-slate-300">/ month (incl. 18% GST)</span>
                       </div>
-                      <p className="text-xs text-[#F5E9CC]/70 mt-1">
+                      <p className="text-xs text-slate-400 mt-1">
                         Or ~<span className="text-white font-bold font-mono">₹{calculatedTermPremium.annual.toLocaleString()}</span> / year on annual payment mode.
                       </p>
                     </div>
 
-                    <div className="space-y-2.5 pt-2 border-t border-[#D8A63D]/30 text-xs">
+                    <div className="space-y-2.5 pt-2 border-t border-slate-800 text-xs">
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Sum Assured Cover:</span>
+                        <span className="text-slate-400">Sum Assured Cover:</span>
                         <span className="font-bold text-white font-mono">₹{termCoverCrores} Crore</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Coverage Tenure:</span>
+                        <span className="text-slate-400">Coverage Tenure:</span>
                         <span className="font-bold text-white">Up to Age {termCoverAge} Years</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Sec 80C Tax Deduction:</span>
-                        <span className="font-bold text-[#D8A63D] font-mono">Save up to ₹{calculatedTermPremium.taxSaving.toLocaleString()}/yr</span>
+                        <span className="text-slate-400">Sec 80C Tax Deduction:</span>
+                        <span className="font-bold text-emerald-400 font-mono">Save up to ₹{calculatedTermPremium.taxSaving.toLocaleString()}/yr</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Claim Settlement Ratio:</span>
-                        <span className="font-bold text-[#4ADE80]">99.5% (IRDAI Audited)</span>
+                        <span className="text-slate-400">Claim Settlement Ratio:</span>
+                        <span className="font-bold text-emerald-400">99.5% (IRDAI Audited)</span>
                       </div>
                     </div>
 
                     <button
                       onClick={handleSendTermWhatsAppQuote}
-                      className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#15803D] to-[#166534] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-[#15803D]/30 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+                      className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-700/30 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Get Official Quote on WhatsApp</span>
                     </button>
-                    <p className="text-[10px] text-center text-[#F5E9CC]/60">
+                    <p className="text-[10px] text-center text-slate-400">
                       *Zero spam policy. Proposal quotes sent directly by IRDAI licensed advisor.
                     </p>
                   </div>
@@ -1189,11 +1346,11 @@ export default function InsuranceTemplateView({
 
             {/* TAB CONTENT: 2. HEALTH MEDICLAIM */}
             {activeTab === 'health' && (
-              <div className="p-6 sm:p-8 space-y-8">
+              <div className="p-6 sm:p-8 space-y-8 bg-white">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                   <div className="space-y-6">
                     <div>
-                      <label className="text-xs font-bold text-[#241208] block mb-2">Who would you like to cover?</label>
+                      <label className="text-xs font-bold text-slate-800 block mb-2">Who would you like to cover?</label>
                       <div className="grid grid-cols-2 gap-2">
                         {[
                           { id: 'self', label: 'Self Only' },
@@ -1207,8 +1364,8 @@ export default function InsuranceTemplateView({
                             onClick={() => setHealthFamilyType(t.id as any)}
                             className={`p-2.5 rounded-xl text-xs font-bold text-left transition-all border cursor-pointer ${
                               healthFamilyType === t.id
-                                ? 'bg-[#241208] border-[#241208] text-white shadow-xs'
-                                : 'bg-[#FBF2DE] border-[#D8A63D]/30 text-[#5C3A21] hover:text-[#241208]'
+                                ? 'bg-blue-50 border-blue-600 text-blue-700 shadow-xs'
+                                : 'bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-900'
                             }`}
                           >
                             {t.label}
@@ -1219,8 +1376,8 @@ export default function InsuranceTemplateView({
 
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-[#241208]">Age of Eldest Insured Member</label>
-                        <span className="text-sm font-bold text-[#C1621F] font-mono bg-[#F5E9CC] px-2.5 py-0.5 rounded-md border border-[#D8A63D]/40">
+                        <label className="text-xs font-bold text-slate-800">Age of Eldest Insured Member</label>
+                        <span className="text-sm font-bold text-blue-700 font-mono bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-200">
                           {healthEldestAge} Years
                         </span>
                       </div>
@@ -1231,14 +1388,14 @@ export default function InsuranceTemplateView({
                         step="1"
                         value={healthEldestAge}
                         onChange={(e) => setHealthEldestAge(Number(e.target.value))}
-                        className="w-full h-2 bg-[#F5E9CC] rounded-lg appearance-none cursor-pointer accent-[#C1621F]"
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                       />
                     </div>
 
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-[#241208]">Desired Sum Insured</label>
-                        <span className="text-sm font-bold text-[#15803D] font-mono bg-[#EBF7EE] px-2.5 py-0.5 rounded-md border border-[#15803D]/30">
+                        <label className="text-xs font-bold text-slate-800">Desired Sum Insured</label>
+                        <span className="text-sm font-bold text-emerald-700 font-mono bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200">
                           {healthSumInsuredLakhs >= 100 ? '₹1 Crore' : `₹${healthSumInsuredLakhs} Lakhs`}
                         </span>
                       </div>
@@ -1249,70 +1406,70 @@ export default function InsuranceTemplateView({
                         step="5"
                         value={healthSumInsuredLakhs}
                         onChange={(e) => setHealthSumInsuredLakhs(Number(e.target.value))}
-                        className="w-full h-2 bg-[#F5E9CC] rounded-lg appearance-none cursor-pointer accent-[#15803D]"
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
                       />
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/40 space-y-2">
-                      <label className="flex items-center gap-2 cursor-pointer text-xs text-[#241208] font-medium">
+                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                      <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-700 font-medium">
                         <input
                           type="checkbox"
                           checked={healthZeroRoomRent}
                           onChange={(e) => setHealthZeroRoomRent(e.target.checked)}
-                          className="rounded bg-white border-[#D8A63D] text-[#C1621F] focus:ring-[#C1621F] w-4 h-4 cursor-pointer"
+                          className="rounded bg-white border-slate-300 text-blue-600 focus:ring-blue-600 w-4 h-4 cursor-pointer"
                         />
                         <span>Zero Room Rent Capping (No proportionate deductions)</span>
                       </label>
-                      <label className="flex items-center gap-2 cursor-pointer text-xs text-[#241208] font-medium">
+                      <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-700 font-medium">
                         <input
                           type="checkbox"
                           checked={healthHasDiabetes}
                           onChange={(e) => setHealthHasDiabetes(e.target.checked)}
-                          className="rounded bg-white border-[#D8A63D] text-[#C1621F] focus:ring-[#C1621F] w-4 h-4 cursor-pointer"
+                          className="rounded bg-white border-slate-300 text-blue-600 focus:ring-blue-600 w-4 h-4 cursor-pointer"
                         />
                         <span>Any member has Diabetes, BP or Thyroid</span>
                       </label>
                     </div>
                   </div>
 
-                  <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-b from-[#241208] via-[#321B0E] to-[#1E0F07] text-white border border-[#D8A63D]/40 shadow-2xl space-y-6">
+                  <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white border border-blue-500/30 shadow-xl space-y-6">
                     <div>
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#D8A63D]">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-blue-400">
                         Estimated Mediclaim Premium
                       </span>
                       <div className="flex items-baseline gap-2 mt-1">
                         <span className="text-4xl font-extrabold text-white font-mono">
                           ₹{calculatedHealthPremium.monthly.toLocaleString()}
                         </span>
-                        <span className="text-xs text-[#F5E9CC]/80">/ month (EMI option)</span>
+                        <span className="text-xs text-slate-300">/ month (EMI option)</span>
                       </div>
-                      <p className="text-xs text-[#F5E9CC]/70 mt-1">
+                      <p className="text-xs text-slate-400 mt-1">
                         Or ~<span className="text-white font-bold font-mono">₹{calculatedHealthPremium.annual.toLocaleString()}</span> / year upfront.
                       </p>
                     </div>
 
-                    <div className="space-y-2.5 pt-2 border-t border-[#D8A63D]/30 text-xs">
+                    <div className="space-y-2.5 pt-2 border-t border-slate-800 text-xs">
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Cashless Network:</span>
+                        <span className="text-slate-400">Cashless Network:</span>
                         <span className="font-bold text-white">14,500+ Hospitals Pan-India</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Restoration Benefit:</span>
-                        <span className="font-bold text-[#4ADE80]">Unlimited 100% Reload</span>
+                        <span className="text-slate-400">Restoration Benefit:</span>
+                        <span className="font-bold text-emerald-400">Unlimited 100% Reload</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Sec 80D Tax Deduction:</span>
-                        <span className="font-bold text-[#D8A63D] font-mono">Save up to ₹{calculatedHealthPremium.taxSaving.toLocaleString()}/yr</span>
+                        <span className="text-slate-400">Sec 80D Tax Deduction:</span>
+                        <span className="font-bold text-emerald-400 font-mono">Save up to ₹{calculatedHealthPremium.taxSaving.toLocaleString()}/yr</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Room Rent Limit:</span>
+                        <span className="text-slate-400">Room Rent Limit:</span>
                         <span className="font-bold text-white">{healthZeroRoomRent ? 'Single AC / No Limit' : 'Standard'}</span>
                       </div>
                     </div>
 
                     <button
                       onClick={handleSendHealthWhatsAppQuote}
-                      className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#15803D] to-[#166534] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-[#15803D]/30 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+                      className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-700/30 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Request Cashless Quote on WhatsApp</span>
@@ -1324,13 +1481,13 @@ export default function InsuranceTemplateView({
 
             {/* TAB CONTENT: 3. RETIREMENT PENSION */}
             {activeTab === 'retire' && (
-              <div className="p-6 sm:p-8 space-y-8">
+              <div className="p-6 sm:p-8 space-y-8 bg-white">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                   <div className="space-y-6">
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-[#241208]">Your Current Age</label>
-                        <span className="text-sm font-bold text-[#C1621F] font-mono bg-[#F5E9CC] px-2.5 py-0.5 rounded-md border border-[#D8A63D]/40">
+                        <label className="text-xs font-bold text-slate-800">Your Current Age</label>
+                        <span className="text-sm font-bold text-blue-700 font-mono bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-200">
                           {retireCurrentAge} Years
                         </span>
                       </div>
@@ -1341,14 +1498,14 @@ export default function InsuranceTemplateView({
                         step="1"
                         value={retireCurrentAge}
                         onChange={(e) => setRetireCurrentAge(Number(e.target.value))}
-                        className="w-full h-2 bg-[#F5E9CC] rounded-lg appearance-none cursor-pointer accent-[#C1621F]"
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                       />
                     </div>
 
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-[#241208]">Desired Retirement Age</label>
-                        <span className="text-sm font-bold text-[#D8A63D] font-mono bg-[#F5E9CC] px-2.5 py-0.5 rounded-md border border-[#D8A63D]/40">
+                        <label className="text-xs font-bold text-slate-800">Desired Retirement Age</label>
+                        <span className="text-sm font-bold text-indigo-700 font-mono bg-indigo-50 px-2.5 py-0.5 rounded-md border border-indigo-200">
                           {retireTargetAge} Years
                         </span>
                       </div>
@@ -1359,14 +1516,14 @@ export default function InsuranceTemplateView({
                         step="1"
                         value={retireTargetAge}
                         onChange={(e) => setRetireTargetAge(Number(e.target.value))}
-                        className="w-full h-2 bg-[#F5E9CC] rounded-lg appearance-none cursor-pointer accent-[#D8A63D]"
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
                       />
                     </div>
 
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-[#241208]">Monthly Investment Amount</label>
-                        <span className="text-sm font-bold text-[#15803D] font-mono bg-[#EBF7EE] px-2.5 py-0.5 rounded-md border border-[#15803D]/30">
+                        <label className="text-xs font-bold text-slate-800">Monthly Investment Amount</label>
+                        <span className="text-sm font-bold text-emerald-700 font-mono bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200">
                           ₹{retireMonthlySavings.toLocaleString()}/mo
                         </span>
                       </div>
@@ -1377,42 +1534,42 @@ export default function InsuranceTemplateView({
                         step="2500"
                         value={retireMonthlySavings}
                         onChange={(e) => setRetireMonthlySavings(Number(e.target.value))}
-                        className="w-full h-2 bg-[#F5E9CC] rounded-lg appearance-none cursor-pointer accent-[#15803D]"
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
                       />
                     </div>
                   </div>
 
-                  <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-b from-[#241208] via-[#321B0E] to-[#1E0F07] text-white border border-[#D8A63D]/40 shadow-2xl space-y-6">
+                  <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white border border-blue-500/30 shadow-xl space-y-6">
                     <div>
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#D8A63D]">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
                         Guaranteed Monthly Pension for Life
                       </span>
                       <div className="flex items-baseline gap-2 mt-1">
                         <span className="text-4xl font-extrabold text-white font-mono">
                           ₹{calculatedRetirePension.monthlyPension.toLocaleString()}
                         </span>
-                        <span className="text-xs text-[#F5E9CC]/80">/ month for life</span>
+                        <span className="text-xs text-slate-300">/ month for life</span>
                       </div>
                     </div>
 
-                    <div className="space-y-2.5 pt-2 border-t border-[#D8A63D]/30 text-xs">
+                    <div className="space-y-2.5 pt-2 border-t border-slate-800 text-xs">
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Accumulated Corpus:</span>
+                        <span className="text-slate-400">Accumulated Corpus:</span>
                         <span className="font-bold text-white font-mono">₹{(calculatedRetirePension.corpus / 10000000).toFixed(2)} Crores</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Investment Horizon:</span>
+                        <span className="text-slate-400">Investment Horizon:</span>
                         <span className="font-bold text-white">{calculatedRetirePension.yearsToInvest} Years</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Nominee Return Guarantee:</span>
-                        <span className="font-bold text-[#4ADE80]">100% Purchase Price Back</span>
+                        <span className="text-slate-400">Nominee Return Guarantee:</span>
+                        <span className="font-bold text-emerald-400">100% Purchase Price Back</span>
                       </div>
                     </div>
 
                     <button
                       onClick={handleSendRetireWhatsAppQuote}
-                      className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#15803D] to-[#166534] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-[#15803D]/30 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+                      className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-700/30 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Plan My Pension on WhatsApp</span>
@@ -1424,13 +1581,13 @@ export default function InsuranceTemplateView({
 
             {/* TAB CONTENT: 4. CHILD EDUCATION */}
             {activeTab === 'child' && (
-              <div className="p-6 sm:p-8 space-y-8">
+              <div className="p-6 sm:p-8 space-y-8 bg-white">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                   <div className="space-y-6">
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-[#241208]">Child's Current Age</label>
-                        <span className="text-sm font-bold text-[#C1621F] font-mono bg-[#F5E9CC] px-2.5 py-0.5 rounded-md border border-[#D8A63D]/40">
+                        <label className="text-xs font-bold text-slate-800">Child's Current Age</label>
+                        <span className="text-sm font-bold text-blue-700 font-mono bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-200">
                           {childCurrentAge} Years
                         </span>
                       </div>
@@ -1441,14 +1598,14 @@ export default function InsuranceTemplateView({
                         step="1"
                         value={childCurrentAge}
                         onChange={(e) => setChildCurrentAge(Number(e.target.value))}
-                        className="w-full h-2 bg-[#F5E9CC] rounded-lg appearance-none cursor-pointer accent-[#C1621F]"
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                       />
                     </div>
 
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs font-bold text-[#241208]">Target Higher Education Corpus</label>
-                        <span className="text-sm font-bold text-[#15803D] font-mono bg-[#EBF7EE] px-2.5 py-0.5 rounded-md border border-[#15803D]/30">
+                        <label className="text-xs font-bold text-slate-800">Target Higher Education Corpus</label>
+                        <span className="text-sm font-bold text-emerald-700 font-mono bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200">
                           ₹{childTargetCorpusLakhs} Lakhs
                         </span>
                       </div>
@@ -1459,42 +1616,42 @@ export default function InsuranceTemplateView({
                         step="5"
                         value={childTargetCorpusLakhs}
                         onChange={(e) => setChildTargetCorpusLakhs(Number(e.target.value))}
-                        className="w-full h-2 bg-[#F5E9CC] rounded-lg appearance-none cursor-pointer accent-[#15803D]"
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
                       />
                     </div>
                   </div>
 
-                  <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-b from-[#241208] via-[#321B0E] to-[#1E0F07] text-white border border-[#D8A63D]/40 shadow-2xl space-y-6">
+                  <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white border border-blue-500/30 shadow-xl space-y-6">
                     <div>
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#D8A63D]">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-blue-400">
                         Recommended Monthly Savings
                       </span>
                       <div className="flex items-baseline gap-2 mt-1">
                         <span className="text-4xl font-extrabold text-white font-mono">
                           ₹{calculatedChildFund.monthlyNeeded.toLocaleString()}
                         </span>
-                        <span className="text-xs text-[#F5E9CC]/80">/ month</span>
+                        <span className="text-xs text-slate-300">/ month</span>
                       </div>
                     </div>
 
-                    <div className="space-y-2.5 pt-2 border-t border-[#D8A63D]/30 text-xs">
+                    <div className="space-y-2.5 pt-2 border-t border-slate-800 text-xs">
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Target College Corpus:</span>
+                        <span className="text-slate-400">Target College Corpus:</span>
                         <span className="font-bold text-white font-mono">₹{childTargetCorpusLakhs} Lakhs</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Time Horizon:</span>
+                        <span className="text-slate-400">Time Horizon:</span>
                         <span className="font-bold text-white">{calculatedChildFund.yearsRemaining} Years (Matures at Age 18)</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-[#F5E9CC]/80">Waiver of Premium:</span>
-                        <span className="font-bold text-[#4ADE80]">Included Automatically</span>
+                        <span className="text-slate-400">Waiver of Premium:</span>
+                        <span className="font-bold text-emerald-400">Included Automatically</span>
                       </div>
                     </div>
 
                     <button
                       onClick={handleSendChildWhatsAppQuote}
-                      className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#15803D] to-[#166534] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-[#15803D]/30 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+                      className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-700/30 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Start Child Education Fund</span>
@@ -1510,30 +1667,30 @@ export default function InsuranceTemplateView({
       {/* ============================================================== */}
       {/* 5. CURATED PLANS & PRODUCTS PORTFOLIO                          */}
       {/* ============================================================== */}
-      <section id="plans" className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-b border-[#D8A63D]/30">
+      <section id="plans" className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-b border-slate-200/80">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <span className="text-xs font-extrabold uppercase tracking-wider text-[#C1621F] bg-[#F5E9CC] border border-[#D8A63D]/40 px-3 py-1 rounded-full inline-block mb-2">
+            <span className="text-xs font-extrabold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 px-3.5 py-1 rounded-full inline-block mb-2">
               Curated Policy Portfolio
             </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#241208] tracking-tight ocb-font-serif">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight ocb-font-serif">
               Comprehensive Protection Plans
             </h2>
-            <p className="text-sm text-[#5C3A21] mt-1 font-medium">
+            <p className="text-sm text-slate-600 mt-1 font-medium">
               Carefully vetted for high claim-settlement ratios, zero-capping terms, and rapid cashless approvals.
             </p>
           </div>
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-[#F5E9CC] border border-[#D8A63D]/40">
+          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-white border border-slate-200 shadow-xs">
             {['All', 'Term Life', 'Health', 'Super Top-Up', 'Retirement', 'Child', 'Motor'].map(cat => (
               <button
                 key={cat}
                 onClick={() => setSelectedPlanCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   selectedPlanCategory === cat
-                    ? 'bg-[#241208] text-white shadow-xs'
-                    : 'text-[#5C3A21] hover:text-[#241208] hover:bg-[#FBF2DE]'
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
                 {cat}
@@ -1547,49 +1704,49 @@ export default function InsuranceTemplateView({
           {filteredPlans.map(plan => (
             <div
               key={plan.id}
-              className={`rounded-2xl p-6 bg-white border transition-all duration-300 flex flex-col justify-between hover:border-[#C1621F] hover:shadow-2xl relative ${
-                plan.popular ? 'border-[#D8A63D] shadow-md ring-1 ring-[#D8A63D]/40' : 'border-[#D8A63D]/30 shadow-xs'
+              className={`rounded-2xl p-6 bg-white border transition-all duration-300 flex flex-col justify-between hover:border-blue-500 hover:shadow-xl relative ${
+                plan.popular ? 'border-blue-400 shadow-md ring-1 ring-blue-400/30' : 'border-slate-200 shadow-xs'
               }`}
             >
               {plan.popular && (
-                <span className="absolute -top-3 right-6 bg-gradient-to-r from-[#C1621F] to-[#D8A63D] text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-md tracking-wider">
+                <span className="absolute -top-3 right-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-md tracking-wider">
                   Top Recommended
                 </span>
               )}
 
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-[#C1621F] uppercase tracking-wider">
+                  <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wider">
                     {plan.category}
                   </span>
-                  <span className="text-[10px] font-bold text-[#15803D] bg-[#EBF7EE] border border-[#15803D]/30 px-2 py-0.5 rounded-md">
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
                     {plan.tag}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-bold text-[#241208] leading-snug ocb-font-serif">{plan.title}</h3>
-                  <p className="text-xs text-[#5C3A21] mt-1 flex items-center gap-1 font-medium">
-                    <Building2 className="w-3.5 h-3.5 text-[#C1621F]" />
+                  <h3 className="text-lg font-bold text-slate-900 leading-snug ocb-font-serif">{plan.title}</h3>
+                  <p className="text-xs text-slate-500 mt-1 flex items-center gap-1 font-medium">
+                    <Building2 className="w-3.5 h-3.5 text-blue-600" />
                     {plan.insurer}
                   </p>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30 flex items-center justify-between">
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] text-[#5C3A21] font-semibold">Cover Amount</span>
-                    <p className="text-sm font-extrabold text-[#241208] font-mono">{plan.sumAssured}</p>
+                    <span className="text-[10px] text-slate-500 font-semibold">Cover Amount</span>
+                    <p className="text-sm font-extrabold text-slate-900 font-mono">{plan.sumAssured}</p>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] text-[#5C3A21] font-semibold">Starting At</span>
-                    <p className="text-sm font-extrabold text-[#15803D] font-mono">₹{plan.startingPremium.toLocaleString()}/mo</p>
+                    <span className="text-[10px] text-slate-500 font-semibold">Starting At</span>
+                    <p className="text-sm font-extrabold text-emerald-600 font-mono">₹{plan.startingPremium.toLocaleString()}/mo</p>
                   </div>
                 </div>
 
                 <div className="space-y-2 pt-1">
                   {plan.features.map((feat, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-[#5C3A21]">
-                      <Check className="w-3.5 h-3.5 text-[#15803D] shrink-0 mt-0.5 font-bold" />
+                    <div key={i} className="flex items-start gap-2 text-xs text-slate-600">
+                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5 font-bold" />
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -1597,10 +1754,10 @@ export default function InsuranceTemplateView({
               </div>
 
               {/* Card Footer Actions */}
-              <div className="pt-6 mt-6 border-t border-[#D8A63D]/30 flex items-center gap-2">
+              <div className="pt-6 mt-6 border-t border-slate-200 flex items-center gap-2">
                 <button
                   onClick={() => handlePlanWhatsAppInquiry(plan)}
-                  className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#C1621F] via-[#D8A63D] to-[#C1621F] hover:opacity-95 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-md shadow-[#C1621F]/20"
+                  className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-md shadow-blue-600/20"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
                   <span>Get Custom Quote</span>
@@ -1612,10 +1769,10 @@ export default function InsuranceTemplateView({
                     const msg = `Hello ${advisorName}! 👋 Please send me the official policy brochure (PDF) for *${plan.title}*. Thank you!`;
                     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
                   }}
-                  className="p-2.5 rounded-xl bg-[#F5E9CC] hover:bg-[#ebdcb4] text-[#241208] transition-colors cursor-pointer border border-[#D8A63D]/40"
+                  className="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors cursor-pointer border border-slate-200"
                   title="Request PDF Brochure via WhatsApp"
                 >
-                  <FileText className="w-4 h-4 text-[#C1621F]" />
+                  <FileText className="w-4 h-4 text-blue-600" />
                 </button>
               </div>
             </div>
@@ -1626,62 +1783,62 @@ export default function InsuranceTemplateView({
       {/* ============================================================== */}
       {/* 6. 24/7 EMERGENCY CASHLESS CLAIM HOTLINE & WIZARD             */}
       {/* ============================================================== */}
-      <section id="emergency" className="py-16 sm:py-20 relative z-10 border-b border-[#D8A63D]/30">
+      <section id="emergency" className="py-16 sm:py-20 relative z-10 border-b border-slate-200/80 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-[#7E1717] via-[#5C1010] to-[#241208] text-white border border-[#D8A63D]/40 shadow-2xl relative overflow-hidden">
+          <div className="rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-rose-50 via-white to-rose-50/60 text-slate-900 border border-rose-200 shadow-xl relative overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-7 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFFFFF]/15 border border-[#D8A63D]/40 text-[#F5E9CC] text-xs font-bold">
-                  <span className="w-2 h-2 rounded-full bg-[#D8A63D] animate-ping" />
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-xs font-bold">
+                  <span className="w-2 h-2 rounded-full bg-rose-600 animate-ping" />
                   24x7 Priority Hospital Claim Desk
                 </div>
 
-                <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight ocb-font-serif">
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight ocb-font-serif">
                   Hospitalization Emergency? We Stand By You in the TPA Ward.
                 </h2>
 
-                <p className="text-sm text-[#F5E9CC]/90 leading-relaxed font-normal">
+                <p className="text-sm text-slate-600 leading-relaxed font-normal">
                   During medical crises, your only priority should be patient recovery. Our personal advisory desk coordinates directly with hospital TPAs, verifies coverage, eliminates room rent disputes, and fast-tracks pre-authorization.
                 </p>
 
                 {/* 4-Step Cashless Hospital Journey */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                  <div className="p-3.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-                    <span className="text-xs font-bold text-[#FCD34D]">Step 1: Immediate Alert</span>
-                    <p className="text-[11px] text-[#F5E9CC]/80 mt-0.5">Call or WhatsApp our 24/7 desk within 24 hours of hospital admission.</p>
+                  <div className="p-3.5 rounded-xl bg-white border border-rose-100 shadow-xs">
+                    <span className="text-xs font-bold text-rose-700">Step 1: Immediate Alert</span>
+                    <p className="text-[11px] text-slate-600 mt-0.5">Call or WhatsApp our 24/7 desk within 24 hours of hospital admission.</p>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-                    <span className="text-xs font-bold text-[#FCD34D]">Step 2: TPA Desk Check-in</span>
-                    <p className="text-[11px] text-[#F5E9CC]/80 mt-0.5">Show your digital Health e-Card and patient Aadhaar at the hospital insurance desk.</p>
+                  <div className="p-3.5 rounded-xl bg-white border border-rose-100 shadow-xs">
+                    <span className="text-xs font-bold text-blue-700">Step 2: TPA Desk Check-in</span>
+                    <p className="text-[11px] text-slate-600 mt-0.5">Show your digital Health e-Card and patient Aadhaar at the hospital insurance desk.</p>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-                    <span className="text-xs font-bold text-[#FCD34D]">Step 3: Fast Pre-Auth</span>
-                    <p className="text-[11px] text-[#F5E9CC]/80 mt-0.5">Our desk tracks initial cashless sanction within 45-60 minutes.</p>
+                  <div className="p-3.5 rounded-xl bg-white border border-rose-100 shadow-xs">
+                    <span className="text-xs font-bold text-indigo-700">Step 3: Fast Pre-Auth</span>
+                    <p className="text-[11px] text-slate-600 mt-0.5">Our desk tracks initial cashless sanction within 45-60 minutes.</p>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-                    <span className="text-xs font-bold text-[#4ADE80]">Step 4: Final Discharge</span>
-                    <p className="text-[11px] text-[#F5E9CC]/80 mt-0.5">Final bill settled directly by insurer with zero non-medical deductions.</p>
+                  <div className="p-3.5 rounded-xl bg-white border border-rose-100 shadow-xs">
+                    <span className="text-xs font-bold text-emerald-700">Step 4: Final Discharge</span>
+                    <p className="text-[11px] text-slate-600 mt-0.5">Final bill settled directly by insurer with zero non-medical deductions.</p>
                   </div>
                 </div>
               </div>
 
               {/* Right Emergency Call to Action */}
-              <div className="lg:col-span-5 flex flex-col items-center justify-center p-6 rounded-2xl bg-black/30 border border-white/20 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-white/10 border border-[#D8A63D]/40 flex items-center justify-center">
-                  <PhoneCall className="w-8 h-8 text-[#FCD34D] animate-pulse" />
+              <div className="lg:col-span-5 flex flex-col items-center justify-center p-6 rounded-2xl bg-white border border-rose-200 shadow-md text-center space-y-4">
+                <div className="w-16 h-16 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center">
+                  <PhoneCall className="w-8 h-8 text-rose-600 animate-pulse" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-[#F5E9CC]">Emergency Assistance Hotline</p>
-                  <p className="text-2xl font-extrabold text-white font-mono mt-1">
+                  <p className="text-sm font-bold text-slate-700">Emergency Assistance Hotline</p>
+                  <p className="text-2xl font-extrabold text-rose-600 font-mono mt-1">
                     {phoneDisplay}
                   </p>
-                  <p className="text-xs text-[#F5E9CC]/70 mt-1">Direct Advisor Line • Monitored 24 Hours</p>
+                  <p className="text-xs text-slate-500 mt-1">Direct Advisor Line • Monitored 24 Hours</p>
                 </div>
 
                 <div className="w-full space-y-2">
                   <button
                     onClick={() => setIsEmergencyModalOpen(true)}
-                    className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#D8A63D] via-[#C1621F] to-[#D8A63D] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-xl flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+                    className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-rose-600/25 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
                   >
                     <AlertCircle className="w-4 h-4" />
                     <span>Submit Emergency Claim Alert</span>
@@ -1689,9 +1846,9 @@ export default function InsuranceTemplateView({
 
                   <a
                     href={`tel:${phoneDisplay}`}
-                    className="w-full py-2.5 px-4 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer border border-white/20"
+                    className="w-full py-2.5 px-4 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer border border-slate-200"
                   >
-                    <Phone className="w-3.5 h-3.5 text-[#4ADE80]" />
+                    <Phone className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Dial Hotline Directly</span>
                   </a>
                 </div>
@@ -1704,24 +1861,24 @@ export default function InsuranceTemplateView({
       {/* ============================================================== */}
       {/* 7. TOP INSURER PARTNERS & COMPARISON MATRIX                    */}
       {/* ============================================================== */}
-      <section id="partners" className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-b border-[#D8A63D]/30">
+      <section id="partners" className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-b border-slate-200/80">
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <span className="text-xs font-extrabold uppercase tracking-wider text-[#C1621F] bg-[#F5E9CC] border border-[#D8A63D]/40 px-3 py-1 rounded-full inline-block">
+          <span className="text-xs font-extrabold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 px-3.5 py-1 rounded-full inline-block">
             Institutional Alliances
           </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#241208] tracking-tight ocb-font-serif">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight ocb-font-serif">
             India's Leading Insurance Institutions
           </h2>
-          <p className="text-sm text-[#5C3A21] font-medium">
+          <p className="text-sm text-slate-600 font-medium">
             We operate independently with zero company quotas to bring you verified, unbiased underwriting metrics.
           </p>
         </div>
 
         {/* Matrix Table */}
-        <div className="rounded-2xl bg-white border border-[#D8A63D]/30 overflow-x-auto shadow-xl">
+        <div className="rounded-2xl bg-white border border-slate-200 overflow-x-auto shadow-md">
           <table className="w-full text-left border-collapse min-w-[700px]">
             <thead>
-              <tr className="border-b border-[#D8A63D]/30 bg-[#F5E9CC] text-xs font-bold text-[#5C3A21] uppercase tracking-wider">
+              <tr className="border-b border-slate-200 bg-slate-50 text-xs font-bold text-slate-700 uppercase tracking-wider">
                 <th className="py-4 px-6">Insurer Partner</th>
                 <th className="py-4 px-6">Domain</th>
                 <th className="py-4 px-6">Claim Settlement Ratio</th>
@@ -1730,18 +1887,18 @@ export default function InsuranceTemplateView({
                 <th className="py-4 px-6">Average TAT</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#F5E9CC] text-xs sm:text-sm">
+            <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
               {INSURER_PARTNERS.map(item => (
-                <tr key={item.id} className="hover:bg-[#FDF9F0] transition-colors">
-                  <td className="py-4 px-6 font-bold text-[#241208] flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#C1621F] shrink-0" />
+                <tr key={item.id} className="hover:bg-blue-50/40 transition-colors">
+                  <td className="py-4 px-6 font-bold text-slate-900 flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
                     {item.name}
                   </td>
-                  <td className="py-4 px-6 text-[#5C3A21] font-medium">{item.type}</td>
-                  <td className="py-4 px-6 text-[#15803D] font-extrabold font-mono">{item.csr}</td>
-                  <td className="py-4 px-6 text-[#5C3A21] font-mono">{item.solvency}</td>
-                  <td className="py-4 px-6 text-[#5C3A21] font-mono">{item.networkHospitals}</td>
-                  <td className="py-4 px-6 text-[#C1621F] font-bold">{item.tat}</td>
+                  <td className="py-4 px-6 text-slate-600 font-medium">{item.type}</td>
+                  <td className="py-4 px-6 text-emerald-600 font-extrabold font-mono">{item.csr}</td>
+                  <td className="py-4 px-6 text-slate-600 font-mono">{item.solvency}</td>
+                  <td className="py-4 px-6 text-slate-600 font-mono">{item.networkHospitals}</td>
+                  <td className="py-4 px-6 text-indigo-700 font-bold">{item.tat}</td>
                 </tr>
               ))}
             </tbody>
@@ -1752,52 +1909,52 @@ export default function InsuranceTemplateView({
       {/* ============================================================== */}
       {/* 8. TAX SAVINGS MAXIMIZER (SEC 80C & 80D)                       */}
       {/* ============================================================== */}
-      <section id="tax" className="py-16 sm:py-20 relative z-10 border-b border-[#D8A63D]/30">
+      <section id="tax" className="py-16 sm:py-20 relative z-10 border-b border-slate-200/80 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6 space-y-5">
-              <span className="text-xs font-extrabold uppercase tracking-wider text-[#15803D] bg-[#EBF7EE] border border-[#15803D]/30 px-3 py-1 rounded-full inline-block">
+              <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-3.5 py-1 rounded-full inline-block">
                 Tax Optimization Strategy
               </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#241208] tracking-tight ocb-font-serif">
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight ocb-font-serif">
                 Save Up To ₹70,200 in Income Tax Every Single Year
               </h2>
-              <p className="text-sm text-[#5C3A21] leading-relaxed font-medium">
+              <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 Smart insurance planning not only safeguards your family against life’s uncertainties but also serves as your most efficient tax shelter under the Income Tax Act of India.
               </p>
 
               <div className="space-y-3 pt-2">
-                <div className="p-4 rounded-xl bg-white border border-[#D8A63D]/30 shadow-xs flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-[#F5E9CC] text-[#C1621F] shrink-0 mt-0.5">
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-blue-100 text-blue-700 shrink-0 mt-0.5">
                     <Percent className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-[#241208]">Section 80C (Term Life & Annuity Plans)</h4>
-                    <p className="text-[11px] text-[#5C3A21] mt-0.5">
-                      Deduct up to <span className="text-[#241208] font-bold font-mono">₹1,50,000</span> from your taxable income. Saves up to ₹46,800/yr in the 30% tax slab.
+                    <h4 className="text-xs font-bold text-slate-900">Section 80C (Term Life & Annuity Plans)</h4>
+                    <p className="text-[11px] text-slate-600 mt-0.5">
+                      Deduct up to <span className="text-slate-900 font-bold font-mono">₹1,50,000</span> from your taxable income. Saves up to ₹46,800/yr in the 30% tax slab.
                     </p>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-white border border-[#D8A63D]/30 shadow-xs flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-[#EBF7EE] text-[#15803D] shrink-0 mt-0.5">
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-emerald-100 text-emerald-700 shrink-0 mt-0.5">
                     <HeartPulse className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-[#241208]">Section 80D (Health Mediclaim & Parents)</h4>
-                    <p className="text-[11px] text-[#5C3A21] mt-0.5">
-                      Deduct up to <span className="text-[#241208] font-bold font-mono">₹25,000</span> for self/family + <span className="text-[#241208] font-bold font-mono">₹50,000</span> for senior citizen parents. Total ₹75,000 deductions!
+                    <h4 className="text-xs font-bold text-slate-900">Section 80D (Health Mediclaim & Parents)</h4>
+                    <p className="text-[11px] text-slate-600 mt-0.5">
+                      Deduct up to <span className="text-slate-900 font-bold font-mono">₹25,000</span> for self/family + <span className="text-slate-900 font-bold font-mono">₹50,000</span> for senior citizen parents. Total ₹75,000 deductions!
                     </p>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-white border border-[#D8A63D]/30 shadow-xs flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-[#F5E9CC] text-[#D8A63D] shrink-0 mt-0.5">
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-indigo-100 text-indigo-700 shrink-0 mt-0.5">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-[#241208]">Section 10(10D) (100% Tax-Free Payouts)</h4>
-                    <p className="text-[11px] text-[#5C3A21] mt-0.5">
+                    <h4 className="text-xs font-bold text-slate-900">Section 10(10D) (100% Tax-Free Payouts)</h4>
+                    <p className="text-[11px] text-slate-600 mt-0.5">
                       All life insurance death benefits, terminal illness payouts, and qualifying maturity returns are 100% exempt from income tax.
                     </p>
                   </div>
@@ -1806,10 +1963,10 @@ export default function InsuranceTemplateView({
             </div>
 
             {/* Right Tax Calculation Box */}
-            <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl bg-white border border-[#D8A63D]/40 shadow-2xl space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-[#D8A63D]/30">
-                <span className="text-xs font-bold text-[#5C3A21]">Tax Relief Illustration (30% Slab)</span>
-                <span className="text-xs font-bold text-[#15803D] bg-[#EBF7EE] px-2.5 py-0.5 rounded-full border border-[#15803D]/30">
+            <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-lg space-y-6">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+                <span className="text-xs font-bold text-slate-600">Tax Relief Illustration (30% Slab)</span>
+                <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
                   Maximum Legal Savings
                 </span>
               </div>
@@ -1817,42 +1974,42 @@ export default function InsuranceTemplateView({
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-[#5C3A21] font-semibold">Sec 80C Deduction (Term Life)</span>
-                    <span className="text-[#241208] font-bold font-mono">₹1,50,000</span>
+                    <span className="text-slate-600 font-semibold">Sec 80C Deduction (Term Life)</span>
+                    <span className="text-slate-900 font-bold font-mono">₹1,50,000</span>
                   </div>
-                  <div className="w-full h-2.5 bg-[#F5E9CC] rounded-full overflow-hidden">
-                    <div className="h-full bg-[#C1621F] rounded-full" style={{ width: '100%' }} />
+                  <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-blue-600 rounded-full" style={{ width: '100%' }} />
                   </div>
-                  <span className="text-[10px] text-[#C1621F] font-bold">Saves ₹46,800 Tax</span>
+                  <span className="text-[10px] text-blue-700 font-bold">Saves ₹46,800 Tax</span>
                 </div>
 
                 <div>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-[#5C3A21] font-semibold">Sec 80D (Self & Family Mediclaim)</span>
-                    <span className="text-[#241208] font-bold font-mono">₹25,000</span>
+                    <span className="text-slate-600 font-semibold">Sec 80D (Self & Family Mediclaim)</span>
+                    <span className="text-slate-900 font-bold font-mono">₹25,000</span>
                   </div>
-                  <div className="w-full h-2.5 bg-[#F5E9CC] rounded-full overflow-hidden">
-                    <div className="h-full bg-[#15803D] rounded-full" style={{ width: '33%' }} />
+                  <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-600 rounded-full" style={{ width: '33%' }} />
                   </div>
-                  <span className="text-[10px] text-[#15803D] font-bold">Saves ₹7,800 Tax</span>
+                  <span className="text-[10px] text-emerald-700 font-bold">Saves ₹7,800 Tax</span>
                 </div>
 
                 <div>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-[#5C3A21] font-semibold">Sec 80D (Senior Parents Mediclaim)</span>
-                    <span className="text-[#241208] font-bold font-mono">₹50,000</span>
+                    <span className="text-slate-600 font-semibold">Sec 80D (Senior Parents Mediclaim)</span>
+                    <span className="text-slate-900 font-bold font-mono">₹50,000</span>
                   </div>
-                  <div className="w-full h-2.5 bg-[#F5E9CC] rounded-full overflow-hidden">
-                    <div className="h-full bg-[#15803D] rounded-full" style={{ width: '66%' }} />
+                  <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-600 rounded-full" style={{ width: '66%' }} />
                   </div>
-                  <span className="text-[10px] text-[#15803D] font-bold">Saves ₹15,600 Tax</span>
+                  <span className="text-[10px] text-emerald-700 font-bold">Saves ₹15,600 Tax</span>
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#FBF2DE] border border-[#D8A63D]/40 flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-white border border-emerald-200 shadow-sm flex items-center justify-between">
                 <div>
-                  <span className="text-xs text-[#5C3A21] font-semibold">Total Annual Tax Saved:</span>
-                  <p className="text-2xl font-extrabold text-[#15803D] font-mono mt-0.5">₹70,200 / Year</p>
+                  <span className="text-xs text-slate-500 font-semibold">Total Annual Tax Saved:</span>
+                  <p className="text-2xl font-extrabold text-emerald-600 font-mono mt-0.5">₹70,200 / Year</p>
                 </div>
                 <button
                   onClick={() => {
@@ -1860,7 +2017,7 @@ export default function InsuranceTemplateView({
                     const msg = `Hello ${advisorName}! 👋 I would like to structure my Term Life and Health Insurance to maximize Section 80C and 80D tax savings before this financial year ends. Please assist me. Thank you!`;
                     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
                   }}
-                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#15803D] to-[#166534] hover:opacity-95 text-white font-extrabold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
+                  className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
                 >
                   Plan Tax Savings
                 </button>
@@ -1873,15 +2030,15 @@ export default function InsuranceTemplateView({
       {/* ============================================================== */}
       {/* 9. VERIFIED CLIENT CLAIM SETTLEMENT STORIES                   */}
       {/* ============================================================== */}
-      <section id="claims" className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-b border-[#D8A63D]/30">
+      <section id="claims" className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-b border-slate-200/80">
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <span className="text-xs font-extrabold uppercase tracking-wider text-[#C1621F] bg-[#F5E9CC] border border-[#D8A63D]/40 px-3 py-1 rounded-full inline-block">
+          <span className="text-xs font-extrabold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 px-3.5 py-1 rounded-full inline-block">
             Real Moments of Truth
           </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#241208] tracking-tight ocb-font-serif">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight ocb-font-serif">
             Verified Claim Settlement Experiences
           </h2>
-          <p className="text-sm text-[#5C3A21] font-medium">
+          <p className="text-sm text-slate-600 font-medium">
             A policy is only as valuable as the advisor who stands by your family when a claim arises.
           </p>
         </div>
@@ -1890,34 +2047,34 @@ export default function InsuranceTemplateView({
           {VERIFIED_CLAIM_STORIES.map(story => (
             <div
               key={story.id}
-              className="p-6 rounded-2xl bg-white border border-[#D8A63D]/30 flex flex-col justify-between space-y-4 hover:border-[#C1621F] transition-all shadow-md"
+              className="p-6 rounded-2xl bg-white border border-slate-200 flex flex-col justify-between space-y-4 hover:border-blue-500 transition-all shadow-sm hover:shadow-md"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex text-[#D8A63D]">
+                  <div className="flex text-amber-400">
                     {[...Array(story.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-[#D8A63D] text-[#D8A63D]" />
+                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
-                  <span className="text-[10px] font-bold text-[#15803D] bg-[#EBF7EE] px-2 py-0.5 rounded-md border border-[#15803D]/30">
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200">
                     {story.tat}
                   </span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/30 space-y-1">
-                  <p className="text-[11px] text-[#5C3A21] font-semibold">Claim Settled:</p>
-                  <p className="text-base font-extrabold text-[#241208] font-mono">{story.settledAmount}</p>
-                  <p className="text-[10px] text-[#5C3A21] truncate font-medium">{story.hospital}</p>
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+                  <p className="text-[11px] text-slate-500 font-semibold">Claim Settled:</p>
+                  <p className="text-base font-extrabold text-slate-900 font-mono">{story.settledAmount}</p>
+                  <p className="text-[10px] text-slate-500 truncate font-medium">{story.hospital}</p>
                 </div>
 
-                <p className="text-xs text-[#5C3A21] leading-relaxed italic">
+                <p className="text-xs text-slate-600 leading-relaxed italic">
                   "{story.story}"
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-[#D8A63D]/30">
-                <p className="text-xs font-bold text-[#241208]">{story.author}</p>
-                <p className="text-[11px] text-[#5C3A21] font-medium">{story.role}</p>
+              <div className="pt-3 border-t border-slate-100">
+                <p className="text-xs font-bold text-slate-900">{story.author}</p>
+                <p className="text-[11px] text-slate-500 font-medium">{story.role}</p>
               </div>
             </div>
           ))}
@@ -1927,23 +2084,23 @@ export default function InsuranceTemplateView({
       {/* ============================================================== */}
       {/* 10. FREE 360° POLICY AUDIT BANNER & FORM                      */}
       {/* ============================================================== */}
-      <section className="py-16 sm:py-20 relative z-10 border-b border-[#D8A63D]/30">
+      <section className="py-16 sm:py-20 relative z-10 border-b border-slate-200/80">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-[#241208] via-[#3B2313] to-[#241208] text-white border border-[#D8A63D]/40 shadow-2xl text-center space-y-6">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#D8A63D] bg-white/10 border border-[#D8A63D]/40 px-3.5 py-1 rounded-full inline-block">
+          <div className="rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white shadow-2xl text-center space-y-6">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-300 bg-white/10 border border-blue-400/30 px-3.5 py-1 rounded-full inline-block">
               Zero-Obligation Forensic Audit
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight max-w-2xl mx-auto ocb-font-serif">
               Are Your Existing Insurance Policies Actually Protecting You?
             </h2>
-            <p className="text-sm sm:text-base text-[#F5E9CC]/90 max-w-2xl mx-auto leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
               Over 65% of existing policies contain hidden room rent caps, disease sub-limits, or surrender penalties that cause shocking out-of-pocket hospital bills. Book a free 30-minute forensic audit today.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               <button
                 onClick={() => setIsAuditModalOpen(true)}
-                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#C1621F] via-[#D8A63D] to-[#C1621F] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-xl flex items-center gap-2 transition-all active:scale-95 cursor-pointer"
+                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-400 hover:to-indigo-400 text-white font-extrabold text-xs sm:text-sm shadow-xl flex items-center gap-2 transition-all active:scale-95 cursor-pointer"
               >
                 <FileSpreadsheet className="w-4 h-4" />
                 <span>Book Free 360° Policy Audit</span>
@@ -1953,9 +2110,9 @@ export default function InsuranceTemplateView({
                 href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hello ${advisorName}! 👋 I have an existing health/life insurance policy and would like to get a free policy audit to check for hidden sub-limits. When can we connect?`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-3.5 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/20 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
+                className="px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4 text-[#4ADE80]" />
+                <MessageCircle className="w-4 h-4 text-emerald-400" />
                 <span>WhatsApp Existing Policy PDF</span>
               </a>
             </div>
@@ -1968,13 +2125,13 @@ export default function InsuranceTemplateView({
       {/* ============================================================== */}
       <section id="faqs" className="py-16 sm:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-12 space-y-3">
-          <span className="text-xs font-extrabold uppercase tracking-wider text-[#C1621F] bg-[#F5E9CC] border border-[#D8A63D]/40 px-3 py-1 rounded-full inline-block">
+          <span className="text-xs font-extrabold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 px-3.5 py-1 rounded-full inline-block">
             Clear Answers
           </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#241208] tracking-tight ocb-font-serif">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight ocb-font-serif">
             Frequently Asked Questions
           </h2>
-          <p className="text-sm text-[#5C3A21] font-medium">
+          <p className="text-sm text-slate-600 font-medium">
             Real questions Indian policyholders ask when selecting life, health, and retirement coverage.
           </p>
         </div>
@@ -1985,23 +2142,23 @@ export default function InsuranceTemplateView({
             return (
               <div
                 key={index}
-                className="rounded-2xl bg-white border border-[#D8A63D]/30 overflow-hidden transition-all duration-200 shadow-xs hover:border-[#D8A63D]/60"
+                className="rounded-2xl bg-white border border-slate-200 overflow-hidden transition-all duration-200 shadow-xs hover:border-blue-400"
               >
                 <button
                   type="button"
                   onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                  className="w-full py-4 px-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-[#FDFBF7]"
+                  className="w-full py-4 px-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50"
                 >
-                  <span className="text-sm sm:text-base font-bold text-[#241208]">{faq.q}</span>
+                  <span className="text-sm sm:text-base font-bold text-slate-900">{faq.q}</span>
                   {isOpen ? (
-                    <ChevronUp className="w-4 h-4 text-[#C1621F] shrink-0" />
+                    <ChevronUp className="w-4 h-4 text-blue-600 shrink-0" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-[#5C3A21] shrink-0" />
+                    <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
                   )}
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#5C3A21] leading-relaxed border-t border-[#F5E9CC] bg-[#FDFBF7]">
+                  <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/50">
                     {faq.a}
                   </div>
                 )}
@@ -2014,42 +2171,42 @@ export default function InsuranceTemplateView({
       {/* ============================================================== */}
       {/* 12. CONTACT & LEGAL COMPLIANCE FOOTER                         */}
       {/* ============================================================== */}
-      <footer className="border-t border-[#D8A63D]/30 bg-[#241208] py-12 text-[#F5E9CC]/80 text-xs relative z-10">
+      <footer className="border-t border-slate-800 bg-slate-950 py-12 text-slate-400 text-xs relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-3 md:col-span-2">
               <div className="flex items-center gap-2 text-white font-bold text-base ocb-font-serif">
-                <ShieldCheck className="w-5 h-5 text-[#D8A63D]" />
+                <ShieldCheck className="w-5 h-5 text-blue-400" />
                 <span>{advisorCompany}</span>
               </div>
-              <p className="text-[#F5E9CC]/80 text-xs leading-relaxed max-w-sm">
+              <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
                 Led by {advisorName}, MDRT USA Life Member. Providing fiduciary insurance advisory, high-sum-assured term life structuring, comprehensive mediclaim portfolio audits, and 24x7 cashless hospital claim advocacy.
               </p>
-              <div className="pt-2 text-[11px] text-[#F5E9CC]/60 space-y-1">
-                <p>IRDAI License Registration: <span className="font-mono text-[#D8A63D]">{irdaNumber}</span></p>
-                <p>Agency Code: <span className="font-mono text-[#D8A63D]">AGN-SUR-984102</span></p>
+              <div className="pt-2 text-[11px] text-slate-500 space-y-1">
+                <p>IRDAI License Registration: <span className="font-mono text-slate-300">{irdaNumber}</span></p>
+                <p>Agency Code: <span className="font-mono text-slate-300">AGN-SUR-984102</span></p>
               </div>
             </div>
 
             <div className="space-y-2">
               <p className="text-white font-bold text-sm">Direct Contacts</p>
-              <p><a href={`tel:${phoneDisplay}`} className="hover:text-[#D8A63D] transition-colors font-mono">{phoneDisplay}</a></p>
-              <p><a href={`mailto:${profile.email || 'rajesh.sengupta@surakshainsurance.in'}`} className="hover:text-[#D8A63D] transition-colors font-mono">{profile.email || 'rajesh.sengupta@surakshainsurance.in'}</a></p>
-              <p className="text-[#F5E9CC]/80">{profile.address || 'BKC, Mumbai & Hitec City, Hyderabad, India'}</p>
+              <p><a href={`tel:${phoneDisplay}`} className="hover:text-blue-400 transition-colors font-mono">{phoneDisplay}</a></p>
+              <p><a href={`mailto:${profile.email || 'rajesh.sengupta@surakshainsurance.in'}`} className="hover:text-blue-400 transition-colors font-mono">{profile.email || 'rajesh.sengupta@surakshainsurance.in'}</a></p>
+              <p className="text-slate-400">{profile.address || 'BKC, Mumbai & Hitec City, Hyderabad, India'}</p>
             </div>
 
             <div className="space-y-3">
               <p className="text-white font-bold text-sm">Advisor vCard</p>
               <button
                 onClick={() => downloadVcfFile(profile)}
-                className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#C1621F] via-[#D8A63D] to-[#C1621F] hover:opacity-95 text-white font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
+                className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Save Contact (.VCF)</span>
               </button>
               <button
                 onClick={() => setIsQrModalOpen(true)}
-                className="w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-[#F5E9CC] font-semibold text-xs border border-[#D8A63D]/40 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-800 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
               >
                 <QrCode className="w-3.5 h-3.5" />
                 <span>View Scan QR Code</span>
@@ -2057,14 +2214,14 @@ export default function InsuranceTemplateView({
             </div>
           </div>
 
-          <div className="pt-8 border-t border-[#3B2313] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#F5E9CC]/60">
+          <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
             <p>© {new Date().getFullYear()} {advisorName}. Licensed Financial Security Advisory. Powered by OneClickBiz Smart Templates.</p>
             <div className="flex items-center gap-4">
               <span>IRDAI Compliant</span>
               <span>•</span>
               <span>Privacy Encrypted</span>
               <span>•</span>
-              <a href="https://oneclickbiz.in" target="_blank" rel="noopener noreferrer" className="text-[#D8A63D] hover:underline">
+              <a href="https://oneclickbiz.in" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
                 Build Your Own Smart Card on OneClickBiz
               </a>
             </div>
@@ -2076,81 +2233,81 @@ export default function InsuranceTemplateView({
       {/* MODAL 1: EMERGENCY CLAIM ALERT MODAL                    */}
       {/* ======================================================== */}
       {isEmergencyModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-          <div className="w-full max-w-lg rounded-3xl bg-white border border-[#D8A63D]/40 p-6 sm:p-8 space-y-6 shadow-2xl relative text-[#241208]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+          <div className="w-full max-w-lg rounded-3xl bg-white border border-rose-200 p-6 sm:p-8 space-y-6 shadow-2xl relative text-slate-900">
             <button
               onClick={() => setIsEmergencyModalOpen(false)}
-              className="absolute top-4 right-4 text-[#5C3A21] hover:text-[#241208] p-1 rounded-full cursor-pointer"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 p-1 rounded-full cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#FFF5F5] border border-[#B91C1C]/40 flex items-center justify-center shrink-0">
-                <AlertCircle className="w-6 h-6 text-[#B91C1C]" />
+              <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0">
+                <AlertCircle className="w-6 h-6 text-rose-600" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-[#241208] ocb-font-serif">Emergency Cashless Hospital Alert</h3>
-                <p className="text-xs text-[#B91C1C] font-semibold">Direct alert to advisor's personal emergency desk</p>
+                <h3 className="text-lg font-bold text-slate-900 ocb-font-serif">Emergency Cashless Hospital Alert</h3>
+                <p className="text-xs text-rose-600 font-semibold">Direct alert to advisor's personal emergency desk</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="text-xs font-bold text-[#241208] block mb-1">Patient Full Name</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">Patient Full Name</label>
                 <input
                   type="text"
                   placeholder="e.g. Ramesh Kumar"
                   value={emergencyPatientName}
                   onChange={(e) => setEmergencyPatientName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/40 text-[#241208] text-xs focus:outline-none focus:border-[#C1621F]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-rose-500"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-bold text-[#241208] block mb-1">Hospital Name</label>
+                  <label className="text-xs font-bold text-slate-800 block mb-1">Hospital Name</label>
                   <input
                     type="text"
                     placeholder="e.g. Apollo Jubilee Hills"
                     value={emergencyHospitalName}
                     onChange={(e) => setEmergencyHospitalName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/40 text-[#241208] text-xs focus:outline-none focus:border-[#C1621F]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-rose-500"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-[#241208] block mb-1">City / Location</label>
+                  <label className="text-xs font-bold text-slate-800 block mb-1">City / Location</label>
                   <input
                     type="text"
                     placeholder="e.g. Hyderabad"
                     value={emergencyCity}
                     onChange={(e) => setEmergencyCity(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/40 text-[#241208] text-xs focus:outline-none focus:border-[#C1621F]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-rose-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#241208] block mb-1">Policy Number / Insurer (if known)</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">Policy Number / Insurer (if known)</label>
                 <input
                   type="text"
                   placeholder="e.g. Care Supreme #482910 or 'Need Lookup'"
                   value={emergencyPolicyNo}
                   onChange={(e) => setEmergencyPolicyNo(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/40 text-[#241208] text-xs focus:outline-none focus:border-[#C1621F]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-rose-500"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#241208] block mb-1">Admission Nature</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">Admission Nature</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => setEmergencyType('emergency')}
                     className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
                       emergencyType === 'emergency'
-                        ? 'bg-[#B91C1C] border-[#B91C1C] text-white'
-                        : 'bg-[#FBF2DE] border-[#D8A63D]/40 text-[#5C3A21]'
+                        ? 'bg-rose-50 border-rose-500 text-rose-700'
+                        : 'bg-slate-50 border-slate-200 text-slate-600'
                     }`}
                   >
                     Sudden Emergency (24h)
@@ -2160,8 +2317,8 @@ export default function InsuranceTemplateView({
                     onClick={() => setEmergencyType('planned')}
                     className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
                       emergencyType === 'planned'
-                        ? 'bg-[#241208] border-[#241208] text-white'
-                        : 'bg-[#FBF2DE] border-[#D8A63D]/40 text-[#5C3A21]'
+                        ? 'bg-blue-50 border-blue-500 text-blue-700'
+                        : 'bg-slate-50 border-slate-200 text-slate-600'
                     }`}
                   >
                     Planned Admission
@@ -2174,7 +2331,7 @@ export default function InsuranceTemplateView({
               <button
                 type="button"
                 onClick={handleSendEmergencyClaim}
-                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#B91C1C] to-[#991B1B] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-xl flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-extrabold text-xs sm:text-sm shadow-xl flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Transmit Emergency Alert on WhatsApp</span>
@@ -2188,22 +2345,22 @@ export default function InsuranceTemplateView({
       {/* MODAL 2: 360° POLICY AUDIT BOOKING MODAL                */}
       {/* ======================================================== */}
       {isAuditModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-          <div className="w-full max-w-md rounded-3xl bg-white border border-[#D8A63D]/40 p-6 sm:p-8 space-y-6 shadow-2xl relative text-[#241208]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+          <div className="w-full max-w-md rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 space-y-6 shadow-2xl relative text-slate-900">
             <button
               onClick={() => setIsAuditModalOpen(false)}
-              className="absolute top-4 right-4 text-[#5C3A21] hover:text-[#241208] p-1 rounded-full cursor-pointer"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 p-1 rounded-full cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#F5E9CC] border border-[#D8A63D]/40 flex items-center justify-center shrink-0">
-                <FileSpreadsheet className="w-6 h-6 text-[#C1621F]" />
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
+                <FileSpreadsheet className="w-6 h-6 text-blue-600" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-[#241208] ocb-font-serif">Free 360° Policy Audit</h3>
-                <p className="text-xs text-[#C1621F] font-semibold">Uncover hidden sub-limits & room rent traps</p>
+                <h3 className="text-lg font-bold text-slate-900 ocb-font-serif">Free 360° Policy Audit</h3>
+                <p className="text-xs text-blue-700 font-semibold">Uncover hidden sub-limits & room rent traps</p>
               </div>
             </div>
 
@@ -2218,54 +2375,54 @@ export default function InsuranceTemplateView({
               className="space-y-4"
             >
               <div>
-                <label className="text-xs font-bold text-[#241208] block mb-1">Your Full Name</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">Your Full Name</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Priya Sharma"
                   value={leadName}
                   onChange={(e) => setLeadName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/40 text-[#241208] text-xs focus:outline-none focus:border-[#C1621F]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-blue-600"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#241208] block mb-1">WhatsApp Phone Number</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">WhatsApp Phone Number</label>
                 <input
                   type="tel"
                   required
                   placeholder="e.g. +91 98765 43210"
                   value={leadPhone}
                   onChange={(e) => setLeadPhone(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/40 text-[#241208] text-xs focus:outline-none focus:border-[#C1621F]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-blue-600"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#241208] block mb-1">Email Address</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">Email Address</label>
                 <input
                   type="email"
                   placeholder="e.g. priya@example.com"
                   value={leadEmail}
                   onChange={(e) => setLeadEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/40 text-[#241208] text-xs focus:outline-none focus:border-[#C1621F]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-blue-600"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#241208] block mb-1">Existing Insurer or Policy Type</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">Existing Insurer or Policy Type</label>
                 <textarea
                   rows={2}
                   placeholder="e.g. I have a 5L Star Health policy and a LIC endowment plan. Want to check if adequate."
                   value={leadMessage}
                   onChange={(e) => setLeadMessage(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-[#FBF2DE] border border-[#D8A63D]/40 text-[#241208] text-xs focus:outline-none focus:border-[#C1621F]"
+                  className="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-blue-600"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#C1621F] via-[#D8A63D] to-[#C1621F] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-xl flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+                className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm shadow-xl flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Confirm Free Audit Schedule</span>
@@ -2279,25 +2436,25 @@ export default function InsuranceTemplateView({
       {/* MODAL 3: QR CODE POPUP MODAL                            */}
       {/* ======================================================== */}
       {isQrModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-          <div className="w-full max-w-sm rounded-3xl bg-white border border-[#D8A63D]/40 p-6 space-y-6 text-center shadow-2xl relative text-[#241208]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+          <div className="w-full max-w-sm rounded-3xl bg-white border border-slate-200 p-6 space-y-6 text-center shadow-2xl relative text-slate-900">
             <button
               onClick={() => setIsQrModalOpen(false)}
-              className="absolute top-4 right-4 text-[#5C3A21] hover:text-[#241208] p-1 rounded-full cursor-pointer"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 p-1 rounded-full cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div>
-              <h3 className="text-lg font-bold text-[#241208] ocb-font-serif">Scan Smart Digital vCard</h3>
-              <p className="text-xs text-[#5C3A21] mt-1 font-medium">Point smartphone camera to instantly save contacts & quotes</p>
+              <h3 className="text-lg font-bold text-slate-900 ocb-font-serif">Scan Smart Digital vCard</h3>
+              <p className="text-xs text-slate-600 mt-1 font-medium">Point smartphone camera to instantly save contacts & quotes</p>
             </div>
 
-            <div className="bg-[#FBF2DE] p-4 rounded-2xl inline-block border border-[#D8A63D]/40 shadow-inner">
+            <div className="bg-slate-50 p-4 rounded-2xl inline-block border border-slate-200 shadow-inner">
               {websiteQrUrl ? (
                 <img src={websiteQrUrl} alt="Website QR Code" className="w-56 h-56 mx-auto" />
               ) : (
-                <div className="w-56 h-56 flex items-center justify-center text-[#5C3A21]">
+                <div className="w-56 h-56 flex items-center justify-center text-slate-400">
                   <QrCode className="w-16 h-16 animate-pulse" />
                 </div>
               )}
@@ -2306,7 +2463,7 @@ export default function InsuranceTemplateView({
             <div className="space-y-2">
               <button
                 onClick={() => downloadVcfFile(profile)}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#C1621F] via-[#D8A63D] to-[#C1621F] hover:opacity-95 text-white font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
               >
                 <Download className="w-4 h-4" />
                 <span>Download vCard Contact (.VCF)</span>
@@ -2317,7 +2474,7 @@ export default function InsuranceTemplateView({
                   setCopiedLink(true);
                   setTimeout(() => setCopiedLink(false), 2000);
                 }}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#F5E9CC] hover:bg-[#ebdcb4] text-[#241208] text-xs font-bold transition-colors cursor-pointer border border-[#D8A63D]/40"
+                className="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-colors cursor-pointer border border-slate-200"
               >
                 {copiedLink ? '✓ Link Copied to Clipboard!' : 'Copy Website URL'}
               </button>
@@ -2330,18 +2487,18 @@ export default function InsuranceTemplateView({
       {/* MODAL 4: SHARE MODAL                                    */}
       {/* ======================================================== */}
       {isShareModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-          <div className="w-full max-w-sm rounded-3xl bg-white border border-[#D8A63D]/40 p-6 space-y-6 shadow-2xl relative text-center text-[#241208]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+          <div className="w-full max-w-sm rounded-3xl bg-white border border-slate-200 p-6 space-y-6 shadow-2xl relative text-center text-slate-900">
             <button
               onClick={() => setIsShareModalOpen(false)}
-              className="absolute top-4 right-4 text-[#5C3A21] hover:text-[#241208] p-1 rounded-full cursor-pointer"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 p-1 rounded-full cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div>
-              <h3 className="text-lg font-bold text-[#241208] ocb-font-serif">Share Advisor Website</h3>
-              <p className="text-xs text-[#5C3A21] mt-1 font-medium">Recommend {advisorName} to friends and family</p>
+              <h3 className="text-lg font-bold text-slate-900 ocb-font-serif">Share Advisor Website</h3>
+              <p className="text-xs text-slate-600 mt-1 font-medium">Recommend {advisorName} to friends and family</p>
             </div>
 
             <div className="grid grid-cols-3 gap-3">
@@ -2349,9 +2506,9 @@ export default function InsuranceTemplateView({
                 href={`https://wa.me/?text=${encodeURIComponent(`Check out ${advisorName}'s verified insurance advisory website for Term Life, Health Mediclaim, and 24/7 cashless claim assistance: ${currentUrl}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-2xl bg-[#FBF2DE] border border-[#D8A63D]/30 hover:border-[#15803D] flex flex-col items-center gap-2 text-xs text-[#241208] transition-colors"
+                className="p-3 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-500 flex flex-col items-center gap-2 text-xs text-slate-900 transition-colors"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#EBF7EE] text-[#15803D] flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
                   <MessageCircle className="w-5 h-5" />
                 </div>
                 <span className="font-bold">WhatsApp</span>
@@ -2361,9 +2518,9 @@ export default function InsuranceTemplateView({
                 href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-2xl bg-[#FBF2DE] border border-[#D8A63D]/30 hover:border-[#C1621F] flex flex-col items-center gap-2 text-xs text-[#241208] transition-colors"
+                className="p-3 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-500 flex flex-col items-center gap-2 text-xs text-slate-900 transition-colors"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#F5E9CC] text-[#C1621F] flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
                   <Share2 className="w-5 h-5" />
                 </div>
                 <span className="font-bold">LinkedIn</span>
@@ -2375,9 +2532,9 @@ export default function InsuranceTemplateView({
                   setCopiedLink(true);
                   setTimeout(() => setCopiedLink(false), 2000);
                 }}
-                className="p-3 rounded-2xl bg-[#FBF2DE] border border-[#D8A63D]/30 hover:border-[#D8A63D] flex flex-col items-center gap-2 text-xs text-[#241208] transition-colors cursor-pointer"
+                className="p-3 rounded-2xl bg-slate-50 border border-slate-200 hover:border-indigo-500 flex flex-col items-center gap-2 text-xs text-slate-900 transition-colors cursor-pointer"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#F5E9CC] text-[#D8A63D] flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
                   <CopyIcon className="w-5 h-5" />
                 </div>
                 <span className="font-bold">{copiedLink ? 'Copied!' : 'Copy Link'}</span>
@@ -2386,6 +2543,37 @@ export default function InsuranceTemplateView({
           </div>
         </div>
       )}
+
+      {/* Floating Light Theme Selector (Bottom-Left) */}
+      <div className="fixed bottom-5 left-4 sm:left-6 z-40 bg-white/95 backdrop-blur-md border border-slate-300/80 shadow-2xl rounded-2xl p-1.5 flex items-center gap-1 transition-all">
+        <div className="flex items-center gap-1.5 pl-2 pr-1 text-slate-700">
+          <Palette className="w-3.5 h-3.5 text-blue-600" />
+          <span className="text-[11px] font-extrabold hidden md:inline text-slate-800">Light Themes:</span>
+        </div>
+        {(Object.keys(LIGHT_THEMES) as LightThemeId[]).map((tid) => {
+          const t = LIGHT_THEMES[tid];
+          const isSelected = colorTheme === tid;
+          return (
+            <button
+              key={tid}
+              type="button"
+              onClick={() => handleThemeChange(tid)}
+              className={`px-2.5 py-1 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                isSelected
+                  ? 'bg-slate-900 text-white shadow-xs'
+                  : 'text-slate-700 hover:bg-slate-100'
+              }`}
+              title={`${t.name} - ${t.badge}`}
+            >
+              <span
+                className="w-2.5 h-2.5 rounded-full border border-white/60 shrink-0"
+                style={{ backgroundColor: t.dotColor }}
+              />
+              <span className="hidden sm:inline">{t.name}</span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
