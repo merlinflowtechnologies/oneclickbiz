@@ -29,13 +29,13 @@ server {
 
     # Static Assets Caching
     location /_next/static/ {
-        alias /var/www/oneclickbiz/oneclickbiz-app/.next/static/;
+        alias /var/www/oneclickbiz/.next/static/;
         expires 365d;
         access_log off;
     }
 
     location /public/ {
-        alias /var/www/oneclickbiz/oneclickbiz-app/public/;
+        alias /var/www/oneclickbiz/public/;
         expires 30d;
         access_log off;
     }
