@@ -35,6 +35,8 @@ import {
   HelpCircle,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
   Calculator,
   Umbrella,
   HeartPulse,
@@ -157,121 +159,200 @@ const INSURER_PARTNERS = [
   }
 ];
 
-// Curated Verified Insurance Plans
-const DEFAULT_INSURANCE_PLANS = [
+// Curated Verified Insurance Plans (SBI Life Flagship Solutions)
+export interface InsurancePlanItem {
+  id: string;
+  category: string;
+  title: string;
+  insurer: string;
+  uin: string;
+  sumAssured: string;
+  startingPremium: number;
+  tenure: string;
+  tag: string;
+  badge: string;
+  popular: boolean;
+  imageUrl: string;
+  features: string[];
+  recommendedFor: string;
+}
+
+const DEFAULT_INSURANCE_PLANS: InsurancePlanItem[] = [
   {
-    id: 'plan-term-1',
+    id: 'plan-eshield-insta',
     category: 'Term Life Insurance',
-    title: 'Suraksha Pure Term Life Shield (₹1 to ₹5 Crore)',
-    insurer: 'HDFC Life / Max Life Partnered',
+    title: 'SBI Life - eShield Insta',
+    insurer: 'SBI Life Insurance Company Ltd.',
+    uin: 'UIN: 111N134V02',
     sumAssured: '₹1,00,00,000 - ₹5,00,00,000',
     startingPremium: 680,
-    tenure: 'Up to Age 85',
-    tag: 'Highest Claim Ratio',
+    tenure: 'Up to Age 85 / 100',
+    tag: 'Highest Settlement (99.4%)',
+    badge: 'TERM INSURANCE',
     popular: true,
+    imageUrl: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80',
     features: [
-      '99.5% Claim Settlement Ratio (IRDAI certified)',
-      '100% Tax Exemption on payouts under Section 10(10D)',
-      'Optional 64 Critical Illness lump-sum rider payout',
-      'Accidental Death Benefit booster up to ₹1 Crore',
-      'Special 30% discounted rates for non-smokers'
+      'Pure Protection Term Plan with instantaneous digital underwriting',
+      'Accelerated Terminal Illness Benefit up to ₹2 Crore included at no extra cost',
+      'Special discounted premium rates for healthy non-smokers and female lives',
+      'Accidental Death & Permanent Total Disability rider options',
+      '100% Tax deduction on premiums under Section 80C & tax-free maturity under 10(10D)'
     ],
-    recommendedFor: 'Salaried professionals, business owners, and family breadwinners.'
+    recommendedFor: 'Salaried professionals, self-employed business founders, and family breadwinners.'
   },
   {
-    id: 'plan-health-1',
-    category: 'Health & Mediclaim',
-    title: 'Family Comprehensive Mediclaim (₹1 Crore Zero-Deductible)',
-    insurer: 'Care Health / Star Health Partnered',
-    sumAssured: '₹25 Lakhs - ₹1 Crore',
+    id: 'plan-platina-plus',
+    category: 'Savings & Income Plans',
+    title: 'SBI Life - Smart Platina Plus',
+    insurer: 'SBI Life Insurance Company Ltd.',
+    uin: 'UIN: 111N132V03',
+    sumAssured: 'Guaranteed Annual Income for 15-30 Years',
+    startingPremium: 2500,
+    tenure: 'Policy Term: Up to 30 Years',
+    tag: 'Guaranteed Regular Income',
+    badge: 'SAVINGS & INCOME',
+    popular: true,
+    imageUrl: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=600&q=80',
+    features: [
+      'Guaranteed regular annual income payouts locked for up to 30 years',
+      '100% Return of Total Premiums paid returned to your nominee on maturity',
+      'Choice between Life Income and Guaranteed Income payout modes',
+      'Shielded from volatile market rates and bank FD rate cuts',
+      'Triple tax-exempt returns under Section 80C and Section 10(10D)'
+    ],
+    recommendedFor: 'Individuals seeking fixed, stress-free secondary income and capital safety.'
+  },
+  {
+    id: 'plan-retire-smart',
+    category: 'Retirement Plans',
+    title: 'SBI Life - Retire Smart',
+    insurer: 'SBI Life Insurance Company Ltd.',
+    uin: 'UIN: 111L094V02',
+    sumAssured: 'Guaranteed Lifelong Pension & Annuity',
+    startingPremium: 3000,
+    tenure: 'Whole Life Pension Payout',
+    tag: 'Lifelong Dignified Income',
+    badge: 'RETIREMENT',
+    popular: true,
+    imageUrl: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?auto=format&fit=crop&w=600&q=80',
+    features: [
+      'Fixed monthly or annual pension credited directly to your bank account for life',
+      '100% Return of Purchase Price handed to your children / nominee on demise',
+      'Joint Life Option: Pension continues seamlessly to your spouse for their lifetime',
+      'Systematic accumulation with sovereign asset backing & zero stock crash risk',
+      'Additional Section 80CCC tax exemptions on retirement contributions'
+    ],
+    recommendedFor: 'Working professionals aged 35 to 60 securing an independent golden retirement.'
+  },
+  {
+    id: 'plan-scholar-plus',
+    category: 'Child Higher Education',
+    title: 'SBI Life - Smart Scholar Plus',
+    insurer: 'SBI Life Insurance Company Ltd.',
+    uin: 'UIN: 111L073V03',
+    sumAssured: '₹25,00,00,000 - ₹1,50,00,000',
+    startingPremium: 1800,
+    tenure: 'Matures at Child Age 18 or 21',
+    tag: 'Inbuilt Premium Waiver',
+    badge: 'CHILD PLANS',
+    popular: false,
+    imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
+    features: [
+      'Guaranteed university graduation milestones timed with overseas college admissions',
+      'Inbuilt Waiver of Premium: all future premiums paid by insurer if parent passes away',
+      'Triple-compounding growth with sovereign bonuses and loyalty additions',
+      'Complete capital gains tax exemption under Section 10(10D)',
+      'Dedicated fund for medical, engineering, and Ivy League master’s tuition'
+    ],
+    recommendedFor: 'Parents with young children aged 0 to 12 planning future educational security.'
+  },
+  {
+    id: 'plan-arogya-shield',
+    category: 'Health Insurance',
+    title: 'SBI Life - Arogya Shield & Hospital Cash',
+    insurer: 'SBI Life & General Insurance',
+    uin: 'UIN: 111N116V02',
+    sumAssured: '₹25 Lakhs - ₹1 Crore Cover',
     startingPremium: 1040,
     tenure: 'Lifelong Renewable',
     tag: 'Zero Room Rent Capping',
+    badge: 'HEALTH SHIELD',
     popular: true,
+    imageUrl: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80',
     features: [
-      'No Room Rent Sub-limit (Single AC private room & suite covered)',
-      'Unlimited 100% Restoration of Sum Insured for unrelated illnesses',
-      'Day 1 OPD consultations, diagnostics & consumables covered',
-      '14,500+ Network Hospitals with 45-minute cashless pre-authorization',
-      'Annual Free Full Body Health Checkup for all covered members'
+      'Zero Room-Rent Sub-limit: Single private AC room and ICU suites covered 100%',
+      'Unlimited 100% Restoration of Sum Insured for unrelated hospitalizations',
+      'Day-1 OPD consultations, diagnostic tests, and expensive consumables covered',
+      'Cashless hospital admission at 14,500+ network hospitals with < 45-min pre-auth',
+      'Comprehensive Section 80D tax deductions up to ₹75,000 annually'
     ],
-    recommendedFor: 'Couples, young families with children, and parents.'
+    recommendedFor: 'Families with young children, senior parents, and high-deductible upgrades.'
   },
   {
-    id: 'plan-topup-1',
+    id: 'plan-saral-jeevan',
+    category: 'Term Life Insurance',
+    title: 'SBI Life - Saral Jeevan Bima',
+    insurer: 'SBI Life Insurance Company Ltd.',
+    uin: 'UIN: 111N128V01',
+    sumAssured: '₹5,00,00,000 - ₹25,00,000',
+    startingPremium: 420,
+    tenure: 'Up to Age 70',
+    tag: 'Standardized IRDAI Plan',
+    badge: 'STANDARD TERM',
+    popular: false,
+    imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80',
+    features: [
+      'Standardized term life plan mandated by IRDAI with uniform claim definitions',
+      'Hassle-free documentation with simple tele-medical verification',
+      'Pure lump-sum financial protection to family nominees on demise',
+      'Affordable entry-level rates for first-time insurance buyers',
+      'Tax benefits under Section 80C up to ₹1,50,000'
+    ],
+    recommendedFor: 'First-time insurance buyers, self-employed individuals, and young earners.'
+  },
+  {
+    id: 'plan-wealth-builder',
+    category: 'ULIP & Investment',
+    title: 'SBI Life - Smart Wealth Builder',
+    insurer: 'SBI Life Insurance Company Ltd.',
+    uin: 'UIN: 111L095V03',
+    sumAssured: '10x Annual Premium + Market Returns',
+    startingPremium: 3500,
+    tenure: '10 to 30 Years Term',
+    tag: 'Market Linked Upside',
+    badge: 'WEALTH CREATION',
+    popular: false,
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
+    features: [
+      'Dual benefit of life protection combined with high-growth equity market funds',
+      'Guaranteed Loyalty Additions credited to boost long-term compounding returns',
+      'Zero premium allocation charges from 11th year onwards',
+      'Unlimited free switches between Equity, Debt, and Balanced funds',
+      'Tax-free withdrawals and maturity proceeds under Section 10(10D)'
+    ],
+    recommendedFor: 'Investors seeking inflation-beating wealth creation with life cover.'
+  },
+  {
+    id: 'plan-topup-shield',
     category: 'Super Top-Up',
-    title: 'High-Cover Super Top-Up Shield (₹90 Lakhs Cover)',
-    insurer: 'Care Supreme / HDFC Ergo Partnered',
+    title: 'SBI Life - High-Cover Super Top-Up Shield',
+    insurer: 'SBI General / Care Health Partnered',
+    uin: 'UIN: 111N098V01',
     sumAssured: '₹90,00,000 (Deductible ₹10L)',
     startingPremium: 350,
     tenure: 'Annual Renewal',
     tag: 'Ultra Low Premium (~₹12/day)',
+    badge: 'SUPER TOP-UP',
     popular: false,
+    imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80',
     features: [
-      'Bridges the gap over corporate health insurance or personal base cover',
-      'Aggregates all hospitalizations in a policy year to cross deductible',
-      'Full coverage for cancer therapies, robotic surgeries & organ donor expenses',
-      'Zero co-payment across all tiers of network hospitals',
-      'Section 80D tax deductions up to ₹75,000'
+      'Bridges the gap over corporate employer insurance at just ~₹12/day',
+      'Aggregates multiple hospitalizations in a policy year to cross the deductible threshold',
+      'Comprehensive coverage for robotic surgeries, chemotherapy & organ donor costs',
+      'Zero co-payment across all tiers of network hospitals in India',
+      'Section 80D tax deduction up to ₹75,000 for self and senior parents'
     ],
-    recommendedFor: 'Corporate employees wanting to upgrade base ₹5L/₹10L company insurance.'
-  },
-  {
-    id: 'plan-retire-1',
-    category: 'Retirement & Annuity',
-    title: 'Guaranteed Lifelong Pension & Sovereign Annuity',
-    insurer: 'Tata AIA / ICICI Prudential Partnered',
-    sumAssured: 'Guaranteed Monthly Income for Life',
-    startingPremium: 2500,
-    tenure: 'Lifelong Guaranteed',
-    tag: 'Guaranteed Return of Premium',
-    popular: false,
-    features: [
-      'Fixed guaranteed monthly pension payout locked for life regardless of interest rates',
-      '100% Return of Purchase Price directly handed to nominee on demise',
-      'Joint life option continues 100% pension to spouse after primary holder',
-      'Tax-efficient annuity growth with systematic drawdown',
-      'No stock market risk; sovereign-grade balance sheet backing'
-    ],
-    recommendedFor: 'Individuals aged 35 to 60 planning guaranteed stress-free retirement.'
-  },
-  {
-    id: 'plan-child-1',
-    category: 'Child Higher Education',
-    title: 'Ivy League & Medical College Guaranteed Education Fund',
-    insurer: 'Max Life / HDFC Life Partnered',
-    sumAssured: '₹25,00,000 - ₹1,50,00,000',
-    startingPremium: 1800,
-    tenure: 'Matures at Child Age 18 or 21',
-    tag: 'Waiver of Premium Shield',
-    popular: false,
-    features: [
-      'Guaranteed milestone payouts timed with Grade 12 graduation & overseas master’s',
-      'Built-in Waiver of Premium: all future premiums paid by insurer if parent passes away',
-      'Triple-point compounding with sovereign bonus additions',
-      'Completely exempt from capital gains tax under Sec 10(10D)',
-      'Inflation-hedged corpus designed specifically for overseas tuition fees'
-    ],
-    recommendedFor: 'Parents with children aged 0 to 12 years securing overseas education.'
-  },
-  {
-    id: 'plan-motor-1',
-    category: 'Motor & Vehicle',
-    title: 'Comprehensive Zero-Depreciation Car & SUV Insurance',
-    insurer: 'Tata AIG / ICICI Lombard Partnered',
-    sumAssured: '100% Insured Declared Value (IDV)',
-    startingPremium: 650,
-    tenure: '1 Year / 3 Years OD',
-    tag: 'Instant Cashless Garage TAT',
-    popular: false,
-    features: [
-      'Bumper-to-Bumper zero depreciation on plastic, metal & fibre parts',
-      'Engine Protector & Hydrostatic Lock cover for water-logged roads',
-      '24x7 Roadside Assistance, towing & flat tyre emergency dispatch',
-      'Return to Invoice (RTI) rider: 100% on-road price reimbursed on total loss/theft',
-      '10,000+ Cashless Network workshops across India'
-    ],
-    recommendedFor: 'Personal car owners, luxury vehicle drivers, and commercial fleet owners.'
+    recommendedFor: 'Corporate employees upgrading base ₹5L/₹10L company mediclaim.'
   }
 ];
 
@@ -318,6 +399,131 @@ const VERIFIED_CLAIM_STORIES = [
   }
 ];
 
+// SBI Life Hero Carousel Slides
+export const SBI_HERO_SLIDES = [
+  {
+    id: 'slide-1',
+    badge: 'WITH YOU. FOR EVERY RESPONSIBILITY. FOR EVERY POSSIBILITY.',
+    tagline: 'Apne Liye. Apno Ke Liye.',
+    title: 'Secure Your Family’s Tomorrow with SBI Life - eShield Insta',
+    subtitle: 'High sum assured pure term protection up to ₹5 Crore with instant digital underwriting, terminal illness benefit, and 30-min cashless priority desk.',
+    bgImage: 'https://images.unsplash.com/photo-1609234656388-0ff363383899?auto=format&fit=crop&w=1600&q=80',
+    primaryCtaText: 'Calculate Term Premium',
+    primaryCtaLink: '#calculator',
+    secondaryCtaText: 'Explore Term Plans',
+    secondaryCtaLink: '#plans',
+    stats: [
+      { label: 'Claim Settlement', value: '99.4%' },
+      { label: 'Solvency Ratio', value: '2.09 (Strong)' },
+      { label: 'Active Lives Insured', value: '4,500+' }
+    ]
+  },
+  {
+    id: 'slide-2',
+    badge: 'GUARANTEED REGULAR ANNUAL INCOME',
+    tagline: 'Savings & Income Plans',
+    title: 'SBI Life - Smart Platina Plus: Guaranteed Income for 30 Years',
+    subtitle: 'Lock in guaranteed annual income regardless of market volatility. 100% Return of Premium handed to nominee with triple tax exemption.',
+    bgImage: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1600&q=80',
+    primaryCtaText: 'Get Guaranteed Quote',
+    primaryCtaLink: '#calculator',
+    secondaryCtaText: 'Explore Savings Plans',
+    secondaryCtaLink: '#plans',
+    stats: [
+      { label: 'Guaranteed Payouts', value: 'Up to 30 Years' },
+      { label: 'Section 80C & 10(10D)', value: '100% Tax Free' },
+      { label: 'Return of Purchase Price', value: '100% Back' }
+    ]
+  },
+  {
+    id: 'slide-3',
+    badge: 'RETIREMENT PEACE OF MIND',
+    tagline: 'Pension & Sovereign Annuity',
+    title: 'SBI Life - Retire Smart: Independent & Dignified Golden Years',
+    subtitle: 'Build a solid retirement corpus with market-linked upside or guaranteed lifelong pension payouts. Enjoy stress-free health & travel freedom.',
+    bgImage: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?auto=format&fit=crop&w=1600&q=80',
+    primaryCtaText: 'Estimate Pension',
+    primaryCtaLink: '#calculator',
+    secondaryCtaText: 'Explore Pension Plans',
+    secondaryCtaLink: '#plans',
+    stats: [
+      { label: 'Lifelong Pension', value: 'Guaranteed' },
+      { label: 'AUM Managed', value: '₹3.5+ Lakh Cr' },
+      { label: 'Joint Life Option', value: 'Spouse Protected' }
+    ]
+  }
+];
+
+// SBI Life Stage of Life Cards ("With you. For every responsibility. For every possibility.")
+export const SBI_STAGE_CARDS = [
+  {
+    id: 'term',
+    title: 'Term Plans',
+    subtitle: 'Family Protection',
+    description: 'Ensure your loved ones receive high sum assured protection if life throws an unexpected turn.',
+    badge: 'High Cover, Low Cost',
+    photo: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80',
+    keyProduct: 'SBI Life - eShield Insta',
+    startingPremium: '₹680/mo',
+    category: 'Term Life Insurance'
+  },
+  {
+    id: 'savings',
+    title: 'Savings Plans',
+    subtitle: 'Guaranteed Income',
+    description: 'Disciplined savings with guaranteed financial growth for milestones, house purchases, and luxury goals.',
+    badge: 'Guaranteed Returns',
+    photo: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=600&q=80',
+    keyProduct: 'SBI Life - Smart Platina Plus',
+    startingPremium: '₹2,500/mo',
+    category: 'Savings & Income Plans'
+  },
+  {
+    id: 'retirement',
+    title: 'Retirement Plans',
+    subtitle: 'Lifelong Pension',
+    description: 'Regular monthly pension credited for life, shielding your golden years against inflation.',
+    badge: 'Lifelong Annuity',
+    photo: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?auto=format&fit=crop&w=600&q=80',
+    keyProduct: 'SBI Life - Retire Smart',
+    startingPremium: '₹3,000/mo',
+    category: 'Retirement Plans'
+  },
+  {
+    id: 'child',
+    title: 'Child Education',
+    subtitle: 'Higher Studies Fund',
+    description: 'Inbuilt Waiver of Premium guarantees college and overseas master’s funding even in your absence.',
+    badge: 'Waiver of Premium',
+    photo: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
+    keyProduct: 'SBI Life - Smart Scholar Plus',
+    startingPremium: '₹1,800/mo',
+    category: 'Child Higher Education'
+  },
+  {
+    id: 'health',
+    title: 'Health & Mediclaim',
+    subtitle: 'Cashless Hospitalization',
+    description: 'Zero room-rent capping, Day-1 OPD covers, and cashless admission across 14,500+ network hospitals.',
+    badge: '14,500+ Hospitals',
+    photo: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80',
+    keyProduct: 'SBI Life - Arogya Shield',
+    startingPremium: '₹1,040/mo',
+    category: 'Health Insurance'
+  },
+  {
+    id: 'ulip',
+    title: 'ULIP & Wealth',
+    subtitle: 'Market Compounding',
+    description: 'Dual benefit of life protection combined with equity market growth and zero long-term tax deduction.',
+    badge: 'Wealth Maximizer',
+    photo: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
+    keyProduct: 'SBI Life - Smart Wealth Builder',
+    startingPremium: '₹3,500/mo',
+    category: 'ULIP & Investment'
+  }
+];
+
 export type LightThemeId = 'azure' | 'mint' | 'ivory' | 'iris' | 'sky';
 
 export interface LightThemeData {
@@ -339,18 +545,18 @@ export interface LightThemeData {
 export const LIGHT_THEMES: Record<LightThemeId, LightThemeData> = {
   azure: {
     id: 'azure',
-    name: 'Arctic Azure',
-    badge: 'Institutional Trust',
-    dotColor: '#2563EB',
-    rootBg: 'bg-[#F8FAFC]',
-    heroBg: 'bg-gradient-to-b from-white via-slate-50/50 to-[#F8FAFC]',
-    accentText: 'text-blue-600',
-    accentBg: 'bg-blue-600 hover:bg-blue-700',
-    borderTint: 'border-blue-500/30',
-    glow1: 'from-blue-300/25 via-indigo-200/20 to-sky-200/15',
-    glow2: 'from-emerald-200/25 via-teal-100/20 to-blue-200/15',
-    glow3: 'from-sky-200/25 via-indigo-100/20 to-emerald-100/15',
-    bannerBorder: 'border-slate-200'
+    name: 'SBI Life Purple',
+    badge: 'Official SBI Life Theme',
+    dotColor: '#2B1F6B',
+    rootBg: 'sbi-bg-canvas',
+    heroBg: 'bg-transparent',
+    accentText: 'text-[#2B1F6B]',
+    accentBg: 'bg-[#2B1F6B] hover:bg-[#1E1552]',
+    borderTint: 'border-[#2B1F6B]/30',
+    glow1: 'from-purple-300/25 via-indigo-200/20 to-sky-200/15',
+    glow2: 'from-cyan-200/25 via-blue-100/20 to-purple-200/15',
+    glow3: 'from-sky-200/25 via-indigo-100/20 to-pink-100/15',
+    bannerBorder: 'border-[#2B1F6B]/20'
   },
   mint: {
     id: 'mint',
@@ -458,6 +664,20 @@ export default function InsuranceTemplateView({
   const [copiedLink, setCopiedLink] = useState(false);
   const [currentUrl, setCurrentUrl] = useState<string>('');
 
+  // SBI Life Hero Carousel & Quick Quote State
+  const [heroSlideIndex, setHeroSlideIndex] = useState(0);
+  const [quickQuoteCategory, setQuickQuoteCategory] = useState<'term' | 'savings' | 'retire'>('term');
+  const [quickQuoteAge, setQuickQuoteAge] = useState<number>(30);
+  const [quickQuoteCover, setQuickQuoteCover] = useState<string>('₹1 Crore');
+  const [quickQuoteMobile, setQuickQuoteMobile] = useState<string>('');
+
+  useEffect(() => {
+    const slideTimer = setInterval(() => {
+      setHeroSlideIndex((prev) => (prev + 1) % SBI_HERO_SLIDES.length);
+    }, 7000);
+    return () => clearInterval(slideTimer);
+  }, []);
+
   // Light Color Scheme
   const [colorTheme, setColorTheme] = useState<LightThemeId>('azure');
 
@@ -521,8 +741,8 @@ export default function InsuranceTemplateView({
 
   // Advisor Credentials
   const advisorName = profile.name || 'Rajesh Sengupta';
-  const advisorCompany = profile.company || 'Suraksha Life & Health Insurance Advisory';
-  const advisorDesignation = profile.designation || 'MDRT Life Member | Senior Financial Security Advisor';
+  const advisorCompany = profile.company || 'SBI Life Insurance Advisory & Wealth Management';
+  const advisorDesignation = profile.designation || 'MDRT Life Member | Senior SBI Life Advisor';
   const irdaNumber = 'IRDAI/AGN/2012/849102';
 
   // Resolved Social and Contact Links with fallbacks
@@ -534,15 +754,15 @@ export default function InsuranceTemplateView({
     };
 
     return {
-      whatsapp: findUrl('whatsapp') || `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hello ${advisorName}! I want to consult regarding Life & Health insurance coverage.`)}`,
+      whatsapp: findUrl('whatsapp') || `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hello ${advisorName}! I want to consult regarding SBI Life insurance coverage.`)}`,
       phone: findUrl('phone') || `tel:${cleanPhoneDigits}`,
-      email: findUrl('email') || `mailto:${profile.email || 'rajesh.sengupta@surakshainsurance.in'}`,
+      email: findUrl('email') || `mailto:${profile.email || 'rajesh.sengupta@sbilife-advisory.in'}`,
       linkedin: findUrl('linkedin') || 'https://linkedin.com/in/rajesh-sengupta-mdrt',
-      youtube: findUrl('youtube') || 'https://youtube.com/@surakshainsurance',
-      instagram: findUrl('instagram') || 'https://instagram.com/suraksha_insurance',
-      twitter: findUrl('twitter') || 'https://twitter.com/surakshainsure',
-      telegram: findUrl('telegram') || 'https://t.me/surakshainsurance',
-      facebook: findUrl('facebook') || 'https://facebook.com/surakshainsurance',
+      youtube: findUrl('youtube') || 'https://youtube.com/@sbilife_official',
+      instagram: findUrl('instagram') || 'https://instagram.com/sbilifeinsurance',
+      twitter: findUrl('twitter') || 'https://twitter.com/sbilife',
+      telegram: findUrl('telegram') || 'https://t.me/sbilifeinsurance',
+      facebook: findUrl('facebook') || 'https://facebook.com/sbilifeinsurance',
       maps: findUrl('maps') || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${advisorCompany} ${profile.address || 'BKC Mumbai'}`)}`,
       website: profile.website || currentUrl || 'https://oneclickbiz.in/v/prof-insurance'
     };
@@ -799,9 +1019,99 @@ export default function InsuranceTemplateView({
         .ocb-glow-ambient-2 {
           animation: ocbFloatGlow 18s ease-in-out infinite reverse;
         }
+
+        /* SBI Life Frosted Canvas & Background Photo */
+        .sbi-bg-canvas {
+          background-image: 
+            linear-gradient(rgba(246, 248, 252, 0.88), rgba(240, 244, 250, 0.94)),
+            url('https://images.unsplash.com/photo-1609234656388-0ff363383899?auto=format&fit=crop&w=2000&q=80');
+          background-attachment: fixed;
+          background-size: cover;
+          background-position: center;
+        }
+
+        /* Authentic SBI Life Multi-Layer Glassmorphism */
+        .glass-surface {
+          position: relative;
+          background: rgba(255, 255, 255, 0.80);
+          backdrop-filter: blur(16px) saturate(180%);
+          -webkit-backdrop-filter: blur(16px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.75);
+          box-shadow: 0 10px 30px -5px rgba(42, 32, 118, 0.08), inset 1px 1px 1.5px rgba(255, 255, 255, 0.95);
+          border-radius: 20px;
+          overflow: hidden;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+
+        .glass-surface:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 20px 40px -8px rgba(42, 32, 118, 0.16), inset 1px 1px 2px rgba(255, 255, 255, 1);
+        }
+
+        .glass-layer-effect {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          filter: url(#glass-distortion);
+          opacity: 0.10;
+          z-index: 1;
+        }
+
+        .glass-layer-tint {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(240, 244, 255, 0.15) 100%);
+          z-index: 2;
+        }
+
+        .glass-layer-shine {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 45%;
+          pointer-events: none;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0) 100%);
+          z-index: 3;
+        }
+
+        .glass-inner {
+          position: relative;
+          z-index: 4;
+        }
+
+        .sbi-badge-magenta {
+          background: linear-gradient(90deg, #EA89A5 0%, #8C178C 100%);
+          color: #FFFFFF;
+        }
+
+        .sbi-btn-primary {
+          background: linear-gradient(135deg, #2B1F6B 0%, #150E42 100%);
+          color: #FFFFFF;
+          box-shadow: 0 4px 15px rgba(43, 31, 107, 0.3);
+        }
+
+        .sbi-btn-primary:hover {
+          background: linear-gradient(135deg, #372888 0%, #201560 100%);
+          box-shadow: 0 6px 20px rgba(43, 31, 107, 0.4);
+        }
+
+        .sbi-hero-overlay {
+          background: linear-gradient(90deg, rgba(43, 31, 107, 0.95) 0%, rgba(43, 31, 107, 0.85) 55%, rgba(43, 31, 107, 0.45) 100%);
+        }
       `
         }}
       />
+
+      {/* SVG Distortion Filter for Authentic SBI Life Glassmorphism */}
+      <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }} aria-hidden="true">
+        <filter id="glass-distortion">
+          <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="16" result="noise" />
+          <feGaussianBlur in="noise" stdDeviation="3" result="blur" />
+          <feDisplacementMap in="SourceGraphic" in2="blur" scale="40" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
 
       {/* Light Elegant Ambient Glow Backgrounds */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
@@ -974,391 +1284,548 @@ export default function InsuranceTemplateView({
       </header>
 
       {/* ============================================================== */}
-      {/* 3. HERO SHOWCASE SECTION (Bright, Fresh Light Look)            */}
+      {/* 3. SBI LIFE HERO CAROUSEL WITH LIFESTYLE PHOTO BG & GLASS CARDS */}
       {/* ============================================================== */}
-      <section className={`relative overflow-hidden py-12 sm:py-18 lg:py-20 border-b border-slate-200/80 z-10 ${activeThemeData.heroBg} transition-colors duration-300`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-6">
-              {/* Trust Badges Strip */}
-              <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs">
-                <span className="flex items-center gap-1 text-[11px] font-bold text-blue-700">
-                  <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
-                  IRDAI Certified Partner
-                </span>
-                <span className="text-slate-300">•</span>
-                <span className="flex items-center gap-1 text-[11px] font-bold text-indigo-700">
-                  <Award className="w-3.5 h-3.5 text-indigo-600" />
-                  MDRT USA Life Member
-                </span>
-                <span className="text-slate-300">•</span>
-                <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-700">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  99.4% Claim Ratio
-                </span>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.18] ocb-font-serif">
-                Uncompromising Financial Security & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800">24/7 Dedicated Cashless Claim</span> Support
-              </h1>
-
-              {/* Subheadline */}
-              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
-                Guiding 4,500+ Indian families and global NRI professionals to navigate Term Life, Comprehensive Mediclaim, Critical Illness, and Guaranteed Retirement Planning. Independent fiduciary advisory partnering with India’s highest-rated insurers with dedicated cashless hospital desk support.
-              </p>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                <a
-                  href="#calculator"
-                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-blue-600/25 flex items-center gap-2 transition-all active:scale-95 cursor-pointer"
-                >
-                  <Calculator className="w-4 h-4" />
-                  <span>Calculate Instant Premium</span>
-                </a>
-
-                <button
-                  onClick={() => setIsAuditModalOpen(true)}
-                  className="px-5 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-95"
-                >
-                  <FileSpreadsheet className="w-4 h-4 text-blue-600" />
-                  <span>Free 360° Policy Audit</span>
-                </button>
-
-                <button
-                  onClick={() => downloadVcfFile(profile)}
-                  className="px-4 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
-                  title="Save Advisor Contact directly to smartphone address book"
-                >
-                  <Download className="w-4 h-4 text-emerald-600" />
-                  <span>Save VCF</span>
-                </button>
-
-                <button
-                  onClick={() => setIsQrModalOpen(true)}
-                  className="p-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition-all cursor-pointer shadow-xs"
-                  title="Scan QR Code"
-                >
-                  <QrCode className="w-4 h-4" />
-                </button>
-
-                <button
-                  onClick={() => setIsShareModalOpen(true)}
-                  className="p-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition-all cursor-pointer shadow-xs"
-                  title="Share Profile"
-                >
-                  <Share2 className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Instant Contact Options with Original Logos (As requested by user) */}
-              <div className="pt-3 space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-black uppercase tracking-wider text-blue-700 flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-blue-600" /> Direct Advisory & Contact Desk
-                  </span>
-                  <span className="text-[11px] font-bold text-slate-500 flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-emerald-600" /> Fast Response (&lt; 15 mins)
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 sm:gap-2.5">
-                  {/* 1. WhatsApp with Original Logo */}
-                  <a
-                    href={socialLinks.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackAction('hero_contact_whatsapp')}
-                    className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-white hover:bg-emerald-50 border border-emerald-400/50 text-xs font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 shadow-xs transition hover:scale-[1.03] active:scale-95"
-                    title="Priority WhatsApp Message"
-                  >
-                    <SocialIcon platform="whatsapp" size={16} colored={true} />
-                    <span className="truncate">WhatsApp Chat</span>
-                  </a>
-
-                  {/* 2. Direct Phone Call with Original Logo */}
-                  <a
-                    href={socialLinks.phone}
-                    onClick={() => trackAction('hero_contact_call')}
-                    className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-white hover:bg-sky-50 border border-sky-400/50 text-xs font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 shadow-xs transition hover:scale-[1.03] active:scale-95"
-                    title="Direct Phone Call"
-                  >
-                    <div className="w-4 h-4 rounded-full bg-sky-500 text-white flex items-center justify-center shrink-0">
-                      <Phone className="w-2.5 h-2.5 fill-white text-white" />
-                    </div>
-                    <span className="truncate">Call {phoneDisplay}</span>
-                  </a>
-
-                  {/* 3. Official Email Desk with Original Logo */}
-                  <a
-                    href={socialLinks.email}
-                    onClick={() => trackAction('hero_contact_email')}
-                    className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-white hover:bg-red-50 border border-red-400/50 text-xs font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 shadow-xs transition hover:scale-[1.03] active:scale-95"
-                    title="Send Email"
-                  >
-                    <SocialIcon platform="mail" size={16} colored={true} />
-                    <span className="truncate">Email Desk</span>
-                  </a>
-
-                  {/* 4. Google Maps Office Location with Original Pin */}
-                  <a
-                    href={socialLinks.maps}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackAction('hero_contact_maps')}
-                    className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-white hover:bg-amber-50 border border-amber-400/50 text-xs font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 shadow-xs transition hover:scale-[1.03] active:scale-95"
-                    title="Open Google Maps Location"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="shrink-0">
-                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335" />
-                      <circle cx="12" cy="9" r="2.5" fill="#FFFFFF" />
-                    </svg>
-                    <span className="truncate">BKC Office Map</span>
-                  </a>
-
-                  {/* 5. Official Website with Original Logo */}
-                  <a
-                    href={socialLinks.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackAction('hero_contact_web')}
-                    className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-white hover:bg-purple-50 border border-purple-400/50 text-xs font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 shadow-xs transition hover:scale-[1.03] active:scale-95"
-                    title="Official Digital Profile & Advisory Portal"
-                  >
-                    <SocialIcon platform="website" size={16} colored={true} />
-                    <span className="truncate">Official Web</span>
-                  </a>
-                </div>
-              </div>
-
-              {/* Verified Social Media Platforms with Original Logos */}
-              <div className="pt-2 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                    <Globe className="w-3.5 h-3.5 text-blue-600" /> Verified Social & Advisory Channels
-                  </span>
-                  <span className="text-[11px] font-bold text-emerald-600 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Official Profiles
-                  </span>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2">
-                  {/* LinkedIn */}
-                  <a
-                    href={socialLinks.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackAction('hero_social_linkedin')}
-                    className="px-3 py-2 rounded-xl bg-white hover:bg-blue-50 border border-blue-300/60 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
-                    title="Connect on LinkedIn"
-                  >
-                    <SocialIcon platform="linkedin" size={16} colored={true} />
-                    <span>LinkedIn</span>
-                  </a>
-
-                  {/* YouTube */}
-                  <a
-                    href={socialLinks.youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackAction('hero_social_youtube')}
-                    className="px-3 py-2 rounded-xl bg-white hover:bg-red-50 border border-red-300/60 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
-                    title="Insurance Awareness & Claim Guides on YouTube"
-                  >
-                    <SocialIcon platform="youtube" size={16} colored={true} />
-                    <span>YouTube</span>
-                  </a>
-
-                  {/* Instagram */}
-                  <a
-                    href={socialLinks.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackAction('hero_social_instagram')}
-                    className="px-3 py-2 rounded-xl bg-white hover:bg-pink-50 border border-pink-300/60 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
-                    title="Follow on Instagram"
-                  >
-                    <SocialIcon platform="instagram" size={16} colored={true} />
-                    <span>Instagram</span>
-                  </a>
-
-                  {/* Twitter / X */}
-                  <a
-                    href={socialLinks.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackAction('hero_social_twitter')}
-                    className="px-3 py-2 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
-                    title="Policy Updates on X (Twitter)"
-                  >
-                    <SocialIcon platform="twitter" size={16} colored={true} />
-                    <span>X (Twitter)</span>
-                  </a>
-
-                  {/* Telegram */}
-                  <a
-                    href={socialLinks.telegram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackAction('hero_social_telegram')}
-                    className="px-3 py-2 rounded-xl bg-white hover:bg-sky-50 border border-sky-300/60 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
-                    title="Join VIP Telegram Channel for Claim & Hospital Alerts"
-                  >
-                    <SocialIcon platform="telegram" size={16} colored={true} />
-                    <span>Telegram VIP</span>
-                  </a>
-
-                  {/* Facebook */}
-                  <a
-                    href={socialLinks.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackAction('hero_social_facebook')}
-                    className="px-3 py-2 rounded-xl bg-white hover:bg-blue-50 border border-blue-300/60 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
-                    title="Facebook Page"
-                  >
-                    <SocialIcon platform="facebook" size={16} colored={true} />
-                    <span>Facebook</span>
-                  </a>
-                </div>
-              </div>
-
-              {/* Quick Contact & Office Details */}
-              <div className="pt-3 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-slate-600 border-t border-slate-200 font-medium">
-                <div className="flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Direct: <a href={`tel:${phoneDisplay}`} className="text-slate-900 font-bold hover:underline font-mono">{phoneDisplay}</a></span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-blue-600" />
-                  <span className="text-slate-900 font-bold font-mono">{profile.email || 'rajesh.sengupta@surakshainsurance.in'}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-blue-600" />
-                  <span className="text-slate-600">{profile.address || 'BKC Mumbai & Hitec City, Hyderabad, India'}</span>
-                </div>
-              </div>
+      <section className="relative overflow-hidden z-10 transition-colors duration-300">
+        {/* Full Banner Carousel Container */}
+        <div className="relative min-h-[640px] lg:min-h-[700px] flex items-center">
+          {/* Background Rotating Lifestyle Photos */}
+          {SBI_HERO_SLIDES.map((slide, idx) => (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                idx === heroSlideIndex ? 'opacity-100 z-0' : 'opacity-0 -z-10 pointer-events-none'
+              }`}
+            >
+              <img
+                src={slide.bgImage}
+                alt={slide.title}
+                className="w-full h-full object-cover object-center filter saturate-110"
+              />
+              {/* SBI Life Signature Purple Gradient Overlay for High Legibility */}
+              <div className="absolute inset-0 sbi-hero-overlay" />
             </div>
+          ))}
 
-            {/* Right Advisor Card & Proof Metric Column */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md rounded-3xl p-1 bg-gradient-to-b from-blue-400/40 via-indigo-300/30 to-slate-200 shadow-2xl">
-                <div className="rounded-[22px] bg-white p-6 sm:p-7 space-y-6 border border-slate-100 shadow-xs">
-                  {/* Advisor Photo & Badge */}
-                  <div className="flex items-center gap-4">
-                    <div className="relative">
-                      <img
-                        src={profile.avatarUrl || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'}
-                        alt={advisorName}
-                        className="w-20 h-20 rounded-2xl object-cover border-2 border-blue-500 shadow-md"
-                      />
-                      <span className="absolute -bottom-1.5 -right-1.5 bg-emerald-600 text-white p-1 rounded-full border-2 border-white">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                      </span>
-                    </div>
+          {/* Hero Content Container */}
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+              
+              {/* Left Column: Slogans, Title, Subtitle, Stats & Slide Controls */}
+              <div className="lg:col-span-7 space-y-6 text-white">
+                
+                {/* Official Slogan & Badge Ribbon */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="px-3.5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider sbi-badge-magenta shadow-md">
+                    {SBI_HERO_SLIDES[heroSlideIndex].badge}
+                  </span>
+                  <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white text-xs font-extrabold flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#FFB81C]" />
+                    <span className="text-[#FFB81C]">Apne Liye. Apno Ke Liye.</span>
+                  </span>
+                </div>
 
-                    <div className="space-y-1">
-                      <h2 className="text-lg font-bold text-slate-900 ocb-font-serif">{advisorName}</h2>
-                      <p className="text-xs text-blue-700 font-bold">{advisorDesignation}</p>
-                      <p className="text-[11px] text-slate-500 font-medium">{advisorCompany}</p>
-                    </div>
-                  </div>
+                {/* Slide Main Heading */}
+                <h1 className="text-3xl sm:text-5xl lg:text-5xl font-black text-white tracking-tight leading-[1.15] drop-shadow-md ocb-font-serif">
+                  {SBI_HERO_SLIDES[heroSlideIndex].title}
+                </h1>
 
-                  {/* 4 Hard Trust Metrics Grid */}
-                  <div className="grid grid-cols-2 gap-3 pt-2">
-                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 shadow-xs">
-                      <p className="text-[11px] text-slate-600 font-semibold">Life Cover Managed</p>
-                      <p className="text-lg font-extrabold text-slate-900 tracking-tight mt-0.5">₹480+ Cr</p>
-                      <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-1 mt-0.5">
-                        <TrendingUp className="w-3 h-3" /> Active Portfolios
-                      </span>
-                    </div>
+                {/* Subtitle */}
+                <p className="text-base sm:text-lg text-white/90 leading-relaxed font-normal max-w-2xl drop-shadow-xs">
+                  {SBI_HERO_SLIDES[heroSlideIndex].subtitle}
+                </p>
 
-                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 shadow-xs">
-                      <p className="text-[11px] text-slate-600 font-semibold">Claim Settlement</p>
-                      <p className="text-lg font-extrabold text-emerald-600 tracking-tight mt-0.5">99.4%</p>
-                      <span className="text-[10px] text-slate-500 font-medium mt-0.5">FY 2025-26</span>
-                    </div>
+                {/* Hero CTAs */}
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={SBI_HERO_SLIDES[heroSlideIndex].primaryCtaLink}
+                    className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#00A3E0] to-[#0077B6] hover:from-[#0092c9] hover:to-[#006296] text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-cyan-500/25 flex items-center gap-2 transition-all active:scale-95 cursor-pointer"
+                  >
+                    <Calculator className="w-4 h-4" />
+                    <span>{SBI_HERO_SLIDES[heroSlideIndex].primaryCtaText}</span>
+                  </a>
 
-                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 shadow-xs">
-                      <p className="text-[11px] text-slate-600 font-semibold">Cashless Network</p>
-                      <p className="text-lg font-extrabold text-blue-700 tracking-tight mt-0.5">14,500+</p>
-                      <span className="text-[10px] text-slate-500 font-medium mt-0.5">Pan-India Hospitals</span>
-                    </div>
+                  <a
+                    href={SBI_HERO_SLIDES[heroSlideIndex].secondaryCtaLink}
+                    className="px-5 py-3.5 rounded-xl bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-md font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+                  >
+                    <span>{SBI_HERO_SLIDES[heroSlideIndex].secondaryCtaText}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
 
-                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 shadow-xs">
-                      <p className="text-[11px] text-slate-600 font-semibold">Cashless Pre-Auth</p>
-                      <p className="text-lg font-extrabold text-amber-600 tracking-tight mt-0.5">&lt; 60 Mins</p>
-                      <span className="text-[10px] text-slate-500 font-medium mt-0.5">Average TAT</span>
-                    </div>
-                  </div>
+                  <button
+                    onClick={() => downloadVcfFile(profile)}
+                    className="px-4 py-3.5 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/25 backdrop-blur-md font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                    title="Save Advisor Contact directly to smartphone"
+                  >
+                    <Download className="w-4 h-4 text-[#FFB81C]" />
+                    <span>Save VCF</span>
+                  </button>
 
-                  {/* Emergency 24/7 Hotline Strip */}
-                  <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping shrink-0" />
-                      <div>
-                        <p className="text-xs font-bold text-rose-700">24x7 Emergency Claim Desk</p>
-                        <p className="text-[11px] text-rose-600/80">Hospitalization admission alert</p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setIsEmergencyModalOpen(true)}
-                      className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-xs"
+                  <button
+                    onClick={() => setIsQrModalOpen(true)}
+                    className="p-3.5 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/25 backdrop-blur-md transition-all cursor-pointer"
+                    title="Scan QR Code"
+                  >
+                    <QrCode className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* 3 Slide Specific Proof Metrics in Glass Tiles */}
+                <div className="grid grid-cols-3 gap-2.5 sm:gap-3 pt-2 max-w-xl">
+                  {SBI_HERO_SLIDES[heroSlideIndex].stats.map((stat, i) => (
+                    <div
+                      key={i}
+                      className="p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-left"
                     >
-                      Alert Desk
-                    </button>
-                  </div>
-
-                  {/* IRDAI Official License & Regulatory Verification Card */}
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-blue-50/80 via-indigo-50/50 to-slate-50 border border-blue-200/80 space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-1.5 text-xs font-extrabold text-blue-900">
-                        <ShieldCheck className="w-4 h-4 text-blue-600" /> IRDAI Certified Advisory
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
-                        Active & Verified
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600">
-                      <div>
-                        <span className="text-slate-400 block text-[10px]">License Reg. No:</span>
-                        <span className="font-mono font-bold text-slate-800 text-[10.5px]">{irdaNumber}</span>
-                      </div>
-                      <div>
-                        <span className="text-slate-400 block text-[10px]">Regulatory Standing:</span>
-                        <span className="font-bold text-slate-800">16+ Years Clean</span>
-                      </div>
-                    </div>
-                    <div className="pt-1 border-t border-blue-200/50 flex items-center justify-between text-[11px]">
-                      <span className="text-slate-500 font-medium">Composite Fiduciary Brokerage</span>
-                      <span className="text-blue-700 font-bold flex items-center gap-1">
-                        <BadgeCheck className="w-3.5 h-3.5 text-blue-600" /> 100% Unbiased
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Free 360° Forensic Policy Audit Mini Card */}
-                  <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-blue-500/10 border border-emerald-400/40 flex items-center justify-between gap-3">
-                    <div className="space-y-0.5">
-                      <p className="text-xs font-black text-slate-900 flex items-center gap-1">
-                        <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" /> Free 360° Policy Health Audit
+                      <p className="text-[10px] sm:text-[11px] text-white/70 font-semibold truncate">
+                        {stat.label}
                       </p>
-                      <p className="text-[11px] text-slate-600">Identify hidden room-rent caps, copays & low cover</p>
+                      <p className="text-sm sm:text-base font-extrabold text-white mt-0.5 truncate">
+                        {stat.value}
+                      </p>
                     </div>
+                  ))}
+                </div>
+
+                {/* Carousel Slider Navigation Controls */}
+                <div className="flex items-center gap-4 pt-2">
+                  <div className="flex items-center gap-2">
                     <button
-                      onClick={() => setIsAuditModalOpen(true)}
-                      className="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs shrink-0 transition-all hover:scale-105 active:scale-95 shadow-xs cursor-pointer"
+                      onClick={() => setHeroSlideIndex((prev) => (prev - 1 + SBI_HERO_SLIDES.length) % SBI_HERO_SLIDES.length)}
+                      className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/25 text-white flex items-center justify-center transition active:scale-90 cursor-pointer"
+                      title="Previous Slide"
+                      aria-label="Previous Slide"
                     >
-                      Audit Now
+                      <ChevronLeft className="w-5 h-5" />
                     </button>
+                    <button
+                      onClick={() => setHeroSlideIndex((prev) => (prev + 1) % SBI_HERO_SLIDES.length)}
+                      className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/25 text-white flex items-center justify-center transition active:scale-90 cursor-pointer"
+                      title="Next Slide"
+                      aria-label="Next Slide"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* Indicator Pills */}
+                  <div className="flex items-center gap-2">
+                    {SBI_HERO_SLIDES.map((slide, idx) => (
+                      <button
+                        key={slide.id}
+                        onClick={() => setHeroSlideIndex(idx)}
+                        className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                          idx === heroSlideIndex
+                            ? 'w-8 bg-[#00A3E0] shadow-md shadow-cyan-400/50'
+                            : 'w-2.5 bg-white/40 hover:bg-white/60'
+                        }`}
+                        title={`Slide ${idx + 1}`}
+                        aria-label={`Slide ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <span className="text-xs text-white/60 font-mono">
+                    0{heroSlideIndex + 1} / 0{SBI_HERO_SLIDES.length}
+                  </span>
+                </div>
+              </div>
+
+              {/* Right Column: Multi-Layer Glassmorphic Quick Quote & Advisor Card */}
+              <div className="lg:col-span-5 relative">
+                <div className="glass-surface">
+                  {/* Glass Visual Layers */}
+                  <div className="glass-layer-effect" />
+                  <div className="glass-layer-tint" />
+                  <div className="glass-layer-shine" />
+
+                  {/* Glass Inner Content */}
+                  <div className="glass-inner p-6 sm:p-7 space-y-5">
+                    
+                    {/* Header: Advisor Photo & SBI Life Certification */}
+                    <div className="flex items-center gap-3.5 pb-2 border-b border-slate-200/60">
+                      <div className="relative shrink-0">
+                        <img
+                          src={profile.avatarUrl || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'}
+                          alt={advisorName}
+                          className="w-14 h-14 rounded-2xl object-cover border-2 border-[#2B1F6B] shadow-md"
+                        />
+                        <span className="absolute -bottom-1 -right-1 bg-emerald-600 text-white p-0.5 rounded-full border border-white">
+                          <CheckCircle2 className="w-3 h-3" />
+                        </span>
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <h2 className="text-base font-black text-slate-900 truncate ocb-font-serif">
+                            {advisorName}
+                          </h2>
+                          <span className="px-2 py-0.5 rounded-full text-[9px] font-black sbi-badge-magenta shrink-0">
+                            SBI Life
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-[#2B1F6B] font-bold truncate">
+                          {advisorDesignation}
+                        </p>
+                        <p className="text-[10px] text-slate-500 font-medium truncate">
+                          IRDAI Regn: {irdaNumber}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Quick Quote Estimator Title */}
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black uppercase tracking-wider text-[#2B1F6B] flex items-center gap-1">
+                          <Calculator className="w-3.5 h-3.5 text-[#00A3E0]" /> Instant Premium Quote
+                        </span>
+                        <span className="text-[10px] font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                          100% Free
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500">
+                        Select insurance goal to calculate custom quote:
+                      </p>
+                    </div>
+
+                    {/* Category Selector Tabs */}
+                    <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-100/90 border border-slate-200/80">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setQuickQuoteCategory('term');
+                          setQuickQuoteCover('₹1 Crore');
+                        }}
+                        className={`py-1.5 px-2 rounded-lg text-[11px] font-extrabold transition-all cursor-pointer ${
+                          quickQuoteCategory === 'term'
+                            ? 'bg-white text-[#2B1F6B] shadow-xs border border-slate-200'
+                            : 'text-slate-600 hover:text-slate-900'
+                        }`}
+                      >
+                        Term Life
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setQuickQuoteCategory('savings');
+                          setQuickQuoteCover('₹10,000/mo');
+                        }}
+                        className={`py-1.5 px-2 rounded-lg text-[11px] font-extrabold transition-all cursor-pointer ${
+                          quickQuoteCategory === 'savings'
+                            ? 'bg-white text-[#2B1F6B] shadow-xs border border-slate-200'
+                            : 'text-slate-600 hover:text-slate-900'
+                        }`}
+                      >
+                        Savings
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setQuickQuoteCategory('retire');
+                          setQuickQuoteCover('₹15,000/mo');
+                        }}
+                        className={`py-1.5 px-2 rounded-lg text-[11px] font-extrabold transition-all cursor-pointer ${
+                          quickQuoteCategory === 'retire'
+                            ? 'bg-white text-[#2B1F6B] shadow-xs border border-slate-200'
+                            : 'text-slate-600 hover:text-slate-900'
+                        }`}
+                      >
+                        Retirement
+                      </button>
+                    </div>
+
+                    {/* Form Controls */}
+                    <div className="space-y-3">
+                      <div>
+                        <div className="flex justify-between items-center text-xs mb-1">
+                          <label className="font-bold text-slate-700">Your Current Age</label>
+                          <span className="font-bold text-[#2B1F6B] bg-purple-50 px-2 py-0.5 rounded border border-purple-200 text-xs">
+                            {quickQuoteAge} Years
+                          </span>
+                        </div>
+                        <input
+                          type="range"
+                          min="18"
+                          max="60"
+                          value={quickQuoteAge}
+                          onChange={(e) => setQuickQuoteAge(Number(e.target.value))}
+                          className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2B1F6B]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          {quickQuoteCategory === 'term' ? 'Target Life Cover' : 'Monthly Investment Budget'}
+                        </label>
+                        <select
+                          value={quickQuoteCover}
+                          onChange={(e) => setQuickQuoteCover(e.target.value)}
+                          className="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#2B1F6B]"
+                        >
+                          {quickQuoteCategory === 'term' ? (
+                            <>
+                              <option value="₹50 Lakhs">₹50 Lakhs Life Cover</option>
+                              <option value="₹1 Crore">₹1 Crore High Sum Assured (Popular)</option>
+                              <option value="₹2 Crores">₹2 Crores Comprehensive Cover</option>
+                              <option value="₹5 Crores">₹5 Crores Max Estate Protection</option>
+                            </>
+                          ) : quickQuoteCategory === 'savings' ? (
+                            <>
+                              <option value="₹5,000/mo">₹5,000 / month (~₹60,000/yr)</option>
+                              <option value="₹10,000/mo">₹10,000 / month (Guaranteed Regular Income)</option>
+                              <option value="₹25,000/mo">₹25,000 / month (Wealth Compounder)</option>
+                              <option value="₹50,000/mo">₹50,000 / month (High Networth Portfolio)</option>
+                            </>
+                          ) : (
+                            <>
+                              <option value="₹10,000/mo">₹10,000 / month (Early Pension)</option>
+                              <option value="₹15,000/mo">₹15,000 / month (Comfortable Golden Years)</option>
+                              <option value="₹30,000/mo">₹30,000 / month (Luxury Pension Corpus)</option>
+                            </>
+                          )}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          Your Mobile Number (Optional for Instant WhatsApp Quote)
+                        </label>
+                        <input
+                          type="tel"
+                          placeholder="e.g. 98765 43210"
+                          value={quickQuoteMobile}
+                          onChange={(e) => setQuickQuoteMobile(e.target.value)}
+                          className="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#2B1F6B]"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Instant WhatsApp Quote Button */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        trackAction('hero_quick_quote_whatsapp');
+                        const catLabel = quickQuoteCategory === 'term' ? 'SBI Life Term Protection (eShield Insta)' : quickQuoteCategory === 'savings' ? 'SBI Life Guaranteed Savings (Smart Platina Plus)' : 'SBI Life Retirement (Retire Smart)';
+                        const msg = `Hello ${advisorName}! 👋\n\nI want an official SBI Life quote from your OneClickBiz portal:\n\n• *Category:* ${catLabel}\n• *My Age:* ${quickQuoteAge} Years\n• *Selected Cover/Budget:* ${quickQuoteCover}\n${quickQuoteMobile ? `• *Contact Mobile:* ${quickQuoteMobile}\n` : ''}\nPlease share the customized quote and official policy brochure. Thank you!`;
+                        window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+                      }}
+                      className="w-full py-3 px-4 rounded-xl sbi-btn-primary font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+                    >
+                      <MessageCircle className="w-4 h-4 fill-white" />
+                      <span>Get Instant Quote on WhatsApp</span>
+                    </button>
+
+                    {/* Direct Contact Desk with Original Brand Logos */}
+                    <div className="pt-2 space-y-2 border-t border-slate-200/60">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-black uppercase tracking-wider text-[#2B1F6B] flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-[#00A3E0]" /> Direct Contact Desk
+                        </span>
+                        <span className="text-[10px] font-bold text-slate-500">
+                          TAT &lt; 15 mins
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-1.5">
+                        <a
+                          href={socialLinks.whatsapp}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => trackAction('hero_contact_whatsapp')}
+                          className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-emerald-50 border border-emerald-400/40 text-[11px] font-bold text-slate-800 flex items-center gap-1.5 transition shadow-2xs hover:scale-102"
+                          title="WhatsApp Advisor"
+                        >
+                          <SocialIcon platform="whatsapp" size={14} colored={true} />
+                          <span>WhatsApp</span>
+                        </a>
+
+                        <a
+                          href={socialLinks.phone}
+                          onClick={() => trackAction('hero_contact_call')}
+                          className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-sky-50 border border-sky-400/40 text-[11px] font-bold text-slate-800 flex items-center gap-1.5 transition shadow-2xs hover:scale-102"
+                          title={`Call ${phoneDisplay}`}
+                        >
+                          <div className="w-3.5 h-3.5 rounded-full bg-sky-500 text-white flex items-center justify-center shrink-0">
+                            <Phone className="w-2 h-2 fill-white text-white" />
+                          </div>
+                          <span>Call {phoneDisplay}</span>
+                        </a>
+
+                        <a
+                          href={socialLinks.email}
+                          onClick={() => trackAction('hero_contact_email')}
+                          className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-red-50 border border-red-400/40 text-[11px] font-bold text-slate-800 flex items-center gap-1.5 transition shadow-2xs hover:scale-102"
+                          title="Email Desk"
+                        >
+                          <SocialIcon platform="mail" size={14} colored={true} />
+                          <span>Email</span>
+                        </a>
+
+                        <a
+                          href={socialLinks.maps}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => trackAction('hero_contact_maps')}
+                          className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-amber-50 border border-amber-400/40 text-[11px] font-bold text-slate-800 flex items-center gap-1.5 transition shadow-2xs hover:scale-102"
+                          title="Office Map"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="shrink-0">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335" />
+                            <circle cx="12" cy="9" r="2.5" fill="#FFFFFF" />
+                          </svg>
+                          <span>Office Map</span>
+                        </a>
+
+                        <a
+                          href={socialLinks.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => trackAction('hero_contact_web')}
+                          className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-purple-50 border border-purple-400/40 text-[11px] font-bold text-slate-800 flex items-center gap-1.5 transition shadow-2xs hover:scale-102"
+                          title="Portal"
+                        >
+                          <SocialIcon platform="website" size={14} colored={true} />
+                          <span>Portal</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Social Media Channels Strip with Original Logos */}
+                    <div className="pt-1 flex items-center justify-between border-t border-slate-200/50 text-[10px] text-slate-500">
+                      <span className="font-bold text-slate-600">Verified Channels:</span>
+                      <div className="flex items-center gap-2">
+                        <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn" className="hover:scale-115 transition">
+                          <SocialIcon platform="linkedin" size={15} colored={true} />
+                        </a>
+                        <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" title="YouTube" className="hover:scale-115 transition">
+                          <SocialIcon platform="youtube" size={15} colored={true} />
+                        </a>
+                        <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" title="Instagram" className="hover:scale-115 transition">
+                          <SocialIcon platform="instagram" size={15} colored={true} />
+                        </a>
+                        <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" title="X (Twitter)" className="hover:scale-115 transition">
+                          <SocialIcon platform="twitter" size={15} colored={true} />
+                        </a>
+                        <a href={socialLinks.telegram} target="_blank" rel="noopener noreferrer" title="Telegram VIP" className="hover:scale-115 transition">
+                          <SocialIcon platform="telegram" size={15} colored={true} />
+                        </a>
+                        <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" title="Facebook" className="hover:scale-115 transition">
+                          <SocialIcon platform="facebook" size={15} colored={true} />
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* 3.2 SBI LIFE STAGE-OF-LIFE CARDS: WITH YOU FOR EVERY POSSIBILITY */}
+      {/* ============================================================== */}
+      <section id="stages" className="py-16 sm:py-20 relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full sbi-badge-magenta text-xs font-black uppercase tracking-wider shadow-sm">
+            <Sparkles className="w-3.5 h-3.5" />
+            Apne Liye. Apno Ke Liye.
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight ocb-font-serif">
+            With you. For every responsibility. <span className="text-[#2B1F6B]">For every possibility.</span>
+          </h2>
+          <p className="text-sm sm:text-base text-slate-600 font-medium">
+            Discover tailored SBI Life solutions built to protect family security, guarantee recurring wealth, support Ivy-League education, and safeguard peaceful golden years.
+          </p>
+        </div>
+
+        {/* 6 Stage of Life Glassmorphic Cards Grid with Real Photos */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+          {SBI_STAGE_CARDS.map((card) => (
+            <div
+              key={card.id}
+              className="glass-surface group flex flex-col justify-between"
+            >
+              {/* Glass Layers */}
+              <div className="glass-layer-effect" />
+              <div className="glass-layer-tint" />
+              <div className="glass-layer-shine" />
+
+              {/* Card Photo Banner */}
+              <div className="relative h-48 overflow-hidden z-10">
+                <img
+                  src={card.photo}
+                  alt={card.title}
+                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/25 to-transparent" />
+                <span className="absolute top-3 right-3 sbi-badge-magenta text-[10px] font-black uppercase px-2.5 py-1 rounded-full shadow-md">
+                  {card.badge}
+                </span>
+                <div className="absolute bottom-3 left-3 text-white">
+                  <span className="text-[10px] font-bold text-white/80 uppercase tracking-wider block">
+                    {card.subtitle}
+                  </span>
+                  <h3 className="text-lg font-black text-white ocb-font-serif leading-tight">
+                    {card.title}
+                  </h3>
+                </div>
+              </div>
+
+              {/* Card Inner Content */}
+              <div className="glass-inner p-5 space-y-4 flex-1 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    {card.description}
+                  </p>
+
+                  {/* Flagship Recommendation Pill */}
+                  <div className="p-3 rounded-xl bg-purple-50/70 border border-purple-200/70 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-purple-900/70 font-semibold block">Flagship Plan</span>
+                      <span className="text-xs font-black text-[#2B1F6B]">{card.keyProduct}</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[10px] text-purple-900/70 font-semibold block">Starting At</span>
+                      <span className="text-xs font-black text-emerald-700">{card.startingPremium}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card Actions */}
+                <div className="pt-2 flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      trackAction(`stage_quote_${card.id}`);
+                      const msg = `Hello ${advisorName}! 👋\n\nI am interested in SBI Life *${card.title}* (${card.keyProduct}).\n\nPlease share customized quotes, tax benefits, and policy details for my family. Thank you!`;
+                      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+                    }}
+                    className="flex-1 py-2.5 px-3 rounded-xl sbi-btn-primary font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-sm"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                    <span>Get Quote</span>
+                  </button>
+
+                  <a
+                    href="#calculator"
+                    onClick={() => {
+                      if (card.id === 'term') setActiveTab('term');
+                      else if (card.id === 'savings' || card.id === 'ulip') setActiveTab('term');
+                      else if (card.id === 'retirement') setActiveTab('retire');
+                      else if (card.id === 'child') setActiveTab('child');
+                      else if (card.id === 'health') setActiveTab('health');
+                    }}
+                    className="py-2.5 px-3 rounded-xl sbi-btn-secondary font-bold text-xs flex items-center justify-center transition-all cursor-pointer"
+                    title="Calculate in Interactive Tool"
+                  >
+                    <Calculator className="w-3.5 h-3.5 text-[#2B1F6B]" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -2016,32 +2483,33 @@ export default function InsuranceTemplateView({
       </section>
 
       {/* ============================================================== */}
-      {/* 5. CURATED PLANS & PRODUCTS PORTFOLIO                          */}
+      {/* 5. SBI LIFE FLAGSHIP PLANS & PRODUCTS PORTFOLIO                */}
       {/* ============================================================== */}
       <section id="plans" className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-b border-slate-200/80">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <span className="text-xs font-extrabold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 px-3.5 py-1 rounded-full inline-block mb-2">
-              Curated Policy Portfolio
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight ocb-font-serif">
-              Comprehensive Protection Plans
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full sbi-badge-magenta text-xs font-black uppercase tracking-wider mb-2 shadow-xs">
+              <Shield className="w-3.5 h-3.5" />
+              Flagship SBI Life Portfolio
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight ocb-font-serif">
+              Our Recommended <span className="text-[#2B1F6B]">Insurance Solutions</span>
             </h2>
             <p className="text-sm text-slate-600 mt-1 font-medium">
-              Carefully vetted for high claim-settlement ratios, zero-capping terms, and rapid cashless approvals.
+              Authentic SBI Life plans vetted for rapid claim turnaround, guaranteed annual payouts, and maximum tax savings.
             </p>
           </div>
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-white border border-slate-200 shadow-xs">
-            {['All', 'Term Life', 'Health', 'Super Top-Up', 'Retirement', 'Child', 'Motor'].map(cat => (
+          <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-white/80 backdrop-blur-md border border-slate-200 shadow-xs">
+            {['All', 'Term Life', 'Savings', 'Retirement', 'Child', 'Health', 'ULIP'].map(cat => (
               <button
                 key={cat}
                 onClick={() => setSelectedPlanCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   selectedPlanCategory === cat
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    ? 'sbi-btn-primary shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
                 }`}
               >
                 {cat}
@@ -2050,81 +2518,105 @@ export default function InsuranceTemplateView({
           </div>
         </div>
 
-        {/* Plan Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Plan Cards Grid with Real Photos & SBI Life Glassmorphism */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {filteredPlans.map(plan => (
             <div
               key={plan.id}
-              className={`rounded-2xl p-6 bg-white border transition-all duration-300 flex flex-col justify-between hover:border-blue-500 hover:shadow-xl relative ${
-                plan.popular ? 'border-blue-400 shadow-md ring-1 ring-blue-400/30' : 'border-slate-200 shadow-xs'
-              }`}
+              className="glass-surface group flex flex-col justify-between"
             >
-              {plan.popular && (
-                <span className="absolute -top-3 right-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-md tracking-wider">
-                  Top Recommended
-                </span>
-              )}
+              {/* Glass Layers */}
+              <div className="glass-layer-effect" />
+              <div className="glass-layer-tint" />
+              <div className="glass-layer-shine" />
 
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wider">
-                    {plan.category}
-                  </span>
-                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
+              {/* Card Photo Banner */}
+              <div className="relative h-44 overflow-hidden z-10">
+                <img
+                  src={plan.photoUrl || 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80'}
+                  alt={plan.title}
+                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/30 to-transparent" />
+                
+                {/* Badges on Banner */}
+                <div className="absolute top-3 inset-x-3 flex items-center justify-between">
+                  <span className="sbi-badge-magenta text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full shadow-md">
                     {plan.tag}
                   </span>
+                  <span className="bg-slate-900/80 backdrop-blur-md text-white/90 text-[10px] font-mono font-bold px-2 py-0.5 rounded border border-white/20">
+                    UIN: {plan.uin}
+                  </span>
                 </div>
 
-                <div>
-                  <h3 className="text-lg font-bold text-slate-900 leading-snug ocb-font-serif">{plan.title}</h3>
-                  <p className="text-xs text-slate-500 mt-1 flex items-center gap-1 font-medium">
-                    <Building2 className="w-3.5 h-3.5 text-blue-600" />
-                    {plan.insurer}
-                  </p>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] text-slate-500 font-semibold">Cover Amount</span>
-                    <p className="text-sm font-extrabold text-slate-900 font-mono">{plan.sumAssured}</p>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-[10px] text-slate-500 font-semibold">Starting At</span>
-                    <p className="text-sm font-extrabold text-emerald-600 font-mono">₹{plan.startingPremium.toLocaleString()}/mo</p>
-                  </div>
-                </div>
-
-                <div className="space-y-2 pt-1">
-                  {plan.features.map((feat, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-slate-600">
-                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5 font-bold" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
+                <div className="absolute bottom-3 left-3 right-3 text-white">
+                  <span className="text-[10px] font-bold text-[#FFB81C] uppercase tracking-wider block">
+                    {plan.category}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-black text-white ocb-font-serif leading-tight truncate">
+                    {plan.title}
+                  </h3>
                 </div>
               </div>
 
-              {/* Card Footer Actions */}
-              <div className="pt-6 mt-6 border-t border-slate-200 flex items-center gap-2">
-                <button
-                  onClick={() => handlePlanWhatsAppInquiry(plan)}
-                  className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-md shadow-blue-600/20"
-                >
-                  <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Get Custom Quote</span>
-                </button>
+              {/* Card Body */}
+              <div className="glass-inner p-5 space-y-4 flex-1 flex flex-col justify-between">
+                <div className="space-y-3.5">
+                  <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
+                    <span className="flex items-center gap-1 text-[#2B1F6B] font-bold">
+                      <Building2 className="w-3.5 h-3.5" />
+                      {plan.insurer}
+                    </span>
+                    <span className="text-[11px] font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+                      Sec 80C & 10(10D)
+                    </span>
+                  </div>
 
-                <button
-                  onClick={() => {
-                    trackAction(`plan_brochure_${plan.id}`);
-                    const msg = `Hello ${advisorName}! 👋 Please send me the official policy brochure (PDF) for *${plan.title}*. Thank you!`;
-                    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
-                  }}
-                  className="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors cursor-pointer border border-slate-200"
-                  title="Request PDF Brochure via WhatsApp"
-                >
-                  <FileText className="w-4 h-4 text-blue-600" />
-                </button>
+                  {/* Cover & Starting Premium Tile */}
+                  <div className="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200/70 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-purple-900/70 font-semibold block">Sum Assured / Target</span>
+                      <p className="text-sm font-black text-slate-900 font-mono">{plan.sumAssured}</p>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[10px] text-purple-900/70 font-semibold block">Starting Premium</span>
+                      <p className="text-sm font-black text-emerald-700 font-mono">₹{plan.startingPremium.toLocaleString()}/mo</p>
+                    </div>
+                  </div>
+
+                  {/* Feature Checkpoints */}
+                  <div className="space-y-2 pt-1">
+                    {plan.features.map((feat, i) => (
+                      <div key={i} className="flex items-start gap-2 text-xs text-slate-600">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5 font-bold" />
+                        <span className="leading-snug">{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Card Footer Actions */}
+                <div className="pt-4 border-t border-slate-200/60 flex items-center gap-2">
+                  <button
+                    onClick={() => handlePlanWhatsAppInquiry(plan)}
+                    className="flex-1 py-2.5 px-3 rounded-xl sbi-btn-primary font-black text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-sm"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                    <span>Get Custom Quote</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      trackAction(`plan_brochure_${plan.id}`);
+                      const msg = `Hello ${advisorName}! 👋 Please send me the official SBI Life policy brochure (PDF) for *${plan.title}* (UIN: ${plan.uin}). Thank you!`;
+                      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+                    }}
+                    className="p-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 transition-colors cursor-pointer border border-slate-200 shadow-2xs"
+                    title="Request PDF Brochure via WhatsApp"
+                  >
+                    <FileText className="w-4 h-4 text-[#2B1F6B]" />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -2535,14 +3027,14 @@ export default function InsuranceTemplateView({
               </p>
               <div className="pt-2 text-[11px] text-slate-500 space-y-1">
                 <p>IRDAI License Registration: <span className="font-mono text-slate-300">{irdaNumber}</span></p>
-                <p>Agency Code: <span className="font-mono text-slate-300">AGN-SUR-984102</span></p>
+                <p>Agency Code: <span className="font-mono text-slate-300">SBI-AGN-849102</span></p>
               </div>
             </div>
 
             <div className="space-y-2">
               <p className="text-white font-bold text-sm">Direct Contacts</p>
               <p><a href={`tel:${phoneDisplay}`} className="hover:text-blue-400 transition-colors font-mono">{phoneDisplay}</a></p>
-              <p><a href={`mailto:${profile.email || 'rajesh.sengupta@surakshainsurance.in'}`} className="hover:text-blue-400 transition-colors font-mono">{profile.email || 'rajesh.sengupta@surakshainsurance.in'}</a></p>
+              <p><a href={`mailto:${profile.email || 'rajesh.sengupta@sbilife-advisory.in'}`} className="hover:text-blue-400 transition-colors font-mono">{profile.email || 'rajesh.sengupta@sbilife-advisory.in'}</a></p>
               <p className="text-slate-400">{profile.address || 'BKC, Mumbai & Hitec City, Hyderabad, India'}</p>
             </div>
 

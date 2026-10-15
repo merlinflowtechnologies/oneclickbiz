@@ -524,10 +524,10 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
   // ========================================================
   'prof-insurance': {
     name: 'Rajesh Sengupta',
-    designation: 'MDRT Life Member | Senior Insurance & Wealth Security Advisor',
-    company: 'Suraksha Life & Health Insurance Advisory',
-    bio: 'IRDAI Certified Financial Security Strategist & MDRT USA Life Member with 16+ years of dedicated service. Empowering 4,500+ Indian families and NRI professionals with custom Term Life, Comprehensive Mediclaim, Critical Illness, and Guaranteed Retirement Security with 24/7 priority cashless claim settlement.',
-    theme: 'dark-onyx',
+    designation: 'MDRT Life Member | Senior SBI Life Insurance Advisor',
+    company: 'SBI Life Insurance Advisory & Wealth Security',
+    bio: 'IRDAI Certified Partner (Regn. No. 111) & MDRT USA Life Member. Apne Liye. Apno Ke Liye. Empowering 4,500+ Indian families and NRI professionals with SBI Life eShield Insta, Smart Platina Plus, Retire Smart, and 24/7 dedicated cashless hospital claim settlement.',
+    theme: 'azure',
     avatarUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80',
     coverUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
     email: 'rajesh.sengupta@surakshainsurance.in',
