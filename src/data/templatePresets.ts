@@ -520,6 +520,57 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
   },
 
   // ========================================================
+  // 🛡️ INSURANCE ADVISOR & FINANCIAL SECURITY ADVISORY
+  // ========================================================
+  'prof-insurance': {
+    name: 'Rajesh Sengupta',
+    designation: 'MDRT Life Member | Senior Insurance & Wealth Security Advisor',
+    company: 'Suraksha Life & Health Insurance Advisory',
+    bio: 'IRDAI Certified Financial Security Strategist & MDRT USA Life Member with 16+ years of dedicated service. Empowering 4,500+ Indian families and NRI professionals with custom Term Life, Comprehensive Mediclaim, Critical Illness, and Guaranteed Retirement Security with 24/7 priority cashless claim settlement.',
+    theme: 'dark-onyx',
+    avatarUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
+    email: 'rajesh.sengupta@surakshainsurance.in',
+    phone: '+91 98765 24321',
+    whatsapp: '919876524321',
+    website: 'https://oneclickbiz.in/v/prof-insurance',
+    address: 'Level 5, Financial City Centre, BKC, Mumbai & Hitec City, Hyderabad, India',
+    services: [
+      { id: 's_ins_1', title: '1-on-1 Comprehensive Insurance Portfolio Audit', description: 'Zero-bias forensic review of your existing policies to detect hidden room rent capping, sub-limits, or insufficient life cover.', durationMinutes: 45, price: 0, currency: '₹' },
+      { id: 's_ins_2', title: 'Emergency 24x7 Cashless Hospital Claim Assistance', description: 'Dedicated personal claim desk assistance for immediate cashless TPA approval at 14,500+ network hospitals.', durationMinutes: 30, price: 0, currency: '₹' },
+      { id: 's_ins_3', title: 'NRI Life & Health Protection Advisory', description: 'Tailored high-cover term life policies (up to ₹10 Cr) with video medical tests and full FEMA compliance for NRIs worldwide.', durationMinutes: 60, price: 0, currency: '₹' },
+      { id: 's_ins_4', title: 'Corporate Group Health & Keyman Insurance Planning', description: 'Comprehensive group mediclaim with maternal & OPD perks for corporate employees, founders, and directors.', durationMinutes: 60, price: 0, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_ins_1', name: 'Comprehensive Family Health Mediclaim (₹1 Crore Cover)', description: 'Zero room-rent capping, unlimited restoration of sum insured, Day-1 OPD coverage, and cashless treatment across 14,500+ hospitals.', price: 12500, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80', category: 'Health Insurance', isAvailable: true },
+      { id: 'p_ins_2', name: 'Pure Term Life Protection Plan (₹2 Crore Cover)', description: '99.5% claim settlement ratio with critical illness rider, accidental death booster, and 100% tax exemption under Section 80C.', price: 9800, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80', category: 'Life Insurance', isAvailable: true },
+      { id: 'p_ins_3', name: 'Super Top-Up Health Shield (₹90 Lakhs Cover with ₹10L Deductible)', description: 'Affordable safeguard against catastrophic hospitalization costs at just ~₹12/day. Bridges the gap above your employer base policy.', price: 4200, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80', category: 'Health Insurance', isAvailable: true },
+      { id: 'p_ins_4', name: 'Guaranteed Lifelong Pension & Annuity Plan', description: 'Lock in guaranteed high annual pension for life backed by Sovereign Gold guarantees, with 100% return of purchase price to nominees.', price: 25000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=600&q=80', category: 'Retirement', isAvailable: true },
+      { id: 'p_ins_5', name: 'Child Higher Education & Ivy League Growth Fund', description: 'Guaranteed capital payout timed with your child’s university graduation and overseas master’s degree admission.', price: 18000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80', category: 'Child Plans', isAvailable: true },
+      { id: 'p_ins_6', name: 'Motor & Car Comprehensive Zero-Dep Insurance', description: 'Bumper-to-bumper zero depreciation cover with engine protection, roadside assistance, and instant digital cashless claim survey.', price: 7500, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80', category: 'Motor Insurance', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_ins_1', imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80', title: 'MDRT Global Financial Security Summit Award', category: 'Accolades' },
+      { id: 'g_ins_2', imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80', title: 'Advisory Office Headquarters at BKC Mumbai', category: 'Headquarters' },
+      { id: 'g_ins_3', imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80', title: '14,500+ Cashless Hospital Network Collaboration', category: 'Network' },
+      { id: 'g_ins_4', imageUrl: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80', title: 'Corporate Financial Wellness & Pension Workshop', category: 'Workshops' }
+    ],
+    testimonials: [
+      { id: 't_ins_1', clientName: 'Amitabh & Priya Saxena', clientRole: 'Vice President, J.P. Morgan, Mumbai', content: 'When my father required an emergency cardiac bypass at Narayana Health, Rajesh stepped in personally. The ₹11.8 Lakhs cashless claim was cleared in under 75 minutes. His guidance is truly priceless.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_ins_2', clientName: 'Dr. Sunita Kulkarni', clientRole: 'Chief Pediatric Surgeon, Hyderabad', content: 'Rajesh audited my old insurance policies and showed me that my previous policy had a 1% room rent capping that would have cost me lakhs! We upgraded to a 1 Cr zero-deductible cover seamlessly.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_ins_3', clientName: 'Rohan Mehra', clientRole: 'NRI Tech Lead, Silicon Valley, USA', content: 'Securing a ₹5 Crore term life cover while living abroad was completely painless. Rajesh coordinated the entire online video medical tests and documentation within 48 hours.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_ins_wa', platform: 'whatsapp', url: 'https://wa.me/919876524321', label: 'Priority WhatsApp Desk' },
+      { id: 'soc_ins_ph', platform: 'phone', url: 'tel:+919876524321', label: '24/7 Claim Hotline' },
+      { id: 'soc_ins_em', platform: 'email', url: 'mailto:rajesh.sengupta@surakshainsurance.in', label: 'Official Advisory Email' },
+      { id: 'soc_ins_li', platform: 'linkedin', url: 'https://linkedin.com/in/rajesh-sengupta-mdrt', label: 'LinkedIn Profile' },
+      { id: 'soc_ins_yt', platform: 'youtube', url: 'https://youtube.com/@surakshainsurance', label: 'Insurance Awareness Channel' },
+      { id: 'soc_ins_map', platform: 'maps', url: 'https://maps.google.com/?q=Bandra+Kurla+Complex+Mumbai', label: 'Office Directions' }
+    ]
+  },
+
+  // ========================================================
   // 2. 💻 SOFTWARE ENGINEER & TECH PORTFOLIO
   // ========================================================
   'tech-portfolio': {
@@ -1051,6 +1102,11 @@ TEMPLATE_PRESETS_DATA['fash-ladies'] = TEMPLATE_PRESETS_DATA['fash-boutique'];
 TEMPLATE_PRESETS_DATA['fash-mens'] = TEMPLATE_PRESETS_DATA['fash-boutique'];
 TEMPLATE_PRESETS_DATA['fash-saree'] = TEMPLATE_PRESETS_DATA['fash-boutique'];
 TEMPLATE_PRESETS_DATA['fash-online'] = TEMPLATE_PRESETS_DATA['fash-boutique'];
+
+TEMPLATE_PRESETS_DATA['insurance'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
+TEMPLATE_PRESETS_DATA['mediclaim'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
+TEMPLATE_PRESETS_DATA['insurance-advisor'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
+
 
 
 /**

@@ -111,11 +111,12 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
         const heroConfig = (reconstructedSectionData as any).hero || {};
         const isFoodSlug = cleanSlug.startsWith('food-') || cleanSlug.includes('restaurant') || cleanSlug.includes('dining') || cleanSlug.includes('brahmin');
         const isFashionSlug = cleanSlug.startsWith('fash-') || cleanSlug.startsWith('fashion-') || cleanSlug.includes('boutique') || cleanSlug.includes('couture') || cleanSlug.includes('tailor') || cleanSlug.includes('apparel');
-        const resolvedTemplateId = heroConfig.templateId || (dbProfile as any).templateId || fallback.templateId || (isFoodSlug ? 'food-restaurant' : isFashionSlug ? 'fash-boutique' : cleanSlug.startsWith('re-') ? 're-builders' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'home-interior' : undefined);
-        const resolvedCategory = heroConfig.category || (dbProfile as any).category || fallback.category || (isFoodSlug ? 'Food Business' : isFashionSlug ? 'Fashion & Clothing' : cleanSlug.startsWith('re-') ? 'Real Estate' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'Interior Design' : undefined);
+        const isInsuranceSlug = cleanSlug === 'prof-insurance' || cleanSlug === 'insurance' || cleanSlug === 'mediclaim' || cleanSlug.startsWith('insurance-') || cleanSlug.includes('insurance');
+        const resolvedTemplateId = heroConfig.templateId || (dbProfile as any).templateId || fallback.templateId || (isFoodSlug ? 'food-restaurant' : isFashionSlug ? 'fash-boutique' : isInsuranceSlug ? 'prof-insurance' : cleanSlug.startsWith('re-') ? 're-builders' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'home-interior' : undefined);
+        const resolvedCategory = heroConfig.category || (dbProfile as any).category || fallback.category || (isFoodSlug ? 'Food Business' : isFashionSlug ? 'Fashion & Clothing' : isInsuranceSlug ? 'Professional Services' : cleanSlug.startsWith('re-') ? 'Real Estate' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'Interior Design' : undefined);
 
         // Ensure all industry-specific configs are accessible
-        const entityKeys = ['realEstate', 'interior', 'restaurant', 'healthcare', 'automobile', 'fashion', 'education', 'beauty', 'events', 'travel', 'professional', 'homeServices', 'retail'];
+        const entityKeys = ['realEstate', 'interior', 'restaurant', 'healthcare', 'automobile', 'fashion', 'education', 'beauty', 'events', 'travel', 'professional', 'homeServices', 'retail', 'insurance'];
         entityKeys.forEach(key => {
           if (heroConfig[key] && !reconstructedSectionData[key]) {
             reconstructedSectionData[key] = heroConfig[key];

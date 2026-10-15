@@ -358,6 +358,26 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     };
   }
 
+  // 3.6 Check if slug is insurance related
+  const isInsurancePattern = 
+    cleanSlug === 'prof-insurance' ||
+    cleanSlug === 'insurance' ||
+    cleanSlug === 'mediclaim' ||
+    cleanSlug === 'insurance-advisor' ||
+    cleanSlug.startsWith('insurance-') ||
+    cleanSlug.includes('insurance');
+
+  if (isInsurancePattern) {
+    const tProf = getTemplateProfile('prof-insurance');
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
   // 4. Check if slug matches any catalog template (by id or normalized name)
   const matchedTemplate = VCARD_TEMPLATES_CATALOG.find(
     t => t.id.toLowerCase() === cleanSlug || 

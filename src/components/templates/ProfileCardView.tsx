@@ -49,6 +49,7 @@ import DirectUPIPaymentModal from '@/components/common/DirectUPIPaymentModal';
 import MBLMiniWebsiteView from './MBLMiniWebsiteView';
 import RestaurantTemplateView from './RestaurantTemplateView';
 import FashionTemplateView from './FashionTemplateView';
+import InsuranceTemplateView from './InsuranceTemplateView';
 import RealEstateMiniWebsiteView from './RealEstateMiniWebsiteView';
 import InteriorMiniWebsiteView from './InteriorMiniWebsiteView';
 import HealthcareMiniWebsiteView from './HealthcareMiniWebsiteView';
@@ -961,6 +962,22 @@ export default function ProfileCardView({
     (profile as any).category === 'Fashion' ||
     (profile as any).category === 'Clothing & Boutiques';
 
+  const isInsuranceTemplate = Boolean(
+    profile.slug === 'prof-insurance' ||
+    profile.slug === 'insurance' ||
+    profile.slug === 'mediclaim' ||
+    profile.slug === 'insurance-advisor' ||
+    profile.slug?.startsWith('insurance-') ||
+    profile.slug?.includes('insurance') ||
+    profile.id === 'prof-insurance' ||
+    (profile as any).templateId === 'prof-insurance' ||
+    (profile as any).templateId?.includes('insurance') ||
+    (profile as any).subCategory?.toLowerCase().includes('insurance') ||
+    profile.designation?.toLowerCase().includes('insurance') ||
+    profile.company?.toLowerCase().includes('insurance') ||
+    Boolean(profile.sectionData?.insurance)
+  );
+
   const [cardOpenFaqId, setCardOpenFaqId] = useState<string | null>(null);
 
   const cardFaqs = isRestaurantTemplate ? [
@@ -1000,6 +1017,22 @@ export default function ProfileCardView({
       question: 'Do you offer worldwide DHL courier delivery?',
       answer: 'Yes! We ship across India within 2-4 days and deliver worldwide (USA, UK, UAE, Canada, Australia) in 5-7 business days with DHL express tracking.'
     }
+  ] : isInsuranceTemplate ? [
+    {
+      id: 'c-ins-1',
+      question: 'How do I request emergency cashless hospital admission assistance?',
+      answer: 'Tap the "Emergency Claim" or WhatsApp button on this card immediately upon hospital admission. Our dedicated advisory desk verifies policy coverage and contacts the hospital TPA desk directly to expedite cashless pre-authorization within 45-60 minutes.'
+    },
+    {
+      id: 'c-ins-2',
+      question: 'Can I get zero room rent capping on my family mediclaim?',
+      answer: 'Yes! All our recommended health plans feature zero room rent capping, protecting you from proportionate deduction penalties on doctor fees and OT charges.'
+    },
+    {
+      id: 'c-ins-3',
+      question: 'How do I save your advisor contact directly to my smartphone?',
+      answer: 'Tap "Save Contact (.VCF)" above to instantly download all direct phone numbers, emergency claim hotline, official email, and BKC/Hitec City office directions directly to your smartphone address book.'
+    }
   ] : [
     {
       id: 'c-gen-1',
@@ -1021,7 +1054,7 @@ export default function ProfileCardView({
           <div className="flex items-center gap-1.5 sm:gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
             <span className="text-[11px] sm:text-xs font-bold text-slate-800 bg-white/90 backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-full border border-slate-200 shadow-xs whitespace-nowrap">
-              {isFashionTemplate ? 'Smart Fashion Card' : isRestaurantTemplate ? 'Smart Dining Card' : 'Mobile Card'}
+              {isFashionTemplate ? 'Smart Fashion Card' : isRestaurantTemplate ? 'Smart Dining Card' : isInsuranceTemplate ? 'Smart Advisor Card' : 'Mobile Card'}
             </span>
           </div>
           <div className="flex items-center gap-1 p-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md">
@@ -1030,14 +1063,14 @@ export default function ProfileCardView({
               className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100 cursor-pointer"
             >
               <Globe className="w-3.5 h-3.5 shrink-0" />
-              <span>{isFashionTemplate ? 'Fashion Mall Website' : isRestaurantTemplate ? 'Dining Website' : 'Mini-Website'}</span>
+              <span>{isFashionTemplate ? 'Fashion Mall Website' : isRestaurantTemplate ? 'Dining Website' : isInsuranceTemplate ? 'Insurance Advisory Website' : 'Mini-Website'}</span>
             </button>
             <button
               onClick={() => setViewMode('mobile')}
               className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all bg-black text-white shadow-sm cursor-pointer"
             >
               <Smartphone className="w-3.5 h-3.5 shrink-0" />
-              <span>{isFashionTemplate ? 'Fashion Card' : 'Card'}</span>
+              <span>{isFashionTemplate ? 'Fashion Card' : isInsuranceTemplate ? 'Advisor Card' : 'Card'}</span>
             </button>
           </div>
         </div>
@@ -1080,6 +1113,40 @@ export default function ProfileCardView({
         />
       ) : isFashionTemplate && isWebsiteMode ? (
         <FashionTemplateView
+          profile={profile}
+          cart={cart}
+          addToCart={addToCart}
+          updateQuantity={updateQuantity}
+          setIsCartOpen={setIsCartOpen}
+          selectedCurrency={selectedCurrency}
+          setSelectedCurrency={setSelectedCurrency}
+          formatPrice={formatPrice}
+          totalConvertedPrice={totalConvertedPrice}
+          setIsUPIModalOpen={setIsUPIModalOpen}
+          setBookingService={setBookingService}
+          setBookingSuccess={setBookingSuccess}
+          quoteServices={quoteServices}
+          toggleQuoteService={toggleQuoteService}
+          sendWhatsAppQuotation={sendWhatsAppQuotation}
+          leadName={leadName}
+          setLeadName={setLeadName}
+          leadEmail={leadEmail}
+          setLeadEmail={setLeadEmail}
+          leadPhone={leadPhone}
+          setLeadPhone={setLeadPhone}
+          leadMessage={leadMessage}
+          setLeadMessage={setLeadMessage}
+          handleLeadSubmit={handleLeadSubmit}
+          leadSuccess={leadSuccess}
+          trackAction={trackAction}
+          getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+          getEmbedUrl={getEmbedUrl}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          showViewToggle={showViewToggle}
+        />
+      ) : isInsuranceTemplate && isWebsiteMode ? (
+        <InsuranceTemplateView
           profile={profile}
           cart={cart}
           addToCart={addToCart}
