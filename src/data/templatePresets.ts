@@ -566,6 +566,10 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
       { id: 'soc_ins_em', platform: 'email', url: 'mailto:rajesh.sengupta@surakshainsurance.in', label: 'Official Advisory Email' },
       { id: 'soc_ins_li', platform: 'linkedin', url: 'https://linkedin.com/in/rajesh-sengupta-mdrt', label: 'LinkedIn Profile' },
       { id: 'soc_ins_yt', platform: 'youtube', url: 'https://youtube.com/@surakshainsurance', label: 'Insurance Awareness Channel' },
+      { id: 'soc_ins_ig', platform: 'instagram', url: 'https://instagram.com/suraksha_insurance', label: 'Instagram Advisory' },
+      { id: 'soc_ins_tw', platform: 'twitter', url: 'https://twitter.com/surakshainsure', label: 'X (Twitter)' },
+      { id: 'soc_ins_tg', platform: 'telegram', url: 'https://t.me/surakshainsurance', label: 'Telegram VIP Alerts' },
+      { id: 'soc_ins_fb', platform: 'facebook', url: 'https://facebook.com/surakshainsurance', label: 'Facebook Page' },
       { id: 'soc_ins_map', platform: 'maps', url: 'https://maps.google.com/?q=Bandra+Kurla+Complex+Mumbai', label: 'Office Directions' }
     ]
   },

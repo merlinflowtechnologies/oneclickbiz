@@ -513,12 +513,40 @@ export default function InsuranceTemplateView({
   }, [profile, getCleanWhatsAppNumber]);
 
   const phoneDisplay = profile.phone || '+91 98765 24321';
+  
+  // Clean Phone digits for tel: links
+  const cleanPhoneDigits = useMemo(() => {
+    return (profile.phone || '+91 98765 24321').replace(/[^0-9+]/g, '');
+  }, [profile.phone]);
 
   // Advisor Credentials
   const advisorName = profile.name || 'Rajesh Sengupta';
   const advisorCompany = profile.company || 'Suraksha Life & Health Insurance Advisory';
   const advisorDesignation = profile.designation || 'MDRT Life Member | Senior Financial Security Advisor';
   const irdaNumber = 'IRDAI/AGN/2012/849102';
+
+  // Resolved Social and Contact Links with fallbacks
+  const socialLinks = useMemo(() => {
+    const list = profile.socials || [];
+    const findUrl = (platform: string) => {
+      const match = list.find(s => s.platform?.toLowerCase().includes(platform) || (s.url && s.url.toLowerCase().includes(platform)));
+      return match?.url;
+    };
+
+    return {
+      whatsapp: findUrl('whatsapp') || `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hello ${advisorName}! I want to consult regarding Life & Health insurance coverage.`)}`,
+      phone: findUrl('phone') || `tel:${cleanPhoneDigits}`,
+      email: findUrl('email') || `mailto:${profile.email || 'rajesh.sengupta@surakshainsurance.in'}`,
+      linkedin: findUrl('linkedin') || 'https://linkedin.com/in/rajesh-sengupta-mdrt',
+      youtube: findUrl('youtube') || 'https://youtube.com/@surakshainsurance',
+      instagram: findUrl('instagram') || 'https://instagram.com/suraksha_insurance',
+      twitter: findUrl('twitter') || 'https://twitter.com/surakshainsure',
+      telegram: findUrl('telegram') || 'https://t.me/surakshainsurance',
+      facebook: findUrl('facebook') || 'https://facebook.com/surakshainsurance',
+      maps: findUrl('maps') || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${advisorCompany} ${profile.address || 'BKC Mumbai'}`)}`,
+      website: profile.website || currentUrl || 'https://oneclickbiz.in/v/prof-insurance'
+    };
+  }, [profile, whatsappNumber, cleanPhoneDigits, advisorName, advisorCompany, currentUrl]);
 
   // Setup current URL, QR and Light Theme
   useEffect(() => {
@@ -1025,8 +1053,180 @@ export default function InsuranceTemplateView({
                 </button>
               </div>
 
+              {/* Instant Contact Options with Original Logos (As requested by user) */}
+              <div className="pt-3 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-wider text-blue-700 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-blue-600" /> Direct Advisory & Contact Desk
+                  </span>
+                  <span className="text-[11px] font-bold text-slate-500 flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-emerald-600" /> Fast Response (&lt; 15 mins)
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 sm:gap-2.5">
+                  {/* 1. WhatsApp with Original Logo */}
+                  <a
+                    href={socialLinks.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('hero_contact_whatsapp')}
+                    className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-white hover:bg-emerald-50 border border-emerald-400/50 text-xs font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 shadow-xs transition hover:scale-[1.03] active:scale-95"
+                    title="Priority WhatsApp Message"
+                  >
+                    <SocialIcon platform="whatsapp" size={16} colored={true} />
+                    <span className="truncate">WhatsApp Chat</span>
+                  </a>
+
+                  {/* 2. Direct Phone Call with Original Logo */}
+                  <a
+                    href={socialLinks.phone}
+                    onClick={() => trackAction('hero_contact_call')}
+                    className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-white hover:bg-sky-50 border border-sky-400/50 text-xs font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 shadow-xs transition hover:scale-[1.03] active:scale-95"
+                    title="Direct Phone Call"
+                  >
+                    <div className="w-4 h-4 rounded-full bg-sky-500 text-white flex items-center justify-center shrink-0">
+                      <Phone className="w-2.5 h-2.5 fill-white text-white" />
+                    </div>
+                    <span className="truncate">Call {phoneDisplay}</span>
+                  </a>
+
+                  {/* 3. Official Email Desk with Original Logo */}
+                  <a
+                    href={socialLinks.email}
+                    onClick={() => trackAction('hero_contact_email')}
+                    className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-white hover:bg-red-50 border border-red-400/50 text-xs font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 shadow-xs transition hover:scale-[1.03] active:scale-95"
+                    title="Send Email"
+                  >
+                    <SocialIcon platform="mail" size={16} colored={true} />
+                    <span className="truncate">Email Desk</span>
+                  </a>
+
+                  {/* 4. Google Maps Office Location with Original Pin */}
+                  <a
+                    href={socialLinks.maps}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('hero_contact_maps')}
+                    className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-white hover:bg-amber-50 border border-amber-400/50 text-xs font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 shadow-xs transition hover:scale-[1.03] active:scale-95"
+                    title="Open Google Maps Location"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="shrink-0">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335" />
+                      <circle cx="12" cy="9" r="2.5" fill="#FFFFFF" />
+                    </svg>
+                    <span className="truncate">BKC Office Map</span>
+                  </a>
+
+                  {/* 5. Official Website with Original Logo */}
+                  <a
+                    href={socialLinks.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('hero_contact_web')}
+                    className="px-3 sm:px-3.5 py-2.5 rounded-xl bg-white hover:bg-purple-50 border border-purple-400/50 text-xs font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2 shadow-xs transition hover:scale-[1.03] active:scale-95"
+                    title="Official Digital Profile & Advisory Portal"
+                  >
+                    <SocialIcon platform="website" size={16} colored={true} />
+                    <span className="truncate">Official Web</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Verified Social Media Platforms with Original Logos */}
+              <div className="pt-2 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                    <Globe className="w-3.5 h-3.5 text-blue-600" /> Verified Social & Advisory Channels
+                  </span>
+                  <span className="text-[11px] font-bold text-emerald-600 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Official Profiles
+                  </span>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  {/* LinkedIn */}
+                  <a
+                    href={socialLinks.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('hero_social_linkedin')}
+                    className="px-3 py-2 rounded-xl bg-white hover:bg-blue-50 border border-blue-300/60 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
+                    title="Connect on LinkedIn"
+                  >
+                    <SocialIcon platform="linkedin" size={16} colored={true} />
+                    <span>LinkedIn</span>
+                  </a>
+
+                  {/* YouTube */}
+                  <a
+                    href={socialLinks.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('hero_social_youtube')}
+                    className="px-3 py-2 rounded-xl bg-white hover:bg-red-50 border border-red-300/60 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
+                    title="Insurance Awareness & Claim Guides on YouTube"
+                  >
+                    <SocialIcon platform="youtube" size={16} colored={true} />
+                    <span>YouTube</span>
+                  </a>
+
+                  {/* Instagram */}
+                  <a
+                    href={socialLinks.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('hero_social_instagram')}
+                    className="px-3 py-2 rounded-xl bg-white hover:bg-pink-50 border border-pink-300/60 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
+                    title="Follow on Instagram"
+                  >
+                    <SocialIcon platform="instagram" size={16} colored={true} />
+                    <span>Instagram</span>
+                  </a>
+
+                  {/* Twitter / X */}
+                  <a
+                    href={socialLinks.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('hero_social_twitter')}
+                    className="px-3 py-2 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
+                    title="Policy Updates on X (Twitter)"
+                  >
+                    <SocialIcon platform="twitter" size={16} colored={true} />
+                    <span>X (Twitter)</span>
+                  </a>
+
+                  {/* Telegram */}
+                  <a
+                    href={socialLinks.telegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('hero_social_telegram')}
+                    className="px-3 py-2 rounded-xl bg-white hover:bg-sky-50 border border-sky-300/60 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
+                    title="Join VIP Telegram Channel for Claim & Hospital Alerts"
+                  >
+                    <SocialIcon platform="telegram" size={16} colored={true} />
+                    <span>Telegram VIP</span>
+                  </a>
+
+                  {/* Facebook */}
+                  <a
+                    href={socialLinks.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('hero_social_facebook')}
+                    className="px-3 py-2 rounded-xl bg-white hover:bg-blue-50 border border-blue-300/60 text-xs font-bold text-slate-800 flex items-center gap-2 shadow-xs transition hover:scale-105"
+                    title="Facebook Page"
+                  >
+                    <SocialIcon platform="facebook" size={16} colored={true} />
+                    <span>Facebook</span>
+                  </a>
+                </div>
+              </div>
+
               {/* Quick Contact & Office Details */}
-              <div className="pt-4 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-slate-600 border-t border-slate-200 font-medium">
+              <div className="pt-3 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-slate-600 border-t border-slate-200 font-medium">
                 <div className="flex items-center gap-2">
                   <Phone className="w-3.5 h-3.5 text-blue-600" />
                   <span>Direct: <a href={`tel:${phoneDisplay}`} className="text-slate-900 font-bold hover:underline font-mono">{phoneDisplay}</a></span>
@@ -1111,9 +1311,160 @@ export default function InsuranceTemplateView({
                       Alert Desk
                     </button>
                   </div>
+
+                  {/* IRDAI Official License & Regulatory Verification Card */}
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-blue-50/80 via-indigo-50/50 to-slate-50 border border-blue-200/80 space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="flex items-center gap-1.5 text-xs font-extrabold text-blue-900">
+                        <ShieldCheck className="w-4 h-4 text-blue-600" /> IRDAI Certified Advisory
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
+                        Active & Verified
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600">
+                      <div>
+                        <span className="text-slate-400 block text-[10px]">License Reg. No:</span>
+                        <span className="font-mono font-bold text-slate-800 text-[10.5px]">{irdaNumber}</span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block text-[10px]">Regulatory Standing:</span>
+                        <span className="font-bold text-slate-800">16+ Years Clean</span>
+                      </div>
+                    </div>
+                    <div className="pt-1 border-t border-blue-200/50 flex items-center justify-between text-[11px]">
+                      <span className="text-slate-500 font-medium">Composite Fiduciary Brokerage</span>
+                      <span className="text-blue-700 font-bold flex items-center gap-1">
+                        <BadgeCheck className="w-3.5 h-3.5 text-blue-600" /> 100% Unbiased
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Free 360° Forensic Policy Audit Mini Card */}
+                  <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-blue-500/10 border border-emerald-400/40 flex items-center justify-between gap-3">
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-black text-slate-900 flex items-center gap-1">
+                        <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" /> Free 360° Policy Health Audit
+                      </p>
+                      <p className="text-[11px] text-slate-600">Identify hidden room-rent caps, copays & low cover</p>
+                    </div>
+                    <button
+                      onClick={() => setIsAuditModalOpen(true)}
+                      className="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs shrink-0 transition-all hover:scale-105 active:scale-95 shadow-xs cursor-pointer"
+                    >
+                      Audit Now
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* 3.5 KEY INSTITUTIONAL PILLARS & TRUST CARDS STRIP              */}
+      {/* ============================================================== */}
+      <section className="relative z-20 -mt-6 sm:-mt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {/* Card 1: 24/7 Priority Emergency Claim Desk */}
+          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <HeartPulse className="w-5 h-5" />
+              </div>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-100 text-rose-700 border border-rose-200">
+                24/7 Priority Desk
+              </span>
+            </div>
+            <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-rose-600 transition-colors">
+              Cashless Hospital Admission
+            </h3>
+            <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              30-minute cashless TPA pre-authorization support across 14,500+ network hospitals. Zero out-of-pocket delays.
+            </p>
+            <button
+              onClick={() => setIsEmergencyModalOpen(true)}
+              className="mt-3.5 text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1 group-hover:gap-1.5 transition-all cursor-pointer"
+            >
+              <span>Intimate Emergency Claim</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Card 2: Zero-Commission Bias Comparison */}
+          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-100 text-blue-700 border border-blue-200">
+                100% Fiduciary
+              </span>
+            </div>
+            <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">
+              Zero-Bias Insurer Matrix
+            </h3>
+            <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Transparent, independent comparison across HDFC Life, Star Health, Max Life, Tata AIA, Care & ICICI Lombard.
+            </p>
+            <a
+              href="#partners"
+              className="mt-3.5 text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 group-hover:gap-1.5 transition-all cursor-pointer inline-flex"
+            >
+              <span>Compare Top 6 Insurers</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          {/* Card 3: Free 360° Forensic Policy Health Audit */}
+          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <FileCheck className="w-5 h-5" />
+              </div>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-700 border border-emerald-200">
+                Complimentary
+              </span>
+            </div>
+            <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-emerald-600 transition-colors">
+              Forensic Policy Health Audit
+            </h3>
+            <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Uncover 1-2% room rent capping traps, proportionate deduction clauses, and disease waiting periods in old policies.
+            </p>
+            <button
+              onClick={() => setIsAuditModalOpen(true)}
+              className="mt-3.5 text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1 group-hover:gap-1.5 transition-all cursor-pointer"
+            >
+              <span>Book Free Policy Review</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Card 4: Tax Optimization Maximizer & NRI Shield */}
+          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Percent className="w-5 h-5" />
+              </div>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-200">
+                Save ₹70,200/Yr
+              </span>
+            </div>
+            <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-amber-600 transition-colors">
+              Section 80C & 80D Tax Shield
+            </h3>
+            <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Legally maximize tax exemptions with Section 10(10D) tax-free maturity and full FEMA-compliant NRI life coverage.
+            </p>
+            <a
+              href="#tax"
+              className="mt-3.5 text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1 group-hover:gap-1.5 transition-all cursor-pointer inline-flex"
+            >
+              <span>View Tax Calculator</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
       </section>
