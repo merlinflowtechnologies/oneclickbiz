@@ -54,7 +54,6 @@ import RealEstateMiniWebsiteView from './RealEstateMiniWebsiteView';
 import InteriorMiniWebsiteView from './InteriorMiniWebsiteView';
 import HealthcareMiniWebsiteView from './HealthcareMiniWebsiteView';
 import AutomobileMiniWebsiteView from './AutomobileMiniWebsiteView';
-import FashionMiniWebsiteView from './FashionMiniWebsiteView';
 import EducationMiniWebsiteView from './EducationMiniWebsiteView';
 import BeautyMiniWebsiteView from './BeautyMiniWebsiteView';
 import EventsMiniWebsiteView from './EventsMiniWebsiteView';
@@ -1213,16 +1212,6 @@ export default function ProfileCardView({
           />
         ) : isAutomobile ? (
           <AutomobileMiniWebsiteView
-            profile={profile}
-            trackAction={trackAction}
-            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-            getEmbedUrl={getEmbedUrl}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-            showViewToggle={showViewToggle}
-          />
-        ) : isFashion ? (
-          <FashionMiniWebsiteView
             profile={profile}
             trackAction={trackAction}
             getCleanWhatsAppNumber={getCleanWhatsAppNumber}
