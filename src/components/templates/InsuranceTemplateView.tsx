@@ -1098,6 +1098,7 @@ export default function InsuranceTemplateView({
             <a href="#partners" className="px-2.5 py-1 rounded-full hover:bg-white hover:text-blue-700 hover:shadow-2xs transition-all">Top Insurers</a>
             <a href="#tax" className="px-2.5 py-1 rounded-full hover:bg-white hover:text-blue-700 hover:shadow-2xs transition-all">Tax Savings</a>
             <a href="#faqs" className="px-2.5 py-1 rounded-full hover:bg-white hover:text-blue-700 hover:shadow-2xs transition-all">FAQs</a>
+            <a href="#socials" className="px-2.5 py-1 rounded-full hover:bg-white hover:text-blue-700 hover:shadow-2xs transition-all">Social Spaces</a>
             <a href="#contact" className="px-2.5 py-1 rounded-full hover:bg-white hover:text-blue-700 hover:shadow-2xs transition-all">Contact</a>
           </nav>
 
@@ -1233,6 +1234,165 @@ export default function InsuranceTemplateView({
                         >
                           <QrCode className="w-3.5 h-3.5" />
                         </button>
+                      </div>
+
+                      {/* Direct Contact Options with Original Logos in Hero Section */}
+                      <div className="p-3 sm:p-3.5 rounded-2xl bg-white/92 backdrop-blur-md border border-slate-200/90 shadow-sm space-y-2.5">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-black uppercase tracking-wider text-slate-950 flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                            Direct Advisor Contact & Consultation
+                          </span>
+                          <span className="text-[10px] font-extrabold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                            Available 24x7
+                          </span>
+                        </div>
+
+                        {/* Primary Contact Buttons with Authentic Original Logos */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          {/* WhatsApp */}
+                          <a
+                            href={socialLinks.whatsapp}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => trackAction('hero_contact_whatsapp')}
+                            className="p-2 rounded-xl bg-emerald-50/95 hover:bg-emerald-100 border border-emerald-300 text-slate-900 transition-all hover:scale-102 flex items-center gap-2 shadow-2xs group"
+                            title="Chat with Advisor on WhatsApp"
+                          >
+                            <div className="w-7 h-7 rounded-lg bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-110 transition-transform">
+                              <SocialIcon platform="whatsapp" size={16} colored={false} className="text-white fill-white" />
+                            </div>
+                            <div className="min-w-0 text-left">
+                              <p className="text-[9px] font-bold text-emerald-800 uppercase tracking-tight">WhatsApp</p>
+                              <p className="text-[11px] font-black text-slate-950 truncate">Chat Now</p>
+                            </div>
+                          </a>
+
+                          {/* Direct Phone Call */}
+                          <a
+                            href={socialLinks.phone}
+                            onClick={() => trackAction('hero_contact_call')}
+                            className="p-2 rounded-xl bg-sky-50/95 hover:bg-sky-100 border border-sky-300 text-slate-900 transition-all hover:scale-102 flex items-center gap-2 shadow-2xs group"
+                            title={`Call ${phoneDisplay}`}
+                          >
+                            <div className="w-7 h-7 rounded-lg bg-[#0284C7] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-110 transition-transform">
+                              <Phone className="w-3.5 h-3.5 fill-white text-white" />
+                            </div>
+                            <div className="min-w-0 text-left">
+                              <p className="text-[9px] font-bold text-sky-800 uppercase tracking-tight">Direct Call</p>
+                              <p className="text-[11px] font-black text-slate-950 truncate">{phoneDisplay}</p>
+                            </div>
+                          </a>
+
+                          {/* Email Desk */}
+                          <a
+                            href={socialLinks.email}
+                            onClick={() => trackAction('hero_contact_email')}
+                            className="p-2 rounded-xl bg-rose-50/95 hover:bg-rose-100 border border-rose-300 text-slate-900 transition-all hover:scale-102 flex items-center gap-2 shadow-2xs group"
+                            title="Email Advisor Desk"
+                          >
+                            <div className="w-7 h-7 rounded-lg bg-[#EA4335] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-110 transition-transform">
+                              <Mail className="w-3.5 h-3.5 text-white" />
+                            </div>
+                            <div className="min-w-0 text-left">
+                              <p className="text-[9px] font-bold text-rose-800 uppercase tracking-tight">Email Desk</p>
+                              <p className="text-[11px] font-black text-slate-950 truncate">Send Inquiry</p>
+                            </div>
+                          </a>
+
+                          {/* Office Location */}
+                          <a
+                            href={socialLinks.maps}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => trackAction('hero_contact_maps')}
+                            className="p-2 rounded-xl bg-amber-50/95 hover:bg-amber-100 border border-amber-300 text-slate-900 transition-all hover:scale-102 flex items-center gap-2 shadow-2xs group"
+                            title="View Office on Google Maps"
+                          >
+                            <div className="w-7 h-7 rounded-lg bg-[#FBBC04] text-slate-950 flex items-center justify-center shrink-0 shadow-xs group-hover:scale-110 transition-transform">
+                              <MapPin className="w-3.5 h-3.5 text-slate-950" />
+                            </div>
+                            <div className="min-w-0 text-left">
+                              <p className="text-[9px] font-bold text-amber-900 uppercase tracking-tight">Office Map</p>
+                              <p className="text-[11px] font-black text-slate-950 truncate">BKC Mumbai</p>
+                            </div>
+                          </a>
+                        </div>
+
+                        {/* Social Media Channels Row with Original Logos */}
+                        <div className="pt-2 border-t border-slate-200/80 flex items-center justify-between gap-2 flex-wrap">
+                          <span className="text-[10px] font-black text-slate-900 flex items-center gap-1">
+                            <Sparkles className="w-3 h-3 text-indigo-600" />
+                            Official Channels:
+                          </span>
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <a
+                              href={socialLinks.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-1 rounded-lg bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 border border-[#0A66C2]/40 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
+                              title="Connect on LinkedIn"
+                            >
+                              <SocialIcon platform="linkedin" size={13} colored={true} />
+                              <span>LinkedIn</span>
+                            </a>
+
+                            <a
+                              href={socialLinks.youtube}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-1 rounded-lg bg-[#FF0000]/10 hover:bg-[#FF0000]/20 border border-[#FF0000]/40 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
+                              title="Watch on YouTube"
+                            >
+                              <SocialIcon platform="youtube" size={13} colored={true} />
+                              <span>YouTube</span>
+                            </a>
+
+                            <a
+                              href={socialLinks.instagram}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-1 rounded-lg bg-[#E1306C]/10 hover:bg-[#E1306C]/20 border border-[#E1306C]/40 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
+                              title="Follow on Instagram"
+                            >
+                              <SocialIcon platform="instagram" size={13} colored={true} />
+                              <span>Instagram</span>
+                            </a>
+
+                            <a
+                              href={socialLinks.twitter}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-1 rounded-lg bg-slate-900/10 hover:bg-slate-900/20 border border-slate-400 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
+                              title="Follow on X (Twitter)"
+                            >
+                              <SocialIcon platform="twitter" size={13} colored={true} className="text-slate-900" />
+                              <span>X</span>
+                            </a>
+
+                            <a
+                              href={socialLinks.telegram}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-1 rounded-lg bg-[#229ED9]/10 hover:bg-[#229ED9]/20 border border-[#229ED9]/40 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
+                              title="Join Telegram VIP"
+                            >
+                              <SocialIcon platform="telegram" size={13} colored={true} />
+                              <span>Telegram</span>
+                            </a>
+
+                            <a
+                              href={socialLinks.facebook}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-1 rounded-lg bg-[#1877F2]/10 hover:bg-[#1877F2]/20 border border-[#1877F2]/40 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
+                              title="Follow on Facebook"
+                            >
+                              <SocialIcon platform="facebook" size={13} colored={true} />
+                              <span>Facebook</span>
+                            </a>
+                          </div>
+                        </div>
                       </div>
 
                       {/* 3 Slide Specific Proof Metrics in Glass Tiles */}
@@ -3173,6 +3333,378 @@ export default function InsuranceTemplateView({
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* 11.8 OFFICIAL SOCIAL MEDIA SPACES & ADVISORY COMMUNITY CHANNELS */}
+      {/* ============================================================== */}
+      <section id="socials" className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+          <span className="text-xs font-black uppercase tracking-wider text-purple-700 bg-purple-100/90 border border-purple-300/90 px-3.5 py-1 rounded-full inline-flex items-center gap-1.5 shadow-2xs">
+            <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+            Official Social Media Spaces
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-950 tracking-tight ocb-font-serif">
+            Connect & Follow {advisorName} Across All Platforms
+          </h2>
+          <p className="text-sm text-slate-800 font-bold max-w-2xl mx-auto leading-relaxed">
+            Stay informed with verified policy comparison masterclasses, IRDAI regulatory alerts, cashless hospital admission guides, and direct fiduciary advisory across our official social channels.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+          
+          {/* 1. LinkedIn */}
+          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="glass-layer-effect" />
+            <div className="glass-layer-tint" />
+            <div className="glass-layer-shine" />
+
+            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
+                    <SocialIcon platform="linkedin" size={26} colored={true} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#0A66C2]/10 text-[#0A66C2] border border-[#0A66C2]/30">
+                    Executive Network
+                  </span>
+                </div>
+
+                <h3 className="text-base font-black text-slate-950 tracking-tight">LinkedIn Network</h3>
+                <p className="text-[11px] font-extrabold text-[#0A66C2] font-mono mt-0.5">@rajesh-sengupta-mdrt</p>
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
+                  <Users className="w-3 h-3 text-slate-600" />
+                  <span>12,800+ Professional Connections</span>
+                </div>
+
+                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
+                  Weekly articles on HNI wealth preservation, Keyman insurance structuring, and estate tax shielding strategies.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-200/80">
+                <a
+                  href={socialLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-[#0A66C2] hover:bg-[#004182] text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#0A66C2]/20 cursor-pointer group-hover:shadow-lg active:scale-95"
+                >
+                  <SocialIcon platform="linkedin" size={14} colored={false} className="text-white fill-white" />
+                  <span>Connect on LinkedIn</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. YouTube */}
+          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="glass-layer-effect" />
+            <div className="glass-layer-tint" />
+            <div className="glass-layer-shine" />
+
+            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
+                    <SocialIcon platform="youtube" size={26} colored={true} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/30">
+                    Video Masterclass
+                  </span>
+                </div>
+
+                <h3 className="text-base font-black text-slate-950 tracking-tight">YouTube Channel</h3>
+                <p className="text-[11px] font-extrabold text-[#FF0000] font-mono mt-0.5">@insurance_official</p>
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
+                  <Users className="w-3 h-3 text-slate-600" />
+                  <span>25,000+ Subscribers</span>
+                </div>
+
+                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
+                  Step-by-step videos on preventing claim rejections, understanding policy fine print, and hospital TPA workflows.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-200/80">
+                <a
+                  href={socialLinks.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-[#FF0000] hover:bg-[#CC0000] text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#FF0000]/20 cursor-pointer group-hover:shadow-lg active:scale-95"
+                >
+                  <SocialIcon platform="youtube" size={14} colored={false} className="text-white fill-white" />
+                  <span>Subscribe on YouTube</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* 3. WhatsApp VIP */}
+          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="glass-layer-effect" />
+            <div className="glass-layer-tint" />
+            <div className="glass-layer-shine" />
+
+            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
+                    <SocialIcon platform="whatsapp" size={26} colored={true} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/30">
+                    24x7 Claim Desk
+                  </span>
+                </div>
+
+                <h3 className="text-base font-black text-slate-950 tracking-tight">WhatsApp VIP Desk</h3>
+                <p className="text-[11px] font-extrabold text-[#25D366] font-mono mt-0.5">{phoneDisplay}</p>
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
+                  <Sparkles className="w-3 h-3 text-emerald-600" />
+                  <span>Instant Response • Cashless Support</span>
+                </div>
+
+                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
+                  Direct 1-on-1 assistance for cashless hospital admissions, policy comparisons, and confidential quote calculation.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-200/80">
+                <a
+                  href={socialLinks.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#25D366]/20 cursor-pointer group-hover:shadow-lg active:scale-95"
+                >
+                  <SocialIcon platform="whatsapp" size={14} colored={false} className="text-white fill-white" />
+                  <span>Chat on WhatsApp</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* 4. Instagram */}
+          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="glass-layer-effect" />
+            <div className="glass-layer-tint" />
+            <div className="glass-layer-shine" />
+
+            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
+                    <SocialIcon platform="instagram" size={26} colored={true} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#E1306C]/10 text-[#E1306C] border border-[#E1306C]/30">
+                    60s Reels
+                  </span>
+                </div>
+
+                <h3 className="text-base font-black text-slate-950 tracking-tight">Instagram Reels</h3>
+                <p className="text-[11px] font-extrabold text-[#E1306C] font-mono mt-0.5">@insuranceadvisory</p>
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
+                  <Users className="w-3 h-3 text-slate-600" />
+                  <span>18,500+ Active Followers</span>
+                </div>
+
+                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
+                  Visual bite-sized reels demystifying Section 80C/80D tax deductions, IRDAI guidelines, and family protection tips.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-200/80">
+                <a
+                  href={socialLinks.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:opacity-95 text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-pink-500/20 cursor-pointer group-hover:shadow-lg active:scale-95"
+                >
+                  <SocialIcon platform="instagram" size={14} colored={false} className="text-white fill-white" />
+                  <span>Follow on Instagram</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* 5. Telegram VIP */}
+          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="glass-layer-effect" />
+            <div className="glass-layer-tint" />
+            <div className="glass-layer-shine" />
+
+            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
+                    <SocialIcon platform="telegram" size={26} colored={true} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#229ED9]/10 text-[#229ED9] border border-[#229ED9]/30">
+                    Live Broadcast
+                  </span>
+                </div>
+
+                <h3 className="text-base font-black text-slate-950 tracking-tight">Telegram VIP Desk</h3>
+                <p className="text-[11px] font-extrabold text-[#229ED9] font-mono mt-0.5">@insuranceadvisory</p>
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
+                  <Users className="w-3 h-3 text-slate-600" />
+                  <span>8,200+ Active Members</span>
+                </div>
+
+                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
+                  Never miss year-end tax deadlines. Real-time notifications on regulatory changes, bonus rates, and new covers.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-200/80">
+                <a
+                  href={socialLinks.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-[#229ED9] hover:bg-[#1C88BD] text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#229ED9]/20 cursor-pointer group-hover:shadow-lg active:scale-95"
+                >
+                  <SocialIcon platform="telegram" size={14} colored={false} className="text-white fill-white" />
+                  <span>Join Telegram Channel</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* 6. X (Twitter) */}
+          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="glass-layer-effect" />
+            <div className="glass-layer-tint" />
+            <div className="glass-layer-shine" />
+
+            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
+                    <SocialIcon platform="twitter" size={24} colored={true} className="text-slate-900" />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-slate-900/10 text-slate-900 border border-slate-300">
+                    Policy Voice
+                  </span>
+                </div>
+
+                <h3 className="text-base font-black text-slate-950 tracking-tight">X (Twitter) Feed</h3>
+                <p className="text-[11px] font-extrabold text-slate-800 font-mono mt-0.5">@insuranceadv</p>
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
+                  <Users className="w-3 h-3 text-slate-600" />
+                  <span>6,400+ Followers</span>
+                </div>
+
+                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
+                  Live industry commentary on IRDAI decisions, claim settlement ratio statistics, and consumer policyholder rights.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-200/80">
+                <a
+                  href={socialLinks.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-black text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-slate-900/20 cursor-pointer group-hover:shadow-lg active:scale-95"
+                >
+                  <SocialIcon platform="twitter" size={14} colored={false} className="text-white fill-white" />
+                  <span>Follow on X</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* 7. Facebook */}
+          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="glass-layer-effect" />
+            <div className="glass-layer-tint" />
+            <div className="glass-layer-shine" />
+
+            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
+                    <SocialIcon platform="facebook" size={26} colored={true} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#1877F2]/10 text-[#1877F2] border border-[#1877F2]/30">
+                    Family Forum
+                  </span>
+                </div>
+
+                <h3 className="text-base font-black text-slate-950 tracking-tight">Facebook Circle</h3>
+                <p className="text-[11px] font-extrabold text-[#1877F2] font-mono mt-0.5">@insuranceadvisory</p>
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
+                  <Users className="w-3 h-3 text-slate-600" />
+                  <span>15,000+ Community</span>
+                </div>
+
+                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
+                  Community Q&As on child education funds, retirement pension calculators, and genuine family claim testimonials.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-200/80">
+                <a
+                  href={socialLinks.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-[#1877F2] hover:bg-[#1062C9] text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#1877F2]/20 cursor-pointer group-hover:shadow-lg active:scale-95"
+                >
+                  <SocialIcon platform="facebook" size={14} colored={false} className="text-white fill-white" />
+                  <span>Follow on Facebook</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* 8. Direct Phone Hotline */}
+          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="glass-layer-effect" />
+            <div className="glass-layer-tint" />
+            <div className="glass-layer-shine" />
+
+            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-sky-500 shadow-md border border-sky-400 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
+                    <Phone className="w-6 h-6 fill-white text-white" />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300">
+                    24x7 Priority Desk
+                  </span>
+                </div>
+
+                <h3 className="text-base font-black text-slate-950 tracking-tight">Direct Phone Hotline</h3>
+                <p className="text-[11px] font-extrabold text-sky-700 font-mono mt-0.5">{phoneDisplay}</p>
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
+                  <CheckCircle2 className="w-3 h-3 text-sky-600" />
+                  <span>Immediate Senior Advisor Access</span>
+                </div>
+
+                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
+                  Speak directly with advisor Rajesh Sengupta or our emergency TPA hospital desk for instant cashless pre-authorization.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-200/80">
+                <a
+                  href={socialLinks.phone}
+                  className="w-full py-2.5 px-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-sky-600/20 cursor-pointer group-hover:shadow-lg active:scale-95"
+                >
+                  <Phone className="w-3.5 h-3.5 fill-white text-white" />
+                  <span>Call {phoneDisplay}</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
