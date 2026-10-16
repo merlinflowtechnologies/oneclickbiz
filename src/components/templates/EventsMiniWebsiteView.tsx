@@ -1,14 +1,15 @@
 'use strict';
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   DigitalProfile, 
   ServiceItem, 
   ProductItem, 
   GalleryItem, 
   TestimonialItem,
-  VideoItem 
+  VideoItem,
+  SocialLinkItem
 } from '@/lib/types';
 import { 
   Phone, 
@@ -33,8 +34,12 @@ import {
   Video, 
   ShieldCheck,
   Heart,
-  MessageCircle
+  MessageCircle,
+  ExternalLink,
+  ArrowRight,
+  Compass
 } from 'lucide-react';
+import SocialIcon, { getSocialBrandColor } from '@/components/common/SocialIcon';
 import ShareCardModal from '@/components/common/ShareCardModal';
 
 interface EventsMiniWebsiteViewProps {
@@ -66,6 +71,74 @@ export default function EventsMiniWebsiteView({ profile, getEmbedUrl }: EventsMi
   const experienceYears = eventsConfig.experienceYears || '12+ Years';
   const productionCapability = eventsConfig.productionCapability || 'In-House Sound, 4K Drones & Stage Decor';
   const serviceLocations = eventsConfig.serviceLocations || 'Pan-India & Destination Weddings';
+
+  // Clean phone and slug computation
+  const cleanPhone = useMemo(() => {
+    return (profile.whatsapp || profile.phone || '').replace(/[^0-9]/g, '');
+  }, [profile.whatsapp, profile.phone]);
+
+  const brandSlug = useMemo(() => {
+    return (profile.name || 'events').toLowerCase().replace(/[^a-z0-9]/g, '');
+  }, [profile.name]);
+
+  // Socials from profile sectionData
+  const userSocialItems: SocialLinkItem[] = useMemo(() => {
+    return profile.sectionData?.socials?.items || [];
+  }, [profile.sectionData?.socials?.items]);
+
+  const getPlatformUrl = (platform: string, fallbackUrl?: string) => {
+    const item = userSocialItems.find(s => s.platform.toLowerCase() === platform.toLowerCase());
+    return item?.url || fallbackUrl || '';
+  };
+
+  // WhatsApp link (direct with pre-filled consultation request)
+  const whatsappUrl = useMemo(() => {
+    const custom = userSocialItems.find(s => s.platform.toLowerCase() === 'whatsapp');
+    if (custom?.url) return custom.url;
+    if (!cleanPhone) return '';
+    const text = encodeURIComponent(
+      `Hello ${profile.name || 'Events Team'}! I came across your Events Portfolio on OneClickBiz and would like to inquire about dates, availability, and event packages.`
+    );
+    return `https://wa.me/${cleanPhone}?text=${text}`;
+  }, [userSocialItems, cleanPhone, profile.name]);
+
+  // Instagram profile / reels link
+  const instagramUrl = useMemo(() => {
+    return getPlatformUrl('instagram', `https://instagram.com/${brandSlug}`);
+  }, [userSocialItems, brandSlug]);
+
+  // Facebook page link
+  const facebookUrl = useMemo(() => {
+    return getPlatformUrl('facebook', `https://facebook.com/${brandSlug}`);
+  }, [userSocialItems, brandSlug]);
+
+  // YouTube channel link
+  const youtubeUrl = useMemo(() => {
+    return getPlatformUrl('youtube', `https://youtube.com/@${brandSlug}`);
+  }, [userSocialItems, brandSlug]);
+
+  // Website link
+  const websiteUrl = useMemo(() => {
+    return profile.website || getPlatformUrl('website', '');
+  }, [profile.website, userSocialItems]);
+
+  // Phone call link
+  const phoneUrl = useMemo(() => {
+    return profile.phone ? `tel:${profile.phone}` : cleanPhone ? `tel:+${cleanPhone}` : '';
+  }, [profile.phone, cleanPhone]);
+
+  // Email link
+  const emailUrl = useMemo(() => {
+    if (!profile.email) return '';
+    const subject = encodeURIComponent(`Event Inquiry - ${profile.name || 'Celebrations'}`);
+    return `mailto:${profile.email}?subject=${subject}`;
+  }, [profile.email, profile.name]);
+
+  // Google Maps address link
+  const mapsUrl = useMemo(() => {
+    if (!profile.address) return '';
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(profile.address)}`;
+  }, [profile.address]);
 
   // Services & Packages
   const services: ServiceItem[] = profile.sectionData?.services?.items || [
@@ -314,18 +387,30 @@ END:VCARD`;
               </p>
 
               {/* Quick Action CTA Buttons */}
-              <div className="pt-3 flex flex-wrap items-center justify-center md:justify-start gap-3">
+              <div className="pt-3 flex flex-wrap items-center justify-center md:justify-start gap-2.5">
                 <button
                   onClick={() => setIsQuoteModalOpen(true)}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-amber-500 hover:from-violet-500 hover:to-amber-400 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-600/30 flex items-center gap-2 transition cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-amber-500 hover:from-violet-500 hover:to-amber-400 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-600/30 flex items-center gap-2 transition hover:scale-[1.02] cursor-pointer"
                 >
                   <PartyPopper className="w-4 h-4" />
                   Check Dates &amp; Get Quote
                 </button>
 
-                {profile.phone && (
+                {whatsappUrl && (
                   <a
-                    href={`tel:${profile.phone}`}
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 flex items-center gap-2 transition hover:scale-[1.02]"
+                  >
+                    <SocialIcon platform="whatsapp" size={16} colored={false} className="text-white" />
+                    WhatsApp
+                  </a>
+                )}
+
+                {phoneUrl && (
+                  <a
+                    href={phoneUrl}
                     className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition"
                   >
                     <Phone className="w-4 h-4 text-violet-400" />
@@ -348,6 +433,120 @@ END:VCARD`;
                 >
                   <Share2 className="w-4 h-4" />
                 </button>
+              </div>
+
+              {/* Omnichannel Quick Connect Badges */}
+              <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-2">
+                <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mr-1">Connect:</span>
+                
+                {whatsappUrl && (
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    title="WhatsApp Direct Consultation"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 hover:border-[#25D366]/60 text-slate-200 text-xs transition group"
+                  >
+                    <SocialIcon platform="whatsapp" size={14} colored={true} />
+                    <span className="font-medium group-hover:text-white">WhatsApp</span>
+                  </a>
+                )}
+
+                {instagramUrl && (
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Instagram Reels & Behind-the-Scenes"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E1306C]/10 hover:bg-[#E1306C]/20 border border-[#E1306C]/30 hover:border-[#E1306C]/60 text-slate-200 text-xs transition group"
+                  >
+                    <SocialIcon platform="instagram" size={14} colored={true} />
+                    <span className="font-medium group-hover:text-white">Instagram</span>
+                  </a>
+                )}
+
+                {facebookUrl && (
+                  <a
+                    href={facebookUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Facebook Page & Albums"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1877F2]/10 hover:bg-[#1877F2]/20 border border-[#1877F2]/30 hover:border-[#1877F2]/60 text-slate-200 text-xs transition group"
+                  >
+                    <SocialIcon platform="facebook" size={14} colored={true} />
+                    <span className="font-medium group-hover:text-white">Facebook</span>
+                  </a>
+                )}
+
+                {youtubeUrl && (
+                  <a
+                    href={youtubeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    title="YouTube 4K Cinematic Films"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FF0000]/10 hover:bg-[#FF0000]/20 border border-[#FF0000]/30 hover:border-[#FF0000]/60 text-slate-200 text-xs transition group"
+                  >
+                    <SocialIcon platform="youtube" size={14} colored={true} />
+                    <span className="font-medium group-hover:text-white">YouTube</span>
+                  </a>
+                )}
+
+                {emailUrl && (
+                  <a
+                    href={emailUrl}
+                    title="Official Email Inquiries"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 hover:border-sky-500/60 text-slate-200 text-xs transition group"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-sky-400" />
+                    <span className="font-medium group-hover:text-white">Email</span>
+                  </a>
+                )}
+
+                {websiteUrl && (
+                  <a
+                    href={websiteUrl.startsWith('http') ? websiteUrl : `https://${websiteUrl}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Official Studio Website"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 hover:border-emerald-500/60 text-slate-200 text-xs transition group"
+                  >
+                    <Globe className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="font-medium group-hover:text-white">Website</span>
+                  </a>
+                )}
+
+                {mapsUrl && (
+                  <a
+                    href={mapsUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Google Maps Studio Directions"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 hover:border-amber-500/60 text-slate-200 text-xs transition group"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="font-medium group-hover:text-white">Location</span>
+                  </a>
+                )}
+
+                {/* Additional user-configured socials */}
+                {userSocialItems
+                  .filter(s => !['whatsapp', 'instagram', 'facebook', 'youtube', 'website', 'phone', 'mail', 'email'].includes(s.platform.toLowerCase()))
+                  .map(s => {
+                    const brand = getSocialBrandColor(s.platform);
+                    return (
+                      <a
+                        key={s.id}
+                        href={s.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        title={s.label || s.platform}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg ${brand.bg} ${brand.border} border text-slate-200 text-xs transition group`}
+                      >
+                        <SocialIcon platform={s.platform} url={s.url} size={14} colored={true} />
+                        <span className="font-medium capitalize group-hover:text-white">{s.label || s.platform}</span>
+                      </a>
+                    );
+                  })}
               </div>
             </div>
           </div>
@@ -575,41 +774,317 @@ END:VCARD`;
           </section>
         )}
 
-        {/* 5. CONTACT & VENUE DESK */}
-        <section className="p-6 rounded-3xl bg-gradient-to-br from-violet-950/50 via-slate-900 to-slate-950 border border-violet-800/30 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        {/* 5. CONTACT & OMNICHANNEL VENUE DESK */}
+        <section className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-violet-950/60 via-slate-900 to-slate-950 border border-violet-800/40 shadow-2xl space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-violet-400">Direct Connect</span>
-              <h3 className="text-lg font-bold text-white mt-0.5">Speak with our Lead Event Director</h3>
-              <p className="text-xs text-slate-400">Available for studio visits, in-person consultations, and date block bookings.</p>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[11px] font-bold uppercase tracking-widest text-violet-400">Omnichannel Connect &amp; Studio Desk</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">Connect Directly Across All Channels</h3>
+              <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-0.5">
+                Chat on WhatsApp, explore our latest reels on Instagram, connect on Facebook, watch 4K wedding films on YouTube, or call our studio.
+              </p>
             </div>
-            <button
-              onClick={() => setIsQuoteModalOpen(true)}
-              className="px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs shadow-lg shadow-violet-600/30 transition shrink-0 cursor-pointer"
-            >
-              Request Quote on WhatsApp →
-            </button>
+            
+            <div className="flex items-center gap-2.5 shrink-0">
+              {whatsappUrl && (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs shadow-lg shadow-emerald-500/25 flex items-center gap-2 transition hover:scale-[1.02]"
+                >
+                  <SocialIcon platform="whatsapp" size={16} colored={false} className="text-white" />
+                  Chat on WhatsApp
+                </a>
+              )}
+              <button
+                onClick={() => setIsQuoteModalOpen(true)}
+                className="px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs shadow-lg shadow-violet-600/30 transition hover:scale-[1.02] cursor-pointer"
+              >
+                Request Quote →
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-800/80 text-xs">
-            {profile.phone && (
-              <a href={`tel:${profile.phone}`} className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/60 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
-                <Phone className="w-4 h-4 text-violet-400" />
-                <span>{profile.phone}</span>
+          {/* Omnichannel Contact Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+            {/* 1. WhatsApp Card */}
+            {whatsappUrl && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative p-4 rounded-2xl bg-gradient-to-b from-[#25D366]/10 to-slate-900/90 border border-[#25D366]/30 hover:border-[#25D366]/70 shadow-lg hover:shadow-[#25D366]/20 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 flex items-center justify-center text-[#25D366]">
+                      <SocialIcon platform="whatsapp" size={20} colored={true} />
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-[#25D366]/20 border border-[#25D366]/40 text-[10px] font-bold text-emerald-300">
+                      Instant Chat
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white group-hover:text-emerald-300 transition">WhatsApp Direct</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Check event dates, get transparent pricing, and receive customized digital brochures directly.
+                  </p>
+                </div>
+                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-emerald-400 group-hover:translate-x-1 transition-transform">
+                  <span>Start WhatsApp Chat</span>
+                  <ArrowRight className="w-4 h-4" />
+                </div>
               </a>
             )}
-            {profile.email && (
-              <a href={`mailto:${profile.email}`} className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/60 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
-                <Mail className="w-4 h-4 text-violet-400" />
-                <span className="truncate">{profile.email}</span>
+
+            {/* 2. Instagram Card */}
+            {instagramUrl && (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative p-4 rounded-2xl bg-gradient-to-b from-[#E1306C]/10 to-slate-900/90 border border-[#E1306C]/30 hover:border-[#E1306C]/70 shadow-lg hover:shadow-[#E1306C]/20 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#E1306C]/20 border border-[#E1306C]/40 flex items-center justify-center text-[#E1306C]">
+                      <SocialIcon platform="instagram" size={20} colored={true} />
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-[#E1306C]/20 border border-[#E1306C]/40 text-[10px] font-bold text-pink-300">
+                      Reels &amp; Stories
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white group-hover:text-pink-300 transition">Instagram Portfolio</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Explore mandap decor reveals, candid couple portraits, backstage drone reels, and daily wedding stories.
+                  </p>
+                </div>
+                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-pink-400 group-hover:translate-x-1 transition-transform">
+                  <span>Follow @{brandSlug}</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </div>
               </a>
             )}
-            {profile.address && (
-              <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300">
-                <MapPin className="w-4 h-4 text-violet-400 shrink-0" />
-                <span className="truncate">{profile.address}</span>
-              </div>
+
+            {/* 3. Facebook Card */}
+            {facebookUrl && (
+              <a
+                href={facebookUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative p-4 rounded-2xl bg-gradient-to-b from-[#1877F2]/10 to-slate-900/90 border border-[#1877F2]/30 hover:border-[#1877F2]/70 shadow-lg hover:shadow-[#1877F2]/20 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#1877F2]/20 border border-[#1877F2]/40 flex items-center justify-center text-[#1877F2]">
+                      <SocialIcon platform="facebook" size={20} colored={true} />
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-[#1877F2]/20 border border-[#1877F2]/40 text-[10px] font-bold text-blue-300">
+                      Community
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white group-hover:text-blue-300 transition">Facebook Official</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Browse full wedding albums, client testimonials, community updates, and ceremony celebrations.
+                  </p>
+                </div>
+                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                  <span>Connect on Facebook</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </div>
+              </a>
             )}
+
+            {/* 4. YouTube Card */}
+            {youtubeUrl && (
+              <a
+                href={youtubeUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative p-4 rounded-2xl bg-gradient-to-b from-[#FF0000]/10 to-slate-900/90 border border-[#FF0000]/30 hover:border-[#FF0000]/70 shadow-lg hover:shadow-[#FF0000]/20 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#FF0000]/20 border border-[#FF0000]/40 flex items-center justify-center text-[#FF0000]">
+                      <SocialIcon platform="youtube" size={20} colored={true} />
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-[#FF0000]/20 border border-[#FF0000]/40 text-[10px] font-bold text-red-300">
+                      4K Cinema
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white group-hover:text-red-300 transition">YouTube Channel</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Stream full-length 4K candid wedding teasers, drone aerials, and musical event choreography.
+                  </p>
+                </div>
+                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-red-400 group-hover:translate-x-1 transition-transform">
+                  <span>Watch 4K Teasers</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </div>
+              </a>
+            )}
+
+            {/* 5. Phone Studio Desk */}
+            {phoneUrl && (
+              <a
+                href={phoneUrl}
+                className="group relative p-4 rounded-2xl bg-gradient-to-b from-violet-600/10 to-slate-900/90 border border-violet-500/30 hover:border-violet-500/70 shadow-lg hover:shadow-violet-500/20 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-violet-600/20 border border-violet-500/40 flex items-center justify-center text-violet-400">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-violet-600/20 border border-violet-500/40 text-[10px] font-bold text-violet-300">
+                      10 AM - 9 PM
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white group-hover:text-violet-300 transition">Studio Voice Hotline</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Direct line for calendar reservations, urgent event questions, and vendor collaborations.
+                  </p>
+                  <p className="text-xs font-semibold text-violet-300 mt-2">
+                    {profile.phone || '+91 Direct Line'}
+                  </p>
+                </div>
+                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-violet-400 group-hover:translate-x-1 transition-transform">
+                  <span>Call Studio Desk</span>
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </a>
+            )}
+
+            {/* 6. Email Desk */}
+            {emailUrl && (
+              <a
+                href={emailUrl}
+                className="group relative p-4 rounded-2xl bg-gradient-to-b from-sky-500/10 to-slate-900/90 border border-sky-500/30 hover:border-sky-500/70 shadow-lg hover:shadow-sky-500/20 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-sky-500/20 border border-sky-500/40 text-[10px] font-bold text-sky-300">
+                      Formal RFPs
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white group-hover:text-sky-300 transition">Official Mail Desk</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Send tender documents, corporate event briefs, or formal destination wedding RFPs.
+                  </p>
+                  <p className="text-xs font-semibold text-sky-300 mt-2 truncate">
+                    {profile.email || 'events@studio.com'}
+                  </p>
+                </div>
+                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-sky-400 group-hover:translate-x-1 transition-transform">
+                  <span>Send Email Inquiry</span>
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </a>
+            )}
+
+            {/* 7. Experience Studio & Venue Directions */}
+            {mapsUrl && (
+              <a
+                href={mapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative p-4 rounded-2xl bg-gradient-to-b from-amber-500/10 to-slate-900/90 border border-amber-500/30 hover:border-amber-500/70 shadow-lg hover:shadow-amber-500/20 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-[10px] font-bold text-amber-300">
+                      By Appointment
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white group-hover:text-amber-300 transition">Experience Studio &amp; Venue</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Visit our creative studio for fabric sampling, floral moodboards, and 3D stage layout demos.
+                  </p>
+                  <p className="text-xs font-semibold text-amber-300 mt-2 line-clamp-1">
+                    {profile.address || 'Studio Address'}
+                  </p>
+                </div>
+                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
+                  <span>Get Directions on Maps</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </div>
+              </a>
+            )}
+
+            {/* 8. Official Website / Web Hub */}
+            {websiteUrl && (
+              <a
+                href={websiteUrl.startsWith('http') ? websiteUrl : `https://${websiteUrl}`}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative p-4 rounded-2xl bg-gradient-to-b from-emerald-500/10 to-slate-900/90 border border-emerald-500/30 hover:border-emerald-500/70 shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                      <Globe className="w-5 h-5" />
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-[10px] font-bold text-emerald-300">
+                      Full Showcase
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white group-hover:text-emerald-300 transition">Official Website</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Discover our full production archive, national awards, and comprehensive digital client stories.
+                  </p>
+                  <p className="text-xs font-semibold text-emerald-300 mt-2 truncate">
+                    {websiteUrl.replace(/^https?:\/\//, '')}
+                  </p>
+                </div>
+                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-emerald-400 group-hover:translate-x-1 transition-transform">
+                  <span>Visit Website</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </div>
+              </a>
+            )}
+
+            {/* Any extra user-configured socials */}
+            {userSocialItems
+              .filter(s => !['whatsapp', 'instagram', 'facebook', 'youtube', 'website', 'phone', 'mail', 'email'].includes(s.platform.toLowerCase()))
+              .map(s => {
+                const brand = getSocialBrandColor(s.platform);
+                return (
+                  <a
+                    key={s.id}
+                    href={s.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`group relative p-4 rounded-2xl ${brand.bg} border ${brand.border} shadow-lg transition-all duration-300 flex flex-col justify-between`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="w-10 h-10 rounded-xl bg-slate-900/60 border border-slate-700/50 flex items-center justify-center">
+                          <SocialIcon platform={s.platform} url={s.url} size={20} colored={true} />
+                        </div>
+                        <span className="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-[10px] font-bold text-slate-300 capitalize">
+                          {s.platform}
+                        </span>
+                      </div>
+                      <h4 className="text-sm font-bold text-white capitalize">{s.label || s.platform}</h4>
+                      <p className="text-xs text-slate-400 mt-1 truncate">
+                        {s.url.replace(/^https?:\/\//, '')}
+                      </p>
+                    </div>
+                    <div className={`pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold ${brand.text} group-hover:translate-x-1 transition-transform`}>
+                      <span>Connect</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </div>
+                  </a>
+                );
+              })}
           </div>
         </section>
       </main>
@@ -755,6 +1230,83 @@ END:VCARD`;
           profile={profile}
         />
       )}
+
+      {/* 8. FLOATING WHATSAPP BUTTON */}
+      {whatsappUrl && (
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 flex items-center gap-2.5 pl-3.5 pr-4 py-2.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-2xl shadow-emerald-500/40 hover:scale-105 active:scale-95 transition-all group cursor-pointer"
+        >
+          <div className="relative">
+            <SocialIcon platform="whatsapp" size={22} colored={false} className="text-white" />
+            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-white animate-ping" />
+          </div>
+          <div className="hidden sm:flex flex-col text-left">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-100 leading-tight">Direct Connect</span>
+            <span className="text-xs font-extrabold leading-tight">Chat on WhatsApp</span>
+          </div>
+        </a>
+      )}
+
+      {/* 9. STICKY MOBILE ACTION BAR */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#07060A]/95 backdrop-blur-lg border-t border-slate-800/90 px-3 py-2 flex items-center justify-between gap-1 shadow-2xl">
+        {whatsappUrl && (
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-[#25D366]/15 border border-[#25D366]/30 text-emerald-300 hover:text-white text-[10px] font-bold transition active:scale-95"
+          >
+            <SocialIcon platform="whatsapp" size={17} colored={true} />
+            <span className="mt-0.5">WhatsApp</span>
+          </a>
+        )}
+
+        {phoneUrl && (
+          <a
+            href={phoneUrl}
+            className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-violet-600/15 border border-violet-500/30 text-violet-300 hover:text-white text-[10px] font-bold transition active:scale-95"
+          >
+            <Phone className="w-4 h-4 text-violet-400" />
+            <span className="mt-0.5">Call</span>
+          </a>
+        )}
+
+        {instagramUrl && (
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-[#E1306C]/15 border border-[#E1306C]/30 text-pink-300 hover:text-white text-[10px] font-bold transition active:scale-95"
+          >
+            <SocialIcon platform="instagram" size={17} colored={true} />
+            <span className="mt-0.5">Instagram</span>
+          </a>
+        )}
+
+        {facebookUrl && (
+          <a
+            href={facebookUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-[#1877F2]/15 border border-[#1877F2]/30 text-blue-300 hover:text-white text-[10px] font-bold transition active:scale-95"
+          >
+            <SocialIcon platform="facebook" size={17} colored={true} />
+            <span className="mt-0.5">Facebook</span>
+          </a>
+        )}
+
+        <button
+          onClick={() => setIsQuoteModalOpen(true)}
+          className="flex-1.2 flex flex-col items-center justify-center py-1.5 px-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-[10px] font-bold shadow-lg shadow-violet-600/30 transition active:scale-95 cursor-pointer"
+        >
+          <PartyPopper className="w-4 h-4" />
+          <span className="mt-0.5">Get Quote</span>
+        </button>
+      </div>
     </div>
   );
 }
