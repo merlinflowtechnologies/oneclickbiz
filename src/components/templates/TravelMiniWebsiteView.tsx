@@ -69,7 +69,9 @@ export default function TravelMiniWebsiteView({ profile, getEmbedUrl }: TravelMi
   const customizationPolicy = travelConfig.customizationPolicy || '100% Tailored Private Itineraries';
 
   // Packages (Tour Itineraries)
-  const packages: ProductItem[] = profile.sectionData?.products?.items || [
+  const rawPackages = profile.sectionData?.products?.items || [];
+  const hasGenericPackage = rawPackages.length === 1 && rawPackages[0].name.includes('Consultation Package');
+  const packages: ProductItem[] = (rawPackages.length > 0 && !hasGenericPackage) ? rawPackages : [
     {
       id: 'trv_pkg_1',
       name: 'Bali Private Pool Villa & Island Escape (6D/5N)',
@@ -113,7 +115,9 @@ export default function TravelMiniWebsiteView({ profile, getEmbedUrl }: TravelMi
   ];
 
   // Travel Services
-  const services: ServiceItem[] = profile.sectionData?.services?.items || [
+  const rawServices = profile.sectionData?.services?.items || [];
+  const hasGenericServices = rawServices.length > 0 && rawServices.some(s => s.title.includes('PDF downloads') || s.title.includes('holiday package slot'));
+  const services: ServiceItem[] = (rawServices.length > 0 && !hasGenericServices) ? rawServices : [
     {
       id: 'trv_svc_1',
       title: 'Bespoke Honeymoon & Private Tour Curating',
@@ -161,7 +165,8 @@ export default function TravelMiniWebsiteView({ profile, getEmbedUrl }: TravelMi
     url: g.imageUrl || (g as any).url || '',
     caption: g.title || (g as any).caption || ''
   }));
-  const displayGallery = galleryItems.length > 0 ? galleryItems : [
+  const hasGenericGallery = galleryItems.length === 1 && galleryItems[0].caption.includes('vCard Portfolio');
+  const displayGallery = (galleryItems.length > 0 && !hasGenericGallery) ? galleryItems : [
     {
       id: 'gal_1',
       url: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80',

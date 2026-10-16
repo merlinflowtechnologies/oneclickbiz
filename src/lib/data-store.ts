@@ -1,5 +1,7 @@
 import { DigitalProfile, BookingSlot, LeadItem, StoreOrder, DynamicQrConfig, NfcCardItem, BlogPostItem, ThemeType } from './types';
 import { SAMPLE_BLOG_POSTS } from './blog-data';
+import { getTemplateProfile } from '@/data/templatePresets';
+import { VCARD_TEMPLATES_CATALOG } from '@/data/vcardTemplates';
 
 export const INITIAL_BLOGS: BlogPostItem[] = SAMPLE_BLOG_POSTS;
 
@@ -225,11 +227,10 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
       callClicks: 195,
       vcfDownloads: 480
     }
-  }
+  },
+  getTemplateProfile('edu-school'),
+  getTemplateProfile('re-builders')
 ];
-
-import { getTemplateProfile } from '@/data/templatePresets';
-import { VCARD_TEMPLATES_CATALOG } from '@/data/vcardTemplates';
 
 export function getProfileBySlug(rawSlug: string): DigitalProfile {
   const cleanSlug = (rawSlug || '').toLowerCase().trim();
@@ -378,14 +379,14 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     };
   }
 
-  // 3.7 Check if slug is education / school related (Geethanjali Group of Schools)
+  // 3.7 Check if slug is education / school related (Apex Global Group of Schools)
   const isEducationSchoolPattern = 
     cleanSlug === 'edu-school' ||
-    cleanSlug === 'geethanjali' ||
-    cleanSlug === 'geethanjali-school' ||
-    cleanSlug === 'geethanjali-schools' ||
-    cleanSlug === 'geethanjaligroupofschools' ||
-    cleanSlug.includes('geethanjali');
+    cleanSlug === 'apex' ||
+    cleanSlug === 'apex-school' ||
+    cleanSlug === 'apex-schools' ||
+    cleanSlug === 'global-school' ||
+    cleanSlug.includes('school');
 
   if (isEducationSchoolPattern) {
     const tProf = getTemplateProfile('edu-school');
@@ -631,11 +632,170 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
   };
 }
 
-export const INITIAL_BOOKINGS: BookingSlot[] = [];
+export const INITIAL_BOOKINGS: BookingSlot[] = [
+  {
+    id: 'book_edu_01',
+    serviceId: 'srv_edu_1',
+    serviceTitle: 'Admissions Counseling & Campus Tour',
+    customerName: 'Srinivas Reddy',
+    customerEmail: 'srinivas.reddy@gmail.com',
+    customerPhone: '+91 98765 43210',
+    date: '2026-10-18',
+    time: '10:00',
+    status: 'CONFIRMED',
+    notes: 'Campus tour of Narsampet Digi smart classrooms and robotics innovation lab.',
+    createdAt: '2026-10-15T09:35:00.000Z'
+  },
+  {
+    id: 'book_edu_02',
+    serviceId: 'srv_edu_2',
+    serviceTitle: 'IIT & NEET Foundation Diagnostic Test',
+    customerName: 'Master Aryan Reddy',
+    customerEmail: 'srinivas.reddy@gmail.com',
+    customerPhone: '+91 98765 43210',
+    date: '2026-10-19',
+    time: '11:30',
+    status: 'CONFIRMED',
+    notes: 'Mathematics aptitude and analytical reasoning diagnostic test.',
+    createdAt: '2026-10-15T10:00:00.000Z'
+  },
+  {
+    id: 'book_edu_03',
+    serviceId: 'srv_edu_3',
+    serviceTitle: 'Hostel & Semi-Residential Counseling',
+    customerName: 'Dr. Ananya Sharma',
+    customerEmail: 'ananya.sharma@healthcare.org',
+    customerPhone: '+91 94401 23456',
+    date: '2026-10-20',
+    time: '14:00',
+    status: 'PENDING',
+    notes: 'Girls hostel wing safety and dietary schedule review.',
+    createdAt: '2026-10-14T14:20:00.000Z'
+  },
+  {
+    id: 'book_re_01',
+    serviceId: 'srv_1',
+    serviceTitle: 'Real Estate Launch Strategy Consultation',
+    customerName: 'Vikramaditya Verma',
+    customerEmail: 'vikram.verma@investors.in',
+    customerPhone: '+91 91234 56789',
+    date: '2026-10-17',
+    time: '16:00',
+    status: 'CONFIRMED',
+    notes: 'Virtual walkthrough integration strategy meeting.',
+    createdAt: '2026-10-15T18:05:00.000Z'
+  }
+];
 
-export const INITIAL_LEADS: LeadItem[] = [];
+export const INITIAL_LEADS: LeadItem[] = [
+  {
+    id: 'lead_edu_01',
+    profileId: 'prof_edu-school',
+    name: 'Srinivas Reddy',
+    email: 'srinivas.reddy@gmail.com',
+    phone: '+91 98765 43210',
+    message: 'Seeking Class 6 admission for my son Master Aryan Reddy with IIT-NEET Integrated Foundation at Narsampet Digi campus.',
+    status: 'QUALIFIED',
+    notes: 'Campus visit and entrance diagnostic test scheduled for Saturday 10:00 AM.',
+    createdAt: '2026-10-15T09:30:00.000Z'
+  },
+  {
+    id: 'lead_edu_02',
+    profileId: 'prof_edu-school',
+    name: 'Dr. Ananya Sharma',
+    email: 'ananya.sharma@healthcare.org',
+    phone: '+91 94401 23456',
+    message: 'Inquiring about girls residential boarding facilities, 24/7 security warden, and evening study schedules for Class 8.',
+    status: 'CONTACTED',
+    notes: 'Shared Hostel Schedule PDF and dining menu via WhatsApp.',
+    createdAt: '2026-10-14T14:15:00.000Z'
+  },
+  {
+    id: 'lead_edu_03',
+    profileId: 'prof_edu-school',
+    name: 'K. Venkateshwarlu',
+    email: 'k.venkat@yahoo.com',
+    phone: '+91 99887 76655',
+    message: 'Interested in Old Kothagudem new branch opening June 2025. Please share bus routes for Gouthamnagar and fee structure for Class 4.',
+    status: 'NEW',
+    notes: 'Requires transport route map and admission prospectus.',
+    createdAt: '2026-10-16T11:45:00.000Z'
+  },
+  {
+    id: 'lead_edu_04',
+    profileId: 'prof_edu-school',
+    name: 'Rajesh & Sunitha Kumar',
+    email: 'rajesh.kumar@tcs.com',
+    phone: '+91 98480 11223',
+    message: 'Applying for Nursery and Class 2 admissions for our children at Maheshwaram Global campus.',
+    status: 'CONVERTED',
+    notes: 'Admission confirmed. Seat reservation deposit received.',
+    createdAt: '2026-10-12T16:20:00.000Z'
+  },
+  {
+    id: 'lead_re_01',
+    profileId: 'prof_kishore_1',
+    name: 'Vikramaditya Verma',
+    email: 'vikram.verma@investors.in',
+    phone: '+91 91234 56789',
+    message: 'Interested in commercial plot advisory and 3D architectural reality marketing for our upcoming 14-acre development.',
+    status: 'QUALIFIED',
+    notes: 'High-intent investor seeking VR walkthrough suite demonstration.',
+    createdAt: '2026-10-15T18:00:00.000Z'
+  },
+  {
+    id: 'lead_re_02',
+    profileId: 'prof_kishore_1',
+    name: 'Meera Deshmukh',
+    email: 'meera.d@techcorp.com',
+    phone: '+91 98760 54321',
+    message: 'Requesting enterprise proposal for 25 Smart Digital Cards & dynamic QR code suites for our sales team.',
+    status: 'NEW',
+    notes: 'Corporate bulk inquiry sent to business development.',
+    createdAt: '2026-10-16T10:10:00.000Z'
+  }
+];
 
-export const INITIAL_NFC_CARDS: NfcCardItem[] = [];
+export const INITIAL_NFC_CARDS: NfcCardItem[] = [
+  {
+    id: 'nfc_edu_01',
+    cardCode: 'NFC-EDU-2026',
+    profileSlug: 'edu-school',
+    serialNumber: 'SN-EDU-99214',
+    status: 'ACTIVE',
+    tapCount: 348,
+    fulfillmentStatus: 'DELIVERED',
+    createdAt: '2026-03-01T10:00:00.000Z'
+  },
+  {
+    id: 'nfc_kishore_01',
+    cardCode: 'NFC-HIMAS-01',
+    profileSlug: 'kishore',
+    serialNumber: 'SN-HIMAS-0012',
+    status: 'ACTIVE',
+    tapCount: 512,
+    fulfillmentStatus: 'DELIVERED',
+    createdAt: '2026-01-15T10:00:00.000Z'
+  }
+];
 
-export const INITIAL_QR_CODES: DynamicQrConfig[] = [];
+export const INITIAL_QR_CODES: DynamicQrConfig[] = [
+  {
+    id: 'qr_edu_01',
+    code: 'QR-EDU-SCHOOL',
+    targetSlug: 'edu-school',
+    foregroundColor: '#a90707',
+    backgroundColor: '#ffffff',
+    logoUrl: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=200&q=80',
+    scanCount: 890
+  },
+  {
+    id: 'qr_kishore_01',
+    code: 'QR-KISHORE-PATEL',
+    targetSlug: 'kishore',
+    foregroundColor: '#1e1b4b',
+    backgroundColor: '#ffffff',
+    scanCount: 1420
+  }
+];
 

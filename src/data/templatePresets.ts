@@ -1112,18 +1112,18 @@ TEMPLATE_PRESETS_DATA['mediclaim'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
 TEMPLATE_PRESETS_DATA['insurance-advisor'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
 
 TEMPLATE_PRESETS_DATA['edu-school'] = {
-  name: 'Geethanjali Group of Schools',
-  designation: 'Best Schools in Warangal | SSC CBSE & ICSE Integrated Syllabus | IIT & NEET Foundation',
-  company: 'Geethanjali Group of Schools – Warangal',
-  bio: 'Geethanjali Group of Schools is renowned for delivering exceptional education across Warangal, Narsampet, Mahbubabad, and Kothagudem. Offering SSC, CBSE & ICSE Integrated syllabus, digital classrooms, experienced faculty, IIT & NEET foundation, robotics lab, and comprehensive boarding facilities.',
+  name: 'Apex Global Group of Schools',
+  designation: 'Premier K-12 Institution | SSC CBSE & ICSE Integrated Syllabus | IIT & NEET Foundation',
+  company: 'Apex Global Group of Schools',
+  bio: 'Apex Global Group of Schools is renowned for delivering exceptional education across integrated campuses. Offering SSC, CBSE & ICSE Integrated syllabus, digital classrooms, experienced faculty, IIT & NEET foundation, robotics lab, and comprehensive boarding facilities.',
   theme: 'modern-indigo',
-  avatarUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/Geethanjali_School_Logo-removebg-preview.png',
-  coverUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0154.jpg',
-  email: 'info@geethanjaligroupofschools-wgl.com',
-  phone: '+91 7732071452',
-  whatsapp: '917732071452',
-  website: 'https://geethanjaligroupofschools-wgl.com/',
-  address: 'H. No. 19-219, Warangal Rd, opp. Ayyappa Temple, Narsampet, Telangana 506132',
+  avatarUrl: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=200&q=80',
+  coverUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1600&q=80',
+  email: 'admissions@apexschools.edu.in',
+  phone: '+91 98765 43210',
+  whatsapp: '919876543210',
+  website: 'https://www.apexschools.edu.in/',
+  address: 'Apex Knowledge Park, Education Corridor, Telangana 506001',
   services: [
     {
       id: 'srv_edu_1',
@@ -1165,7 +1165,7 @@ TEMPLATE_PRESETS_DATA['edu-school'] = {
       description: 'Activity-based child-centric pedagogy, phonetics, sensory play, basic numeracy, and English language communication in a caring environment.',
       price: 28000,
       currency: '₹',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/freepicdownloader.com-happy-indian-schoolgirl-uniform-with-books-bag-medium.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80',
       category: 'Pre-Primary Education',
       isAvailable: true
     },
@@ -1175,7 +1175,7 @@ TEMPLATE_PRESETS_DATA['edu-school'] = {
       description: 'Strong foundation in Mathematics, General Science, Languages, Environmental Studies, and mental arithmetic with interactive digital boards.',
       price: 36000,
       currency: '₹',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/WhatsApp-Image-2024-03-14-at-22.12.52_79c2d4ed.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80',
       category: 'Primary School',
       isAvailable: true
     },
@@ -1185,7 +1185,7 @@ TEMPLATE_PRESETS_DATA['edu-school'] = {
       description: 'Integrated ICSE, CBSE & State syllabus with early preparation for National Science Olympiads and English speech debates.',
       price: 45000,
       currency: '₹',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0201-scaled.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80',
       category: 'Middle School',
       isAvailable: true
     },
@@ -1195,7 +1195,7 @@ TEMPLATE_PRESETS_DATA['edu-school'] = {
       description: 'Rigorous academic drills, past-paper analysis, regular revision tests, and personalized mentor attention targeting 100% GPA in SSC & Board exams.',
       price: 55000,
       currency: '₹',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0163-1024x680.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=600&q=80',
       category: 'High School',
       isAvailable: true
     },
@@ -1205,7 +1205,7 @@ TEMPLATE_PRESETS_DATA['edu-school'] = {
       description: 'Comprehensive weekend national-level exams, advanced physics-chemistry-math concepts, shortcut techniques, and doubt resolution labs.',
       price: 65000,
       currency: '₹',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0215-scaled.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80',
       category: 'Competitive Foundation',
       isAvailable: true
     },
@@ -1215,7 +1215,7 @@ TEMPLATE_PRESETS_DATA['edu-school'] = {
       description: 'Practical coding, hardware sensor circuits, LEGO mechanics, and science project modeling for futuristic skill development.',
       price: 48000,
       currency: '₹',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/06/3X3-2-PAGE-ROBOTICS-LAB-LALIPOP-KOTHADUEM_page-0001.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80',
       category: 'STEM & Robotics',
       isAvailable: true
     }
@@ -1223,84 +1223,84 @@ TEMPLATE_PRESETS_DATA['edu-school'] = {
   gallery: [
     {
       id: 'gal_edu_1',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0154.jpg',
-      title: 'Geethanjali Digi School (Main Campus)',
+      imageUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=600&q=80',
+      title: 'Apex Digi School (Main Campus)',
       category: 'Campuses',
-      description: 'Main flagship campus at Narsampet, Warangal with state-of-the-art infrastructure.'
+      description: 'Main flagship campus with state-of-the-art infrastructure and digital interactive classrooms.'
     },
     {
       id: 'gal_edu_2',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0207.jpg',
-      title: 'Geethanjali Global School',
+      imageUrl: 'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=600&q=80',
+      title: 'Apex Global Academy',
       category: 'Campuses',
-      description: 'Expansive global school campus at Maheshwaram with dedicated sports fields.'
+      description: 'Expansive global school campus with dedicated sports fields and modern science labs.'
     },
     {
       id: 'gal_edu_3',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0241.jpg',
-      title: 'Geethanjali High School - Mahbubabad',
+      imageUrl: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80',
+      title: 'Apex International High School',
       category: 'Campuses',
-      description: 'Premier academic campus in Mahbubabad town.'
+      description: 'Premier secondary academic campus with focused coaching and board exam preparation.'
     },
     {
       id: 'gal_edu_4',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/06/3X3-LALIPOP-KOTHADUEM_page-0001-900x492.jpg',
-      title: 'Geethanjali Public School - Old Kothagudem (New Branch)',
+      imageUrl: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80',
+      title: 'Apex Public School (Heritage Branch)',
       category: 'New Branch',
-      description: 'Opening 10th June 2025 at Old Arunachaleshwara School Campus, Gouthamnagar.'
+      description: 'State-of-the-art new campus opening with world-class robotics and STEM innovation labs.'
     },
     {
       id: 'gal_edu_5',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/WhatsApp-Image-2024-03-14-at-22.12.52_79c2d4ed.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80',
       title: 'Digital Interactive Smart Classrooms',
       category: 'Classrooms',
       description: 'Fully multimedia-equipped classrooms with digital interactive learning panels.'
     },
     {
       id: 'gal_edu_6',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0201-scaled.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&q=80',
       title: 'Playground & Sports Grounds',
       category: 'Sports',
       description: 'Spacious outdoor playing arenas for football, volleyball, cricket, and athletic events.'
     },
     {
       id: 'gal_edu_7',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/WhatsApp-Image-2024-01-31-at-12.03.05.jpeg',
+      imageUrl: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80',
       title: 'Residential Hostels & Boarding Life',
       category: 'Boarding',
       description: 'Comfortable, safe, and nurturing semi-residential and full hostel accommodations.'
     },
     {
       id: 'gal_edu_8',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/P1089642-scaled.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=600&q=80',
       title: 'N.C.C Cadet & Leadership Training',
       category: 'Activities',
       description: 'Discipline, marching, endurance, and national leadership drills.'
     },
     {
       id: 'gal_edu_9',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/P1089628-scaled.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80',
       title: 'Periodic Doctor Health Checkups',
       category: 'Health',
       description: 'Routine healthcare evaluations, dental checkups, and physical fitness monitoring.'
     },
     {
       id: 'gal_edu_10',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/P1090284-scaled.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?auto=format&fit=crop&w=600&q=80',
       title: 'Hygienic Dining & Nutritious Meals',
       category: 'Dining',
       description: 'Strict cleanliness standards in cooking with balanced, nutritious, and appetizing food.'
     },
     {
       id: 'gal_edu_11',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/P1089745-scaled.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80',
       title: 'Faculty Development Program (FDP)',
       category: 'Faculty',
       description: 'Continuous pedagogical training keeping educators aligned with modern 21st-century teaching methods.'
     },
     {
       id: 'gal_edu_12',
-      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/06/3X3-2-PAGE-ROBOTICS-LAB-LALIPOP-KOTHADUEM_page-0001.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80',
       title: 'Robotics & STEM Innovation Lab',
       category: 'Labs',
       description: 'Hands-on experiential robotics kits, microcontrollers, and logic coding kits.'
@@ -1311,51 +1311,51 @@ TEMPLATE_PRESETS_DATA['edu-school'] = {
       id: 't_edu_1',
       clientName: 'Mrs. Meena',
       clientRole: 'Parent of Aarav, Class 3',
-      clientCompany: 'Geethanjali Digi School Narsampet',
-      content: 'The dedication of the teachers and staff at Geethanjali is commendable. My little one enjoys every class, and I have seen tremendous growth in his confidence and communication skills. The school provides the perfect blend of academics, sports, and extracurricular activities.',
+      clientCompany: 'Apex Digi School',
+      content: 'The dedication of the teachers and staff at Apex Global is commendable. My little one enjoys every class, and I have seen tremendous growth in his confidence and communication skills. The school provides the perfect blend of academics, sports, and extracurricular activities.',
       rating: 5,
-      clientAvatar: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/portrait-of-happy-woman-with-curly-hair-at-park.jpg'
+      clientAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80'
     },
     {
       id: 't_edu_2',
       clientName: 'Mr. Prakash',
-      clientRole: 'Parent of Rahul, Geethanjali Alumni, Class 10',
-      clientCompany: 'Geethanjali Group of Schools',
-      content: 'As parents, we wanted a school that not only focuses on academics but also on values and life skills. Geethanjali School has exceeded our expectations. Our son, who recently completed his 10th grade, has been nurtured with great discipline, leadership qualities, and strong academic excellence. Thank you for shaping his future.',
+      clientRole: 'Parent of Rahul, Apex Alumni, Class 10',
+      clientCompany: 'Apex Global Group of Schools',
+      content: 'As parents, we wanted a school that not only focuses on academics but also on values and life skills. Apex Global School has exceeded our expectations. Our son, who recently completed his 10th grade, has been nurtured with great discipline, leadership qualities, and strong academic excellence. Thank you for shaping his future.',
       rating: 5,
-      clientAvatar: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/portrait-of-happy-woman-with-curly-hair-at-park.jpg'
+      clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80'
     },
     {
       id: 't_edu_3',
       clientName: 'Mr. & Mrs. Kumar',
       clientRole: 'Parents of Sneha, Class 5',
-      clientCompany: 'Geethanjali Global School Maheshwaram',
-      content: 'My daughter loves going to school every day! The innovative teaching methods and well-structured curriculum at Geethanjali have helped her develop strong foundational knowledge. The teachers encourage curiosity and creativity, which has made learning enjoyable for her. We are extremely happy with our decision to enroll her here.',
+      clientCompany: 'Apex Global Academy',
+      content: 'My daughter loves going to school every day! The innovative teaching methods and well-structured curriculum at Apex Global have helped her develop strong foundational knowledge. The teachers encourage curiosity and creativity, which has made learning enjoyable for her. We are extremely happy with our decision to enroll her here.',
       rating: 5,
-      clientAvatar: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/portrait-of-happy-woman-with-curly-hair-at-park.jpg'
+      clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
     },
     {
       id: 't_edu_4',
       clientName: 'Mrs. S. Reddy',
       clientRole: 'Parent of Sneha, Class 5',
-      clientCompany: 'Geethanjali E/M High School',
-      content: 'Geethanjali Group of Schools has been a second home for my child. The teachers are highly supportive, and the learning environment is exceptional. My son has not only excelled academically but also gained confidence through extracurricular activities. We are truly grateful for the school’s dedication to holistic education.',
+      clientCompany: 'Apex International High School',
+      content: 'Apex Global Group of Schools has been a second home for my child. The teachers are highly supportive, and the learning environment is exceptional. My son has not only excelled academically but also gained confidence through extracurricular activities. We are truly grateful for the school’s dedication to holistic education.',
       rating: 5,
-      clientAvatar: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/portrait-of-happy-woman-with-curly-hair-at-park.jpg'
+      clientAvatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80'
     }
   ],
   videos: [
     {
       id: 'v_edu_1',
-      title: 'Geethanjali Schools - Learning, Friendship and Fun For Everyone',
+      title: 'Apex Global Schools - Learning, Friendship and Fun For Everyone',
       url: 'https://www.youtube.com/watch?v=1MTkZPys7mU',
       type: 'youtube',
       embedUrl: 'https://www.youtube.com/embed/1MTkZPys7mU',
-      caption: 'Discover the inspiring campus life, happy children, caring teachers, and holistic development at Geethanjali Group of Schools.'
+      caption: 'Discover the inspiring campus life, happy children, caring teachers, and holistic development at Apex Global Group of Schools.'
     },
     {
       id: 'v_edu_2',
-      title: 'Geethanjali Group of Schools Campus Tour & Environment',
+      title: 'Apex Global Group of Schools Campus Tour & Environment',
       url: 'https://www.youtube.com/watch?v=XHOmBV4js_E',
       type: 'youtube',
       embedUrl: 'https://www.youtube.com/embed/XHOmBV4js_E',
@@ -1363,21 +1363,21 @@ TEMPLATE_PRESETS_DATA['edu-school'] = {
     }
   ],
   socials: [
-    { id: 'soc_edu_wa', platform: 'whatsapp', url: 'https://wa.me/917732071452', label: 'WhatsApp' },
-    { id: 'soc_edu_ph', platform: 'phone', url: 'tel:+917732071452', label: 'Call Us' },
-    { id: 'soc_edu_ig', platform: 'instagram', url: 'https://www.instagram.com/geethanjaligroupofschools_wgl/', label: 'Instagram' },
-    { id: 'soc_edu_fb', platform: 'facebook', url: 'https://www.facebook.com/profile', label: 'Facebook' },
-    { id: 'soc_edu_yt', platform: 'youtube', url: 'https://www.youtube.com/@geethanjaligroupofschools', label: 'YouTube' },
-    { id: 'soc_edu_em', platform: 'email', url: 'mailto:info@geethanjaligroupofschools-wgl.com', label: 'Email' },
-    { id: 'soc_edu_map', platform: 'maps', url: 'https://maps.google.com/?q=Geethanjali+Digi+School+Narsampet+Warangal', label: 'Main Campus Map' },
-    { id: 'soc_edu_web', platform: 'website', url: 'https://geethanjaligroupofschools-wgl.com/', label: 'Official Website' }
+    { id: 'soc_edu_wa', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp' },
+    { id: 'soc_edu_ph', platform: 'phone', url: 'tel:+919876543210', label: 'Call Us' },
+    { id: 'soc_edu_ig', platform: 'instagram', url: 'https://www.instagram.com/apex_global_schools/', label: 'Instagram' },
+    { id: 'soc_edu_fb', platform: 'facebook', url: 'https://www.facebook.com/apexschools', label: 'Facebook' },
+    { id: 'soc_edu_yt', platform: 'youtube', url: 'https://www.youtube.com/@apex_global_schools', label: 'YouTube' },
+    { id: 'soc_edu_em', platform: 'email', url: 'mailto:admissions@apexschools.edu.in', label: 'Email' },
+    { id: 'soc_edu_map', platform: 'maps', url: 'https://maps.google.com/?q=Apex+Global+School+Knowledge+Park', label: 'Main Campus Map' },
+    { id: 'soc_edu_web', platform: 'website', url: 'https://www.apexschools.edu.in/', label: 'Official Website' }
   ]
 };
 
-TEMPLATE_PRESETS_DATA['geethanjali'] = TEMPLATE_PRESETS_DATA['edu-school'];
-TEMPLATE_PRESETS_DATA['geethanjali-school'] = TEMPLATE_PRESETS_DATA['edu-school'];
-TEMPLATE_PRESETS_DATA['geethanjali-schools'] = TEMPLATE_PRESETS_DATA['edu-school'];
-TEMPLATE_PRESETS_DATA['geethanjaligroupofschools'] = TEMPLATE_PRESETS_DATA['edu-school'];
+TEMPLATE_PRESETS_DATA['apex'] = TEMPLATE_PRESETS_DATA['edu-school'];
+TEMPLATE_PRESETS_DATA['apex-school'] = TEMPLATE_PRESETS_DATA['edu-school'];
+TEMPLATE_PRESETS_DATA['apex-schools'] = TEMPLATE_PRESETS_DATA['edu-school'];
+TEMPLATE_PRESETS_DATA['global-school'] = TEMPLATE_PRESETS_DATA['edu-school'];
 
 
 
@@ -1537,46 +1537,46 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
         demoTimings: 'Mon - Sat (8:00 AM - 5:00 PM)',
         admissionCommence: 'Commencing Last Week of March',
         gradesOffered: 'Nursery to Class X',
-        schoolLogo: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/Geethanjali_School_Logo-removebg-preview.png',
+        schoolLogo: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=200&q=80',
         branches: [
           {
-            name: 'Geethanjali Digi School (Main Campus)',
-            location: 'Narsampet, Warangal',
-            address: 'H. No. 19-219, Warangal Rd, opp. Ayyappa Temple, Narsampet, Telangana 506132',
-            phone: '+91 7732071452',
-            image: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0154.jpg',
+            name: 'Apex Digi School (Main Campus)',
+            location: 'Central Knowledge Park',
+            address: 'Plot 101, Knowledge Park Corridor, Hyderabad & Warangal Region',
+            phone: '+91 98765 43210',
+            image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=600&q=80',
             type: 'Digi Smart Campus & IIT/NEET Labs'
           },
           {
-            name: 'Geethanjali Global School',
-            location: 'Maheshwaram, Warangal',
-            address: 'Maheshwaram Campus, Warangal District, Telangana',
-            phone: '+91 7732071452',
-            image: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0207.jpg',
+            name: 'Apex Global Academy',
+            location: 'West End Campus',
+            address: 'West End Educational Enclave, Telangana',
+            phone: '+91 98765 43210',
+            image: 'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=600&q=80',
             type: 'Global Campus & Sports Arena'
           },
           {
-            name: 'Geethanjali E/M High School',
-            location: 'Mallampally Road, Narsampet',
-            address: 'Mallampally Road, Narsampet, Warangal, Telangana',
-            phone: '+91 7732071452',
-            image: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/WhatsApp-Image-2024-03-15-at-10.23.26.jpeg',
+            name: 'Apex International High School',
+            location: 'East City Campus',
+            address: 'East City Avenue, Telangana',
+            phone: '+91 98765 43210',
+            image: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80',
             type: 'English Medium High School'
           },
           {
-            name: 'Geethanjali High School',
-            location: 'Mahbubabad',
-            address: 'Main Town Campus, Mahbubabad, Telangana',
-            phone: '+91 7732071452',
-            image: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0241.jpg',
+            name: 'Apex Senior Secondary School',
+            location: 'North Zone Campus',
+            address: 'North Zone Academic Square, Telangana',
+            phone: '+91 98765 43210',
+            image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80',
             type: 'High School & Boarding Wings'
           },
           {
-            name: 'Geethanjali Public School (New Branch)',
-            location: 'Old Kothagudem',
-            address: 'Old Arunachaleshwara School Campus, Gouthamnagar, Old Kothagudem, Bhadradri Kothagudem Dist.',
-            phone: '+91 7732071452',
-            image: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/06/3X3-LALIPOP-KOTHADUEM_page-0001-900x492.jpg',
+            name: 'Apex Public School (Heritage Branch)',
+            location: 'South City Campus',
+            address: 'Heritage Campus, South City Educational Hub, Telangana',
+            phone: '+91 98765 43210',
+            image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80',
             type: 'Opening 10th June 2025 - World-Class Robotics & STEM'
           }
         ]

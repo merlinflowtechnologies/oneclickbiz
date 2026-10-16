@@ -766,14 +766,14 @@ export default function ProfileCardView({
     (profile as any).category === 'Healthcare' ||
     (profile as any).templateId?.includes('doctor') ||
     (profile as any).templateId?.includes('clinic') ||
-    (profile as any).templateId?.includes('hospital') ||
+    ((profile as any).templateId?.includes('hospital') && !(profile as any).templateId?.includes('hospitality')) ||
     profile.designation?.toLowerCase().includes('doctor') ||
     profile.designation?.toLowerCase().includes('dr.') ||
     profile.designation?.toLowerCase().includes('physician') ||
     profile.designation?.toLowerCase().includes('surgeon') ||
     profile.designation?.toLowerCase().includes('dentist') ||
     profile.designation?.toLowerCase().includes('clinic') ||
-    profile.company?.toLowerCase().includes('hospital') ||
+    (profile.company?.toLowerCase().includes('hospital') && !profile.company?.toLowerCase().includes('hospitality')) ||
     profile.company?.toLowerCase().includes('clinic') ||
     profile.company?.toLowerCase().includes('dental') ||
     Boolean(profile.sectionData?.healthcare)
@@ -812,7 +812,7 @@ export default function ProfileCardView({
 
   const isEducation = Boolean(
     profile.slug === 'edu-school' ||
-    profile.slug?.includes('geethanjali') ||
+    profile.slug?.includes('apex') ||
     profile.slug?.startsWith('edu-') ||
     (profile as any).category === 'Education' ||
     (profile as any).templateId?.includes('edu') ||
