@@ -845,13 +845,6 @@ export default function LandingPage() {
 
           {/* Bottom CTAs inside Demo Section */}
           <div className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/signup?intent=build_card"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
-            >
-              <span>Build Your Smart Card Now</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
             <a
               href="#templates"
               className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 text-white border border-white/20 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm backdrop-blur-md"
