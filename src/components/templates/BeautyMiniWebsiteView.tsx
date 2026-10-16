@@ -35,8 +35,8 @@ import {
   Store,
   Menu,
   Check,
-  Eye,
-  Camera
+  Camera,
+  MessageSquare
 } from 'lucide-react';
 import { DigitalProfile } from '@/lib/types';
 import ShareCardModal from '@/components/common/ShareCardModal';
@@ -52,7 +52,7 @@ interface BeautyMiniWebsiteViewProps {
   showViewToggle?: boolean;
 }
 
-// Fallback high-res salon products catalog with 100% authentic images
+// Fallback high-res salon products catalog with authentic salon retail items
 const DEFAULT_SALON_PRODUCTS = [
   {
     id: 'prod_bs_1',
@@ -236,15 +236,15 @@ const DEFAULT_SALON_PRODUCTS = [
   }
 ];
 
-// Hot offers curated from Green Trends Kothapet with authentic preview images
-const GREEN_TRENDS_OFFERS = [
+// Curated mock deals with coupon codes and photos
+const MOCK_SALON_OFFERS = [
   {
     id: 'off_1',
     category: 'Women',
     title: 'Flat 30% OFF First Visit',
     subtitle: 'Welcome special on Haircut, Color or Facial services',
     badge: 'NEW CLIENTS',
-    code: 'WELCOME30',
+    code: 'AURALUXE30',
     terms: 'Valid on services above ₹999 on weekdays',
     discount: 'FLAT 30% OFF',
     tagColor: 'from-[#ab2079] to-pink-600',
@@ -253,7 +253,7 @@ const GREEN_TRENDS_OFFERS = [
   {
     id: 'off_2',
     category: 'Bridal & Groom',
-    title: 'Grand Bridal Glow Radiance Package',
+    title: 'Royal Bridal Glow Radiance Package',
     subtitle: 'Pre-bridal cleanup, 7-step facial, body spa, bridal hair styling & saree draping',
     badge: 'BRIDAL SPECIAL',
     price: '₹14,999',
@@ -281,7 +281,7 @@ const GREEN_TRENDS_OFFERS = [
   {
     id: 'off_4',
     category: 'Men',
-    title: 'Men’s Executive Grooming Package',
+    title: 'Gentlemen’s Executive Grooming Package',
     subtitle: 'Precision style haircut, beard sculpting, charcoal detan & invigorating head massage',
     badge: 'MEN’S CHOICE',
     price: '₹799',
@@ -322,12 +322,82 @@ const GREEN_TRENDS_OFFERS = [
   }
 ];
 
+// Rich mock customer reviews with 5 stars, review text, and client avatars
+const MOCK_REVIEWS = [
+  {
+    id: 'rev_1',
+    headline: 'Bespoke Balayage & Hair Botox Transformation!',
+    clientName: 'Sravani Reddy',
+    clientRole: 'Verified Client • Jubilee Hills',
+    service: 'Balayage Color & Hair Botox',
+    content: 'Hands down the most luxurious salon experience in Hyderabad! My hair was severely heat-damaged, but the master colorist gave me the most seamless caramel balayage and finished with a botox gloss ritual. The vibrant salon atmosphere with all the bustling stations makes you feel so pampered!',
+    rating: 5,
+    date: '2 days ago',
+    clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
+  },
+  {
+    id: 'rev_2',
+    headline: 'World-Class Gentlemen Grooming & Fade',
+    clientName: 'Rahul Varma',
+    clientRole: 'Verified Client • Madhapur',
+    service: 'Men’s Executive Grooming',
+    content: 'Top-tier grooming! The precision skin fade, hot towel beard sculpting, and charcoal detan facial felt world-class. You can tell they use 100% genuine products like Schwarzkopf and Beardo. Friendly receptionist and zero wait time with WhatsApp booking.',
+    rating: 5,
+    date: '5 days ago',
+    clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80'
+  },
+  {
+    id: 'rev_3',
+    headline: 'Flawless 14-Hour HD Bridal Glow & Saree Draping',
+    clientName: 'Anjali Sharma',
+    clientRole: 'Bride • Banjara Hills',
+    service: 'Royal HD Bridal Package',
+    content: 'Booked their Royal HD Bridal Package for my wedding reception. The makeup stayed completely fresh and radiant for 14 continuous hours without caking! The traditional jasmine floral hair arrangement and saree draping received endless compliments from all my guests.',
+    rating: 5,
+    date: '1 week ago',
+    clientAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80'
+  },
+  {
+    id: 'rev_4',
+    headline: 'Deep Cellular Hair Spa & Genuine Product Store',
+    clientName: 'Pranay Kumar',
+    clientRole: 'Verified Client • Gachibowli',
+    service: 'L’Oréal Steam Hydration Spa',
+    content: 'Incredible experience! The steam hydration hair spa completely eliminated my scalp dryness and frizz. I also purchased the Moroccanoil treatment right from their store counter and it was delivered to my house in express courier. Super convenient and authentic!',
+    rating: 5,
+    date: '2 weeks ago',
+    clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80'
+  },
+  {
+    id: 'rev_5',
+    headline: 'Porcelain Radiance O3+ Oxygen Facial',
+    clientName: 'Dr. Meghna Rao',
+    clientRole: 'Verified Client • Film Nagar',
+    service: 'O3+ Bridal Radiance Facial',
+    content: 'As a dermatologist, I am very picky about facial ingredients. AuraLuxe uses authentic sealed O3+ professional single-use kits. The extraction was painless and my skin has a porcelain glass glow even after 10 days. Clean, autoclaved instruments throughout.',
+    rating: 5,
+    date: '3 weeks ago',
+    clientAvatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80'
+  },
+  {
+    id: 'rev_6',
+    headline: 'Superb Keratin Smoothing with Mirror Shine',
+    clientName: 'Vikram Malhotra',
+    clientRole: 'Verified Client • Hitec City',
+    service: 'Keratin Nanoplastia Treatment',
+    content: 'Visited on a Sunday when the salon was packed with customers taking services. Despite the bustling crowd, the team treated me with royal hospitality. The formal-free nanoplastia left my unruly wavy hair silky straight and shiny. Highly recommended!',
+    rating: 5,
+    date: '1 month ago',
+    clientAvatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80'
+  }
+];
+
 // Fallback high-res lookbook items with correct styling tags
 const DEFAULT_LOOKBOOK = [
   {
     id: 'gal_1',
     imageUrl: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80',
-    title: 'Green Trends Modern Styling Stations & Interior',
+    title: 'AuraLuxe Modern Styling Stations & Interior',
     category: 'Ambience'
   },
   {
@@ -393,7 +463,6 @@ export default function BeautyMiniWebsiteView({
 
   // --- Filtering States ---
   const [offerCategory, setOfferCategory] = useState<string>('All');
-  const [serviceCategory, setServiceCategory] = useState<string>('All');
   const [productCategory, setProductCategory] = useState<string>('All');
   const [productSearch, setProductSearch] = useState<string>('');
   const [galleryCategory, setGalleryCategory] = useState<string>('All');
@@ -425,15 +494,14 @@ export default function BeautyMiniWebsiteView({
   const profileServices = profile.sectionData?.services?.items || [];
   const profileProducts = profile.sectionData?.products?.items || [];
   const profileGallery = profile.sectionData?.gallery?.items?.length ? profile.sectionData.gallery.items : DEFAULT_LOOKBOOK;
-  const profileTestimonials = profile.sectionData?.testimonials?.items || [];
 
-  // Resolved salon products (merging profile configured products + authentic default catalog)
+  // Resolved salon products
   const allProducts = useMemo(() => {
     if (profileProducts.length > 0) {
       return profileProducts.map((p, idx) => ({
         id: p.id || `p_${idx}`,
         name: p.name || (p as any).title,
-        brand: (p as any).brand || (p.name.includes('L’Oréal') ? 'L’Oréal' : p.name.includes('Wella') ? 'Wella' : p.name.includes('O3+') ? 'O3+' : p.name.includes('Moroccanoil') ? 'Moroccanoil' : 'Green Trends Pro'),
+        brand: (p as any).brand || (p.name.includes('L’Oréal') ? 'L’Oréal' : p.name.includes('Wella') ? 'Wella' : p.name.includes('O3+') ? 'O3+' : p.name.includes('Moroccanoil') ? 'Moroccanoil' : 'AuraLuxe Pro'),
         volume: (p as any).volume || 'Standard Pack',
         description: p.description || 'Authentic salon-grade hair and skin beauty product.',
         price: p.price || 999,
@@ -449,13 +517,22 @@ export default function BeautyMiniWebsiteView({
     return DEFAULT_SALON_PRODUCTS;
   }, [profileProducts]);
 
-  // Clean WhatsApp phone calculation
+  // Clean WhatsApp phone calculation (using mock numbers)
   const rawWa = getCleanWhatsAppNumber(profile);
-  const cleanWaDigits = (rawWa || '919154910101').replace(/\D/g, '');
-  const cleanWa = cleanWaDigits.length === 10 ? `91${cleanWaDigits}` : cleanWaDigits;
-  const salonPhone = profile.phone || '+91 91549 10101';
-  const salonAddress = profile.address || 'No. 11-9-11/1/2, 1st Floor, New Nagole Main Rd, beside SBI Bank, Laxmi Nagar Colony, Kothapet, Hyderabad, Telangana 500035';
-  const salonCompany = profile.company || 'Green Trends Unisex Hair & Style Salon';
+  const cleanWaDigits = (rawWa || '919876543210').replace(/\D/g, '');
+  const cleanWa = cleanWaDigits.length === 10 ? `91${cleanWaDigits}` : (cleanWaDigits || '919876543210');
+  
+  // Clean Mock Brand Details
+  const salonCompany = (profile.company && !profile.company.includes('Green Trends')) 
+    ? profile.company 
+    : 'AuraLuxe Luxury Unisex Salon & Spa';
+  const salonLocation = 'Road No. 36, Jubilee Hills, Hyderabad';
+  const salonPhone = (profile.phone && !profile.phone.includes('63033') && !profile.phone.includes('91549')) 
+    ? profile.phone 
+    : '+91 98765 43210';
+  const salonAddress = (profile.address && !profile.address.includes('Kothapet') && !profile.address.includes('Nagole'))
+    ? profile.address
+    : 'Plot No. 482, 2nd Floor, Luxury Square Building, Road No. 36, Jubilee Hills, Hyderabad, Telangana 500033';
 
   // --- Cart Helpers ---
   const showToast = (msg: string) => {
@@ -530,11 +607,11 @@ export default function BeautyMiniWebsiteView({
 
     const orderText = 
       `🛍️ *BEAUTY PRODUCTS ORDER — ${salonCompany.toUpperCase()}*\n` +
-      `📍 Branch: Kothapet, Hyderabad\n` +
+      `📍 Branch: Jubilee Hills, Hyderabad\n` +
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
       `👤 *Customer:* ${customerDetails.name}\n` +
       `📞 *Phone:* ${customerDetails.phone}\n` +
-      `🚚 *Delivery Mode:* ${deliveryType === 'pickup' ? 'Store Pickup at Kothapet' : 'Doorstep Courier Delivery'}\n` +
+      `🚚 *Delivery Mode:* ${deliveryType === 'pickup' ? 'Salon Pickup at Jubilee Hills' : 'Doorstep Courier Delivery'}\n` +
       (deliveryType === 'delivery' && customerDetails.address ? `🏠 *Address:* ${customerDetails.address}\n` : '') +
       (customerDetails.notes ? `📝 *Notes:* ${customerDetails.notes}\n` : '') +
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
@@ -559,7 +636,7 @@ export default function BeautyMiniWebsiteView({
       `🏷️ *Brand:* ${product.brand || 'Salon Exclusive'}\n` +
       `📏 *Size:* ${product.volume || 'Standard'}\n` +
       `💰 *Price:* ₹${product.price.toLocaleString('en-IN')} (MRP: ₹${product.originalPrice || product.price})\n\n` +
-      `📍 Branch: Kothapet, Hyderabad\n` +
+      `📍 Branch: Jubilee Hills, Hyderabad\n` +
       `Please confirm product availability and pickup / delivery process. Thank you!`;
 
     window.open(`https://wa.me/${cleanWa}?text=${encodeURIComponent(msg)}`, '_blank');
@@ -573,7 +650,7 @@ export default function BeautyMiniWebsiteView({
 
     const msg = 
       `✨ *SALON APPOINTMENT REQUEST — ${salonCompany.toUpperCase()}*\n` +
-      `📍 Branch: Kothapet, Hyderabad\n` +
+      `📍 Branch: Jubilee Hills, Hyderabad\n` +
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
       `👤 *Client Name:* ${bookingForm.clientName}\n` +
       `📞 *Contact:* ${bookingForm.phone}\n` +
@@ -616,8 +693,8 @@ export default function BeautyMiniWebsiteView({
 
   // Filtered offers
   const filteredOffers = useMemo(() => {
-    if (offerCategory === 'All') return GREEN_TRENDS_OFFERS;
-    return GREEN_TRENDS_OFFERS.filter(off => off.category === offerCategory);
+    if (offerCategory === 'All') return MOCK_SALON_OFFERS;
+    return MOCK_SALON_OFFERS.filter(off => off.category === offerCategory);
   }, [offerCategory]);
 
   // Filtered gallery
@@ -627,7 +704,23 @@ export default function BeautyMiniWebsiteView({
   }, [profileGallery, galleryCategory]);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0C] text-zinc-100 font-sans selection:bg-[#1BD741] selection:text-black pb-28 relative">
+    <div className="min-h-screen text-zinc-100 font-sans selection:bg-[#1BD741] selection:text-black pb-28 relative bg-[#0A0A0C]">
+      {/* =========================================================================
+          ⭐ CONTINUOUS BACKGROUND: BEAUTY PARLOUR WITH ACTIVE CUSTOMERS
+          Spanning from the top Hero section down to the Contact/Footer section!
+         ========================================================================= */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <Image
+          src="/images/salon-bg-customers.jpg"
+          alt="Lively Luxury Beauty Parlour with Customers Arriving and Taking Services"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+        {/* Translucent Dark Gradient Overlay: Customers and active salon stations clearly visible while text is 100% readable */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/80 via-[#0A0A0C]/75 to-[#0A0A0C]/90 backdrop-blur-[2px]" />
+      </div>
+
       {/* TOAST NOTIFICATION */}
       {toastMessage && (
         <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-full bg-emerald-500 text-black font-bold text-xs sm:text-sm shadow-2xl flex items-center gap-2 animate-in fade-in slide-in-from-bottom duration-200">
@@ -640,12 +733,12 @@ export default function BeautyMiniWebsiteView({
       )}
 
       {/* 1. TOP ANNOUNCEMENT & HIGHLIGHT BAR */}
-      <div className="bg-gradient-to-r from-[#ab2079] via-[#85195e] to-[#0A0A0C] border-b border-pink-500/30 py-2 px-3 sm:px-4 text-[11px] sm:text-xs text-white relative z-50">
+      <div className="bg-gradient-to-r from-[#ab2079]/90 via-[#85195e]/90 to-[#0A0A0C]/90 backdrop-blur-md border-b border-pink-500/30 py-2 px-3 sm:px-4 text-[11px] sm:text-xs text-white relative z-50">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 font-medium">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/40 text-pink-200 font-bold text-[10px] uppercase tracking-wider border border-pink-300/30">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black/50 text-pink-200 font-bold text-[10px] uppercase tracking-wider border border-pink-300/30">
               <Sparkles className="w-3 h-3 text-pink-300 animate-pulse" />
-              Now in Kothapet
+              Now in Jubilee Hills
             </span>
             <span className="hidden sm:inline">✦</span>
             <span className="font-semibold text-pink-100">
@@ -671,13 +764,17 @@ export default function BeautyMiniWebsiteView({
       </div>
 
       {/* 2. STICKY LUXURY NAVIGATION BAR */}
-      <header className="sticky top-0 z-40 bg-[#0A0A0C]/90 backdrop-blur-xl border-b border-zinc-800/80 shadow-2xl">
+      <header className="sticky top-0 z-40 bg-[#0A0A0C]/85 backdrop-blur-xl border-b border-white/10 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-          {/* Logo & Brand Identity */}
+          {/* Logo & Brand Identity (AuraLuxe Mock Monogram) */}
           <div className="flex items-center gap-3">
             <div className="relative flex items-center gap-2">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-zinc-900 to-black border border-emerald-500/40 p-1 flex items-center justify-center shadow-lg shadow-emerald-950/40 shrink-0">
-                <span className="text-xl sm:text-2xl font-black text-[#1BD741] tracking-tighter">gt</span>
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-[#ab2079] via-pink-600 to-amber-500 p-0.5 shadow-lg shadow-pink-950/40 shrink-0">
+                <div className="w-full h-full bg-[#0A0A0C] rounded-[14px] flex items-center justify-center">
+                  <span className="text-lg sm:text-xl font-black bg-gradient-to-r from-pink-400 via-amber-200 to-[#1BD741] bg-clip-text text-transparent">
+                    AL
+                  </span>
+                </div>
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
@@ -686,11 +783,11 @@ export default function BeautyMiniWebsiteView({
                   </h1>
                 </div>
                 <div className="flex items-center gap-1.5 text-[11px] text-zinc-400 font-medium">
-                  <span className="text-[#1BD741] font-bold">Kothapet Branch</span>
+                  <span className="text-[#1BD741] font-bold">Jubilee Hills</span>
                   <span>•</span>
                   <span className="flex items-center gap-0.5 text-amber-400">
                     <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                    <strong>4.7</strong> (1,240+ reviews)
+                    <strong>4.9</strong> (1,580+ reviews)
                   </span>
                 </div>
               </div>
@@ -705,14 +802,14 @@ export default function BeautyMiniWebsiteView({
               <span className="px-1.5 py-0.2 rounded-full bg-pink-500/20 text-pink-300 text-[10px] font-bold border border-pink-500/30">30% OFF</span>
             </a>
             <a href="#services" className="hover:text-[#1BD741] transition">Services Menu</a>
-            <a href="#shop" className="hover:text-emerald-400 transition flex items-center gap-1.5 text-white bg-zinc-800/70 px-2.5 py-1 rounded-full border border-zinc-700">
+            <a href="#shop" className="hover:text-emerald-400 transition flex items-center gap-1.5 text-white bg-zinc-900/80 px-2.5 py-1 rounded-full border border-white/10">
               <ShoppingBag className="w-3.5 h-3.5 text-[#1BD741]" />
               <span>Beauty Shop</span>
               <span className="w-2 h-2 rounded-full bg-[#1BD741] animate-ping" />
             </a>
             <a href="#why-us" className="hover:text-[#1BD741] transition">Why Us</a>
             <a href="#lookbook" className="hover:text-[#1BD741] transition">Lookbook</a>
-            <a href="#reviews" className="hover:text-[#1BD741] transition">Reviews</a>
+            <a href="#reviews" className="hover:text-[#1BD741] transition">Reviews (4.9★)</a>
             <a href="#location" className="hover:text-[#1BD741] transition">Find Us</a>
           </nav>
 
@@ -721,7 +818,7 @@ export default function BeautyMiniWebsiteView({
             {/* Shopping Bag Trigger Button */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 sm:px-3 sm:py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700/80 flex items-center gap-2 transition active:scale-95 cursor-pointer shadow-md"
+              className="relative p-2 sm:px-3 sm:py-1.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 border border-white/15 flex items-center gap-2 transition active:scale-95 cursor-pointer shadow-md"
               title="Open Beauty Bag"
             >
               <ShoppingBag className="w-4 h-4 text-[#1BD741]" />
@@ -744,7 +841,7 @@ export default function BeautyMiniWebsiteView({
 
             {/* Direct WhatsApp Callout */}
             <a
-              href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi Green Trends Kothapet! I want to inquire about hair/beauty services & appointments.`)}`}
+              href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi ${salonCompany}! I want to inquire about hair/beauty services & appointments.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1BD741] hover:bg-[#18c43b] text-black font-extrabold text-xs transition shadow-lg shadow-emerald-950/50 active:scale-95 cursor-pointer"
@@ -756,7 +853,7 @@ export default function BeautyMiniWebsiteView({
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl bg-zinc-900 text-zinc-300 hover:text-white border border-zinc-800"
+              className="lg:hidden p-2 rounded-xl bg-zinc-900 text-zinc-300 hover:text-white border border-white/10"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -765,12 +862,12 @@ export default function BeautyMiniWebsiteView({
 
         {/* Mobile Navigation Dropdown */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-zinc-950 border-b border-zinc-800 px-4 py-3 space-y-2 text-xs font-medium text-zinc-200 animate-in slide-in-from-top-2">
+          <div className="lg:hidden bg-zinc-950/95 border-b border-white/10 px-4 py-3 space-y-2 text-xs font-medium text-zinc-200 animate-in slide-in-from-top-2">
             <div className="grid grid-cols-2 gap-2 pt-1 pb-2">
               <a 
                 href="#offers" 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-lg bg-pink-950/40 text-pink-300 border border-pink-800/40 font-bold flex items-center justify-between"
+                className="p-2 rounded-lg bg-pink-950/50 text-pink-300 border border-pink-800/40 font-bold flex items-center justify-between"
               >
                 <span>🔥 Hot Offers</span>
                 <span className="text-[10px] bg-pink-500 text-white px-1 rounded font-black">30% OFF</span>
@@ -778,87 +875,71 @@ export default function BeautyMiniWebsiteView({
               <a 
                 href="#shop" 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-lg bg-emerald-950/40 text-emerald-300 border border-emerald-800/40 font-bold flex items-center justify-between"
+                className="p-2 rounded-lg bg-emerald-950/50 text-emerald-300 border border-emerald-800/40 font-bold flex items-center justify-between"
               >
                 <span>🛍️ Beauty Shop</span>
                 <span className="text-[10px] bg-[#1BD741] text-black px-1 rounded font-black">BUY</span>
               </a>
             </div>
             <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-[#1BD741]">Services &amp; Pricing Menu</a>
-            <a href="#why-us" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-[#1BD741]">Why Choose Green Trends</a>
+            <a href="#why-us" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-[#1BD741]">Why Choose Us</a>
             <a href="#lookbook" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-[#1BD741]">Hair Transformations Lookbook</a>
-            <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-[#1BD741]">Google Customer Reviews (4.7★)</a>
+            <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-[#1BD741]">Verified Client Reviews (4.9★)</a>
             <a href="#location" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 hover:text-[#1BD741]">Directions &amp; Contact Desk</a>
           </div>
         )}
       </header>
 
-      {/* 3. HERO SECTION WITH HIGH-RES LUXURY SALON BACKGROUND IMAGE */}
-      <section id="hero" className="relative overflow-hidden pt-8 pb-16 lg:py-20 border-b border-zinc-800/80">
-        {/* Full-Bleed Authentic Luxury Salon Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=1920&q=80"
-            alt="Green Trends Salon Background Ambience"
-            fill
-            priority
-            className="object-cover object-center opacity-30 brightness-75 scale-105"
-          />
-          {/* Dual Seamless Dark Gradient Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/90 to-[#0A0A0C]/80" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/60 via-transparent to-[#0A0A0C]" />
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-600/15 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-600/15 rounded-full blur-3xl pointer-events-none" />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+      {/* 3. HERO SECTION (Immersive Glassmorphic Hero Over Customers Background) */}
+      <section id="hero" className="relative pt-10 pb-16 lg:py-24 border-b border-white/10 z-10">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Brand, Tagline & Value Props */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ab2079]/20 border border-[#ab2079]/50 text-pink-300 text-xs font-bold tracking-wide backdrop-blur-md shadow-lg">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ab2079]/30 border border-pink-400/40 text-pink-200 text-xs font-bold tracking-wide backdrop-blur-md shadow-lg">
               <span className="w-2 h-2 rounded-full bg-pink-400 animate-pulse" />
-              NOW OPEN IN KOTHAPET, HYDERABAD
+              NOW OPEN IN JUBILEE HILLS, HYDERABAD
             </div>
 
             <div className="space-y-3">
-              <h2 className="text-3xl sm:text-5xl lg:text-5xl font-black text-white leading-[1.1] tracking-tight drop-shadow-md">
-                Green Trends <br className="hidden sm:inline" />
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.08] tracking-tight drop-shadow-lg">
+                AuraLuxe <br className="hidden sm:inline" />
                 <span className="bg-gradient-to-r from-[#1BD741] via-emerald-300 to-teal-200 bg-clip-text text-transparent">
-                  Unisex Hair &amp; Style Salon
+                  Unisex Salon &amp; Spa Lounge
                 </span>
               </h2>
-              <p className="text-lg sm:text-xl font-medium text-amber-200 tracking-wide drop-shadow">
-                Good Style. Good Mood. Every Day.
+              <p className="text-lg sm:text-xl font-semibold text-amber-200 tracking-wide drop-shadow">
+                Couture Styling. Radiant Glow. Effortless Elegance.
               </p>
             </div>
 
-            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-xl drop-shadow-sm">
-              Experience certified haircutting, advanced balayage &amp; fashion coloring, bridal makeovers, and rejuvenating skin spa therapies. We use 100% authentic international brands: L’Oréal, Wella, O3+, and Schwarzkopf.
+            <p className="text-sm sm:text-base text-zinc-200 leading-relaxed max-w-xl drop-shadow">
+              Welcome to Hyderabad’s premier unisex beauty lounge. Experience bespoke balayage coloring, keratin botox therapies, royal bridal makeovers, and rejuvenating skin rituals by certified celebrity artists.
             </p>
 
-            {/* Green Trends 3 Pillars & Rating Strip */}
+            {/* 3 Pillars & Rating Strip (Glassmorphic) */}
             <div className="grid grid-cols-3 gap-2 sm:gap-3 py-2 max-w-lg">
-              <div className="p-3 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800/90 flex flex-col justify-center items-center text-center shadow-lg hover:border-amber-500/40 transition">
+              <div className="p-3.5 rounded-2xl bg-zinc-950/75 backdrop-blur-md border border-white/15 flex flex-col justify-center items-center text-center shadow-xl hover:border-amber-500/40 transition">
                 <Award className="w-5 h-5 text-amber-400 mb-1" />
-                <span className="text-xs font-bold text-white leading-tight">Certified Stylists</span>
-                <span className="text-[10px] text-zinc-400">Green Trends Academy</span>
+                <span className="text-xs font-bold text-white leading-tight">Master Stylists</span>
+                <span className="text-[10px] text-zinc-400">Certified Academy</span>
               </div>
-              <div className="p-3 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800/90 flex flex-col justify-center items-center text-center shadow-lg hover:border-emerald-500/40 transition">
+              <div className="p-3.5 rounded-2xl bg-zinc-950/75 backdrop-blur-md border border-white/15 flex flex-col justify-center items-center text-center shadow-xl hover:border-emerald-500/40 transition">
                 <ShieldCheck className="w-5 h-5 text-[#1BD741] mb-1" />
                 <span className="text-xs font-bold text-white leading-tight">100% Authentic</span>
                 <span className="text-[10px] text-zinc-400">L’Oréal &amp; Wella</span>
               </div>
-              <div className="p-3 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800/90 flex flex-col justify-center items-center text-center shadow-lg hover:border-yellow-500/40 transition">
+              <div className="p-3.5 rounded-2xl bg-zinc-950/75 backdrop-blur-md border border-white/15 flex flex-col justify-center items-center text-center shadow-xl hover:border-yellow-500/40 transition">
                 <Star className="w-5 h-5 text-yellow-400 fill-yellow-400 mb-1" />
-                <span className="text-xs font-bold text-white leading-tight">4.7 ★ Rated</span>
-                <span className="text-[10px] text-zinc-400">1,240+ Google Reviews</span>
+                <span className="text-xs font-bold text-white leading-tight">4.9 ★ Rated</span>
+                <span className="text-[10px] text-zinc-400">1,580+ Client Reviews</span>
               </div>
             </div>
 
             {/* Address Snippet */}
-            <div className="flex items-start gap-2.5 p-3.5 rounded-2xl bg-zinc-900/80 backdrop-blur-md border border-zinc-800/80 text-xs text-zinc-300 max-w-xl shadow-lg">
+            <div className="flex items-start gap-2.5 p-3.5 rounded-2xl bg-zinc-950/80 backdrop-blur-md border border-white/15 text-xs text-zinc-200 max-w-xl shadow-xl">
               <MapPin className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
               <span>
-                <strong>Kothapet Branch:</strong> {salonAddress}
+                <strong>Jubilee Hills Lounge:</strong> {salonAddress}
               </span>
             </div>
 
@@ -866,7 +947,7 @@ export default function BeautyMiniWebsiteView({
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
                 onClick={() => setIsBookingModalOpen(true)}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#ab2079] via-pink-600 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-extrabold text-sm flex items-center gap-2 transition shadow-xl shadow-pink-900/40 active:scale-95 cursor-pointer"
+                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#ab2079] via-pink-600 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-extrabold text-sm flex items-center gap-2 transition shadow-xl shadow-pink-900/40 active:scale-95 cursor-pointer"
               >
                 <span>Book Appointment &amp; Get 30% OFF</span>
                 <ArrowRight className="w-4 h-4" />
@@ -874,7 +955,7 @@ export default function BeautyMiniWebsiteView({
 
               <a
                 href="#shop"
-                className="px-5 py-3 rounded-xl bg-emerald-950/50 hover:bg-emerald-900/50 text-[#1BD741] border border-emerald-500/40 font-bold text-sm flex items-center gap-2 transition cursor-pointer backdrop-blur-md shadow-lg"
+                className="px-5 py-3.5 rounded-xl bg-emerald-950/70 hover:bg-emerald-900/70 text-[#1BD741] border border-emerald-500/50 font-bold text-sm flex items-center gap-2 transition cursor-pointer backdrop-blur-md shadow-xl"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>Shop Beauty Products</span>
@@ -882,7 +963,7 @@ export default function BeautyMiniWebsiteView({
 
               <button
                 onClick={() => downloadVcfFile(profile)}
-                className="px-4 py-3 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 text-xs font-bold flex items-center gap-1.5 transition backdrop-blur-md"
+                className="px-4 py-3.5 rounded-xl bg-zinc-950/80 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-white/15 text-xs font-bold flex items-center gap-1.5 transition backdrop-blur-md"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Save Contact</span>
@@ -890,7 +971,7 @@ export default function BeautyMiniWebsiteView({
 
               <button
                 onClick={() => setIsShareModalOpen(true)}
-                className="p-3 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 transition backdrop-blur-md"
+                className="p-3.5 rounded-xl bg-zinc-950/80 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-white/15 transition backdrop-blur-md"
                 title="Share Salon"
               >
                 <Share2 className="w-4 h-4" />
@@ -900,36 +981,36 @@ export default function BeautyMiniWebsiteView({
 
           {/* Right Column: "Let's find what you need" Booking Card */}
           <div className="lg:col-span-5">
-            <div className="rounded-3xl bg-zinc-900/95 backdrop-blur-xl border border-zinc-700/80 p-6 sm:p-7 shadow-2xl shadow-black relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-36 h-36 bg-[#ab2079]/20 rounded-full blur-2xl pointer-events-none" />
+            <div className="rounded-3xl bg-zinc-950/85 backdrop-blur-xl border border-white/20 p-6 sm:p-7 shadow-2xl shadow-black relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-36 h-36 bg-[#ab2079]/25 rounded-full blur-2xl pointer-events-none" />
 
               <div className="space-y-2 mb-5">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-[#1BD741] font-bold text-[11px] border border-emerald-500/30">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 text-[#1BD741] font-bold text-[11px] border border-emerald-500/30">
                   <Sparkles className="w-3.5 h-3.5" />
                   Instant WhatsApp Confirmation
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black text-white">
                   Let’s find what you need
                 </h3>
-                <p className="text-xs text-zinc-400">
+                <p className="text-xs text-zinc-300">
                   Select your service, date and slot for priority salon booking.
                 </p>
               </div>
 
               <form onSubmit={handleBookingSubmit} className="space-y-3.5">
                 <div>
-                  <label className="text-xs font-bold text-zinc-300 block mb-1">Select Service</label>
+                  <label className="text-xs font-bold text-zinc-200 block mb-1">Select Service</label>
                   <select
                     value={bookingForm.serviceName}
                     onChange={e => setBookingForm(prev => ({ ...prev, serviceName: e.target.value }))}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
                   >
                     <option value="Haircut & Styling">Haircut &amp; Styling (Women / Men)</option>
-                    <option value="Global Hair Color / Highlights">Global Hair Color / Balayage / Highlights</option>
+                    <option value="Global Hair Color / Balayage">Global Hair Color / Balayage / Highlights</option>
                     <option value="Keratin / Hair Botox / Smoothening">Keratin / Hair Botox / Smoothening</option>
                     <option value="Deep Conditioning Hair Spa">Deep Conditioning Hair Spa (L’Oréal / Wella)</option>
                     <option value="O3+ Radiance D-Tan Facial">O3+ Radiance D-Tan Facial &amp; Cleanup</option>
-                    <option value="Grand Bridal Makeover Package">Grand Bridal Makeover Package</option>
+                    <option value="Royal HD Bridal Makeover Package">Royal HD Bridal Makeover Package</option>
                     <option value="Men's Executive Grooming Combo">Men’s Executive Grooming Combo</option>
                     <option value="Deluxe Pedicure & Manicure">Deluxe Pedicure &amp; Manicure</option>
                   </select>
@@ -937,45 +1018,45 @@ export default function BeautyMiniWebsiteView({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs font-bold text-zinc-300 block mb-1">Your Name *</label>
+                    <label className="text-xs font-bold text-zinc-200 block mb-1">Your Name *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Priya / Rahul"
                       value={bookingForm.clientName}
                       onChange={e => setBookingForm(prev => ({ ...prev, clientName: e.target.value }))}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-zinc-300 block mb-1">WhatsApp Number *</label>
+                    <label className="text-xs font-bold text-zinc-200 block mb-1">WhatsApp Number *</label>
                     <input
                       type="tel"
                       required
                       placeholder="e.g. 9876543210"
                       value={bookingForm.phone}
                       onChange={e => setBookingForm(prev => ({ ...prev, phone: e.target.value }))}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs font-bold text-zinc-300 block mb-1">Preferred Date</label>
+                    <label className="text-xs font-bold text-zinc-200 block mb-1">Preferred Date</label>
                     <input
                       type="date"
                       value={bookingForm.preferredDate}
                       onChange={e => setBookingForm(prev => ({ ...prev, preferredDate: e.target.value }))}
-                      className="w-full px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
+                      className="w-full px-3 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-zinc-300 block mb-1">Time Slot</label>
+                    <label className="text-xs font-bold text-zinc-200 block mb-1">Time Slot</label>
                     <select
                       value={bookingForm.preferredTime}
                       onChange={e => setBookingForm(prev => ({ ...prev, preferredTime: e.target.value }))}
-                      className="w-full px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
+                      className="w-full px-3 py-2.5 rounded-xl bg-zinc-900/90 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
                     >
                       <option value="10:00 AM">10:00 AM</option>
                       <option value="11:30 AM">11:30 AM</option>
@@ -995,7 +1076,7 @@ export default function BeautyMiniWebsiteView({
                   <span>Get 30% OFF &amp; Book via WhatsApp</span>
                 </button>
 
-                <p className="text-[11px] text-zinc-400 text-center flex items-center justify-center gap-1.5 pt-1">
+                <p className="text-[11px] text-zinc-300 text-center flex items-center justify-center gap-1.5 pt-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Zero advance payment • Walk-ins &amp; reservations welcome</span>
                 </p>
@@ -1005,35 +1086,25 @@ export default function BeautyMiniWebsiteView({
         </div>
       </section>
 
-      {/* 4. HOT OFFERS / DEALS FOR EVERYONE WITH AUTHENTIC PREVIEW IMAGES */}
-      <section id="offers" className="relative py-16 border-b border-zinc-800/80">
-        {/* Subtle Ambient Background Texture */}
-        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-          <Image
-            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80"
-            alt="Salon Texture"
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
+      {/* 4. HOT OFFERS / DEALS FOR EVERYONE */}
+      <section id="offers" className="relative py-16 border-b border-white/10 z-10">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2 backdrop-blur-md">
                 <Tag className="w-3.5 h-3.5 text-pink-400" />
                 Limited Period Specials
               </div>
-              <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-                Deals for Everyone in Kothapet
+              <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight drop-shadow-md">
+                Deals for Everyone in Jubilee Hills
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+              <p className="text-xs sm:text-sm text-zinc-300 mt-1">
                 Save big on premium hair, skin, and grooming rituals. Show coupon at salon or claim on WhatsApp.
               </p>
             </div>
 
             {/* Category Tabs */}
-            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-zinc-900 border border-zinc-800 overflow-x-auto">
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-zinc-950/80 backdrop-blur-md border border-white/15 overflow-x-auto">
               {['All', 'Women', 'Men', 'Bridal & Groom', 'Combos'].map(cat => (
                 <button
                   key={cat}
@@ -1054,17 +1125,17 @@ export default function BeautyMiniWebsiteView({
             {filteredOffers.map(offer => (
               <div 
                 key={offer.id} 
-                className="rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-pink-500/50 transition-all flex flex-col justify-between group shadow-xl overflow-hidden"
+                className="rounded-3xl bg-zinc-950/80 backdrop-blur-md border border-white/15 hover:border-pink-500/50 transition-all flex flex-col justify-between group shadow-2xl overflow-hidden"
               >
                 {/* Offer Visual Header Photo */}
-                <div className="relative h-44 w-full overflow-hidden bg-zinc-950">
+                <div className="relative h-44 w-full overflow-hidden bg-zinc-900">
                   <Image
                     src={offer.imageUrl}
                     alt={offer.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/30 to-transparent" />
                   
                   {/* Top Badges */}
                   <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
@@ -1082,7 +1153,7 @@ export default function BeautyMiniWebsiteView({
                     <h4 className="text-base sm:text-lg font-black text-white group-hover:text-pink-300 transition-colors">
                       {offer.title}
                     </h4>
-                    <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                    <p className="text-xs text-zinc-300 mt-2 leading-relaxed">
                       {offer.subtitle}
                     </p>
 
@@ -1090,23 +1161,23 @@ export default function BeautyMiniWebsiteView({
                       <div className="flex items-baseline gap-2 mt-3">
                         <span className="text-xl sm:text-2xl font-black text-white">{offer.price}</span>
                         {offer.originalPrice && (
-                          <span className="text-xs text-zinc-500 line-through">{offer.originalPrice}</span>
+                          <span className="text-xs text-zinc-400 line-through">{offer.originalPrice}</span>
                         )}
                       </div>
                     )}
                   </div>
 
-                  <div className="pt-4 border-t border-zinc-800/80 space-y-3">
-                    <div className="flex items-center justify-between text-[11px] text-zinc-500">
-                      <span>Code: <strong className="text-zinc-300 font-mono">{offer.code}</strong></span>
+                  <div className="pt-4 border-t border-white/10 space-y-3">
+                    <div className="flex items-center justify-between text-[11px] text-zinc-400">
+                      <span>Code: <strong className="text-zinc-200 font-mono">{offer.code}</strong></span>
                       <span className="truncate max-w-[150px]">{offer.terms}</span>
                     </div>
 
                     <a
-                      href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi Green Trends Kothapet! I want to claim the offer: *${offer.title}* (Code: ${offer.code}). Please book my slot!`)}`}
+                      href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi ${salonCompany}! I want to claim the offer: *${offer.title}* (Code: ${offer.code}). Please book my slot!`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-2.5 rounded-xl bg-zinc-800 hover:bg-[#1BD741] text-zinc-200 hover:text-black font-extrabold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer shadow-md"
+                      className="w-full py-2.5 rounded-xl bg-zinc-900 hover:bg-[#1BD741] text-zinc-200 hover:text-black font-extrabold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer shadow-md border border-white/10"
                     >
                       <MessageCircle className="w-3.5 h-3.5" />
                       <span>Claim on WhatsApp</span>
@@ -1119,26 +1190,26 @@ export default function BeautyMiniWebsiteView({
         </div>
       </section>
 
-      {/* 5. SIGNATURE SERVICES MENU WITH ACCURATE SERVICE PHOTOS */}
-      <section id="services" className="relative py-16 border-b border-zinc-800/80">
+      {/* 5. SIGNATURE SERVICES MENU */}
+      <section id="services" className="relative py-16 border-b border-white/10 z-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2 backdrop-blur-md">
                 <Scissors className="w-3.5 h-3.5 text-pink-400" />
                 Transparent Rates &amp; High Standards
               </div>
-              <h3 className="text-2xl sm:text-4xl font-black text-white">
+              <h3 className="text-2xl sm:text-4xl font-black text-white drop-shadow-md">
                 Signature Services Menu
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+              <p className="text-xs sm:text-sm text-zinc-300 mt-1">
                 Curated haircuts, hair color, keratin therapies, facials and bridal grooming for men and women.
               </p>
             </div>
 
             <button
               onClick={() => setIsBookingModalOpen(true)}
-              className="px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-xs font-bold text-white flex items-center gap-2 transition cursor-pointer shadow-md"
+              className="px-4 py-2.5 rounded-xl bg-zinc-950/80 hover:bg-zinc-800 border border-white/15 text-xs font-bold text-white flex items-center gap-2 transition cursor-pointer shadow-md backdrop-blur-md"
             >
               <Calendar className="w-3.5 h-3.5 text-[#1BD741]" />
               <span>Book Consultation Slot</span>
@@ -1161,27 +1232,27 @@ export default function BeautyMiniWebsiteView({
               return (
                 <div 
                   key={srv.id} 
-                  className="rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-emerald-500/50 transition-all flex flex-col justify-between group shadow-xl overflow-hidden"
+                  className="rounded-3xl bg-zinc-950/80 backdrop-blur-md border border-white/15 hover:border-emerald-500/50 transition-all flex flex-col justify-between group shadow-2xl overflow-hidden"
                 >
                   {/* Service Photo with Zoom Effect */}
-                  <div className="relative h-44 w-full overflow-hidden bg-zinc-950">
+                  <div className="relative h-44 w-full overflow-hidden bg-zinc-900">
                     <Image
                       src={servicePhoto}
                       alt={srv.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
                     
                     {/* Duration Pill */}
-                    <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-zinc-700 text-[10px] font-bold text-zinc-300 flex items-center gap-1">
+                    <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-zinc-700 text-[10px] font-bold text-zinc-300 flex items-center gap-1">
                       <Clock className="w-3 h-3 text-[#1BD741]" />
                       <span>{srv.durationMinutes || 45} mins</span>
                     </div>
 
                     {/* Price Pill Bottom */}
                     <div className="absolute bottom-2 left-2">
-                      <span className="px-2.5 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-emerald-500/40 text-xs font-black text-emerald-400">
+                      <span className="px-2.5 py-1 rounded-lg bg-black/85 backdrop-blur-md border border-emerald-500/40 text-xs font-black text-emerald-400">
                         {srv.price ? `₹${srv.price.toLocaleString('en-IN')}` : 'From ₹299'}
                       </span>
                     </div>
@@ -1192,19 +1263,19 @@ export default function BeautyMiniWebsiteView({
                       <h4 className="text-sm font-black text-white group-hover:text-[#1BD741] transition-colors leading-snug">
                         {srv.title}
                       </h4>
-                      <p className="text-xs text-zinc-400 mt-1 leading-relaxed line-clamp-2">
+                      <p className="text-xs text-zinc-300 mt-1 leading-relaxed line-clamp-2">
                         {srv.description}
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-zinc-800/80 flex items-center justify-between">
-                      <span className="text-[10px] text-zinc-500 font-medium">Certified Stylist</span>
+                    <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+                      <span className="text-[10px] text-zinc-400 font-medium">Certified Stylist</span>
                       <button
                         onClick={() => {
                           setBookingForm(prev => ({ ...prev, serviceName: srv.title }));
                           setIsBookingModalOpen(true);
                         }}
-                        className="px-3 py-1.5 rounded-lg bg-emerald-950/40 hover:bg-[#1BD741] text-[#1BD741] hover:text-black font-extrabold text-xs transition cursor-pointer border border-emerald-500/30"
+                        className="px-3 py-1.5 rounded-lg bg-emerald-950/60 hover:bg-[#1BD741] text-[#1BD741] hover:text-black font-extrabold text-xs transition cursor-pointer border border-emerald-500/40"
                       >
                         Book Slot
                       </button>
@@ -1218,19 +1289,19 @@ export default function BeautyMiniWebsiteView({
       </section>
 
       {/* 6. ⭐ EXCLUSIVE BEAUTY STORE (BUY PRODUCTS FOR CUSTOMERS) */}
-      <section id="shop" className="relative bg-gradient-to-b from-zinc-950 via-[#0E0E12] to-zinc-950 border-b border-zinc-800/80 py-16">
+      <section id="shop" className="relative py-16 border-b border-white/10 z-10">
         <div className="max-w-7xl mx-auto px-4">
           {/* Header & Shopping Bag Summary Pill */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-[#1BD741] text-xs font-bold border border-emerald-500/30 mb-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-[#1BD741] text-xs font-bold border border-emerald-500/30 mb-2 backdrop-blur-md">
                 <ShoppingBag className="w-3.5 h-3.5 text-[#1BD741]" />
                 Customer Retail Store • Pickup &amp; Doorstep Delivery
               </div>
-              <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+              <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight drop-shadow-md">
                 Buy Genuine Salon-Grade Beauty Products
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 mt-1 max-w-2xl">
+              <p className="text-xs sm:text-sm text-zinc-300 mt-1 max-w-2xl">
                 Take the salon glow home! Order verified authentic professional hair care, face masks, serums &amp; styling products used by our stylists.
               </p>
             </div>
@@ -1261,7 +1332,7 @@ export default function BeautyMiniWebsiteView({
                   placeholder="Search products by name, brand (L'Oréal, Wella, O3+, Moroccanoil)..."
                   value={productSearch}
                   onChange={e => setProductSearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-zinc-900 border border-zinc-700/80 text-xs sm:text-sm text-white focus:outline-none focus:border-[#1BD741]"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-zinc-950/80 backdrop-blur-md border border-white/15 text-xs sm:text-sm text-white focus:outline-none focus:border-[#1BD741]"
                 />
                 {productSearch && (
                   <button 
@@ -1290,7 +1361,7 @@ export default function BeautyMiniWebsiteView({
                   className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition whitespace-nowrap cursor-pointer ${
                     productCategory === cat
                       ? 'bg-[#1BD741] text-black shadow-lg shadow-emerald-950/40'
-                      : 'bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800'
+                      : 'bg-zinc-950/80 hover:bg-zinc-800 text-zinc-300 border border-white/15 backdrop-blur-md'
                   }`}
                 >
                   {cat}
@@ -1310,11 +1381,11 @@ export default function BeautyMiniWebsiteView({
                 return (
                   <div
                     key={prod.id}
-                    className="rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-emerald-500/50 transition-all p-4 flex flex-col justify-between group shadow-xl hover:shadow-2xl hover:shadow-emerald-950/20"
+                    className="rounded-3xl bg-zinc-950/80 backdrop-blur-md border border-white/15 hover:border-emerald-500/50 transition-all p-4 flex flex-col justify-between group shadow-2xl hover:shadow-emerald-950/30"
                   >
                     <div>
                       {/* Product Image & Badges */}
-                      <div className="relative h-48 sm:h-52 w-full rounded-2xl overflow-hidden bg-zinc-950 mb-3.5">
+                      <div className="relative h-48 sm:h-52 w-full rounded-2xl overflow-hidden bg-zinc-900 mb-3.5">
                         <Image
                           src={prod.imageUrl}
                           alt={prod.name}
@@ -1339,10 +1410,10 @@ export default function BeautyMiniWebsiteView({
 
                         {/* Brand Tag Bottom */}
                         <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-[11px] text-zinc-300">
-                          <span className="px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md border border-zinc-700 font-bold text-white">
+                          <span className="px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-zinc-700 font-bold text-white">
                             {prod.brand}
                           </span>
-                          <span className="px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md border border-zinc-700 text-zinc-300 font-medium">
+                          <span className="px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-zinc-700 text-zinc-300 font-medium">
                             {prod.volume}
                           </span>
                         </div>
@@ -1353,13 +1424,13 @@ export default function BeautyMiniWebsiteView({
                         <div className="flex items-center gap-1 text-[11px] text-amber-400 font-bold">
                           <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                           <span>{prod.rating || 4.8}</span>
-                          <span className="text-zinc-500 font-normal">({prod.reviewsCount || 120})</span>
+                          <span className="text-zinc-400 font-normal">({prod.reviewsCount || 120})</span>
                         </div>
 
                         <h4 className="text-sm font-bold text-white group-hover:text-[#1BD741] transition-colors line-clamp-2">
                           {prod.name}
                         </h4>
-                        <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed">
+                        <p className="text-xs text-zinc-300 line-clamp-2 leading-relaxed">
                           {prod.description}
                         </p>
                       </div>
@@ -1370,7 +1441,7 @@ export default function BeautyMiniWebsiteView({
                           ₹{prod.price.toLocaleString('en-IN')}
                         </span>
                         {prod.originalPrice && (
-                          <span className="text-xs text-zinc-500 line-through">
+                          <span className="text-xs text-zinc-400 line-through">
                             ₹{prod.originalPrice.toLocaleString('en-IN')}
                           </span>
                         )}
@@ -1381,9 +1452,9 @@ export default function BeautyMiniWebsiteView({
                     </div>
 
                     {/* Actions: Add to Bag + 1-Click WhatsApp Buy */}
-                    <div className="pt-4 border-t border-zinc-800/80 space-y-2 mt-3">
+                    <div className="pt-4 border-t border-white/10 space-y-2 mt-3">
                       {currentQty > 0 ? (
-                        <div className="flex items-center justify-between bg-zinc-950 rounded-xl p-1 border border-zinc-700">
+                        <div className="flex items-center justify-between bg-zinc-900 rounded-xl p-1 border border-zinc-700">
                           <button
                             onClick={() => updateCartQty(prod.id, -1)}
                             className="p-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white cursor-pointer"
@@ -1403,7 +1474,7 @@ export default function BeautyMiniWebsiteView({
                       ) : (
                         <button
                           onClick={() => addToCart(prod, 1)}
-                          className="w-full py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer border border-zinc-700"
+                          className="w-full py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer border border-white/10"
                         >
                           <ShoppingBag className="w-3.5 h-3.5 text-[#1BD741]" />
                           <span>Add to Shopping Bag</span>
@@ -1412,7 +1483,7 @@ export default function BeautyMiniWebsiteView({
 
                       <button
                         onClick={() => handleInstantBuy(prod)}
-                        className="w-full py-2 rounded-xl bg-emerald-950/40 hover:bg-[#1BD741] text-[#1BD741] hover:text-black font-extrabold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer border border-emerald-500/40"
+                        className="w-full py-2 rounded-xl bg-emerald-950/60 hover:bg-[#1BD741] text-[#1BD741] hover:text-black font-extrabold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer border border-emerald-500/40"
                       >
                         <MessageCircle className="w-3.5 h-3.5" />
                         <span>Instant Buy on WhatsApp</span>
@@ -1423,7 +1494,7 @@ export default function BeautyMiniWebsiteView({
               })}
             </div>
           ) : (
-            <div className="py-16 text-center rounded-3xl bg-zinc-900/40 border border-zinc-800 max-w-md mx-auto space-y-3">
+            <div className="py-16 text-center rounded-3xl bg-zinc-950/80 backdrop-blur-md border border-white/10 max-w-md mx-auto space-y-3">
               <ShoppingBag className="w-10 h-10 text-zinc-500 mx-auto" />
               <h4 className="text-base font-bold text-white">No products match your filter</h4>
               <p className="text-xs text-zinc-400">Try changing your search keyword or selected category tab.</p>
@@ -1438,106 +1509,106 @@ export default function BeautyMiniWebsiteView({
         </div>
       </section>
 
-      {/* 7. WHY CHOOSE GREEN TRENDS (4 BENTO CARDS WITH RICH PHOTOGRAPHIC BACKDROPS) */}
-      <section id="why-us" className="relative py-16 border-b border-zinc-800/80">
+      {/* 7. WHY CHOOSE AURALUXE (4 BENTO CARDS WITH RICH PHOTOGRAPHIC BACKDROPS) */}
+      <section id="why-us" className="relative py-16 border-b border-white/10 z-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-[#1BD741] text-xs font-bold border border-emerald-500/30">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-[#1BD741] text-xs font-bold border border-emerald-500/30 backdrop-blur-md">
               <Award className="w-3.5 h-3.5" />
-              The Green Trends Standard
+              The AuraLuxe Standard
             </div>
-            <h3 className="text-2xl sm:text-4xl font-black text-white">
-              Why Kothapet Chooses Us
+            <h3 className="text-2xl sm:text-4xl font-black text-white drop-shadow-md">
+              Why Jubilee Hills Chooses Us
             </h3>
-            <p className="text-xs sm:text-sm text-zinc-400">
-              India’s favorite unisex salon chain brings international styling standards right to your neighborhood.
+            <p className="text-xs sm:text-sm text-zinc-300">
+              Hyderabad’s favorite luxury unisex salon lounge bringing international styling standards right to your neighborhood.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {/* Bento Card 1 */}
-            <div className="rounded-3xl bg-zinc-900/90 border border-zinc-800 overflow-hidden flex flex-col justify-between group shadow-xl">
-              <div className="relative h-40 w-full overflow-hidden bg-zinc-950">
+            <div className="rounded-3xl bg-zinc-950/80 backdrop-blur-md border border-white/15 overflow-hidden flex flex-col justify-between group shadow-2xl">
+              <div className="relative h-40 w-full overflow-hidden bg-zinc-900">
                 <Image
                   src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80"
                   alt="Certified Stylists"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
                 <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-pink-500/30 backdrop-blur-md text-pink-300 border border-pink-500/40 flex items-center justify-center">
                   <Scissors className="w-5 h-5" />
                 </div>
               </div>
               <div className="p-5 space-y-2">
                 <h4 className="text-base font-black text-white">Certified Stylists</h4>
-                <p className="text-xs text-zinc-400 leading-relaxed">
-                  Every stylist undergoes 200+ hours of rigorous certification at the Green Trends Academy in precision haircutting and modern color blending.
+                <p className="text-xs text-zinc-300 leading-relaxed">
+                  Every stylist undergoes 250+ hours of advanced training in precision haircutting and modern color blending.
                 </p>
               </div>
             </div>
 
             {/* Bento Card 2 */}
-            <div className="rounded-3xl bg-zinc-900/90 border border-zinc-800 overflow-hidden flex flex-col justify-between group shadow-xl">
-              <div className="relative h-40 w-full overflow-hidden bg-zinc-950">
+            <div className="rounded-3xl bg-zinc-950/80 backdrop-blur-md border border-white/15 overflow-hidden flex flex-col justify-between group shadow-2xl">
+              <div className="relative h-40 w-full overflow-hidden bg-zinc-900">
                 <Image
                   src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=600&q=80"
                   alt="100% Genuine Brands"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
                 <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-emerald-500/30 backdrop-blur-md text-[#1BD741] border border-emerald-500/40 flex items-center justify-center">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
               </div>
               <div className="p-5 space-y-2">
                 <h4 className="text-base font-black text-white">100% Genuine Brands</h4>
-                <p className="text-xs text-zinc-400 leading-relaxed">
+                <p className="text-xs text-zinc-300 leading-relaxed">
                   Zero compromises on quality. Only authentic formulas from L’Oréal Professionnel, Wella, O3+, and Schwarzkopf used on your hair and skin.
                 </p>
               </div>
             </div>
 
             {/* Bento Card 3 */}
-            <div className="rounded-3xl bg-zinc-900/90 border border-zinc-800 overflow-hidden flex flex-col justify-between group shadow-xl">
-              <div className="relative h-40 w-full overflow-hidden bg-zinc-950">
+            <div className="rounded-3xl bg-zinc-950/80 backdrop-blur-md border border-white/15 overflow-hidden flex flex-col justify-between group shadow-2xl">
+              <div className="relative h-40 w-full overflow-hidden bg-zinc-900">
                 <Image
                   src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=600&q=80"
                   alt="Sanitised & Single-Use"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
                 <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-cyan-500/30 backdrop-blur-md text-cyan-300 border border-cyan-500/40 flex items-center justify-center">
                   <Sparkles className="w-5 h-5" />
                 </div>
               </div>
               <div className="p-5 space-y-2">
                 <h4 className="text-base font-black text-white">Sanitised &amp; Single-Use</h4>
-                <p className="text-xs text-zinc-400 leading-relaxed">
+                <p className="text-xs text-zinc-300 leading-relaxed">
                   Strict 7-step hygiene protocol: single-use disposable aprons, sanitized scissors, autoclaved nail tools, and sterilized workstations.
                 </p>
               </div>
             </div>
 
             {/* Bento Card 4 */}
-            <div className="rounded-3xl bg-zinc-900/90 border border-zinc-800 overflow-hidden flex flex-col justify-between group shadow-xl">
-              <div className="relative h-40 w-full overflow-hidden bg-zinc-950">
+            <div className="rounded-3xl bg-zinc-950/80 backdrop-blur-md border border-white/15 overflow-hidden flex flex-col justify-between group shadow-2xl">
+              <div className="relative h-40 w-full overflow-hidden bg-zinc-900">
                 <Image
                   src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80"
                   alt="Honest & Transparent"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
                 <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-amber-500/30 backdrop-blur-md text-amber-300 border border-amber-500/40 flex items-center justify-center">
                   <Tag className="w-5 h-5" />
                 </div>
               </div>
               <div className="p-5 space-y-2">
                 <h4 className="text-base font-black text-white">Honest &amp; Transparent</h4>
-                <p className="text-xs text-zinc-400 leading-relaxed">
+                <p className="text-xs text-zinc-300 leading-relaxed">
                   Complimentary stylist consultation before every service. Transparent pricing with zero hidden charges or surprise upsells.
                 </p>
               </div>
@@ -1547,17 +1618,17 @@ export default function BeautyMiniWebsiteView({
       </section>
 
       {/* 8. REAL TRANSFORMATIONS LOOKBOOK */}
-      <section id="lookbook" className="relative py-16 border-b border-zinc-800/80">
+      <section id="lookbook" className="relative py-16 border-b border-white/10 z-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold border border-pink-500/30 backdrop-blur-md">
               <Camera className="w-3.5 h-3.5 text-pink-400" />
               Client Transformations &amp; Ambience
             </div>
-            <h3 className="text-2xl sm:text-4xl font-black text-white">
+            <h3 className="text-2xl sm:text-4xl font-black text-white drop-shadow-md">
               Real Looks. Real Confidence.
             </h3>
-            <p className="text-xs sm:text-sm text-zinc-400">
+            <p className="text-xs sm:text-sm text-zinc-300">
               Explore hair highlights, balayage, keratin smoothing, and bridal makeovers crafted at our salon.
             </p>
           </div>
@@ -1566,7 +1637,7 @@ export default function BeautyMiniWebsiteView({
             {filteredGallery.map((img, idx) => (
               <div 
                 key={img.id || idx}
-                className="relative h-60 sm:h-72 rounded-3xl overflow-hidden border border-zinc-800 group shadow-lg bg-zinc-950"
+                className="relative h-60 sm:h-72 rounded-3xl overflow-hidden border border-white/15 group shadow-2xl bg-zinc-900"
               >
                 <Image
                   src={img.imageUrl}
@@ -1574,12 +1645,12 @@ export default function BeautyMiniWebsiteView({
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity p-4 flex flex-col justify-end">
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-85 group-hover:opacity-95 transition-opacity p-4 flex flex-col justify-end">
                   <span className="text-[10px] font-bold text-[#1BD741] uppercase tracking-wider">
                     {img.category || 'Transformation'}
                   </span>
                   <p className="text-xs sm:text-sm font-bold text-white leading-tight mt-1">
-                    {img.title || 'Green Trends Styling'}
+                    {img.title || 'AuraLuxe Signature Styling'}
                   </p>
                 </div>
               </div>
@@ -1588,8 +1659,8 @@ export default function BeautyMiniWebsiteView({
         </div>
       </section>
 
-      {/* 9. GOOGLE REVIEWS & TESTIMONIALS (4.7★ 1,240+ REVIEWS) WITH CLIENT AVATARS */}
-      <section id="reviews" className="relative py-16 border-b border-zinc-800/80">
+      {/* 9. ⭐ DEDICATED REVIEWS & TESTIMONIALS (RICH VERIFIED CUSTOMER REVIEWS) */}
+      <section id="reviews" className="relative py-16 border-b border-white/10 z-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
             <div>
@@ -1601,66 +1672,78 @@ export default function BeautyMiniWebsiteView({
                   <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                   <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                 </span>
-                <span className="text-xs font-bold text-white">4.7 / 5.0 Rating</span>
-                <span className="text-xs text-zinc-500">• 1,240+ Google Reviews</span>
+                <span className="text-xs font-bold text-white">4.9 / 5.0 Rating</span>
+                <span className="text-xs text-zinc-300">• 1,580+ Verified Client Reviews</span>
               </div>
-              <h3 className="text-2xl sm:text-4xl font-black text-white">
-                Loved by Kothapet &amp; Nagole
+              <h3 className="text-2xl sm:text-4xl font-black text-white drop-shadow-md">
+                Loved by Jubilee Hills &amp; Hyderabad
               </h3>
+              <p className="text-xs sm:text-sm text-zinc-300 mt-1">
+                Real feedback from clients who trust us for haircuts, balayage, keratin, and bridal glam.
+              </p>
             </div>
 
-            <a
-              href="https://maps.google.com/?q=Green+Trends+Kothapet+Hyderabad"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs font-bold text-zinc-300 hover:text-white border border-zinc-700 flex items-center gap-1.5 transition shadow-md"
-            >
-              <span>Read all on Google Maps</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsBookingModalOpen(true)}
+                className="px-4 py-2 rounded-xl bg-zinc-950/80 hover:bg-zinc-800 text-xs font-bold text-zinc-200 hover:text-white border border-white/15 flex items-center gap-1.5 transition shadow-md backdrop-blur-md cursor-pointer"
+              >
+                <MessageSquare className="w-3.5 h-3.5 text-[#1BD741]" />
+                <span>Book Appointment</span>
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {profileTestimonials.map((t, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {MOCK_REVIEWS.map((rev) => (
               <div 
-                key={t.id || idx}
-                className="p-5 rounded-3xl bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between space-y-4 shadow-xl hover:border-zinc-700 transition"
+                key={rev.id}
+                className="p-6 rounded-3xl bg-zinc-950/85 backdrop-blur-md border border-white/15 flex flex-col justify-between space-y-4 shadow-2xl hover:border-pink-500/40 transition"
               >
                 <div className="space-y-3">
-                  <div className="flex items-center gap-1">
-                    {[...Array(t.rating || 5)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                    ))}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      {[...Array(rev.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                    <span className="text-[11px] text-zinc-400">{rev.date}</span>
                   </div>
-                  <p className="text-xs text-zinc-300 leading-relaxed italic">
-                    &ldquo;{t.content || (t as any).comment || (t as any).text}&rdquo;
+
+                  <h4 className="text-sm font-extrabold text-white leading-snug">
+                    {rev.headline}
+                  </h4>
+
+                  <p className="text-xs text-zinc-300 leading-relaxed">
+                    &ldquo;{rev.content}&rdquo;
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-zinc-800 flex items-center gap-3">
-                  {t.clientAvatar ? (
-                    <div className="relative w-9 h-9 rounded-full overflow-hidden shrink-0 border border-emerald-500/40">
+                <div className="pt-4 border-t border-white/10 space-y-2">
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 border border-emerald-500/40">
                       <Image
-                        src={t.clientAvatar}
-                        alt={t.clientName || 'Customer'}
+                        src={rev.clientAvatar}
+                        alt={rev.clientName}
                         fill
                         className="object-cover"
                       />
                     </div>
-                  ) : (
-                    <div className="w-9 h-9 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 flex items-center justify-center font-bold text-xs shrink-0">
-                      {(t.clientName || 'C')[0]}
-                    </div>
-                  )}
 
-                  <div className="flex-1 min-w-0">
-                    <h5 className="text-xs font-bold text-white truncate">{t.clientName || (t as any).name}</h5>
-                    <p className="text-[10px] text-zinc-500 truncate">{t.clientRole || (t as any).role || 'Verified Customer'}</p>
+                    <div className="flex-1 min-w-0">
+                      <h5 className="text-xs font-bold text-white truncate">{rev.clientName}</h5>
+                      <p className="text-[10px] text-zinc-400 truncate">{rev.clientRole}</p>
+                    </div>
+
+                    <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/40 shrink-0">
+                      Verified
+                    </span>
                   </div>
 
-                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-800/40 shrink-0">
-                    Verified
-                  </span>
+                  <div className="flex items-center gap-1.5 text-[10px] text-pink-300 font-semibold bg-pink-950/40 px-2.5 py-1 rounded-lg border border-pink-800/30">
+                    <Sparkles className="w-3 h-3 text-pink-400" />
+                    <span>Service: {rev.service}</span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -1668,79 +1751,68 @@ export default function BeautyMiniWebsiteView({
         </div>
       </section>
 
-      {/* 10. SALON LOCATION & CONTACT DESK WITH REAL AMBIENCE PHOTO & MAP */}
-      <section id="location" className="relative py-16 border-b border-zinc-800/80">
-        {/* Contact Section Luxury Salon Background Overlay */}
-        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-          <Image
-            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80"
-            alt="Salon Interior"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-[#0A0A0C]/90 to-[#0A0A0C]" />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
+      {/* 10. SALON LOCATION & CONTACT DESK */}
+      <section id="location" className="relative py-16 border-b border-white/10 z-10">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Location & Contact Info */}
             <div className="lg:col-span-5 space-y-6">
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2 backdrop-blur-md">
                   <MapPin className="w-3.5 h-3.5 text-pink-400" />
                   Find Us Easily
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-black text-white">
-                  Visit Green Trends Kothapet
+                <h3 className="text-2xl sm:text-3xl font-black text-white drop-shadow-md">
+                  Visit AuraLuxe Jubilee Hills
                 </h3>
-                <p className="text-xs text-zinc-400 mt-1">
-                  Located right on New Nagole Main Road beside State Bank of India, Laxmi Nagar Colony.
+                <p className="text-xs text-zinc-300 mt-1">
+                  Located on Road No. 36 in Luxury Square Building beside Jubilee Hills Check Post Metro.
                 </p>
               </div>
 
               {/* Salon Interior Card Preview */}
-              <div className="relative h-44 w-full rounded-2xl overflow-hidden border border-zinc-800 shadow-xl group">
+              <div className="relative h-44 w-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl group">
                 <Image
                   src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80"
-                  alt="Green Trends Kothapet Salon Lounge"
+                  alt="AuraLuxe Salon Lounge"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent p-4 flex flex-col justify-end">
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-4 flex flex-col justify-end">
                   <span className="text-[10px] font-bold text-[#1BD741] uppercase tracking-wider">
                     Storefront &amp; Styling Floor
                   </span>
                   <p className="text-xs font-extrabold text-white">
-                    1st Floor, beside SBI Bank, New Nagole Main Rd
+                    2nd Floor, Luxury Square, Road No. 36, Jubilee Hills
                   </p>
                 </div>
               </div>
 
-              <div className="space-y-3 text-xs text-zinc-300">
-                <div className="p-4 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800 space-y-1.5 shadow-lg">
+              <div className="space-y-3 text-xs text-zinc-200">
+                <div className="p-4 rounded-2xl bg-zinc-950/85 backdrop-blur-md border border-white/15 space-y-1.5 shadow-xl">
                   <h4 className="font-bold text-white flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-rose-400" />
                     Salon Address
                   </h4>
-                  <p className="leading-relaxed text-zinc-400">
+                  <p className="leading-relaxed text-zinc-300">
                     {salonAddress}
                   </p>
                   <p className="text-[11px] text-emerald-400 font-medium">
-                    Landmark: Beside SBI Bank, 1st Floor
+                    Landmark: Beside Jubilee Hills Check Post &amp; Metro Station
                   </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="p-4 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800 space-y-1 shadow-lg">
+                  <div className="p-4 rounded-2xl bg-zinc-950/85 backdrop-blur-md border border-white/15 space-y-1 shadow-xl">
                     <h4 className="font-bold text-white flex items-center gap-1.5">
                       <Clock className="w-4 h-4 text-[#1BD741]" />
                       Hours
                     </h4>
-                    <p className="text-zinc-400">9:30 AM – 9:00 PM</p>
-                    <p className="text-[10px] text-zinc-500">Open all 7 days</p>
+                    <p className="text-zinc-300">9:30 AM – 9:00 PM</p>
+                    <p className="text-[10px] text-zinc-400">Open all 7 days</p>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800 space-y-1 shadow-lg">
+                  <div className="p-4 rounded-2xl bg-zinc-950/85 backdrop-blur-md border border-white/15 space-y-1 shadow-xl">
                     <h4 className="font-bold text-white flex items-center gap-1.5">
                       <Phone className="w-4 h-4 text-[#1BD741]" />
                       Direct Desk
@@ -1748,15 +1820,15 @@ export default function BeautyMiniWebsiteView({
                     <a href={`tel:${salonPhone.replace(/\s+/g, '')}`} className="text-emerald-400 font-bold block">
                       {salonPhone}
                     </a>
-                    <p className="text-[10px] text-zinc-500">Call for appointment</p>
+                    <p className="text-[10px] text-zinc-400">Call for appointment</p>
                   </div>
                 </div>
 
                 <a
-                  href="https://maps.google.com/?q=Green+Trends+Kothapet+Hyderabad"
+                  href="https://maps.google.com/?q=Road+No+36+Jubilee+Hills+Hyderabad"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition border border-zinc-700 shadow-md"
+                  className="w-full py-3 rounded-2xl bg-zinc-900/90 hover:bg-zinc-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition border border-white/15 shadow-xl backdrop-blur-md"
                 >
                   <MapPin className="w-4 h-4 text-rose-400" />
                   <span>Open in Google Maps / Get Directions</span>
@@ -1766,16 +1838,16 @@ export default function BeautyMiniWebsiteView({
             </div>
 
             {/* Interactive Google Map Embed */}
-            <div className="lg:col-span-7 h-96 sm:h-[480px] rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl relative">
+            <div className="lg:col-span-7 h-96 sm:h-[480px] rounded-3xl overflow-hidden border border-white/15 shadow-2xl relative">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.204554316682!2d78.54471677598835!3d17.373117403759905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb98e722512803%3A0xe55673ecde505d92!2sGreen%20Trends%20Unisex%20Hair%20%26%20Style%20Salon!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15226.790137276366!2d78.3989!3d17.4326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9158f201b205%3A0x11bbe7926b47c0e2!2sRoad%20Number%2036%2C%20Jubilee%20Hills%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Green Trends Kothapet Google Map"
+                title="AuraLuxe Jubilee Hills Google Map"
                 className="grayscale contrast-125 hover:grayscale-0 transition-all duration-700"
               />
             </div>
@@ -1784,25 +1856,25 @@ export default function BeautyMiniWebsiteView({
       </section>
 
       {/* 11. FAQ ACCORDION */}
-      <section className="max-w-4xl mx-auto px-4 py-16 border-b border-zinc-800/80">
+      <section className="max-w-4xl mx-auto px-4 py-16 border-b border-white/10 relative z-10">
         <div className="text-center mb-10 space-y-2">
-          <h3 className="text-2xl sm:text-3xl font-black text-white">
+          <h3 className="text-2xl sm:text-3xl font-black text-white drop-shadow-md">
             Frequently Asked Questions
           </h3>
-          <p className="text-xs text-zinc-400">Everything you need to know before visiting Green Trends Kothapet.</p>
+          <p className="text-xs text-zinc-300">Everything you need to know before visiting AuraLuxe Jubilee Hills.</p>
         </div>
 
         <div className="space-y-3">
           {[
             {
               id: 'faq_1',
-              q: 'Do I need prior appointment or are walk-ins welcome?',
+              q: 'Do I need a prior appointment or are walk-ins welcome?',
               a: 'Walk-ins are warmly welcome! However, we strongly recommend reserving your slot online or via WhatsApp to avoid peak-hour waiting time and claim our exclusive 30% first-visit discount.'
             },
             {
               id: 'faq_2',
               q: 'Are all retail beauty products 100% genuine and original?',
-              a: 'Yes, 100% guaranteed. All products sold in our store (L’Oréal Professionnel, Wella, O3+, Moroccanoil, Schwarzkopf) are sourced directly from authorized brand distributors. You can pick them up at our Kothapet salon or request doorstep delivery.'
+              a: 'Yes, 100% guaranteed. All products sold in our store (L’Oréal Professionnel, Wella, O3+, Moroccanoil, Schwarzkopf) are sourced directly from authorized brand distributors. You can pick them up at our salon or request doorstep courier delivery.'
             },
             {
               id: 'faq_3',
@@ -1824,7 +1896,7 @@ export default function BeautyMiniWebsiteView({
             return (
               <div 
                 key={faq.id} 
-                className="rounded-2xl bg-zinc-900/90 border border-zinc-800 overflow-hidden"
+                className="rounded-2xl bg-zinc-950/85 backdrop-blur-md border border-white/15 overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaqId(isOpen ? null : faq.id)}
@@ -1834,7 +1906,7 @@ export default function BeautyMiniWebsiteView({
                   {isOpen ? <ChevronUp className="w-4 h-4 text-[#1BD741] shrink-0" /> : <ChevronDown className="w-4 h-4 text-zinc-400 shrink-0" />}
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-4 text-xs text-zinc-300 leading-relaxed border-t border-zinc-800/60 pt-3">
+                  <div className="px-5 pb-4 text-xs text-zinc-300 leading-relaxed border-t border-white/10 pt-3">
                     {faq.a}
                   </div>
                 )}
@@ -1845,61 +1917,61 @@ export default function BeautyMiniWebsiteView({
       </section>
 
       {/* 12. FOOTER */}
-      <footer className="max-w-7xl mx-auto px-4 pt-12 pb-6 text-xs text-zinc-500">
+      <footer className="max-w-7xl mx-auto px-4 pt-12 pb-6 text-xs text-zinc-400 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-lg bg-zinc-900 border border-emerald-500/40 text-[#1BD741] flex items-center justify-center font-black text-sm">gt</span>
+              <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#ab2079] to-amber-500 text-white flex items-center justify-center font-black text-xs">AL</span>
               <span className="text-sm font-extrabold text-white">{salonCompany}</span>
             </div>
-            <p className="text-zinc-400 leading-relaxed">
-              India’s premier unisex salon brand delivering trendsetting hair, skin, and bridal styling in Kothapet, Hyderabad.
+            <p className="text-zinc-300 leading-relaxed">
+              Hyderabad’s premier luxury unisex salon lounge delivering trendsetting hair, skin, and bridal styling in Jubilee Hills.
             </p>
           </div>
 
           <div className="space-y-2">
             <h5 className="font-bold text-white text-sm">Quick Links</h5>
-            <ul className="space-y-1.5 text-zinc-400">
+            <ul className="space-y-1.5 text-zinc-300">
               <li><a href="#offers" className="hover:text-pink-400 transition">30% OFF Offers</a></li>
               <li><a href="#services" className="hover:text-[#1BD741] transition">Salon Services Menu</a></li>
               <li><a href="#shop" className="hover:text-[#1BD741] transition">Buy Salon Products</a></li>
               <li><a href="#lookbook" className="hover:text-[#1BD741] transition">Lookbook Gallery</a></li>
-              <li><a href="#reviews" className="hover:text-[#1BD741] transition">Client Reviews (4.7★)</a></li>
+              <li><a href="#reviews" className="hover:text-[#1BD741] transition">Verified Reviews (4.9★)</a></li>
             </ul>
           </div>
 
           <div className="space-y-2">
             <h5 className="font-bold text-white text-sm">Contact Desk</h5>
-            <p className="text-zinc-400 flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-[#1BD741]" /> {salonPhone}</p>
-            <p className="text-zinc-400 flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#1BD741]" /> 9:30 AM – 9:00 PM (Daily)</p>
-            <p className="text-zinc-400 flex items-start gap-1.5"><MapPin className="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5" /> Kothapet, Hyderabad, Telangana</p>
+            <p className="text-zinc-300 flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-[#1BD741]" /> {salonPhone}</p>
+            <p className="text-zinc-300 flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#1BD741]" /> 9:30 AM – 9:00 PM (Daily)</p>
+            <p className="text-zinc-300 flex items-start gap-1.5"><MapPin className="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5" /> Jubilee Hills, Hyderabad, Telangana</p>
           </div>
 
           <div className="space-y-3">
             <h5 className="font-bold text-white text-sm">Instant Booking</h5>
-            <p className="text-zinc-400 leading-relaxed">
+            <p className="text-zinc-300 leading-relaxed">
               Get an instant appointment confirmation with preferred master stylists.
             </p>
             <button
               onClick={() => setIsBookingModalOpen(true)}
-              className="w-full py-2.5 rounded-xl bg-[#ab2079] hover:bg-pink-600 text-white font-bold text-xs transition cursor-pointer"
+              className="w-full py-2.5 rounded-xl bg-[#ab2079] hover:bg-pink-600 text-white font-bold text-xs transition cursor-pointer shadow-lg"
             >
               Book Salon Appointment Slot
             </button>
           </div>
         </div>
 
-        <div className="pt-6 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
-          <p>© {new Date().getFullYear()} Green Trends Unisex Hair &amp; Style Salon — Kothapet. All rights reserved.</p>
-          <p className="text-zinc-600">Digital Mini-Website Powered by OneClickBiz</p>
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
+          <p>© {new Date().getFullYear()} AuraLuxe Luxury Unisex Salon &amp; Spa. All rights reserved.</p>
+          <p className="text-zinc-500">Digital Mini-Website Powered by OneClickBiz</p>
         </div>
       </footer>
 
       {/* 13. STICKY MOBILE BOTTOM BAR */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-zinc-950/95 backdrop-blur-xl border-t border-zinc-800 px-4 py-2.5 flex items-center justify-between gap-2 sm:hidden shadow-2xl">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-zinc-950/95 backdrop-blur-xl border-t border-white/15 px-4 py-2.5 flex items-center justify-between gap-2 sm:hidden shadow-2xl">
         <a
           href={`tel:${salonPhone.replace(/\s+/g, '')}`}
-          className="flex-1 py-2.5 rounded-xl bg-zinc-900 text-white text-xs font-bold flex items-center justify-center gap-1.5 border border-zinc-800"
+          className="flex-1 py-2.5 rounded-xl bg-zinc-900 text-white text-xs font-bold flex items-center justify-center gap-1.5 border border-white/10"
         >
           <Phone className="w-3.5 h-3.5 text-[#1BD741]" />
           <span>Call</span>
@@ -1907,7 +1979,7 @@ export default function BeautyMiniWebsiteView({
 
         <button
           onClick={() => setIsCartOpen(true)}
-          className="relative py-2.5 px-3 rounded-xl bg-zinc-900 text-white text-xs font-bold flex items-center justify-center gap-1.5 border border-zinc-800 cursor-pointer"
+          className="relative py-2.5 px-3 rounded-xl bg-zinc-900 text-white text-xs font-bold flex items-center justify-center gap-1.5 border border-white/10 cursor-pointer"
         >
           <ShoppingBag className="w-4 h-4 text-[#1BD741]" />
           {cartTotalItems > 0 && (
@@ -1926,7 +1998,7 @@ export default function BeautyMiniWebsiteView({
         </button>
 
         <a
-          href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi Green Trends Kothapet! I would like to book a salon appointment.`)}`}
+          href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi ${salonCompany}! I would like to book a salon appointment.`)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 py-2.5 rounded-xl bg-[#1BD741] text-black text-xs font-black flex items-center justify-center gap-1 shadow-md"
@@ -1939,9 +2011,9 @@ export default function BeautyMiniWebsiteView({
       {/* 14. INTERACTIVE SHOPPING BAG DRAWER / MODAL */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-md h-full bg-zinc-950 border-l border-zinc-800 flex flex-col justify-between shadow-2xl animate-in slide-in-from-right duration-300">
+          <div className="w-full max-w-md h-full bg-zinc-950 border-l border-white/15 flex flex-col justify-between shadow-2xl animate-in slide-in-from-right duration-300">
             {/* Drawer Header */}
-            <div className="p-4 sm:p-5 border-b border-zinc-800 flex items-center justify-between bg-zinc-900/60">
+            <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-zinc-900/80">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-emerald-500/20 text-[#1BD741] flex items-center justify-center">
                   <ShoppingBag className="w-5 h-5" />
@@ -1953,7 +2025,7 @@ export default function BeautyMiniWebsiteView({
               </div>
               <button
                 onClick={() => setIsCartOpen(false)}
-                className="p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-800 transition"
+                className="p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-800 transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1968,9 +2040,9 @@ export default function BeautyMiniWebsiteView({
                     {cart.map(({ product, quantity }) => (
                       <div
                         key={product.id}
-                        className="p-3 rounded-2xl bg-zinc-900/90 border border-zinc-800 flex gap-3 items-center justify-between"
+                        className="p-3 rounded-2xl bg-zinc-900/90 border border-white/10 flex gap-3 items-center justify-between"
                       >
-                        <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-zinc-950">
+                        <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-zinc-900">
                           <Image
                             src={product.imageUrl}
                             alt={product.name}
@@ -1993,7 +2065,7 @@ export default function BeautyMiniWebsiteView({
                         <div className="flex items-center gap-1.5 bg-zinc-950 rounded-xl p-1 border border-zinc-800 shrink-0">
                           <button
                             onClick={() => updateCartQty(product.id, -1)}
-                            className="p-1 rounded text-zinc-400 hover:text-white"
+                            className="p-1 rounded text-zinc-400 hover:text-white cursor-pointer"
                           >
                             <Minus className="w-3 h-3" />
                           </button>
@@ -2002,13 +2074,13 @@ export default function BeautyMiniWebsiteView({
                           </span>
                           <button
                             onClick={() => updateCartQty(product.id, 1)}
-                            className="p-1 rounded text-zinc-400 hover:text-white"
+                            className="p-1 rounded text-zinc-400 hover:text-white cursor-pointer"
                           >
                             <Plus className="w-3 h-3" />
                           </button>
                           <button
                             onClick={() => removeFromCart(product.id)}
-                            className="p-1 rounded text-rose-400 hover:text-rose-300 ml-1"
+                            className="p-1 rounded text-rose-400 hover:text-rose-300 ml-1 cursor-pointer"
                             title="Remove"
                           >
                             <Trash2 className="w-3 h-3" />
@@ -2019,15 +2091,15 @@ export default function BeautyMiniWebsiteView({
                   </div>
 
                   {/* Delivery Mode Toggle */}
-                  <div className="p-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-2">
-                    <label className="text-xs font-bold text-zinc-300 block">Fulfillment Method</label>
+                  <div className="p-3.5 rounded-2xl bg-zinc-900/90 border border-white/10 space-y-2">
+                    <label className="text-xs font-bold text-zinc-200 block">Fulfillment Method</label>
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         type="button"
                         onClick={() => setDeliveryType('pickup')}
                         className={`p-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer ${
                           deliveryType === 'pickup'
-                            ? 'bg-[#1BD741] text-black'
+                            ? 'bg-[#1BD741] text-black font-extrabold'
                             : 'bg-zinc-950 text-zinc-400 border border-zinc-800'
                         }`}
                       >
@@ -2039,7 +2111,7 @@ export default function BeautyMiniWebsiteView({
                         onClick={() => setDeliveryType('delivery')}
                         className={`p-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer ${
                           deliveryType === 'delivery'
-                            ? 'bg-[#1BD741] text-black'
+                            ? 'bg-[#1BD741] text-black font-extrabold'
                             : 'bg-zinc-950 text-zinc-400 border border-zinc-800'
                         }`}
                       >
@@ -2048,7 +2120,7 @@ export default function BeautyMiniWebsiteView({
                       </button>
                     </div>
                     {deliveryType === 'delivery' && (
-                      <p className="text-[10px] text-zinc-400 pt-1">
+                      <p className="text-[10px] text-zinc-300 pt-1">
                         🚚 Delivered in 24-48 hrs across Hyderabad. Free on orders ₹1,500+.
                       </p>
                     )}
@@ -2056,14 +2128,14 @@ export default function BeautyMiniWebsiteView({
 
                   {/* Customer Information Form */}
                   <div className="space-y-2.5">
-                    <label className="text-xs font-bold text-zinc-300 block">Your Details for WhatsApp Order</label>
+                    <label className="text-xs font-bold text-zinc-200 block">Your Details for WhatsApp Order</label>
                     <input
                       type="text"
                       placeholder="Your Full Name *"
                       required
                       value={customerDetails.name}
                       onChange={e => setCustomerDetails(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-[#1BD741]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
                     />
                     <input
                       type="tel"
@@ -2071,7 +2143,7 @@ export default function BeautyMiniWebsiteView({
                       required
                       value={customerDetails.phone}
                       onChange={e => setCustomerDetails(prev => ({ ...prev, phone: e.target.value }))}
-                      className="w-full px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-[#1BD741]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
                     />
                     {deliveryType === 'delivery' && (
                       <textarea
@@ -2079,7 +2151,7 @@ export default function BeautyMiniWebsiteView({
                         placeholder="Complete House / Flat / Street Address in Hyderabad *"
                         value={customerDetails.address}
                         onChange={e => setCustomerDetails(prev => ({ ...prev, address: e.target.value }))}
-                        className="w-full px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-[#1BD741]"
+                        className="w-full px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-xs text-white focus:outline-none focus:border-[#1BD741]"
                       />
                     )}
                   </div>
@@ -2103,21 +2175,21 @@ export default function BeautyMiniWebsiteView({
 
             {/* Drawer Footer: Total & WhatsApp Dispatch */}
             {cart.length > 0 && (
-              <div className="p-4 sm:p-5 border-t border-zinc-800 bg-zinc-900/90 space-y-3">
+              <div className="p-4 sm:p-5 border-t border-white/10 bg-zinc-900/95 space-y-3">
                 <div className="space-y-1.5 text-xs">
-                  <div className="flex justify-between text-zinc-400">
+                  <div className="flex justify-between text-zinc-300">
                     <span>Subtotal</span>
                     <span className="font-bold text-white">₹{cartSubtotal.toLocaleString('en-IN')}</span>
                   </div>
                   {deliveryType === 'delivery' && (
-                    <div className="flex justify-between text-zinc-400">
+                    <div className="flex justify-between text-zinc-300">
                       <span>Delivery Fee</span>
                       <span className="font-bold text-white">
                         {deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}
                       </span>
                     </div>
                   )}
-                  <div className="flex justify-between text-base font-black text-white pt-2 border-t border-zinc-800">
+                  <div className="flex justify-between text-base font-black text-white pt-2 border-t border-white/10">
                     <span>Total Amount</span>
                     <span className="text-[#1BD741]">₹{cartGrandTotal.toLocaleString('en-IN')}</span>
                   </div>
@@ -2140,7 +2212,7 @@ export default function BeautyMiniWebsiteView({
       {/* 15. APPOINTMENT BOOKING MODAL */}
       {isBookingModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-lg rounded-3xl bg-zinc-950 border border-zinc-800 p-6 sm:p-7 space-y-4 shadow-2xl relative overflow-hidden">
+          <div className="w-full max-w-lg rounded-3xl bg-zinc-950 border border-white/15 p-6 sm:p-7 space-y-4 shadow-2xl relative overflow-hidden">
             <button
               onClick={() => setIsBookingModalOpen(false)}
               className="absolute top-4 right-4 p-2 text-zinc-400 hover:text-white rounded-xl hover:bg-zinc-900 transition cursor-pointer"
@@ -2154,7 +2226,7 @@ export default function BeautyMiniWebsiteView({
               </div>
               <div>
                 <h3 className="text-lg font-black text-white">Book Salon Appointment</h3>
-                <p className="text-xs text-zinc-400">Green Trends Kothapet • Priority Confirmation</p>
+                <p className="text-xs text-zinc-400">{salonCompany} • Priority Confirmation</p>
               </div>
             </div>
 

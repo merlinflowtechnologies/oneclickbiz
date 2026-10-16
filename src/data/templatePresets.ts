@@ -479,18 +479,18 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
   // 1. 🎪 EVENTS & WEDDING PLANNER
   // ========================================================
   'events-planner': {
-    name: 'Shreya Reddy & Srikanth Varma',
-    designation: 'Founder & Principal Wedding Architect',
-    company: 'Grandeur Luxury Events & Destination Weddings',
-    bio: 'Curating royal destination weddings, experiential Sangeet stages, celebrity corporate galas, and thematic birthday celebrations across Hyderabad, Udaipur, Goa & Dubai.',
+    name: 'HORA Services Hyderabad',
+    designation: 'Photographers in Hyderabad, Book from 2 Hours',
+    company: 'HORA Event & Photography Services',
+    bio: 'Hire verified photographers in Hyderabad for two hours or your whole event. Small functions, poojas, weddings, maternity shoots, female photographers on request. Starting from ₹3,600.',
     theme: 'glassmorphic',
-    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
-    coverUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80',
-    email: 'events@grandeurexperiences.com',
-    phone: '+91 98765 77088',
-    whatsapp: '919876577088',
-    website: 'https://grandeurevents.in',
-    address: 'Road No. 36, Jubilee Hills, Hyderabad, India',
+    avatarUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80',
+    email: 'dev@horaservices.com',
+    phone: '+91 73385 84828',
+    whatsapp: '917338584828',
+    website: 'https://horaservices.com/hyderabad/photography',
+    address: 'Gachibowli, HITEC City, Jubilee Hills, Banjara Hills & 40+ Localities, Hyderabad',
     services: [
       { id: 's_eve_1', title: '3-Day Destination Wedding Design & Coordination', description: 'End-to-end decor, bridal entry FX, hospitality, artist lineup, and guest logistics.', durationMinutes: 120, price: 150000, currency: '₹' },
       { id: 's_eve_2', title: 'Grand Floral Mandap & Reception Stage Setup', description: 'Custom thematic structure with imported Dutch florals, fairy lighting & LED walls.', durationMinutes: 90, price: 85000, currency: '₹' },
@@ -1380,18 +1380,18 @@ TEMPLATE_PRESETS_DATA['apex-schools'] = TEMPLATE_PRESETS_DATA['edu-school'];
 TEMPLATE_PRESETS_DATA['global-school'] = TEMPLATE_PRESETS_DATA['edu-school'];
 
 TEMPLATE_PRESETS_DATA['beauty-salon'] = {
-  name: 'Green Trends — Kothapet',
-  designation: 'Unisex Hair & Style Salon',
-  company: 'Green Trends Unisex Hair & Style Salon',
-  bio: 'Top-rated unisex hair & beauty salon in Kothapet, Hyderabad. Expert haircuts, hair color, bridal makeovers, facials & men’s grooming. Premium brands: L’Oréal, Wella, Schwarzkopf, Matrix & O3+.',
+  name: 'AuraLuxe — Jubilee Hills',
+  designation: 'Luxury Unisex Hair & Beauty Lounge',
+  company: 'AuraLuxe Luxury Unisex Salon & Spa',
+  bio: 'Top-rated luxury unisex hair & beauty lounge in Jubilee Hills, Hyderabad. Certified master stylists, bespoke hair coloring, royal bridal makeovers, hydra-facials & gentlemen grooming. Featuring genuine salon care: L’Oréal Professionnel, Wella, Moroccanoil, Schwarzkopf & O3+.',
   theme: 'glassmorphic',
-  avatarUrl: 'https://greentrends-kothapet.salon4u.in/assets/logo-dark-BXW1rSvd.png',
-  coverUrl: 'https://greentrends-kothapet.salon4u.in/assets/hero-B9AyMNJQ.jpg',
-  email: 'kothapet@greentrendssalon.in',
-  phone: '+91 63033 18078',
-  whatsapp: '916303318078',
-  website: 'https://greentrends-kothapet.salon4u.in/',
-  address: 'No. 11-9-11/1/2, New Nagole Main Rd, opp. Ratnadeep Supermarket, Laxmi Nagar Colony, Kothapet, Hyderabad, Telangana 500102',
+  avatarUrl: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80',
+  coverUrl: '/images/salon-bg-customers.jpg',
+  email: 'concierge@auraluxesalon.in',
+  phone: '+91 98765 43210',
+  whatsapp: '919876543210',
+  website: 'https://auraluxesalon.in',
+  address: 'Plot No. 482, 2nd Floor, Luxury Square Building, Road No. 36, Jubilee Hills, Hyderabad, Telangana 500033',
   services: [
     {
       id: 'srv_bs_1',
@@ -1572,7 +1572,7 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
     {
       id: 'gal_bs_1',
       imageUrl: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80',
-      title: 'Green Trends Salon Interior & Stations',
+      title: 'AuraLuxe Salon Interior & Stations',
       category: 'Ambience'
     },
     {
@@ -1610,45 +1610,46 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
     {
       id: 't_bs_1',
       clientName: 'Sravani Reddy',
-      clientRole: 'Verified Client • Kothapet',
-      content: 'Best salon in Kothapet! Got my hair coloured here and the result was exactly what I wanted. Staff is very polite and the place is super clean.',
+      clientRole: 'Verified Client • Jubilee Hills',
+      content: 'Hands down the best salon experience in Hyderabad! Got my balayage and hair botox done by master stylists — the color blend and mirror shine exceeded my expectations. Ambiance is so lively and luxurious!',
       rating: 5,
       clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
     },
     {
       id: 't_bs_2',
       clientName: 'Rahul Varma',
-      clientRole: 'Verified Client • New Nagole Rd',
-      content: 'Great haircut and beard styling at a very reasonable price. The barber really listens to what you want. Will definitely come back.',
+      clientRole: 'Verified Client • Madhapur',
+      content: 'Top-notch gentlemen grooming! The precision fade, hot towel beard sculpt, and charcoal detan facial felt world-class. You can tell they use genuine premium products.',
       rating: 5,
       clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80'
     },
     {
       id: 't_bs_3',
       clientName: 'Anjali Sharma',
-      clientRole: 'Bride • Dilsukhnagar',
-      content: 'Took the bridal package for my sister’s wedding. They did an amazing job — makeup lasted the whole day. Highly recommend!',
+      clientRole: 'Bride • Banjara Hills',
+      content: 'Booked their Royal HD Bridal Package for my reception and muhurtham. The makeup stayed flawless all 14 hours with zero caking, and the floral hairstyle was stunning!',
       rating: 5,
       clientAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80'
     },
     {
       id: 't_bs_4',
-      clientName: 'Pranay K.',
-      clientRole: 'Verified Client • Kothapet',
-      content: 'Clean, hygienic, and uses good products. Got a hair spa and felt the difference immediately. Bit busy on weekends so book ahead.',
+      clientName: 'Pranay Kumar',
+      clientRole: 'Verified Client • Gachibowli',
+      content: 'Super clean, energetic, and hygienic salon floor. Tried the L’Oréal steam pod ritual and keratin spa — my hair feels completely revived. Loved ordering my hair serum right to my doorstep too!',
       rating: 5,
       clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80'
     }
   ],
   socials: [
-    { id: 'soc_bs_wa', platform: 'whatsapp', url: 'https://wa.me/916303318078', label: 'WhatsApp Us' },
-    { id: 'soc_bs_ph', platform: 'phone', url: 'tel:+916303318078', label: 'Call Salon' },
-    { id: 'soc_bs_ig', platform: 'instagram', url: 'https://instagram.com/mygreentrends', label: 'Instagram' },
-    { id: 'soc_bs_map', platform: 'maps', url: 'https://www.google.com/maps?q=Green+Trends+Kothapet+New+Nagole+Main+Rd+Hyderabad', label: 'Google Maps' },
-    { id: 'soc_bs_web', platform: 'website', url: 'https://greentrends-kothapet.salon4u.in/', label: 'Official Website' }
+    { id: 'soc_bs_wa', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp Us' },
+    { id: 'soc_bs_ph', platform: 'phone', url: 'tel:+919876543210', label: 'Call Salon' },
+    { id: 'soc_bs_ig', platform: 'instagram', url: 'https://instagram.com/auraluxesalon', label: 'Instagram' },
+    { id: 'soc_bs_map', platform: 'maps', url: 'https://maps.google.com/?q=Road+No+36+Jubilee+Hills+Hyderabad', label: 'Google Maps' },
+    { id: 'soc_bs_web', platform: 'website', url: 'https://auraluxesalon.in', label: 'Official Website' }
   ]
 };
 
+TEMPLATE_PRESETS_DATA['auraluxe'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
 TEMPLATE_PRESETS_DATA['green-trends'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
 TEMPLATE_PRESETS_DATA['greentrends'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
 TEMPLATE_PRESETS_DATA['greentrends-kothapet'] = TEMPLATE_PRESETS_DATA['beauty-salon'];

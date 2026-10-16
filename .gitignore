@@ -50,3 +50,6 @@ legacy_backup/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Scratch directories
+scratch/

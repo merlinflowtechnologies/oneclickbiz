@@ -1,1312 +1,2002 @@
-'use strict';
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { DigitalProfile } from '@/lib/types';
 import { 
-  DigitalProfile, 
-  ServiceItem, 
-  ProductItem, 
-  GalleryItem, 
-  TestimonialItem,
-  VideoItem,
-  SocialLinkItem
-} from '@/lib/types';
-import { 
+  Camera, 
+  Video, 
+  Clock, 
+  MapPin, 
+  Calendar, 
+  Star, 
+  ShieldCheck, 
+  CheckCircle2, 
+  Check, 
+  Sparkles, 
   Phone, 
   Mail, 
-  MapPin, 
-  Globe, 
   Share2, 
   Download, 
-  Sparkles, 
-  Calendar, 
-  Camera, 
-  Music, 
-  Award, 
-  CheckCircle, 
-  Star, 
-  Clock, 
   X, 
-  Send, 
+  Search, 
+  ChevronDown, 
+  ChevronUp, 
   ChevronRight, 
+  ArrowRight, 
+  Heart, 
+  MessageCircle, 
+  Play, 
+  PlayCircle, 
   Eye, 
-  PartyPopper, 
-  Video, 
-  ShieldCheck,
-  Heart,
-  MessageCircle,
-  ExternalLink,
-  ArrowRight,
-  Compass
+  Users, 
+  Award, 
+  HelpCircle, 
+  Filter, 
+  Tag, 
+  BadgePercent, 
+  ExternalLink, 
+  Layers,
+  SlidersHorizontal,
+  ThumbsUp,
+  Image as ImageIcon,
+  CheckCircle,
+  Copy,
+  Info
 } from 'lucide-react';
-import SocialIcon, { getSocialBrandColor } from '@/components/common/SocialIcon';
 import ShareCardModal from '@/components/common/ShareCardModal';
 
 interface EventsMiniWebsiteViewProps {
-  profile: DigitalProfile;
+  profile?: DigitalProfile;
   getEmbedUrl?: (item: any) => string;
+  viewMode?: 'mobile' | 'website';
+  setViewMode?: (mode: 'mobile' | 'website') => void;
+  showViewToggle?: boolean;
 }
 
-export default function EventsMiniWebsiteView({ profile, getEmbedUrl }: EventsMiniWebsiteViewProps) {
-  const [activeTab, setActiveTab] = useState<'all' | 'services' | 'packages' | 'gallery' | 'reviews'>('all');
-  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
-  const [selectedPackage, setSelectedPackage] = useState<ProductItem | null>(null);
-  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+// =========================================================================
+// 1. DATA CONSTANTS & ALL DIRECTORIES (HORA Services Hyderabad Clone)
+// =========================================================================
+
+export const CITIES_LIST = [
+  'Hyderabad', 'Bangalore', 'Mumbai', 'Delhi', 'Noida', 'Gurugram', 'Ghaziabad', 'Faridabad'
+];
+
+export const SERVICE_NAV_CATEGORIES = [
+  { id: 'photography', name: 'Photography', icon: '📸', active: true },
+  { id: 'decoration', name: 'Decoration', icon: '🎈', active: false },
+  { id: 'venues', name: 'Venues', icon: '🏛️', active: false },
+  { id: 'chef', name: 'Chef for Party', icon: '👨‍🍳', active: false },
+  { id: 'food-delivery', name: 'Food Delivery', icon: '🍱', active: false },
+  { id: 'catering', name: 'Live Catering', icon: '🍽️', active: false },
+  { id: 'entertainment', name: 'Entertainment', icon: '🎭', active: false }
+];
+
+export const PHOTOGRAPHY_OCCASIONS = [
+  {
+    id: 'birthday',
+    title: 'Birthday Photography',
+    subtitle: '1st birthday cake smash, kids party & milestone birthdays',
+    startingPrice: 3600,
+    mrp: 4615,
+    tag: 'Popular',
+    icon: '🎂',
+    imageUrl: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=80',
+    description: 'Capture genuine smiles, playful moments, cake-cutting excitement, and warm family portraits.'
+  },
+  {
+    id: 'anniversary',
+    title: 'Anniversary Photography',
+    subtitle: 'Romantic couple portraits, 25th/50th silver & golden jubilees',
+    startingPrice: 3600,
+    mrp: 4615,
+    tag: 'Trending',
+    icon: '💍',
+    imageUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80',
+    description: 'Celebrate lasting love with intimate couple portraits and joyous gatherings of close relatives.'
+  },
+  {
+    id: 'house-warming',
+    title: 'House Warming Photography',
+    subtitle: 'Griha Pravesh rituals, Satyanarayan pooja, home interiors',
+    startingPrice: 3600,
+    mrp: 4615,
+    tag: 'Hyderabad Top',
+    icon: '🏠',
+    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80',
+    description: 'Auspicious havan rituals, milk boiling ceremony, architectural home corners, and blessings.'
+  },
+  {
+    id: 'naming-ceremony',
+    title: 'Naming Ceremony (Barasala)',
+    subtitle: 'Cradle ceremony, baby close-ups, traditional blessings',
+    startingPrice: 3600,
+    mrp: 4615,
+    tag: 'Family Favorite',
+    icon: '👶',
+    imageUrl: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=600&q=80',
+    description: 'Gentle, natural lighting photography capturing the baby in the decorated cradle with elders.'
+  },
+  {
+    id: 'baby-shower',
+    title: 'Baby Shower (Seemantham)',
+    subtitle: 'Traditional rituals, mom-to-be radiance & family candids',
+    startingPrice: 3600,
+    mrp: 4615,
+    tag: 'Top Rated',
+    icon: '🍼',
+    imageUrl: 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&w=600&q=80',
+    description: 'Bangle ceremony rituals, floral swing photos, expectant parents glow, and candid laughter.'
+  },
+  {
+    id: 'engagement',
+    title: 'Engagement Photography',
+    subtitle: 'Ring exchange, couple aesthetic portraits & family celebration',
+    startingPrice: 4000,
+    mrp: 5128,
+    tag: 'High Demand',
+    icon: '💖',
+    imageUrl: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=80',
+    description: 'Cinematic ring exchange close-ups, romantic candid glances, and vibrant family celebrations.'
+  },
+  {
+    id: 'wedding',
+    title: 'Wedding Photography',
+    subtitle: 'Muhurtham rituals, bridal portraits, sangeet & reception',
+    startingPrice: 5000,
+    mrp: 6410,
+    tag: 'Premium',
+    icon: '👰',
+    imageUrl: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80',
+    description: 'Full ceremony coverage, sacred vows, emotional vidaai, and high-fashion couple portraits.'
+  },
+  {
+    id: 'maternity',
+    title: 'Maternity Photoshoot',
+    subtitle: 'Outdoor garden glow or home studio session with female pro',
+    startingPrice: 4000,
+    mrp: 5128,
+    tag: 'Specialist',
+    icon: '🤰',
+    imageUrl: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=600&q=80',
+    description: 'Comfort-first maternity portraits celebrating motherhood. Female photographer on request.'
+  },
+  {
+    id: 'newborn',
+    title: 'New Born Baby Photography',
+    subtitle: 'Safe, warm, cozy infant poses with gentle props',
+    startingPrice: 4500,
+    mrp: 5750,
+    tag: 'Delicate Care',
+    icon: '🧸',
+    imageUrl: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80',
+    description: 'Certified infant photographers using sanitized wraps, soft beanbags, and soothing setups.'
+  },
+  {
+    id: 'bachelorette',
+    title: 'Bachelorette & Cocktail Party',
+    subtitle: 'Fun squad portraits, unposed evening candids & party energy',
+    startingPrice: 4000,
+    mrp: 5128,
+    tag: 'Party Vibes',
+    icon: '🥂',
+    imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80',
+    description: 'Dynamic low-light flash photography capturing high spirits, champagne toasts, and friend candids.'
+  },
+  {
+    id: 'haldi-mehndi',
+    title: 'Haldi & Mehndi Photography',
+    subtitle: 'Vibrant yellow splashes, intricate henna art & playful dance',
+    startingPrice: 3800,
+    mrp: 4870,
+    tag: 'Colorful',
+    icon: '🌿',
+    imageUrl: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=600&q=80',
+    description: 'Bursting colors, water splashes, detailed bridal mehndi close-ups, and spontaneous dance candids.'
+  },
+  {
+    id: 'corporate',
+    title: 'Corporate Event Photography',
+    subtitle: 'Conferences, leadership summits, team galas & headshots',
+    startingPrice: 5000,
+    mrp: 6410,
+    tag: 'Business',
+    icon: '🏢',
+    imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80',
+    description: 'Executive keynotes, audience networking, award distributions, and corporate group photos.'
+  }
+];
+
+export const STANDARD_PACKAGES = [
+  {
+    id: 'pkg-traditional',
+    name: 'Traditional Photography',
+    badge: 'Most Popular for Home Events',
+    price: 3600,
+    mrp: 4615,
+    discount: '22% OFF',
+    duration: '2 Hours Base Coverage',
+    camera: 'Full-Frame DSLR / Mirrorless (Sony Alpha / Nikon Z)',
+    lighting: 'External TTL Speedlight with Diffuser',
+    inclusions: [
+      '1 Verified Professional Photographer',
+      'All RAW Unedited Photos Delivered (200+ photos)',
+      '35-40 Expert Color-Graded & Retouched High-Res Photos',
+      'Private Cloud Google Drive Link within 48 Hours',
+      'Covers posed family groups, rituals & stage photos',
+      'Additional hours at just ₹1,200/hr'
+    ],
+    idealFor: 'Pooja, Cradle ceremony, 1st Birthday, Griha Pravesh & Anniversaries'
+  },
+  {
+    id: 'pkg-candid',
+    name: 'Candid Photography',
+    badge: 'Artistic & Unposed',
+    price: 4000,
+    mrp: 5128,
+    discount: '22% OFF',
+    duration: '2 Hours Base Coverage',
+    camera: 'High-Speed Prime Lenses (35mm / 50mm / 85mm f/1.4)',
+    lighting: 'Ambient & Natural Light Specialist',
+    inclusions: [
+      '1 Specialist Candid Storyteller Photographer',
+      'Unposed emotional expressions & candid laughter',
+      'All RAW photos + 45 Hand-Crafted Artistically Graded Photos',
+      'Creative bokeh depth-of-field portraits',
+      'Cloud Gallery link delivered within 48-72 Hours',
+      'Additional hours at just ₹1,400/hr'
+    ],
+    idealFor: 'Kids parties, Baby showers, Engagement, Cocktail & Maternity'
+  },
+  {
+    id: 'pkg-pro',
+    name: 'Pro Photography',
+    badge: 'Complete Premium Coverage',
+    price: 5000,
+    mrp: 6410,
+    discount: '22% OFF',
+    duration: '2 Hours Base Coverage',
+    camera: 'Flagship Dual-Card Pro Cameras + Dual Lens Kit',
+    lighting: 'Off-Camera Flash & Portable Softbox Setup',
+    inclusions: [
+      '1 Senior Master Photographer (8+ Years Experience)',
+      'Dual-setup lighting for magazine-grade portraits',
+      'All RAW photos + 60 Ultra-High Definition Retouched Photos',
+      'Skin blemish cleanup & color harmonic grading',
+      'Priority 24-48 Hour Express Digital Delivery',
+      'Additional hours at just ₹1,600/hr'
+    ],
+    idealFor: 'Grand Weddings, Receptions, High-Profile Events & Fashion Shoots'
+  },
+  {
+    id: 'pkg-video',
+    name: 'Cinematic Videography',
+    badge: '4K Motion Teaser',
+    price: 7000,
+    mrp: 8974,
+    discount: '22% OFF',
+    duration: '3 Hours Base Coverage',
+    camera: '4K Cinema Mirrorless (Sony FX3 / A7S III) + Gimbal',
+    lighting: 'Continuous LED Video Light + Wireless Mic Kit',
+    inclusions: [
+      '1 Dedicated Professional Videographer',
+      'Ultra-smooth 3-axis motorized gimbal camera moves',
+      'Complete Full HD Edited Event Film (15-30 mins)',
+      '1-2 Minute Cinematic Instagram Reel / Teaser with Licensed Music',
+      'Crystal-clear wireless lapel audio capture for rituals/speeches',
+      'Full 4K Master delivered on Google Drive'
+    ],
+    idealFor: 'Weddings, Sangeet, Engagement, Grand Birthdays & Corporate'
+  },
+  {
+    id: 'pkg-combo',
+    name: 'Grand Photo + Video Combo',
+    badge: 'Best Value Bundle',
+    price: 10500,
+    mrp: 13500,
+    discount: 'Special Combo',
+    duration: '3 Hours Complete Coverage',
+    camera: 'Full Photo & 4K Video Dual Crew Equipment',
+    lighting: 'Comprehensive Studio Strobe & Continuous Video Lighting',
+    inclusions: [
+      '2 Crew Members: 1 Lead Photographer + 1 Dedicated Videographer',
+      'Complete seamless coordination without missing any ritual',
+      'All RAW photos + 60 edited portraits',
+      'Full Event Video Film + 90-sec Cinematic Highlights Reel',
+      'Complimentary 10 Drone Aerial Photos (if venue permits)',
+      'Full Digital Delivery + WhatsApp Shareable Mini-Album'
+    ],
+    idealFor: 'Full-Scale Milestone Events, Weddings & Luxury Celebrations'
+  }
+];
+
+export const HYDERABAD_LOCALITIES = [
+  'Gachibowli', 'HITEC City', 'Madhapur', 'Kondapur', 'Jubilee Hills', 'Banjara Hills',
+  'Kukatpally', 'Miyapur', 'Secunderabad', 'Begumpet', 'Ameerpet', 'Dilsukhnagar',
+  'Financial District', 'Chanda Nagar', 'Manikonda', 'Kothapet', 'Attapur', 'Uppal',
+  'LB Nagar', 'Nallagandla', 'Tellapur', 'Kompally', 'Bowenpally', 'Alwal', 'Sainikpuri',
+  'Tarnaka', 'Himayatnagar', 'Somajiguda', 'Film Nagar', 'Gandipet', 'Mehdipatnam',
+  'Tolichowki', 'Nagole', 'Habsiguda', 'Nizampet', 'Hafeezpet', 'Kokapet', 'Nanakramguda'
+];
+
+export const OUTDOOR_SHOOT_SPOTS = [
+  {
+    name: 'Golconda Fort (Golden Hour)',
+    type: 'Heritage & Royal Aesthetic',
+    bestTime: '4:30 PM - 6:30 PM',
+    desc: 'The signature Hyderabad spot for pre-wedding and couple portraits with dramatic historic arches and sunset horizons.',
+    imageUrl: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    name: 'Durgam Cheruvu & Cable Bridge',
+    type: 'Modern Skyline & Water View',
+    bestTime: '6:30 AM or 7:00 PM',
+    desc: 'Lush waterfront parks combined with stunning illuminated cable bridge views for modern urban romance photoshoots.',
+    imageUrl: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    name: 'KBR National Park (Jubilee Hills)',
+    type: 'Lush Greenery & Nature',
+    bestTime: '6:30 AM - 8:30 AM',
+    desc: 'Towering tropical trees, natural stone pathways, and calm green shade ideal for serene maternity & couple shoots.',
+    imageUrl: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    name: 'Taramati Baradari',
+    type: 'Medieval Persian Acoustics & Arches',
+    bestTime: '5:00 PM - 7:00 PM',
+    desc: 'Symmetrical open-air pavilions with scenic hilltop breezes, warm sandstone masonry, and romantic ethnic vibes.',
+    imageUrl: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80'
+  }
+];
+
+export const VERIFIED_REVIEWS = [
+  {
+    name: 'Pooja Purohit',
+    occasion: 'Maternity Photoshoot • Gachibowli',
+    rating: 5,
+    text: 'Our maternity shoot was wonderful! The photographer was cooperative, kept us motivated and captured every moment well. We specifically asked for a female photographer and she was so gentle and patient.',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80'
+  },
+  {
+    name: 'Vibpri',
+    occasion: '1st Birthday & Cake Smash • Jubilee Hills',
+    rating: 5,
+    text: 'The shoot turned out amazing! Such an eye for detail, and everything felt effortless. The baby was crying initially but the photographer waited patiently and clicked the sweetest smiles. Can’t wait to work with them again.',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80'
+  },
+  {
+    name: 'Bhanupriya Sharma',
+    occasion: 'House Warming Pooja • Kondapur',
+    rating: 5,
+    text: 'Great experience! The photographer was active throughout, photo quality is very good, and he stayed a few extra minutes without rushing us. Best part was booking just for 2 hours instead of paying full day.',
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80'
+  },
+  {
+    name: 'Jyoti Singh',
+    occasion: 'Baby Shower (Seemantham) • Banjara Hills',
+    rating: 5,
+    text: 'We love all our amazing photos! The photographer was very polite, guided all our traditional poses, and gave us the best pictures at a fair price. Got the drive link in under 48 hours.',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'
+  },
+  {
+    name: 'Chitra Karkera',
+    occasion: 'Naming Ceremony • Madhapur',
+    rating: 5,
+    text: 'The photography is amazing, and the price is very reasonable. A really great experience with our photographer overall. Handled the crowd gracefully and captured crisp candid closeups.',
+    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80'
+  },
+  {
+    name: 'Priya Pakhare',
+    occasion: 'Engagement Ceremony • Financial District',
+    rating: 5,
+    text: 'Absolute perfection! Our engagement party was captured so beautifully. Every shot felt authentic, warm and stunning, so naturally. Highly recommend HORA Photography in Hyderabad!',
+    avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=150&q=80'
+  }
+];
+
+export const FAQS_LIST = [
+  {
+    q: 'Can I hire a photographer in Hyderabad for just 2 hours?',
+    a: 'Yes, absolutely! It is one of our most popular bookings in Hyderabad. You can book one, two, or three hours, see what is included upfront, and confirm online—often even for same-day slots.'
+  },
+  {
+    q: 'Why should I book by the hour instead of a full day?',
+    a: 'Most home events—like a cradle ceremony in the morning, a cake cutting in the evening, or a Satyanarayan pooja—only last 2 to 3 hours. Standard photographers charge full-day fees (₹15,000+). With HORA, you only pay for the time your event really takes, starting from just ₹3,600.'
+  },
+  {
+    q: 'Can I request a female photographer in Hyderabad?',
+    a: 'Yes! For maternity shoots, newborn sessions, ladies sangeet/mehndi, or any session where you prefer greater privacy and comfort, simply tick "Female Photographer" when booking at zero extra charge.'
+  },
+  {
+    q: 'Which areas of Hyderabad do you cover?',
+    a: 'We cover all areas of Hyderabad including HITEC City, Gachibowli, Madhapur, Kondapur, Kukatpally, Banjara Hills, Jubilee Hills, Secunderabad, Begumpet, Dilsukhnagar, Chandanagar, Financial District, and over 40 other localities.'
+  },
+  {
+    q: 'What is included in the photography packages?',
+    a: 'Every package includes 1 verified professional photographer, coverage for your selected hours, all unedited RAW photos delivered via private Google Drive link, and expertly color-graded, high-resolution retouched photos.'
+  },
+  {
+    q: 'When and how will I receive my photos?',
+    a: 'You will receive your private cloud download link within 48 to 72 hours of the shoot. If you need same-day express previews for Instagram or family groups, simply select the Express Delivery option.'
+  },
+  {
+    q: 'How does payment work?',
+    a: 'You only pay a small token advance (₹500 - ₹1,000) online to lock your date and assign your photographer. The balance is paid only after the shoot is successfully completed on the day of the event.'
+  },
+  {
+    q: 'Can I book a cameraman or videographer as well?',
+    a: 'Yes! You can book our 4K Cinematic Videography package separately or choose the Grand Photo + Video Combo to have a synchronized two-person team covering both still photos and motion video.'
+  },
+  {
+    q: 'What are the best outdoor shoot spots in Hyderabad?',
+    a: 'Golconda Fort (especially at golden hour), Durgam Cheruvu Cable Bridge park, Tank Bund/Hussain Sagar, and KBR Park in Jubilee Hills are prime spots. Your assigned photographer will advise on optimal timings and lighting.'
+  },
+  {
+    q: 'Is HORA Photography reliable and verified?',
+    a: 'Yes. Over 1,00,000 happy families have booked with us, backed by a 4.9-star Google rating from 2,500+ genuine reviews. Every photographer undergoes strict portfolio review, equipment inspection, and background verification before joining our network.'
+  }
+];
+
+export default function EventsMiniWebsiteView({
+  profile,
+  getEmbedUrl,
+  viewMode = 'website',
+  setViewMode,
+  showViewToggle = true
+}: EventsMiniWebsiteViewProps) {
+  // City State
+  const [selectedCity, setSelectedCity] = useState('Hyderabad');
+
+  // Booking Calculator State
+  const [selectedOccasion, setSelectedOccasion] = useState(PHOTOGRAPHY_OCCASIONS[0].id);
+  const [selectedPackageId, setSelectedPackageId] = useState('pkg-traditional');
+  const [selectedDurationHours, setSelectedDurationHours] = useState(2);
+  const [isFemalePhotographerReq, setIsFemalePhotographerReq] = useState(false);
+  const [isDroneAddon, setIsDroneAddon] = useState(false);
+  const [isAlbumAddon, setIsAlbumAddon] = useState(false);
+  const [localitySearch, setLocalitySearch] = useState('');
+  const [selectedLocality, setSelectedLocality] = useState('Gachibowli');
+  const [eventDate, setEventDate] = useState('2026-10-25');
+  const [eventTimeSlot, setEventTimeSlot] = useState('Morning (10:00 AM - 12:00 PM)');
+
+  // Booking Modal
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [bookingName, setBookingName] = useState('Kishore Reddy');
+  const [bookingPhone, setBookingPhone] = useState('+91 98765 43210');
+  const [bookingNotes, setBookingNotes] = useState('Home function pooja followed by cake cutting.');
+  const [isBookingSuccess, setIsBookingSuccess] = useState(false);
+  const [couponCode, setCouponCode] = useState('HORA 150');
+  const [couponCopied, setCouponCopied] = useState(false);
+
+  // Gallery Filter State & Lightbox
+  const [galleryCategory, setGalleryCategory] = useState<'all' | 'maternity' | 'newborn' | 'wedding' | 'birthday' | 'housewarming'>('all');
+  const [activeLightboxImg, setActiveLightboxImg] = useState<string | null>(null);
+
+  // FAQs Accordion State
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  // Share Modal
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [quoteFormData, setQuoteFormData] = useState({
-    name: '',
-    phone: '',
-    eventType: 'Wedding & Reception',
-    eventDate: '',
-    guestCount: '200 - 500 Guests',
-    venueCity: '',
-    notes: ''
-  });
-  const [quoteSubmitted, setQuoteSubmitted] = useState(false);
 
-  // Trust Config
-  const eventsConfig = profile.sectionData?.events || {};
-  const specialization = eventsConfig.eventSpecialization || 'Destination Weddings & Luxury Celebrations';
-  const eventsExecuted = eventsConfig.eventsExecuted || '350+ Celebrations Executed';
-  const experienceYears = eventsConfig.experienceYears || '12+ Years';
-  const productionCapability = eventsConfig.productionCapability || 'In-House Sound, 4K Drones & Stage Decor';
-  const serviceLocations = eventsConfig.serviceLocations || 'Pan-India & Destination Weddings';
+  // Active package details
+  const activePackage = useMemo(() => {
+    return STANDARD_PACKAGES.find(p => p.id === selectedPackageId) || STANDARD_PACKAGES[0];
+  }, [selectedPackageId]);
 
-  // Clean phone and slug computation
-  const cleanPhone = useMemo(() => {
-    return (profile.whatsapp || profile.phone || '').replace(/[^0-9]/g, '');
-  }, [profile.whatsapp, profile.phone]);
+  // Active occasion details
+  const activeOccasion = useMemo(() => {
+    return PHOTOGRAPHY_OCCASIONS.find(o => o.id === selectedOccasion) || PHOTOGRAPHY_OCCASIONS[0];
+  }, [selectedOccasion]);
 
-  const brandSlug = useMemo(() => {
-    return (profile.name || 'events').toLowerCase().replace(/[^a-z0-9]/g, '');
-  }, [profile.name]);
+  // Dynamic Price Calculation
+  const calculatedPrice = useMemo(() => {
+    let base = activePackage.price;
+    // Extra hours over 2
+    if (selectedDurationHours > 2) {
+      const extraHours = selectedDurationHours - 2;
+      const ratePerHour = activePackage.id === 'pkg-traditional' ? 1200 : activePackage.id === 'pkg-candid' ? 1400 : 1600;
+      base += extraHours * ratePerHour;
+    } else if (selectedDurationHours === 1) {
+      base = Math.round(base * 0.7); // 1-hour special rate
+    }
 
-  // Socials from profile sectionData
-  const userSocialItems: SocialLinkItem[] = useMemo(() => {
-    return profile.sectionData?.socials?.items || [];
-  }, [profile.sectionData?.socials?.items]);
+    if (isDroneAddon) base += 3500;
+    if (isAlbumAddon) base += 2500;
 
-  const getPlatformUrl = (platform: string, fallbackUrl?: string) => {
-    const item = userSocialItems.find(s => s.platform.toLowerCase() === platform.toLowerCase());
-    return item?.url || fallbackUrl || '';
+    // Apply ₹150 HORA discount
+    const discounted = Math.max(0, base - 150);
+    return {
+      subtotal: base,
+      discount: 150,
+      total: discounted
+    };
+  }, [activePackage, selectedDurationHours, isDroneAddon, isAlbumAddon]);
+
+  const handleCopyCoupon = () => {
+    setCouponCopied(true);
+    setTimeout(() => setCouponCopied(false), 3000);
   };
 
-  // WhatsApp link (direct with pre-filled consultation request)
-  const whatsappUrl = useMemo(() => {
-    const custom = userSocialItems.find(s => s.platform.toLowerCase() === 'whatsapp');
-    if (custom?.url) return custom.url;
-    if (!cleanPhone) return '';
-    const text = encodeURIComponent(
-      `Hello ${profile.name || 'Events Team'}! I came across your Events Portfolio on OneClickBiz and would like to inquire about dates, availability, and event packages.`
-    );
-    return `https://wa.me/${cleanPhone}?text=${text}`;
-  }, [userSocialItems, cleanPhone, profile.name]);
-
-  // Instagram profile / reels link
-  const instagramUrl = useMemo(() => {
-    return getPlatformUrl('instagram', `https://instagram.com/${brandSlug}`);
-  }, [userSocialItems, brandSlug]);
-
-  // Facebook page link
-  const facebookUrl = useMemo(() => {
-    return getPlatformUrl('facebook', `https://facebook.com/${brandSlug}`);
-  }, [userSocialItems, brandSlug]);
-
-  // YouTube channel link
-  const youtubeUrl = useMemo(() => {
-    return getPlatformUrl('youtube', `https://youtube.com/@${brandSlug}`);
-  }, [userSocialItems, brandSlug]);
-
-  // Website link
-  const websiteUrl = useMemo(() => {
-    return profile.website || getPlatformUrl('website', '');
-  }, [profile.website, userSocialItems]);
-
-  // Phone call link
-  const phoneUrl = useMemo(() => {
-    return profile.phone ? `tel:${profile.phone}` : cleanPhone ? `tel:+${cleanPhone}` : '';
-  }, [profile.phone, cleanPhone]);
-
-  // Email link
-  const emailUrl = useMemo(() => {
-    if (!profile.email) return '';
-    const subject = encodeURIComponent(`Event Inquiry - ${profile.name || 'Celebrations'}`);
-    return `mailto:${profile.email}?subject=${subject}`;
-  }, [profile.email, profile.name]);
-
-  // Google Maps address link
-  const mapsUrl = useMemo(() => {
-    if (!profile.address) return '';
-    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(profile.address)}`;
-  }, [profile.address]);
-
-  // Services & Packages
-  const services: ServiceItem[] = profile.sectionData?.services?.items || [
-    {
-      id: 'evt_1',
-      title: 'Complete Wedding Planning & Directing',
-      category: 'Wedding Management',
-      description: 'End-to-end wedding choreography, vendor coordination, hospitality, guest concierge & ritual planning.',
-      price: 150000,
-      currency: '₹',
-      durationMinutes: 1440,
-      isAvailable: true
-    },
-    {
-      id: 'evt_2',
-      title: 'Cinematic 4K Wedding Film & Candid Shoot',
-      category: 'Photography & Films',
-      description: 'Dual-camera candid photography, 4K aerial drone coverage, teaser film & hardcover coffee-table album.',
-      price: 95000,
-      currency: '₹',
-      durationMinutes: 720,
-      isAvailable: true
-    },
-    {
-      id: 'evt_3',
-      title: 'Luxury Stage, Mandap & Floral Decor',
-      category: 'Theme Production',
-      description: 'Bespoke floral mandap architecture, LED tunnel pathway, ambient stage lighting & fragrance staging.',
-      price: 120000,
-      currency: '₹',
-      durationMinutes: 480,
-      isAvailable: true
-    },
-    {
-      id: 'evt_4',
-      title: 'Sangeet Production & Celebrity DJ Sound',
-      category: 'Entertainment & Audio',
-      description: 'Concert-grade line array audio system, moving beam sharpies, cold pyros, dry ice & live percussionists.',
-      price: 75000,
-      currency: '₹',
-      durationMinutes: 360,
-      isAvailable: true
-    }
-  ];
-
-  const packages: ProductItem[] = profile.sectionData?.products?.items || [
-    {
-      id: 'pkg_1',
-      name: 'Grand Royal 3-Day Destination Wedding Package',
-      description: 'Full decor & production for Mehendi, Sangeet, Muhurtham & Reception. 6-member cinematic crew, celebrity DJ setup & hospitality desk.',
-      price: 499999,
-      currency: '₹',
-      imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
-      category: 'Complete Wedding',
-      isAvailable: true
-    },
-    {
-      id: 'pkg_2',
-      name: 'Signature Candid & Cinematic Film Package',
-      description: 'Pre-wedding couple shoot at exotic location, full wedding ceremony candid captures, drone aerials & 5-minute 4K cinematic highlight reel.',
-      price: 149999,
-      currency: '₹',
-      imageUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
-      category: 'Photography',
-      isAvailable: true
-    },
-    {
-      id: 'pkg_3',
-      name: 'Corporate Gala & Product Launch Set',
-      description: 'High-impact curved LED backdrop screen, synchronized lighting, keynote presentation audio & VIP lounge setup.',
-      price: 185000,
-      currency: '₹',
-      imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80',
-      category: 'Corporate',
-      isAvailable: true
-    }
-  ];
-
-  const galleryItems = (profile.sectionData?.gallery?.items || []).map(g => ({
-    id: g.id,
-    url: g.imageUrl || (g as any).url || '',
-    caption: g.title || (g as any).caption || ''
-  }));
-  const displayGallery = galleryItems.length > 0 ? galleryItems : [
-    {
-      id: 'gal_1',
-      url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
-      caption: 'Royal Mandap & Floral Decor'
-    },
-    {
-      id: 'gal_2',
-      url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80',
-      caption: 'Candid Moments & Vows'
-    },
-    {
-      id: 'gal_3',
-      url: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80',
-      caption: 'Sangeet Stage & Intelligent Lighting'
-    },
-    {
-      id: 'gal_4',
-      url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
-      caption: 'Cinematic Pre-Wedding Sunset Shoot'
-    }
-  ];
-
-  const testimonialItems = (profile.sectionData?.testimonials?.items || []).map(t => ({
-    id: t.id,
-    name: t.clientName || (t as any).name || '',
-    role: t.clientRole || (t as any).role || '',
-    comment: t.content || (t as any).comment || '',
-    rating: t.rating || 5
-  }));
-  const displayTestimonials = testimonialItems.length > 0 ? testimonialItems : [
-    {
-      id: 't_1',
-      name: 'Aditi & Rohan Sharma',
-      role: 'Destination Wedding in Udaipur',
-      comment: 'They turned our dream wedding into an absolute fairytale. From the royal palace lighting to the heartfelt candid film, every guest was left in awe!',
-      rating: 5
-    },
-    {
-      id: 't_2',
-      name: 'Vikram Malhotra',
-      role: 'VP Marketing, TechCorp Global',
-      comment: 'Flawless execution for our annual leadership summit. The audiovisual production and stage management were world-class and punctual to the second.',
-      rating: 5
-    }
-  ];
-
-  const videos: VideoItem[] = profile.sectionData?.videos?.items || [];
-
-  const handleQuoteSubmit = (e: React.FormEvent) => {
+  const handleConfirmBooking = (e: React.FormEvent) => {
     e.preventDefault();
-    setQuoteSubmitted(true);
-    const whatsappText = encodeURIComponent(
-      `🎉 *New Event Inquiry - ${profile.name || 'Studio'}*\n` +
-      `👤 *Client:* ${quoteFormData.name}\n` +
-      `📞 *Phone:* ${quoteFormData.phone}\n` +
-      `💍 *Event Type:* ${quoteFormData.eventType}\n` +
-      `📅 *Proposed Date:* ${quoteFormData.eventDate || 'Flexible'}\n` +
-      `👥 *Estimated Guests:* ${quoteFormData.guestCount}\n` +
-      `📍 *City/Venue:* ${quoteFormData.venueCity || 'Not specified'}\n` +
-      `📝 *Notes:* ${quoteFormData.notes || 'None'}`
-    );
-    const phone = (profile.whatsapp || profile.phone || '').replace(/[^0-9]/g, '');
-    if (phone) {
-      window.open(`https://wa.me/${phone}?text=${whatsappText}`, '_blank');
+    setIsBookingSuccess(true);
+  };
+
+  // Gallery items
+  const GALLERY_SAMPLES = [
+    {
+      id: 'g1',
+      title: 'Maternity Golden Hour Glow',
+      category: 'maternity',
+      img: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=800&q=80',
+      location: 'KBR Park, Jubilee Hills'
+    },
+    {
+      id: 'g2',
+      title: 'Newborn Cozy Floral Nest',
+      category: 'newborn',
+      img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80',
+      location: 'Home Studio, Gachibowli'
+    },
+    {
+      id: 'g3',
+      title: '1st Birthday Cake Smash Joy',
+      category: 'birthday',
+      img: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80',
+      location: 'Society Club House, Kondapur'
+    },
+    {
+      id: 'g4',
+      title: 'Traditional Wedding Muhurtham Ritual',
+      category: 'wedding',
+      img: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80',
+      location: 'Novotel HICC, HITEC City'
+    },
+    {
+      id: 'g5',
+      title: 'Griha Pravesh Sacred Havan Ritual',
+      category: 'housewarming',
+      img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+      location: 'My Home Bhooja, Madhapur'
+    },
+    {
+      id: 'g6',
+      title: 'Pre-Wedding Sunset at Golconda',
+      category: 'wedding',
+      img: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
+      location: 'Golconda Fort, Hyderabad'
+    },
+    {
+      id: 'g7',
+      title: 'Motherhood Serenade',
+      category: 'maternity',
+      img: 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&w=800&q=80',
+      location: 'Botanical Garden, Kondapur'
+    },
+    {
+      id: 'g8',
+      title: 'Baby Cradle Ceremony Barasala',
+      category: 'newborn',
+      img: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80',
+      location: 'Banjara Hills, Hyderabad'
     }
-    setTimeout(() => {
-      setQuoteSubmitted(false);
-      setIsQuoteModalOpen(false);
-    }, 2000);
-  };
+  ];
 
-  const handleDownloadVCard = () => {
-    const vCardData = `BEGIN:VCARD
-VERSION:3.0
-FN:${profile.name || 'Event Specialist'}
-ORG:${profile.company || 'Events & Creative Studio'}
-TITLE:${profile.designation || 'Event Director'}
-TEL:${profile.phone || ''}
-EMAIL:${profile.email || ''}
-URL:${typeof window !== 'undefined' ? window.location.href : ''}
-NOTE:${profile.bio || specialization}
-END:VCARD`;
-
-    const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `${(profile.name || 'contact').replace(/\s+/g, '_')}_events.vcf`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  const filteredGallery = useMemo(() => {
+    if (galleryCategory === 'all') return GALLERY_SAMPLES;
+    return GALLERY_SAMPLES.filter(g => g.category === galleryCategory);
+  }, [galleryCategory]);
 
   return (
-    <div className="min-h-screen bg-[#07060A] text-slate-100 font-sans antialiased selection:bg-violet-500 selection:text-white pb-24">
-      {/* 1. TOP PRODUCTION TRUST STRIP */}
-      <div className="bg-gradient-to-r from-violet-950/80 via-purple-900/60 to-violet-950/80 border-b border-violet-800/30 text-xs py-2 px-4">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3 text-violet-200">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
-            <span className="font-semibold text-white tracking-wide">{specialization}</span>
-          </div>
-          <div className="flex items-center gap-4 text-[11px] font-medium text-violet-300">
-            <span className="hidden sm:inline-flex items-center gap-1">
-              <PartyPopper className="w-3.5 h-3.5 text-amber-400" />
-              {eventsExecuted}
+    <div className="min-h-screen bg-[#FDFDFD] text-slate-800 font-sans selection:bg-[#E94E77] selection:text-white pb-20">
+      
+      {/* =========================================================================
+          1. TOP UTILITY & COUPON ANNOUNCEMENT STRIP
+         ========================================================================= */}
+      <div className="bg-[#18181B] text-slate-300 text-[11px] font-medium border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 py-2 flex flex-col sm:flex-row items-center justify-between gap-2">
+          
+          <div className="flex items-center gap-3">
+            <span className="flex items-center gap-1.5 text-amber-400 font-bold bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/20">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Special Offer: ₹150 OFF Auto-Applied with code: HORA 150</span>
             </span>
-            <span className="inline-flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-violet-300" />
-              {productionCapability}
+            <span className="text-slate-600 hidden md:inline">|</span>
+            <span className="hidden md:inline text-slate-400">
+              🎁 Free Digital Event Invite worth ₹500 included with all bookings!
             </span>
           </div>
+
+          <div className="flex items-center gap-4 text-slate-400">
+            <a 
+              href="https://wa.me/917338584828?text=Hi%20HORA,%20I%20want%20to%20book%20a%20photographer%20in%20Hyderabad%20with%20HORA150%20discount" 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 transition"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>Expert WhatsApp Support</span>
+            </a>
+            <span className="text-slate-700">|</span>
+            <a href="tel:+917338584828" className="hover:text-white flex items-center gap-1 transition">
+              <Phone className="w-3 h-3 text-[#E94E77]" />
+              <span>+91 73385 84828</span>
+            </a>
+          </div>
+
         </div>
       </div>
 
-      {/* 2. HERO HEADER SECTION */}
-      <header className="relative overflow-hidden pt-8 pb-12 px-4 border-b border-slate-800/80">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-violet-900/20 via-transparent to-transparent pointer-events-none" />
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 text-center md:text-left">
-            {/* Avatar / Brand Crest */}
-            <div className="relative shrink-0">
-              <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl p-1 bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 shadow-2xl shadow-violet-500/20">
-                <img 
-                  src={profile.avatarUrl || 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80'} 
-                  alt={profile.name}
-                  className="w-full h-full object-cover rounded-[22px]"
-                />
+      {/* =========================================================================
+          2. MAIN STICKY BRAND NAVBAR
+         ========================================================================= */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+        <div className="max-w-7xl mx-auto px-4 h-16 sm:h-18 flex items-center justify-between gap-4">
+          
+          {/* Logo & City Selector */}
+          <div className="flex items-center gap-6">
+            <div 
+              className="flex items-center gap-2.5 cursor-pointer" 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#E94E77] via-[#D81B60] to-[#880E4F] flex items-center justify-center text-white shadow-md shadow-pink-500/20">
+                <Camera className="w-5 h-5 stroke-[2.2]" />
               </div>
-              <span className="absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-full bg-violet-600 border border-violet-400 text-[10px] font-bold text-white shadow-lg flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-amber-300" />
-                Featured
-              </span>
+              <div>
+                <div className="text-2xl font-black tracking-tight text-slate-900 flex items-center">
+                  HORA<span className="text-[#E94E77]">.</span>
+                  <span className="text-xs font-extrabold uppercase px-1.5 py-0.5 rounded-md bg-pink-50 text-[#E94E77] ml-1.5 tracking-wider border border-pink-200">
+                    Services
+                  </span>
+                </div>
+                <span className="text-[9px] font-bold text-slate-400 block -mt-1 tracking-wider uppercase">
+                  Verified Event Photographers
+                </span>
+              </div>
             </div>
 
-            {/* Profile Info */}
-            <div className="flex-1 space-y-2">
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-violet-500/20 text-violet-300 border border-violet-500/40">
-                  {experienceYears} of Celebrations
-                </span>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/30 flex items-center gap-1">
-                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                  4.95 Star Rated
-                </span>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700">
-                  📍 {serviceLocations}
-                </span>
-              </div>
-
-              <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-                {profile.name || 'Grand Celebrations Studio'}
-              </h1>
-              
-              <p className="text-sm sm:text-base font-medium text-violet-300">
-                {profile.designation || 'Lead Event Producer & Creative Director'}
-                {profile.company ? ` • ${profile.company}` : ''}
-              </p>
-
-              <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
-                {profile.bio || 'Curating transcendent celebrations, grand destination weddings, high-energy sangeet productions, and award-winning candid cinema.'}
-              </p>
-
-              {/* Quick Action CTA Buttons */}
-              <div className="pt-3 flex flex-wrap items-center justify-center md:justify-start gap-2.5">
-                <button
-                  onClick={() => setIsQuoteModalOpen(true)}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-amber-500 hover:from-violet-500 hover:to-amber-400 text-white font-bold text-xs sm:text-sm shadow-lg shadow-violet-600/30 flex items-center gap-2 transition hover:scale-[1.02] cursor-pointer"
-                >
-                  <PartyPopper className="w-4 h-4" />
-                  Check Dates &amp; Get Quote
-                </button>
-
-                {whatsappUrl && (
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 flex items-center gap-2 transition hover:scale-[1.02]"
-                  >
-                    <SocialIcon platform="whatsapp" size={16} colored={false} className="text-white" />
-                    WhatsApp
-                  </a>
-                )}
-
-                {phoneUrl && (
-                  <a
-                    href={phoneUrl}
-                    className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition"
-                  >
-                    <Phone className="w-4 h-4 text-violet-400" />
-                    Call Studio
-                  </a>
-                )}
-
-                <button
-                  onClick={handleDownloadVCard}
-                  className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition cursor-pointer"
-                >
-                  <Download className="w-4 h-4 text-violet-400" />
-                  Save vCard
-                </button>
-
-                <button
-                  onClick={() => setIsShareModalOpen(true)}
-                  className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-white transition cursor-pointer"
-                  title="Share Portfolio"
-                >
-                  <Share2 className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Omnichannel Quick Connect Badges */}
-              <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-2">
-                <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mr-1">Connect:</span>
-                
-                {whatsappUrl && (
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    title="WhatsApp Direct Consultation"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 hover:border-[#25D366]/60 text-slate-200 text-xs transition group"
-                  >
-                    <SocialIcon platform="whatsapp" size={14} colored={true} />
-                    <span className="font-medium group-hover:text-white">WhatsApp</span>
-                  </a>
-                )}
-
-                {instagramUrl && (
-                  <a
-                    href={instagramUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    title="Instagram Reels & Behind-the-Scenes"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E1306C]/10 hover:bg-[#E1306C]/20 border border-[#E1306C]/30 hover:border-[#E1306C]/60 text-slate-200 text-xs transition group"
-                  >
-                    <SocialIcon platform="instagram" size={14} colored={true} />
-                    <span className="font-medium group-hover:text-white">Instagram</span>
-                  </a>
-                )}
-
-                {facebookUrl && (
-                  <a
-                    href={facebookUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    title="Facebook Page & Albums"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1877F2]/10 hover:bg-[#1877F2]/20 border border-[#1877F2]/30 hover:border-[#1877F2]/60 text-slate-200 text-xs transition group"
-                  >
-                    <SocialIcon platform="facebook" size={14} colored={true} />
-                    <span className="font-medium group-hover:text-white">Facebook</span>
-                  </a>
-                )}
-
-                {youtubeUrl && (
-                  <a
-                    href={youtubeUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    title="YouTube 4K Cinematic Films"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FF0000]/10 hover:bg-[#FF0000]/20 border border-[#FF0000]/30 hover:border-[#FF0000]/60 text-slate-200 text-xs transition group"
-                  >
-                    <SocialIcon platform="youtube" size={14} colored={true} />
-                    <span className="font-medium group-hover:text-white">YouTube</span>
-                  </a>
-                )}
-
-                {emailUrl && (
-                  <a
-                    href={emailUrl}
-                    title="Official Email Inquiries"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 hover:border-sky-500/60 text-slate-200 text-xs transition group"
-                  >
-                    <Mail className="w-3.5 h-3.5 text-sky-400" />
-                    <span className="font-medium group-hover:text-white">Email</span>
-                  </a>
-                )}
-
-                {websiteUrl && (
-                  <a
-                    href={websiteUrl.startsWith('http') ? websiteUrl : `https://${websiteUrl}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    title="Official Studio Website"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 hover:border-emerald-500/60 text-slate-200 text-xs transition group"
-                  >
-                    <Globe className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="font-medium group-hover:text-white">Website</span>
-                  </a>
-                )}
-
-                {mapsUrl && (
-                  <a
-                    href={mapsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    title="Google Maps Studio Directions"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 hover:border-amber-500/60 text-slate-200 text-xs transition group"
-                  >
-                    <MapPin className="w-3.5 h-3.5 text-amber-400" />
-                    <span className="font-medium group-hover:text-white">Location</span>
-                  </a>
-                )}
-
-                {/* Additional user-configured socials */}
-                {userSocialItems
-                  .filter(s => !['whatsapp', 'instagram', 'facebook', 'youtube', 'website', 'phone', 'mail', 'email'].includes(s.platform.toLowerCase()))
-                  .map(s => {
-                    const brand = getSocialBrandColor(s.platform);
-                    return (
-                      <a
-                        key={s.id}
-                        href={s.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        title={s.label || s.platform}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg ${brand.bg} ${brand.border} border text-slate-200 text-xs transition group`}
-                      >
-                        <SocialIcon platform={s.platform} url={s.url} size={14} colored={true} />
-                        <span className="font-medium capitalize group-hover:text-white">{s.label || s.platform}</span>
-                      </a>
-                    );
-                  })}
-              </div>
+            {/* City Dropdown Selector */}
+            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-700">
+              <MapPin className="w-3.5 h-3.5 text-[#E94E77]" />
+              <select
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+                className="bg-transparent focus:outline-none cursor-pointer text-slate-900 font-extrabold"
+              >
+                {CITIES_LIST.map(c => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
             </div>
           </div>
+
+          {/* Navigation Categories Strip */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {SERVICE_NAV_CATEGORIES.map(cat => (
+              <div
+                key={cat.id}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                  cat.active
+                    ? 'bg-pink-50 text-[#E94E77] border border-pink-200 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <span>{cat.icon}</span>
+                <span>{cat.name}</span>
+              </div>
+            ))}
+          </nav>
+
+          {/* Right Header CTAs */}
+          <div className="flex items-center gap-3">
+            {profile && (
+              <button
+                onClick={() => setIsShareModalOpen(true)}
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 transition cursor-pointer"
+              >
+                <Share2 className="w-3.5 h-3.5" />
+                <span>Share</span>
+              </button>
+            )}
+
+            <button
+              onClick={() => {
+                const el = document.getElementById('instant-booking-calculator');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-4 py-2 rounded-xl bg-[#E94E77] hover:bg-[#D81B60] text-white font-black text-xs uppercase tracking-wider shadow-md shadow-pink-500/25 transition cursor-pointer flex items-center gap-1.5"
+            >
+              <Calendar className="w-3.5 h-3.5" />
+              <span>Book from 2 Hrs</span>
+            </button>
+          </div>
+
         </div>
       </header>
 
-      {/* 4. NAVIGATION TABS */}
-      <nav className="sticky top-0 z-30 bg-[#07060A]/90 backdrop-blur-md border-b border-slate-800/80 py-3 px-4">
-        <div className="max-w-5xl mx-auto flex items-center justify-start sm:justify-center gap-2 overflow-x-auto scrollbar-none">
-          {[
-            { id: 'all', label: 'Overview' },
-            { id: 'services', label: 'Event Services' },
-            { id: 'packages', label: 'Signature Packages' },
-            { id: 'gallery', label: 'Lookbook & Visuals' },
-            { id: 'reviews', label: 'Love & Reviews' }
-          ].map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition whitespace-nowrap cursor-pointer ${
-                activeTab === tab.id
-                  ? 'bg-violet-600 text-white shadow-lg shadow-violet-600/30'
-                  : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      </nav>
+      {/* =========================================================================
+          3. HERO BANNER SECTION (Exact Hora Hyderabad Headline & Trust Proof)
+         ========================================================================= */}
+      <section className="relative bg-gradient-to-b from-[#FFF0F5] via-[#FFF5F8] to-[#FDFDFD] pt-10 pb-16 px-4 border-b border-pink-100">
+        
+        {/* Subtle decorative circles */}
+        <div className="absolute top-10 left-1/4 w-72 h-72 bg-pink-300/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-5 right-1/4 w-80 h-80 bg-rose-200/20 rounded-full blur-3xl pointer-events-none" />
 
-      <main className="max-w-5xl mx-auto px-4 py-8 space-y-12">
-        {/* SECTION: SERVICES */}
-        {(activeTab === 'all' || activeTab === 'services') && (
-          <section className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-800/80 pb-4">
-              <div>
-                <span className="text-[11px] font-bold text-violet-400 uppercase tracking-widest">Tailored Production</span>
-                <h2 className="text-xl sm:text-2xl font-bold text-white mt-0.5">Event Execution &amp; Services</h2>
+        <div className="max-w-6xl mx-auto space-y-6 text-center relative z-10">
+          
+          {/* Location Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-slate-800 text-xs font-bold shadow-xs border border-pink-200">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[#E94E77] font-extrabold">{selectedCity} Verified</span>
+            <span className="text-slate-300">&bull;</span>
+            <span>Available in Gachibowli, HITEC City, Jubilee Hills &amp; 40+ Localities</span>
+          </div>
+
+          {/* Main Headline */}
+          <div className="space-y-3">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+              Photographers in {selectedCity}, <br className="hidden sm:inline" />
+              <span className="bg-gradient-to-r from-[#E94E77] via-[#D81B60] to-[#880E4F] bg-clip-text text-transparent">
+                Book from 2 Hours
+              </span>
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
+              Hire verified photographers in {selectedCity} for two hours or your whole event. Small home poojas, birthdays, weddings, studio shoots &amp; female photographers on request.
+            </p>
+          </div>
+
+          {/* Search Bar / Occasion Picker */}
+          <div className="max-w-xl mx-auto bg-white p-2 sm:p-2.5 rounded-2xl shadow-xl border border-pink-200/80 flex items-center gap-2">
+            <div className="flex items-center gap-2 pl-3 text-slate-400">
+              <Search className="w-4 h-4 text-[#E94E77]" />
+            </div>
+            <input
+              type="text"
+              value={localitySearch}
+              onChange={(e) => setLocalitySearch(e.target.value)}
+              placeholder="Search your Hyderabad locality e.g. Gachibowli, Kondapur, Banjara Hills..."
+              className="flex-1 text-xs sm:text-sm font-semibold text-slate-900 focus:outline-none bg-transparent"
+            />
+            <button
+              onClick={() => {
+                const el = document.getElementById('instant-booking-calculator');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-5 py-2.5 rounded-xl bg-[#E94E77] hover:bg-[#D81B60] text-white font-bold text-xs uppercase tracking-wider transition shadow-sm cursor-pointer shrink-0"
+            >
+              Explore
+            </button>
+          </div>
+
+          {/* Trust Pillars Grid */}
+          <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl mx-auto">
+            <div className="p-3.5 rounded-2xl bg-white border border-pink-100 shadow-xs flex items-center gap-3 text-left">
+              <div className="w-10 h-10 rounded-xl bg-pink-50 text-[#E94E77] flex items-center justify-center shrink-0 font-bold">
+                <Clock className="w-5 h-5" />
               </div>
-              <p className="text-xs text-slate-400 max-w-sm">
-                From intimate sangeet nights to 1000-guest luxury destination ceremonies.
-              </p>
+              <div>
+                <span className="text-xs font-black text-slate-900 block">From 2 Hours</span>
+                <span className="text-[10px] text-slate-500 font-medium">No full-day trap</span>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {services.map((svc) => (
-                <div 
-                  key={svc.id}
-                  className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-violet-500/40 transition group space-y-3"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-violet-500/20 text-violet-400 border border-violet-500/30 flex items-center justify-center shrink-0">
-                        {svc.category?.toLowerCase().includes('photo') ? <Camera className="w-5 h-5" /> :
-                         svc.category?.toLowerCase().includes('music') || svc.category?.toLowerCase().includes('sound') ? <Music className="w-5 h-5" /> :
-                         <Sparkles className="w-5 h-5" />}
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-bold text-white group-hover:text-violet-300 transition">{svc.title}</h3>
-                        <span className="text-[11px] text-violet-400 font-medium">{svc.category}</span>
-                      </div>
-                    </div>
-                    {svc.price !== undefined && (
-                      <span className="text-sm font-bold text-amber-400 font-mono">
-                        {svc.price === 0 ? 'Custom Quote' : `₹${svc.price.toLocaleString('en-IN')}`}
-                      </span>
-                    )}
-                  </div>
+            <div className="p-3.5 rounded-2xl bg-white border border-pink-100 shadow-xs flex items-center gap-3 text-left">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-xs font-black text-slate-900 block">1,000+ Verified</span>
+                <span className="text-[10px] text-slate-500 font-medium">Reviewed portfolios</span>
+              </div>
+            </div>
 
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    {svc.description}
+            <div className="p-3.5 rounded-2xl bg-white border border-pink-100 shadow-xs flex items-center gap-3 text-left">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 font-bold">
+                <Tag className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-xs font-black text-slate-900 block">From ₹3,600/-</span>
+                <span className="text-[10px] text-slate-500 font-medium">Fixed transparent price</span>
+              </div>
+            </div>
+
+            <div className="p-3.5 rounded-2xl bg-white border border-pink-100 shadow-xs flex items-center gap-3 text-left">
+              <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 font-bold">
+                <Star className="w-5 h-5 fill-purple-600 text-purple-600" />
+              </div>
+              <div>
+                <span className="text-xs font-black text-slate-900 block">4.9★ Google</span>
+                <span className="text-[10px] text-slate-500 font-medium">2,500+ happy reviews</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          4. OCCASIONS SHOWCASE CAROUSEL & CARDS (12 Occasions from Hora)
+         ========================================================================= */}
+      <section id="occasions-section" className="max-w-7xl mx-auto px-4 py-12 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-50 text-[#E94E77] text-xs font-bold mb-1.5 border border-pink-200">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Event Photography for Every Occasion</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Select Your Occasion in {selectedCity}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Every occasion is uniquely curated with specialist photographers and tailored props.
+            </p>
+          </div>
+
+          <span className="text-xs font-bold text-[#E94E77] hover:underline cursor-pointer">
+            Explore All 12 Occasions ➔
+          </span>
+        </div>
+
+        {/* Occasion Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {PHOTOGRAPHY_OCCASIONS.map((occ) => {
+            const isSelected = selectedOccasion === occ.id;
+            return (
+              <div
+                key={occ.id}
+                onClick={() => {
+                  setSelectedOccasion(occ.id);
+                  const el = document.getElementById('instant-booking-calculator');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className={`rounded-3xl bg-white border transition cursor-pointer overflow-hidden group flex flex-col justify-between shadow-xs hover:shadow-lg ${
+                  isSelected ? 'border-[#E94E77] ring-2 ring-pink-500/20' : 'border-slate-200 hover:border-pink-300'
+                }`}
+              >
+                {/* Image & Tag */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+                  <img
+                    src={occ.imageUrl}
+                    alt={occ.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-between p-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className="px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-xs text-[10px] font-black text-slate-900 uppercase tracking-wider">
+                        {occ.icon} {occ.tag}
+                      </span>
+                      <span className="w-7 h-7 rounded-full bg-white/20 backdrop-blur-xs text-white flex items-center justify-center">
+                        <Heart className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="text-base font-black text-white drop-shadow-sm">
+                        {occ.title}
+                      </h3>
+                      <span className="text-[11px] text-pink-200 block truncate font-medium">
+                        {occ.subtitle}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Details & Price Footer */}
+                <div className="p-4 space-y-3">
+                  <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">
+                    {occ.description}
                   </p>
 
-                  <div className="pt-2 flex items-center justify-between border-t border-slate-800/60 text-xs">
-                    <span className="text-[11px] text-slate-400 flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-violet-400" />
-                      {svc.durationMinutes ? `${Math.round(svc.durationMinutes / 60)} Hours Coverage` : 'Full Event Coverage'}
-                    </span>
-                    <button
-                      onClick={() => {
-                        setSelectedService(svc);
-                        setIsQuoteModalOpen(true);
-                      }}
-                      className="px-3 py-1 rounded-lg bg-violet-600/30 hover:bg-violet-600 text-violet-200 hover:text-white font-semibold text-xs border border-violet-500/30 transition cursor-pointer"
-                    >
-                      Inquire Service →
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-slate-400 block font-semibold">Starting from</span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-base font-black text-slate-900 font-mono">
+                          ₹{occ.startingPrice.toLocaleString()}
+                        </span>
+                        <span className="text-xs text-slate-400 line-through">
+                          ₹{occ.mrp.toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+
+                    <button className="px-3.5 py-1.5 rounded-xl bg-pink-50 hover:bg-[#E94E77] text-[#E94E77] hover:text-white font-extrabold text-[11px] transition cursor-pointer">
+                      View Details ➔
                     </button>
                   </div>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
 
-        {/* SECTION: SIGNATURE PACKAGES */}
-        {(activeTab === 'all' || activeTab === 'packages') && (
-          <section className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-800/80 pb-4">
-              <div>
-                <span className="text-[11px] font-bold text-fuchsia-400 uppercase tracking-widest">Curated Offerings</span>
-                <h2 className="text-xl sm:text-2xl font-bold text-white mt-0.5">Signature Event Packages</h2>
               </div>
-              <p className="text-xs text-slate-400 max-w-sm">
-                Transparent complete packages covering decor, audio, staging and 4K media capture.
-              </p>
-            </div>
+            );
+          })}
+        </div>
+      </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {packages.map((pkg) => (
-                <div 
-                  key={pkg.id}
-                  className="rounded-2xl bg-slate-900/90 border border-slate-800 overflow-hidden flex flex-col hover:border-violet-500/50 transition group"
-                >
-                  <div className="relative h-44 overflow-hidden">
-                    <img 
-                      src={pkg.imageUrl || 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80'} 
-                      alt={pkg.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-                    <span className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-violet-600/90 backdrop-blur-md text-[10px] font-bold text-white">
-                      {pkg.category || 'Package'}
+      {/* =========================================================================
+          5. STANDARD PACKAGES SHOWCASE (Traditional, Candid, Pro, Video, Combo)
+         ========================================================================= */}
+      <section id="packages-section" className="max-w-7xl mx-auto px-4 py-12">
+        <div className="text-center max-w-2xl mx-auto space-y-2 mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-50 text-[#E94E77] text-xs font-bold border border-pink-200">
+            <Tag className="w-3.5 h-3.5" />
+            <span>Standard Packages &bull; Transparent Pricing</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            Pick the Package that Fits Your Occasion
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500">
+            Every package can be customized to your event's exact length and theme. Pay a small advance, balance only after the shoot.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          {STANDARD_PACKAGES.map((pkg) => {
+            const isSelected = selectedPackageId === pkg.id;
+            return (
+              <div
+                key={pkg.id}
+                onClick={() => setSelectedPackageId(pkg.id)}
+                className={`rounded-3xl bg-white p-5 border transition cursor-pointer flex flex-col justify-between shadow-xs hover:shadow-xl relative ${
+                  isSelected 
+                    ? 'border-[#E94E77] ring-2 ring-pink-500/25 bg-pink-50/10' 
+                    : 'border-slate-200 hover:border-pink-300'
+                }`}
+              >
+                {/* Top Badge */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-pink-50 text-[#E94E77] border border-pink-200">
+                      {pkg.discount}
+                    </span>
+                    <span className="text-[10px] font-bold text-slate-400">
+                      {pkg.duration}
                     </span>
                   </div>
 
-                  <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                  <div>
+                    <h3 className="text-base font-black text-slate-900 leading-snug">
+                      {pkg.name}
+                    </h3>
+                    <span className="text-[10px] font-bold text-pink-600 block mt-0.5">
+                      {pkg.badge}
+                    </span>
+                  </div>
+
+                  {/* Pricing */}
+                  <div className="py-2 border-y border-slate-100 flex items-baseline gap-2">
+                    <span className="text-2xl font-black text-slate-900 font-mono">
+                      ₹{pkg.price.toLocaleString()}
+                    </span>
+                    <span className="text-xs text-slate-400 line-through">
+                      ₹{pkg.mrp.toLocaleString()}
+                    </span>
+                  </div>
+
+                  {/* Camera Gear Specs */}
+                  <div className="text-[10px] text-slate-500 space-y-1 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
                     <div>
-                      <h3 className="text-sm font-bold text-white group-hover:text-violet-300 transition">{pkg.name}</h3>
-                      <p className="text-xs text-slate-400 mt-1.5 leading-relaxed line-clamp-3">
-                        {pkg.description}
-                      </p>
+                      <strong className="text-slate-700">Gear:</strong> {pkg.camera}
                     </div>
+                    <div>
+                      <strong className="text-slate-700">Lights:</strong> {pkg.lighting}
+                    </div>
+                  </div>
 
-                    <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-                      <div>
-                        <span className="text-[10px] text-slate-400 block">Starting From</span>
-                        <span className="text-sm font-black text-amber-400 font-mono">
-                          ₹{pkg.price?.toLocaleString('en-IN')}
-                        </span>
+                  {/* Inclusions Bullet List */}
+                  <div className="space-y-1.5 pt-1 text-[11px] text-slate-600">
+                    {pkg.inclusions.map((inc, i) => (
+                      <div key={i} className="flex items-start gap-1.5">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                        <span className="leading-snug">{inc}</span>
                       </div>
-                      <button
-                        onClick={() => {
-                          setSelectedPackage(pkg);
-                          setIsQuoteModalOpen(true);
-                        }}
-                        className="px-3 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs shadow-md transition cursor-pointer"
-                      >
-                        Book Package
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* SECTION: GALLERY / LOOKBOOK */}
-        {(activeTab === 'all' || activeTab === 'gallery') && (
-          <section className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-800/80 pb-4">
-              <div>
-                <span className="text-[11px] font-bold text-amber-400 uppercase tracking-widest">Visual Portfolio</span>
-                <h2 className="text-xl sm:text-2xl font-bold text-white mt-0.5">Celebrations Lookbook &amp; Decor</h2>
-              </div>
-              <p className="text-xs text-slate-400 max-w-sm">
-                A glimpse into our recent mandap setups, candid frames, and intelligent stage productions.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {displayGallery.map((item, idx) => (
-                <div 
-                  key={item.id || idx}
-                  className="group relative rounded-2xl overflow-hidden aspect-square border border-slate-800 bg-slate-900"
-                >
-                  <img 
-                    src={item.url} 
-                    alt={item.caption || 'Event lookbook'}
-                    className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-3 flex items-end">
-                    <span className="text-xs font-semibold text-white drop-shadow-md">
-                      {item.caption || 'Celebration Frame'}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* SECTION: REVIEWS */}
-        {(activeTab === 'all' || activeTab === 'reviews') && displayTestimonials.length > 0 && (
-          <section className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-800/80 pb-4">
-              <div>
-                <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-widest">Client Testimonials</span>
-                <h2 className="text-xl sm:text-2xl font-bold text-white mt-0.5">Words from Couples &amp; Planners</h2>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {displayTestimonials.map((test) => (
-                <div 
-                  key={test.id}
-                  className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3"
-                >
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(test.rating || 5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400" />
                     ))}
                   </div>
-                  <p className="text-xs text-slate-300 italic leading-relaxed">
-                    "{test.comment}"
-                  </p>
-                  <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
-                    <span className="font-bold text-white">{test.name}</span>
-                    <span className="text-slate-400 text-[11px]">{test.role}</span>
-                  </div>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
 
-        {/* 5. CONTACT & OMNICHANNEL VENUE DESK */}
-        <section className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-violet-950/60 via-slate-900 to-slate-950 border border-violet-800/40 shadow-2xl space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[11px] font-bold uppercase tracking-widest text-violet-400">Omnichannel Connect &amp; Studio Desk</span>
+                {/* Bottom CTA */}
+                <div className="pt-4 mt-4 border-t border-slate-100 space-y-2">
+                  <button
+                    onClick={() => {
+                      setSelectedPackageId(pkg.id);
+                      const el = document.getElementById('instant-booking-calculator');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className={`w-full py-2.5 rounded-xl font-black text-xs uppercase tracking-wider transition cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#E94E77] text-white shadow-md shadow-pink-500/25'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
+                    }`}
+                  >
+                    {isSelected ? 'Selected Package ✓' : 'Select Package'}
+                  </button>
+                  <span className="text-[10px] text-slate-400 block text-center font-medium">
+                    {pkg.idealFor}
+                  </span>
+                </div>
+
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">Connect Directly Across All Channels</h3>
-              <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-0.5">
-                Chat on WhatsApp, explore our latest reels on Instagram, connect on Facebook, watch 4K wedding films on YouTube, or call our studio.
+            );
+          })}
+        </div>
+      </section>
+
+      {/* =========================================================================
+          6. INTERACTIVE HOURLY COST CALCULATOR & BOOKING WIZARD
+         ========================================================================= */}
+      <section id="instant-booking-calculator" className="max-w-6xl mx-auto px-4 py-12">
+        <div className="rounded-3xl bg-gradient-to-br from-white to-pink-50/40 p-6 sm:p-10 border-2 border-pink-200 shadow-xl space-y-8">
+          
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-pink-100">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E94E77] text-white text-xs font-bold mb-2 shadow-xs">
+                <SlidersHorizontal className="w-3.5 h-3.5" />
+                <span>Instant Cost Calculator &bull; Book in 3 Steps</span>
+              </div>
+              <h2 className="text-xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                Customize Your Shoot in {selectedCity}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                Pick your hours, add-ons, and location. See your exact transparent price with ₹150 coupon auto-applied.
               </p>
             </div>
-            
-            <div className="flex items-center gap-2.5 shrink-0">
-              {whatsappUrl && (
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs shadow-lg shadow-emerald-500/25 flex items-center gap-2 transition hover:scale-[1.02]"
-                >
-                  <SocialIcon platform="whatsapp" size={16} colored={false} className="text-white" />
-                  Chat on WhatsApp
-                </a>
-              )}
-              <button
-                onClick={() => setIsQuoteModalOpen(true)}
-                className="px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs shadow-lg shadow-violet-600/30 transition hover:scale-[1.02] cursor-pointer"
-              >
-                Request Quote →
-              </button>
-            </div>
-          </div>
 
-          {/* Omnichannel Contact Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            {/* 1. WhatsApp Card */}
-            {whatsappUrl && (
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative p-4 rounded-2xl bg-gradient-to-b from-[#25D366]/10 to-slate-900/90 border border-[#25D366]/30 hover:border-[#25D366]/70 shadow-lg hover:shadow-[#25D366]/20 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 flex items-center justify-center text-[#25D366]">
-                      <SocialIcon platform="whatsapp" size={20} colored={true} />
-                    </div>
-                    <span className="px-2 py-0.5 rounded-full bg-[#25D366]/20 border border-[#25D366]/40 text-[10px] font-bold text-emerald-300">
-                      Instant Chat
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-emerald-300 transition">WhatsApp Direct</h4>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Check event dates, get transparent pricing, and receive customized digital brochures directly.
-                  </p>
-                </div>
-                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-emerald-400 group-hover:translate-x-1 transition-transform">
-                  <span>Start WhatsApp Chat</span>
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </a>
-            )}
-
-            {/* 2. Instagram Card */}
-            {instagramUrl && (
-              <a
-                href={instagramUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative p-4 rounded-2xl bg-gradient-to-b from-[#E1306C]/10 to-slate-900/90 border border-[#E1306C]/30 hover:border-[#E1306C]/70 shadow-lg hover:shadow-[#E1306C]/20 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#E1306C]/20 border border-[#E1306C]/40 flex items-center justify-center text-[#E1306C]">
-                      <SocialIcon platform="instagram" size={20} colored={true} />
-                    </div>
-                    <span className="px-2 py-0.5 rounded-full bg-[#E1306C]/20 border border-[#E1306C]/40 text-[10px] font-bold text-pink-300">
-                      Reels &amp; Stories
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-pink-300 transition">Instagram Portfolio</h4>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Explore mandap decor reveals, candid couple portraits, backstage drone reels, and daily wedding stories.
-                  </p>
-                </div>
-                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-pink-400 group-hover:translate-x-1 transition-transform">
-                  <span>Follow @{brandSlug}</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </div>
-              </a>
-            )}
-
-            {/* 3. Facebook Card */}
-            {facebookUrl && (
-              <a
-                href={facebookUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative p-4 rounded-2xl bg-gradient-to-b from-[#1877F2]/10 to-slate-900/90 border border-[#1877F2]/30 hover:border-[#1877F2]/70 shadow-lg hover:shadow-[#1877F2]/20 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#1877F2]/20 border border-[#1877F2]/40 flex items-center justify-center text-[#1877F2]">
-                      <SocialIcon platform="facebook" size={20} colored={true} />
-                    </div>
-                    <span className="px-2 py-0.5 rounded-full bg-[#1877F2]/20 border border-[#1877F2]/40 text-[10px] font-bold text-blue-300">
-                      Community
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-blue-300 transition">Facebook Official</h4>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Browse full wedding albums, client testimonials, community updates, and ceremony celebrations.
-                  </p>
-                </div>
-                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
-                  <span>Connect on Facebook</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </div>
-              </a>
-            )}
-
-            {/* 4. YouTube Card */}
-            {youtubeUrl && (
-              <a
-                href={youtubeUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative p-4 rounded-2xl bg-gradient-to-b from-[#FF0000]/10 to-slate-900/90 border border-[#FF0000]/30 hover:border-[#FF0000]/70 shadow-lg hover:shadow-[#FF0000]/20 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#FF0000]/20 border border-[#FF0000]/40 flex items-center justify-center text-[#FF0000]">
-                      <SocialIcon platform="youtube" size={20} colored={true} />
-                    </div>
-                    <span className="px-2 py-0.5 rounded-full bg-[#FF0000]/20 border border-[#FF0000]/40 text-[10px] font-bold text-red-300">
-                      4K Cinema
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-red-300 transition">YouTube Channel</h4>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Stream full-length 4K candid wedding teasers, drone aerials, and musical event choreography.
-                  </p>
-                </div>
-                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-red-400 group-hover:translate-x-1 transition-transform">
-                  <span>Watch 4K Teasers</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </div>
-              </a>
-            )}
-
-            {/* 5. Phone Studio Desk */}
-            {phoneUrl && (
-              <a
-                href={phoneUrl}
-                className="group relative p-4 rounded-2xl bg-gradient-to-b from-violet-600/10 to-slate-900/90 border border-violet-500/30 hover:border-violet-500/70 shadow-lg hover:shadow-violet-500/20 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-violet-600/20 border border-violet-500/40 flex items-center justify-center text-violet-400">
-                      <Phone className="w-5 h-5" />
-                    </div>
-                    <span className="px-2 py-0.5 rounded-full bg-violet-600/20 border border-violet-500/40 text-[10px] font-bold text-violet-300">
-                      10 AM - 9 PM
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-violet-300 transition">Studio Voice Hotline</h4>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Direct line for calendar reservations, urgent event questions, and vendor collaborations.
-                  </p>
-                  <p className="text-xs font-semibold text-violet-300 mt-2">
-                    {profile.phone || '+91 Direct Line'}
-                  </p>
-                </div>
-                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-violet-400 group-hover:translate-x-1 transition-transform">
-                  <span>Call Studio Desk</span>
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </a>
-            )}
-
-            {/* 6. Email Desk */}
-            {emailUrl && (
-              <a
-                href={emailUrl}
-                className="group relative p-4 rounded-2xl bg-gradient-to-b from-sky-500/10 to-slate-900/90 border border-sky-500/30 hover:border-sky-500/70 shadow-lg hover:shadow-sky-500/20 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400">
-                      <Mail className="w-5 h-5" />
-                    </div>
-                    <span className="px-2 py-0.5 rounded-full bg-sky-500/20 border border-sky-500/40 text-[10px] font-bold text-sky-300">
-                      Formal RFPs
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-sky-300 transition">Official Mail Desk</h4>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Send tender documents, corporate event briefs, or formal destination wedding RFPs.
-                  </p>
-                  <p className="text-xs font-semibold text-sky-300 mt-2 truncate">
-                    {profile.email || 'events@studio.com'}
-                  </p>
-                </div>
-                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-sky-400 group-hover:translate-x-1 transition-transform">
-                  <span>Send Email Inquiry</span>
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </a>
-            )}
-
-            {/* 7. Experience Studio & Venue Directions */}
-            {mapsUrl && (
-              <a
-                href={mapsUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative p-4 rounded-2xl bg-gradient-to-b from-amber-500/10 to-slate-900/90 border border-amber-500/30 hover:border-amber-500/70 shadow-lg hover:shadow-amber-500/20 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
-                      <MapPin className="w-5 h-5" />
-                    </div>
-                    <span className="px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-[10px] font-bold text-amber-300">
-                      By Appointment
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-amber-300 transition">Experience Studio &amp; Venue</h4>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Visit our creative studio for fabric sampling, floral moodboards, and 3D stage layout demos.
-                  </p>
-                  <p className="text-xs font-semibold text-amber-300 mt-2 line-clamp-1">
-                    {profile.address || 'Studio Address'}
-                  </p>
-                </div>
-                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
-                  <span>Get Directions on Maps</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </div>
-              </a>
-            )}
-
-            {/* 8. Official Website / Web Hub */}
-            {websiteUrl && (
-              <a
-                href={websiteUrl.startsWith('http') ? websiteUrl : `https://${websiteUrl}`}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative p-4 rounded-2xl bg-gradient-to-b from-emerald-500/10 to-slate-900/90 border border-emerald-500/30 hover:border-emerald-500/70 shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
-                      <Globe className="w-5 h-5" />
-                    </div>
-                    <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-[10px] font-bold text-emerald-300">
-                      Full Showcase
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-emerald-300 transition">Official Website</h4>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Discover our full production archive, national awards, and comprehensive digital client stories.
-                  </p>
-                  <p className="text-xs font-semibold text-emerald-300 mt-2 truncate">
-                    {websiteUrl.replace(/^https?:\/\//, '')}
-                  </p>
-                </div>
-                <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-emerald-400 group-hover:translate-x-1 transition-transform">
-                  <span>Visit Website</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </div>
-              </a>
-            )}
-
-            {/* Any extra user-configured socials */}
-            {userSocialItems
-              .filter(s => !['whatsapp', 'instagram', 'facebook', 'youtube', 'website', 'phone', 'mail', 'email'].includes(s.platform.toLowerCase()))
-              .map(s => {
-                const brand = getSocialBrandColor(s.platform);
-                return (
-                  <a
-                    key={s.id}
-                    href={s.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`group relative p-4 rounded-2xl ${brand.bg} border ${brand.border} shadow-lg transition-all duration-300 flex flex-col justify-between`}
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="w-10 h-10 rounded-xl bg-slate-900/60 border border-slate-700/50 flex items-center justify-center">
-                          <SocialIcon platform={s.platform} url={s.url} size={20} colored={true} />
-                        </div>
-                        <span className="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-[10px] font-bold text-slate-300 capitalize">
-                          {s.platform}
-                        </span>
-                      </div>
-                      <h4 className="text-sm font-bold text-white capitalize">{s.label || s.platform}</h4>
-                      <p className="text-xs text-slate-400 mt-1 truncate">
-                        {s.url.replace(/^https?:\/\//, '')}
-                      </p>
-                    </div>
-                    <div className={`pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold ${brand.text} group-hover:translate-x-1 transition-transform`}>
-                      <span>Connect</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </div>
-                  </a>
-                );
-              })}
-          </div>
-        </section>
-      </main>
-
-      {/* 6. MODAL: DATE AVAILABILITY & QUOTE */}
-      {isQuoteModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-lg rounded-3xl bg-slate-900 border border-violet-500/40 p-6 shadow-2xl relative">
-            <button 
-              onClick={() => setIsQuoteModalOpen(false)}
-              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-violet-600/20 border border-violet-500/40 text-violet-400 flex items-center justify-center">
-                <PartyPopper className="w-5 h-5" />
+            <div className="p-3 rounded-2xl bg-white border border-pink-200 shadow-xs flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-pink-50 text-[#E94E77] flex items-center justify-center font-black text-sm">
+                %
               </div>
               <div>
-                <h3 className="text-base font-bold text-white">
-                  {selectedPackage ? `Book ${selectedPackage.name}` : selectedService ? `Inquire: ${selectedService.title}` : 'Check Dates & Request Event Quote'}
-                </h3>
-                <p className="text-xs text-slate-400">Direct response from our event director within 30 minutes.</p>
+                <span className="text-[10px] font-bold text-slate-400 block uppercase">Auto Coupon Applied</span>
+                <span className="text-xs font-black text-slate-900 font-mono">HORA 150 (-₹150 OFF)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            {/* Left Form: Wizard Options */}
+            <div className="lg:col-span-7 space-y-6">
+              
+              {/* Step 1: Occasion */}
+              <div className="space-y-2">
+                <label className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="w-5 h-5 rounded-full bg-[#E94E77] text-white flex items-center justify-center text-[10px]">1</span>
+                  <span>Select Occasion</span>
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {PHOTOGRAPHY_OCCASIONS.slice(0, 6).map(o => (
+                    <button
+                      key={o.id}
+                      onClick={() => setSelectedOccasion(o.id)}
+                      className={`p-2.5 rounded-xl border text-left transition cursor-pointer text-xs font-bold flex items-center gap-2 ${
+                        selectedOccasion === o.id
+                          ? 'bg-pink-50 border-[#E94E77] text-[#E94E77] shadow-xs'
+                          : 'bg-white border-slate-200 text-slate-700 hover:border-pink-200'
+                      }`}
+                    >
+                      <span>{o.icon}</span>
+                      <span className="truncate">{o.title.split(' ')[0]}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 2: Duration in Hours */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="w-5 h-5 rounded-full bg-[#E94E77] text-white flex items-center justify-center text-[10px]">2</span>
+                    <span>Select Duration: {selectedDurationHours} Hours</span>
+                  </label>
+                  <span className="text-[11px] font-bold text-emerald-600">
+                    {selectedDurationHours === 2 ? 'Sweet Spot for Home Events' : `${selectedDurationHours} Hours Slot`}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {[1, 2, 3, 4, 6, 8].map(h => (
+                    <button
+                      key={h}
+                      onClick={() => setSelectedDurationHours(h)}
+                      className={`flex-1 py-2.5 rounded-xl text-xs font-extrabold transition cursor-pointer border ${
+                        selectedDurationHours === h
+                          ? 'bg-[#E94E77] text-white border-[#E94E77] shadow-md shadow-pink-500/20'
+                          : 'bg-white text-slate-700 border-slate-200 hover:border-pink-200'
+                      }`}
+                    >
+                      {h} Hr{h > 1 ? 's' : ''}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 3: Package Style */}
+              <div className="space-y-2">
+                <label className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="w-5 h-5 rounded-full bg-[#E94E77] text-white flex items-center justify-center text-[10px]">3</span>
+                  <span>Select Package Type</span>
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {STANDARD_PACKAGES.slice(0, 4).map(p => (
+                    <button
+                      key={p.id}
+                      onClick={() => setSelectedPackageId(p.id)}
+                      className={`p-3 rounded-xl border text-left transition cursor-pointer ${
+                        selectedPackageId === p.id
+                          ? 'bg-pink-50 border-[#E94E77] shadow-xs'
+                          : 'bg-white border-slate-200 hover:border-pink-200'
+                      }`}
+                    >
+                      <div className="flex justify-between items-center text-xs font-black">
+                        <span className={selectedPackageId === p.id ? 'text-[#E94E77]' : 'text-slate-900'}>
+                          {p.name.split(' ')[0]}
+                        </span>
+                        <span className="font-mono text-slate-800">₹{p.price}</span>
+                      </div>
+                      <span className="text-[10px] text-slate-500 block mt-0.5">{p.badge}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 4: Special Add-ons */}
+              <div className="space-y-2 pt-2">
+                <span className="text-[11px] font-black uppercase text-slate-500 tracking-wider block">
+                  Optional Preferences &amp; Add-ons:
+                </span>
+                
+                <div className="space-y-2">
+                  <label className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-pink-200 transition">
+                    <div className="flex items-center gap-2.5">
+                      <input
+                        type="checkbox"
+                        checked={isFemalePhotographerReq}
+                        onChange={(e) => setIsFemalePhotographerReq(e.target.checked)}
+                        className="rounded text-[#E94E77] focus:ring-pink-500"
+                      />
+                      <div>
+                        <span className="text-xs font-bold text-slate-900 block">Female Photographer on Request</span>
+                        <span className="text-[10px] text-slate-500">Recommended for maternity, newborn &amp; ladies functions</span>
+                      </div>
+                    </div>
+                    <span className="text-xs font-black text-emerald-600 uppercase">FREE</span>
+                  </label>
+
+                  <label className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-pink-200 transition">
+                    <div className="flex items-center gap-2.5">
+                      <input
+                        type="checkbox"
+                        checked={isDroneAddon}
+                        onChange={(e) => setIsDroneAddon(e.target.checked)}
+                        className="rounded text-[#E94E77] focus:ring-pink-500"
+                      />
+                      <div>
+                        <span className="text-xs font-bold text-slate-900 block">4K Drone Aerial Coverage</span>
+                        <span className="text-[10px] text-slate-500">Cinematic top-down flyover videos &amp; venue aerial shots</span>
+                      </div>
+                    </div>
+                    <span className="text-xs font-mono font-bold text-slate-900">+₹3,500</span>
+                  </label>
+
+                  <label className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-pink-200 transition">
+                    <div className="flex items-center gap-2.5">
+                      <input
+                        type="checkbox"
+                        checked={isAlbumAddon}
+                        onChange={(e) => setIsAlbumAddon(e.target.checked)}
+                        className="rounded text-[#E94E77] focus:ring-pink-500"
+                      />
+                      <div>
+                        <span className="text-xs font-bold text-slate-900 block">Hardcover Glossy Photobook Album (30 Pages)</span>
+                        <span className="text-[10px] text-slate-500">Premium lay-flat album delivered to your doorstep</span>
+                      </div>
+                    </div>
+                    <span className="text-xs font-mono font-bold text-slate-900">+₹2,500</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Right Summary: Live Order Quote */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="bg-white rounded-3xl p-6 border border-pink-200 shadow-md space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                  <span className="text-sm font-black text-slate-900 uppercase tracking-wider">
+                    Booking Summary
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase">
+                    Slot Available
+                  </span>
+                </div>
+
+                <div className="space-y-2.5 text-xs">
+                  <div className="flex justify-between text-slate-600">
+                    <span>Occasion:</span>
+                    <strong className="text-slate-900">{activeOccasion.title}</strong>
+                  </div>
+
+                  <div className="flex justify-between text-slate-600">
+                    <span>Package:</span>
+                    <strong className="text-slate-900">{activePackage.name}</strong>
+                  </div>
+
+                  <div className="flex justify-between text-slate-600">
+                    <span>Duration:</span>
+                    <strong className="text-slate-900">{selectedDurationHours} Hours Coverage</strong>
+                  </div>
+
+                  <div className="flex justify-between text-slate-600">
+                    <span>City &amp; Area:</span>
+                    <strong className="text-slate-900">{selectedCity} ({selectedLocality})</strong>
+                  </div>
+
+                  {isFemalePhotographerReq && (
+                    <div className="flex justify-between text-pink-600 font-bold">
+                      <span>Female Pro Request:</span>
+                      <span>Assigned ✓</span>
+                    </div>
+                  )}
+
+                  {isDroneAddon && (
+                    <div className="flex justify-between text-slate-600">
+                      <span>4K Drone Shoot:</span>
+                      <span className="font-mono">+₹3,500</span>
+                    </div>
+                  )}
+
+                  {isAlbumAddon && (
+                    <div className="flex justify-between text-slate-600">
+                      <span>Hardcover Album:</span>
+                      <span className="font-mono">+₹2,500</span>
+                    </div>
+                  )}
+
+                  <div className="pt-2 border-t border-slate-100 flex justify-between text-slate-600">
+                    <span>Estimated Subtotal:</span>
+                    <span className="font-mono font-bold text-slate-800">₹{calculatedPrice.subtotal.toLocaleString()}</span>
+                  </div>
+
+                  <div className="flex justify-between text-emerald-600 font-bold">
+                    <span>Special Coupon (HORA 150):</span>
+                    <span className="font-mono">- ₹150</span>
+                  </div>
+
+                  <div className="pt-3 border-t-2 border-dashed border-slate-200 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 block uppercase">Final Payable Amount</span>
+                      <span className="text-2xl font-black text-[#E94E77] font-mono">
+                        ₹{calculatedPrice.total.toLocaleString()}
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-200">
+                      Pay ₹500 advance now
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-2 pt-2">
+                  <button
+                    onClick={() => {
+                      setIsBookingSuccess(false);
+                      setIsBookingModalOpen(true);
+                    }}
+                    className="w-full py-3.5 rounded-2xl bg-[#E94E77] hover:bg-[#D81B60] text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-pink-500/25 transition cursor-pointer flex items-center justify-center gap-2 active:scale-98"
+                  >
+                    <span>Proceed to Book Photographer</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+
+                  <a
+                    href={`https://wa.me/917338584828?text=Hi%20HORA,%20I%20want%20to%20book%20a%20photographer%20in%20${selectedCity}%20for%20${encodeURIComponent(activeOccasion.title)}%20(${selectedDurationHours}%20Hours)%20at%20${encodeURIComponent(selectedLocality)}.%20Estimated%20Price:%20₹${calculatedPrice.total}%20with%20HORA150%20code.`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full py-3 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-xs transition cursor-pointer flex items-center justify-center gap-2 border border-emerald-200"
+                  >
+                    <MessageCircle className="w-4 h-4 text-emerald-600" />
+                    <span>Book on WhatsApp with ₹150 Discount</span>
+                  </a>
+                </div>
+
+                <p className="text-[10px] text-slate-400 text-center leading-relaxed">
+                  🔒 100% Secure &bull; Pay balance after the shoot &bull; Free date reschedule
+                </p>
+              </div>
+
+              {/* Free Invite Worth ₹500 Box */}
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 text-white space-y-2 shadow-md">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-wider">Free Digital Invite &bull; ₹500 Value</span>
+                  <span className="text-[10px] bg-black/30 px-2 py-0.5 rounded-full font-bold">100% Free</span>
+                </div>
+                <p className="text-[11px] text-amber-100 leading-snug">
+                  Get a personalized digital event webpage with RSVP tracking, photo guest notes, and WhatsApp sharing!
+                </p>
               </div>
             </div>
 
-            {quoteSubmitted ? (
-              <div className="p-8 text-center space-y-3">
-                <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto" />
-                <h4 className="text-base font-bold text-white">Opening WhatsApp Inquiry...</h4>
-                <p className="text-xs text-slate-400">We've pre-filled your event details for instant consultation.</p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          7. "WHY A 2-HOUR EVENT SHOULDN'T COST A FULL DAY" (Exact Hora Value Prop)
+         ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <div className="bg-[#18181B] rounded-3xl p-8 sm:p-12 text-white shadow-xl space-y-8">
+          <div className="max-w-3xl space-y-3">
+            <span className="text-xs font-black uppercase tracking-widest text-[#E94E77] bg-pink-500/10 px-3 py-1 rounded-full border border-pink-500/20">
+              The HORA Difference
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
+              Why a Two-Hour Event Shouldn't Cost You a Full Day
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+              Think about a first birthday, a naming ceremony, or a newborn session. None of them usually runs past a couple of hours, yet the standard answer from most photographers is a full-day package, so you end up paying for hours nobody uses. Booking by the hour fixes that.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+            
+            {/* The Old Way */}
+            <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+              <div className="flex items-center justify-between text-rose-400 font-bold text-xs">
+                <span>TRADITIONAL FREELANCERS</span>
+                <span>❌ Outdated Model</span>
               </div>
-            ) : (
-              <form onSubmit={handleQuoteSubmit} className="space-y-3.5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[11px] font-semibold text-slate-300">Your Full Name *</label>
-                    <input 
-                      type="text" 
-                      required
-                      value={quoteFormData.name}
-                      onChange={e => setQuoteFormData({...quoteFormData, name: e.target.value})}
-                      placeholder="e.g. Rahul Sharma"
-                      className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-violet-500"
-                    />
+              <ul className="space-y-2.5 text-xs text-slate-400">
+                <li className="flex items-start gap-2">
+                  <span className="text-rose-500 font-bold">✕</span>
+                  <span>Forces full-day minimum rates starting at ₹15,000 to ₹25,000.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-rose-500 font-bold">✕</span>
+                  <span>Takes 3 to 7 days just to send a quote over WhatsApp.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-rose-500 font-bold">✕</span>
+                  <span>Unverified portfolios—you never know who will turn up on the day.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-rose-500 font-bold">✕</span>
+                  <span>Demands 100% payment before handing over your photo files.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* The HORA Way */}
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-pink-950/40 via-slate-900 to-slate-900 border border-pink-500/40 space-y-4">
+              <div className="flex items-center justify-between text-[#E94E77] font-bold text-xs">
+                <span>HORA SERVICES PHOTOGRAPHY</span>
+                <span>✓ Modern &amp; Transparent</span>
+              </div>
+              <ul className="space-y-2.5 text-xs text-slate-200">
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Book from 2 hours starting at ₹3,600. Pay only for the time you need.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Instant upfront pricing online. Book in under 60 seconds.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>100% verified independent pros with reviewed portfolios and equipment checks.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Pay small advance to confirm; balance only after the shoot is done!</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          8. OUTDOOR SHOOT SPOTS IN HYDERABAD
+         ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 py-12 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-50 text-[#E94E77] text-xs font-bold mb-1.5 border border-pink-200">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Iconic Locations</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Top Outdoor Shoot Spots in {selectedCity}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              From majestic Golconda Fort at sunset to scenic cable bridge views, our photographers know the best lighting angles.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {OUTDOOR_SHOOT_SPOTS.map((spot, i) => (
+            <div
+              key={i}
+              className="rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition group flex flex-col justify-between"
+            >
+              <div className="relative aspect-[16/11] w-full overflow-hidden bg-slate-100">
+                <img
+                  src={spot.imageUrl}
+                  alt={spot.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                />
+                <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-xs text-[10px] font-bold text-white">
+                  🕒 {spot.bestTime}
+                </span>
+              </div>
+
+              <div className="p-4 space-y-2">
+                <span className="text-[10px] font-black uppercase text-[#E94E77] block">
+                  {spot.type}
+                </span>
+                <h4 className="text-sm font-black text-slate-900">
+                  {spot.name}
+                </h4>
+                <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-3">
+                  {spot.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* =========================================================================
+          9. HYDERABAD LOCALITIES DIRECTORY (50+ Areas Covered)
+         ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <div className="rounded-3xl bg-white p-6 sm:p-10 border border-slate-200 shadow-sm space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-1.5 border border-emerald-200">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Doorstep Service Across Hyderabad</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                Hyderabad Localities We Cover
+              </h2>
+              <p className="text-xs text-slate-500 mt-1">
+                Verified photographers available within 30-45 minutes in all major residential &amp; IT colonies.
+              </p>
+            </div>
+
+            <span className="text-xs font-bold text-slate-400">
+              {HYDERABAD_LOCALITIES.length}+ Localities Active Today
+            </span>
+          </div>
+
+          <div className="flex flex-wrap gap-2 pt-2">
+            {HYDERABAD_LOCALITIES.map((loc, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setSelectedLocality(loc);
+                  const el = document.getElementById('instant-booking-calculator');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer border ${
+                  selectedLocality === loc
+                    ? 'bg-[#E94E77] text-white border-[#E94E77] shadow-xs'
+                    : 'bg-slate-50 hover:bg-pink-50 text-slate-700 border-slate-200 hover:border-pink-300'
+                }`}
+              >
+                {loc}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          10. PORTFOLIO GALLERY LIGHTBOX (High-Res Samples)
+         ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 py-12 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-50 text-[#E94E77] text-xs font-bold mb-1.5 border border-pink-200">
+              <ImageIcon className="w-3.5 h-3.5" />
+              <span>Real HORA Shoots Portfolio</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Sample Work from Real {selectedCity} Events
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Click any image to view full resolution. We pride ourselves on genuine, un-staged client memories.
+            </p>
+          </div>
+
+          {/* Category Tabs */}
+          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-2xl overflow-x-auto max-w-full">
+            {[
+              { id: 'all', label: 'All Photos' },
+              { id: 'maternity', label: 'Maternity' },
+              { id: 'newborn', label: 'Newborn' },
+              { id: 'wedding', label: 'Weddings' },
+              { id: 'birthday', label: 'Birthdays' },
+              { id: 'housewarming', label: 'Housewarming' }
+            ].map(cat => (
+              <button
+                key={cat.id}
+                onClick={() => setGalleryCategory(cat.id as any)}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+                  galleryCategory === cat.id
+                    ? 'bg-[#E94E77] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Gallery Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {filteredGallery.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => setActiveLightboxImg(item.img)}
+              className="group relative aspect-[4/5] rounded-3xl overflow-hidden bg-slate-100 cursor-pointer shadow-xs hover:shadow-xl transition"
+            >
+              <img
+                src={item.img}
+                alt={item.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4 text-white">
+                <span className="text-[10px] font-black uppercase text-pink-300">
+                  {item.category}
+                </span>
+                <h4 className="text-xs font-bold leading-snug">{item.title}</h4>
+                <span className="text-[10px] text-slate-300 mt-0.5">{item.location}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* =========================================================================
+          11. CUSTOMER REVIEWS & GOOGLE RATINGS (4.9★, 2,500+ Reviews from Hora)
+         ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <div className="rounded-3xl bg-gradient-to-br from-white to-pink-50/30 p-8 sm:p-12 border border-pink-200 shadow-sm space-y-10">
+          
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-pink-100">
+            <div>
+              <span className="text-xs font-black uppercase tracking-widest text-[#E94E77] block mb-1">
+                Google Reviews &bull; Verified Experiences
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                Loved by Thousands of Happy Families
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-4 bg-white p-4 rounded-2xl border border-pink-200 shadow-xs">
+              <div className="text-3xl font-black text-slate-900 font-mono">4.9</div>
+              <div>
+                <div className="flex items-center text-amber-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400" />
+                  ))}
+                </div>
+                <span className="text-xs font-bold text-slate-500 block mt-0.5">
+                  Over 2,500+ Google Reviews
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {VERIFIED_REVIEWS.map((rev, i) => (
+              <div
+                key={i}
+                className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center text-amber-400">
+                    {[...Array(rev.rating)].map((_, idx) => (
+                      <Star key={idx} className="w-3.5 h-3.5 fill-amber-400" />
+                    ))}
                   </div>
-                  <div>
-                    <label className="text-[11px] font-semibold text-slate-300">WhatsApp Number *</label>
-                    <input 
-                      type="tel" 
-                      required
-                      value={quoteFormData.phone}
-                      onChange={e => setQuoteFormData({...quoteFormData, phone: e.target.value})}
-                      placeholder="e.g. +91 98765 43210"
-                      className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-violet-500"
-                    />
-                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed italic">
+                    "{rev.text}"
+                  </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[11px] font-semibold text-slate-300">Event Celebration Type</label>
-                    <select
-                      value={quoteFormData.eventType}
-                      onChange={e => setQuoteFormData({...quoteFormData, eventType: e.target.value})}
-                      className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-violet-500"
-                    >
-                      <option value="Wedding & Reception">Wedding &amp; Reception</option>
-                      <option value="Destination 3-Day Wedding">Destination 3-Day Wedding</option>
-                      <option value="Sangeet & Cocktail Night">Sangeet &amp; Cocktail Night</option>
-                      <option value="Pre-Wedding Shoot & Candid Film">Pre-Wedding Shoot &amp; Candid Film</option>
-                      <option value="Corporate Gala / Annual Event">Corporate Gala / Annual Event</option>
-                      <option value="Birthday / Anniversary Milestone">Milestone Birthday / Anniversary</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="text-[11px] font-semibold text-slate-300">Proposed Event Date</label>
-                    <input 
-                      type="date"
-                      value={quoteFormData.eventDate}
-                      onChange={e => setQuoteFormData({...quoteFormData, eventDate: e.target.value})}
-                      className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-violet-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[11px] font-semibold text-slate-300">Estimated Guest Count</label>
-                    <select
-                      value={quoteFormData.guestCount}
-                      onChange={e => setQuoteFormData({...quoteFormData, guestCount: e.target.value})}
-                      className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-violet-500"
-                    >
-                      <option value="50 - 150 Guests (Intimate)">50 - 150 Guests (Intimate)</option>
-                      <option value="150 - 350 Guests">150 - 350 Guests</option>
-                      <option value="350 - 750 Guests (Grand)">350 - 750 Guests (Grand)</option>
-                      <option value="750 - 1500+ Guests (Royal)">750 - 1500+ Guests (Royal)</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="text-[11px] font-semibold text-slate-300">Venue / City Location</label>
-                    <input 
-                      type="text" 
-                      value={quoteFormData.venueCity}
-                      onChange={e => setQuoteFormData({...quoteFormData, venueCity: e.target.value})}
-                      placeholder="e.g. Hyderabad / Udaipur / Goa"
-                      className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-violet-500"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-[11px] font-semibold text-slate-300">Special Requirements / Theme Preferences</label>
-                  <textarea 
-                    rows={2}
-                    value={quoteFormData.notes}
-                    onChange={e => setQuoteFormData({...quoteFormData, notes: e.target.value})}
-                    placeholder="e.g. Looking for royal pastel floral theme, drone aerials and DJ line-array setup."
-                    className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-violet-500 resize-none"
+                <div className="flex items-center gap-3 pt-3 border-t border-slate-100">
+                  <img
+                    src={rev.avatar}
+                    alt={rev.name}
+                    className="w-9 h-9 rounded-full object-cover border border-pink-200"
                   />
+                  <div>
+                    <h4 className="text-xs font-black text-slate-900">{rev.name}</h4>
+                    <span className="text-[10px] text-slate-400 font-medium block">
+                      {rev.occasion}
+                    </span>
+                  </div>
                 </div>
+              </div>
+            ))}
+          </div>
 
+        </div>
+      </section>
+
+      {/* =========================================================================
+          12. COMPREHENSIVE HYDERABAD PHOTOGRAPHY FAQS ACCORDION
+         ========================================================================= */}
+      <section className="max-w-4xl mx-auto px-4 py-12 space-y-6">
+        <div className="text-center space-y-2">
+          <span className="text-xs font-black uppercase tracking-wider text-[#E94E77]">
+            Got Questions?
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Frequently Asked Questions &bull; {selectedCity}
+          </h2>
+          <p className="text-xs text-slate-500">
+            Everything you need to know about booking by the hour, pricing, and photo delivery.
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          {FAQS_LIST.map((faq, i) => {
+            const isOpen = openFaqIndex === i;
+            return (
+              <div
+                key={i}
+                className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-xs"
+              >
                 <button
-                  type="submit"
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-violet-600/30 transition cursor-pointer"
+                  onClick={() => setOpenFaqIndex(isOpen ? null : i)}
+                  className="w-full p-4.5 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 cursor-pointer"
                 >
-                  Send Inquiry on WhatsApp →
+                  <span>{faq.q}</span>
+                  {isOpen ? (
+                    <ChevronUp className="w-4 h-4 text-[#E94E77]" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4 text-slate-400" />
+                  )}
                 </button>
-              </form>
-            )}
+                {isOpen && (
+                  <div className="p-4.5 pt-0 text-xs text-slate-600 leading-relaxed border-t border-slate-50">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* =========================================================================
+          13. LIGHTBOX MODAL
+         ========================================================================= */}
+      {activeLightboxImg && (
+        <div 
+          onClick={() => setActiveLightboxImg(null)}
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer"
+        >
+          <div className="relative max-w-4xl max-h-[90vh]">
+            <img
+              src={activeLightboxImg}
+              alt="Enlarged photo"
+              className="max-w-full max-h-[85vh] rounded-2xl object-contain shadow-2xl"
+            />
+            <button
+              onClick={() => setActiveLightboxImg(null)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white hover:bg-black transition"
+            >
+              <X className="w-6 h-6" />
+            </button>
           </div>
         </div>
       )}
 
-      {/* 7. SHARE CARD MODAL */}
-      {isShareModalOpen && (
+      {/* =========================================================================
+          14. INSTANT BOOKING MODAL (With ₹150 OFF auto coupon)
+         ========================================================================= */}
+      {isBookingModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-3xl bg-white p-6 sm:p-8 shadow-2xl space-y-5 my-8 border border-slate-200">
+            
+            <button
+              onClick={() => {
+                setIsBookingModalOpen(false);
+                setIsBookingSuccess(false);
+              }}
+              className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-700 bg-slate-100 cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {!isBookingSuccess ? (
+              <form onSubmit={handleConfirmBooking} className="space-y-4">
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-wider text-[#E94E77] bg-pink-50 px-2 py-0.5 rounded border border-pink-200">
+                    Booking Request &bull; {selectedCity}
+                  </span>
+                  <h3 className="text-xl font-black text-slate-900 mt-1">
+                    Book {activeOccasion.title}
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    {selectedDurationHours} Hours &bull; {activePackage.name} &bull; {selectedLocality}
+                  </p>
+                </div>
+
+                {/* Price summary badge */}
+                <div className="p-3.5 rounded-2xl bg-pink-50 border border-pink-200 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-extrabold text-slate-900">Total: ₹{calculatedPrice.total.toLocaleString()}</span>
+                    <span className="text-emerald-700 block text-[11px] font-bold">Includes ₹150 Discount (HORA 150)</span>
+                  </div>
+                  <span className="text-[11px] font-black text-[#E94E77] bg-white px-2.5 py-1 rounded-xl shadow-xs">
+                    Advance: ₹500
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-[11px] font-bold text-slate-500 block mb-1">Your Full Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={bookingName}
+                      onChange={(e) => setBookingName(e.target.value)}
+                      placeholder="e.g. Kishore Reddy"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-xs font-bold text-slate-900 focus:outline-none focus:border-pink-500"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-[11px] font-bold text-slate-500 block mb-1">WhatsApp Phone Number</label>
+                      <input
+                        type="tel"
+                        required
+                        value={bookingPhone}
+                        onChange={(e) => setBookingPhone(e.target.value)}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-xs font-bold text-slate-900 focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[11px] font-bold text-slate-500 block mb-1">Event Date</label>
+                      <input
+                        type="date"
+                        required
+                        value={eventDate}
+                        onChange={(e) => setEventDate(e.target.value)}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-xs font-bold text-slate-900 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] font-bold text-slate-500 block mb-1">Preferred Time Slot</label>
+                    <select
+                      value={eventTimeSlot}
+                      onChange={(e) => setEventTimeSlot(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-xs font-bold text-slate-900 focus:outline-none"
+                    >
+                      <option>Morning (08:00 AM - 11:00 AM)</option>
+                      <option>Mid-Day (11:00 AM - 02:00 PM)</option>
+                      <option>Afternoon (02:00 PM - 05:00 PM)</option>
+                      <option>Golden Hour Evening (05:00 PM - 08:00 PM)</option>
+                      <option>Night Function (07:00 PM - 11:00 PM)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] font-bold text-slate-500 block mb-1">Event Address / Notes</label>
+                    <textarea
+                      rows={2}
+                      value={bookingNotes}
+                      onChange={(e) => setBookingNotes(e.target.value)}
+                      placeholder="e.g. Flat 402, My Home Bhooja, Madhapur..."
+                      className="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-300 text-xs text-slate-900 focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-3.5 rounded-2xl bg-[#E94E77] hover:bg-[#D81B60] text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-pink-500/25 transition cursor-pointer"
+                >
+                  Confirm Booking with ₹150 OFF
+                </button>
+              </form>
+            ) : (
+              <div className="space-y-5 text-center">
+                <div className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
+                    Booking Confirmed
+                  </span>
+                  <h3 className="text-xl font-black text-slate-900 mt-1">
+                    Your Photographer is Reserved!
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    A WhatsApp confirmation with your assigned photographer's portfolio and contact has been sent to <strong>{bookingPhone}</strong>.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-2 text-xs">
+                  <div className="flex justify-between font-bold text-slate-900">
+                    <span>Occasion:</span>
+                    <span>{activeOccasion.title}</span>
+                  </div>
+                  <div className="flex justify-between text-slate-600">
+                    <span>Date &amp; Slot:</span>
+                    <span>{eventDate} &bull; {eventTimeSlot}</span>
+                  </div>
+                  <div className="flex justify-between text-slate-600">
+                    <span>Location:</span>
+                    <span>{selectedLocality}, {selectedCity}</span>
+                  </div>
+                  <div className="flex justify-between font-black text-[#E94E77] pt-2 border-t border-slate-200">
+                    <span>Total Amount:</span>
+                    <span className="font-mono">₹{calculatedPrice.total.toLocaleString()}</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setIsBookingModalOpen(false);
+                    setIsBookingSuccess(false);
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold transition cursor-pointer"
+                >
+                  Done &amp; Close
+                </button>
+              </div>
+            )}
+
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+          15. SHARE MODAL
+         ========================================================================= */}
+      {isShareModalOpen && profile && (
         <ShareCardModal
           onClose={() => setIsShareModalOpen(false)}
           profile={profile}
         />
       )}
 
-      {/* 8. FLOATING WHATSAPP BUTTON */}
-      {whatsappUrl && (
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Chat on WhatsApp"
-          className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 flex items-center gap-2.5 pl-3.5 pr-4 py-2.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-2xl shadow-emerald-500/40 hover:scale-105 active:scale-95 transition-all group cursor-pointer"
-        >
-          <div className="relative">
-            <SocialIcon platform="whatsapp" size={22} colored={false} className="text-white" />
-            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-white animate-ping" />
+      {/* =========================================================================
+          16. BOTTOM STICKY FLOATING ACTION BAR
+         ========================================================================= */}
+      <div className="fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200 py-3 px-4 shadow-2xl">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] uppercase font-bold text-slate-400 hidden sm:inline">Starting from</span>
+            <div className="leading-tight">
+              <span className="text-lg sm:text-xl font-black text-[#E94E77] font-mono">
+                ₹3,600/-
+              </span>
+              <span className="text-[10px] text-slate-400 block sm:inline sm:ml-1 font-semibold">
+                for 2 Hours
+              </span>
+            </div>
+            <span className="hidden md:inline text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+              ₹150 OFF applied
+            </span>
           </div>
-          <div className="hidden sm:flex flex-col text-left">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-100 leading-tight">Direct Connect</span>
-            <span className="text-xs font-extrabold leading-tight">Chat on WhatsApp</span>
+
+          <div className="flex items-center gap-2">
+            <a
+              href="https://wa.me/917338584828?text=Hi%20HORA,%20I%20want%20to%20hire%20a%20photographer%20in%20Hyderabad"
+              target="_blank"
+              rel="noreferrer"
+              className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-sm cursor-pointer"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>WhatsApp</span>
+            </a>
+
+            <button
+              onClick={() => {
+                const el = document.getElementById('instant-booking-calculator');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-5 py-2 rounded-xl bg-[#E94E77] hover:bg-[#D81B60] text-white font-black text-xs uppercase tracking-wider transition shadow-md shadow-pink-500/25 cursor-pointer"
+            >
+              Book Now
+            </button>
           </div>
-        </a>
-      )}
-
-      {/* 9. STICKY MOBILE ACTION BAR */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#07060A]/95 backdrop-blur-lg border-t border-slate-800/90 px-3 py-2 flex items-center justify-between gap-1 shadow-2xl">
-        {whatsappUrl && (
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-[#25D366]/15 border border-[#25D366]/30 text-emerald-300 hover:text-white text-[10px] font-bold transition active:scale-95"
-          >
-            <SocialIcon platform="whatsapp" size={17} colored={true} />
-            <span className="mt-0.5">WhatsApp</span>
-          </a>
-        )}
-
-        {phoneUrl && (
-          <a
-            href={phoneUrl}
-            className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-violet-600/15 border border-violet-500/30 text-violet-300 hover:text-white text-[10px] font-bold transition active:scale-95"
-          >
-            <Phone className="w-4 h-4 text-violet-400" />
-            <span className="mt-0.5">Call</span>
-          </a>
-        )}
-
-        {instagramUrl && (
-          <a
-            href={instagramUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-[#E1306C]/15 border border-[#E1306C]/30 text-pink-300 hover:text-white text-[10px] font-bold transition active:scale-95"
-          >
-            <SocialIcon platform="instagram" size={17} colored={true} />
-            <span className="mt-0.5">Instagram</span>
-          </a>
-        )}
-
-        {facebookUrl && (
-          <a
-            href={facebookUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-[#1877F2]/15 border border-[#1877F2]/30 text-blue-300 hover:text-white text-[10px] font-bold transition active:scale-95"
-          >
-            <SocialIcon platform="facebook" size={17} colored={true} />
-            <span className="mt-0.5">Facebook</span>
-          </a>
-        )}
-
-        <button
-          onClick={() => setIsQuoteModalOpen(true)}
-          className="flex-1.2 flex flex-col items-center justify-center py-1.5 px-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-[10px] font-bold shadow-lg shadow-violet-600/30 transition active:scale-95 cursor-pointer"
-        >
-          <PartyPopper className="w-4 h-4" />
-          <span className="mt-0.5">Get Quote</span>
-        </button>
+        </div>
       </div>
+
+      {/* =========================================================================
+          17. MEGA FOOTER (All 8 Indian Cities & HORA Service Lines)
+         ========================================================================= */}
+      <footer className="bg-[#18181B] text-slate-400 text-xs pt-16 pb-24 px-4 border-t border-slate-800 mt-16">
+        <div className="max-w-7xl mx-auto space-y-12">
+          
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-6">
+            
+            <div>
+              <h5 className="font-bold text-white uppercase text-[11px] tracking-wider mb-3">Our Services</h5>
+              <ul className="space-y-1.5 text-[11px]">
+                <li><a href="#occasions-section" className="hover:text-white transition">Photography for Events</a></li>
+                <li><a href="#occasions-section" className="hover:text-white transition">Decorations for Party</a></li>
+                <li><a href="#occasions-section" className="hover:text-white transition">Chef for Party &amp; Occasions</a></li>
+                <li><a href="#occasions-section" className="hover:text-white transition">Food Delivery &amp; Live Catering</a></li>
+                <li><a href="#occasions-section" className="hover:text-white transition">Party Venues Booking</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h5 className="font-bold text-white uppercase text-[11px] tracking-wider mb-3">Top Occasions</h5>
+              <ul className="space-y-1.5 text-[11px]">
+                <li><a href="#occasions-section" className="hover:text-white transition">Birthday Photography</a></li>
+                <li><a href="#occasions-section" className="hover:text-white transition">Maternity Photoshoot</a></li>
+                <li><a href="#occasions-section" className="hover:text-white transition">Newborn Baby Shoot</a></li>
+                <li><a href="#occasions-section" className="hover:text-white transition">Housewarming Griha Pravesh</a></li>
+                <li><a href="#occasions-section" className="hover:text-white transition">Wedding &amp; Engagement</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h5 className="font-bold text-white uppercase text-[11px] tracking-wider mb-3">Cities We Cover</h5>
+              <ul className="space-y-1.5 text-[11px]">
+                <li><span className="hover:text-white transition cursor-pointer">Photographers in Hyderabad</span></li>
+                <li><span className="hover:text-white transition cursor-pointer">Photographers in Bangalore</span></li>
+                <li><span className="hover:text-white transition cursor-pointer">Photographers in Mumbai</span></li>
+                <li><span className="hover:text-white transition cursor-pointer">Photographers in Delhi NCR</span></li>
+                <li><span className="hover:text-white transition cursor-pointer">Photographers in Gurugram</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <h5 className="font-bold text-white uppercase text-[11px] tracking-wider mb-3">Top Localities</h5>
+              <ul className="space-y-1.5 text-[11px]">
+                <li><span className="hover:text-white transition">Gachibowli Photographers</span></li>
+                <li><span className="hover:text-white transition">HITEC City Photoshoots</span></li>
+                <li><span className="hover:text-white transition">Jubilee Hills Photographers</span></li>
+                <li><span className="hover:text-white transition">Banjara Hills Portrait Studio</span></li>
+                <li><span className="hover:text-white transition">Kondapur Event Shoots</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <h5 className="font-bold text-white uppercase text-[11px] tracking-wider mb-3">Contact &amp; Support</h5>
+              <ul className="space-y-1.5 text-[11px]">
+                <li><span>Phone: +91 73385 84828</span></li>
+                <li><span>Email: dev@horaservices.com</span></li>
+                <li><span>Support: 24/7 WhatsApp Chat</span></li>
+                <li><span>Free Invite Worth ₹500</span></li>
+                <li><span>Verified Background Checked</span></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+            <p>&copy; 2026 HORA Services &bull; All rights reserved. Hyderabad Event &amp; Photography Platform.</p>
+            <div className="flex items-center gap-4 text-slate-500">
+              <span>Privacy Policy</span>
+              <span>&bull;</span>
+              <span>Terms of Service</span>
+              <span>&bull;</span>
+              <span>Sitemap</span>
+            </div>
+          </div>
+
+        </div>
+      </footer>
+
     </div>
   );
 }

@@ -861,6 +861,8 @@ export default function ProfileCardView({
   );
 
   const isEvents = Boolean(
+    profile.slug === 'events-planner' ||
+    profile.slug?.includes('event') ||
     (profile as any).category === 'Events & Creative' ||
     (profile as any).templateId?.includes('event') ||
     (profile as any).templateId?.includes('photo') ||
