@@ -75,25 +75,25 @@ export default function FeatureImpactModal({ feature, onClose, defaultSectorId =
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-950/80 backdrop-blur-xl animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col text-slate-900 animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-3xl max-h-[90vh] glass-card border border-white/20 rounded-3xl shadow-2xl overflow-hidden flex flex-col text-white animate-in zoom-in-95 duration-200 bg-slate-900/95"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header Banner */}
-        <div className="relative p-6 sm:p-8 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border-b border-slate-800 flex-shrink-0">
+        <div className="relative p-6 sm:p-8 bg-gradient-to-r from-slate-950/90 via-indigo-950/90 to-slate-950/90 text-white border-b border-white/10 flex-shrink-0">
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all border border-white/10"
+            className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all border border-white/15 cursor-pointer"
             aria-label="Close modal"
           >
             <X size={18} />
           </button>
 
           <div className="flex items-start gap-4 sm:gap-5 pr-8">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-950/50 flex-shrink-0 border border-indigo-400/30">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-950/50 flex-shrink-0 border border-indigo-400/40">
               <IconComponent className="w-7 h-7" />
             </div>
             <div className="space-y-1">
@@ -133,10 +133,10 @@ export default function FeatureImpactModal({ feature, onClose, defaultSectorId =
           {/* Sector Selector Tabs */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                 <span>Select Your Business Sector:</span>
               </label>
-              <span className="text-xs text-indigo-600 font-semibold hidden sm:inline">
+              <span className="text-xs text-indigo-400 font-semibold hidden sm:inline">
                 Click any sector to see specific benefits ↓
               </span>
             </div>
@@ -148,10 +148,10 @@ export default function FeatureImpactModal({ feature, onClose, defaultSectorId =
                   <button
                     key={sector.id}
                     onClick={() => setSelectedSector(sector.id)}
-                    className={`flex items-center gap-2 p-2.5 rounded-xl text-left text-xs font-semibold transition-all border ${
+                    className={`flex items-center gap-2 p-2.5 rounded-xl text-left text-xs font-semibold transition-all border cursor-pointer ${
                       isSelected
-                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-200'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
+                        ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-indigo-400 shadow-lg shadow-indigo-500/30'
+                        : 'bg-white/5 text-slate-300 border-white/10 hover:bg-white/10 hover:border-white/25 hover:text-white'
                     }`}
                   >
                     <span className="text-base flex-shrink-0">{sector.icon}</span>
@@ -164,60 +164,60 @@ export default function FeatureImpactModal({ feature, onClose, defaultSectorId =
 
           {/* Detailed Sector Impact Card */}
           {activeImpact && (
-            <div className="rounded-2xl bg-gradient-to-br from-slate-50 to-indigo-50/40 border border-indigo-100 p-5 sm:p-6 space-y-5">
-              <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
+            <div className="rounded-2xl glass-card border border-white/15 p-5 sm:p-6 space-y-5 bg-gradient-to-br from-indigo-950/40 via-slate-900/60 to-purple-950/40">
+              <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">{activeImpact.sectorIcon}</span>
                   <div>
-                    <h3 className="text-base font-bold text-slate-900">
+                    <h3 className="text-base font-bold text-white">
                       How it Empowers: {activeImpact.sectorName}
                     </h3>
-                    <p className="text-xs text-slate-500">Customized ROI &amp; practical application</p>
+                    <p className="text-xs text-slate-400">Customized ROI &amp; practical application</p>
                   </div>
                 </div>
-                <span className="hidden sm:inline-block px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                <span className="hidden sm:inline-block px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                   {activeImpact.roiBenefit}
                 </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Pain Point */}
-                <div className="p-4 rounded-xl bg-white border border-rose-100 shadow-sm space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-rose-600 uppercase tracking-wider">
+                <div className="p-4 rounded-xl bg-white/5 border border-rose-500/30 shadow-sm space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-rose-400 uppercase tracking-wider">
                     <AlertCircle size={14} />
                     The Industry Challenge
                   </div>
-                  <p className="text-xs leading-relaxed text-slate-600">
+                  <p className="text-xs leading-relaxed text-slate-300">
                     {activeImpact.painPoint}
                   </p>
                 </div>
 
                 {/* The Solution */}
-                <div className="p-4 rounded-xl bg-white border border-indigo-100 shadow-sm space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 uppercase tracking-wider">
+                <div className="p-4 rounded-xl bg-white/5 border border-indigo-500/30 shadow-sm space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-400 uppercase tracking-wider">
                     <Zap size={14} />
                     OneClickBiz Advantage
                   </div>
-                  <p className="text-xs leading-relaxed text-slate-700 font-medium">
+                  <p className="text-xs leading-relaxed text-slate-200 font-medium">
                     {activeImpact.howItHelps}
                   </p>
                 </div>
               </div>
 
               {/* Real World Scenario */}
-              <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm space-y-1.5">
-                <div className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-                  <CheckCircle2 size={14} className="text-emerald-500" />
+              <div className="p-4 rounded-xl bg-white/5 border border-white/10 shadow-sm space-y-1.5">
+                <div className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                  <CheckCircle2 size={14} className="text-emerald-400" />
                   Real-World Day-to-Day Scenario
                 </div>
-                <p className="text-xs leading-relaxed text-slate-600 italic">
+                <p className="text-xs leading-relaxed text-slate-300 italic">
                   &ldquo;{activeImpact.realWorldScenario}&rdquo;
                 </p>
               </div>
 
               {/* Mobile ROI Badge */}
-              <div className="sm:hidden p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-center">
-                <span className="text-xs font-bold text-emerald-800">
+              <div className="sm:hidden p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-center">
+                <span className="text-xs font-bold text-emerald-300">
                   🚀 Expected ROI: {activeImpact.roiBenefit}
                 </span>
               </div>
@@ -227,13 +227,13 @@ export default function FeatureImpactModal({ feature, onClose, defaultSectorId =
           {/* Key Capabilities Checklist */}
           {feature.keyCapabilities && (
             <div className="space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Core Capabilities Included:
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {feature.keyCapabilities.map((cap, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                    <CheckCircle2 size={14} className="text-indigo-600 flex-shrink-0 mt-0.5" />
+                  <div key={idx} className="flex items-start gap-2 text-xs text-slate-300 bg-white/5 p-2.5 rounded-xl border border-white/10">
+                    <CheckCircle2 size={14} className="text-indigo-400 flex-shrink-0 mt-0.5" />
                     <span>{cap}</span>
                   </div>
                 ))}
@@ -243,17 +243,17 @@ export default function FeatureImpactModal({ feature, onClose, defaultSectorId =
         </div>
 
         {/* Modal Footer Actions */}
-        <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3 flex-shrink-0">
+        <div className="p-4 sm:p-5 bg-slate-950/80 border-t border-white/10 flex items-center justify-between gap-3 flex-shrink-0">
           <button
             onClick={onClose}
-            className="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200 transition-all"
+            className="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
           >
             Close Window
           </button>
 
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xs hover:from-indigo-500 hover:to-purple-500 transition-all shadow-md shadow-indigo-200 hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold text-xs hover:opacity-95 transition-all shadow-lg shadow-indigo-500/30 hover:scale-105 active:scale-95"
           >
             Get Started with this Feature <ArrowRight size={14} />
           </Link>
