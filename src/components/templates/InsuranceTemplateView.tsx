@@ -1319,77 +1319,33 @@ export default function InsuranceTemplateView({
                           </a>
                         </div>
 
-                        {/* Social Media Channels Row with Original Logos */}
+                        {/* Social Media Channels Row with Original Logos - Instagram & YouTube */}
                         <div className="pt-2 border-t border-slate-200/80 flex items-center justify-between gap-2 flex-wrap">
                           <span className="text-[10px] font-black text-slate-900 flex items-center gap-1">
                             <Sparkles className="w-3 h-3 text-indigo-600" />
                             Official Channels:
                           </span>
-                          <div className="flex items-center gap-1.5 flex-wrap">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <a
-                              href={socialLinks.linkedin}
+                              href={socialLinks.instagram}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-2 py-1 rounded-lg bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 border border-[#0A66C2]/40 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
-                              title="Connect on LinkedIn"
+                              className="px-2.5 py-1 rounded-lg bg-[#E1306C]/10 hover:bg-[#E1306C]/20 border border-[#E1306C]/40 text-slate-950 text-[10px] font-black flex items-center gap-1.5 transition-all hover:scale-105 shadow-2xs"
+                              title="Follow on Instagram"
                             >
-                              <SocialIcon platform="linkedin" size={13} colored={true} />
-                              <span>LinkedIn</span>
+                              <SocialIcon platform="instagram" size={14} colored={true} />
+                              <span>Instagram</span>
                             </a>
 
                             <a
                               href={socialLinks.youtube}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-2 py-1 rounded-lg bg-[#FF0000]/10 hover:bg-[#FF0000]/20 border border-[#FF0000]/40 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
+                              className="px-2.5 py-1 rounded-lg bg-[#FF0000]/10 hover:bg-[#FF0000]/20 border border-[#FF0000]/40 text-slate-950 text-[10px] font-black flex items-center gap-1.5 transition-all hover:scale-105 shadow-2xs"
                               title="Watch on YouTube"
                             >
-                              <SocialIcon platform="youtube" size={13} colored={true} />
+                              <SocialIcon platform="youtube" size={14} colored={true} />
                               <span>YouTube</span>
-                            </a>
-
-                            <a
-                              href={socialLinks.instagram}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-2 py-1 rounded-lg bg-[#E1306C]/10 hover:bg-[#E1306C]/20 border border-[#E1306C]/40 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
-                              title="Follow on Instagram"
-                            >
-                              <SocialIcon platform="instagram" size={13} colored={true} />
-                              <span>Instagram</span>
-                            </a>
-
-                            <a
-                              href={socialLinks.twitter}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-2 py-1 rounded-lg bg-slate-900/10 hover:bg-slate-900/20 border border-slate-400 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
-                              title="Follow on X (Twitter)"
-                            >
-                              <SocialIcon platform="twitter" size={13} colored={true} className="text-slate-900" />
-                              <span>X</span>
-                            </a>
-
-                            <a
-                              href={socialLinks.telegram}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-2 py-1 rounded-lg bg-[#229ED9]/10 hover:bg-[#229ED9]/20 border border-[#229ED9]/40 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
-                              title="Join Telegram VIP"
-                            >
-                              <SocialIcon platform="telegram" size={13} colored={true} />
-                              <span>Telegram</span>
-                            </a>
-
-                            <a
-                              href={socialLinks.facebook}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-2 py-1 rounded-lg bg-[#1877F2]/10 hover:bg-[#1877F2]/20 border border-[#1877F2]/40 text-slate-950 text-[10px] font-black flex items-center gap-1 transition-all hover:scale-105"
-                              title="Follow on Facebook"
-                            >
-                              <SocialIcon platform="facebook" size={13} colored={true} />
-                              <span>Facebook</span>
                             </a>
                           </div>
                         </div>
@@ -1721,27 +1677,17 @@ export default function InsuranceTemplateView({
                       </div>
                     </div>
 
-                    {/* Social Media Channels Strip with Original Logos */}
+                    {/* Social Media Channels Strip with Original Logos - Instagram & YouTube */}
                     <div className="pt-1 flex items-center justify-between border-t border-slate-200/50 text-[9px] text-slate-500">
-                      <span className="font-bold text-slate-600">Channels:</span>
-                      <div className="flex items-center gap-1.5">
-                        <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn" className="hover:scale-115 transition">
-                          <SocialIcon platform="linkedin" size={13} colored={true} />
-                        </a>
-                        <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" title="YouTube" className="hover:scale-115 transition">
-                          <SocialIcon platform="youtube" size={13} colored={true} />
-                        </a>
-                        <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" title="Instagram" className="hover:scale-115 transition">
+                      <span className="font-bold text-slate-700">Official Channels:</span>
+                      <div className="flex items-center gap-2">
+                        <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" title="Follow on Instagram" className="flex items-center gap-1 hover:scale-105 transition font-bold text-slate-800">
                           <SocialIcon platform="instagram" size={13} colored={true} />
+                          <span>Instagram</span>
                         </a>
-                        <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" title="X (Twitter)" className="hover:scale-115 transition">
-                          <SocialIcon platform="twitter" size={13} colored={true} />
-                        </a>
-                        <a href={socialLinks.telegram} target="_blank" rel="noopener noreferrer" title="Telegram VIP" className="hover:scale-115 transition">
-                          <SocialIcon platform="telegram" size={13} colored={true} />
-                        </a>
-                        <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" title="Facebook" className="hover:scale-115 transition">
-                          <SocialIcon platform="facebook" size={13} colored={true} />
+                        <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" title="Watch on YouTube" className="flex items-center gap-1 hover:scale-105 transition font-bold text-slate-800">
+                          <SocialIcon platform="youtube" size={13} colored={true} />
+                          <span>YouTube</span>
                         </a>
                       </div>
                     </div>
@@ -3353,353 +3299,119 @@ export default function InsuranceTemplateView({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto items-stretch">
           
-          {/* 1. LinkedIn */}
-          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
+          {/* 1. Instagram */}
+          <div className="glass-surface p-6 sm:p-8 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-3xl">
             <div className="glass-layer-effect" />
             <div className="glass-layer-tint" />
             <div className="glass-layer-shine" />
 
-            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
+            <div className="glass-inner space-y-5 flex-1 flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
-                    <SocialIcon platform="linkedin" size={26} colored={true} />
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div className="w-14 h-14 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2.5 group-hover:scale-110 transition-transform">
+                    <SocialIcon platform="instagram" size={32} colored={true} />
                   </div>
-                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#0A66C2]/10 text-[#0A66C2] border border-[#0A66C2]/30">
-                    Executive Network
-                  </span>
+                  <div className="text-right">
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#E1306C]/10 text-[#E1306C] border border-[#E1306C]/30 inline-block shadow-2xs">
+                      Official Instagram
+                    </span>
+                    <p className="text-[11px] font-extrabold text-slate-700 mt-1">18,500+ Followers</p>
+                  </div>
                 </div>
 
-                <h3 className="text-base font-black text-slate-950 tracking-tight">LinkedIn Network</h3>
-                <p className="text-[11px] font-extrabold text-[#0A66C2] font-mono mt-0.5">@rajesh-sengupta-mdrt</p>
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
-                  <Users className="w-3 h-3 text-slate-600" />
-                  <span>12,800+ Professional Connections</span>
-                </div>
+                <h3 className="text-xl font-black text-slate-950 tracking-tight">Instagram Reels & Advisory</h3>
+                <p className="text-xs font-extrabold text-[#E1306C] font-mono mt-0.5">@insuranceadvisory</p>
 
-                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
-                  Weekly articles on HNI wealth preservation, Keyman insurance structuring, and estate tax shielding strategies.
+                <p className="text-xs sm:text-sm text-slate-800 font-medium leading-relaxed mt-3">
+                  Follow for daily 60-second visual reels demystifying Section 80C & 80D tax deductions, new IRDAI guidelines, and essential family protection tips.
                 </p>
+
+                <div className="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-slate-200/80">
+                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
+                    <p className="text-[10px] font-bold text-slate-600">Daily Reels</p>
+                    <p className="text-xs font-black text-slate-950 mt-0.5">Tax & Mediclaim</p>
+                  </div>
+                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
+                    <p className="text-[10px] font-bold text-slate-600">Updates</p>
+                    <p className="text-xs font-black text-slate-950 mt-0.5">IRDAI Rules</p>
+                  </div>
+                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
+                    <p className="text-[10px] font-bold text-slate-600">Community</p>
+                    <p className="text-xs font-black text-slate-950 mt-0.5">Q&A Highlights</p>
+                  </div>
+                </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-200/80">
+              <div className="pt-4 border-t border-slate-200/80">
                 <a
-                  href={socialLinks.linkedin}
+                  href={socialLinks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3 rounded-xl bg-[#0A66C2] hover:bg-[#004182] text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#0A66C2]/20 cursor-pointer group-hover:shadow-lg active:scale-95"
+                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:opacity-95 text-white font-black text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-pink-500/25 cursor-pointer group-hover:shadow-lg active:scale-95"
                 >
-                  <SocialIcon platform="linkedin" size={14} colored={false} className="text-white fill-white" />
-                  <span>Connect on LinkedIn</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  <SocialIcon platform="instagram" size={16} colored={false} className="text-white fill-white" />
+                  <span>Follow @insuranceadvisory on Instagram</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             </div>
           </div>
 
           {/* 2. YouTube */}
-          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div className="glass-surface p-6 sm:p-8 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-3xl">
             <div className="glass-layer-effect" />
             <div className="glass-layer-tint" />
             <div className="glass-layer-shine" />
 
-            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
+            <div className="glass-inner space-y-5 flex-1 flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
-                    <SocialIcon platform="youtube" size={26} colored={true} />
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div className="w-14 h-14 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2.5 group-hover:scale-110 transition-transform">
+                    <SocialIcon platform="youtube" size={32} colored={true} />
                   </div>
-                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/30">
-                    Video Masterclass
-                  </span>
+                  <div className="text-right">
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/30 inline-block shadow-2xs">
+                      Official YouTube Channel
+                    </span>
+                    <p className="text-[11px] font-extrabold text-slate-700 mt-1">25,000+ Subscribers</p>
+                  </div>
                 </div>
 
-                <h3 className="text-base font-black text-slate-950 tracking-tight">YouTube Channel</h3>
-                <p className="text-[11px] font-extrabold text-[#FF0000] font-mono mt-0.5">@insurance_official</p>
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
-                  <Users className="w-3 h-3 text-slate-600" />
-                  <span>25,000+ Subscribers</span>
-                </div>
+                <h3 className="text-xl font-black text-slate-950 tracking-tight">YouTube Advisory Hub</h3>
+                <p className="text-xs font-extrabold text-[#FF0000] font-mono mt-0.5">@insurance_official</p>
 
-                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
-                  Step-by-step videos on preventing claim rejections, understanding policy fine print, and hospital TPA workflows.
+                <p className="text-xs sm:text-sm text-slate-800 font-medium leading-relaxed mt-3">
+                  Watch step-by-step masterclasses on avoiding claim rejections, understanding policy fine print, hospital TPA cashless workflows, and pure term comparison.
                 </p>
+
+                <div className="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-slate-200/80">
+                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
+                    <p className="text-[10px] font-bold text-slate-600">Masterclasses</p>
+                    <p className="text-xs font-black text-slate-950 mt-0.5">Claim Mastery</p>
+                  </div>
+                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
+                    <p className="text-[10px] font-bold text-slate-600">TPA Guides</p>
+                    <p className="text-xs font-black text-slate-950 mt-0.5">Hospital Cashless</p>
+                  </div>
+                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
+                    <p className="text-[10px] font-bold text-slate-600">Breakdowns</p>
+                    <p className="text-xs font-black text-slate-950 mt-0.5">Policy Fine Print</p>
+                  </div>
+                </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-200/80">
+              <div className="pt-4 border-t border-slate-200/80">
                 <a
                   href={socialLinks.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3 rounded-xl bg-[#FF0000] hover:bg-[#CC0000] text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#FF0000]/20 cursor-pointer group-hover:shadow-lg active:scale-95"
+                  className="w-full py-3 px-4 rounded-xl bg-[#FF0000] hover:bg-[#CC0000] text-white font-black text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-[#FF0000]/25 cursor-pointer group-hover:shadow-lg active:scale-95"
                 >
-                  <SocialIcon platform="youtube" size={14} colored={false} className="text-white fill-white" />
-                  <span>Subscribe on YouTube</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* 3. WhatsApp VIP */}
-          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <div className="glass-layer-effect" />
-            <div className="glass-layer-tint" />
-            <div className="glass-layer-shine" />
-
-            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
-                    <SocialIcon platform="whatsapp" size={26} colored={true} />
-                  </div>
-                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/30">
-                    24x7 Claim Desk
-                  </span>
-                </div>
-
-                <h3 className="text-base font-black text-slate-950 tracking-tight">WhatsApp VIP Desk</h3>
-                <p className="text-[11px] font-extrabold text-[#25D366] font-mono mt-0.5">{phoneDisplay}</p>
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
-                  <Sparkles className="w-3 h-3 text-emerald-600" />
-                  <span>Instant Response • Cashless Support</span>
-                </div>
-
-                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
-                  Direct 1-on-1 assistance for cashless hospital admissions, policy comparisons, and confidential quote calculation.
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-slate-200/80">
-                <a
-                  href={socialLinks.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#25D366]/20 cursor-pointer group-hover:shadow-lg active:scale-95"
-                >
-                  <SocialIcon platform="whatsapp" size={14} colored={false} className="text-white fill-white" />
-                  <span>Chat on WhatsApp</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* 4. Instagram */}
-          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <div className="glass-layer-effect" />
-            <div className="glass-layer-tint" />
-            <div className="glass-layer-shine" />
-
-            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
-                    <SocialIcon platform="instagram" size={26} colored={true} />
-                  </div>
-                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#E1306C]/10 text-[#E1306C] border border-[#E1306C]/30">
-                    60s Reels
-                  </span>
-                </div>
-
-                <h3 className="text-base font-black text-slate-950 tracking-tight">Instagram Reels</h3>
-                <p className="text-[11px] font-extrabold text-[#E1306C] font-mono mt-0.5">@insuranceadvisory</p>
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
-                  <Users className="w-3 h-3 text-slate-600" />
-                  <span>18,500+ Active Followers</span>
-                </div>
-
-                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
-                  Visual bite-sized reels demystifying Section 80C/80D tax deductions, IRDAI guidelines, and family protection tips.
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-slate-200/80">
-                <a
-                  href={socialLinks.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:opacity-95 text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-pink-500/20 cursor-pointer group-hover:shadow-lg active:scale-95"
-                >
-                  <SocialIcon platform="instagram" size={14} colored={false} className="text-white fill-white" />
-                  <span>Follow on Instagram</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* 5. Telegram VIP */}
-          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <div className="glass-layer-effect" />
-            <div className="glass-layer-tint" />
-            <div className="glass-layer-shine" />
-
-            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
-                    <SocialIcon platform="telegram" size={26} colored={true} />
-                  </div>
-                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#229ED9]/10 text-[#229ED9] border border-[#229ED9]/30">
-                    Live Broadcast
-                  </span>
-                </div>
-
-                <h3 className="text-base font-black text-slate-950 tracking-tight">Telegram VIP Desk</h3>
-                <p className="text-[11px] font-extrabold text-[#229ED9] font-mono mt-0.5">@insuranceadvisory</p>
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
-                  <Users className="w-3 h-3 text-slate-600" />
-                  <span>8,200+ Active Members</span>
-                </div>
-
-                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
-                  Never miss year-end tax deadlines. Real-time notifications on regulatory changes, bonus rates, and new covers.
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-slate-200/80">
-                <a
-                  href={socialLinks.telegram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3 rounded-xl bg-[#229ED9] hover:bg-[#1C88BD] text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#229ED9]/20 cursor-pointer group-hover:shadow-lg active:scale-95"
-                >
-                  <SocialIcon platform="telegram" size={14} colored={false} className="text-white fill-white" />
-                  <span>Join Telegram Channel</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* 6. X (Twitter) */}
-          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <div className="glass-layer-effect" />
-            <div className="glass-layer-tint" />
-            <div className="glass-layer-shine" />
-
-            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
-                    <SocialIcon platform="twitter" size={24} colored={true} className="text-slate-900" />
-                  </div>
-                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-slate-900/10 text-slate-900 border border-slate-300">
-                    Policy Voice
-                  </span>
-                </div>
-
-                <h3 className="text-base font-black text-slate-950 tracking-tight">X (Twitter) Feed</h3>
-                <p className="text-[11px] font-extrabold text-slate-800 font-mono mt-0.5">@insuranceadv</p>
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
-                  <Users className="w-3 h-3 text-slate-600" />
-                  <span>6,400+ Followers</span>
-                </div>
-
-                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
-                  Live industry commentary on IRDAI decisions, claim settlement ratio statistics, and consumer policyholder rights.
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-slate-200/80">
-                <a
-                  href={socialLinks.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-black text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-slate-900/20 cursor-pointer group-hover:shadow-lg active:scale-95"
-                >
-                  <SocialIcon platform="twitter" size={14} colored={false} className="text-white fill-white" />
-                  <span>Follow on X</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* 7. Facebook */}
-          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <div className="glass-layer-effect" />
-            <div className="glass-layer-tint" />
-            <div className="glass-layer-shine" />
-
-            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
-                    <SocialIcon platform="facebook" size={26} colored={true} />
-                  </div>
-                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-[#1877F2]/10 text-[#1877F2] border border-[#1877F2]/30">
-                    Family Forum
-                  </span>
-                </div>
-
-                <h3 className="text-base font-black text-slate-950 tracking-tight">Facebook Circle</h3>
-                <p className="text-[11px] font-extrabold text-[#1877F2] font-mono mt-0.5">@insuranceadvisory</p>
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
-                  <Users className="w-3 h-3 text-slate-600" />
-                  <span>15,000+ Community</span>
-                </div>
-
-                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
-                  Community Q&As on child education funds, retirement pension calculators, and genuine family claim testimonials.
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-slate-200/80">
-                <a
-                  href={socialLinks.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3 rounded-xl bg-[#1877F2] hover:bg-[#1062C9] text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#1877F2]/20 cursor-pointer group-hover:shadow-lg active:scale-95"
-                >
-                  <SocialIcon platform="facebook" size={14} colored={false} className="text-white fill-white" />
-                  <span>Follow on Facebook</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* 8. Direct Phone Hotline */}
-          <div className="glass-surface p-5 sm:p-6 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <div className="glass-layer-effect" />
-            <div className="glass-layer-tint" />
-            <div className="glass-layer-shine" />
-
-            <div className="glass-inner space-y-4 flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-sky-500 shadow-md border border-sky-400 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
-                    <Phone className="w-6 h-6 fill-white text-white" />
-                  </div>
-                  <span className="text-[10px] font-black uppercase tracking-wide px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300">
-                    24x7 Priority Desk
-                  </span>
-                </div>
-
-                <h3 className="text-base font-black text-slate-950 tracking-tight">Direct Phone Hotline</h3>
-                <p className="text-[11px] font-extrabold text-sky-700 font-mono mt-0.5">{phoneDisplay}</p>
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-700 mt-2 bg-slate-100/90 px-2 py-1 rounded-lg border border-slate-200">
-                  <CheckCircle2 className="w-3 h-3 text-sky-600" />
-                  <span>Immediate Senior Advisor Access</span>
-                </div>
-
-                <p className="text-xs text-slate-800 font-medium leading-relaxed mt-3">
-                  Speak directly with advisor Rajesh Sengupta or our emergency TPA hospital desk for instant cashless pre-authorization.
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-slate-200/80">
-                <a
-                  href={socialLinks.phone}
-                  className="w-full py-2.5 px-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-sky-600/20 cursor-pointer group-hover:shadow-lg active:scale-95"
-                >
-                  <Phone className="w-3.5 h-3.5 fill-white text-white" />
-                  <span>Call {phoneDisplay}</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  <SocialIcon platform="youtube" size={16} colored={false} className="text-white fill-white" />
+                  <span>Subscribe to YouTube Channel</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             </div>
