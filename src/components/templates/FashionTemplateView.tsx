@@ -32,7 +32,9 @@ import {
   CheckCircle2,
   SlidersHorizontal,
   Home,
-  Grid
+  Grid,
+  ArrowRight,
+  ExternalLink
 } from 'lucide-react';
 import { DigitalProfile, ServiceItem, ProductItem, VideoItem } from '@/lib/types';
 import SocialIcon from '@/components/common/SocialIcon';
@@ -103,6 +105,122 @@ interface WatchAndBuyReel {
   };
 }
 
+export interface FashionInstagramReel {
+  id: string;
+  title: string;
+  views: string;
+  likes: string;
+  caption: string;
+  imageUrl: string;
+  tag: string;
+  videoUrl?: string;
+}
+
+export interface FashionYouTubeVideo {
+  id: string;
+  title: string;
+  subtitle: string;
+  duration: string;
+  quality: string;
+  views: string;
+  tag: string;
+  description: string;
+  imageUrl: string;
+  embedUrl: string;
+}
+
+// Curated Instagram Reels matching Fashion Aesthetic
+export const FASHION_INSTAGRAM_REELS: FashionInstagramReel[] = [
+  {
+    id: 'ig-fash-1',
+    title: 'Effortless Linen & Cotton Co-Ord Styling ✨',
+    views: '84.6K views',
+    likes: '4.8K',
+    caption: 'When comfort meets runway elegance. Perfect for Sunday brunch and weekend escapes. Breathable pure cotton with relaxed wide-leg silhouette.',
+    imageUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+    tag: '#CoOrdSet'
+  },
+  {
+    id: 'ig-fash-2',
+    title: 'Tiered Cotton Midi in 3 Fresh Styles 👗',
+    views: '122.3K views',
+    likes: '9.2K',
+    caption: 'Casual sneakers, statement belt, or evening block heels? Hand-blocked florals on airy tiered cotton. Tell us your favorite look below!',
+    imageUrl: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80',
+    tag: '#MidiDress'
+  },
+  {
+    id: 'ig-fash-3',
+    title: 'Pastel Blooms Festive & Fusion Edit 🌸',
+    views: '95.1K views',
+    likes: '6.4K',
+    caption: 'Delicate hand-embroidered yoke on ultra-soft mulmul cotton. Effortlessly graceful for poojas, festive family dinners, and cocktail parties.',
+    imageUrl: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80',
+    tag: '#FestiveEdit'
+  },
+  {
+    id: 'ig-fash-4',
+    title: 'GRWM: Friday Casual Chic Lookbook 🌿',
+    views: '67.8K views',
+    likes: '3.9K',
+    caption: 'Get ready with our head stylist! Pairing our best-selling button-down tunic with tailored tapered trousers and minimalist gold jewelry.',
+    imageUrl: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80',
+    tag: '#GRWM'
+  }
+];
+
+// Curated YouTube Lookbook Videos with Working Embeds
+export const FASHION_YOUTUBE_PLAYLIST_ITEMS: FashionYouTubeVideo[] = [
+  {
+    id: 'yt-fash-1',
+    title: 'Spring / Summer 2026 Ready-To-Wear Lookbook & Styling Guide',
+    subtitle: 'Signature Breathable Cotton Midis & Contemporary Sets',
+    duration: '08:42',
+    quality: '4K UHD',
+    views: '42.8K views',
+    tag: 'NEW RELEASE',
+    description: 'Explore our latest breathable handcrafted silhouettes, summer botanical prints, and contemporary day-to-night styling tips with in-house designers.',
+    imageUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80',
+    embedUrl: 'https://www.youtube.com/embed/gLg07y4Uj5k?autoplay=1&rel=0'
+  },
+  {
+    id: 'yt-fash-2',
+    title: '5 Ways to Style Luxury Co-Ord Sets for Brunches & Evenings',
+    subtitle: 'Layering, Accessories & Footwear Pairings Guide',
+    duration: '06:15',
+    quality: '4K UHD',
+    views: '28.4K views',
+    tag: 'STYLE GUIDE',
+    description: 'From casual weekday coffees to chic evening cocktail parties, master versatile transitions with matching two-piece separates.',
+    imageUrl: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=800&q=80',
+    embedUrl: 'https://www.youtube.com/embed/1MTkZPys7mU?autoplay=1&rel=0'
+  },
+  {
+    id: 'yt-fash-3',
+    title: 'Behind The Seams: Handloom Artisans & Pure Cotton Craft',
+    subtitle: 'Sustainable Natural Dyes & Block Print Atelier',
+    duration: '05:30',
+    quality: '1080p HD',
+    views: '19.6K views',
+    tag: 'ATELIER',
+    description: 'Step inside our artisan workshop to witness traditional wooden block carving, organic vegetable dye baths, and precision pattern tailoring.',
+    imageUrl: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=800&q=80',
+    embedUrl: 'https://www.youtube.com/embed/XHOmBV4js_E?autoplay=1&rel=0'
+  },
+  {
+    id: 'yt-fash-4',
+    title: 'Everyday Chic: 10 Breathable Cotton Dresses Honest Try-On Haul',
+    subtitle: 'Detailed Fit Review, Sizing Guide & Drape Analysis',
+    duration: '09:20',
+    quality: '4K UHD',
+    views: '51.2K views',
+    tag: 'TRY-ON HAUL',
+    description: 'Our models try on trending tiered midis, empire waist cuts, and button-front floral dresses with detailed size and comfort recommendations.',
+    imageUrl: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80',
+    embedUrl: 'https://www.youtube.com/embed/4yZgHwJ-a8w?autoplay=1&rel=0'
+  }
+];
+
 export default function FashionTemplateView({
   profile,
   cart,
@@ -128,6 +246,7 @@ export default function FashionTemplateView({
   leadSuccess,
   trackAction,
   getCleanWhatsAppNumber,
+  getEmbedUrl,
   viewMode,
   setViewMode,
   showViewToggle = true
@@ -437,6 +556,58 @@ export default function FashionTemplateView({
   const [activeReelModal, setActiveReelModal] = useState<WatchAndBuyReel | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Social links extraction with profile fallbacks
+  const socialLinks = useMemo(() => {
+    const list: any[] = profile.sectionData?.socials?.items || (profile as any).socials || [];
+    const findUrl = (platform: string) => {
+      const match = list.find((s: any) => s.platform?.toLowerCase().includes(platform) || (s.url && s.url.toLowerCase().includes(platform)));
+      return match?.url;
+    };
+    const cleanBrandSlug = brandName.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return {
+      instagram: findUrl('instagram') || `https://instagram.com/${cleanBrandSlug || 'fashion.boutique'}`,
+      youtube: findUrl('youtube') || `https://youtube.com/@${cleanBrandSlug || 'fashionboutique'}`,
+      whatsapp: findUrl('whatsapp') || `https://wa.me/${cleanPhone}`,
+      facebook: findUrl('facebook') || `https://facebook.com/${cleanBrandSlug || 'fashionboutique'}`
+    };
+  }, [profile, brandName, cleanPhone]);
+
+  // Instagram handle display
+  const instagramHandle = useMemo(() => {
+    const match = socialLinks.instagram.match(/instagram\.com\/([^/?#]+)/i);
+    return match ? `@${match[1]}` : `@${brandName.toLowerCase().replace(/[^a-z0-9]/g, '') || 'fashionboutique'}`;
+  }, [socialLinks.instagram, brandName]);
+
+  // YouTube in-window video player state
+  const [isPlayingYouTube, setIsPlayingYouTube] = useState(false);
+  const [activeYouTubeVideo, setActiveYouTubeVideo] = useState<FashionYouTubeVideo>(FASHION_YOUTUBE_PLAYLIST_ITEMS[0]);
+
+  // Instagram Reel in-window viewer state
+  const [activeInstagramReel, setActiveInstagramReel] = useState<FashionInstagramReel | null>(null);
+
+  // Merge user uploaded custom videos if available in profile
+  const displayYouTubeVideos = useMemo(() => {
+    const userVideos = profile.sectionData?.videos?.items || (profile as any).videos || [];
+    if (!userVideos || userVideos.length === 0) return FASHION_YOUTUBE_PLAYLIST_ITEMS;
+    
+    const mappedUserVideos: FashionYouTubeVideo[] = userVideos.map((v: any, idx: number) => {
+      const embedSrc = (getEmbedUrl && getEmbedUrl(v)) || v.embedUrl || (v.url ? (v.url.includes('embed') ? v.url : `https://www.youtube.com/embed/${v.url.split('v=')[1]?.split('&')[0] || ''}?autoplay=1&rel=0`) : '');
+      return {
+        id: v.id || `user-vid-${idx}`,
+        title: v.title || `${brandName} Fashion Showcase ${idx + 1}`,
+        subtitle: v.caption || 'Official Brand Lookbook Video',
+        duration: '05:00',
+        quality: '4K UHD',
+        views: '15.2K views',
+        tag: idx === 0 ? 'FEATURED' : 'LOOKBOOK',
+        description: v.caption || `Watch our latest fashion collection and styling presentation from ${brandName}.`,
+        imageUrl: v.thumbnailUrl || 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80',
+        embedUrl: embedSrc || 'https://www.youtube.com/embed/gLg07y4Uj5k?autoplay=1&rel=0'
+      };
+    });
+    return [...mappedUserVideos, ...FASHION_YOUTUBE_PLAYLIST_ITEMS.slice(mappedUserVideos.length)];
+  }, [profile.sectionData?.videos?.items, (profile as any).videos, brandName, getEmbedUrl]);
+
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3000);
@@ -729,6 +900,19 @@ export default function FashionTemplateView({
                   </li>
                 );
               })}
+              <li>
+                <button
+                  onClick={() => {
+                    const section = document.getElementById('socials');
+                    if (section) section.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="py-1 px-3 rounded-full bg-gradient-to-r from-red-50 to-pink-50 hover:from-red-100 hover:to-pink-100 text-neutral-900 font-bold text-xs flex items-center gap-1.5 transition border border-red-200/60 shadow-2xs"
+                  title="Watch Instagram Reels & YouTube Lookbooks"
+                >
+                  <Play className="w-3 h-3 fill-red-600 text-red-600" />
+                  <span>VIDEOS & REELS</span>
+                </button>
+              </li>
             </ul>
           </div>
         </nav>
@@ -1436,7 +1620,284 @@ export default function FashionTemplateView({
       </section>
 
       {/* ============================================================== */}
-      {/* 10. OUR STORE / SHOWROOM BANNER                                */}
+      {/* 10. SOCIAL MEDIA HUB (INSTAGRAM REELS & YOUTUBE VIDEO SPACES)   */}
+      {/* ============================================================== */}
+      <section id="socials" className="w-full py-14 sm:py-20 bg-[#faf8f5] border-t border-neutral-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-2xl mx-auto space-y-2 mb-12">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#d4af37]/50 text-[#8b714a] text-xs font-semibold uppercase tracking-widest shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#8b714a]" /> Official Social Media Hub
+            </div>
+            <h2 className="hk-font-serif text-2.5xl sm:text-4xl text-[#191919] font-normal tracking-wide uppercase">
+              FOLLOW OUR FASHION JOURNEY
+            </h2>
+            <div className="w-12 h-0.5 bg-[#191919] mx-auto mt-2 mb-3" />
+            <p className="hk-font-sans text-xs sm:text-sm text-neutral-600 font-normal leading-relaxed">
+              Watch our signature 4K runway lookbooks and styling hauls on YouTube, discover daily outfit reels on Instagram, and join over 80,000 fashion lovers across India.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-10 max-w-6xl mx-auto">
+            
+            {/* 1. Instagram Platform Space (Card 1) */}
+            <div className="bg-gradient-to-br from-pink-500/10 via-purple-500/5 to-amber-500/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-pink-500/30 shadow-lg flex flex-col justify-between space-y-6 group hover:border-pink-500/60 transition-all duration-300">
+              <div className="space-y-4">
+                
+                {/* Instagram Card Top Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-md shrink-0">
+                      <SocialIcon platform="instagram" size={24} colored={false} className="text-white" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <h3 className="font-bold text-base text-neutral-900">{instagramHandle}</h3>
+                        <span className="w-4 h-4 rounded-full bg-sky-500 text-white text-[10px] flex items-center justify-center font-bold shadow-2xs">✓</span>
+                      </div>
+                      <p className="text-xs text-neutral-600 font-medium">52.8K Fashion Enthusiasts • 340+ Outfit Reels</p>
+                    </div>
+                  </div>
+
+                  <a
+                    href={socialLinks.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('instagram_follow_click')}
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-95 text-white text-xs font-semibold uppercase tracking-wider shadow-md transition flex items-center gap-2 cursor-pointer active:scale-95"
+                  >
+                    <SocialIcon platform="instagram" size={14} colored={false} className="text-white" />
+                    <span>Follow on Instagram</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+
+                {/* Bio snippet */}
+                <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
+                  Daily outfit inspiration, draping tutorials, new collection drops & behind-the-scenes at our atelier. Tag <span className="font-semibold text-neutral-900">{instagramHandle}</span> to get featured on our feed!
+                </p>
+
+                {/* Instagram Reels Preview Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-2">
+                  {FASHION_INSTAGRAM_REELS.map((reel) => (
+                    <button
+                      key={reel.id}
+                      type="button"
+                      onClick={() => setActiveInstagramReel(reel)}
+                      className="relative h-48 sm:h-64 rounded-xl overflow-hidden shadow-sm group/item block bg-neutral-900 border border-pink-500/25 text-left cursor-pointer hover:border-pink-500 transition-all hover:scale-[1.02]"
+                      title={`Watch Reel: ${reel.title}`}
+                    >
+                      <img
+                        src={reel.imageUrl}
+                        alt={reel.title}
+                        className="w-full h-full object-cover group-hover/item:scale-108 transition-transform duration-500 opacity-90"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-between p-3 text-white">
+                        <span className="px-2 py-0.5 rounded-md bg-black/65 text-[10px] font-bold w-max flex items-center gap-1 backdrop-blur-xs text-white">
+                          <Play className="w-2.5 h-2.5 fill-white" /> Reel
+                        </span>
+                        <div>
+                          <span className="text-[10px] text-pink-300 font-medium block mb-0.5">{reel.tag}</span>
+                          <p className="text-xs font-bold line-clamp-2 leading-tight text-white drop-shadow">
+                            {reel.title}
+                          </p>
+                          <span className="text-[10px] text-[#e6ca9f] font-mono font-semibold mt-1 block">
+                            👁️ {reel.views}
+                          </span>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+              </div>
+
+              {/* Bottom Tag link */}
+              <div className="pt-3 border-t border-pink-400/25 flex flex-wrap items-center justify-between gap-2 text-xs text-neutral-600">
+                <span>Hashtags: #HandcraftedFashion #CottonMidiDresses #CoOrdSets #OOTDIndia</span>
+                <a 
+                  href={socialLinks.instagram} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="font-bold text-[#8b714a] hover:underline flex items-center gap-1"
+                >
+                  View All Reels on Instagram →
+                </a>
+              </div>
+
+            </div>
+
+            {/* 2. YouTube Platform Space (Card 2) */}
+            <div className="bg-gradient-to-br from-neutral-900 via-[#1c1212] to-neutral-950 text-white rounded-2xl p-6 sm:p-8 border border-red-500/30 shadow-2xl flex flex-col justify-between space-y-6 group hover:border-red-500/60 transition-all duration-300">
+              <div className="space-y-5">
+                
+                {/* YouTube Card Top Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-red-600 to-rose-700 flex items-center justify-center text-white shadow-md shrink-0">
+                      <SocialIcon platform="youtube" size={24} colored={false} className="text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-base text-white">{brandName} Lookbooks & Hauls</h3>
+                      <p className="text-xs text-neutral-400">28.5K Subscribers • 4K Collection Videos & Styling Guides</p>
+                    </div>
+                  </div>
+
+                  <a
+                    href={socialLinks.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('youtube_subscribe_click')}
+                    className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-semibold uppercase tracking-wider shadow-md transition flex items-center gap-2 cursor-pointer active:scale-95"
+                  >
+                    <SocialIcon platform="youtube" size={14} colored={false} className="text-white" />
+                    <span>Subscribe on YouTube</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+
+                {/* YouTube Video Showcase Grid (Main 4K Video + Episode Playlist) */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                  
+                  {/* Main 4K Video Player Showcase (Left / 7 cols) - PLAYS RIGHT IN THIS WINDOW */}
+                  {isPlayingYouTube ? (
+                    <div className="lg:col-span-7 relative rounded-xl overflow-hidden shadow-2xl border border-red-500/50 bg-black min-h-[300px] sm:min-h-[360px] flex flex-col">
+                      <iframe
+                        src={activeYouTubeVideo.embedUrl}
+                        title={activeYouTubeVideo.title}
+                        className="w-full h-full min-h-[300px] sm:min-h-[360px] rounded-xl"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                      <div className="absolute top-3 left-3 z-20">
+                        <button
+                          type="button"
+                          onClick={() => setIsPlayingYouTube(false)}
+                          className="px-2.5 py-1 rounded-lg bg-black/85 hover:bg-black text-white text-xs font-bold flex items-center gap-1 shadow-md border border-white/20 transition cursor-pointer"
+                          title="Close Video Preview"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                          <span>Close Player</span>
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="lg:col-span-7 relative rounded-xl overflow-hidden shadow-lg border border-red-500/30 group/vid flex flex-col justify-end min-h-[300px] sm:min-h-[360px]">
+                      <img
+                        src={activeYouTubeVideo.imageUrl}
+                        alt={activeYouTubeVideo.title}
+                        className="absolute inset-0 w-full h-full object-cover group-hover/vid:scale-105 transition-transform duration-500"
+                      />
+                      
+                      {/* Dark Overlay with Pulsing Red Play Button */}
+                      <div className="absolute inset-0 bg-black/45 group-hover/vid:bg-black/35 transition-colors flex items-center justify-center">
+                        <button
+                          type="button"
+                          onClick={() => setIsPlayingYouTube(true)}
+                          className="w-16 h-16 rounded-full bg-red-600/95 hover:bg-red-600 text-white flex items-center justify-center shadow-2xl transition hover:scale-110 active:scale-95 cursor-pointer group-hover/vid:shadow-red-600/50"
+                          title="Play in this window"
+                        >
+                          <Play className="w-7 h-7 fill-white translate-x-0.5" />
+                        </button>
+                      </div>
+
+                      {/* Duration & Quality Badge */}
+                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/80 text-white text-[10px] font-mono font-bold backdrop-blur-xs flex items-center gap-1.5 z-10 border border-white/10">
+                        <span>{activeYouTubeVideo.duration}</span>
+                        <span>•</span>
+                        <span className="text-[#e6ca9f]">{activeYouTubeVideo.quality}</span>
+                      </div>
+
+                      {/* Video Info Bottom Banner */}
+                      <div className="relative z-10 p-5 bg-gradient-to-t from-black/95 via-black/75 to-transparent text-white">
+                        <span className="px-2.5 py-0.5 rounded-full bg-red-600/90 text-white text-[10px] font-bold uppercase tracking-wider mb-1.5 inline-block">
+                          {activeYouTubeVideo.tag}
+                        </span>
+                        <h4 className="hk-font-serif text-base sm:text-lg font-bold leading-snug">
+                          {activeYouTubeVideo.title}
+                        </h4>
+                        <p className="text-xs text-neutral-300 mt-1 line-clamp-2 leading-relaxed">
+                          {activeYouTubeVideo.description}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Playlist Highlights (Right / 5 cols) - CLICKS PLAY DIRECTLY IN WINDOW */}
+                  <div className="lg:col-span-5 flex flex-col justify-between gap-3">
+                    <div className="space-y-2.5">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#e6ca9f] flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-[#e6ca9f]" /> Featured Collection Hauls & Masterclasses
+                      </p>
+
+                      {displayYouTubeVideos.map((item) => (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => {
+                            setActiveYouTubeVideo({
+                              ...item,
+                              tag: 'NOW PLAYING'
+                            });
+                            setIsPlayingYouTube(true);
+                          }}
+                          className={`w-full text-left p-3 rounded-xl border shadow-xs flex items-center gap-3 group/clip transition cursor-pointer ${
+                            activeYouTubeVideo.id === item.id && isPlayingYouTube
+                              ? 'bg-red-950/60 border-red-500 ring-2 ring-red-500/40 text-white'
+                              : 'bg-neutral-800/60 hover:bg-neutral-800 border-neutral-700/60 text-neutral-200'
+                          }`}
+                          title={`Play: ${item.title}`}
+                        >
+                          <div className="relative w-20 h-14 rounded-lg overflow-hidden shrink-0 bg-neutral-900">
+                            <img
+                              src={item.imageUrl}
+                              alt={item.title}
+                              className="w-full h-full object-cover group-hover/clip:scale-105 transition"
+                            />
+                            <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover/clip:opacity-100 transition-opacity">
+                              <Play className="w-4 h-4 fill-white text-white" />
+                            </div>
+                            <span className="absolute bottom-1 right-1 px-1 rounded bg-black/80 text-[8px] font-mono text-white font-bold">
+                              {item.duration}
+                            </span>
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-xs font-semibold text-white group-hover/clip:text-red-400 transition truncate">
+                              {item.title}
+                            </p>
+                            <p className="text-[11px] text-neutral-400 mt-0.5 line-clamp-1">{item.subtitle}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Bottom Channel Link */}
+                    <a
+                      href={socialLinks.youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2.5 px-3 rounded-xl bg-neutral-800/80 hover:bg-neutral-800 border border-neutral-700 text-xs font-semibold text-neutral-300 hover:text-white flex items-center justify-center gap-2 transition"
+                    >
+                      <SocialIcon platform="youtube" size={14} colored={true} />
+                      <span>Explore all videos on our YouTube channel</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-neutral-400" />
+                    </a>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* 11. OUR STORE / SHOWROOM BANNER                                */}
       {/* ============================================================== */}
       <section className="w-full py-12 bg-white border-t border-neutral-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1554,17 +2015,16 @@ export default function FashionTemplateView({
                 Elevating everyday fashion with handcrafted cotton silhouettes, co-ord sets, and timeless ethnic fusion for modern women across India.
               </p>
               <div className="flex items-center gap-3 pt-2 text-neutral-400">
-                {profile.sectionData?.socials?.items?.find(s => s.platform === 'instagram') && (
-                  <a href={profile.sectionData.socials.items.find(s => s.platform === 'instagram')?.url} target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
-                    <SocialIcon platform="instagram" className="w-4 h-4" />
-                  </a>
-                )}
-                {profile.sectionData?.socials?.items?.find(s => s.platform === 'facebook') && (
-                  <a href={profile.sectionData.socials.items.find(s => s.platform === 'facebook')?.url} target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
-                    <SocialIcon platform="facebook" className="w-4 h-4" />
-                  </a>
-                )}
-                <a href={`https://wa.me/${cleanPhone}`} target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition">
+                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-pink-400 transition" title="Follow on Instagram">
+                  <SocialIcon platform="instagram" className="w-4 h-4" />
+                </a>
+                <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition" title="Subscribe on YouTube">
+                  <SocialIcon platform="youtube" className="w-4 h-4" />
+                </a>
+                <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition" title="Follow on Facebook">
+                  <SocialIcon platform="facebook" className="w-4 h-4" />
+                </a>
+                <a href={`https://wa.me/${cleanPhone}`} target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition" title="Chat on WhatsApp">
                   <MessageCircle className="w-4 h-4" />
                 </a>
               </div>
@@ -1589,6 +2049,17 @@ export default function FashionTemplateView({
                 <li>
                   <button onClick={() => setSelectedCategory('LONG MIDI DRESS')} className="hover:text-white transition">
                     Long Midi Dresses
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      const section = document.getElementById('socials');
+                      if (section) section.scrollIntoView({ behavior: 'smooth' });
+                    }} 
+                    className="hover:text-[#e6ca9f] transition text-left flex items-center gap-1.5"
+                  >
+                    <span>Instagram Reels & YouTube Hauls</span>
                   </button>
                 </li>
                 <li>
@@ -2079,6 +2550,17 @@ export default function FashionTemplateView({
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
+                  const s = document.getElementById('socials');
+                  if (s) s.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="w-full py-2 bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white rounded text-xs font-semibold uppercase flex items-center justify-center gap-1.5 shadow"
+              >
+                <Play className="w-3.5 h-3.5 fill-white" />
+                <span>Watch Reels & Lookbooks</span>
+              </button>
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
                   setIsVideoShoppingOpen(true);
                 }}
                 className="w-full py-2 bg-[#1e3828] text-white rounded text-xs font-semibold uppercase flex items-center justify-center gap-1.5"
@@ -2187,6 +2669,98 @@ export default function FashionTemplateView({
                 Book Personal Styling
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* MODAL 5: INSTAGRAM REEL IN-WINDOW VIEWER MODAL                 */}
+      {/* ============================================================== */}
+      {activeInstagramReel && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div 
+            className="fixed inset-0" 
+            onClick={() => setActiveInstagramReel(null)} 
+          />
+          <div className="relative bg-neutral-900 border border-neutral-700 text-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl z-10 flex flex-col max-h-[90vh]">
+            
+            {/* Modal Header */}
+            <div className="p-3.5 px-4 bg-black/80 border-b border-neutral-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shrink-0">
+                  <SocialIcon platform="instagram" size={18} colored={false} className="text-white" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-white leading-tight">{instagramHandle}</p>
+                  <span className="text-[10px] text-pink-400 font-mono font-semibold">{activeInstagramReel.views}</span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setActiveInstagramReel(null)}
+                className="p-1 rounded-full text-neutral-400 hover:text-white hover:bg-neutral-800 transition cursor-pointer"
+                title="Close Reel Viewer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Reel Media / Image Preview */}
+            <div className="relative aspect-[4/5] bg-black overflow-hidden flex items-center justify-center">
+              <img
+                src={activeInstagramReel.imageUrl}
+                alt={activeInstagramReel.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent flex flex-col justify-end p-4">
+                <span className="px-2 py-0.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[10px] font-bold uppercase tracking-wider w-max mb-1.5 shadow">
+                  {activeInstagramReel.tag}
+                </span>
+                <h4 className="hk-font-serif text-base sm:text-lg font-bold text-white drop-shadow">
+                  {activeInstagramReel.title}
+                </h4>
+                <p className="text-xs text-neutral-200 mt-1 line-clamp-3 leading-relaxed">
+                  {activeInstagramReel.caption}
+                </p>
+                <div className="flex items-center gap-3 mt-2 text-[11px] text-pink-300 font-medium">
+                  <span>❤️ {activeInstagramReel.likes} likes</span>
+                  <span>•</span>
+                  <span>👁️ {activeInstagramReel.views}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Bottom Actions */}
+            <div className="p-4 bg-neutral-950 border-t border-neutral-800 flex flex-col sm:flex-row items-center gap-2.5">
+              <button
+                type="button"
+                onClick={() => {
+                  trackAction('reel_whatsapp_order');
+                  const msg = `Hello ${brandName}, I loved this outfit featured in your Instagram Reel:\n\n` +
+                    `✨ *${activeInstagramReel.title}*\n` +
+                    `📝 *Caption:* ${activeInstagramReel.caption}\n\n` +
+                    `Could you please share available sizes, fabric details, pricing and delivery time?`;
+                  window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+                }}
+                className="w-full sm:flex-1 py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition shadow cursor-pointer active:scale-95"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Shop Look on WhatsApp</span>
+              </button>
+
+              <a
+                href={socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackAction('instagram_reel_open')}
+                className="w-full sm:w-auto py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-95 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition shadow cursor-pointer active:scale-95"
+              >
+                <SocialIcon platform="instagram" size={14} colored={false} className="text-white" />
+                <span>Open in App</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+
           </div>
         </div>
       )}
