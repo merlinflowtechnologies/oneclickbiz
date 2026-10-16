@@ -1399,7 +1399,8 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
       description: 'Precision haircuts, wash, blow-dry and signature styling by certified master stylists.',
       durationMinutes: 45,
       price: 299,
-      currency: '₹'
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80'
     },
     {
       id: 'srv_bs_2',
@@ -1407,7 +1408,8 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
       description: 'Global hair color, balayage, ombre, and foil highlights using premium ammonia-free shades.',
       durationMinutes: 90,
       price: 1499,
-      currency: '₹'
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80'
     },
     {
       id: 'srv_bs_3',
@@ -1415,7 +1417,8 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
       description: 'Deep cellular nourishment, damage repair, keratin infusion, and silky frizz control.',
       durationMinutes: 60,
       price: 999,
-      currency: '₹'
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80'
     },
     {
       id: 'srv_bs_4',
@@ -1423,7 +1426,8 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
       description: 'Dermatological clean-up, fruit, gold radiance, hydra facials, and anti-pollution detan.',
       durationMinutes: 50,
       price: 699,
-      currency: '₹'
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'
     },
     {
       id: 'srv_bs_5',
@@ -1431,7 +1435,8 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
       description: 'Complete HD bridal makeup, hair art, saree draping, pre-bridal glow sitting & consultation.',
       durationMinutes: 180,
       price: 9999,
-      currency: '₹'
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80'
     },
     {
       id: 'srv_bs_6',
@@ -1439,7 +1444,8 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
       description: 'Gentlemen precision haircut, beard sculpt & trim, head massage, and charcoal facial detan.',
       durationMinutes: 45,
       price: 199,
-      currency: '₹'
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80'
     },
     {
       id: 'srv_bs_7',
@@ -1447,7 +1453,8 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
       description: 'Advanced formal-free hair straightening with long-lasting mirror shine and deep protein repair.',
       durationMinutes: 120,
       price: 3499,
-      currency: '₹'
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80'
     },
     {
       id: 'srv_bs_8',
@@ -1455,7 +1462,8 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
       description: 'Foot reflexology scrub, cuticle care, brightening massage, and salon gel polish finish.',
       durationMinutes: 45,
       price: 499,
-      currency: '₹'
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=600&q=80'
     }
   ],
   products: [

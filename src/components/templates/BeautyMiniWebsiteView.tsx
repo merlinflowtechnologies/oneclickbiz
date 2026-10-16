@@ -34,7 +34,9 @@ import {
   Truck,
   Store,
   Menu,
-  Check
+  Check,
+  Eye,
+  Camera
 } from 'lucide-react';
 import { DigitalProfile } from '@/lib/types';
 import ShareCardModal from '@/components/common/ShareCardModal';
@@ -50,7 +52,7 @@ interface BeautyMiniWebsiteViewProps {
   showViewToggle?: boolean;
 }
 
-// Fallback high-res salon products catalog if none are configured in profile
+// Fallback high-res salon products catalog with 100% authentic images
 const DEFAULT_SALON_PRODUCTS = [
   {
     id: 'prod_bs_1',
@@ -234,7 +236,7 @@ const DEFAULT_SALON_PRODUCTS = [
   }
 ];
 
-// Hot offers curated from Green Trends Kothapet
+// Hot offers curated from Green Trends Kothapet with authentic preview images
 const GREEN_TRENDS_OFFERS = [
   {
     id: 'off_1',
@@ -245,7 +247,8 @@ const GREEN_TRENDS_OFFERS = [
     code: 'WELCOME30',
     terms: 'Valid on services above ₹999 on weekdays',
     discount: 'FLAT 30% OFF',
-    tagColor: 'from-[#ab2079] to-pink-600'
+    tagColor: 'from-[#ab2079] to-pink-600',
+    imageUrl: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 'off_2',
@@ -258,7 +261,8 @@ const GREEN_TRENDS_OFFERS = [
     discount: 'SAVE ₹5,000',
     code: 'BRIDALGLOW',
     terms: 'Includes complimentary pre-wedding skin consultation',
-    tagColor: 'from-amber-600 to-yellow-600'
+    tagColor: 'from-amber-600 to-yellow-600',
+    imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 'off_3',
@@ -271,7 +275,8 @@ const GREEN_TRENDS_OFFERS = [
     discount: 'SAVE ₹1,200',
     code: 'COLORSPA',
     terms: 'Valid for all hair lengths up to shoulder',
-    tagColor: 'from-purple-600 to-indigo-600'
+    tagColor: 'from-purple-600 to-indigo-600',
+    imageUrl: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 'off_4',
@@ -284,7 +289,8 @@ const GREEN_TRENDS_OFFERS = [
     discount: 'SAVE ₹400',
     code: 'GROOM799',
     terms: 'All 7 days. Free hair wash included.',
-    tagColor: 'from-emerald-600 to-teal-600'
+    tagColor: 'from-emerald-600 to-teal-600',
+    imageUrl: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 'off_5',
@@ -297,7 +303,8 @@ const GREEN_TRENDS_OFFERS = [
     discount: 'SAVE ₹400',
     code: 'WEEKDAY699',
     terms: 'Prior booking mandatory. 10 AM to 5 PM slots.',
-    tagColor: 'from-rose-600 to-pink-600'
+    tagColor: 'from-rose-600 to-pink-600',
+    imageUrl: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 'off_6',
@@ -310,7 +317,60 @@ const GREEN_TRENDS_OFFERS = [
     discount: 'SAVE ₹700',
     code: 'O3DTAN',
     terms: 'Instant sun-tan removal & porcelain glass skin glow',
-    tagColor: 'from-cyan-600 to-blue-600'
+    tagColor: 'from-cyan-600 to-blue-600',
+    imageUrl: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'
+  }
+];
+
+// Fallback high-res lookbook items with correct styling tags
+const DEFAULT_LOOKBOOK = [
+  {
+    id: 'gal_1',
+    imageUrl: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80',
+    title: 'Green Trends Modern Styling Stations & Interior',
+    category: 'Ambience'
+  },
+  {
+    id: 'gal_2',
+    imageUrl: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80',
+    title: 'Signature Layered Cut & Volume Blowout',
+    category: 'Haircut'
+  },
+  {
+    id: 'gal_3',
+    imageUrl: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=800&q=80',
+    title: 'Honey Caramel Balayage & Beach Waves',
+    category: 'Color'
+  },
+  {
+    id: 'gal_4',
+    imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+    title: 'Royal South Indian HD Bridal Makeover',
+    category: 'Bridal'
+  },
+  {
+    id: 'gal_5',
+    imageUrl: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80',
+    title: 'Precision Mid Fade & Sculpted Beard Contour',
+    category: 'Men'
+  },
+  {
+    id: 'gal_6',
+    imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+    title: 'Keratin Smoothing Mirror Gloss Finish',
+    category: 'Keratin'
+  },
+  {
+    id: 'gal_7',
+    imageUrl: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80',
+    title: 'O3+ Oxygen Radiance Facial & Pore Cleansing',
+    category: 'Skin'
+  },
+  {
+    id: 'gal_8',
+    imageUrl: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80',
+    title: 'Luxury Hair Spa Recliner & Steam Hydration Lounge',
+    category: 'Ambience'
   }
 ];
 
@@ -364,13 +424,12 @@ export default function BeautyMiniWebsiteView({
   const beautyConfig = profile.sectionData?.beauty || {};
   const profileServices = profile.sectionData?.services?.items || [];
   const profileProducts = profile.sectionData?.products?.items || [];
-  const profileGallery = profile.sectionData?.gallery?.items || [];
+  const profileGallery = profile.sectionData?.gallery?.items?.length ? profile.sectionData.gallery.items : DEFAULT_LOOKBOOK;
   const profileTestimonials = profile.sectionData?.testimonials?.items || [];
 
   // Resolved salon products (merging profile configured products + authentic default catalog)
   const allProducts = useMemo(() => {
     if (profileProducts.length > 0) {
-      // Map profile products to match e-commerce fields
       return profileProducts.map((p, idx) => ({
         id: p.id || `p_${idx}`,
         name: p.name || (p as any).title,
@@ -561,8 +620,14 @@ export default function BeautyMiniWebsiteView({
     return GREEN_TRENDS_OFFERS.filter(off => off.category === offerCategory);
   }, [offerCategory]);
 
+  // Filtered gallery
+  const filteredGallery = useMemo(() => {
+    if (galleryCategory === 'All') return profileGallery;
+    return profileGallery.filter(item => item.category === galleryCategory);
+  }, [profileGallery, galleryCategory]);
+
   return (
-    <div className="min-h-screen bg-[#0A0A0C] text-zinc-100 font-sans selection:bg-[#1BD741] selection:text-black pb-28">
+    <div className="min-h-screen bg-[#0A0A0C] text-zinc-100 font-sans selection:bg-[#1BD741] selection:text-black pb-28 relative">
       {/* TOAST NOTIFICATION */}
       {toastMessage && (
         <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-full bg-emerald-500 text-black font-bold text-xs sm:text-sm shadow-2xl flex items-center gap-2 animate-in fade-in slide-in-from-bottom duration-200">
@@ -575,7 +640,7 @@ export default function BeautyMiniWebsiteView({
       )}
 
       {/* 1. TOP ANNOUNCEMENT & HIGHLIGHT BAR */}
-      <div className="bg-gradient-to-r from-[#ab2079] via-[#85195e] to-[#0A0A0C] border-b border-pink-500/30 py-2 px-3 sm:px-4 text-[11px] sm:text-xs text-white">
+      <div className="bg-gradient-to-r from-[#ab2079] via-[#85195e] to-[#0A0A0C] border-b border-pink-500/30 py-2 px-3 sm:px-4 text-[11px] sm:text-xs text-white relative z-50">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 font-medium">
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/40 text-pink-200 font-bold text-[10px] uppercase tracking-wider border border-pink-300/30">
@@ -728,49 +793,61 @@ export default function BeautyMiniWebsiteView({
         )}
       </header>
 
-      {/* 3. HERO SECTION (CLONE OF GREENTRENDS-KOTHAPET HERO) */}
+      {/* 3. HERO SECTION WITH HIGH-RES LUXURY SALON BACKGROUND IMAGE */}
       <section id="hero" className="relative overflow-hidden pt-8 pb-16 lg:py-20 border-b border-zinc-800/80">
-        {/* Ambient Glows */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Full-Bleed Authentic Luxury Salon Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=1920&q=80"
+            alt="Green Trends Salon Background Ambience"
+            fill
+            priority
+            className="object-cover object-center opacity-30 brightness-75 scale-105"
+          />
+          {/* Dual Seamless Dark Gradient Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/90 to-[#0A0A0C]/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/60 via-transparent to-[#0A0A0C]" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-600/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-600/15 rounded-full blur-3xl pointer-events-none" />
+        </div>
 
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
           {/* Left Column: Brand, Tagline & Value Props */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ab2079]/15 border border-[#ab2079]/40 text-pink-300 text-xs font-bold tracking-wide">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ab2079]/20 border border-[#ab2079]/50 text-pink-300 text-xs font-bold tracking-wide backdrop-blur-md shadow-lg">
               <span className="w-2 h-2 rounded-full bg-pink-400 animate-pulse" />
               NOW OPEN IN KOTHAPET, HYDERABAD
             </div>
 
             <div className="space-y-3">
-              <h2 className="text-3xl sm:text-5xl lg:text-5xl font-black text-white leading-[1.1] tracking-tight">
+              <h2 className="text-3xl sm:text-5xl lg:text-5xl font-black text-white leading-[1.1] tracking-tight drop-shadow-md">
                 Green Trends <br className="hidden sm:inline" />
                 <span className="bg-gradient-to-r from-[#1BD741] via-emerald-300 to-teal-200 bg-clip-text text-transparent">
                   Unisex Hair &amp; Style Salon
                 </span>
               </h2>
-              <p className="text-lg sm:text-xl font-medium text-amber-200/90 tracking-wide">
+              <p className="text-lg sm:text-xl font-medium text-amber-200 tracking-wide drop-shadow">
                 Good Style. Good Mood. Every Day.
               </p>
             </div>
 
-            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-xl">
+            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-xl drop-shadow-sm">
               Experience certified haircutting, advanced balayage &amp; fashion coloring, bridal makeovers, and rejuvenating skin spa therapies. We use 100% authentic international brands: L’Oréal, Wella, O3+, and Schwarzkopf.
             </p>
 
             {/* Green Trends 3 Pillars & Rating Strip */}
             <div className="grid grid-cols-3 gap-2 sm:gap-3 py-2 max-w-lg">
-              <div className="p-3 rounded-2xl bg-zinc-900/90 border border-zinc-800 flex flex-col justify-center items-center text-center">
+              <div className="p-3 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800/90 flex flex-col justify-center items-center text-center shadow-lg hover:border-amber-500/40 transition">
                 <Award className="w-5 h-5 text-amber-400 mb-1" />
                 <span className="text-xs font-bold text-white leading-tight">Certified Stylists</span>
                 <span className="text-[10px] text-zinc-400">Green Trends Academy</span>
               </div>
-              <div className="p-3 rounded-2xl bg-zinc-900/90 border border-zinc-800 flex flex-col justify-center items-center text-center">
+              <div className="p-3 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800/90 flex flex-col justify-center items-center text-center shadow-lg hover:border-emerald-500/40 transition">
                 <ShieldCheck className="w-5 h-5 text-[#1BD741] mb-1" />
                 <span className="text-xs font-bold text-white leading-tight">100% Authentic</span>
                 <span className="text-[10px] text-zinc-400">L’Oréal &amp; Wella</span>
               </div>
-              <div className="p-3 rounded-2xl bg-zinc-900/90 border border-zinc-800 flex flex-col justify-center items-center text-center">
+              <div className="p-3 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800/90 flex flex-col justify-center items-center text-center shadow-lg hover:border-yellow-500/40 transition">
                 <Star className="w-5 h-5 text-yellow-400 fill-yellow-400 mb-1" />
                 <span className="text-xs font-bold text-white leading-tight">4.7 ★ Rated</span>
                 <span className="text-[10px] text-zinc-400">1,240+ Google Reviews</span>
@@ -778,7 +855,7 @@ export default function BeautyMiniWebsiteView({
             </div>
 
             {/* Address Snippet */}
-            <div className="flex items-start gap-2.5 p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 text-xs text-zinc-300 max-w-xl">
+            <div className="flex items-start gap-2.5 p-3.5 rounded-2xl bg-zinc-900/80 backdrop-blur-md border border-zinc-800/80 text-xs text-zinc-300 max-w-xl shadow-lg">
               <MapPin className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
               <span>
                 <strong>Kothapet Branch:</strong> {salonAddress}
@@ -797,7 +874,7 @@ export default function BeautyMiniWebsiteView({
 
               <a
                 href="#shop"
-                className="px-5 py-3 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/40 text-[#1BD741] border border-emerald-500/40 font-bold text-sm flex items-center gap-2 transition cursor-pointer"
+                className="px-5 py-3 rounded-xl bg-emerald-950/50 hover:bg-emerald-900/50 text-[#1BD741] border border-emerald-500/40 font-bold text-sm flex items-center gap-2 transition cursor-pointer backdrop-blur-md shadow-lg"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>Shop Beauty Products</span>
@@ -805,7 +882,7 @@ export default function BeautyMiniWebsiteView({
 
               <button
                 onClick={() => downloadVcfFile(profile)}
-                className="px-4 py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 text-xs font-bold flex items-center gap-1.5 transition"
+                className="px-4 py-3 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 text-xs font-bold flex items-center gap-1.5 transition backdrop-blur-md"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Save Contact</span>
@@ -813,7 +890,7 @@ export default function BeautyMiniWebsiteView({
 
               <button
                 onClick={() => setIsShareModalOpen(true)}
-                className="p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 transition"
+                className="p-3 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 transition backdrop-blur-md"
                 title="Share Salon"
               >
                 <Share2 className="w-4 h-4" />
@@ -821,10 +898,10 @@ export default function BeautyMiniWebsiteView({
             </div>
           </div>
 
-          {/* Right Column: "Let's find what you need" Booking Card (Clone of original) */}
+          {/* Right Column: "Let's find what you need" Booking Card */}
           <div className="lg:col-span-5">
-            <div className="rounded-3xl bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-700/80 p-6 sm:p-7 shadow-2xl shadow-black relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-36 h-36 bg-[#ab2079]/15 rounded-full blur-2xl pointer-events-none" />
+            <div className="rounded-3xl bg-zinc-900/95 backdrop-blur-xl border border-zinc-700/80 p-6 sm:p-7 shadow-2xl shadow-black relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-36 h-36 bg-[#ab2079]/20 rounded-full blur-2xl pointer-events-none" />
 
               <div className="space-y-2 mb-5">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-[#1BD741] font-bold text-[11px] border border-emerald-500/30">
@@ -918,7 +995,7 @@ export default function BeautyMiniWebsiteView({
                   <span>Get 30% OFF &amp; Book via WhatsApp</span>
                 </button>
 
-                <p className="text-[11px] text-zinc-500 text-center flex items-center justify-center gap-1.5 pt-1">
+                <p className="text-[11px] text-zinc-400 text-center flex items-center justify-center gap-1.5 pt-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Zero advance payment • Walk-ins &amp; reservations welcome</span>
                 </p>
@@ -928,96 +1005,220 @@ export default function BeautyMiniWebsiteView({
         </div>
       </section>
 
-      {/* 4. HOT OFFERS / DEALS FOR EVERYONE (GREEN TRENDS SIGNATURE) */}
-      <section id="offers" className="max-w-7xl mx-auto px-4 py-16">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
-              <Tag className="w-3.5 h-3.5 text-pink-400" />
-              Limited Period Specials
+      {/* 4. HOT OFFERS / DEALS FOR EVERYONE WITH AUTHENTIC PREVIEW IMAGES */}
+      <section id="offers" className="relative py-16 border-b border-zinc-800/80">
+        {/* Subtle Ambient Background Texture */}
+        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
+          <Image
+            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80"
+            alt="Salon Texture"
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
+                <Tag className="w-3.5 h-3.5 text-pink-400" />
+                Limited Period Specials
+              </div>
+              <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+                Deals for Everyone in Kothapet
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+                Save big on premium hair, skin, and grooming rituals. Show coupon at salon or claim on WhatsApp.
+              </p>
             </div>
-            <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-              Deals for Everyone in Kothapet
-            </h3>
-            <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-              Save big on premium hair, skin, and grooming rituals. Show coupon at salon or claim on WhatsApp.
-            </p>
+
+            {/* Category Tabs */}
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-zinc-900 border border-zinc-800 overflow-x-auto">
+              {['All', 'Women', 'Men', 'Bridal & Groom', 'Combos'].map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setOfferCategory(cat)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+                    offerCategory === cat
+                      ? 'bg-[#ab2079] text-white shadow-md'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Category Tabs */}
-          <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-zinc-900 border border-zinc-800 overflow-x-auto">
-            {['All', 'Women', 'Men', 'Bridal & Groom', 'Combos'].map(cat => (
-              <button
-                key={cat}
-                onClick={() => setOfferCategory(cat)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
-                  offerCategory === cat
-                    ? 'bg-[#ab2079] text-white shadow-md'
-                    : 'text-zinc-400 hover:text-white'
-                }`}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredOffers.map(offer => (
+              <div 
+                key={offer.id} 
+                className="rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-pink-500/50 transition-all flex flex-col justify-between group shadow-xl overflow-hidden"
               >
-                {cat}
-              </button>
+                {/* Offer Visual Header Photo */}
+                <div className="relative h-44 w-full overflow-hidden bg-zinc-950">
+                  <Image
+                    src={offer.imageUrl}
+                    alt={offer.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/30 to-transparent" />
+                  
+                  {/* Top Badges */}
+                  <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
+                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider text-white bg-gradient-to-r ${offer.tagColor} shadow-md`}>
+                      {offer.badge}
+                    </span>
+                    <span className="text-xs font-black text-[#1BD741] px-2 py-0.5 rounded-lg bg-black/80 backdrop-blur-md border border-emerald-500/40">
+                      {offer.discount}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                  <div>
+                    <h4 className="text-base sm:text-lg font-black text-white group-hover:text-pink-300 transition-colors">
+                      {offer.title}
+                    </h4>
+                    <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                      {offer.subtitle}
+                    </p>
+
+                    {offer.price && (
+                      <div className="flex items-baseline gap-2 mt-3">
+                        <span className="text-xl sm:text-2xl font-black text-white">{offer.price}</span>
+                        {offer.originalPrice && (
+                          <span className="text-xs text-zinc-500 line-through">{offer.originalPrice}</span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="pt-4 border-t border-zinc-800/80 space-y-3">
+                    <div className="flex items-center justify-between text-[11px] text-zinc-500">
+                      <span>Code: <strong className="text-zinc-300 font-mono">{offer.code}</strong></span>
+                      <span className="truncate max-w-[150px]">{offer.terms}</span>
+                    </div>
+
+                    <a
+                      href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi Green Trends Kothapet! I want to claim the offer: *${offer.title}* (Code: ${offer.code}). Please book my slot!`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2.5 rounded-xl bg-zinc-800 hover:bg-[#1BD741] text-zinc-200 hover:text-black font-extrabold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer shadow-md"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span>Claim on WhatsApp</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredOffers.map(offer => (
-            <div 
-              key={offer.id} 
-              className="rounded-3xl bg-gradient-to-b from-zinc-900 via-zinc-900/90 to-zinc-950 border border-zinc-800 hover:border-pink-500/50 transition-all p-5 sm:p-6 flex flex-col justify-between space-y-4 group shadow-xl"
-            >
-              <div>
-                <div className="flex items-start justify-between gap-2 mb-3">
-                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider text-white bg-gradient-to-r ${offer.tagColor} shadow-md`}>
-                    {offer.badge}
-                  </span>
-                  <span className="text-xs font-black text-[#1BD741] px-2 py-0.5 rounded-lg bg-emerald-950/40 border border-emerald-800/40">
-                    {offer.discount}
-                  </span>
-                </div>
-
-                <h4 className="text-base sm:text-lg font-black text-white group-hover:text-pink-300 transition-colors">
-                  {offer.title}
-                </h4>
-                <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
-                  {offer.subtitle}
-                </p>
-
-                {offer.price && (
-                  <div className="flex items-baseline gap-2 mt-4">
-                    <span className="text-xl sm:text-2xl font-black text-white">{offer.price}</span>
-                    {offer.originalPrice && (
-                      <span className="text-xs text-zinc-500 line-through">{offer.originalPrice}</span>
-                    )}
-                  </div>
-                )}
+      {/* 5. SIGNATURE SERVICES MENU WITH ACCURATE SERVICE PHOTOS */}
+      <section id="services" className="relative py-16 border-b border-zinc-800/80">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
+                <Scissors className="w-3.5 h-3.5 text-pink-400" />
+                Transparent Rates &amp; High Standards
               </div>
-
-              <div className="pt-4 border-t border-zinc-800/80 space-y-3">
-                <div className="flex items-center justify-between text-[11px] text-zinc-500">
-                  <span>Code: <strong className="text-zinc-300 font-mono">{offer.code}</strong></span>
-                  <span>{offer.terms}</span>
-                </div>
-
-                <a
-                  href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi Green Trends Kothapet! I want to claim the offer: *${offer.title}* (Code: ${offer.code}). Please book my slot!`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 rounded-xl bg-zinc-800 hover:bg-[#1BD741] text-zinc-200 hover:text-black font-extrabold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer"
-                >
-                  <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Claim on WhatsApp</span>
-                </a>
-              </div>
+              <h3 className="text-2xl sm:text-4xl font-black text-white">
+                Signature Services Menu
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+                Curated haircuts, hair color, keratin therapies, facials and bridal grooming for men and women.
+              </p>
             </div>
-          ))}
+
+            <button
+              onClick={() => setIsBookingModalOpen(true)}
+              className="px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-xs font-bold text-white flex items-center gap-2 transition cursor-pointer shadow-md"
+            >
+              <Calendar className="w-3.5 h-3.5 text-[#1BD741]" />
+              <span>Book Consultation Slot</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {profileServices.map(srv => {
+              const servicePhoto = srv.imageUrl || (
+                srv.title.toLowerCase().includes('color') ? 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('spa') ? 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('facial') ? 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('bridal') ? 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('men') ? 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('keratin') ? 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('pedicure') ? 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=600&q=80' :
+                'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80'
+              );
+
+              return (
+                <div 
+                  key={srv.id} 
+                  className="rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-emerald-500/50 transition-all flex flex-col justify-between group shadow-xl overflow-hidden"
+                >
+                  {/* Service Photo with Zoom Effect */}
+                  <div className="relative h-44 w-full overflow-hidden bg-zinc-950">
+                    <Image
+                      src={servicePhoto}
+                      alt={srv.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent" />
+                    
+                    {/* Duration Pill */}
+                    <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-zinc-700 text-[10px] font-bold text-zinc-300 flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-[#1BD741]" />
+                      <span>{srv.durationMinutes || 45} mins</span>
+                    </div>
+
+                    {/* Price Pill Bottom */}
+                    <div className="absolute bottom-2 left-2">
+                      <span className="px-2.5 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-emerald-500/40 text-xs font-black text-emerald-400">
+                        {srv.price ? `₹${srv.price.toLocaleString('en-IN')}` : 'From ₹299'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                    <div>
+                      <h4 className="text-sm font-black text-white group-hover:text-[#1BD741] transition-colors leading-snug">
+                        {srv.title}
+                      </h4>
+                      <p className="text-xs text-zinc-400 mt-1 leading-relaxed line-clamp-2">
+                        {srv.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-zinc-800/80 flex items-center justify-between">
+                      <span className="text-[10px] text-zinc-500 font-medium">Certified Stylist</span>
+                      <button
+                        onClick={() => {
+                          setBookingForm(prev => ({ ...prev, serviceName: srv.title }));
+                          setIsBookingModalOpen(true);
+                        }}
+                        className="px-3 py-1.5 rounded-lg bg-emerald-950/40 hover:bg-[#1BD741] text-[#1BD741] hover:text-black font-extrabold text-xs transition cursor-pointer border border-emerald-500/30"
+                      >
+                        Book Slot
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* 5. ⭐ EXCLUSIVE BEAUTY STORE (BUY PRODUCTS FOR CUSTOMERS) */}
-      <section id="shop" className="relative bg-gradient-to-b from-zinc-950 via-[#0E0E12] to-zinc-950 border-y border-zinc-800/80 py-16">
+      {/* 6. ⭐ EXCLUSIVE BEAUTY STORE (BUY PRODUCTS FOR CUSTOMERS) */}
+      <section id="shop" className="relative bg-gradient-to-b from-zinc-950 via-[#0E0E12] to-zinc-950 border-b border-zinc-800/80 py-16">
         <div className="max-w-7xl mx-auto px-4">
           {/* Header & Shopping Bag Summary Pill */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
@@ -1237,317 +1438,353 @@ export default function BeautyMiniWebsiteView({
         </div>
       </section>
 
-      {/* 6. WHY CHOOSE GREEN TRENDS (4 BENTO CARDS) */}
-      <section id="why-us" className="max-w-7xl mx-auto px-4 py-16">
-        <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-[#1BD741] text-xs font-bold border border-emerald-500/30">
-            <Award className="w-3.5 h-3.5" />
-            The Green Trends Standard
-          </div>
-          <h3 className="text-2xl sm:text-4xl font-black text-white">
-            Why Kothapet Chooses Us
-          </h3>
-          <p className="text-xs sm:text-sm text-zinc-400">
-            India’s favorite unisex salon chain brings international styling standards right to your neighborhood.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div className="p-6 rounded-3xl bg-zinc-900/90 border border-zinc-800 space-y-3">
-            <div className="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 border border-pink-500/30 flex items-center justify-center">
-              <Scissors className="w-6 h-6" />
-            </div>
-            <h4 className="text-base font-black text-white">Certified Stylists</h4>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Every stylist undergoes 200+ hours of rigorous certification at the Green Trends Academy in precision haircutting and modern color blending.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-zinc-900/90 border border-zinc-800 space-y-3">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-[#1BD741] border border-emerald-500/30 flex items-center justify-center">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <h4 className="text-base font-black text-white">100% Genuine Brands</h4>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Zero compromises on quality. Only authentic formulas from L’Oréal Professionnel, Wella, O3+, and Schwarzkopf used on your hair and skin.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-zinc-900/90 border border-zinc-800 space-y-3">
-            <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center">
-              <Sparkles className="w-6 h-6" />
-            </div>
-            <h4 className="text-base font-black text-white">Sanitised &amp; Single-Use</h4>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Strict 7-step hygiene protocol: single-use disposable aprons, sanitized scissors, autoclaved nail tools, and sterilized workstations.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-zinc-900/90 border border-zinc-800 space-y-3">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center">
-              <Tag className="w-6 h-6" />
-            </div>
-            <h4 className="text-base font-black text-white">Honest &amp; Transparent</h4>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Complimentary stylist consultation before every service. Transparent pricing with zero hidden charges or surprise upsells.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. SERVICES & PRICING MENU */}
-      <section id="services" className="max-w-7xl mx-auto px-4 py-16">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
-              <Scissors className="w-3.5 h-3.5 text-pink-400" />
-              Transparent Rates
+      {/* 7. WHY CHOOSE GREEN TRENDS (4 BENTO CARDS WITH RICH PHOTOGRAPHIC BACKDROPS) */}
+      <section id="why-us" className="relative py-16 border-b border-zinc-800/80">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-[#1BD741] text-xs font-bold border border-emerald-500/30">
+              <Award className="w-3.5 h-3.5" />
+              The Green Trends Standard
             </div>
             <h3 className="text-2xl sm:text-4xl font-black text-white">
-              Signature Services Menu
+              Why Kothapet Chooses Us
             </h3>
-            <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-              Curated haircuts, hair color, keratin therapies, facials and bridal grooming for men and women.
+            <p className="text-xs sm:text-sm text-zinc-400">
+              India’s favorite unisex salon chain brings international styling standards right to your neighborhood.
             </p>
           </div>
 
-          <button
-            onClick={() => setIsBookingModalOpen(true)}
-            className="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-xs font-bold text-white flex items-center gap-2 transition cursor-pointer"
-          >
-            <Calendar className="w-3.5 h-3.5 text-[#1BD741]" />
-            <span>Book Consultation Slot</span>
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {profileServices.map(srv => (
-            <div 
-              key={srv.id} 
-              className="rounded-3xl bg-zinc-900/90 border border-zinc-800 hover:border-emerald-500/40 transition-all p-5 flex flex-col justify-between group shadow-xl space-y-4"
-            >
-              <div>
-                <div className="flex items-start justify-between gap-3 mb-2">
-                  <h4 className="text-base font-black text-white group-hover:text-[#1BD741] transition-colors">
-                    {srv.title}
-                  </h4>
-                  <span className="text-base font-black text-emerald-400 shrink-0">
-                    {srv.price ? `₹${srv.price.toLocaleString('en-IN')}` : 'From ₹350'}
-                  </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* Bento Card 1 */}
+            <div className="rounded-3xl bg-zinc-900/90 border border-zinc-800 overflow-hidden flex flex-col justify-between group shadow-xl">
+              <div className="relative h-40 w-full overflow-hidden bg-zinc-950">
+                <Image
+                  src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80"
+                  alt="Certified Stylists"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+                <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-pink-500/30 backdrop-blur-md text-pink-300 border border-pink-500/40 flex items-center justify-center">
+                  <Scissors className="w-5 h-5" />
                 </div>
+              </div>
+              <div className="p-5 space-y-2">
+                <h4 className="text-base font-black text-white">Certified Stylists</h4>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  {srv.description}
+                  Every stylist undergoes 200+ hours of rigorous certification at the Green Trends Academy in precision haircutting and modern color blending.
                 </p>
               </div>
+            </div>
 
-              <div className="pt-3 border-t border-zinc-800/80 flex items-center justify-between text-[11px] text-zinc-500">
-                <span className="flex items-center gap-1">
-                  <Clock className="w-3 h-3 text-zinc-400" />
-                  {srv.durationMinutes || 45} mins
-                </span>
-                <button
-                  onClick={() => {
-                    setBookingForm(prev => ({ ...prev, serviceName: srv.title }));
-                    setIsBookingModalOpen(true);
-                  }}
-                  className="px-3 py-1.5 rounded-lg bg-emerald-950/40 hover:bg-[#1BD741] text-[#1BD741] hover:text-black font-extrabold text-xs transition cursor-pointer border border-emerald-500/30"
-                >
-                  Book Slot
-                </button>
+            {/* Bento Card 2 */}
+            <div className="rounded-3xl bg-zinc-900/90 border border-zinc-800 overflow-hidden flex flex-col justify-between group shadow-xl">
+              <div className="relative h-40 w-full overflow-hidden bg-zinc-950">
+                <Image
+                  src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=600&q=80"
+                  alt="100% Genuine Brands"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+                <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-emerald-500/30 backdrop-blur-md text-[#1BD741] border border-emerald-500/40 flex items-center justify-center">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+              </div>
+              <div className="p-5 space-y-2">
+                <h4 className="text-base font-black text-white">100% Genuine Brands</h4>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Zero compromises on quality. Only authentic formulas from L’Oréal Professionnel, Wella, O3+, and Schwarzkopf used on your hair and skin.
+                </p>
               </div>
             </div>
-          ))}
+
+            {/* Bento Card 3 */}
+            <div className="rounded-3xl bg-zinc-900/90 border border-zinc-800 overflow-hidden flex flex-col justify-between group shadow-xl">
+              <div className="relative h-40 w-full overflow-hidden bg-zinc-950">
+                <Image
+                  src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=600&q=80"
+                  alt="Sanitised & Single-Use"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+                <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-cyan-500/30 backdrop-blur-md text-cyan-300 border border-cyan-500/40 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+              </div>
+              <div className="p-5 space-y-2">
+                <h4 className="text-base font-black text-white">Sanitised &amp; Single-Use</h4>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Strict 7-step hygiene protocol: single-use disposable aprons, sanitized scissors, autoclaved nail tools, and sterilized workstations.
+                </p>
+              </div>
+            </div>
+
+            {/* Bento Card 4 */}
+            <div className="rounded-3xl bg-zinc-900/90 border border-zinc-800 overflow-hidden flex flex-col justify-between group shadow-xl">
+              <div className="relative h-40 w-full overflow-hidden bg-zinc-950">
+                <Image
+                  src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80"
+                  alt="Honest & Transparent"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+                <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-amber-500/30 backdrop-blur-md text-amber-300 border border-amber-500/40 flex items-center justify-center">
+                  <Tag className="w-5 h-5" />
+                </div>
+              </div>
+              <div className="p-5 space-y-2">
+                <h4 className="text-base font-black text-white">Honest &amp; Transparent</h4>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Complimentary stylist consultation before every service. Transparent pricing with zero hidden charges or surprise upsells.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* 8. REAL TRANSFORMATIONS LOOKBOOK */}
-      <section id="lookbook" className="max-w-7xl mx-auto px-4 py-16">
-        <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30">
-            <Sparkles className="w-3.5 h-3.5 text-pink-400" />
-            Client Transformations
-          </div>
-          <h3 className="text-2xl sm:text-4xl font-black text-white">
-            Real Looks. Real Confidence.
-          </h3>
-          <p className="text-xs sm:text-sm text-zinc-400">
-            Explore hair highlights, balayage, keratin smoothing, and bridal makeovers crafted at our salon.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {profileGallery.map((img, idx) => (
-            <div 
-              key={img.id || idx}
-              className="relative h-60 sm:h-72 rounded-3xl overflow-hidden border border-zinc-800 group shadow-lg"
-            >
-              <Image
-                src={img.imageUrl}
-                alt={img.title || 'Salon Lookbook'}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity p-4 flex flex-col justify-end">
-                <span className="text-[10px] font-bold text-[#1BD741] uppercase tracking-wider">
-                  {img.category || 'Transformation'}
-                </span>
-                <p className="text-xs sm:text-sm font-bold text-white leading-tight">
-                  {img.title || 'Green Trends Styling'}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 9. GOOGLE REVIEWS & TESTIMONIALS (4.7★ 1,240+ REVIEWS) */}
-      <section id="reviews" className="max-w-7xl mx-auto px-4 py-16 border-t border-zinc-800/80">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="flex items-center gap-1 text-amber-400 font-extrabold text-sm">
-                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-              </span>
-              <span className="text-xs font-bold text-white">4.7 / 5.0 Rating</span>
-              <span className="text-xs text-zinc-500">• 1,240+ Google Reviews</span>
+      <section id="lookbook" className="relative py-16 border-b border-zinc-800/80">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30">
+              <Camera className="w-3.5 h-3.5 text-pink-400" />
+              Client Transformations &amp; Ambience
             </div>
             <h3 className="text-2xl sm:text-4xl font-black text-white">
-              Loved by Kothapet &amp; Nagole
+              Real Looks. Real Confidence.
             </h3>
+            <p className="text-xs sm:text-sm text-zinc-400">
+              Explore hair highlights, balayage, keratin smoothing, and bridal makeovers crafted at our salon.
+            </p>
           </div>
 
-          <a
-            href="https://maps.google.com/?q=Green+Trends+Kothapet+Hyderabad"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs font-bold text-zinc-300 hover:text-white border border-zinc-700 flex items-center gap-1.5 transition"
-          >
-            <span>Read all on Google Maps</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {profileTestimonials.map((t, idx) => (
-            <div 
-              key={t.id || idx}
-              className="p-5 rounded-3xl bg-zinc-900/80 border border-zinc-800 flex flex-col justify-between space-y-4 shadow-xl"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center gap-1">
-                  {[...Array(t.rating || 5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                  ))}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {filteredGallery.map((img, idx) => (
+              <div 
+                key={img.id || idx}
+                className="relative h-60 sm:h-72 rounded-3xl overflow-hidden border border-zinc-800 group shadow-lg bg-zinc-950"
+              >
+                <Image
+                  src={img.imageUrl}
+                  alt={img.title || 'Salon Lookbook'}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity p-4 flex flex-col justify-end">
+                  <span className="text-[10px] font-bold text-[#1BD741] uppercase tracking-wider">
+                    {img.category || 'Transformation'}
+                  </span>
+                  <p className="text-xs sm:text-sm font-bold text-white leading-tight mt-1">
+                    {img.title || 'Green Trends Styling'}
+                  </p>
                 </div>
-                <p className="text-xs text-zinc-300 leading-relaxed italic">
-                  &ldquo;{t.content || (t as any).comment || (t as any).text}&rdquo;
-                </p>
               </div>
-
-              <div className="pt-3 border-t border-zinc-800 flex items-center justify-between">
-                <div>
-                  <h5 className="text-xs font-bold text-white">{t.clientName || (t as any).name}</h5>
-                  <p className="text-[10px] text-zinc-500">{t.clientRole || (t as any).role || 'Verified Customer'}</p>
-                </div>
-                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-800/40">
-                  Google Verified
-                </span>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 10. LOCATION, HOURS & 30-SECOND BOOKING DESK */}
-      <section id="location" className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Location & Contact Info */}
-          <div className="lg:col-span-5 space-y-6">
+      {/* 9. GOOGLE REVIEWS & TESTIMONIALS (4.7★ 1,240+ REVIEWS) WITH CLIENT AVATARS */}
+      <section id="reviews" className="relative py-16 border-b border-zinc-800/80">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
-                <MapPin className="w-3.5 h-3.5 text-pink-400" />
-                Find Us Easily
+              <div className="flex items-center gap-2 mb-2">
+                <span className="flex items-center gap-1 text-amber-400 font-extrabold text-sm">
+                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                </span>
+                <span className="text-xs font-bold text-white">4.7 / 5.0 Rating</span>
+                <span className="text-xs text-zinc-500">• 1,240+ Google Reviews</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black text-white">
-                Visit Green Trends Kothapet
+              <h3 className="text-2xl sm:text-4xl font-black text-white">
+                Loved by Kothapet &amp; Nagole
               </h3>
-              <p className="text-xs text-zinc-400 mt-1">
-                Located right on New Nagole Main Road beside State Bank of India, Laxmi Nagar Colony.
-              </p>
             </div>
 
-            <div className="space-y-4 text-xs text-zinc-300">
-              <div className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-2">
-                <h4 className="font-bold text-white flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-rose-400" />
-                  Salon Address
-                </h4>
-                <p className="leading-relaxed text-zinc-400">
-                  {salonAddress}
-                </p>
-                <p className="text-[11px] text-emerald-400 font-medium">
-                  Landmark: Beside SBI Bank, 1st Floor
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-1">
-                  <h4 className="font-bold text-white flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 text-[#1BD741]" />
-                    Hours
-                  </h4>
-                  <p className="text-zinc-400">9:30 AM – 9:00 PM</p>
-                  <p className="text-[10px] text-zinc-500">Open all 7 days</p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-1">
-                  <h4 className="font-bold text-white flex items-center gap-1.5">
-                    <Phone className="w-4 h-4 text-[#1BD741]" />
-                    Direct Desk
-                  </h4>
-                  <a href={`tel:${salonPhone.replace(/\s+/g, '')}`} className="text-emerald-400 font-bold block">
-                    {salonPhone}
-                  </a>
-                  <p className="text-[10px] text-zinc-500">Call for appointment</p>
-                </div>
-              </div>
-
-              <a
-                href="https://maps.google.com/?q=Green+Trends+Kothapet+Hyderabad"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition border border-zinc-700"
-              >
-                <MapPin className="w-4 h-4 text-rose-400" />
-                <span>Open in Google Maps / Get Directions</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
+            <a
+              href="https://maps.google.com/?q=Green+Trends+Kothapet+Hyderabad"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs font-bold text-zinc-300 hover:text-white border border-zinc-700 flex items-center gap-1.5 transition shadow-md"
+            >
+              <span>Read all on Google Maps</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
           </div>
 
-          {/* Interactive Google Map Embed */}
-          <div className="lg:col-span-7 h-80 sm:h-96 rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl relative">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.204554316682!2d78.54471677598835!3d17.373117403759905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb98e722512803%3A0xe55673ecde505d92!2sGreen%20Trends%20Unisex%20Hair%20%26%20Style%20Salon!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Green Trends Kothapet Google Map"
-              className="grayscale contrast-125 hover:grayscale-0 transition-all duration-700"
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {profileTestimonials.map((t, idx) => (
+              <div 
+                key={t.id || idx}
+                className="p-5 rounded-3xl bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between space-y-4 shadow-xl hover:border-zinc-700 transition"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center gap-1">
+                    {[...Array(t.rating || 5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  <p className="text-xs text-zinc-300 leading-relaxed italic">
+                    &ldquo;{t.content || (t as any).comment || (t as any).text}&rdquo;
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-zinc-800 flex items-center gap-3">
+                  {t.clientAvatar ? (
+                    <div className="relative w-9 h-9 rounded-full overflow-hidden shrink-0 border border-emerald-500/40">
+                      <Image
+                        src={t.clientAvatar}
+                        alt={t.clientName || 'Customer'}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-9 h-9 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 flex items-center justify-center font-bold text-xs shrink-0">
+                      {(t.clientName || 'C')[0]}
+                    </div>
+                  )}
+
+                  <div className="flex-1 min-w-0">
+                    <h5 className="text-xs font-bold text-white truncate">{t.clientName || (t as any).name}</h5>
+                    <p className="text-[10px] text-zinc-500 truncate">{t.clientRole || (t as any).role || 'Verified Customer'}</p>
+                  </div>
+
+                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-800/40 shrink-0">
+                    Verified
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 10. SALON LOCATION & CONTACT DESK WITH REAL AMBIENCE PHOTO & MAP */}
+      <section id="location" className="relative py-16 border-b border-zinc-800/80">
+        {/* Contact Section Luxury Salon Background Overlay */}
+        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+          <Image
+            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80"
+            alt="Salon Interior"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-[#0A0A0C]/90 to-[#0A0A0C]" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Location & Contact Info */}
+            <div className="lg:col-span-5 space-y-6">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 text-xs font-bold border border-pink-500/30 mb-2">
+                  <MapPin className="w-3.5 h-3.5 text-pink-400" />
+                  Find Us Easily
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-black text-white">
+                  Visit Green Trends Kothapet
+                </h3>
+                <p className="text-xs text-zinc-400 mt-1">
+                  Located right on New Nagole Main Road beside State Bank of India, Laxmi Nagar Colony.
+                </p>
+              </div>
+
+              {/* Salon Interior Card Preview */}
+              <div className="relative h-44 w-full rounded-2xl overflow-hidden border border-zinc-800 shadow-xl group">
+                <Image
+                  src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80"
+                  alt="Green Trends Kothapet Salon Lounge"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent p-4 flex flex-col justify-end">
+                  <span className="text-[10px] font-bold text-[#1BD741] uppercase tracking-wider">
+                    Storefront &amp; Styling Floor
+                  </span>
+                  <p className="text-xs font-extrabold text-white">
+                    1st Floor, beside SBI Bank, New Nagole Main Rd
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-3 text-xs text-zinc-300">
+                <div className="p-4 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800 space-y-1.5 shadow-lg">
+                  <h4 className="font-bold text-white flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-rose-400" />
+                    Salon Address
+                  </h4>
+                  <p className="leading-relaxed text-zinc-400">
+                    {salonAddress}
+                  </p>
+                  <p className="text-[11px] text-emerald-400 font-medium">
+                    Landmark: Beside SBI Bank, 1st Floor
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-4 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800 space-y-1 shadow-lg">
+                    <h4 className="font-bold text-white flex items-center gap-1.5">
+                      <Clock className="w-4 h-4 text-[#1BD741]" />
+                      Hours
+                    </h4>
+                    <p className="text-zinc-400">9:30 AM – 9:00 PM</p>
+                    <p className="text-[10px] text-zinc-500">Open all 7 days</p>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800 space-y-1 shadow-lg">
+                    <h4 className="font-bold text-white flex items-center gap-1.5">
+                      <Phone className="w-4 h-4 text-[#1BD741]" />
+                      Direct Desk
+                    </h4>
+                    <a href={`tel:${salonPhone.replace(/\s+/g, '')}`} className="text-emerald-400 font-bold block">
+                      {salonPhone}
+                    </a>
+                    <p className="text-[10px] text-zinc-500">Call for appointment</p>
+                  </div>
+                </div>
+
+                <a
+                  href="https://maps.google.com/?q=Green+Trends+Kothapet+Hyderabad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition border border-zinc-700 shadow-md"
+                >
+                  <MapPin className="w-4 h-4 text-rose-400" />
+                  <span>Open in Google Maps / Get Directions</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Interactive Google Map Embed */}
+            <div className="lg:col-span-7 h-96 sm:h-[480px] rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl relative">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.204554316682!2d78.54471677598835!3d17.373117403759905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb98e722512803%3A0xe55673ecde505d92!2sGreen%20Trends%20Unisex%20Hair%20%26%20Style%20Salon!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Green Trends Kothapet Google Map"
+                className="grayscale contrast-125 hover:grayscale-0 transition-all duration-700"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {/* 11. FAQ ACCORDION */}
-      <section className="max-w-4xl mx-auto px-4 py-16 border-t border-zinc-800/80">
+      <section className="max-w-4xl mx-auto px-4 py-16 border-b border-zinc-800/80">
         <div className="text-center mb-10 space-y-2">
           <h3 className="text-2xl sm:text-3xl font-black text-white">
             Frequently Asked Questions
@@ -1608,7 +1845,7 @@ export default function BeautyMiniWebsiteView({
       </section>
 
       {/* 12. FOOTER */}
-      <footer className="max-w-7xl mx-auto px-4 pt-12 pb-6 border-t border-zinc-800/80 text-xs text-zinc-500">
+      <footer className="max-w-7xl mx-auto px-4 pt-12 pb-6 text-xs text-zinc-500">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           <div className="space-y-3">
             <div className="flex items-center gap-2">

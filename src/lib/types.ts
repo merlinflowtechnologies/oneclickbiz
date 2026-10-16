@@ -25,6 +25,7 @@ export interface ServiceItem {
   currency: string;
   category?: string;
   perks?: string[];
+  imageUrl?: string;
   isAvailable?: boolean;
 }
 
