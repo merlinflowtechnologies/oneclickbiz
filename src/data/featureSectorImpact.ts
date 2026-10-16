@@ -37,12 +37,12 @@ export const FEATURES_DATA: FeatureDetail[] = [
     id: 'mini-websites',
     name: 'Mini Websites & Business Profiles',
     tagline: 'Turnkey mobile-first business websites with custom domain support',
-    badge: '93+ Templates',
+    badge: '28+ Templates',
     iconName: 'Smartphone',
     themeColor: 'indigo',
     description: 'Launch a complete, interactive mobile mini-website for your business in under 2 minutes. Showcase your story, services, galleries, client reviews, and custom domain — 100% cloud-hosted with zero coding or hardware.',
     metrics: [
-      { value: '93+', label: 'Ready Templates' },
+      { value: '28+', label: 'Ready Templates' },
       { value: '100%', label: 'Cloud Hosted' },
       { value: '< 2m', label: 'Instant Launch' }
     ],

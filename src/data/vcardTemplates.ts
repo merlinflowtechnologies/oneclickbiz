@@ -45,1174 +45,481 @@ export const VCARD_CATEGORY_LIST: { id: VCardCategory; name: string; icon: strin
 ];
 
 export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
-  // ==========================================
-  // ⭐ FEATURED CLIENT TEMPLATES
-  // ==========================================
   {
-    id: 'events-planner',
-    templateNumber: 901,
-    name: 'Luxury Events & Wedding Planner vCard',
-    category: 'Events & Creative',
-    subCategory: 'Wedding & Event Planners',
-    actionSubtitle: 'Destination Weddings',
-    imgUrl: 'https://images.unsplash.com/photo-1610173827043-9db50e0d8ef9?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Featured',
-    tagline: 'Destination weddings, floral Mandap decor & corporate summit setups',
-    features: ['Event decor package store', 'Book wedding date consultation', '4K video teaser reel', 'WhatsApp quotation desk']
-  },
-  {
-    id: 'tech-portfolio',
-    templateNumber: 1001,
-    name: 'Full-Stack Software Engineer & Tech Portfolio',
-    category: 'Professional Services',
-    subCategory: 'Software Developers',
-    actionSubtitle: 'Staff Tech Architect',
-    imgUrl: 'https://images.unsplash.com/photo-1667655861998-46fe4c29a4cf?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Tech Pro',
-    tagline: 'Staff Full-Stack & AI Systems Architect | Next.js, Microservices & LLMs',
-    features: ['GitHub 5k+ stars showcase', 'Resume & tech consultation booking', 'Downloadable SaaS boilerplate store', '1-Click vCard save']
-  },
-  {
-    id: 'restaurant-menu',
-    templateNumber: 401,
-    name: 'Interactive Restaurant & Cafe Digital Dining Menu',
-    category: 'Food Business',
-    subCategory: 'Restaurants & Lounges',
-    actionSubtitle: 'Digital Food Menu',
-    imgUrl: 'https://images.unsplash.com/flagged/photo-1561350117-501b4661f8d4?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Best Seller',
-    tagline: 'Hyderabadi dum biryanis, tandoor starters, rooftop cocktails & dessert menu',
-    features: ['Interactive digital food menu with photos', 'Table & candlelight dinner reservation', '1-Click WhatsApp table takeaway order', 'Google review QR scan']
-  },
-  {
-    id: 'pickles-snacks',
-    templateNumber: 405,
-    name: 'Homemade Pickles, Ghee Sweets & Snacks Store',
-    category: 'Food Business',
-    subCategory: 'Homemade Pickles & Sweets',
-    actionSubtitle: 'Andhra Specials',
-    imgUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Authentic Andhra',
-    tagline: 'Avakaya, chicken/mutton non-veg pickles, Pootharekulu & hot savory snacks',
-    features: ['Complete pickle weight & jar catalog', 'Direct WhatsApp order with itemized cart', 'NRI worldwide parcel delivery badge', 'Instant UPI payment collection']
-  },
-  {
-    id: 're-builders',
-    templateNumber: 101,
-    name: 'Real Estate Master & High-Rise Developers',
-    category: 'Real Estate',
-    subCategory: 'High-Rise Towers, Gated Communities & Infra',
-    actionSubtitle: 'High-Rise Towers',
-    imgUrl: 'https://images.unsplash.com/photo-1721815693498-cc28507c0ba2?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '⭐ Flagship Mini-Website',
-    tagline: 'Builders, gated layouts, luxury towers & infrastructure',
-    features: [
-      'TS-RERA certified builder & 100% clear title credentials',
-      'All property types: Towers, Gated Villas, Plots & IT Parks',
-      'Doorstep chauffeur site visit & model inspection booking',
-      'Master layout blueprints & 4K aerial drone walkthroughs',
-      'Interactive EMI calculator & per-sq-ft estimator',
-      'Instant WhatsApp lead router & 1-tap contact save'
+    "id": "events-planner",
+    "templateNumber": 901,
+    "name": "Luxury Events & Wedding Planner vCard",
+    "category": "Events & Creative",
+    "subCategory": "Wedding & Event Planners",
+    "actionSubtitle": "Destination Weddings",
+    "imgUrl": "https://images.unsplash.com/photo-1610173827043-9db50e0d8ef9?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Featured",
+    "tagline": "Destination weddings, floral Mandap decor & corporate summit setups",
+    "features": [
+      "Event decor package store",
+      "Book wedding date consultation",
+      "4K video teaser reel",
+      "WhatsApp quotation desk"
     ]
   },
   {
-    id: 're-plots',
-    templateNumber: 102,
-    name: 'Open Plots & Farmland Ventures',
-    category: 'Real Estate',
-    subCategory: 'Plotted Layouts, Farmlands & County',
-    actionSubtitle: 'HMDA / DTCP Plots',
-    imgUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'HMDA & DTCP Approved',
-    tagline: 'HMDA / DTCP approved open plots, farmlands & county layouts',
-    features: [
-      'HMDA, DTCP & TS-RERA approved gated layout communities',
-      '100% clear title 30-year link document verification',
-      'Organic farmland projects with drip irrigation & fencing',
-      'Highway growth corridors (Airport & ORR / RRR junctions)',
-      'Free chauffeured weekend site visit booking'
+    "id": "event-photo",
+    "templateNumber": 901,
+    "name": "Wedding & Fashion Photographer vCard",
+    "category": "Events & Creative",
+    "subCategory": "Photographers",
+    "actionSubtitle": "Book Photo Shoot",
+    "imgUrl": "https://images.unsplash.com/photo-1772127822552-ce9ef537bdcf?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Visual Pro",
+    "tagline": "Candid wedding shoots, pre-wedding films & luxury portraits",
+    "features": [
+      "Full-screen photo album",
+      "Cinematic trailer video embeds",
+      "Session pricing guide",
+      "Direct call & WhatsApp"
     ]
   },
   {
-    id: 're-villas',
-    templateNumber: 103,
-    name: 'Luxury Gated Villas & Triplex Communities',
-    category: 'Real Estate',
-    subCategory: 'Triplex Gated Villas & Clubhouse Estates',
-    actionSubtitle: 'Gated Triplex Villas',
-    imgUrl: 'https://images.unsplash.com/photo-1722421492323-eaf9c401befe?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Ultra Luxury',
-    tagline: 'Triplex gated villas, clubhouse amenities & private plunge pools',
-    features: [
-      '4 & 5 BHK Triplex Villas with private plunge pools',
-      'Clubhouse amenities: tennis court, spa & banquet hall',
-      '100% Vastu compliant architecture & solar power',
-      '3D virtual walkthrough & high-res interior lookbook',
-      'VIP model villa appointment booking'
+    "id": "tech-portfolio",
+    "templateNumber": 1001,
+    "name": "Full-Stack Software Engineer & Tech Portfolio",
+    "category": "Professional Services",
+    "subCategory": "Software Developers",
+    "actionSubtitle": "Staff Tech Architect",
+    "imgUrl": "https://images.unsplash.com/photo-1667655861998-46fe4c29a4cf?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Tech Pro",
+    "tagline": "Staff Full-Stack & AI Systems Architect | Next.js, Microservices & LLMs",
+    "features": [
+      "GitHub 5k+ stars showcase",
+      "Resume & tech consultation booking",
+      "Downloadable SaaS boilerplate store",
+      "1-Click vCard save"
     ]
   },
   {
-    id: 're-agents',
-    templateNumber: 104,
-    name: 'Certified Realtors & Property Advisors',
-    category: 'Real Estate',
-    subCategory: 'Channel Partners & Property Brokers',
-    actionSubtitle: 'Finest Agents',
-    imgUrl: 'https://images.unsplash.com/photo-1742981365880-698cfb84492d?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Top Broker',
-    tagline: 'Verified luxury apartments, villas & investment advisory',
-    features: [
-      'Verified luxury apartments, villas & resale inventories',
-      'NRI property investment portfolio management',
-      'Zero-brokerage bank loan tie-ups (HDFC, SBI, ICICI)',
-      'Direct 1-tap WhatsApp consultation & instant contact card',
-      'RERA compliant broker credentials'
+    "id": "prof-ca",
+    "templateNumber": 1001,
+    "name": "Chartered Accountant (CA) & Audit Firm vCard",
+    "category": "Professional Services",
+    "subCategory": "CA",
+    "actionSubtitle": "Quick Tax Quotes",
+    "imgUrl": "https://images.unsplash.com/photo-1771244688590-1e481dba1b5a?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Executive",
+    "tagline": "GST returns, income tax filing, statutory audits & ROC",
+    "features": [
+      "Tax advisory appointment form",
+      "Compliance due date calendar",
+      "Service fee packages",
+      "Client confidentiality badge"
     ]
   },
   {
-    id: 're-consultants',
-    templateNumber: 105,
-    name: 'Commercial Real Estate & Pre-Leased Assets',
-    category: 'Real Estate',
-    subCategory: 'Pre-Leased Banks, IT Parks & High Street',
-    actionSubtitle: 'Pre-Leased Assets',
-    imgUrl: 'https://images.unsplash.com/photo-1524230507669-5ff97982bb5e?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '8%+ Rental Yield',
-    tagline: 'Grade-A IT parks, bank branches & high-yield commercial assets',
-    features: [
-      'Grade-A IT park office spaces & MNC tenant portfolios',
-      'Pre-leased bank branches & high street retail with 9-yr lock-in',
-      'Comprehensive ROI yield analysis & lease covenant review',
-      'Institutional & HNI family office land aggregation',
-      'Confidential deal room & NDA consultation'
+    "id": "prof-insurance",
+    "templateNumber": 1003,
+    "name": "Insurance Advisor & Financial Security vCard",
+    "category": "Professional Services",
+    "subCategory": "Insurance Agents",
+    "actionSubtitle": "Financial Shield",
+    "imgUrl": "https://images.unsplash.com/photo-1650110002977-3ee8cc5eac91?auto=format&fit=crop&w=800&h=1000&q=85",
+    "tagline": "Term life insurance, health mediclaim & motor policies",
+    "features": [
+      "Instant premium quote calculator",
+      "Claim assistance hotline",
+      "Policy comparison charts",
+      "WhatsApp instant consult"
     ]
   },
   {
-    id: 'vcard35',
-    templateNumber: 106,
-    name: 'Minimalist Real Estate vCard',
-    category: 'Real Estate',
-    subCategory: 'Executive Property Brokers',
-    actionSubtitle: 'Luxury Penthouses',
-    imgUrl: 'https://images.unsplash.com/photo-1745429523615-2a82c60bfc02?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Sleek vCard',
-    tagline: 'Prime property broker & digital visiting card',
-    features: [
-      'Clean luxury digital business card & QR code',
-      '1-tap contact save (VCF) to phonebook',
-      'Featured property listings with instant WhatsApp enquiry',
-      'Google Maps office location & social links'
-    ]
-  },
-
-  // ==========================================
-  // 2. 👗 FASHION & CLOTHING
-  // ==========================================
-  {
-    id: 'fash-boutique',
-    templateNumber: 201,
-    name: 'Grand Fashion & Clothing Mall vCard',
-    category: 'Fashion & Clothing',
-    subCategory: 'Shopping Malls & Multi-Brand Apparel',
-    actionSubtitle: 'Grand Boutique',
-    imgUrl: 'https://images.unsplash.com/photo-1654764746225-e63f5e90facd?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Trending',
-    tagline: 'Multi-Floor Fashion Mall • Men’s, Women’s & Kids’ Collections',
-    features: ['Multi-Level Dept Mall (Men/Women/Kids)', 'In-Store Trial Rooms & Tailoring', 'WhatsApp 1-Click Ordering', 'Express Doorstep Delivery']
-  },
-  {
-    id: 'fash-ladies',
-    templateNumber: 202,
-    name: 'Ladies Wear Studio vCard',
-    category: 'Fashion & Clothing',
-    subCategory: 'Ladies Wear',
-    actionSubtitle: 'Designer Ethnic',
-    imgUrl: 'https://images.unsplash.com/photo-1571908599407-cdb918ed83bf?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Kurtis, lehengas, western dresses & party wear',
-    features: ['Size chart guide', 'New arrivals gallery', 'Direct WhatsApp ordering', 'Special discount coupon']
-  },
-  {
-    id: 'fash-mens',
-    templateNumber: 203,
-    name: "Men's Wear & Bespoke Suits vCard",
-    category: 'Fashion & Clothing',
-    subCategory: "Men's Wear",
-    actionSubtitle: 'Bespoke Suits',
-    imgUrl: 'https://images.unsplash.com/photo-1722952934708-749c22eb2e58?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Executive',
-    tagline: 'Suits, blazers, ethnic sherwanis & formal apparel',
-    features: ['Suit fabric swatch book', 'Master tailor appointment', 'Measurement submission form', 'Store directions']
-  },
-  {
-    id: 'fash-saree',
-    templateNumber: 204,
-    name: 'Exclusive Saree Shop vCard',
-    category: 'Fashion & Clothing',
-    subCategory: 'Saree Shops',
-    actionSubtitle: 'Pure Silk Sarees',
-    imgUrl: 'https://images.unsplash.com/flagged/photo-1551854716-8b811be39e7e?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Heritage',
-    tagline: 'Kanchipuram, Banarasi, Handloom & Silk Sarees',
-    features: ['High-res silk weave photos', 'Video call shopping link', 'Festive collections catalog', 'Silk mark badge']
-  },
-  {
-    id: 'fash-online',
-    templateNumber: 205,
-    name: 'Online Clothing Seller vCard',
-    category: 'Fashion & Clothing',
-    subCategory: 'Online Clothing Sellers',
-    actionSubtitle: 'Explore Lookbook',
-    imgUrl: 'https://images.unsplash.com/photo-1668371459824-094a960a227d?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Instagram fashion brands, D2C apparel & streetwear',
-    features: ['Direct Checkout mini-store', 'COD / Online payment link', 'Tracking status chat', 'Customer reviews wall']
-  },
-
-  // ==========================================
-  // 3. 💄 BEAUTY & PERSONAL CARE
-  // ==========================================
-  {
-    id: 'beauty-salon',
-    templateNumber: 301,
-    name: 'Luxury Hair & Beauty Salon vCard',
-    category: 'Beauty & Personal Care',
-    subCategory: 'Salons',
-    actionSubtitle: 'Top Rated Salons',
-    imgUrl: 'https://images.unsplash.com/photo-1600685890506-593fdf55949b?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Hot',
-    tagline: 'Unisex hair styling, keratin, spa & grooming',
-    features: ['Service rate menu', 'Online slot booking', 'Stylist portfolio gallery', 'Membership discount card']
-  },
-  {
-    id: 'beauty-parlour',
-    templateNumber: 302,
-    name: 'Beauty Parlour vCard',
-    category: 'Beauty & Personal Care',
-    subCategory: 'Beauty Parlours',
-    actionSubtitle: 'Spa & Glow',
-    imgUrl: 'https://images.unsplash.com/photo-1610047614301-13c63f00c032?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Facials, waxing, manicures, pedicures & skin care',
-    features: ['Monthly combo packages', 'Instant WhatsApp booking', 'Cleanliness hygiene badge', 'Location map']
-  },
-  {
-    id: 'beauty-makeup',
-    templateNumber: 303,
-    name: 'Professional Makeup Artist vCard',
-    category: 'Beauty & Personal Care',
-    subCategory: 'Makeup Artists',
-    actionSubtitle: 'Bridal Artistry',
-    imgUrl: 'https://images.unsplash.com/photo-1587271315307-eaebc181c749?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Visual Pro',
-    tagline: 'Celebrity makeup, fashion shoots, portfolio & party look',
-    features: ['High-def lookbook gallery', 'HD/Airbrush service tiers', 'Date availability check', 'Instagram reels feed']
-  },
-  {
-    id: 'beauty-bridal',
-    templateNumber: 304,
-    name: 'Bridal Makeup Studio vCard',
-    category: 'Beauty & Personal Care',
-    subCategory: 'Bridal Studios',
-    actionSubtitle: 'Royal Brides',
-    imgUrl: 'https://images.unsplash.com/photo-1774814305054-3f411d69211a?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Premium',
-    tagline: 'Wedding makeover, pre-bridal packages & saree draping',
-    features: ['Bridal before/after photos', 'Trial session scheduler', 'Wedding entourage packages', 'Client testimonials']
-  },
-  {
-    id: 'beauty-clinic',
-    templateNumber: 305,
-    name: 'Skin & Hair Clinic vCard',
-    category: 'Beauty & Personal Care',
-    subCategory: 'Skin/Hair Clinics',
-    actionSubtitle: 'Skin & Hair Clinic',
-    imgUrl: 'https://images.unsplash.com/photo-1637589267610-6c66fc2a086b?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Dermatologists, laser treatments & hair restoration',
-    features: ['Doctor credentials & degrees', 'Treatment explainer videos', 'Confidential consultation form', 'Clinic hours']
-  },
-  {
-    id: 'vcard12',
-    templateNumber: 306,
-    name: 'Arjun Rawat - Elite Strength & Performance Coach',
-    category: 'Beauty & Personal Care',
-    subCategory: 'Fitness, Gym & Wellness',
-    actionSubtitle: 'Fitness & Strength',
-    imgUrl: 'https://images.unsplash.com/photo-1653666866518-d01fabfa94c2?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Elite Coach',
-    tagline: 'Personal training, functional conditioning & athlete nutrition coaching',
-    features: ['Transformation programs', 'Book trial workout session', 'Nutrition plan calculator', 'Client transformation reviews']
-  },
-
-  // ==========================================
-  // 4. 🍽️ FOOD BUSINESS
-  // ==========================================
-  {
-    id: 'food-restaurant',
-    templateNumber: 401,
-    name: 'OneClickBiz Smart Restaurant & Digital Dining Menu',
-    category: 'Food Business',
-    subCategory: 'Smart Dining & Digital Menus',
-    actionSubtitle: 'Instant Table Book',
-    imgUrl: 'https://images.unsplash.com/photo-1728910156510-77488f19b152?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Smart Dining',
-    tagline: 'Interactive Digital Menu, Dish Details & Instant WhatsApp Ordering',
-    features: ['Interactive Digital Menu with Photos', 'Dish Details with Ingredients & Dietary Tags', '2-Option WhatsApp Ordering (Table / Delivery)', 'Direct UPI Bill Payment Desk']
-  },
-  {
-    id: 'food-cloud',
-    templateNumber: 402,
-    name: 'Cloud Kitchen & Delivery vCard',
-    category: 'Food Business',
-    subCategory: 'Cloud Kitchens',
-    actionSubtitle: 'Cloud Kitchen',
-    imgUrl: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Virtual kitchens, late night delivery & quick bites',
-    features: ['Direct WhatsApp food ordering', 'Daily lunch combos', 'Live delivery tracking chat', 'Food safety FSSAI badge']
-  },
-  {
-    id: 'food-baker',
-    templateNumber: 403,
-    name: 'Artisan Bakery & Custom Cakes vCard',
-    category: 'Food Business',
-    subCategory: 'Bakers',
-    actionSubtitle: 'Artisan Bakery',
-    imgUrl: 'https://images.unsplash.com/photo-1695568180070-8b5acead5cf4?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Sweet',
-    tagline: 'Custom birthday cakes, cupcakes, cookies & breads',
-    features: ['Theme cake design gallery', 'Flavor & weight pricing menu', 'Advance date booking slot', 'Delivery area radius']
-  },
-  {
-    id: 'food-home',
-    templateNumber: 404,
-    name: 'Home Food & Tiffin Services vCard',
-    category: 'Food Business',
-    subCategory: 'Home Food Businesses',
-    actionSubtitle: 'Home Tiffins',
-    imgUrl: 'https://images.unsplash.com/photo-1680993032090-1ef7ea9b51e5?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Homestyle healthy meals, daily tiffins & lunchboxes',
-    features: ['Weekly rotating menu', 'Monthly meal subscription', 'Trial meal order button', 'Dietary preference tags']
-  },
-  {
-    id: 'food-catering',
-    templateNumber: 405,
-    name: 'Gourmet Catering Services vCard',
-    category: 'Food Business',
-    subCategory: 'Catering Services',
-    actionSubtitle: 'Wedding Catering',
-    imgUrl: 'https://images.unsplash.com/photo-1587271636175-90d58cdad458?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Events',
-    tagline: 'Wedding buffets, corporate lunches & private parties',
-    features: ['Catering per-plate menus', 'Guest count quote generator', 'Live counter videos', 'Tasting session booking']
-  },
-  {
-    id: 'food-sweets',
-    templateNumber: 406,
-    name: 'Traditional Sweet & Namkeen Shop vCard',
-    category: 'Food Business',
-    subCategory: 'Sweet Shops',
-    actionSubtitle: 'Pure Ghee Sweets',
-    imgUrl: 'https://images.unsplash.com/photo-1758910536889-43ce7b3199fd?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Mithai, dry fruits, gift hampers & savory snacks',
-    features: ['Festive sweet box catalogs', 'Bulk corporate gifting orders', 'Same day home delivery', 'Pure ghee guarantee']
-  },
-  {
-    id: 'food-cafe',
-    templateNumber: 407,
-    name: 'Artisan Cafe, Specialty Coffee Bar & Italian Bistro vCard',
-    category: 'Food Business',
-    subCategory: 'Cafes & Bistros',
-    actionSubtitle: 'Artisan Cafe & Coffee',
-    imgUrl: 'https://images.unsplash.com/photo-1588644525273-f37b60d78512?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '☕ Popular Cafe',
-    tagline: 'Specialty pour-overs, sourdough wood-fired pizzas, artisanal pasta & all-day European breakfast',
-    features: ['Interactive espresso & cafe brunch menu', 'Direct table-side QR digital ordering', 'Advance cafe table & party booking', 'WhatsApp parcel takeaway cart']
-  },
-  {
-    id: 'food-biryani',
-    templateNumber: 408,
-    name: 'Royal Biryani House, Mughlai Darbar & Kebab Grills vCard',
-    category: 'Food Business',
-    subCategory: 'Biryani & Mughlai Dining',
-    actionSubtitle: 'Royal Dum Biryani',
-    imgUrl: 'https://images.unsplash.com/photo-1691171047462-66025ecd5efc?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '🔥 Hyderabadi Royal',
-    tagline: 'Authentic clay-pot dum biryanis, succulent galouti kebabs, rumali rotis & shahi tukda',
-    features: ['Kacchi dum biryani portion guide & photos', 'Bulk party handi pre-order with WhatsApp cart', 'Dine-in family cabin & dastarkhwan reservation', 'FSSAI hygienic kitchen certificate']
-  },
-  {
-    id: 'food-fastfood',
-    templateNumber: 409,
-    name: 'Gourmet Burger Shack, Loaded Wraps & Crispy Fried Chicken vCard',
-    category: 'Food Business',
-    subCategory: 'Fast Food & Quick Service',
-    actionSubtitle: 'Burgers & Wraps',
-    imgUrl: 'https://images.unsplash.com/photo-1732519970445-8f2d6998961f?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '🍔 Smashed Burgers',
-    tagline: 'Smoked brioche burgers, loaded peri-peri fries, crunchy fried chicken & thick shakes',
-    features: ['Combo meals with custom dip selectors', 'Quick drive-thru pickup & takeaway booking', 'Instant WhatsApp order invoice generator', 'Contactless UPI payment desk']
-  },
-  {
-    id: 'food-icecream',
-    templateNumber: 410,
-    name: 'Artisan Gelato, Ice Cream & Thick Shake Parlour vCard',
-    category: 'Food Business',
-    subCategory: 'Ice Cream & Desserts',
-    actionSubtitle: 'Artisan Gelato',
-    imgUrl: 'https://images.unsplash.com/photo-1517244683847-7456b63c5969?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '🍨 Natural Gelato',
-    tagline: 'Italian handcrafted gelato scoops, bubble waffles, thick milkshakes & sundae towers',
-    features: ['Seasonal fresh fruit flavor radar', 'Party tub pre-booking & dry ice delivery pack', 'Sundae builder with custom topping add-ons', 'Live store location & WhatsApp delivery']
-  },
-  {
-    id: 'food-pub',
-    templateNumber: 411,
-    name: 'Rooftop Craft Brewery, Sunset Lounge & Taproom vCard',
-    category: 'Food Business',
-    subCategory: 'Breweries & Rooftop Lounges',
-    actionSubtitle: 'Rooftop Lounge',
-    imgUrl: 'https://images.unsplash.com/photo-1606471191009-63994c53433b?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '🍸 Rooftop Lounge',
-    tagline: 'Fresh microbrewery craft beers, woodfire appetizers, sunset cocktails & live DJ gigs',
-    features: ['Live tap beers & craft cocktail menu with ABV', 'VIP sunset table & couple candlelight reservation', 'Weekend live band entry pass & guestlist', 'Uber/cab valet pickup assistance']
-  },
-  {
-    id: 'food-dhaba',
-    templateNumber: 412,
-    name: 'Highway Grand Punjabi Dhaba & Charpai Tandoor Hut vCard',
-    category: 'Food Business',
-    subCategory: 'Dhaba & North Indian Dining',
-    actionSubtitle: 'Highway Dhaba',
-    imgUrl: 'https://images.unsplash.com/photo-1756821753226-c0fc88056cf7?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '🫓 Desi Makhan Dhaba',
-    tagline: 'Amritsari kulchas, sarson ka saag with makki roti, dal makhani in desi ghee & tall lassi patialas',
-    features: ['Authentic dhaba tandoor menu & thali combos', 'Highway pitstop family charpai seating booking', 'Highway bus tour & family catering orders', 'Clean highway washrooms & 24/7 dining']
-  },
-  {
-    id: 'food-southindian',
-    templateNumber: 413,
-    name: 'Authentic South Indian Tiffin Room & Pure Veg Udupi vCard',
-    category: 'Food Business',
-    subCategory: 'Pure Veg & Tiffin Rooms',
-    actionSubtitle: 'Pure Veg Udupi',
-    imgUrl: 'https://images.unsplash.com/photo-1694849789325-914b71ab4075?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '🟢 100% Pure Veg',
-    tagline: 'Crispy ghee podi dosas, button idlis, filter coffee degree, vada sambar & traditional meals',
-    features: ['Morning tiffin & evening snack live menus', 'Filter coffee & podi jar retail counter', 'Quick self-service token & takeaway desk', 'Satvik & pure vegetarian ghee guarantee']
-  },
-
-  // ==========================================
-  // 5. 🏥 HEALTHCARE
-  // ==========================================
-  {
-    id: 'health-doctor',
-    templateNumber: 501,
-    name: 'Doctor & Specialist Clinic vCard',
-    category: 'Healthcare',
-    subCategory: 'Doctors',
-    actionSubtitle: 'Book Now',
-    imgUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Verified',
-    tagline: 'Physicians, pediatricians, cardiologists & surgeons',
-    features: ['OPD consulting hours', 'Online appointment booking', 'Medical council registration', 'Emergency dialer']
-  },
-  {
-    id: 'health-dental',
-    templateNumber: 502,
-    name: 'Dental Care & Implant Clinic vCard',
-    category: 'Healthcare',
-    subCategory: 'Dental Clinics',
-    actionSubtitle: 'Dental Implants',
-    imgUrl: 'https://images.unsplash.com/photo-1681939278218-a755fb2bf2d3?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Root canals, aligners, teeth whitening & smile design',
-    features: ['Dental treatment list', 'Before/after smile transformations', 'Direct consultation booking', 'Painless dentistry badge']
-  },
-  {
-    id: 'health-physio',
-    templateNumber: 503,
-    name: 'Physiotherapy & Rehab vCard',
-    category: 'Healthcare',
-    subCategory: 'Physiotherapy',
-    actionSubtitle: 'Rehab & Mobility',
-    imgUrl: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Sports rehab, posture correction & pain management',
-    features: ['Home visit service booking', 'Exercise video guides', 'Pain assessment form', 'Certified therapists info']
-  },
-  {
-    id: 'health-diagnostic',
-    templateNumber: 504,
-    name: 'Diagnostic & Pathology Lab vCard',
-    category: 'Healthcare',
-    subCategory: 'Diagnostic Centres',
-    actionSubtitle: 'Pathology Tests',
-    imgUrl: 'https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Blood tests, health checkups, MRI/CT scans & X-rays',
-    features: ['Full body checkup packages', 'Book home blood collection', 'Download test reports link', 'NABL accredited badge']
-  },
-  {
-    id: 'health-pharmacy',
-    templateNumber: 505,
-    name: 'Pharmacy & Medical Store vCard',
-    category: 'Healthcare',
-    subCategory: 'Pharmacies',
-    actionSubtitle: '24/7 Pharmacy',
-    imgUrl: 'https://images.unsplash.com/photo-1655913197692-012897652d13?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: '24/7 medicines, surgical supplies & wellness products',
-    features: ['Upload prescription on WhatsApp', 'Fast medicine home delivery', 'Refill reminder alerts', 'Store location map']
-  },
-  {
-    id: 'health-diet',
-    templateNumber: 506,
-    name: 'Nutrition & Diet Consultant vCard',
-    category: 'Healthcare',
-    subCategory: 'Nutrition/Diet Consultants',
-    actionSubtitle: 'Diet & Wellness',
-    imgUrl: 'https://images.unsplash.com/photo-1656236607879-cd489955e17b?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Weight loss, PCOS management, diabetes & sports nutrition',
-    features: ['Customized meal plan download', '1-on-1 weekly consultation', 'Client transformation stories', 'BMI calculator']
-  },
-  {
-    id: 'vcard36',
-    templateNumber: 507,
-    name: 'Dr. Arvind Swaminathan - Consultant Orthopedic Surgeon',
-    category: 'Healthcare',
-    subCategory: 'Doctors & Orthopedic Surgeons',
-    actionSubtitle: 'Top Specialists',
-    imgUrl: 'https://images.unsplash.com/photo-1659353888906-adb3e0041693?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Chief Consultant',
-    tagline: 'Minimally invasive arthroscopic surgeries & regenerative sports medicine',
-    features: ['Specialist consultation slots', 'Surgical procedures catalog', 'Hospital affiliations', 'Emergency contact dialer']
-  },
-  {
-    id: 'vcard13',
-    templateNumber: 508,
-    name: 'Apex Medical Center - Specialist OPD Clinic',
-    category: 'Healthcare',
-    subCategory: 'Clinics & Multi-Specialty',
-    actionSubtitle: 'Super Specialty',
-    imgUrl: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'NABH Accredited',
-    tagline: 'Multi-specialty outpatient clinics, diagnostic laboratory & pharmacy',
-    features: ['Instant doctor consultation booking', 'Comprehensive health checkup packages', 'Digital prescription sync', 'Clinic directions & parking']
-  },
-
-  // ==========================================
-  // 6. 🎓 EDUCATION
-  // ==========================================
-  {
-    id: 'edu-school',
-    templateNumber: 601,
-    name: 'School & International Academy vCard',
-    category: 'Education',
-    subCategory: 'Schools',
-    actionSubtitle: 'Admissions Open',
-    imgUrl: 'https://images.unsplash.com/photo-1524069290683-0457abfe42c3?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Academy',
-    tagline: 'K-12 schools, play schools & international academies',
-    features: ['Admissions inquiry form', 'School prospectus PDF', 'Campus virtual tour', 'Academic calendar']
-  },
-  {
-    id: 'edu-tuition',
-    templateNumber: 602,
-    name: 'Tuition & Learning Centre vCard',
-    category: 'Education',
-    subCategory: 'Tuition Centres',
-    actionSubtitle: 'Personal Tuition',
-    imgUrl: 'https://images.unsplash.com/photo-1511629091441-ee46146481b6?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Maths, science, board exams & home tutors',
-    features: ['Batch timing & fees chart', 'Book free demo class', 'Student test scores', 'WhatsApp parent helpline']
-  },
-  {
-    id: 'edu-coaching',
-    templateNumber: 603,
-    name: 'Coaching Institute (IIT/NEET/UPSC) vCard',
-    category: 'Education',
-    subCategory: 'Coaching Institutes',
-    actionSubtitle: 'IIT / NEET Rankers',
-    imgUrl: 'https://images.unsplash.com/photo-1709290749293-c6152a187b14?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Results',
-    tagline: 'Competitive exam prep, study materials & mock tests',
-    features: ['Rankers hall of fame', 'Scholarship admission test form', 'Free study notes download', 'Faculty profile cards']
-  },
-  {
-    id: 'edu-skills',
-    templateNumber: 604,
-    name: 'Skill Training & Tech Bootcamp vCard',
-    category: 'Education',
-    subCategory: 'Skill Training Centres',
-    actionSubtitle: 'Tech Bootcamps',
-    imgUrl: 'https://images.unsplash.com/photo-1604177091072-b7b677a077f6?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Coding, AI, hardware, graphic design & vocational skills',
-    features: ['Course curriculum syllabus', '100% placement stats', 'Enroll in next batch form', 'Student project demos']
-  },
-  {
-    id: 'edu-digital',
-    templateNumber: 605,
-    name: 'Digital Marketing Trainer vCard',
-    category: 'Education',
-    subCategory: 'Digital Marketing Trainers',
-    actionSubtitle: 'Digital Marketing',
-    imgUrl: 'https://images.unsplash.com/photo-1623741860335-2701bd6c991a?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'SEO, Google Ads, Meta Ads & affiliate marketing coaching',
-    features: ['Live agency case studies', 'Certifications guide', 'Book masterclass seat', 'LinkedIn & YouTube channel']
-  },
-  {
-    id: 'edu-english',
-    templateNumber: 606,
-    name: 'Spoken English & IELTS Institute vCard',
-    category: 'Education',
-    subCategory: 'Spoken English Institutes',
-    actionSubtitle: 'IELTS 8+ Band',
-    imgUrl: 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'IELTS, TOEFL, communication skills & public speaking',
-    features: ['Band score guarantee chart', 'Free level assessment quiz', 'Study abroad counseling', 'Online & offline batches']
-  },
-
-  // ==========================================
-  // 7. 🛠️ HOME & PROFESSIONAL SERVICES
-  // ==========================================
-  {
-    id: 'home-interior',
-    templateNumber: 701,
-    name: 'Interior Designer & Modular Kitchens Mini-Website',
-    category: 'Interior Design',
-    subCategory: 'Interior Designers & Architects',
-    actionSubtitle: 'Modular Kitchens',
-    imgUrl: 'https://images.unsplash.com/photo-1745429523617-0d837856ca35?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '⭐ Flagship 3D Studio',
-    tagline: 'Turnkey residential interiors, modular homes & offices with 3D Lookbook',
-    features: [
-      'Interactive 3D Lookbook and space transformations',
-      'Living & dining, modular kitchen, and master suite galleries',
-      'Dynamic interior cost estimator & instant BOQ quote',
-      'IIID certified designer credentials & 10-year warranty guarantee',
-      'Before & After interactive split slider',
-      'Doorstep 3D consultation appointment booking'
+    "id": "restaurant-menu",
+    "templateNumber": 401,
+    "name": "Interactive Restaurant & Cafe Digital Dining Menu",
+    "category": "Food Business",
+    "subCategory": "Restaurants & Lounges",
+    "actionSubtitle": "Digital Food Menu",
+    "imgUrl": "https://images.unsplash.com/flagged/photo-1561350117-501b4661f8d4?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Best Seller",
+    "tagline": "Hyderabadi dum biryanis, tandoor starters, rooftop cocktails & dessert menu",
+    "features": [
+      "Interactive digital food menu with photos",
+      "Table & candlelight dinner reservation",
+      "1-Click WhatsApp table takeaway order",
+      "Google review QR scan"
     ]
   },
   {
-    id: 'home-architect',
-    templateNumber: 702,
-    name: 'Architect & Structural Engineer vCard',
-    category: 'Interior Design',
-    subCategory: 'Architects & Blueprints',
-    actionSubtitle: 'Architecture & 3D',
-    imgUrl: 'https://images.unsplash.com/photo-1783456309503-6d0bb120bb9c?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Modern house elevations, blueprints & municipal sanctions',
-    features: ['Blueprint portfolio gallery', 'Site inspection booking', 'Sustainable architecture designs', 'Client reviews']
+    "id": "pickles-snacks",
+    "templateNumber": 405,
+    "name": "Homemade Pickles, Ghee Sweets & Snacks Store",
+    "category": "Food Business",
+    "subCategory": "Homemade Pickles & Sweets",
+    "actionSubtitle": "Andhra Specials",
+    "imgUrl": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Authentic Andhra",
+    "tagline": "Avakaya, chicken/mutton non-veg pickles, Pootharekulu & hot savory snacks",
+    "features": [
+      "Complete pickle weight & jar catalog",
+      "Direct WhatsApp order with itemized cart",
+      "NRI worldwide parcel delivery badge",
+      "Instant UPI payment collection"
+    ]
   },
   {
-    id: 'vcard38',
-    templateNumber: 703,
-    name: 'Vistara Architecture & Luxury Design Studio',
-    category: 'Interior Design',
-    subCategory: 'Interior Architecture & Fitouts',
-    actionSubtitle: 'Luxury Interiors',
-    imgUrl: 'https://images.unsplash.com/photo-1682662046610-fbdb3db4bd74?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Luxury Studio',
-    tagline: 'Architectural space planning, luxury fitouts & 3D renderings',
-    features: ['3D architectural elevations', 'Turnkey space planning', 'Material & swatch consultations', 'Client project portfolio']
+    "id": "re-builders",
+    "templateNumber": 101,
+    "name": "Real Estate Master & High-Rise Developers",
+    "category": "Real Estate",
+    "subCategory": "High-Rise Towers, Gated Communities & Infra",
+    "actionSubtitle": "High-Rise Towers",
+    "imgUrl": "https://images.unsplash.com/photo-1721815693498-cc28507c0ba2?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "⭐ Flagship Mini-Website",
+    "tagline": "Builders, gated layouts, luxury towers & infrastructure",
+    "features": [
+      "TS-RERA certified builder & 100% clear title credentials",
+      "All property types: Towers, Gated Villas, Plots & IT Parks",
+      "Doorstep chauffeur site visit & model inspection booking",
+      "Master layout blueprints & 4K aerial drone walkthroughs",
+      "Interactive EMI calculator & per-sq-ft estimator",
+      "Instant WhatsApp lead router & 1-tap contact save"
+    ]
   },
   {
-    id: 'home-plumber',
-    templateNumber: 703,
-    name: 'Plumbing Services vCard',
-    category: 'Home & Professional Services',
-    subCategory: 'Plumbers',
-    actionSubtitle: '24/7 Plumber',
-    imgUrl: 'https://images.unsplash.com/photo-1659353588842-891391e6fcd4?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Emergency pipe leaks, bathroom fittings & motor repair',
-    features: ['1-Tap emergency phone dialer', 'Transparent rate card', '30-minute door arrival', 'Service warranty']
+    "id": "re-villas",
+    "templateNumber": 103,
+    "name": "Luxury Gated Villas & Triplex Communities",
+    "category": "Real Estate",
+    "subCategory": "Triplex Gated Villas & Clubhouse Estates",
+    "actionSubtitle": "Gated Triplex Villas",
+    "imgUrl": "https://images.unsplash.com/photo-1722421492323-eaf9c401befe?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Ultra Luxury",
+    "tagline": "Triplex gated villas, clubhouse amenities & private plunge pools",
+    "features": [
+      "4 & 5 BHK Triplex Villas with private plunge pools",
+      "Clubhouse amenities: tennis court, spa & banquet hall",
+      "100% Vastu compliant architecture & solar power",
+      "3D virtual walkthrough & high-res interior lookbook",
+      "VIP model villa appointment booking"
+    ]
   },
   {
-    id: 'home-electrician',
-    templateNumber: 704,
-    name: 'Certified Electrician vCard',
-    category: 'Home & Professional Services',
-    subCategory: 'Electricians',
-    actionSubtitle: 'Get Nearest Vendor',
-    imgUrl: 'https://images.unsplash.com/photo-1641194298727-fa6e5401bf1b?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Home wiring, inverter setups, smart switches & MCB repairs',
-    features: ['Instant technician call', 'Electrical safety audit', 'Pricing by job type', 'Google verified badge']
+    "id": "re-plots",
+    "templateNumber": 102,
+    "name": "Open Plots & Farmland Ventures",
+    "category": "Real Estate",
+    "subCategory": "Plotted Layouts, Farmlands & County",
+    "actionSubtitle": "HMDA / DTCP Plots",
+    "imgUrl": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "HMDA & DTCP Approved",
+    "tagline": "HMDA / DTCP approved open plots, farmlands & county layouts",
+    "features": [
+      "HMDA, DTCP & TS-RERA approved gated layout communities",
+      "100% clear title 30-year link document verification",
+      "Organic farmland projects with drip irrigation & fencing",
+      "Highway growth corridors (Airport & ORR / RRR junctions)",
+      "Free chauffeured weekend site visit booking"
+    ]
   },
   {
-    id: 'home-ac',
-    templateNumber: 705,
-    name: 'AC Repair & HVAC Services vCard',
-    category: 'Home & Professional Services',
-    subCategory: 'AC Services',
-    actionSubtitle: 'AC Repair & Gas',
-    imgUrl: 'https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'AC installation, gas refilling, jet cleaning & AMC plans',
-    features: ['Book AC service slot', 'Annual Maintenance Contract (AMC)', 'Split & window rates', 'Fast response guarantee']
+    "id": "fash-boutique",
+    "templateNumber": 201,
+    "name": "Grand Fashion & Clothing Mall vCard",
+    "category": "Fashion & Clothing",
+    "subCategory": "Shopping Malls & Multi-Brand Apparel",
+    "actionSubtitle": "Grand Boutique",
+    "imgUrl": "https://images.unsplash.com/photo-1654764746225-e63f5e90facd?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Trending",
+    "tagline": "Multi-Floor Fashion Mall • Men’s, Women’s & Kids’ Collections",
+    "features": [
+      "Multi-Level Dept Mall (Men/Women/Kids)",
+      "In-Store Trial Rooms & Tailoring",
+      "WhatsApp 1-Click Ordering",
+      "Express Doorstep Delivery"
+    ]
   },
   {
-    id: 'home-pest',
-    templateNumber: 706,
-    name: 'Pest Control Services vCard',
-    category: 'Home & Professional Services',
-    subCategory: 'Pest Control',
-    actionSubtitle: 'Pest Extermination',
-    imgUrl: 'https://images.unsplash.com/photo-1659353587424-f3f893a145d2?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Termite, cockroach, rodent & bed bug treatment',
-    features: ['Odorless herbal treatments', '1-year warranty contract', 'Commercial & home booking', 'Govt approved chemicals']
+    "id": "fash-saree",
+    "templateNumber": 204,
+    "name": "Exclusive Saree Shop vCard",
+    "category": "Fashion & Clothing",
+    "subCategory": "Saree Shops",
+    "actionSubtitle": "Pure Silk Sarees",
+    "imgUrl": "https://images.unsplash.com/flagged/photo-1551854716-8b811be39e7e?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Heritage",
+    "tagline": "Kanchipuram, Banarasi, Handloom & Silk Sarees",
+    "features": [
+      "High-res silk weave photos",
+      "Video call shopping link",
+      "Festive collections catalog",
+      "Silk mark badge"
+    ]
   },
   {
-    id: 'home-cleaning',
-    templateNumber: 707,
-    name: 'Deep Cleaning & Sanitization vCard',
-    category: 'Home & Professional Services',
-    subCategory: 'Cleaning Services',
-    actionSubtitle: 'Deep Sanitization',
-    imgUrl: 'https://images.unsplash.com/photo-1745429523637-60f5986cc1db?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Full house deep cleaning, sofa shampooing & kitchen sanitization',
-    features: ['Cleaning checklists', 'Before/after transformation photos', 'Instant WhatsApp booking', 'Trained staff badge']
+    "id": "beauty-salon",
+    "templateNumber": 301,
+    "name": "Luxury Hair & Beauty Salon vCard",
+    "category": "Beauty & Personal Care",
+    "subCategory": "Salons",
+    "actionSubtitle": "Top Rated Salons",
+    "imgUrl": "https://images.unsplash.com/photo-1600685890506-593fdf55949b?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Hot",
+    "tagline": "Unisex hair styling, keratin, spa & grooming",
+    "features": [
+      "Service rate menu",
+      "Online slot booking",
+      "Stylist portfolio gallery",
+      "Membership discount card"
+    ]
   },
   {
-    id: 'home-packers',
-    templateNumber: 708,
-    name: 'Packers & Movers vCard',
-    category: 'Home & Professional Services',
-    subCategory: 'Packers & Movers',
-    actionSubtitle: 'Packers & Movers',
-    imgUrl: 'https://images.unsplash.com/photo-1659353590903-972270737d60?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Local house shifting, office relocation & vehicle transport',
-    features: ['Free moving quote calculator', 'Transit insurance options', 'All-India transport network', 'Real-time GPS tracking']
-  },
-
-  // ==========================================
-  // 8. 🚗 AUTOMOBILE
-  // ==========================================
-  {
-    id: 'auto-car-dealer',
-    templateNumber: 801,
-    name: 'Car Dealer & Showroom vCard',
-    category: 'Automobile',
-    subCategory: 'Car Dealers',
-    actionSubtitle: 'Best Car Deals',
-    imgUrl: 'https://images.unsplash.com/photo-1769961236211-3046cbcc474d?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Showroom',
-    tagline: 'New cars, latest models, test drives & finance options',
-    features: ['Car model catalogue with specs', 'Book test drive form', 'Loan EMI calculator', 'Exchange bonus deals']
+    "id": "beauty-bridal",
+    "templateNumber": 304,
+    "name": "Bridal Makeup Studio vCard",
+    "category": "Beauty & Personal Care",
+    "subCategory": "Bridal Studios",
+    "actionSubtitle": "Royal Brides",
+    "imgUrl": "https://images.unsplash.com/photo-1774814305054-3f411d69211a?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Premium",
+    "tagline": "Wedding makeover, pre-bridal packages & saree draping",
+    "features": [
+      "Bridal before/after photos",
+      "Trial session scheduler",
+      "Wedding entourage packages",
+      "Client testimonials"
+    ]
   },
   {
-    id: 'auto-used-cars',
-    templateNumber: 802,
-    name: 'Certified Used Car Dealer vCard',
-    category: 'Automobile',
-    subCategory: 'Used Car Dealers',
-    actionSubtitle: 'Certified Used Cars',
-    imgUrl: 'https://images.unsplash.com/photo-1677163488586-e70b17e59aab?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Certified',
-    tagline: 'Pre-owned cars, 140-point inspected, warranty & RC transfer',
-    features: ['Live inventory stock with prices', 'Free valuation of old car', 'Buy/Sell WhatsApp chat', 'RC transfer support']
+    "id": "health-doctor",
+    "templateNumber": 501,
+    "name": "Doctor & Specialist Clinic vCard",
+    "category": "Healthcare",
+    "subCategory": "Doctors",
+    "actionSubtitle": "Book Now",
+    "imgUrl": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Verified",
+    "tagline": "Physicians, pediatricians, cardiologists & surgeons",
+    "features": [
+      "OPD consulting hours",
+      "Online appointment booking",
+      "Medical council registration",
+      "Emergency dialer"
+    ]
   },
   {
-    id: 'auto-bike-dealer',
-    templateNumber: 803,
-    name: 'Bike & Superbike Dealer vCard',
-    category: 'Automobile',
-    subCategory: 'Bike Dealers',
-    actionSubtitle: 'Superbikes & Scooters',
-    imgUrl: 'https://images.unsplash.com/photo-1530248809527-ee069dc8373a?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Sports bikes, commuter motorcycles & electric scooters',
-    features: ['Bike models & on-road prices', 'Test ride booking', 'Accessories & riding gear catalog', 'Insurance renewals']
+    "id": "health-dental",
+    "templateNumber": 502,
+    "name": "Dental Care & Implant Clinic vCard",
+    "category": "Healthcare",
+    "subCategory": "Dental Clinics",
+    "actionSubtitle": "Dental Implants",
+    "imgUrl": "https://images.unsplash.com/photo-1681939278218-a755fb2bf2d3?auto=format&fit=crop&w=800&h=1000&q=85",
+    "tagline": "Root canals, aligners, teeth whitening & smile design",
+    "features": [
+      "Dental treatment list",
+      "Before/after smile transformations",
+      "Direct consultation booking",
+      "Painless dentistry badge"
+    ]
   },
   {
-    id: 'auto-rentals',
-    templateNumber: 804,
-    name: 'Self-Drive & Luxury Car Rentals vCard',
-    category: 'Automobile',
-    subCategory: 'Car Rentals',
-    actionSubtitle: 'Self-Drive & Luxury',
-    imgUrl: 'https://images.unsplash.com/photo-1769961233314-fd5fb4c5b312?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Daily self-drive cars, wedding luxury fleets & airport cabs',
-    features: ['Fleet photos & daily tariffs', 'Instant WhatsApp reservation', 'Unlimited km packages', 'Doorstep delivery']
+    "id": "edu-school",
+    "templateNumber": 601,
+    "name": "School & International Academy vCard",
+    "category": "Education",
+    "subCategory": "Schools",
+    "actionSubtitle": "Admissions Open",
+    "imgUrl": "https://images.unsplash.com/photo-1524069290683-0457abfe42c3?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Academy",
+    "tagline": "K-12 schools, play schools & international academies",
+    "features": [
+      "Admissions inquiry form",
+      "School prospectus PDF",
+      "Campus virtual tour",
+      "Academic calendar"
+    ]
   },
   {
-    id: 'auto-detailing',
-    templateNumber: 805,
-    name: 'Car Detailing & Ceramic Coating vCard',
-    category: 'Automobile',
-    subCategory: 'Car Detailing',
-    actionSubtitle: 'Ceramic Coating',
-    imgUrl: 'https://images.unsplash.com/photo-1677163488008-c30a5dc7eeb5?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Pro Shine',
-    tagline: '9H Ceramic coating, PPF wrap, paint correction & foam wash',
-    features: ['Gloss reflection before/after', 'Detailing packages & warranty', 'Book service slot', 'Premium studio location']
+    "id": "edu-coaching",
+    "templateNumber": 603,
+    "name": "Coaching Institute (IIT/NEET/UPSC) vCard",
+    "category": "Education",
+    "subCategory": "Coaching Institutes",
+    "actionSubtitle": "IIT / NEET Rankers",
+    "imgUrl": "https://images.unsplash.com/photo-1709290749293-c6152a187b14?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Results",
+    "tagline": "Competitive exam prep, study materials & mock tests",
+    "features": [
+      "Rankers hall of fame",
+      "Scholarship admission test form",
+      "Free study notes download",
+      "Faculty profile cards"
+    ]
   },
   {
-    id: 'auto-accessories',
-    templateNumber: 806,
-    name: 'Car Accessories & Audio Studio vCard',
-    category: 'Automobile',
-    subCategory: 'Car Accessories',
-    actionSubtitle: 'Audio & Dashcams',
-    imgUrl: 'https://images.unsplash.com/photo-1648204894242-ca89818edc26?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Android touch screens, seat covers, dashcams & LED lights',
-    features: ['Accessories store catalog', 'Custom modification gallery', 'Price inquiry chat', 'Installation warranty']
-  },
-
-  // ==========================================
-  // 9. 📸 EVENTS & CREATIVE
-  // ==========================================
-  {
-    id: 'event-photo',
-    templateNumber: 901,
-    name: 'Wedding & Fashion Photographer vCard',
-    category: 'Events & Creative',
-    subCategory: 'Photographers',
-    actionSubtitle: 'Book Photo Shoot',
-    imgUrl: 'https://images.unsplash.com/photo-1772127822552-ce9ef537bdcf?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Visual Pro',
-    tagline: 'Candid wedding shoots, pre-wedding films & luxury portraits',
-    features: ['Full-screen photo album', 'Cinematic trailer video embeds', 'Session pricing guide', 'Direct call & WhatsApp']
+    "id": "home-interior",
+    "templateNumber": 701,
+    "name": "Interior Designer & Modular Kitchens Mini-Website",
+    "category": "Interior Design",
+    "subCategory": "Interior Designers & Architects",
+    "actionSubtitle": "Modular Kitchens",
+    "imgUrl": "https://images.unsplash.com/photo-1745429523617-0d837856ca35?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "⭐ Flagship 3D Studio",
+    "tagline": "Turnkey residential interiors, modular homes & offices with 3D Lookbook",
+    "features": [
+      "Interactive 3D Lookbook and space transformations",
+      "Living & dining, modular kitchen, and master suite galleries",
+      "Dynamic interior cost estimator & instant BOQ quote",
+      "IIID certified designer credentials & 10-year warranty guarantee",
+      "Before & After interactive split slider",
+      "Doorstep 3D consultation appointment booking"
+    ]
   },
   {
-    id: 'event-planner',
-    templateNumber: 902,
-    name: 'Luxury Wedding Planner vCard',
-    category: 'Events & Creative',
-    subCategory: 'Wedding Planners',
-    actionSubtitle: 'Luxury Weddings',
-    imgUrl: 'https://images.unsplash.com/photo-1744804298612-fa9f2ef0e125?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Royal',
-    tagline: 'Destination weddings, sangeet stages & hospitality management',
-    features: ['Theme decor photo galleries', 'Vendor & venue partners', 'Date availability check', 'Budget quote request']
+    "id": "home-architect",
+    "templateNumber": 702,
+    "name": "Architect & Structural Engineer vCard",
+    "category": "Interior Design",
+    "subCategory": "Architects & Blueprints",
+    "actionSubtitle": "Architecture & 3D",
+    "imgUrl": "https://images.unsplash.com/photo-1783456309503-6d0bb120bb9c?auto=format&fit=crop&w=800&h=1000&q=85",
+    "tagline": "Modern house elevations, blueprints & municipal sanctions",
+    "features": [
+      "Blueprint portfolio gallery",
+      "Site inspection booking",
+      "Sustainable architecture designs",
+      "Client reviews"
+    ]
   },
   {
-    id: 'event-manager',
-    templateNumber: 903,
-    name: 'Event Management & Corporate Galas vCard',
-    category: 'Events & Creative',
-    subCategory: 'Event Managers',
-    actionSubtitle: 'Corporate Galas',
-    imgUrl: 'https://images.unsplash.com/photo-1774024050561-4ee0148c8526?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Conferences, product launches, concerts & stage setups',
-    features: ['Event portfolio videos', 'Audio-visual AV rental spec', 'Corporate client logos', 'Direct RFP quote form']
+    "id": "home-electrician",
+    "templateNumber": 704,
+    "name": "Certified Electrician vCard",
+    "category": "Home & Professional Services",
+    "subCategory": "Electricians",
+    "actionSubtitle": "Get Nearest Vendor",
+    "imgUrl": "https://images.unsplash.com/photo-1641194298727-fa6e5401bf1b?auto=format&fit=crop&w=800&h=1000&q=85",
+    "tagline": "Home wiring, inverter setups, smart switches & MCB repairs",
+    "features": [
+      "Instant technician call",
+      "Electrical safety audit",
+      "Pricing by job type",
+      "Google verified badge"
+    ]
   },
   {
-    id: 'event-decorator',
-    templateNumber: 904,
-    name: 'Stage, Floral & Balloon Decorators vCard',
-    category: 'Events & Creative',
-    subCategory: 'Decorators',
-    actionSubtitle: 'Stage & Mandap',
-    imgUrl: 'https://images.unsplash.com/photo-1774024051129-90d3fb8e30fe?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Birthday themes, mandap decor, flower backdrops & lighting',
-    features: ['Decor themes lookbook', 'Package pricing tiers', 'Check date availability', 'WhatsApp design selection']
+    "id": "home-plumber",
+    "templateNumber": 703,
+    "name": "Plumbing Services vCard",
+    "category": "Home & Professional Services",
+    "subCategory": "Plumbers",
+    "actionSubtitle": "24/7 Plumber",
+    "imgUrl": "https://images.unsplash.com/photo-1659353588842-891391e6fcd4?auto=format&fit=crop&w=800&h=1000&q=85",
+    "tagline": "Emergency pipe leaks, bathroom fittings & motor repair",
+    "features": [
+      "1-Tap emergency phone dialer",
+      "Transparent rate card",
+      "30-minute door arrival",
+      "Service warranty"
+    ]
   },
   {
-    id: 'event-dj',
-    templateNumber: 905,
-    name: 'DJ, Sound & Light Artist vCard',
-    category: 'Events & Creative',
-    subCategory: 'DJs',
-    actionSubtitle: 'Sound & Lights',
-    imgUrl: 'https://images.unsplash.com/photo-1621801306185-8c0ccf9c8eb8?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Wedding sangeet, club nights, corporate DJ & sound rigs',
-    features: ['SoundCloud / Spotify mixes', 'Event gig booking slot', 'Live stage setup photos', 'Instagram video reels']
+    "id": "auto-car-dealer",
+    "templateNumber": 801,
+    "name": "Car Dealer & Showroom vCard",
+    "category": "Automobile",
+    "subCategory": "Car Dealers",
+    "actionSubtitle": "Best Car Deals",
+    "imgUrl": "https://images.unsplash.com/photo-1769961236211-3046cbcc474d?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Showroom",
+    "tagline": "New cars, latest models, test drives & finance options",
+    "features": [
+      "Car model catalogue with specs",
+      "Book test drive form",
+      "Loan EMI calculator",
+      "Exchange bonus deals"
+    ]
   },
   {
-    id: 'event-mehendi',
-    templateNumber: 906,
-    name: 'Bridal Mehendi Artist vCard',
-    category: 'Events & Creative',
-    subCategory: 'Mehendi Artists',
-    actionSubtitle: 'Bridal Henna',
-    imgUrl: 'https://images.unsplash.com/photo-1505932794465-147d1f1b2c97?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Artisan',
-    tagline: 'Arabic, Rajasthani, portrait & organic bridal henna',
-    features: ['Henna design lookbook', 'Bridal package rates', 'Advance date booking form', '100% organic henna badge']
+    "id": "auto-bike-dealer",
+    "templateNumber": 803,
+    "name": "Bike & Superbike Dealer vCard",
+    "category": "Automobile",
+    "subCategory": "Bike Dealers",
+    "actionSubtitle": "Superbikes & Scooters",
+    "imgUrl": "https://images.unsplash.com/photo-1530248809527-ee069dc8373a?auto=format&fit=crop&w=800&h=1000&q=85",
+    "tagline": "Sports bikes, commuter motorcycles & electric scooters",
+    "features": [
+      "Bike models & on-road prices",
+      "Test ride booking",
+      "Accessories & riding gear catalog",
+      "Insurance renewals"
+    ]
   },
   {
-    id: 'vcard34',
-    templateNumber: 907,
-    name: 'Aarav Mehta - Lumière Visual Studio & Cinema',
-    category: 'Events & Creative',
-    subCategory: 'Photography & Cinematography',
-    actionSubtitle: '4K Cinema Studio',
-    imgUrl: 'https://images.unsplash.com/photo-1772127822525-7eda37383b9f?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Cinematographer',
-    tagline: 'Lead photographer & cinematographer for destination weddings & editorial',
-    features: ['Cinematic showreels', 'Editorial portfolio gallery', 'Wedding calendar check', 'Instant consultation chat']
+    "id": "retail-jewellery",
+    "templateNumber": 1104,
+    "name": "Gold & Diamond Jewellery vCard",
+    "category": "Retail & Local Shops",
+    "subCategory": "Jewellery",
+    "actionSubtitle": "Gold & Diamonds",
+    "imgUrl": "https://images.unsplash.com/photo-1640183298005-3a4497cc6a37?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Luxury",
+    "tagline": "BIS hallmarked 916 gold, diamond necklaces & silver gifts",
+    "features": [
+      "Bridal jewelry catalog",
+      "Daily gold rate widget",
+      "Monthly gold saving scheme",
+      "Hallmark certified badge"
+    ]
   },
   {
-    id: 'vcard37',
-    templateNumber: 908,
-    name: 'Pushpa Utsav - Luxury Floral & Mandap Decor Studio',
-    category: 'Events & Creative',
-    subCategory: 'Floral & Botanical Decor',
-    actionSubtitle: 'Floral Artistry',
-    imgUrl: 'https://images.unsplash.com/photo-1772127822562-a898d9f5733c?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Luxury Florals',
-    tagline: 'Botanical installations, bespoke floral arrangements & wedding decor',
-    features: ['Floral lookbook & arrangements', 'Event styling packages', 'Direct WhatsApp ordering', 'Care & delivery guides']
-  },
-
-  // ==========================================
-  // 10. 💼 PROFESSIONAL SERVICES
-  // ==========================================
-  {
-    id: 'prof-ca',
-    templateNumber: 1001,
-    name: 'Chartered Accountant (CA) & Audit Firm vCard',
-    category: 'Professional Services',
-    subCategory: 'CA',
-    actionSubtitle: 'Quick Tax Quotes',
-    imgUrl: 'https://images.unsplash.com/photo-1771244688590-1e481dba1b5a?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Executive',
-    tagline: 'GST returns, income tax filing, statutory audits & ROC',
-    features: ['Tax advisory appointment form', 'Compliance due date calendar', 'Service fee packages', 'Client confidentiality badge']
+    "id": "retail-mobile",
+    "templateNumber": 1101,
+    "name": "Mobile Phone & Gadget Store vCard",
+    "category": "Retail & Local Shops",
+    "subCategory": "Mobile Shops",
+    "actionSubtitle": "Mobiles & Gadgets",
+    "imgUrl": "https://images.unsplash.com/photo-1780504862873-5f4ff5c322e9?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Gadgets",
+    "tagline": "Smartphones, iPhones, 0% EMI offers & express repairs",
+    "features": [
+      "Latest smartphone price list",
+      "0% EMI scheme eligibility",
+      "Screen repair quote chat",
+      "Store location map"
+    ]
   },
   {
-    id: 'prof-advocate',
-    templateNumber: 1002,
-    name: 'Advocate & Legal Chambers vCard',
-    category: 'Professional Services',
-    subCategory: 'Advocates',
-    actionSubtitle: 'Legal Chambers',
-    imgUrl: 'https://images.unsplash.com/photo-1659355894099-b2c2b2884322?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Legal Pro',
-    tagline: 'High court advocate, corporate law, property & civil litigation',
-    features: ['Practice legal areas overview', 'Confidential case consultation', 'Bar council credentials', 'Chamber directions']
+    "id": "travel-tour",
+    "templateNumber": 1202,
+    "name": "Holiday Tour Operator vCard",
+    "category": "Travel & Hospitality",
+    "subCategory": "Tour Operators",
+    "actionSubtitle": "Holiday Packages",
+    "imgUrl": "https://images.unsplash.com/photo-1587135941948-670b381f08ce?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Hot Deal",
+    "tagline": "Dubai, Bali, Europe, Kashmir & Goa holiday packages",
+    "features": [
+      "Tour itinerary PDF downloads",
+      "Book holiday package slot",
+      "Customer travel photos",
+      "Direct WhatsApp pricing"
+    ]
   },
   {
-    id: 'prof-insurance',
-    templateNumber: 1003,
-    name: 'Insurance Advisor & Financial Security vCard',
-    category: 'Professional Services',
-    subCategory: 'Insurance Agents',
-    actionSubtitle: 'Financial Shield',
-    imgUrl: 'https://images.unsplash.com/photo-1650110002977-3ee8cc5eac91?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Term life insurance, health mediclaim & motor policies',
-    features: ['Instant premium quote calculator', 'Claim assistance hotline', 'Policy comparison charts', 'WhatsApp instant consult']
-  },
-  {
-    id: 'prof-financial',
-    templateNumber: 1004,
-    name: 'Financial & Wealth Consultant vCard',
-    category: 'Professional Services',
-    subCategory: 'Financial Consultants',
-    actionSubtitle: 'Wealth Advisory',
-    imgUrl: 'https://images.unsplash.com/flagged/photo-1576485436509-a7d286952b65?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Mutual funds, SIP, retirement planning & wealth management',
-    features: ['SIP wealth growth calculator', 'Book portfolio review session', 'SEBI registered advisor info', 'Client testimonials']
-  },
-  {
-    id: 'prof-business',
-    templateNumber: 1005,
-    name: 'Business & Startup Consultant vCard',
-    category: 'Professional Services',
-    subCategory: 'Business Consultants',
-    actionSubtitle: 'Scale Your Biz',
-    imgUrl: 'https://images.unsplash.com/photo-1626063240213-c629ae4ef34c?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Growth',
-    tagline: 'Company incorporation, pitch decks, MSME loans & strategy',
-    features: ['Startup launch roadmap', 'Book 1-on-1 strategy call', 'Case study downloads', 'LinkedIn sync']
-  },
-  {
-    id: 'prof-hr',
-    templateNumber: 1006,
-    name: 'HR & Staffing Solutions vCard',
-    category: 'Professional Services',
-    subCategory: 'HR Consultants',
-    actionSubtitle: 'Hire Top Talent',
-    imgUrl: 'https://images.unsplash.com/photo-1762341116897-921e2a52f7ff?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Executive search, IT staffing, payroll & compliance',
-    features: ['Submit job opening form', 'Upload resume portal', 'Staffing service tiers', 'Candidate placement stats']
-  },
-  {
-    id: 'vcard16',
-    templateNumber: 1007,
-    name: 'Harshvardhan Reddy - Corporate Legal Advocate',
-    category: 'Professional Services',
-    subCategory: 'Law & Legal Counsel',
-    actionSubtitle: 'Corporate Counsel',
-    imgUrl: 'https://images.unsplash.com/photo-1659355894117-0ae6f8f28d0b?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Legal Counsel',
-    tagline: 'Corporate litigation, intellectual property, contracts & arbitration',
-    features: ['Practice areas & retainers', 'Bar council credentials', 'Legal consultation scheduling', 'Confidential brief submission']
-  },
-  {
-    id: 'vcard39',
-    templateNumber: 1008,
-    name: 'Rohit Madhav - Global Press & Media Bureau',
-    category: 'Professional Services',
-    subCategory: 'Media & Journalists',
-    actionSubtitle: 'Media & Press',
-    imgUrl: 'https://images.unsplash.com/photo-1656221009898-694595f2119b?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Senior Correspondent',
-    tagline: 'Broadcast media, press releases, interviews & investigative reporting',
-    features: ['Press credentials & accreditation', 'Published articles archive', 'Media request booking', 'Digital press pass']
-  },
-  {
-    id: 'vcard43',
-    templateNumber: 1009,
-    name: 'Executive Managing Director & Boardroom CXO',
-    category: 'Professional Services',
-    subCategory: 'Executives & Founders',
-    actionSubtitle: 'Executive CXO',
-    imgUrl: 'https://images.unsplash.com/photo-1656221009909-4f202547cd94?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Executive Suite',
-    tagline: 'Managing director credentials, advisory board & keynotes',
-    features: ['Executive portfolio & bio', 'Media appearances & awards', 'Boardroom appointment request', 'Direct executive line']
-  },
-
-  // ==========================================
-  // 11. 🛍️ RETAIL & LOCAL SHOPS
-  // ==========================================
-  {
-    id: 'retail-mobile',
-    templateNumber: 1101,
-    name: 'Mobile Phone & Gadget Store vCard',
-    category: 'Retail & Local Shops',
-    subCategory: 'Mobile Shops',
-    actionSubtitle: 'Mobiles & Gadgets',
-    imgUrl: 'https://images.unsplash.com/photo-1780504862873-5f4ff5c322e9?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Gadgets',
-    tagline: 'Smartphones, iPhones, 0% EMI offers & express repairs',
-    features: ['Latest smartphone price list', '0% EMI scheme eligibility', 'Screen repair quote chat', 'Store location map']
-  },
-  {
-    id: 'retail-electronics',
-    templateNumber: 1102,
-    name: 'Electronics & Home Appliances vCard',
-    category: 'Retail & Local Shops',
-    subCategory: 'Electronics',
-    actionSubtitle: 'Smart Home Tech',
-    imgUrl: 'https://images.unsplash.com/photo-1561911758-e6495b60d8a5?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Smart TVs, refrigerators, washing machines & audio',
-    features: ['Festive deal catalog', 'Brand warranty info', 'Free home delivery booking', 'Exchange old appliance offer']
-  },
-  {
-    id: 'retail-furniture',
-    templateNumber: 1103,
-    name: 'Furniture Showroom & Woodwork vCard',
-    category: 'Retail & Local Shops',
-    subCategory: 'Furniture',
-    actionSubtitle: 'Luxury Furniture',
-    imgUrl: 'https://images.unsplash.com/photo-1745301558339-44eb3217d5da?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Design',
-    tagline: 'Recliners, teak wood sofas, king beds & office desks',
-    features: ['Furniture collection lookbook', 'Custom dimensions inquiry', 'Showroom video tour', 'Direct WhatsApp ordering']
-  },
-  {
-    id: 'retail-jewellery',
-    templateNumber: 1104,
-    name: 'Gold & Diamond Jewellery vCard',
-    category: 'Retail & Local Shops',
-    subCategory: 'Jewellery',
-    actionSubtitle: 'Gold & Diamonds',
-    imgUrl: 'https://images.unsplash.com/photo-1640183298005-3a4497cc6a37?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Luxury',
-    tagline: 'BIS hallmarked 916 gold, diamond necklaces & silver gifts',
-    features: ['Bridal jewelry catalog', 'Daily gold rate widget', 'Monthly gold saving scheme', 'Hallmark certified badge']
-  },
-  {
-    id: 'retail-gifts',
-    templateNumber: 1105,
-    name: 'Personalized Gifts & Toys Shop vCard',
-    category: 'Retail & Local Shops',
-    subCategory: 'Gift Shops',
-    actionSubtitle: 'Custom Keepsakes',
-    imgUrl: 'https://images.unsplash.com/photo-1782033032439-a2c656ca2f59?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Custom photo frames, mugs, birthday toys & corporate hampers',
-    features: ['Customized product ordering', 'Gift hamper catalog', 'Same-day gift delivery', 'WhatsApp order chat']
-  },
-  {
-    id: 'retail-grocery',
-    templateNumber: 1106,
-    name: 'Supermarket & Organic Grocery vCard',
-    category: 'Retail & Local Shops',
-    subCategory: 'Grocery Stores',
-    actionSubtitle: 'Organic Supermarket',
-    imgUrl: 'https://images.unsplash.com/photo-1559561724-732dbca7be1e?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Daily essentials, fresh vegetables, organic pulses & dairy',
-    features: ['Send grocery list on WhatsApp', 'Free 30-min home delivery', 'Weekly discount deals', 'Loyalty card program']
-  },
-  {
-    id: 'retail-hardware',
-    templateNumber: 1107,
-    name: 'Hardware, Paints & Sanitary Store vCard',
-    category: 'Retail & Local Shops',
-    subCategory: 'Hardware Shops',
-    actionSubtitle: 'Hardware & Sanitary',
-    imgUrl: 'https://images.unsplash.com/photo-1532664189809-02133fee698d?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Asian paints, power tools, plumbing fixtures & building materials',
-    features: ['Paint color shade card', 'Contractor wholesale pricing', 'WhatsApp order & delivery', 'Authorized dealer badge']
-  },
-
-  // ==========================================
-  // 12. ✈️ TRAVEL & HOSPITALITY
-  // ==========================================
-  {
-    id: 'travel-agency',
-    templateNumber: 1201,
-    name: 'International Travel & Visa Agency vCard',
-    category: 'Travel & Hospitality',
-    subCategory: 'Travel Agencies',
-    actionSubtitle: 'Visa & Air Tickets',
-    imgUrl: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Popular',
-    tagline: 'Flight tickets, tourist visas, passport services & travel insurance',
-    features: ['Visa document checklist PDF', 'Flight ticket inquiry chat', 'Forex & insurance assistance', 'IATA accredited']
-  },
-  {
-    id: 'travel-tour',
-    templateNumber: 1202,
-    name: 'Holiday Tour Operator vCard',
-    category: 'Travel & Hospitality',
-    subCategory: 'Tour Operators',
-    actionSubtitle: 'Holiday Packages',
-    imgUrl: 'https://images.unsplash.com/photo-1587135941948-670b381f08ce?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Hot Deal',
-    tagline: 'Dubai, Bali, Europe, Kashmir & Goa holiday packages',
-    features: ['Tour itinerary PDF downloads', 'Book holiday package slot', 'Customer travel photos', 'Direct WhatsApp pricing']
-  },
-  {
-    id: 'travel-hotel',
-    templateNumber: 1203,
-    name: 'Luxury Hotel & Banquet Suites vCard',
-    category: 'Travel & Hospitality',
-    subCategory: 'Hotels',
-    actionSubtitle: '5-Star Suites',
-    imgUrl: 'https://images.unsplash.com/photo-1661924326425-c14a6426d989?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '5-Star',
-    tagline: 'Deluxe rooms, swimming pool, banquet halls & fine dining',
-    features: ['Room tariff & booking', 'Banquet hall for weddings', 'Virtual room walkthrough', 'Airport pickup booking']
-  },
-  {
-    id: 'travel-resort',
-    templateNumber: 1204,
-    name: 'Nature Resort & Weekend Getaway vCard',
-    category: 'Travel & Hospitality',
-    subCategory: 'Resorts',
-    actionSubtitle: 'Nature Getaways',
-    imgUrl: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: 'Weekend Special',
-    tagline: 'Private pool villas, adventure games, campfire & buffet',
-    features: ['Day outing packages', 'Villa photos & tariffs', 'Advance booking calendar', 'Directions map link']
-  },
-  {
-    id: 'travel-homestay',
-    templateNumber: 1205,
-    name: 'Heritage Homestay & Plantation Villa vCard',
-    category: 'Travel & Hospitality',
-    subCategory: 'Homestays',
-    actionSubtitle: 'Heritage Homestays',
-    imgUrl: 'https://images.unsplash.com/photo-1593693411515-c20261bcad6e?auto=format&fit=crop&w=800&h=1000&q=85',
-    tagline: 'Cozy rooms in hills, homemade authentic meals & nature walks',
-    features: ['Homestay photo gallery', 'Local activities list', 'Instant host WhatsApp chat', 'Verified guest reviews']
-  },
-  {
-    id: 'travel-taxi',
-    templateNumber: 1206,
-    name: '24/7 Outstation Taxi & Cab Service vCard',
-    category: 'Travel & Hospitality',
-    subCategory: 'Cab/Taxi Services',
-    actionSubtitle: '24/7 Outstation Cabs',
-    imgUrl: 'https://images.unsplash.com/photo-1656221010175-bcfeadcb6017?auto=format&fit=crop&w=800&h=1000&q=85',
-    badge: '24/7 Fast',
-    tagline: 'Outstation cabs, airport drop, Innova/Sedan rentals',
-    features: ['One-way & roundtrip fare chart', '1-Tap instant cab call', 'Sedan/SUV/Innova fleet', 'Clean sanitised cars']
+    "id": "travel-hotel",
+    "templateNumber": 1203,
+    "name": "Luxury Hotel & Banquet Suites vCard",
+    "category": "Travel & Hospitality",
+    "subCategory": "Hotels",
+    "actionSubtitle": "5-Star Suites",
+    "imgUrl": "https://images.unsplash.com/photo-1661924326425-c14a6426d989?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "5-Star",
+    "tagline": "Deluxe rooms, swimming pool, banquet halls & fine dining",
+    "features": [
+      "Room tariff & booking",
+      "Banquet hall for weddings",
+      "Virtual room walkthrough",
+      "Airport pickup booking"
+    ]
   }
 ];
 

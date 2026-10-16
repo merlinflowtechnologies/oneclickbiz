@@ -849,7 +849,7 @@ export default function LandingPage() {
               href="#templates"
               className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 text-white border border-white/20 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm backdrop-blur-md"
             >
-              <span>Browse 93+ Live Templates ↓</span>
+              <span>Browse {VCARD_TEMPLATES_CATALOG.length}+ Live Templates ↓</span>
             </a>
           </div>
 
