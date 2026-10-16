@@ -1546,7 +1546,7 @@ export default function EventsMiniWebsiteView({
       {/* =========================================================================
           7. "WHY A 2-HOUR EVENT SHOULDN'T COST A FULL DAY" (Hourly Value Proposition)
          ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
+      <section id="why-hourly-section" className="max-w-7xl mx-auto px-4 py-12">
         <div className="bg-[#18181B] rounded-3xl p-8 sm:p-12 text-white shadow-xl space-y-8">
           <div className="max-w-3xl space-y-3">
             <span className="text-xs font-black uppercase tracking-widest text-[#E94E77] bg-pink-500/10 px-3 py-1 rounded-full border border-pink-500/20">
@@ -1621,7 +1621,7 @@ export default function EventsMiniWebsiteView({
       {/* =========================================================================
           8. OUTDOOR SHOOT SPOTS IN HYDERABAD
          ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 py-12 space-y-6">
+      <section id="hyderabad-spots-section" className="max-w-7xl mx-auto px-4 py-12 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-50 text-[#E94E77] text-xs font-bold mb-1.5 border border-pink-200">
@@ -1673,7 +1673,7 @@ export default function EventsMiniWebsiteView({
       {/* =========================================================================
           9. HYDERABAD LOCALITIES DIRECTORY (50+ Areas Covered)
          ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
+      <section id="localities-section" className="max-w-7xl mx-auto px-4 py-12">
         <div className="rounded-3xl bg-white p-6 sm:p-10 border border-slate-200 shadow-sm space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
@@ -1719,7 +1719,7 @@ export default function EventsMiniWebsiteView({
       {/* =========================================================================
           10. PORTFOLIO GALLERY LIGHTBOX (High-Res Samples)
          ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 py-12 space-y-6">
+      <section id="portfolio-section" className="max-w-7xl mx-auto px-4 py-12 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-50 text-[#E94E77] text-xs font-bold mb-1.5 border border-pink-200">
@@ -1787,7 +1787,7 @@ export default function EventsMiniWebsiteView({
       {/* =========================================================================
           11. CUSTOMER REVIEWS & GOOGLE RATINGS (4.9★, 2,500+ Verified Client Reviews)
          ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
+      <section id="reviews-section" className="max-w-7xl mx-auto px-4 py-12">
         <div className="rounded-3xl bg-gradient-to-br from-white to-pink-50/30 p-8 sm:p-12 border border-pink-200 shadow-sm space-y-10">
           
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-pink-100">
@@ -1855,7 +1855,7 @@ export default function EventsMiniWebsiteView({
       {/* =========================================================================
           12. COMPREHENSIVE HYDERABAD PHOTOGRAPHY FAQS ACCORDION
          ========================================================================= */}
-      <section className="max-w-4xl mx-auto px-4 py-12 space-y-6">
+      <section id="faqs-section" className="max-w-4xl mx-auto px-4 py-12 space-y-6">
         <div className="text-center space-y-2">
           <span className="text-xs font-black uppercase tracking-wider text-[#E94E77]">
             Got Questions?
@@ -2219,6 +2219,148 @@ export default function EventsMiniWebsiteView({
 
         </div>
       </footer>
+
+      {/* =========================================================================
+          18. OTHER EVENT SERVICES MODAL (Decoration, Catering, Venues, Entertainment)
+         ========================================================================= */}
+      {isServicesModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg">
+                  🎈
+                </div>
+                <div>
+                  <h3 className="text-lg font-black text-slate-900 tracking-tight">Full Event &amp; Celebration Services</h3>
+                  <p className="text-xs text-slate-500 font-medium">Add-on party planning services in Hyderabad</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsServicesModalOpen(false)}
+                className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Service Tabs */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {[
+                { id: 'decor', name: 'Decoration', icon: '🎈' },
+                { id: 'catering', name: 'Live Catering', icon: '🍽️' },
+                { id: 'venues', name: 'Party Venues', icon: '🏛️' },
+                { id: 'entertainment', name: 'DJ & Sound', icon: '🎭' }
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveServiceTab(tab.id as any)}
+                  className={`p-3 rounded-2xl text-xs font-black flex flex-col items-center gap-1.5 transition cursor-pointer border ${
+                    activeServiceTab === tab.id
+                      ? 'bg-emerald-50 text-emerald-800 border-emerald-300 shadow-sm'
+                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  <span className="text-lg">{tab.icon}</span>
+                  <span>{tab.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Tab Contents */}
+            {activeServiceTab === 'decor' && (
+              <div className="space-y-4 bg-slate-50 rounded-2xl p-4 border border-slate-200">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h4 className="font-extrabold text-slate-900 text-sm">Theme Balloon &amp; Floral Decor</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Birthday rings, cradle florals, LED light arches &amp; welcome boards.</p>
+                  </div>
+                  <span className="text-xs font-black text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-lg">From ₹2,499</span>
+                </div>
+                <ul className="text-xs text-slate-600 space-y-1.5">
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> 100+ Designer organic balloon arch presets</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Fresh flower jasmine &amp; marigold traditional backdrops</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Setup completed 2 hours before event start</li>
+                </ul>
+              </div>
+            )}
+
+            {activeServiceTab === 'catering' && (
+              <div className="space-y-4 bg-slate-50 rounded-2xl p-4 border border-slate-200">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h4 className="font-extrabold text-slate-900 text-sm">Live Food Counters &amp; Catering</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Hyderabadi Dum Biryani, live tandoor, chaat stalls &amp; dessert spreads.</p>
+                  </div>
+                  <span className="text-xs font-black text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-lg">From ₹350 / Plate</span>
+                </div>
+                <ul className="text-xs text-slate-600 space-y-1.5">
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Live hot Dosa, Chaat &amp; barbecue counters</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Authentic veg &amp; non-veg regional Hyderabadi menu</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Includes uniformed service staff &amp; crockery</li>
+                </ul>
+              </div>
+            )}
+
+            {activeServiceTab === 'venues' && (
+              <div className="space-y-4 bg-slate-50 rounded-2xl p-4 border border-slate-200">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h4 className="font-extrabold text-slate-900 text-sm">Boutique Banquet Halls &amp; Farmhouses</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Terrace spaces in Jubilee Hills, pool villas in Shamshabad &amp; Moinabad.</p>
+                  </div>
+                  <span className="text-xs font-black text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-lg">From ₹15,000</span>
+                </div>
+                <ul className="text-xs text-slate-600 space-y-1.5">
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Capacities from 30 guests to 500 guests</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Full air conditioning, valet parking &amp; power backup</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Zero venue commission booking guarantee</li>
+                </ul>
+              </div>
+            )}
+
+            {activeServiceTab === 'entertainment' && (
+              <div className="space-y-4 bg-slate-50 rounded-2xl p-4 border border-slate-200">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h4 className="font-extrabold text-slate-900 text-sm">DJ Sound, Lighting &amp; Emcee Host</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">JBL sound systems, moving head beam lights, karaoke &amp; interactive game host.</p>
+                  </div>
+                  <span className="text-xs font-black text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-lg">From ₹6,000</span>
+                </div>
+                <ul className="text-xs text-slate-600 space-y-1.5">
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Bollywood, Tollywood &amp; Punjabi party music mix</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Professional energetic bilingual anchors (Telugu/Hindi/English)</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Fog machine, cold pyros &amp; dance floor lighting</li>
+                </ul>
+              </div>
+            )}
+
+            <div className="pt-2 flex items-center gap-3">
+              <a
+                href={`https://wa.me/919876543210?text=${encodeURIComponent('Hi, I would like to inquire about ' + activeServiceTab + ' service for my event in Hyderabad.')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition cursor-pointer"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Enquire via WhatsApp</span>
+              </a>
+              <button
+                onClick={() => {
+                  setIsServicesModalOpen(false);
+                  setIsBookingModalOpen(true);
+                }}
+                className="flex-1 py-3 rounded-2xl bg-slate-900 hover:bg-black text-white font-extrabold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>Book With Photography</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
     </div>
   );
