@@ -54,7 +54,8 @@ import {
   FileSpreadsheet,
   RefreshCw,
   PhoneCall,
-  Zap
+  Zap,
+  Play
 } from 'lucide-react';
 import QRCode from 'qrcode';
 import { DigitalProfile, ServiceItem, ProductItem, VideoItem, GalleryItem, TestimonialItem, SocialLinkItem } from '@/lib/types';
@@ -525,6 +526,72 @@ export const INSURANCE_STAGE_CARDS = [
   }
 ];
 
+// Curated Instagram Reels matching Restaurant Template Layout
+export const INSURANCE_INSTAGRAM_REELS = [
+  {
+    id: 'reel-1',
+    title: 'Cracking Open 40kg Handi Dum & Advisory Shield',
+    views: '72.4K views',
+    imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80',
+    caption: 'Discover the exact 80C & 80D tax deductions and claim settlement strategies that save thousands every year.'
+  },
+  {
+    id: 'reel-2',
+    title: 'Charcoal Tandoori Tikka Sizzle & 60-Min TPA Desk',
+    views: '89.1K views',
+    imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80',
+    caption: '3 golden documents to carry to hospital admissions to ensure instant cashless authorization without stress.'
+  },
+  {
+    id: 'reel-3',
+    title: 'Clay Skewer Paneer Angaara & Room Rent Sub-Limits',
+    views: '45.1K views',
+    imageUrl: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80',
+    caption: 'Why picking a deluxe hospital room can cause proportionate deductions on surgeon and ICU bills!'
+  },
+  {
+    id: 'reel-4',
+    title: 'Fresh Garlic Naan Butter Splash & Child Future Shield',
+    views: '110K views',
+    imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
+    caption: 'How Waiver of Premium ensures your family dreams remain 100% safeguarded regardless of circumstances.'
+  }
+];
+
+// Curated YouTube Playlist Items matching Restaurant Template Layout
+export const INSURANCE_YOUTUBE_PLAYLIST_ITEMS = [
+  {
+    id: 'yt-item-1',
+    title: 'Roasting with 14 Whole Spices & Fiduciary Policy Audit',
+    subtitle: 'Live Clay Tandoor • 38K views',
+    duration: '08:45',
+    quality: '4K UHD',
+    embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0',
+    imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80',
+    description: 'Learn how to detect room rent capping, disease sub-limits, and co-payment clauses before hospital admission.'
+  },
+  {
+    id: 'yt-item-2',
+    title: 'The Secret Marinade: Structuring High Sum-Assured Shield',
+    subtitle: 'MDRT Masterclass • 54K views',
+    duration: '12:10',
+    quality: '4K UHD',
+    embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0',
+    imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80',
+    description: 'Smart structuring tips: choosing whole life vs term to 65, waiver of premium riders, and accidental boosters.'
+  },
+  {
+    id: 'yt-item-3',
+    title: 'Slow-Fire Handi Sealing: 100% Cashless Sanction Guide',
+    subtitle: 'Hospital TPA Guide • 89K views',
+    duration: '10:30',
+    quality: 'HD 1080p',
+    embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0',
+    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
+    description: 'Complete breakdown of self, spouse, children, and senior citizen parent health premiums under Old Tax Regime.'
+  }
+];
+
 export default function InsuranceTemplateView({
   profile,
   cart,
@@ -568,6 +635,29 @@ export default function InsuranceTemplateView({
   const [websiteQrUrl, setWebsiteQrUrl] = useState<string>('');
   const [copiedLink, setCopiedLink] = useState(false);
   const [currentUrl, setCurrentUrl] = useState<string>('');
+
+  // YouTube in-window video player state
+  const [isPlayingYouTube, setIsPlayingYouTube] = useState(false);
+  const [activeYouTubeVideo, setActiveYouTubeVideo] = useState({
+    id: 'yt-featured',
+    title: 'Behind The Dum: The 18-Hour Slow Charcoal Embers Technique',
+    subtitle: 'Featured Episode • 4K UHD',
+    duration: '14:20',
+    quality: '4K UHD',
+    embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0',
+    imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=900&q=80',
+    description: 'Watch our master chefs and specialists demonstrate the art of earthen pot dough sealing, whole garam masala tempering, and royal dum steaming.',
+    tag: 'FEATURED EPISODE'
+  });
+
+  // Instagram Reel in-window viewer state
+  const [activeInstagramReel, setActiveInstagramReel] = useState<{
+    id: string;
+    title: string;
+    views: string;
+    imageUrl: string;
+    caption: string;
+  } | null>(null);
 
   // Insurance Hero Carousel & Quick Quote State
   const [heroSlideIndex, setHeroSlideIndex] = useState(0);
@@ -3283,138 +3373,259 @@ export default function InsuranceTemplateView({
       </section>
 
       {/* ============================================================== */}
-      {/* 11.8 OFFICIAL SOCIAL MEDIA SPACES & ADVISORY COMMUNITY CHANNELS */}
+      {/* 11.8. SOCIAL MEDIA HUB (INSTAGRAM & YOUTUBE SPACES)             */}
       {/* ============================================================== */}
-      <section id="socials" className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <span className="text-xs font-black uppercase tracking-wider text-purple-700 bg-purple-100/90 border border-purple-300/90 px-3.5 py-1 rounded-full inline-flex items-center gap-1.5 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-purple-600" />
-            Official Social Media Spaces
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-black text-slate-950 tracking-tight ocb-font-serif">
-            Connect & Follow {advisorName} Across All Platforms
+      <section id="socials" className="relative z-10 py-16 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto space-y-2 mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/95 border border-[#D8A63D]/40 text-[#C1621F] text-xs font-black uppercase tracking-wider shadow-2xs">
+            <Share2 className="w-3.5 h-3.5 text-[#C1621F]" /> Behind The Scenes & Kitchen Stories
+          </div>
+          <h2 className="ocb-font-serif text-3xl sm:text-4xl font-black text-slate-950">
+            Connect With Us On Social Media
           </h2>
-          <p className="text-sm text-slate-800 font-bold max-w-2xl mx-auto leading-relaxed">
-            Stay informed with verified policy comparison masterclasses, IRDAI regulatory alerts, cashless hospital admission guides, and direct fiduciary advisory across our official social channels.
+          <p className="text-xs sm:text-sm text-slate-800 font-bold">
+            Watch our master specialists in the live demonstration kitchen, discover daily special reels, and join our community on Instagram and YouTube.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto items-stretch">
+        <div className="flex flex-col gap-10 max-w-5xl mx-auto">
           
-          {/* 1. Instagram */}
-          <div className="glass-surface p-6 sm:p-8 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-3xl">
-            <div className="glass-layer-effect" />
-            <div className="glass-layer-tint" />
-            <div className="glass-layer-shine" />
-
-            <div className="glass-inner space-y-5 flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <div className="w-14 h-14 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2.5 group-hover:scale-110 transition-transform">
-                    <SocialIcon platform="instagram" size={32} colored={true} />
+          {/* 1. Instagram Platform Space (Card 1) */}
+          <div className="bg-gradient-to-br from-[#833ab4]/15 via-[#fd1d1d]/12 to-[#fcb045]/15 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border-2 border-pink-400/40 shadow-xl flex flex-col justify-between space-y-6 group hover:border-pink-500/70 transition-all duration-300">
+            <div className="space-y-4">
+              
+              {/* Instagram Card Top Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-md shrink-0">
+                    <SocialIcon platform="instagram" size={24} colored={false} className="text-white" />
                   </div>
-                  <div className="text-right">
-                    <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#E1306C]/10 text-[#E1306C] border border-[#E1306C]/30 inline-block shadow-2xs">
-                      Official Instagram
-                    </span>
-                    <p className="text-[11px] font-extrabold text-slate-700 mt-1">18,500+ Followers</p>
-                  </div>
-                </div>
-
-                <h3 className="text-xl font-black text-slate-950 tracking-tight">Instagram Reels & Advisory</h3>
-                <p className="text-xs font-extrabold text-[#E1306C] font-mono mt-0.5">@insuranceadvisory</p>
-
-                <p className="text-xs sm:text-sm text-slate-800 font-medium leading-relaxed mt-3">
-                  Follow for daily 60-second visual reels demystifying Section 80C & 80D tax deductions, new IRDAI guidelines, and essential family protection tips.
-                </p>
-
-                <div className="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-slate-200/80">
-                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
-                    <p className="text-[10px] font-bold text-slate-600">Daily Reels</p>
-                    <p className="text-xs font-black text-slate-950 mt-0.5">Tax & Mediclaim</p>
-                  </div>
-                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
-                    <p className="text-[10px] font-bold text-slate-600">Updates</p>
-                    <p className="text-xs font-black text-slate-950 mt-0.5">IRDAI Rules</p>
-                  </div>
-                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
-                    <p className="text-[10px] font-bold text-slate-600">Community</p>
-                    <p className="text-xs font-black text-slate-950 mt-0.5">Q&A Highlights</p>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <h3 className="font-extrabold text-base text-slate-950">@oneclickbiz</h3>
+                      <span className="w-4 h-4 rounded-full bg-sky-500 text-white text-[10px] flex items-center justify-center font-bold shadow-2xs">✓</span>
+                    </div>
+                    <p className="text-xs text-slate-700 font-bold">18.2K Foodies • 320 Kitchen Reels</p>
                   </div>
                 </div>
-              </div>
 
-              <div className="pt-4 border-t border-slate-200/80">
                 <a
                   href={socialLinks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:opacity-95 text-white font-black text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-pink-500/25 cursor-pointer group-hover:shadow-lg active:scale-95"
+                  onClick={() => trackAction('instagram_follow_click')}
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-95 text-white text-xs font-black shadow-md transition flex items-center gap-2 cursor-pointer active:scale-95"
                 >
-                  <SocialIcon platform="instagram" size={16} colored={false} className="text-white fill-white" />
-                  <span>Follow @insuranceadvisory on Instagram</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <SocialIcon platform="instagram" size={14} colored={false} className="text-white" />
+                  <span>Follow on Instagram</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
-            </div>
-          </div>
 
-          {/* 2. YouTube */}
-          <div className="glass-surface p-6 sm:p-8 flex flex-col justify-between group shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-3xl">
-            <div className="glass-layer-effect" />
-            <div className="glass-layer-tint" />
-            <div className="glass-layer-shine" />
+              {/* Bio snippet */}
+              <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-semibold">
+                Authentic charcoal-tandoor roasting, royal handi dum biryani unveilings, and live dining experiences in Indiranagar, Bengaluru. Tag us in your stories to get featured!
+              </p>
 
-            <div className="glass-inner space-y-5 flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <div className="w-14 h-14 rounded-2xl bg-white shadow-md border border-slate-200/80 flex items-center justify-center p-2.5 group-hover:scale-110 transition-transform">
-                    <SocialIcon platform="youtube" size={32} colored={true} />
-                  </div>
-                  <div className="text-right">
-                    <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/30 inline-block shadow-2xs">
-                      Official YouTube Channel
-                    </span>
-                    <p className="text-[11px] font-extrabold text-slate-700 mt-1">25,000+ Subscribers</p>
-                  </div>
-                </div>
-
-                <h3 className="text-xl font-black text-slate-950 tracking-tight">YouTube Advisory Hub</h3>
-                <p className="text-xs font-extrabold text-[#FF0000] font-mono mt-0.5">@insurance_official</p>
-
-                <p className="text-xs sm:text-sm text-slate-800 font-medium leading-relaxed mt-3">
-                  Watch step-by-step masterclasses on avoiding claim rejections, understanding policy fine print, hospital TPA cashless workflows, and pure term comparison.
-                </p>
-
-                <div className="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-slate-200/80">
-                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
-                    <p className="text-[10px] font-bold text-slate-600">Masterclasses</p>
-                    <p className="text-xs font-black text-slate-950 mt-0.5">Claim Mastery</p>
-                  </div>
-                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
-                    <p className="text-[10px] font-bold text-slate-600">TPA Guides</p>
-                    <p className="text-xs font-black text-slate-950 mt-0.5">Hospital Cashless</p>
-                  </div>
-                  <div className="p-2 rounded-xl bg-white/80 border border-slate-200 text-center">
-                    <p className="text-[10px] font-bold text-slate-600">Breakdowns</p>
-                    <p className="text-xs font-black text-slate-950 mt-0.5">Policy Fine Print</p>
-                  </div>
-                </div>
+              {/* Instagram Reels Preview Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                {INSURANCE_INSTAGRAM_REELS.map((reel, rIdx) => (
+                  <button
+                    key={rIdx}
+                    type="button"
+                    onClick={() => setActiveInstagramReel(reel)}
+                    className="relative h-44 sm:h-52 rounded-2xl overflow-hidden shadow-sm group/item block bg-slate-900 border border-pink-500/30 text-left cursor-pointer hover:border-pink-500 transition-all hover:scale-102"
+                    title={`Watch Reel: ${reel.title}`}
+                  >
+                    <img
+                      src={reel.imageUrl}
+                      alt={reel.title}
+                      className="w-full h-full object-cover group-hover/item:scale-108 transition-transform duration-500 opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent flex flex-col justify-between p-2.5 text-white">
+                      <span className="px-1.5 py-0.5 rounded-md bg-black/65 text-[9px] font-bold w-max flex items-center gap-1 backdrop-blur-xs text-white">
+                        <Play className="w-2.5 h-2.5 fill-white" /> Reel
+                      </span>
+                      <div>
+                        <p className="text-[11px] font-bold line-clamp-2 leading-tight text-white drop-shadow-xs">{reel.title}</p>
+                        <span className="text-[9px] text-[#D8A63D] font-mono font-bold mt-0.5 block">{reel.views}</span>
+                      </div>
+                    </div>
+                  </button>
+                ))}
               </div>
 
-              <div className="pt-4 border-t border-slate-200/80">
+            </div>
+
+            {/* Bottom Tag link */}
+            <div className="pt-2 border-t border-pink-400/30 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-700 font-semibold">
+              <span>Hashtag: #OneClickBizDining • Tag us to get featured</span>
+              <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="font-extrabold text-[#C1621F] hover:underline flex items-center gap-1">
+                View All Reels on Instagram →
+              </a>
+            </div>
+
+          </div>
+
+          {/* 2. YouTube Platform Space (Card 2 - Stacked Directly Below Instagram) */}
+          <div className="bg-gradient-to-br from-red-950/20 via-[#3B1515]/25 to-slate-900/30 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border-2 border-red-500/40 shadow-xl flex flex-col justify-between space-y-6 group hover:border-red-500/70 transition-all duration-300">
+            <div className="space-y-5">
+              
+              {/* YouTube Card Top Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-red-600 to-rose-700 flex items-center justify-center text-white shadow-md shrink-0">
+                    <SocialIcon platform="youtube" size={24} colored={false} className="text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-base text-slate-950">OneClickBiz Kitchen Stories</h3>
+                    <p className="text-xs text-slate-700 font-semibold">25.8K Subscribers • 4K Documentary Series</p>
+                  </div>
+                </div>
+
                 <a
                   href={socialLinks.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-[#FF0000] hover:bg-[#CC0000] text-white font-black text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-[#FF0000]/25 cursor-pointer group-hover:shadow-lg active:scale-95"
+                  onClick={() => trackAction('youtube_subscribe_click')}
+                  className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black shadow-md transition flex items-center gap-2 cursor-pointer active:scale-95"
                 >
-                  <SocialIcon platform="youtube" size={16} colored={false} className="text-white fill-white" />
-                  <span>Subscribe to YouTube Channel</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <SocialIcon platform="youtube" size={14} colored={false} className="text-white" />
+                  <span>Subscribe on YouTube</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
+
+              {/* YouTube Video Showcase Grid (Main 4K Video + Episode Playlist) */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                
+                {/* Main 4K Video Player Showcase (Left / 7 cols) - PLAYS RIGHT IN THIS WINDOW */}
+                {isPlayingYouTube ? (
+                  <div className="lg:col-span-7 relative rounded-2xl overflow-hidden shadow-2xl border-2 border-red-500/50 bg-black min-h-[280px] sm:min-h-[340px] flex flex-col">
+                    <iframe
+                      src={activeYouTubeVideo.embedUrl}
+                      title={activeYouTubeVideo.title}
+                      className="w-full h-full min-h-[280px] sm:min-h-[340px] rounded-2xl"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                    <div className="absolute top-3 left-3 z-20">
+                      <button
+                        type="button"
+                        onClick={() => setIsPlayingYouTube(false)}
+                        className="px-2.5 py-1 rounded-lg bg-black/85 hover:bg-black text-white text-xs font-bold flex items-center gap-1 shadow-md border border-white/20 transition cursor-pointer"
+                        title="Close Video Preview"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                        <span>Close Player</span>
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="lg:col-span-7 relative rounded-2xl overflow-hidden shadow-lg border border-red-500/30 group/vid flex flex-col justify-end min-h-[280px] sm:min-h-[340px]">
+                    <img
+                      src={activeYouTubeVideo.imageUrl}
+                      alt={activeYouTubeVideo.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover/vid:scale-105 transition-transform duration-500"
+                    />
+                    
+                    {/* Dark Overlay with Big Red Play Button */}
+                    <div className="absolute inset-0 bg-black/45 group-hover/vid:bg-black/35 transition-colors flex items-center justify-center">
+                      <button
+                        type="button"
+                        onClick={() => setIsPlayingYouTube(true)}
+                        className="w-16 h-16 rounded-full bg-red-600/95 hover:bg-red-600 text-white flex items-center justify-center shadow-2xl transition hover:scale-115 active:scale-95 cursor-pointer group-hover/vid:shadow-red-600/50"
+                        title="Play in this window"
+                      >
+                        <Play className="w-7 h-7 fill-white translate-x-0.5" />
+                      </button>
+                    </div>
+
+                    {/* Duration Badge */}
+                    <div className="absolute top-3 right-3 px-2 py-1 rounded-md bg-black/80 text-white text-[10px] font-mono font-bold backdrop-blur-xs flex items-center gap-1 z-10 border border-white/10">
+                      <span>{activeYouTubeVideo.duration}</span>
+                      <span>•</span>
+                      <span className="text-amber-400">{activeYouTubeVideo.quality}</span>
+                    </div>
+
+                    {/* Video Info Bottom Banner */}
+                    <div className="relative z-10 p-4 bg-gradient-to-t from-black/95 via-black/70 to-transparent text-white">
+                      <span className="px-2 py-0.5 rounded-full bg-red-600/90 text-white text-[10px] font-black uppercase tracking-wider mb-1 inline-block">
+                        {activeYouTubeVideo.tag}
+                      </span>
+                      <p className="text-sm sm:text-base font-extrabold leading-snug">
+                        {activeYouTubeVideo.title}
+                      </p>
+                      <p className="text-[11px] text-white/80 mt-1 line-clamp-2">
+                        {activeYouTubeVideo.description}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Playlist Highlights (Right / 5 cols) - CLICKS PLAY DIRECTLY IN WINDOW */}
+                <div className="lg:col-span-5 flex flex-col justify-between gap-3">
+                  <div className="space-y-2.5">
+                    <p className="text-xs font-black uppercase tracking-wider text-[#C1621F] flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5" /> Recent Kitchen Masterclasses
+                    </p>
+
+                    {INSURANCE_YOUTUBE_PLAYLIST_ITEMS.map((item, yIdx) => (
+                      <button
+                        key={yIdx}
+                        type="button"
+                        onClick={() => {
+                          setActiveYouTubeVideo({
+                            ...item,
+                            tag: 'NOW PLAYING'
+                          });
+                          setIsPlayingYouTube(true);
+                        }}
+                        className={`w-full text-left p-3 rounded-xl border shadow-xs flex items-center gap-3 group/clip transition cursor-pointer ${
+                          activeYouTubeVideo.id === item.id && isPlayingYouTube
+                            ? 'bg-red-50/95 border-red-400 ring-2 ring-red-500/30'
+                            : 'bg-white/85 hover:bg-white border-[#D8A63D]/30'
+                        }`}
+                        title={`Play: ${item.title}`}
+                      >
+                        <div className="relative w-20 h-14 rounded-lg overflow-hidden shrink-0 bg-slate-800">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.title}
+                            className="w-full h-full object-cover group-hover/clip:scale-105 transition"
+                          />
+                          <div className="absolute inset-0 bg-black/25 flex items-center justify-center opacity-0 group-hover/clip:opacity-100 transition-opacity">
+                            <Play className="w-4 h-4 fill-white text-white" />
+                          </div>
+                          <span className="absolute bottom-1 right-1 px-1 rounded bg-black/80 text-[8px] font-mono text-white font-bold">{item.duration}</span>
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-bold text-[#241208] group-hover/clip:text-red-600 transition truncate">
+                            {item.title}
+                          </p>
+                          <p className="text-[10px] text-[#7A5B43] mt-0.5">{item.subtitle}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="pt-2">
+                    <a
+                      href={socialLinks.youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-bold text-[#C1621F] hover:underline flex items-center gap-1"
+                    >
+                      <span>Explore all videos on YouTube channel</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
+
           </div>
 
         </div>
@@ -3744,6 +3955,91 @@ export default function InsuranceTemplateView({
           onClose={() => setIsShareModalOpen(false)}
         />
       )}
+
+      {/* ======================================================== */}
+      {/* MODAL 5: INSTAGRAM REEL IN-WINDOW VIEWER MODAL           */}
+      {/* ======================================================== */}
+      {activeInstagramReel && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200"
+          onClick={() => setActiveInstagramReel(null)}
+        >
+          <div 
+            className="w-full max-w-sm rounded-3xl bg-slate-950 border border-pink-500/40 overflow-hidden shadow-2xl relative text-white flex flex-col max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Reel Header */}
+            <div className="p-3.5 bg-black/60 backdrop-blur-sm border-b border-white/10 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 p-0.5">
+                  <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+                    <SocialIcon platform="instagram" size={14} colored={false} className="text-white" />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs font-black">@oneclickbiz</span>
+                    <BadgeCheck className="w-3.5 h-3.5 text-blue-400 fill-blue-400" />
+                  </div>
+                  <span className="text-[10px] text-pink-400 font-mono font-bold">{activeInstagramReel.views}</span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setActiveInstagramReel(null)}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition cursor-pointer"
+                title="Close"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Reel Media / In-window Player */}
+            <div className="relative aspect-[9/14] bg-black overflow-hidden group">
+              <img
+                src={activeInstagramReel.imageUrl}
+                alt={activeInstagramReel.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-4">
+                <span className="px-2 py-0.5 rounded-full bg-pink-600 text-white text-[10px] font-black uppercase tracking-wider mb-2 w-max flex items-center gap-1 shadow-md">
+                  <Play className="w-2.5 h-2.5 fill-white" /> Reel Playing in Window
+                </span>
+                <h4 className="text-sm font-bold text-white drop-shadow-md leading-snug">
+                  {activeInstagramReel.title}
+                </h4>
+                <p className="text-xs text-slate-200 mt-1 line-clamp-3 leading-relaxed">
+                  {activeInstagramReel.caption}
+                </p>
+              </div>
+            </div>
+
+            {/* Reel Footer Controls */}
+            <div className="p-3 bg-slate-900 border-t border-white/10 flex items-center gap-2">
+              <a
+                href={socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackAction('instagram_reel_external_open')}
+                className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold text-center flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer"
+              >
+                <SocialIcon platform="instagram" size={14} colored={false} className="text-white" />
+                <span>Open in Instagram</span>
+                <ExternalLink className="w-3 h-3 ml-0.5" />
+              </a>
+              <button
+                type="button"
+                onClick={() => setActiveInstagramReel(null)}
+                className="py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
       {/* Floating Action Quick Dock (Bottom-Right) */}
       <div className="fixed bottom-5 right-4 sm:right-6 z-40 flex items-center gap-2">
