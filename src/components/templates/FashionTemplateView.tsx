@@ -263,19 +263,16 @@ export default function FashionTemplateView({
     return brandName.slice(0, 2).toUpperCase();
   }, [brandName]);
 
-  // Generic fashion navigation categories
+  // Fashion navigation categories
   const NAV_CATEGORIES = [
     'ALL',
-    'LONG MIDI DRESS',
-    'CO-ORD SET',
-    'NEW ARRIVAL',
-    'COTTON TWO PIECE PAIR',
-    'FORMAL PAIR',
-    'JUMPSUIT',
-    'SHORT MIDI DRESS',
-    'COTTON MIDI DRESS',
+    'MIDI DRESSES',
+    'CO-ORD SETS',
+    'NEW ARRIVALS',
+    'COTTON PAIRS',
+    'JUMPSUITS',
     'FANCY TOPS',
-    'FANCY TOPS-JEANS COMBO'
+    'FORMAL WEAR'
   ];
 
   // Active Category Filter
@@ -528,11 +525,18 @@ export default function FashionTemplateView({
   // Filtered Products
   const filteredProducts = useMemo(() => {
     if (selectedCategory === 'ALL') return allProducts;
-    if (selectedCategory === 'NEW ARRIVAL') return allProducts.slice(0, 6);
-    return allProducts.filter(p => 
-      p.category.toUpperCase().includes(selectedCategory) ||
-      selectedCategory.includes(p.category.toUpperCase())
-    );
+    if (selectedCategory === 'NEW ARRIVALS' || selectedCategory === 'NEW ARRIVAL') return allProducts.slice(0, 6);
+    const catUpper = selectedCategory.toUpperCase();
+    return allProducts.filter(p => {
+      const pCat = p.category.toUpperCase();
+      if (catUpper === 'MIDI DRESSES' && pCat.includes('MIDI')) return true;
+      if (catUpper === 'CO-ORD SETS' && (pCat.includes('CO-ORD') || pCat.includes('PAIR'))) return true;
+      if (catUpper === 'COTTON PAIRS' && pCat.includes('PAIR')) return true;
+      if (catUpper === 'JUMPSUITS' && pCat.includes('JUMPSUIT')) return true;
+      if (catUpper === 'FANCY TOPS' && (pCat.includes('TOP') || pCat.includes('COMBO'))) return true;
+      if (catUpper === 'FORMAL WEAR' && pCat.includes('FORMAL')) return true;
+      return pCat.includes(catUpper) || catUpper.includes(pCat);
+    });
   }, [allProducts, selectedCategory]);
 
   // Wishlist state
@@ -797,31 +801,21 @@ export default function FashionTemplateView({
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className="flex items-center gap-3 group"
             >
-              {profile.avatarUrl ? (
-                <div className="relative">
-                  <img
-                    src={profile.avatarUrl}
-                    alt={brandName}
-                    className="h-10 sm:h-12 w-auto object-contain rounded-sm"
-                  />
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <div className="border border-white/80 p-1 px-2 sm:px-2.5 text-center group-hover:border-[#d4af37] transition shrink-0">
+                  <span className="hk-font-serif text-base sm:text-xl font-bold tracking-widest text-white">
+                    {brandInitials}
+                  </span>
                 </div>
-              ) : (
-                <div className="flex items-center gap-2.5">
-                  <div className="border border-white/80 p-1 px-2 text-center group-hover:border-emerald-400 transition">
-                    <span className="hk-font-serif text-lg sm:text-xl font-bold tracking-widest text-white">
-                      {brandInitials}
-                    </span>
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className="hk-font-serif text-xs sm:text-sm font-semibold tracking-[0.25em] text-white uppercase">
-                      {brandName.length > 20 ? brandName.slice(0, 20) : brandName}
-                    </span>
-                    <span className="hk-font-sans text-[9px] sm:text-[10px] tracking-[0.3em] text-neutral-400 uppercase">
-                      DESIGNER BOUTIQUE
-                    </span>
-                  </div>
+                <div className="flex flex-col text-left">
+                  <span className="hk-font-serif text-xs sm:text-sm md:text-base font-bold tracking-[0.2em] text-white uppercase leading-none">
+                    {brandName}
+                  </span>
+                  <span className="hk-font-sans text-[8px] sm:text-[9.5px] tracking-[0.28em] text-[#d4af37] font-semibold uppercase mt-0.5">
+                    DESIGNER BOUTIQUE
+                  </span>
                 </div>
-              )}
+              </div>
             </a>
           </div>
 
@@ -830,7 +824,7 @@ export default function FashionTemplateView({
             {/* Desktop Search Button */}
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="hidden lg:flex items-center gap-2 text-neutral-300 hover:text-white transition group"
+              className="hidden lg:flex items-center gap-2 text-neutral-300 hover:text-white transition group cursor-pointer"
               title="Search Collections"
             >
               <Search className="w-5 h-5 text-white group-hover:scale-110 transition" />
@@ -839,7 +833,7 @@ export default function FashionTemplateView({
             {/* Account Icon */}
             <button
               onClick={() => setIsAccountOpen(true)}
-              className="text-neutral-300 hover:text-white transition p-1"
+              className="text-neutral-300 hover:text-white transition p-1 cursor-pointer"
               title="Customer Account & Orders"
             >
               <User className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white hover:scale-110 transition" />
@@ -848,7 +842,7 @@ export default function FashionTemplateView({
             {/* Wishlist Icon */}
             <button
               onClick={() => setIsWishlistOpen(true)}
-              className="hidden sm:flex relative text-neutral-300 hover:text-white transition p-1"
+              className="hidden sm:flex relative text-neutral-300 hover:text-white transition p-1 cursor-pointer"
               title="My Wishlist"
             >
               <Heart className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white hover:scale-110 transition" />
@@ -862,7 +856,7 @@ export default function FashionTemplateView({
             {/* Shopping Cart Icon with Badge */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative text-neutral-300 hover:text-white transition p-1"
+              className="relative text-neutral-300 hover:text-white transition p-1 cursor-pointer"
               title="Shopping Cart"
             >
               <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-white hover:scale-110 transition" />
@@ -874,46 +868,55 @@ export default function FashionTemplateView({
         </div>
 
         {/* ============================================================== */}
-        {/* 3. CATEGORY NAVIGATION BAR (White Bar with Jost Font)          */}
+        {/* 3. CATEGORY NAVIGATION BAR (Desktop Floating Subnav)           */}
         {/* ============================================================== */}
-        <nav className="w-full bg-white text-[#232323] border-t border-b border-[#e6e6e6] hidden lg:block overflow-x-auto hk-hide-scrollbar">
+        <nav className="w-full bg-white text-[#232323] border-t border-b border-[#e6e6e6] hidden lg:block shadow-2xs">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ul className="flex items-center justify-center gap-7 py-3 text-[13px] font-medium tracking-wide hk-font-sans uppercase whitespace-nowrap">
-              {NAV_CATEGORIES.map(category => {
-                const isActive = selectedCategory === category;
-                return (
-                  <li key={category}>
-                    <button
-                      onClick={() => {
-                        setSelectedCategory(category);
-                        const section = document.getElementById('products-section');
-                        if (section) section.scrollIntoView({ behavior: 'smooth' });
-                      }}
-                      className={`relative py-1 transition hover:text-[#8b714a] ${
-                        isActive 
-                          ? 'text-[#191919] font-bold after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#191919]' 
-                          : 'text-[#3c3c3c]'
-                      }`}
-                    >
-                      {category}
-                    </button>
-                  </li>
-                );
-              })}
-              <li>
+            <div className="flex items-center justify-between gap-4 py-2.5">
+              
+              {/* Category links with smooth overflow scroll and safe margins */}
+              <div className="flex-1 overflow-x-auto hk-hide-scrollbar">
+                <ul className="flex items-center gap-6 xl:gap-8 py-1 text-[13px] font-medium tracking-wider hk-font-sans uppercase whitespace-nowrap scroll-smooth">
+                  {NAV_CATEGORIES.map(category => {
+                    const isActive = selectedCategory === category;
+                    return (
+                      <li key={category} className="shrink-0">
+                        <button
+                          onClick={() => {
+                            setSelectedCategory(category);
+                            const section = document.getElementById('products-section');
+                            if (section) section.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                          className={`relative py-1 transition hover:text-[#8b714a] cursor-pointer ${
+                            isActive 
+                              ? 'text-[#191919] font-bold after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#191919]' 
+                              : 'text-[#4a4a4a]'
+                          }`}
+                        >
+                          {category}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              {/* Videos & Reels Quick Action Pill (Pinned on right, never cut off) */}
+              <div className="shrink-0 pl-4 border-l border-neutral-200">
                 <button
                   onClick={() => {
                     const section = document.getElementById('socials');
                     if (section) section.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="py-1 px-3 rounded-full bg-gradient-to-r from-red-50 to-pink-50 hover:from-red-100 hover:to-pink-100 text-neutral-900 font-bold text-xs flex items-center gap-1.5 transition border border-red-200/60 shadow-2xs"
+                  className="py-1 px-3.5 rounded-full bg-gradient-to-r from-red-50 to-pink-50 hover:from-red-100 hover:to-pink-100 text-neutral-900 font-bold text-xs flex items-center gap-1.5 transition border border-red-200 shadow-2xs active:scale-95 cursor-pointer shrink-0"
                   title="Watch Instagram Reels & YouTube Lookbooks"
                 >
-                  <Play className="w-3 h-3 fill-red-600 text-red-600" />
+                  <Play className="w-3.5 h-3.5 fill-red-600 text-red-600" />
                   <span>VIDEOS & REELS</span>
                 </button>
-              </li>
-            </ul>
+              </div>
+
+            </div>
           </div>
         </nav>
       </header>
