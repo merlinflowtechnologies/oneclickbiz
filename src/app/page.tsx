@@ -929,7 +929,7 @@ export default function LandingPage() {
             {/* Scrollable Templates Track */}
             <div
               ref={sliderRef}
-              className="flex items-stretch gap-4 sm:gap-6 overflow-x-auto scrollbar-none scroll-smooth py-4 px-2 select-none"
+              className="flex items-stretch gap-3 sm:gap-4 overflow-x-auto scrollbar-none scroll-smooth py-4 px-2 select-none"
               style={{ scrollSnapType: 'x mandatory' }}
             >
               {VCARD_TEMPLATES_CATALOG
@@ -939,12 +939,12 @@ export default function LandingPage() {
                     <div
                       key={template.id}
                       style={{ scrollSnapAlign: 'start' }}
-                      className="w-[260px] xs:w-[280px] sm:w-[320px] shrink-0 rounded-3xl border border-white/15 bg-slate-900/75 backdrop-blur-xl hover:border-white/30 transition-all duration-300 flex flex-col justify-between overflow-hidden group/card shadow-[0_8px_30px_rgb(0,0,0,0.3)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.45)] hover:-translate-y-1 relative"
+                      className="w-[180px] xs:w-[195px] sm:w-[220px] md:w-[230px] shrink-0 rounded-2xl sm:rounded-3xl border border-white/15 bg-slate-900/80 backdrop-blur-xl hover:border-white/30 transition-all duration-300 flex flex-col justify-between overflow-hidden group/card shadow-[0_6px_25px_rgb(0,0,0,0.3)] hover:shadow-[0_15px_35px_rgb(0,0,0,0.45)] hover:-translate-y-1 relative"
                     >
                       {/* Ribbon or Badge */}
                       {template.badge && (
-                        <div className="absolute top-3.5 right-3.5 z-20">
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide bg-gradient-to-r from-indigo-600 to-pink-500 text-white shadow-md">
+                        <div className="absolute top-2.5 right-2.5 z-20">
+                          <span className="px-2 py-0.5 rounded-full text-[8.5px] font-black uppercase tracking-wide bg-gradient-to-r from-indigo-600 to-pink-500 text-white shadow-md">
                             {template.badge}
                           </span>
                         </div>
@@ -953,7 +953,7 @@ export default function LandingPage() {
                       {/* Card Preview Image */}
                       <div 
                         onClick={() => setPreviewTemplate(template)}
-                        className="relative h-[380px] w-full bg-slate-950 overflow-hidden cursor-pointer group/img flex items-center justify-center"
+                        className="relative h-[240px] sm:h-[265px] w-full bg-slate-950 overflow-hidden cursor-pointer group/img flex items-center justify-center"
                       >
                         <img
                           src={template.imgUrl}
@@ -963,36 +963,36 @@ export default function LandingPage() {
                         />
 
                         {/* Top Gradient Overlay with Justdial Title & Subtitle */}
-                        <div className="absolute top-0 inset-x-0 p-4 pt-3.5 bg-gradient-to-b from-slate-950/85 via-slate-950/40 to-transparent pointer-events-none z-10">
-                          <h4 className="text-sm sm:text-base font-extrabold uppercase tracking-wider text-white drop-shadow-md">
+                        <div className="absolute top-0 inset-x-0 p-3 sm:p-3.5 pt-2.5 sm:pt-3 bg-gradient-to-b from-slate-950/90 via-slate-950/40 to-transparent pointer-events-none z-10">
+                          <h4 className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-white drop-shadow-md truncate">
                             {template.category}
                           </h4>
-                          <p className="text-xs text-indigo-200 font-semibold drop-shadow-sm mt-0.5">
+                          <p className="text-[10px] sm:text-[11px] text-indigo-200 font-semibold drop-shadow-sm mt-0.5 truncate">
                             {template.actionSubtitle || template.subCategory || 'Explore Portfolio'}
                           </p>
                         </div>
 
                         {/* Bottom Gradient Overlay with Justdial signature arrow */}
-                        <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent pointer-events-none flex items-end p-4 z-10">
-                          <div className="flex items-center gap-2">
-                            <span className="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/40 group-hover/card:scale-110 transition-transform">
-                              <ChevronRight className="w-4 h-4 stroke-[3]" />
+                        <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent pointer-events-none flex items-end p-3 z-10">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/40 group-hover/card:scale-110 transition-transform">
+                              <ChevronRight className="w-3.5 h-3.5 stroke-[3]" />
                             </span>
-                            <span className="text-[11px] font-bold text-white/90 drop-shadow-md group-hover/card:text-white transition-colors">
+                            <span className="text-[10px] font-bold text-white/90 drop-shadow-md group-hover/card:text-white transition-colors">
                               Explore
                             </span>
                           </div>
                         </div>
 
                         {/* Hover action overlay */}
-                        <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-[2px] opacity-0 group-hover/card:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2.5 p-4 z-20">
+                        <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-[2px] opacity-0 group-hover/card:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-3 z-20">
                           <Link
                             href={`/signup?intent=build_card&template=${template.id}`}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-full py-2.5 px-4 rounded-xl text-center text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-pink-500 hover:opacity-95 shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-1.5 transition-all"
+                            className="w-full py-2 px-3 rounded-xl text-center text-[11px] font-bold text-white bg-gradient-to-r from-indigo-600 to-pink-500 hover:opacity-95 shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-1 transition-all"
                           >
-                            <span>Use This Template</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
+                            <span>Use Template</span>
+                            <ArrowRight className="w-3 h-3" />
                           </Link>
                           <button
                             type="button"
@@ -1000,40 +1000,35 @@ export default function LandingPage() {
                               e.stopPropagation();
                               setPreviewTemplate(template);
                             }}
-                            className="w-full py-2 px-4 rounded-xl text-center text-xs font-semibold text-slate-200 hover:text-white bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                            className="w-full py-1.5 px-3 rounded-xl text-center text-[10px] font-semibold text-slate-200 hover:text-white bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-md transition-all flex items-center justify-center gap-1 cursor-pointer"
                           >
-                            <Eye className="w-3.5 h-3.5 text-indigo-300" />
-                            <span>Live Quick Preview</span>
+                            <Eye className="w-3 h-3 text-indigo-300" />
+                            <span>Preview</span>
                           </button>
                         </div>
                       </div>
 
                       {/* Card Body Footer */}
-                      <div className="p-4 sm:p-5 border-t border-white/10 bg-slate-950/90 space-y-2.5">
+                      <div className="p-3 sm:p-3.5 border-t border-white/10 bg-slate-950/90 space-y-2">
                         <div>
-                          <div className="flex items-center justify-between gap-2">
-                            <h3 className="text-sm sm:text-base font-bold text-white group-hover/card:text-indigo-300 transition-colors truncate">
-                              {template.name}
-                            </h3>
-                          </div>
-                          <p className="text-xs text-slate-400 mt-0.5 line-clamp-1">
-                            {template.tagline}
-                          </p>
+                          <h3 className="text-xs sm:text-sm font-bold text-white group-hover/card:text-indigo-300 transition-colors truncate">
+                            {template.name}
+                          </h3>
                         </div>
 
-                        <div className="flex items-center gap-2 pt-1">
+                        <div className="flex items-center gap-1.5 pt-0.5">
                           <Link
                             href={`/signup?intent=build_card&template=${template.id}`}
-                            className="flex-1 py-2 px-3 rounded-lg text-center text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-xs"
+                            className="flex-1 py-1.5 px-2 rounded-lg text-center text-[10px] sm:text-[11px] font-bold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-xs"
                           >
                             Use Free
                           </Link>
                           <button
                             type="button"
                             onClick={() => setPreviewTemplate(template)}
-                            className="py-2 px-3 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-white/10 border border-white/15 hover:bg-white/20 transition-all flex items-center gap-1 cursor-pointer"
+                            className="py-1.5 px-2 rounded-lg text-[10px] sm:text-[11px] font-semibold text-slate-300 hover:text-white bg-white/10 border border-white/15 hover:bg-white/20 transition-all flex items-center justify-center gap-1 cursor-pointer shrink-0"
                           >
-                            <Eye className="w-3.5 h-3.5 text-slate-400" />
+                            <Eye className="w-3 h-3 text-slate-400" />
                             <span>Preview</span>
                           </button>
                         </div>
