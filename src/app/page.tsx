@@ -958,15 +958,34 @@ export default function LandingPage() {
                         <img
                           src={template.imgUrl}
                           alt={template.name}
-                          className="vcard-template-img w-full h-full object-cover object-top transition-transform duration-500 group-hover/card:scale-105"
+                          className="vcard-template-img w-full h-full object-cover object-center transition-transform duration-500 group-hover/card:scale-105"
                           loading="lazy"
                         />
 
-                        <div className="absolute top-0 inset-x-0 h-12 bg-gradient-to-b from-slate-950/60 to-transparent pointer-events-none" />
-                        <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent pointer-events-none" />
+                        {/* Top Gradient Overlay with Justdial Title & Subtitle */}
+                        <div className="absolute top-0 inset-x-0 p-4 pt-3.5 bg-gradient-to-b from-slate-950/85 via-slate-950/40 to-transparent pointer-events-none z-10">
+                          <h4 className="text-sm sm:text-base font-extrabold uppercase tracking-wider text-white drop-shadow-md">
+                            {template.category}
+                          </h4>
+                          <p className="text-xs text-indigo-200 font-semibold drop-shadow-sm mt-0.5">
+                            {template.actionSubtitle || template.subCategory || 'Explore Portfolio'}
+                          </p>
+                        </div>
+
+                        {/* Bottom Gradient Overlay with Justdial signature arrow */}
+                        <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent pointer-events-none flex items-end p-4 z-10">
+                          <div className="flex items-center gap-2">
+                            <span className="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/40 group-hover/card:scale-110 transition-transform">
+                              <ChevronRight className="w-4 h-4 stroke-[3]" />
+                            </span>
+                            <span className="text-[11px] font-bold text-white/90 drop-shadow-md group-hover/card:text-white transition-colors">
+                              Explore
+                            </span>
+                          </div>
+                        </div>
 
                         {/* Hover action overlay */}
-                        <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-[2px] opacity-0 group-hover/card:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2.5 p-4">
+                        <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-[2px] opacity-0 group-hover/card:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2.5 p-4 z-20">
                           <Link
                             href={`/signup?intent=build_card&template=${template.id}`}
                             onClick={(e) => e.stopPropagation()}
@@ -981,7 +1000,7 @@ export default function LandingPage() {
                               e.stopPropagation();
                               setPreviewTemplate(template);
                             }}
-                            className="w-full py-2 px-4 rounded-xl text-center text-xs font-semibold text-slate-200 hover:text-white bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-md transition-all flex items-center justify-center gap-1.5"
+                            className="w-full py-2 px-4 rounded-xl text-center text-xs font-semibold text-slate-200 hover:text-white bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                           >
                             <Eye className="w-3.5 h-3.5 text-indigo-300" />
                             <span>Live Quick Preview</span>
@@ -990,17 +1009,14 @@ export default function LandingPage() {
                       </div>
 
                       {/* Card Body Footer */}
-                      <div className="p-5 border-t border-white/10 bg-slate-950/80 space-y-3">
+                      <div className="p-4 sm:p-5 border-t border-white/10 bg-slate-950/90 space-y-2.5">
                         <div>
                           <div className="flex items-center justify-between gap-2">
-                            <h3 className="text-base font-bold text-white group-hover/card:text-indigo-400 transition-colors truncate">
+                            <h3 className="text-sm sm:text-base font-bold text-white group-hover/card:text-indigo-300 transition-colors truncate">
                               {template.name}
                             </h3>
-                            <span className="text-[10px] font-semibold text-slate-300 px-2 py-0.5 rounded-full bg-white/10 border border-white/15">
-                              {template.category}
-                            </span>
                           </div>
-                          <p className="text-xs text-slate-400 mt-1 line-clamp-1">
+                          <p className="text-xs text-slate-400 mt-0.5 line-clamp-1">
                             {template.tagline}
                           </p>
                         </div>
@@ -1015,7 +1031,7 @@ export default function LandingPage() {
                           <button
                             type="button"
                             onClick={() => setPreviewTemplate(template)}
-                            className="py-2 px-3 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-white/10 border border-white/15 hover:bg-white/20 transition-all flex items-center gap-1"
+                            className="py-2 px-3 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-white/10 border border-white/15 hover:bg-white/20 transition-all flex items-center gap-1 cursor-pointer"
                           >
                             <Eye className="w-3.5 h-3.5 text-slate-400" />
                             <span>Preview</span>

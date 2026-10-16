@@ -19,6 +19,7 @@ export interface VCardTemplateItem {
   name: string;
   category: VCardCategory;
   subCategory?: string;
+  actionSubtitle?: string;
   imgUrl: string;
   homeImgUrl?: string;
   badge?: string;
@@ -53,7 +54,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Luxury Events & Wedding Planner vCard',
     category: 'Events & Creative',
     subCategory: 'Wedding & Event Planners',
-    imgUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Destination Weddings',
+    imgUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Featured',
     tagline: 'Destination weddings, floral Mandap decor & corporate summit setups',
     features: ['Event decor package store', 'Book wedding date consultation', '4K video teaser reel', 'WhatsApp quotation desk']
@@ -64,7 +66,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Full-Stack Software Engineer & Tech Portfolio',
     category: 'Professional Services',
     subCategory: 'Software Developers',
-    imgUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Staff Tech Architect',
+    imgUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Tech Pro',
     tagline: 'Staff Full-Stack & AI Systems Architect | Next.js, Microservices & LLMs',
     features: ['GitHub 5k+ stars showcase', 'Resume & tech consultation booking', 'Downloadable SaaS boilerplate store', '1-Click vCard save']
@@ -75,7 +78,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Interactive Restaurant & Cafe Digital Dining Menu',
     category: 'Food Business',
     subCategory: 'Restaurants & Lounges',
-    imgUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Digital Food Menu',
+    imgUrl: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Best Seller',
     tagline: 'Hyderabadi dum biryanis, tandoor starters, rooftop cocktails & dessert menu',
     features: ['Interactive digital food menu with photos', 'Table & candlelight dinner reservation', '1-Click WhatsApp table takeaway order', 'Google review QR scan']
@@ -86,7 +90,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Homemade Pickles, Ghee Sweets & Snacks Store',
     category: 'Food Business',
     subCategory: 'Homemade Pickles & Sweets',
-    imgUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Andhra Specials',
+    imgUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Authentic Andhra',
     tagline: 'Avakaya, chicken/mutton non-veg pickles, Pootharekulu & hot savory snacks',
     features: ['Complete pickle weight & jar catalog', 'Direct WhatsApp order with itemized cart', 'NRI worldwide parcel delivery badge', 'Instant UPI payment collection']
@@ -97,7 +102,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Real Estate Master & High-Rise Developers',
     category: 'Real Estate',
     subCategory: 'High-Rise Towers, Gated Communities & Infra',
-    imgUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'High-Rise Towers',
+    imgUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '⭐ Flagship Mini-Website',
     tagline: 'Builders, gated layouts, luxury towers & infrastructure',
     features: [
@@ -115,7 +121,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Open Plots & Farmland Ventures',
     category: 'Real Estate',
     subCategory: 'Plotted Layouts, Farmlands & County',
-    imgUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'HMDA / DTCP Plots',
+    imgUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'HMDA & DTCP Approved',
     tagline: 'HMDA / DTCP approved open plots, farmlands & county layouts',
     features: [
@@ -132,7 +139,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Luxury Gated Villas & Triplex Communities',
     category: 'Real Estate',
     subCategory: 'Triplex Gated Villas & Clubhouse Estates',
-    imgUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Gated Triplex Villas',
+    imgUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Ultra Luxury',
     tagline: 'Triplex gated villas, clubhouse amenities & private plunge pools',
     features: [
@@ -149,7 +157,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Certified Realtors & Property Advisors',
     category: 'Real Estate',
     subCategory: 'Channel Partners & Property Brokers',
-    imgUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Finest Agents',
+    imgUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Top Broker',
     tagline: 'Verified luxury apartments, villas & investment advisory',
     features: [
@@ -166,7 +175,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Commercial Real Estate & Pre-Leased Assets',
     category: 'Real Estate',
     subCategory: 'Pre-Leased Banks, IT Parks & High Street',
-    imgUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Pre-Leased Assets',
+    imgUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '8%+ Rental Yield',
     tagline: 'Grade-A IT parks, bank branches & high-yield commercial assets',
     features: [
@@ -183,7 +193,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Minimalist Real Estate vCard',
     category: 'Real Estate',
     subCategory: 'Executive Property Brokers',
-    imgUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Luxury Penthouses',
+    imgUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Sleek vCard',
     tagline: 'Prime property broker & digital visiting card',
     features: [
@@ -203,7 +214,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Grand Fashion & Clothing Mall vCard',
     category: 'Fashion & Clothing',
     subCategory: 'Shopping Malls & Multi-Brand Apparel',
-    imgUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Grand Boutique',
+    imgUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Trending',
     tagline: 'Multi-Floor Fashion Mall • Men’s, Women’s & Kids’ Collections',
     features: ['Multi-Level Dept Mall (Men/Women/Kids)', 'In-Store Trial Rooms & Tailoring', 'WhatsApp 1-Click Ordering', 'Express Doorstep Delivery']
@@ -214,7 +226,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Ladies Wear Studio vCard',
     category: 'Fashion & Clothing',
     subCategory: 'Ladies Wear',
-    imgUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Designer Ethnic',
+    imgUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Kurtis, lehengas, western dresses & party wear',
     features: ['Size chart guide', 'New arrivals gallery', 'Direct WhatsApp ordering', 'Special discount coupon']
   },
@@ -224,7 +237,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: "Men's Wear & Bespoke Suits vCard",
     category: 'Fashion & Clothing',
     subCategory: "Men's Wear",
-    imgUrl: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Bespoke Suits',
+    imgUrl: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Executive',
     tagline: 'Suits, blazers, ethnic sherwanis & formal apparel',
     features: ['Suit fabric swatch book', 'Master tailor appointment', 'Measurement submission form', 'Store directions']
@@ -235,7 +249,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Exclusive Saree Shop vCard',
     category: 'Fashion & Clothing',
     subCategory: 'Saree Shops',
-    imgUrl: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Pure Silk Sarees',
+    imgUrl: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Heritage',
     tagline: 'Kanchipuram, Banarasi, Handloom & Silk Sarees',
     features: ['High-res silk weave photos', 'Video call shopping link', 'Festive collections catalog', 'Silk mark badge']
@@ -246,7 +261,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Online Clothing Seller vCard',
     category: 'Fashion & Clothing',
     subCategory: 'Online Clothing Sellers',
-    imgUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Explore Lookbook',
+    imgUrl: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Instagram fashion brands, D2C apparel & streetwear',
     features: ['Direct Checkout mini-store', 'COD / Online payment link', 'Tracking status chat', 'Customer reviews wall']
   },
@@ -260,7 +276,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Luxury Hair & Beauty Salon vCard',
     category: 'Beauty & Personal Care',
     subCategory: 'Salons',
-    imgUrl: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Top Rated Salons',
+    imgUrl: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Hot',
     tagline: 'Unisex hair styling, keratin, spa & grooming',
     features: ['Service rate menu', 'Online slot booking', 'Stylist portfolio gallery', 'Membership discount card']
@@ -271,7 +288,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Beauty Parlour vCard',
     category: 'Beauty & Personal Care',
     subCategory: 'Beauty Parlours',
-    imgUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Spa & Glow',
+    imgUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Facials, waxing, manicures, pedicures & skin care',
     features: ['Monthly combo packages', 'Instant WhatsApp booking', 'Cleanliness hygiene badge', 'Location map']
   },
@@ -281,7 +299,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Professional Makeup Artist vCard',
     category: 'Beauty & Personal Care',
     subCategory: 'Makeup Artists',
-    imgUrl: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Bridal Artistry',
+    imgUrl: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Visual Pro',
     tagline: 'Celebrity makeup, fashion shoots, portfolio & party look',
     features: ['High-def lookbook gallery', 'HD/Airbrush service tiers', 'Date availability check', 'Instagram reels feed']
@@ -292,7 +311,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Bridal Makeup Studio vCard',
     category: 'Beauty & Personal Care',
     subCategory: 'Bridal Studios',
-    imgUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Royal Brides',
+    imgUrl: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Premium',
     tagline: 'Wedding makeover, pre-bridal packages & saree draping',
     features: ['Bridal before/after photos', 'Trial session scheduler', 'Wedding entourage packages', 'Client testimonials']
@@ -303,7 +323,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Skin & Hair Clinic vCard',
     category: 'Beauty & Personal Care',
     subCategory: 'Skin/Hair Clinics',
-    imgUrl: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Skin & Hair Clinic',
+    imgUrl: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Dermatologists, laser treatments & hair restoration',
     features: ['Doctor credentials & degrees', 'Treatment explainer videos', 'Confidential consultation form', 'Clinic hours']
   },
@@ -313,7 +334,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Alex Thorne - Elite Strength & Performance Coach',
     category: 'Beauty & Personal Care',
     subCategory: 'Fitness, Gym & Wellness',
-    imgUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Fitness & Strength',
+    imgUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Elite Coach',
     tagline: 'Personal training, functional conditioning & athlete nutrition coaching',
     features: ['Transformation programs', 'Book trial workout session', 'Nutrition plan calculator', 'Client transformation reviews']
@@ -328,7 +350,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'OneClickBiz Smart Restaurant & Digital Dining Menu',
     category: 'Food Business',
     subCategory: 'Smart Dining & Digital Menus',
-    imgUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Instant Table Book',
+    imgUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Smart Dining',
     tagline: 'Interactive Digital Menu, Dish Details & Instant WhatsApp Ordering',
     features: ['Interactive Digital Menu with Photos', 'Dish Details with Ingredients & Dietary Tags', '2-Option WhatsApp Ordering (Table / Delivery)', 'Direct UPI Bill Payment Desk']
@@ -339,7 +362,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Cloud Kitchen & Delivery vCard',
     category: 'Food Business',
     subCategory: 'Cloud Kitchens',
-    imgUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Cloud Kitchen',
+    imgUrl: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Virtual kitchens, late night delivery & quick bites',
     features: ['Direct WhatsApp food ordering', 'Daily lunch combos', 'Live delivery tracking chat', 'Food safety FSSAI badge']
   },
@@ -349,7 +373,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Artisan Bakery & Custom Cakes vCard',
     category: 'Food Business',
     subCategory: 'Bakers',
-    imgUrl: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Artisan Bakery',
+    imgUrl: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Sweet',
     tagline: 'Custom birthday cakes, cupcakes, cookies & breads',
     features: ['Theme cake design gallery', 'Flavor & weight pricing menu', 'Advance date booking slot', 'Delivery area radius']
@@ -360,7 +385,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Home Food & Tiffin Services vCard',
     category: 'Food Business',
     subCategory: 'Home Food Businesses',
-    imgUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Home Tiffins',
+    imgUrl: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Homestyle healthy meals, daily tiffins & lunchboxes',
     features: ['Weekly rotating menu', 'Monthly meal subscription', 'Trial meal order button', 'Dietary preference tags']
   },
@@ -370,7 +396,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Gourmet Catering Services vCard',
     category: 'Food Business',
     subCategory: 'Catering Services',
-    imgUrl: 'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Wedding Catering',
+    imgUrl: 'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Events',
     tagline: 'Wedding buffets, corporate lunches & private parties',
     features: ['Catering per-plate menus', 'Guest count quote generator', 'Live counter videos', 'Tasting session booking']
@@ -381,7 +408,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Traditional Sweet & Namkeen Shop vCard',
     category: 'Food Business',
     subCategory: 'Sweet Shops',
-    imgUrl: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Pure Ghee Sweets',
+    imgUrl: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Mithai, dry fruits, gift hampers & savory snacks',
     features: ['Festive sweet box catalogs', 'Bulk corporate gifting orders', 'Same day home delivery', 'Pure ghee guarantee']
   },
@@ -391,7 +419,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Artisan Cafe, Specialty Coffee Bar & Italian Bistro vCard',
     category: 'Food Business',
     subCategory: 'Cafes & Bistros',
-    imgUrl: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Artisan Cafe & Coffee',
+    imgUrl: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '☕ Popular Cafe',
     tagline: 'Specialty pour-overs, sourdough wood-fired pizzas, artisanal pasta & all-day European breakfast',
     features: ['Interactive espresso & cafe brunch menu', 'Direct table-side QR digital ordering', 'Advance cafe table & party booking', 'WhatsApp parcel takeaway cart']
@@ -402,7 +431,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Royal Biryani House, Mughlai Darbar & Kebab Grills vCard',
     category: 'Food Business',
     subCategory: 'Biryani & Mughlai Dining',
-    imgUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Royal Dum Biryani',
+    imgUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '🔥 Hyderabadi Royal',
     tagline: 'Authentic clay-pot dum biryanis, succulent galouti kebabs, rumali rotis & shahi tukda',
     features: ['Kacchi dum biryani portion guide & photos', 'Bulk party handi pre-order with WhatsApp cart', 'Dine-in family cabin & dastarkhwan reservation', 'FSSAI hygienic kitchen certificate']
@@ -413,7 +443,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Gourmet Burger Shack, Loaded Wraps & Crispy Fried Chicken vCard',
     category: 'Food Business',
     subCategory: 'Fast Food & Quick Service',
-    imgUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Burgers & Wraps',
+    imgUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '🍔 Smashed Burgers',
     tagline: 'Smoked brioche burgers, loaded peri-peri fries, crunchy fried chicken & thick shakes',
     features: ['Combo meals with custom dip selectors', 'Quick drive-thru pickup & takeaway booking', 'Instant WhatsApp order invoice generator', 'Contactless UPI payment desk']
@@ -424,7 +455,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Artisan Gelato, Ice Cream & Thick Shake Parlour vCard',
     category: 'Food Business',
     subCategory: 'Ice Cream & Desserts',
-    imgUrl: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Artisan Gelato',
+    imgUrl: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '🍨 Natural Gelato',
     tagline: 'Italian handcrafted gelato scoops, bubble waffles, thick milkshakes & sundae towers',
     features: ['Seasonal fresh fruit flavor radar', 'Party tub pre-booking & dry ice delivery pack', 'Sundae builder with custom topping add-ons', 'Live store location & WhatsApp delivery']
@@ -435,7 +467,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Rooftop Craft Brewery, Sunset Lounge & Taproom vCard',
     category: 'Food Business',
     subCategory: 'Breweries & Rooftop Lounges',
-    imgUrl: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Rooftop Lounge',
+    imgUrl: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '🍸 Rooftop Lounge',
     tagline: 'Fresh microbrewery craft beers, woodfire appetizers, sunset cocktails & live DJ gigs',
     features: ['Live tap beers & craft cocktail menu with ABV', 'VIP sunset table & couple candlelight reservation', 'Weekend live band entry pass & guestlist', 'Uber/cab valet pickup assistance']
@@ -446,7 +479,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Highway Grand Punjabi Dhaba & Charpai Tandoor Hut vCard',
     category: 'Food Business',
     subCategory: 'Dhaba & North Indian Dining',
-    imgUrl: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Highway Dhaba',
+    imgUrl: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '🫓 Desi Makhan Dhaba',
     tagline: 'Amritsari kulchas, sarson ka saag with makki roti, dal makhani in desi ghee & tall lassi patialas',
     features: ['Authentic dhaba tandoor menu & thali combos', 'Highway pitstop family charpai seating booking', 'Highway bus tour & family catering orders', 'Clean highway washrooms & 24/7 dining']
@@ -457,7 +491,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Authentic South Indian Tiffin Room & Pure Veg Udupi vCard',
     category: 'Food Business',
     subCategory: 'Pure Veg & Tiffin Rooms',
-    imgUrl: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Pure Veg Udupi',
+    imgUrl: 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '🟢 100% Pure Veg',
     tagline: 'Crispy ghee podi dosas, button idlis, filter coffee degree, vada sambar & traditional meals',
     features: ['Morning tiffin & evening snack live menus', 'Filter coffee & podi jar retail counter', 'Quick self-service token & takeaway desk', 'Satvik & pure vegetarian ghee guarantee']
@@ -472,7 +507,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Doctor & Specialist Clinic vCard',
     category: 'Healthcare',
     subCategory: 'Doctors',
-    imgUrl: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Book Now',
+    imgUrl: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Verified',
     tagline: 'Physicians, pediatricians, cardiologists & surgeons',
     features: ['OPD consulting hours', 'Online appointment booking', 'Medical council registration', 'Emergency dialer']
@@ -483,7 +519,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Dental Care & Implant Clinic vCard',
     category: 'Healthcare',
     subCategory: 'Dental Clinics',
-    imgUrl: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Dental Implants',
+    imgUrl: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Root canals, aligners, teeth whitening & smile design',
     features: ['Dental treatment list', 'Before/after smile transformations', 'Direct consultation booking', 'Painless dentistry badge']
   },
@@ -493,7 +530,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Physiotherapy & Rehab vCard',
     category: 'Healthcare',
     subCategory: 'Physiotherapy',
-    imgUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Rehab & Mobility',
+    imgUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Sports rehab, posture correction & pain management',
     features: ['Home visit service booking', 'Exercise video guides', 'Pain assessment form', 'Certified therapists info']
   },
@@ -503,7 +541,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Diagnostic & Pathology Lab vCard',
     category: 'Healthcare',
     subCategory: 'Diagnostic Centres',
-    imgUrl: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Pathology Tests',
+    imgUrl: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Blood tests, health checkups, MRI/CT scans & X-rays',
     features: ['Full body checkup packages', 'Book home blood collection', 'Download test reports link', 'NABL accredited badge']
   },
@@ -513,7 +552,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Pharmacy & Medical Store vCard',
     category: 'Healthcare',
     subCategory: 'Pharmacies',
-    imgUrl: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: '24/7 Pharmacy',
+    imgUrl: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: '24/7 medicines, surgical supplies & wellness products',
     features: ['Upload prescription on WhatsApp', 'Fast medicine home delivery', 'Refill reminder alerts', 'Store location map']
   },
@@ -523,7 +563,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Nutrition & Diet Consultant vCard',
     category: 'Healthcare',
     subCategory: 'Nutrition/Diet Consultants',
-    imgUrl: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Diet & Wellness',
+    imgUrl: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Weight loss, PCOS management, diabetes & sports nutrition',
     features: ['Customized meal plan download', '1-on-1 weekly consultation', 'Client transformation stories', 'BMI calculator']
   },
@@ -533,7 +574,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Dr. Alistair Chen - Consultant Orthopedic Surgeon',
     category: 'Healthcare',
     subCategory: 'Doctors & Orthopedic Surgeons',
-    imgUrl: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Top Specialists',
+    imgUrl: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Chief Consultant',
     tagline: 'Minimally invasive arthroscopic surgeries & regenerative sports medicine',
     features: ['Specialist consultation slots', 'Surgical procedures catalog', 'Hospital affiliations', 'Emergency contact dialer']
@@ -544,7 +586,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Apex Medical Center - Specialist OPD Clinic',
     category: 'Healthcare',
     subCategory: 'Clinics & Multi-Specialty',
-    imgUrl: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Super Specialty',
+    imgUrl: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'NABH Accredited',
     tagline: 'Multi-specialty outpatient clinics, diagnostic laboratory & pharmacy',
     features: ['Instant doctor consultation booking', 'Comprehensive health checkup packages', 'Digital prescription sync', 'Clinic directions & parking']
@@ -559,7 +602,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'School & International Academy vCard',
     category: 'Education',
     subCategory: 'Schools',
-    imgUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Admissions Open',
+    imgUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Academy',
     tagline: 'K-12 schools, play schools & international academies',
     features: ['Admissions inquiry form', 'School prospectus PDF', 'Campus virtual tour', 'Academic calendar']
@@ -570,7 +614,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Tuition & Learning Centre vCard',
     category: 'Education',
     subCategory: 'Tuition Centres',
-    imgUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Personal Tuition',
+    imgUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Maths, science, board exams & home tutors',
     features: ['Batch timing & fees chart', 'Book free demo class', 'Student test scores', 'WhatsApp parent helpline']
   },
@@ -580,7 +625,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Coaching Institute (IIT/NEET/UPSC) vCard',
     category: 'Education',
     subCategory: 'Coaching Institutes',
-    imgUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'IIT / NEET Rankers',
+    imgUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Results',
     tagline: 'Competitive exam prep, study materials & mock tests',
     features: ['Rankers hall of fame', 'Scholarship admission test form', 'Free study notes download', 'Faculty profile cards']
@@ -591,7 +637,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Skill Training & Tech Bootcamp vCard',
     category: 'Education',
     subCategory: 'Skill Training Centres',
-    imgUrl: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Tech Bootcamps',
+    imgUrl: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Coding, AI, hardware, graphic design & vocational skills',
     features: ['Course curriculum syllabus', '100% placement stats', 'Enroll in next batch form', 'Student project demos']
   },
@@ -601,7 +648,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Digital Marketing Trainer vCard',
     category: 'Education',
     subCategory: 'Digital Marketing Trainers',
-    imgUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Digital Marketing',
+    imgUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'SEO, Google Ads, Meta Ads & affiliate marketing coaching',
     features: ['Live agency case studies', 'Certifications guide', 'Book masterclass seat', 'LinkedIn & YouTube channel']
   },
@@ -611,7 +659,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Spoken English & IELTS Institute vCard',
     category: 'Education',
     subCategory: 'Spoken English Institutes',
-    imgUrl: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'IELTS 8+ Band',
+    imgUrl: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'IELTS, TOEFL, communication skills & public speaking',
     features: ['Band score guarantee chart', 'Free level assessment quiz', 'Study abroad counseling', 'Online & offline batches']
   },
@@ -625,7 +674,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Interior Designer & Modular Kitchens Mini-Website',
     category: 'Interior Design',
     subCategory: 'Interior Designers & Architects',
-    imgUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Modular Kitchens',
+    imgUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '⭐ Flagship 3D Studio',
     tagline: 'Turnkey residential interiors, modular homes & offices with 3D Lookbook',
     features: [
@@ -643,7 +693,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Architect & Structural Engineer vCard',
     category: 'Interior Design',
     subCategory: 'Architects & Blueprints',
-    imgUrl: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Architecture & 3D',
+    imgUrl: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Modern house elevations, blueprints & municipal sanctions',
     features: ['Blueprint portfolio gallery', 'Site inspection booking', 'Sustainable architecture designs', 'Client reviews']
   },
@@ -653,7 +704,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Vance Architecture & Luxury Design Studio',
     category: 'Interior Design',
     subCategory: 'Interior Architecture & Fitouts',
-    imgUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Luxury Interiors',
+    imgUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Luxury Studio',
     tagline: 'Architectural space planning, luxury fitouts & 3D renderings',
     features: ['3D architectural elevations', 'Turnkey space planning', 'Material & swatch consultations', 'Client project portfolio']
@@ -664,7 +716,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Plumbing Services vCard',
     category: 'Home & Professional Services',
     subCategory: 'Plumbers',
-    imgUrl: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: '24/7 Plumber',
+    imgUrl: 'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Emergency pipe leaks, bathroom fittings & motor repair',
     features: ['1-Tap emergency phone dialer', 'Transparent rate card', '30-minute door arrival', 'Service warranty']
   },
@@ -674,7 +727,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Certified Electrician vCard',
     category: 'Home & Professional Services',
     subCategory: 'Electricians',
-    imgUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Get Nearest Vendor',
+    imgUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Home wiring, inverter setups, smart switches & MCB repairs',
     features: ['Instant technician call', 'Electrical safety audit', 'Pricing by job type', 'Google verified badge']
   },
@@ -684,7 +738,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'AC Repair & HVAC Services vCard',
     category: 'Home & Professional Services',
     subCategory: 'AC Services',
-    imgUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'AC Repair & Gas',
+    imgUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'AC installation, gas refilling, jet cleaning & AMC plans',
     features: ['Book AC service slot', 'Annual Maintenance Contract (AMC)', 'Split & window rates', 'Fast response guarantee']
   },
@@ -694,7 +749,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Pest Control Services vCard',
     category: 'Home & Professional Services',
     subCategory: 'Pest Control',
-    imgUrl: 'https://images.unsplash.com/photo-1584467735815-f778f274e296?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Pest Extermination',
+    imgUrl: 'https://images.unsplash.com/photo-1584467735815-f778f274e296?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Termite, cockroach, rodent & bed bug treatment',
     features: ['Odorless herbal treatments', '1-year warranty contract', 'Commercial & home booking', 'Govt approved chemicals']
   },
@@ -704,7 +760,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Deep Cleaning & Sanitization vCard',
     category: 'Home & Professional Services',
     subCategory: 'Cleaning Services',
-    imgUrl: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Deep Sanitization',
+    imgUrl: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Full house deep cleaning, sofa shampooing & kitchen sanitization',
     features: ['Cleaning checklists', 'Before/after transformation photos', 'Instant WhatsApp booking', 'Trained staff badge']
   },
@@ -714,7 +771,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Packers & Movers vCard',
     category: 'Home & Professional Services',
     subCategory: 'Packers & Movers',
-    imgUrl: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Packers & Movers',
+    imgUrl: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Local house shifting, office relocation & vehicle transport',
     features: ['Free moving quote calculator', 'Transit insurance options', 'All-India transport network', 'Real-time GPS tracking']
   },
@@ -728,7 +786,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Car Dealer & Showroom vCard',
     category: 'Automobile',
     subCategory: 'Car Dealers',
-    imgUrl: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Best Car Deals',
+    imgUrl: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Showroom',
     tagline: 'New cars, latest models, test drives & finance options',
     features: ['Car model catalogue with specs', 'Book test drive form', 'Loan EMI calculator', 'Exchange bonus deals']
@@ -739,7 +798,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Certified Used Car Dealer vCard',
     category: 'Automobile',
     subCategory: 'Used Car Dealers',
-    imgUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Certified Used Cars',
+    imgUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Certified',
     tagline: 'Pre-owned cars, 140-point inspected, warranty & RC transfer',
     features: ['Live inventory stock with prices', 'Free valuation of old car', 'Buy/Sell WhatsApp chat', 'RC transfer support']
@@ -750,7 +810,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Bike & Superbike Dealer vCard',
     category: 'Automobile',
     subCategory: 'Bike Dealers',
-    imgUrl: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Superbikes & Scooters',
+    imgUrl: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Sports bikes, commuter motorcycles & electric scooters',
     features: ['Bike models & on-road prices', 'Test ride booking', 'Accessories & riding gear catalog', 'Insurance renewals']
   },
@@ -760,7 +821,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Self-Drive & Luxury Car Rentals vCard',
     category: 'Automobile',
     subCategory: 'Car Rentals',
-    imgUrl: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Self-Drive & Luxury',
+    imgUrl: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Daily self-drive cars, wedding luxury fleets & airport cabs',
     features: ['Fleet photos & daily tariffs', 'Instant WhatsApp reservation', 'Unlimited km packages', 'Doorstep delivery']
   },
@@ -770,7 +832,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Car Detailing & Ceramic Coating vCard',
     category: 'Automobile',
     subCategory: 'Car Detailing',
-    imgUrl: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Ceramic Coating',
+    imgUrl: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Pro Shine',
     tagline: '9H Ceramic coating, PPF wrap, paint correction & foam wash',
     features: ['Gloss reflection before/after', 'Detailing packages & warranty', 'Book service slot', 'Premium studio location']
@@ -781,7 +844,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Car Accessories & Audio Studio vCard',
     category: 'Automobile',
     subCategory: 'Car Accessories',
-    imgUrl: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Audio & Dashcams',
+    imgUrl: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Android touch screens, seat covers, dashcams & LED lights',
     features: ['Accessories store catalog', 'Custom modification gallery', 'Price inquiry chat', 'Installation warranty']
   },
@@ -795,7 +859,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Wedding & Fashion Photographer vCard',
     category: 'Events & Creative',
     subCategory: 'Photographers',
-    imgUrl: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Book Photo Shoot',
+    imgUrl: 'https://images.unsplash.com/photo-1554080353-a576cf803bda?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Visual Pro',
     tagline: 'Candid wedding shoots, pre-wedding films & luxury portraits',
     features: ['Full-screen photo album', 'Cinematic trailer video embeds', 'Session pricing guide', 'Direct call & WhatsApp']
@@ -806,7 +871,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Luxury Wedding Planner vCard',
     category: 'Events & Creative',
     subCategory: 'Wedding Planners',
-    imgUrl: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Luxury Weddings',
+    imgUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Royal',
     tagline: 'Destination weddings, sangeet stages & hospitality management',
     features: ['Theme decor photo galleries', 'Vendor & venue partners', 'Date availability check', 'Budget quote request']
@@ -817,7 +883,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Event Management & Corporate Galas vCard',
     category: 'Events & Creative',
     subCategory: 'Event Managers',
-    imgUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Corporate Galas',
+    imgUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Conferences, product launches, concerts & stage setups',
     features: ['Event portfolio videos', 'Audio-visual AV rental spec', 'Corporate client logos', 'Direct RFP quote form']
   },
@@ -827,7 +894,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Stage, Floral & Balloon Decorators vCard',
     category: 'Events & Creative',
     subCategory: 'Decorators',
-    imgUrl: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Stage & Mandap',
+    imgUrl: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Birthday themes, mandap decor, flower backdrops & lighting',
     features: ['Decor themes lookbook', 'Package pricing tiers', 'Check date availability', 'WhatsApp design selection']
   },
@@ -837,7 +905,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'DJ, Sound & Light Artist vCard',
     category: 'Events & Creative',
     subCategory: 'DJs',
-    imgUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Sound & Lights',
+    imgUrl: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Wedding sangeet, club nights, corporate DJ & sound rigs',
     features: ['SoundCloud / Spotify mixes', 'Event gig booking slot', 'Live stage setup photos', 'Instagram video reels']
   },
@@ -847,7 +916,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Bridal Mehendi Artist vCard',
     category: 'Events & Creative',
     subCategory: 'Mehendi Artists',
-    imgUrl: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Bridal Henna',
+    imgUrl: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Artisan',
     tagline: 'Arabic, Rajasthani, portrait & organic bridal henna',
     features: ['Henna design lookbook', 'Bridal package rates', 'Advance date booking form', '100% organic henna badge']
@@ -858,7 +928,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Aarav Mehta - Lumière Visual Studio & Cinema',
     category: 'Events & Creative',
     subCategory: 'Photography & Cinematography',
-    imgUrl: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: '4K Cinema Studio',
+    imgUrl: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Cinematographer',
     tagline: 'Lead photographer & cinematographer for destination weddings & editorial',
     features: ['Cinematic showreels', 'Editorial portfolio gallery', 'Wedding calendar check', 'Instant consultation chat']
@@ -869,7 +940,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Bella Fiore - Luxury Floral & Decor Studio',
     category: 'Events & Creative',
     subCategory: 'Floral & Botanical Decor',
-    imgUrl: 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Floral Artistry',
+    imgUrl: 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Luxury Florals',
     tagline: 'Botanical installations, bespoke floral arrangements & wedding decor',
     features: ['Floral lookbook & arrangements', 'Event styling packages', 'Direct WhatsApp ordering', 'Care & delivery guides']
@@ -884,7 +956,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Chartered Accountant (CA) & Audit Firm vCard',
     category: 'Professional Services',
     subCategory: 'CA',
-    imgUrl: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Quick Tax Quotes',
+    imgUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Executive',
     tagline: 'GST returns, income tax filing, statutory audits & ROC',
     features: ['Tax advisory appointment form', 'Compliance due date calendar', 'Service fee packages', 'Client confidentiality badge']
@@ -895,7 +968,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Advocate & Legal Chambers vCard',
     category: 'Professional Services',
     subCategory: 'Advocates',
-    imgUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Legal Chambers',
+    imgUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Legal Pro',
     tagline: 'High court advocate, corporate law, property & civil litigation',
     features: ['Practice legal areas overview', 'Confidential case consultation', 'Bar council credentials', 'Chamber directions']
@@ -906,7 +980,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Insurance Advisor & Financial Security vCard',
     category: 'Professional Services',
     subCategory: 'Insurance Agents',
-    imgUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Financial Shield',
+    imgUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Term life insurance, health mediclaim & motor policies',
     features: ['Instant premium quote calculator', 'Claim assistance hotline', 'Policy comparison charts', 'WhatsApp instant consult']
   },
@@ -916,7 +991,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Financial & Wealth Consultant vCard',
     category: 'Professional Services',
     subCategory: 'Financial Consultants',
-    imgUrl: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Wealth Advisory',
+    imgUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Mutual funds, SIP, retirement planning & wealth management',
     features: ['SIP wealth growth calculator', 'Book portfolio review session', 'SEBI registered advisor info', 'Client testimonials']
   },
@@ -926,7 +1002,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Business & Startup Consultant vCard',
     category: 'Professional Services',
     subCategory: 'Business Consultants',
-    imgUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Scale Your Biz',
+    imgUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Growth',
     tagline: 'Company incorporation, pitch decks, MSME loans & strategy',
     features: ['Startup launch roadmap', 'Book 1-on-1 strategy call', 'Case study downloads', 'LinkedIn sync']
@@ -937,7 +1014,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'HR & Staffing Solutions vCard',
     category: 'Professional Services',
     subCategory: 'HR Consultants',
-    imgUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Hire Top Talent',
+    imgUrl: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Executive search, IT staffing, payroll & compliance',
     features: ['Submit job opening form', 'Upload resume portal', 'Staffing service tiers', 'Candidate placement stats']
   },
@@ -947,7 +1025,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Harrison Reed - Corporate Legal Advocate',
     category: 'Professional Services',
     subCategory: 'Law & Legal Counsel',
-    imgUrl: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Corporate Counsel',
+    imgUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Legal Counsel',
     tagline: 'Corporate litigation, intellectual property, contracts & arbitration',
     features: ['Practice areas & retainers', 'Bar council credentials', 'Legal consultation scheduling', 'Confidential brief submission']
@@ -958,7 +1037,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Richard Madden - Global Press & Media Bureau',
     category: 'Professional Services',
     subCategory: 'Media & Journalists',
-    imgUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Media & Press',
+    imgUrl: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Senior Correspondent',
     tagline: 'Broadcast media, press releases, interviews & investigative reporting',
     features: ['Press credentials & accreditation', 'Published articles archive', 'Media request booking', 'Digital press pass']
@@ -969,7 +1049,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Executive Managing Director & Boardroom CXO',
     category: 'Professional Services',
     subCategory: 'Executives & Founders',
-    imgUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Executive CXO',
+    imgUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Executive Suite',
     tagline: 'Managing director credentials, advisory board & keynotes',
     features: ['Executive portfolio & bio', 'Media appearances & awards', 'Boardroom appointment request', 'Direct executive line']
@@ -984,7 +1065,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Mobile Phone & Gadget Store vCard',
     category: 'Retail & Local Shops',
     subCategory: 'Mobile Shops',
-    imgUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Mobiles & Gadgets',
+    imgUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Gadgets',
     tagline: 'Smartphones, iPhones, 0% EMI offers & express repairs',
     features: ['Latest smartphone price list', '0% EMI scheme eligibility', 'Screen repair quote chat', 'Store location map']
@@ -995,7 +1077,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Electronics & Home Appliances vCard',
     category: 'Retail & Local Shops',
     subCategory: 'Electronics',
-    imgUrl: 'https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Smart Home Tech',
+    imgUrl: 'https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Smart TVs, refrigerators, washing machines & audio',
     features: ['Festive deal catalog', 'Brand warranty info', 'Free home delivery booking', 'Exchange old appliance offer']
   },
@@ -1005,7 +1088,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Furniture Showroom & Woodwork vCard',
     category: 'Retail & Local Shops',
     subCategory: 'Furniture',
-    imgUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Luxury Furniture',
+    imgUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Design',
     tagline: 'Recliners, teak wood sofas, king beds & office desks',
     features: ['Furniture collection lookbook', 'Custom dimensions inquiry', 'Showroom video tour', 'Direct WhatsApp ordering']
@@ -1016,7 +1100,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Gold & Diamond Jewellery vCard',
     category: 'Retail & Local Shops',
     subCategory: 'Jewellery',
-    imgUrl: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Gold & Diamonds',
+    imgUrl: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Luxury',
     tagline: 'BIS hallmarked 916 gold, diamond necklaces & silver gifts',
     features: ['Bridal jewelry catalog', 'Daily gold rate widget', 'Monthly gold saving scheme', 'Hallmark certified badge']
@@ -1027,7 +1112,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Personalized Gifts & Toys Shop vCard',
     category: 'Retail & Local Shops',
     subCategory: 'Gift Shops',
-    imgUrl: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Custom Keepsakes',
+    imgUrl: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Custom photo frames, mugs, birthday toys & corporate hampers',
     features: ['Customized product ordering', 'Gift hamper catalog', 'Same-day gift delivery', 'WhatsApp order chat']
   },
@@ -1037,7 +1123,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Supermarket & Organic Grocery vCard',
     category: 'Retail & Local Shops',
     subCategory: 'Grocery Stores',
-    imgUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Organic Supermarket',
+    imgUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Daily essentials, fresh vegetables, organic pulses & dairy',
     features: ['Send grocery list on WhatsApp', 'Free 30-min home delivery', 'Weekly discount deals', 'Loyalty card program']
   },
@@ -1047,7 +1134,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Hardware, Paints & Sanitary Store vCard',
     category: 'Retail & Local Shops',
     subCategory: 'Hardware Shops',
-    imgUrl: 'https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Hardware & Sanitary',
+    imgUrl: 'https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Asian paints, power tools, plumbing fixtures & building materials',
     features: ['Paint color shade card', 'Contractor wholesale pricing', 'WhatsApp order & delivery', 'Authorized dealer badge']
   },
@@ -1061,7 +1149,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'International Travel & Visa Agency vCard',
     category: 'Travel & Hospitality',
     subCategory: 'Travel Agencies',
-    imgUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Visa & Air Tickets',
+    imgUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Popular',
     tagline: 'Flight tickets, tourist visas, passport services & travel insurance',
     features: ['Visa document checklist PDF', 'Flight ticket inquiry chat', 'Forex & insurance assistance', 'IATA accredited']
@@ -1072,7 +1161,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Holiday Tour Operator vCard',
     category: 'Travel & Hospitality',
     subCategory: 'Tour Operators',
-    imgUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Holiday Packages',
+    imgUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Hot Deal',
     tagline: 'Dubai, Bali, Europe, Kashmir & Goa holiday packages',
     features: ['Tour itinerary PDF downloads', 'Book holiday package slot', 'Customer travel photos', 'Direct WhatsApp pricing']
@@ -1083,7 +1173,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Luxury Hotel & Banquet Suites vCard',
     category: 'Travel & Hospitality',
     subCategory: 'Hotels',
-    imgUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: '5-Star Suites',
+    imgUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '5-Star',
     tagline: 'Deluxe rooms, swimming pool, banquet halls & fine dining',
     features: ['Room tariff & booking', 'Banquet hall for weddings', 'Virtual room walkthrough', 'Airport pickup booking']
@@ -1094,7 +1185,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Nature Resort & Weekend Getaway vCard',
     category: 'Travel & Hospitality',
     subCategory: 'Resorts',
-    imgUrl: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Nature Getaways',
+    imgUrl: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: 'Weekend Special',
     tagline: 'Private pool villas, adventure games, campfire & buffet',
     features: ['Day outing packages', 'Villa photos & tariffs', 'Advance booking calendar', 'Directions map link']
@@ -1105,7 +1197,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: 'Heritage Homestay & Plantation Villa vCard',
     category: 'Travel & Hospitality',
     subCategory: 'Homestays',
-    imgUrl: 'https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: 'Heritage Homestays',
+    imgUrl: 'https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=800&h=1000&q=85',
     tagline: 'Cozy rooms in hills, homemade authentic meals & nature walks',
     features: ['Homestay photo gallery', 'Local activities list', 'Instant host WhatsApp chat', 'Verified guest reviews']
   },
@@ -1115,7 +1208,8 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     name: '24/7 Outstation Taxi & Cab Service vCard',
     category: 'Travel & Hospitality',
     subCategory: 'Cab/Taxi Services',
-    imgUrl: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80',
+    actionSubtitle: '24/7 Outstation Cabs',
+    imgUrl: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&h=1000&q=85',
     badge: '24/7 Fast',
     tagline: 'Outstation cabs, airport drop, Innova/Sedan rentals',
     features: ['One-way & roundtrip fare chart', '1-Tap instant cab call', 'Sedan/SUV/Innova fleet', 'Clean sanitised cars']

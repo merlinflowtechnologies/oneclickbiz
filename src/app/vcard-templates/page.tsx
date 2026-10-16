@@ -17,7 +17,8 @@ import {
   CheckCircle2,
   X,
   ExternalLink,
-  Layers
+  Layers,
+  ChevronRight
 } from 'lucide-react';
 
 export default function VCardTemplatesPage() {
@@ -200,7 +201,7 @@ export default function VCardTemplatesPage() {
                     </div>
                   )}
 
-                  {/* Card Image Container with smooth auto-scroll on hover */}
+                  {/* Card Image Container with Justdial Style Banner & Overlay */}
                   <div
                     onClick={() => setPreviewTemplate(template)}
                     className="relative h-[480px] sm:h-[540px] w-full bg-slate-950 overflow-hidden cursor-pointer group/img flex items-center justify-center"
@@ -208,20 +209,34 @@ export default function VCardTemplatesPage() {
                     <img
                       src={template.imgUrl}
                       alt={template.name}
-                      className="vcard-template-img w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      className="vcard-template-img w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
 
-                    {/* Subtle top/bottom gradient cues */}
-                    <div className="absolute top-0 inset-x-0 h-12 bg-gradient-to-b from-slate-950/60 to-transparent pointer-events-none" />
-                    <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent pointer-events-none flex items-end justify-center pb-2">
-                      <span className="text-[10px] font-medium text-slate-200 flex items-center gap-1 bg-slate-900/80 px-2.5 py-0.5 rounded-full border border-white/20 backdrop-blur-md shadow-sm">
-                        Hover to scroll card
-                      </span>
+                    {/* Top Gradient Overlay with Justdial Title & Subtitle */}
+                    <div className="absolute top-0 inset-x-0 p-5 pt-4 bg-gradient-to-b from-slate-950/85 via-slate-950/40 to-transparent pointer-events-none z-10">
+                      <h4 className="text-base sm:text-lg font-extrabold uppercase tracking-wider text-white drop-shadow-md">
+                        {template.category}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-indigo-200 font-semibold drop-shadow-sm mt-0.5">
+                        {template.actionSubtitle || template.subCategory || 'Explore Portfolio'}
+                      </p>
+                    </div>
+
+                    {/* Bottom Gradient Overlay with Justdial signature arrow */}
+                    <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent pointer-events-none flex items-end p-5 z-10">
+                      <div className="flex items-center gap-2">
+                        <span className="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/40 group-hover:scale-110 transition-transform">
+                          <ChevronRight className="w-4 h-4 stroke-[3]" />
+                        </span>
+                        <span className="text-xs font-bold text-white/95 drop-shadow-md group-hover:text-white transition-colors">
+                          Explore Template
+                        </span>
+                      </div>
                     </div>
 
                     {/* Hover Overlay with Preview button */}
-                    <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-3 p-4">
+                    <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-3 p-4 z-20">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
