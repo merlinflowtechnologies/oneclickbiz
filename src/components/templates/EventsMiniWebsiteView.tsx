@@ -437,6 +437,128 @@ export const FAQS_LIST = [
   }
 ];
 
+
+export interface EventSocialMediaItem {
+  id: string;
+  title: string;
+  category: 'Wedding' | 'Birthday' | 'Maternity' | 'Housewarming' | 'BTS';
+  type: 'youtube' | 'instagram';
+  embedUrl: string;
+  thumbnailUrl: string;
+  durationOrReel: string;
+  views: string;
+  likes: string;
+  description: string;
+  authorOrChannel: string;
+}
+
+export const EVENT_SOCIAL_MEDIA_LIST: EventSocialMediaItem[] = [
+  {
+    id: 'yt_eve_1',
+    title: 'Grand Hyderabad Palace Wedding • 4K Cinematic Highlight Film',
+    category: 'Wedding',
+    type: 'youtube',
+    embedUrl: 'https://www.youtube.com/embed/XHOmBV4js_E?autoplay=1&rel=0',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+    durationOrReel: '3:45 Min',
+    views: '148K views',
+    likes: '9.2K likes',
+    description: 'Capturing royal Nizami bridal entry, emotional pheras, and fairy-lit outdoor reception in Jubilee Hills.',
+    authorOrChannel: 'SnapVibe Cinema Films'
+  },
+  {
+    id: 'yt_eve_2',
+    title: "Baby Aadhya's 1st Birthday & Cake Smash • Pure Joy & Laughter",
+    category: 'Birthday',
+    type: 'youtube',
+    embedUrl: 'https://www.youtube.com/embed/1MTkZPys7mU?autoplay=1&rel=0',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80',
+    durationOrReel: '2:18 Min',
+    views: '86K views',
+    likes: '5.4K likes',
+    description: 'Unscripted giggles, playful confetti, and heartwarming milestone moments captured in Gachibowli.',
+    authorOrChannel: 'SnapVibe Family Moments'
+  },
+  {
+    id: 'yt_eve_3',
+    title: 'Sunset Maternity Portrait Teaser • Golconda Fort & Cable Bridge',
+    category: 'Maternity',
+    type: 'youtube',
+    embedUrl: 'https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&rel=0',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1581953153664-5eb3c042845c?auto=format&fit=crop&w=800&q=80',
+    durationOrReel: '2:52 Min',
+    views: '112K views',
+    likes: '7.1K likes',
+    description: 'Ethereal golden hour radiance against Deccan stone arches, shot with Sony 85mm G-Master prime lens.',
+    authorOrChannel: 'SnapVibe Creative Portfolios'
+  },
+  {
+    id: 'yt_eve_4',
+    title: 'Behind The Lens: How Our Dual-Camera Crew Shoots a 2-Hour Event',
+    category: 'BTS',
+    type: 'youtube',
+    embedUrl: 'https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80',
+    durationOrReel: '4:10 Min',
+    views: '65K views',
+    likes: '4.8K likes',
+    description: 'Walkthrough of our Sony A7IV gimbal rigs, wireless Godox lighting, and candid timing secrets.',
+    authorOrChannel: 'SnapVibe Tech & Gear'
+  },
+  {
+    id: 'ig_eve_1',
+    title: 'Vibrant Yellow Haldi Shower • 1.2M Viral Bridal Reel',
+    category: 'Wedding',
+    type: 'instagram',
+    embedUrl: 'https://www.youtube.com/embed/XHOmBV4js_E?autoplay=1&rel=0',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80',
+    durationOrReel: '0:45 Reel',
+    views: '1.2M plays',
+    likes: '94K likes',
+    description: 'That ecstatic moment when friends shower fresh yellow marigolds! Captured at 120fps 4K slow motion.',
+    authorOrChannel: '@snapvibestudios'
+  },
+  {
+    id: 'ig_eve_2',
+    title: 'Traditional Telugu Barasala (Cradle Ceremony) Sweet Rituals',
+    category: 'Housewarming',
+    type: 'instagram',
+    embedUrl: 'https://www.youtube.com/embed/1MTkZPys7mU?autoplay=1&rel=0',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80',
+    durationOrReel: '0:52 Reel',
+    views: '540K plays',
+    likes: '48K likes',
+    description: 'Blessings from elders and baby wearing the first gold anklets in a decorated traditional wooden cradle.',
+    authorOrChannel: '@snapvibestudios'
+  },
+  {
+    id: 'ig_eve_3',
+    title: 'Griha Pravesh Milk Boiling & Auspicious Havan in Kokapet',
+    category: 'Housewarming',
+    type: 'instagram',
+    embedUrl: 'https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&rel=0',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    durationOrReel: '0:38 Reel',
+    views: '380K plays',
+    likes: '32K likes',
+    description: 'Overflowing milk symbolizing abundance, prosperity, and divine blessings for the new villa owners.',
+    authorOrChannel: '@snapvibestudios'
+  },
+  {
+    id: 'ig_eve_4',
+    title: 'Couple Dance Under Cold Pyro Sparkler Arch • Reception Magic',
+    category: 'Wedding',
+    type: 'instagram',
+    embedUrl: 'https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
+    durationOrReel: '0:42 Reel',
+    views: '890K plays',
+    likes: '76K likes',
+    description: 'Indoor cold sparklers lighting up the first dance as guests cheer on the newlyweds in Madhapur.',
+    authorOrChannel: '@snapvibestudios'
+  }
+];
+
 export default function EventsMiniWebsiteView({
   profile,
   getEmbedUrl,
@@ -479,6 +601,67 @@ export default function EventsMiniWebsiteView({
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesModalOpen, setIsServicesModalOpen] = useState(false);
+    // YouTube & Instagram Space State
+  const [activeMediaFilter, setActiveMediaFilter] = useState<'all' | 'youtube' | 'instagram'>('all');
+  const [activeMediaItem, setActiveMediaItem] = useState<EventSocialMediaItem>(EVENT_SOCIAL_MEDIA_LIST[0]);
+  const [customMediaUrl, setCustomMediaUrl] = useState('');
+  const [customMediaError, setCustomMediaError] = useState<string | null>(null);
+
+  const handleCustomMediaPlay = (e: React.FormEvent) => {
+    e.preventDefault();
+    setCustomMediaError(null);
+    if (!customMediaUrl.trim()) return;
+
+    // Check YouTube
+    const ytMatch = customMediaUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts|live)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+    if (ytMatch && ytMatch[1]) {
+      setActiveMediaItem({
+        id: 'custom_' + Date.now(),
+        title: 'Custom YouTube Video (' + ytMatch[1] + ')',
+        category: 'BTS',
+        type: 'youtube',
+        embedUrl: 'https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1&rel=0',
+        thumbnailUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80',
+        durationOrReel: 'Custom',
+        views: 'Live Stream',
+        likes: 'Playing Now',
+        description: 'Playing custom YouTube video directly inside the page without redirecting.',
+        authorOrChannel: 'YouTube Stream'
+      });
+      setCustomMediaUrl('');
+      const el = document.getElementById('media-theater');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    // Check Instagram Reel
+    if (customMediaUrl.includes('instagram.com/reel/') || customMediaUrl.includes('instagram.com/p/')) {
+      const cleanReel = customMediaUrl.split('instagram.com/reel/')[1]?.split('/')[0]?.split('?')[0] ||
+                        customMediaUrl.split('instagram.com/p/')[1]?.split('/')[0]?.split('?')[0];
+      if (cleanReel) {
+        setActiveMediaItem({
+          id: 'custom_ig_' + Date.now(),
+          title: 'Custom Instagram Reel (' + cleanReel + ')',
+          category: 'Wedding',
+          type: 'instagram',
+          embedUrl: 'https://www.instagram.com/reel/' + cleanReel + '/embed',
+          thumbnailUrl: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80',
+          durationOrReel: 'Custom Reel',
+          views: 'Trending',
+          likes: 'Live',
+          description: 'Playing custom Instagram reel directly inside the page.',
+          authorOrChannel: '@instagram_creator'
+        });
+        setCustomMediaUrl('');
+        const el = document.getElementById('media-theater');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+
+    setCustomMediaError('Please enter a valid YouTube link (watch/shorts) or Instagram reel link.');
+  };
+
   const [activeServiceTab, setActiveServiceTab] = useState<'decor' | 'catering' | 'venues' | 'entertainment'>('decor');
 
   // Smooth scroll helper
@@ -724,6 +907,19 @@ export default function EventsMiniWebsiteView({
               Portfolio
             </button>
             <button
+              onClick={() => scrollToSection('media-section')}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#E94E77] hover:bg-pink-50 transition cursor-pointer flex items-center gap-1"
+            >
+              <span>🎬</span>
+              <span>Videos &amp; Reels</span>
+            </button>
+            <button
+              onClick={() => scrollToSection('media-section')}
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-pink-50 text-left text-slate-800 flex items-center gap-2 transition cursor-pointer font-bold text-pink-600"
+            >
+              <span>🎬</span> Videos &amp; Reels
+            </button>
+            <button
               onClick={() => scrollToSection('reviews-section')}
               className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#E94E77] hover:bg-pink-50 transition cursor-pointer"
             >
@@ -915,6 +1111,12 @@ export default function EventsMiniWebsiteView({
             className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-pink-50 hover:text-[#E94E77] text-slate-700 whitespace-nowrap transition cursor-pointer shadow-2xs"
           >
             🖼️ Portfolio Gallery
+          </button>
+          <button
+            onClick={() => scrollToSection('media-section')}
+            className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-pink-50 hover:text-[#E94E77] text-slate-700 whitespace-nowrap transition cursor-pointer shadow-2xs flex items-center gap-1 font-extrabold text-pink-600"
+          >
+            <span>🎬</span> Video Lounge
           </button>
           <button
             onClick={() => scrollToSection('reviews-section')}
@@ -1787,6 +1989,303 @@ export default function EventsMiniWebsiteView({
       {/* =========================================================================
           11. CUSTOMER REVIEWS & GOOGLE RATINGS (4.9★, 2,500+ Verified Client Reviews)
          ========================================================================= */}
+      
+      {/* =========================================================================
+          10.5 YOUTUBE & INSTAGRAM SOCIAL MEDIA WATCH SPACE (Able to play directly on page)
+         ========================================================================= */}
+      <section id="media-section" className="max-w-7xl mx-auto px-4 py-12 space-y-8">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-red-50 to-pink-50 text-rose-600 text-xs font-extrabold mb-2 border border-rose-200 shadow-2xs">
+              <span className="flex h-2 w-2 rounded-full bg-red-500 animate-ping" />
+              <YouTubeIcon className="w-4 h-4 fill-[#FF0000]" />
+              <InstagramIcon className="w-3.5 h-3.5 fill-[#E1306C]" />
+              <span>Live Social Media Watch Lounge &bull; Play Right Here</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+              <span>Watch Our Real Shoots &amp; Viral Reels</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
+              Experience the cinematic magic of our Hyderabad shoots. Stream 4K wedding films, joyful 1st birthday cake smashes, and trending Instagram reels directly on this page without opening any external app.
+            </p>
+          </div>
+
+          {/* Media Filter Tabs */}
+          <div className="flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200 self-start md:self-auto">
+            <button
+              onClick={() => setActiveMediaFilter('all')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                activeMediaFilter === 'all'
+                  ? 'bg-white text-slate-900 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              All Media ({EVENT_SOCIAL_MEDIA_LIST.length})
+            </button>
+            <button
+              onClick={() => setActiveMediaFilter('youtube')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                activeMediaFilter === 'youtube'
+                  ? 'bg-red-500 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <YouTubeIcon className="w-3.5 h-3.5 fill-current" />
+              <span>YouTube Films</span>
+            </button>
+            <button
+              onClick={() => setActiveMediaFilter('instagram')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                activeMediaFilter === 'instagram'
+                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <InstagramIcon className="w-3.5 h-3.5 fill-current" />
+              <span>Instagram Reels</span>
+            </button>
+          </div>
+        </div>
+
+        {/* =========================================================================
+            FEATURED VIDEO THEATER (Direct In-Page Player)
+           ========================================================================= */}
+        <div id="media-theater" className="bg-slate-950 rounded-3xl p-4 sm:p-8 text-white shadow-2xl border border-slate-800 space-y-6">
+          
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="flex h-2.5 w-2.5 rounded-full bg-red-500 animate-pulse" />
+              <span className="font-mono font-bold tracking-wider text-rose-400 uppercase text-[11px]">
+                NOW PLAYING IN HD THEATER:
+              </span>
+              <span className="px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-extrabold text-[10px] uppercase">
+                {activeMediaItem.type === 'youtube' ? 'YouTube 4K' : 'Instagram Reel'}
+              </span>
+            </div>
+            <div className="flex items-center gap-3 text-slate-400 text-[11px]">
+              <span>Channel: <strong className="text-white">{activeMediaItem.authorOrChannel}</strong></span>
+              <span>&bull;</span>
+              <span>{activeMediaItem.views}</span>
+              <span>&bull;</span>
+              <span className="text-pink-400">{activeMediaItem.likes}</span>
+            </div>
+          </div>
+
+          {/* Cinema Frame Iframe */}
+          <div className="relative aspect-video sm:aspect-[21/9] lg:aspect-[16/8] rounded-2xl overflow-hidden shadow-2xl bg-black border border-slate-800">
+            {activeMediaItem.type === 'youtube' ? (
+              <iframe
+                src={activeMediaItem.embedUrl}
+                title={activeMediaItem.title}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <iframe
+                src={activeMediaItem.embedUrl}
+                title={activeMediaItem.title}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            )}
+          </div>
+
+          {/* Under-Player Metadata & Action Bar */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-2">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-lg bg-pink-500/20 text-pink-300 border border-pink-500/30 font-black text-[11px] uppercase tracking-wider">
+                  {activeMediaItem.category}
+                </span>
+                <span className="text-xs text-slate-400 font-medium">Duration: {activeMediaItem.durationOrReel}</span>
+              </div>
+              <h3 className="text-base sm:text-xl font-black text-white tracking-tight">
+                {activeMediaItem.title}
+              </h3>
+              <p className="text-xs text-slate-400 max-w-3xl leading-relaxed">
+                {activeMediaItem.description}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0">
+              <button
+                onClick={() => {
+                  const el = document.getElementById('instant-booking-calculator');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-5 py-2.5 rounded-2xl bg-[#E94E77] hover:bg-[#D81B60] text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-pink-500/25 transition cursor-pointer flex items-center gap-2"
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>Book This Style (from ₹3,600)</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        {/* =========================================================================
+            PLAYLIST VIDEO GRID (Click any to play in theater above)
+           ========================================================================= */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h4 className="text-sm font-black text-slate-900 tracking-tight flex items-center gap-2">
+              <PlayCircle className="w-4 h-4 text-[#E94E77]" />
+              <span>Select Shoot Film to Play on Screen:</span>
+            </h4>
+            <span className="text-xs text-slate-400 font-medium">
+              Click any card to load video in the theater
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {EVENT_SOCIAL_MEDIA_LIST
+              .filter(item => activeMediaFilter === 'all' || item.type === activeMediaFilter)
+              .map(item => {
+                const isSelected = activeMediaItem.id === item.id;
+                return (
+                  <div
+                    key={item.id}
+                    onClick={() => {
+                      setActiveMediaItem(item);
+                      const el = document.getElementById('media-theater');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className={`group relative rounded-2xl overflow-hidden border p-3 transition cursor-pointer flex flex-col justify-between gap-3 ${
+                      isSelected
+                        ? 'bg-pink-50/80 border-[#E94E77] ring-2 ring-[#E94E77]/20 shadow-md'
+                        : 'bg-white border-slate-200 hover:border-pink-300 hover:shadow-lg'
+                    }`}
+                  >
+                    {/* Thumbnail with overlay icon */}
+                    <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-100">
+                      <img
+                        src={item.thumbnailUrl}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                      />
+                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition flex items-center justify-center">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition transform group-hover:scale-110 ${
+                          item.type === 'youtube'
+                            ? 'bg-red-600 text-white'
+                            : 'bg-gradient-to-tr from-purple-600 via-pink-600 to-yellow-500 text-white'
+                        }`}>
+                          <Play className="w-4 h-4 fill-current ml-0.5" />
+                        </div>
+                      </div>
+
+                      {/* Top platform badge */}
+                      <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-xs text-[10px] font-bold text-white">
+                        {item.type === 'youtube' ? (
+                          <YouTubeIcon className="w-3 h-3 fill-red-500" />
+                        ) : (
+                          <InstagramIcon className="w-3 h-3 fill-pink-500" />
+                        )}
+                        <span>{item.type === 'youtube' ? 'YouTube' : 'Reel'}</span>
+                      </div>
+
+                      {/* Duration Pill */}
+                      <span className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/80 font-mono text-[9px] font-bold text-white">
+                        {item.durationOrReel}
+                      </span>
+                    </div>
+
+                    {/* Metadata */}
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between text-[10px] text-slate-400 font-semibold">
+                        <span>{item.authorOrChannel}</span>
+                        <span className="text-[#E94E77] font-bold">{item.views}</span>
+                      </div>
+                      <h5 className="font-extrabold text-slate-900 text-xs leading-snug line-clamp-2 group-hover:text-[#E94E77] transition">
+                        {item.title}
+                      </h5>
+                    </div>
+
+                    <div className="pt-1 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold">
+                      <span className="text-slate-400">{item.category}</span>
+                      <span className={`transition ${isSelected ? 'text-[#E94E77]' : 'text-slate-500 group-hover:text-slate-900'}`}>
+                        {isSelected ? '● Playing Now' : 'Click to Play ➔'}
+                      </span>
+                    </div>
+
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+
+        {/* =========================================================================
+            CUSTOM LINK EMBEDDER (Let users paste ANY YouTube or Instagram link to play here)
+           ========================================================================= */}
+        <div className="bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white border border-purple-800/30 shadow-xl space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-xl">
+                📺
+              </div>
+              <div>
+                <h4 className="font-black text-white text-base tracking-tight">
+                  Play Any YouTube Video or Instagram Reel Here
+                </h4>
+                <p className="text-xs text-slate-300">
+                  Have a specific reference shoot or reel in mind? Paste the link below to preview it directly in our cinema theater.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs font-bold shrink-0">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 transition"
+              >
+                <InstagramIcon className="w-3.5 h-3.5 fill-pink-400" />
+                <span>Instagram @snapvibestudios</span>
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 transition"
+              >
+                <YouTubeIcon className="w-3.5 h-3.5 fill-red-500" />
+                <span>YouTube Channel</span>
+              </a>
+            </div>
+          </div>
+
+          <form onSubmit={handleCustomMediaPlay} className="flex flex-col sm:flex-row gap-2.5">
+            <div className="relative flex-1">
+              <input
+                type="text"
+                value={customMediaUrl}
+                onChange={(e) => setCustomMediaUrl(e.target.value)}
+                placeholder="Paste YouTube or Instagram link (e.g. https://www.youtube.com/watch?v=XHOmBV4js_E)"
+                className="w-full px-4 py-3 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs focus:outline-none focus:ring-2 focus:ring-pink-500 focus:bg-white/15 transition font-mono"
+              />
+            </div>
+            <button
+              type="submit"
+              className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#E94E77] to-pink-600 hover:from-[#D81B60] hover:to-pink-700 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-pink-500/25 transition cursor-pointer flex items-center justify-center gap-2"
+            >
+              <Play className="w-3.5 h-3.5 fill-current" />
+              <span>Play Now on Screen</span>
+            </button>
+          </form>
+
+          {customMediaError && (
+            <p className="text-xs text-rose-300 font-bold bg-rose-950/60 p-2.5 rounded-xl border border-rose-800">
+              ⚠️ {customMediaError}
+            </p>
+          )}
+        </div>
+
+      </section>
+
       <section id="reviews-section" className="max-w-7xl mx-auto px-4 py-12">
         <div className="rounded-3xl bg-gradient-to-br from-white to-pink-50/30 p-8 sm:p-12 border border-pink-200 shadow-sm space-y-10">
           
@@ -2363,5 +2862,22 @@ export default function EventsMiniWebsiteView({
 
 
     </div>
+  );
+}
+
+
+function YouTubeIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  );
+}
+
+function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    </svg>
   );
 }
