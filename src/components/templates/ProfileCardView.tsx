@@ -1113,7 +1113,7 @@ export default function ProfileCardView({
           setViewMode={setViewMode}
           showViewToggle={showViewToggle}
         />
-      ) : isFashionTemplate && isWebsiteMode ? (
+      ) : isFashionTemplate ? (
         <FashionTemplateView
           profile={profile}
           cart={cart}
