@@ -57,7 +57,7 @@ import {
   Zap
 } from 'lucide-react';
 import QRCode from 'qrcode';
-import { DigitalProfile, ServiceItem, ProductItem, VideoItem, GalleryItem, TestimonialItem } from '@/lib/types';
+import { DigitalProfile, ServiceItem, ProductItem, VideoItem, GalleryItem, TestimonialItem, SocialLinkItem } from '@/lib/types';
 import { downloadVcfFile } from '@/lib/vcf';
 import SocialIcon from '@/components/common/SocialIcon';
 import ShareCardModal from '@/components/common/ShareCardModal';
@@ -637,9 +637,9 @@ export default function InsuranceTemplateView({
 
   // Resolved Social and Contact Links with fallbacks
   const socialLinks = useMemo(() => {
-    const list = profile.socials || [];
+    const list: SocialLinkItem[] = profile.sectionData?.socials?.items || (profile as any).socials || [];
     const findUrl = (platform: string) => {
-      const match = list.find(s => s.platform?.toLowerCase().includes(platform) || (s.url && s.url.toLowerCase().includes(platform)));
+      const match = list.find((s: SocialLinkItem) => s.platform?.toLowerCase().includes(platform) || (s.url && s.url.toLowerCase().includes(platform)));
       return match?.url;
     };
 
@@ -2437,7 +2437,7 @@ export default function InsuranceTemplateView({
               {/* Card Photo Banner */}
               <div className="relative h-44 overflow-hidden z-10">
                 <img
-                  src={plan.photoUrl || 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80'}
+                  src={plan.imageUrl || 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80'}
                   alt={plan.title}
                   className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
                 />
