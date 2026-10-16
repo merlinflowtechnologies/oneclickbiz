@@ -438,6 +438,8 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
   // 3.8 Check if slug is beauty salon / Green Trends related
   const isBeautySalonPattern = 
     cleanSlug === 'beauty-salon' ||
+    cleanSlug === 'auraluxe' ||
+    cleanSlug.includes('auraluxe') ||
     cleanSlug === 'green-trends' ||
     cleanSlug === 'greentrends' ||
     cleanSlug === 'greentrends-kothapet' ||

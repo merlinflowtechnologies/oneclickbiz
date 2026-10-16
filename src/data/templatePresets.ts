@@ -479,43 +479,31 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
   // 1. 🎪 EVENTS & WEDDING PLANNER
   // ========================================================
   'events-planner': {
-    name: 'HORA Services Hyderabad',
-    designation: 'Photographers in Hyderabad, Book from 2 Hours',
-    company: 'HORA Event & Photography Services',
-    bio: 'Hire verified photographers in Hyderabad for two hours or your whole event. Small functions, poojas, weddings, maternity shoots, female photographers on request. Starting from ₹3,600.',
+    name: 'SnapVibe Events & Photography',
+    designation: 'On-Demand Event Photographers in Hyderabad • Book from 2 Hours',
+    company: 'SnapVibe Studios & Event Productions',
+    bio: 'Top-rated on-demand event photographers & cinematographers in Hyderabad. Book by the hour starting from 2 hours for small celebrations, poojas, birthdays, anniversaries, cradle ceremonies & weddings. Transparent hourly packages starting at ₹3,600.',
     theme: 'glassmorphic',
     avatarUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80',
     coverUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80',
-    email: 'dev@horaservices.com',
-    phone: '+91 73385 84828',
-    whatsapp: '917338584828',
-    website: 'https://horaservices.com/hyderabad/photography',
-    address: 'Gachibowli, HITEC City, Jubilee Hills, Banjara Hills & 40+ Localities, Hyderabad',
+    email: 'bookings@oneclickbiz.in',
+    phone: '+91 98765 43210',
+    whatsapp: '919876543210',
+    website: 'https://www.oneclickbiz.in/v/events-planner',
+    address: 'Plot 48, Road No. 36, Jubilee Hills, Hyderabad, Telangana 500033',
     services: [
-      { id: 's_eve_1', title: '3-Day Destination Wedding Design & Coordination', description: 'End-to-end decor, bridal entry FX, hospitality, artist lineup, and guest logistics.', durationMinutes: 120, price: 150000, currency: '₹' },
-      { id: 's_eve_2', title: 'Grand Floral Mandap & Reception Stage Setup', description: 'Custom thematic structure with imported Dutch florals, fairy lighting & LED walls.', durationMinutes: 90, price: 85000, currency: '₹' },
-      { id: 's_eve_3', title: 'Sangeet & Haldi Carnival Concept Designing', description: 'Vibrant neon DJ consoles, photo-booths, interactive folk artists, and sound engineering.', durationMinutes: 60, price: 65000, currency: '₹' },
-      { id: 's_eve_4', title: 'Corporate Annual Gala & Tech Summit Production', description: 'Keynote staging, AV projection mapping, award trophies & executive catering.', durationMinutes: 90, price: 95000, currency: '₹' }
-    ],
-    products: [
-      { id: 'p_eve_1', name: 'Royal Palace Mandap Decor Package', description: 'Handcrafted crystal chandeliers, royal floral dome, and traditional brass brassieres.', price: 125000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80', category: 'Wedding Packages', isAvailable: true },
-      { id: 'p_eve_2', name: 'Haldi & Mehendi Yellow Floral Decor Kit', description: 'Marigold cascades, brass urlis, photobooth auto-rickshaw, and customized seating.', price: 45000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80', category: 'Pre-Wedding', isAvailable: true },
-      { id: 'p_eve_3', name: 'Celebrity DJ & Intelligent Lighting Rig', description: 'Line array sound system with cold pyros, smoke jets, and intelligent moving beams.', price: 55000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80', category: 'Entertainment', isAvailable: true }
-    ],
-    gallery: [
-      { id: 'g_eve_1', imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80', title: 'Udaipur Lake Palace Destination Wedding', category: 'Weddings' },
-      { id: 'g_eve_2', imageUrl: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80', title: 'Grand Floral Mandap with Water Body', category: 'Mandap' },
-      { id: 'g_eve_3', imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80', title: 'High-Energy Neon Sangeet Night', category: 'Sangeet' }
-    ],
-    testimonials: [
-      { id: 't_eve_1', clientName: 'Dr. Akhil & Sneha Rao', clientRole: 'Goa Destination Wedding', content: 'Shreya and her team made our wedding dreamlike. The Mandap design at sunset took everyone’s breath away!', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
-      { id: 't_eve_2', clientName: 'Kishore Narang', clientRole: 'VP Operations, FinTech India', content: 'Flawless execution for our 1200-employee annual tech awards. The AV setup and lighting were world-class.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' }
+      { id: 's_eve_1', title: 'Traditional Photography (2 Hours)', description: 'Unlimited RAW clicks, 30+ edited high-res photos, next-day preview gallery link.', durationMinutes: 120, price: 3600, currency: '₹' },
+      { id: 's_eve_2', title: 'Candid Photography (2 Hours)', description: 'Artistic natural expressions, high-end prime lens bokeh, 40+ color-graded edits.', durationMinutes: 120, price: 4000, currency: '₹' },
+      { id: 's_eve_3', title: 'Pro Dual Photographer Setup', description: '1 Traditional + 1 Candid Specialist, 60+ edited photos, full venue coverage.', durationMinutes: 120, price: 5000, currency: '₹' },
+      { id: 's_eve_4', title: 'Cinematic Full HD Videography', description: '1080p/4K recording, 2-3 minute cinematic highlight teaser, full edited ceremony video.', durationMinutes: 120, price: 7000, currency: '₹' },
+      { id: 's_eve_5', title: 'Grand Photo + Video Combo', description: 'Complete photography + videography crew, drone option, raw files + edited highlight reel.', durationMinutes: 120, price: 10500, currency: '₹' }
     ],
     socials: [
-      { id: 'soc_eve_wa', platform: 'whatsapp', url: 'https://wa.me/919876577088', label: 'Book on WhatsApp' },
-      { id: 'soc_eve_in', platform: 'instagram', url: 'https://instagram.com/grandeur_weddings', label: 'Wedding Reels' },
-      { id: 'soc_eve_yt', platform: 'youtube', url: 'https://youtube.com/@grandeur_events', label: '4K Films' },
-      { id: 'soc_eve_ph', platform: 'phone', url: 'tel:+919876577088', label: 'Call Desk' }
+      { id: 'soc_eve_1', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp' },
+      { id: 'soc_eve_2', platform: 'phone', url: 'tel:+919876543210', label: 'Call Studio' },
+      { id: 'soc_eve_3', platform: 'email', url: 'mailto:bookings@oneclickbiz.in', label: 'Email' },
+      { id: 'soc_eve_4', platform: 'instagram', url: 'https://instagram.com/snapvibestudios', label: 'Instagram' },
+      { id: 'soc_eve_5', platform: 'maps', url: 'https://maps.google.com/?q=Jubilee+Hills+Hyderabad', label: 'Studio Location' }
     ]
   },
 

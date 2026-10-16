@@ -849,6 +849,8 @@ export default function ProfileCardView({
     profile.company?.toLowerCase().includes('beauty') ||
     profile.company?.toLowerCase().includes('makeover') ||
     profile.slug === 'beauty-salon' ||
+    profile.slug === 'auraluxe' ||
+    profile.slug?.includes('auraluxe') ||
     profile.slug === 'green-trends' ||
     profile.slug === 'greentrends' ||
     profile.slug === 'greentrends-kothapet' ||

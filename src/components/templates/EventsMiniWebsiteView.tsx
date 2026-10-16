@@ -54,7 +54,7 @@ interface EventsMiniWebsiteViewProps {
 }
 
 // =========================================================================
-// 1. DATA CONSTANTS & ALL DIRECTORIES (HORA Services Hyderabad Clone)
+// 1. DATA CONSTANTS & ALL DIRECTORIES (SnapVibe Events & Photography (Mock Data))
 // =========================================================================
 
 export const CITIES_LIST = [
@@ -389,7 +389,7 @@ export const VERIFIED_REVIEWS = [
     name: 'Priya Pakhare',
     occasion: 'Engagement Ceremony • Financial District',
     rating: 5,
-    text: 'Absolute perfection! Our engagement party was captured so beautifully. Every shot felt authentic, warm and stunning, so naturally. Highly recommend HORA Photography in Hyderabad!',
+    text: 'Absolute perfection! Our engagement party was captured so beautifully. Every shot felt authentic, warm and stunning, so naturally. Highly recommend SnapVibe Photography in Hyderabad!',
     avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=150&q=80'
   }
 ];
@@ -401,7 +401,7 @@ export const FAQS_LIST = [
   },
   {
     q: 'Why should I book by the hour instead of a full day?',
-    a: 'Most home events—like a cradle ceremony in the morning, a cake cutting in the evening, or a Satyanarayan pooja—only last 2 to 3 hours. Standard photographers charge full-day fees (₹15,000+). With HORA, you only pay for the time your event really takes, starting from just ₹3,600.'
+    a: 'Most home events—like a cradle ceremony in the morning, a cake cutting in the evening, or a Satyanarayan pooja—only last 2 to 3 hours. Standard photographers charge full-day fees (₹15,000+). With our hourly booking platform, you only pay for the time your event really takes, starting from just ₹3,600.'
   },
   {
     q: 'Can I request a female photographer in Hyderabad?',
@@ -432,7 +432,7 @@ export const FAQS_LIST = [
     a: 'Golconda Fort (especially at golden hour), Durgam Cheruvu Cable Bridge park, Tank Bund/Hussain Sagar, and KBR Park in Jubilee Hills are prime spots. Your assigned photographer will advise on optimal timings and lighting.'
   },
   {
-    q: 'Is HORA Photography reliable and verified?',
+    q: 'Are your event photographers reliable and verified?',
     a: 'Yes. Over 1,00,000 happy families have booked with us, backed by a 4.9-star Google rating from 2,500+ genuine reviews. Every photographer undergoes strict portfolio review, equipment inspection, and background verification before joining our network.'
   }
 ];
@@ -465,7 +465,7 @@ export default function EventsMiniWebsiteView({
   const [bookingPhone, setBookingPhone] = useState('+91 98765 43210');
   const [bookingNotes, setBookingNotes] = useState('Home function pooja followed by cake cutting.');
   const [isBookingSuccess, setIsBookingSuccess] = useState(false);
-  const [couponCode, setCouponCode] = useState('HORA 150');
+  const [couponCode, setCouponCode] = useState('SNAP150');
   const [couponCopied, setCouponCopied] = useState(false);
 
   // Gallery Filter State & Lightbox
@@ -477,6 +477,20 @@ export default function EventsMiniWebsiteView({
 
   // Share Modal
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesModalOpen, setIsServicesModalOpen] = useState(false);
+  const [activeServiceTab, setActiveServiceTab] = useState<'decor' | 'catering' | 'venues' | 'entertainment'>('decor');
+
+  // Smooth scroll helper
+  const scrollToSection = (id: string) => {
+    setIsMobileMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      const yOffset = -75;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
 
   // Active package details
   const activePackage = useMemo(() => {
@@ -503,7 +517,7 @@ export default function EventsMiniWebsiteView({
     if (isDroneAddon) base += 3500;
     if (isAlbumAddon) base += 2500;
 
-    // Apply ₹150 HORA discount
+    // Apply ₹150 coupon discount
     const discounted = Math.max(0, base - 150);
     return {
       subtotal: base,
@@ -599,7 +613,7 @@ export default function EventsMiniWebsiteView({
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1.5 text-amber-400 font-bold bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/20">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Special Offer: ₹150 OFF Auto-Applied with code: HORA 150</span>
+              <span>Special Offer: ₹150 OFF Auto-Applied with code: SNAP150</span>
             </span>
             <span className="text-slate-600 hidden md:inline">|</span>
             <span className="hidden md:inline text-slate-400">
@@ -609,7 +623,7 @@ export default function EventsMiniWebsiteView({
 
           <div className="flex items-center gap-4 text-slate-400">
             <a 
-              href="https://wa.me/917338584828?text=Hi%20HORA,%20I%20want%20to%20book%20a%20photographer%20in%20Hyderabad%20with%20HORA150%20discount" 
+              href="https://wa.me/919876543210?text=Hi,%20I%20want%20to%20book%20a%20photographer%20in%20Hyderabad%20with%20SNAP150%20discount" 
               target="_blank" 
               rel="noreferrer"
               className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 transition"
@@ -618,9 +632,9 @@ export default function EventsMiniWebsiteView({
               <span>Expert WhatsApp Support</span>
             </a>
             <span className="text-slate-700">|</span>
-            <a href="tel:+917338584828" className="hover:text-white flex items-center gap-1 transition">
+            <a href="tel:+919876543210" className="hover:text-white flex items-center gap-1 transition">
               <Phone className="w-3 h-3 text-[#E94E77]" />
-              <span>+91 73385 84828</span>
+              <span>+91 98765 43210</span>
             </a>
           </div>
 
@@ -644,7 +658,7 @@ export default function EventsMiniWebsiteView({
               </div>
               <div>
                 <div className="text-2xl font-black tracking-tight text-slate-900 flex items-center">
-                  HORA<span className="text-[#E94E77]">.</span>
+                  SnapVibe<span className="text-[#E94E77]">.</span>
                   <span className="text-xs font-extrabold uppercase px-1.5 py-0.5 rounded-md bg-pink-50 text-[#E94E77] ml-1.5 tracking-wider border border-pink-200">
                     Services
                   </span>
@@ -670,21 +684,64 @@ export default function EventsMiniWebsiteView({
             </div>
           </div>
 
-          {/* Navigation Categories Strip */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {SERVICE_NAV_CATEGORIES.map(cat => (
-              <div
-                key={cat.id}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
-                  cat.active
-                    ? 'bg-pink-50 text-[#E94E77] border border-pink-200 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                }`}
-              >
-                <span>{cat.icon}</span>
-                <span>{cat.name}</span>
-              </div>
-            ))}
+          {/* Desktop Main Navigation Links (All fully working with smooth scroll) */}
+          <nav className="hidden xl:flex items-center gap-1">
+            <button
+              onClick={() => scrollToSection('occasions-section')}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#E94E77] hover:bg-pink-50 transition cursor-pointer"
+            >
+              Occasions
+            </button>
+            <button
+              onClick={() => scrollToSection('packages-section')}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#E94E77] hover:bg-pink-50 transition cursor-pointer"
+            >
+              Packages &amp; Rates
+            </button>
+            <button
+              onClick={() => scrollToSection('instant-booking-calculator')}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#E94E77] hover:bg-pink-50 transition cursor-pointer flex items-center gap-1"
+            >
+              <span className="text-[#E94E77]">⚡</span>
+              <span>Calculator</span>
+            </button>
+            <button
+              onClick={() => scrollToSection('why-hourly-section')}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#E94E77] hover:bg-pink-50 transition cursor-pointer"
+            >
+              Why Hourly
+            </button>
+            <button
+              onClick={() => scrollToSection('hyderabad-spots-section')}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#E94E77] hover:bg-pink-50 transition cursor-pointer"
+            >
+              Shoot Spots
+            </button>
+            <button
+              onClick={() => scrollToSection('portfolio-section')}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#E94E77] hover:bg-pink-50 transition cursor-pointer"
+            >
+              Portfolio
+            </button>
+            <button
+              onClick={() => scrollToSection('reviews-section')}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#E94E77] hover:bg-pink-50 transition cursor-pointer"
+            >
+              Reviews
+            </button>
+            <button
+              onClick={() => scrollToSection('faqs-section')}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#E94E77] hover:bg-pink-50 transition cursor-pointer"
+            >
+              FAQs
+            </button>
+            <button
+              onClick={() => setIsServicesModalOpen(true)}
+              className="px-3 py-1.5 rounded-xl text-xs font-extrabold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition cursor-pointer flex items-center gap-1"
+            >
+              <span>🎈</span>
+              <span>More Services</span>
+            </button>
           </nav>
 
           {/* Right Header CTAs */}
@@ -715,7 +772,173 @@ export default function EventsMiniWebsiteView({
       </header>
 
       {/* =========================================================================
-          3. HERO BANNER SECTION (Exact Hora Hyderabad Headline & Trust Proof)
+          2B. MOBILE NAVIGATION DRAWER & QUICK JUMP SUBNAV STRIP
+         ========================================================================= */}
+      {/* Mobile Slide-Down Menu */}
+      {isMobileMenuOpen && (
+        <div className="xl:hidden bg-white/98 backdrop-blur-md border-b border-slate-200 shadow-xl px-4 py-4 space-y-3 sticky top-16 sm:top-18 z-39 animate-in slide-in-from-top duration-200">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+            <span className="text-[11px] font-black uppercase tracking-wider text-slate-400">Navigation Menu</span>
+            <div className="flex items-center gap-1 text-xs font-bold text-slate-800">
+              <MapPin className="w-3.5 h-3.5 text-[#E94E77]" />
+              <span>City: {selectedCity}</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2 text-xs font-bold">
+            <button
+              onClick={() => scrollToSection('occasions-section')}
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-pink-50 text-left text-slate-800 flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>🎂</span> Occasions
+            </button>
+            <button
+              onClick={() => scrollToSection('packages-section')}
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-pink-50 text-left text-slate-800 flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>🏷️</span> Packages
+            </button>
+            <button
+              onClick={() => scrollToSection('instant-booking-calculator')}
+              className="p-2.5 rounded-xl bg-pink-50 text-[#E94E77] text-left font-black flex items-center gap-2 transition cursor-pointer border border-pink-200"
+            >
+              <span>⚡</span> Live Calculator
+            </button>
+            <button
+              onClick={() => scrollToSection('why-hourly-section')}
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-pink-50 text-left text-slate-800 flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>⚖️</span> Why Hourly
+            </button>
+            <button
+              onClick={() => scrollToSection('hyderabad-spots-section')}
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-pink-50 text-left text-slate-800 flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>📸</span> Shoot Spots
+            </button>
+            <button
+              onClick={() => scrollToSection('localities-section')}
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-pink-50 text-left text-slate-800 flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>📍</span> 50+ Localities
+            </button>
+            <button
+              onClick={() => scrollToSection('portfolio-section')}
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-pink-50 text-left text-slate-800 flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>🖼️</span> Portfolio
+            </button>
+            <button
+              onClick={() => scrollToSection('reviews-section')}
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-pink-50 text-left text-slate-800 flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>⭐</span> 4.9★ Reviews
+            </button>
+            <button
+              onClick={() => scrollToSection('faqs-section')}
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-pink-50 text-left text-slate-800 flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>❓</span> 15 FAQs
+            </button>
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsServicesModalOpen(true);
+              }}
+              className="p-2.5 rounded-xl bg-emerald-50 text-emerald-700 text-left font-black flex items-center gap-2 transition cursor-pointer border border-emerald-200"
+            >
+              <span>🎈</span> More Services
+            </button>
+          </div>
+          <div className="pt-2 flex items-center gap-2">
+            <a
+              href="tel:+919876543210"
+              className="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition"
+            >
+              <Phone className="w-3.5 h-3.5" /> Call Studio
+            </a>
+            <a
+              href="https://wa.me/919876543210?text=Hi,%20I%20want%20to%20hire%20a%20photographer%20in%20Hyderabad"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition"
+            >
+              <MessageCircle className="w-3.5 h-3.5" /> WhatsApp Us
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* Quick Jump Sub-Navigation Strip (Visible on all devices for 1-tap jump) */}
+      <div className="bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-2xs sticky top-16 sm:top-18 z-30 py-2.5 px-4 overflow-x-auto scrollbar-none">
+        <div className="max-w-7xl mx-auto flex items-center gap-2 text-xs font-bold">
+          <span className="text-slate-400 uppercase tracking-wider text-[10px] whitespace-nowrap font-extrabold flex items-center gap-1 pr-1">
+            <span>⚡</span> Quick Nav:
+          </span>
+          <button
+            onClick={() => scrollToSection('occasions-section')}
+            className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-pink-50 hover:text-[#E94E77] text-slate-700 whitespace-nowrap transition cursor-pointer shadow-2xs"
+          >
+            🎂 12 Occasions
+          </button>
+          <button
+            onClick={() => scrollToSection('packages-section')}
+            className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-pink-50 hover:text-[#E94E77] text-slate-700 whitespace-nowrap transition cursor-pointer shadow-2xs"
+          >
+            🏷️ Hourly Packages
+          </button>
+          <button
+            onClick={() => scrollToSection('instant-booking-calculator')}
+            className="px-3 py-1.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-[#E94E77] border border-pink-200 whitespace-nowrap transition cursor-pointer font-extrabold shadow-2xs flex items-center gap-1"
+          >
+            <span>⚡</span> Price Calculator
+          </button>
+          <button
+            onClick={() => scrollToSection('why-hourly-section')}
+            className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-pink-50 hover:text-[#E94E77] text-slate-700 whitespace-nowrap transition cursor-pointer shadow-2xs"
+          >
+            ⚖️ 2-Hr vs Full Day
+          </button>
+          <button
+            onClick={() => scrollToSection('hyderabad-spots-section')}
+            className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-pink-50 hover:text-[#E94E77] text-slate-700 whitespace-nowrap transition cursor-pointer shadow-2xs"
+          >
+            📸 Shoot Spots
+          </button>
+          <button
+            onClick={() => scrollToSection('localities-section')}
+            className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-pink-50 hover:text-[#E94E77] text-slate-700 whitespace-nowrap transition cursor-pointer shadow-2xs"
+          >
+            📍 50+ Localities
+          </button>
+          <button
+            onClick={() => scrollToSection('portfolio-section')}
+            className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-pink-50 hover:text-[#E94E77] text-slate-700 whitespace-nowrap transition cursor-pointer shadow-2xs"
+          >
+            🖼️ Portfolio Gallery
+          </button>
+          <button
+            onClick={() => scrollToSection('reviews-section')}
+            className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-pink-50 hover:text-[#E94E77] text-slate-700 whitespace-nowrap transition cursor-pointer shadow-2xs"
+          >
+            ⭐ 4.9★ Reviews
+          </button>
+          <button
+            onClick={() => scrollToSection('faqs-section')}
+            className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-pink-50 hover:text-[#E94E77] text-slate-700 whitespace-nowrap transition cursor-pointer shadow-2xs"
+          >
+            ❓ 15 FAQs
+          </button>
+          <button
+            onClick={() => setIsServicesModalOpen(true)}
+            className="px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 whitespace-nowrap transition cursor-pointer font-extrabold shadow-2xs flex items-center gap-1"
+          >
+            <span>🎈</span> Decor &amp; Catering
+          </button>
+        </div>
+      </div>
+
+      {/* =========================================================================
+          3. HERO BANNER SECTION (Headline & Trust Proof)
          ========================================================================= */}
       <section className="relative bg-gradient-to-b from-[#FFF0F5] via-[#FFF5F8] to-[#FDFDFD] pt-10 pb-16 px-4 border-b border-pink-100">
         
@@ -816,7 +1039,7 @@ export default function EventsMiniWebsiteView({
       </section>
 
       {/* =========================================================================
-          4. OCCASIONS SHOWCASE CAROUSEL & CARDS (12 Occasions from Hora)
+          4. OCCASIONS SHOWCASE CAROUSEL & CARDS (12 Photography Occasions)
          ========================================================================= */}
       <section id="occasions-section" className="max-w-7xl mx-auto px-4 py-12 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
@@ -1047,7 +1270,7 @@ export default function EventsMiniWebsiteView({
               </div>
               <div>
                 <span className="text-[10px] font-bold text-slate-400 block uppercase">Auto Coupon Applied</span>
-                <span className="text-xs font-black text-slate-900 font-mono">HORA 150 (-₹150 OFF)</span>
+                <span className="text-xs font-black text-slate-900 font-mono">SNAP150 (-₹150 OFF)</span>
               </div>
             </div>
           </div>
@@ -1258,7 +1481,7 @@ export default function EventsMiniWebsiteView({
                   </div>
 
                   <div className="flex justify-between text-emerald-600 font-bold">
-                    <span>Special Coupon (HORA 150):</span>
+                    <span>Special Coupon (SNAP150):</span>
                     <span className="font-mono">- ₹150</span>
                   </div>
 
@@ -1288,7 +1511,7 @@ export default function EventsMiniWebsiteView({
                   </button>
 
                   <a
-                    href={`https://wa.me/917338584828?text=Hi%20HORA,%20I%20want%20to%20book%20a%20photographer%20in%20${selectedCity}%20for%20${encodeURIComponent(activeOccasion.title)}%20(${selectedDurationHours}%20Hours)%20at%20${encodeURIComponent(selectedLocality)}.%20Estimated%20Price:%20₹${calculatedPrice.total}%20with%20HORA150%20code.`}
+                    href={`https://wa.me/919876543210?text=Hi,%20I%20want%20to%20book%20a%20photographer%20in%20${selectedCity}%20for%20${encodeURIComponent(activeOccasion.title)}%20(${selectedDurationHours}%20Hours)%20at%20${encodeURIComponent(selectedLocality)}.%20Estimated%20Price:%20₹${calculatedPrice.total}%20with%20SNAP150%20code.`}
                     target="_blank"
                     rel="noreferrer"
                     className="w-full py-3 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-xs transition cursor-pointer flex items-center justify-center gap-2 border border-emerald-200"
@@ -1321,13 +1544,13 @@ export default function EventsMiniWebsiteView({
       </section>
 
       {/* =========================================================================
-          7. "WHY A 2-HOUR EVENT SHOULDN'T COST A FULL DAY" (Exact Hora Value Prop)
+          7. "WHY A 2-HOUR EVENT SHOULDN'T COST A FULL DAY" (Hourly Value Proposition)
          ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 py-12">
         <div className="bg-[#18181B] rounded-3xl p-8 sm:p-12 text-white shadow-xl space-y-8">
           <div className="max-w-3xl space-y-3">
             <span className="text-xs font-black uppercase tracking-widest text-[#E94E77] bg-pink-500/10 px-3 py-1 rounded-full border border-pink-500/20">
-              The HORA Difference
+              The On-Demand Advantage
             </span>
             <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
               Why a Two-Hour Event Shouldn't Cost You a Full Day
@@ -1365,10 +1588,10 @@ export default function EventsMiniWebsiteView({
               </ul>
             </div>
 
-            {/* The HORA Way */}
+            {/* The Hourly Way */}
             <div className="p-6 rounded-2xl bg-gradient-to-br from-pink-950/40 via-slate-900 to-slate-900 border border-pink-500/40 space-y-4">
               <div className="flex items-center justify-between text-[#E94E77] font-bold text-xs">
-                <span>HORA SERVICES PHOTOGRAPHY</span>
+                <span>SNAPVIBE HOURLY PHOTOGRAPHY</span>
                 <span>✓ Modern &amp; Transparent</span>
               </div>
               <ul className="space-y-2.5 text-xs text-slate-200">
@@ -1501,7 +1724,7 @@ export default function EventsMiniWebsiteView({
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-50 text-[#E94E77] text-xs font-bold mb-1.5 border border-pink-200">
               <ImageIcon className="w-3.5 h-3.5" />
-              <span>Real HORA Shoots Portfolio</span>
+              <span>Real Hyderabad Event Portfolio</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
               Sample Work from Real {selectedCity} Events
@@ -1562,7 +1785,7 @@ export default function EventsMiniWebsiteView({
       </section>
 
       {/* =========================================================================
-          11. CUSTOMER REVIEWS & GOOGLE RATINGS (4.9★, 2,500+ Reviews from Hora)
+          11. CUSTOMER REVIEWS & GOOGLE RATINGS (4.9★, 2,500+ Verified Client Reviews)
          ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 py-12">
         <div className="rounded-3xl bg-gradient-to-br from-white to-pink-50/30 p-8 sm:p-12 border border-pink-200 shadow-sm space-y-10">
@@ -1734,7 +1957,7 @@ export default function EventsMiniWebsiteView({
                 <div className="p-3.5 rounded-2xl bg-pink-50 border border-pink-200 flex items-center justify-between text-xs">
                   <div>
                     <span className="font-extrabold text-slate-900">Total: ₹{calculatedPrice.total.toLocaleString()}</span>
-                    <span className="text-emerald-700 block text-[11px] font-bold">Includes ₹150 Discount (HORA 150)</span>
+                    <span className="text-emerald-700 block text-[11px] font-bold">Includes ₹150 Discount (SNAP150)</span>
                   </div>
                   <span className="text-[11px] font-black text-[#E94E77] bg-white px-2.5 py-1 rounded-xl shadow-xs">
                     Advance: ₹500
@@ -1896,7 +2119,7 @@ export default function EventsMiniWebsiteView({
 
           <div className="flex items-center gap-2">
             <a
-              href="https://wa.me/917338584828?text=Hi%20HORA,%20I%20want%20to%20hire%20a%20photographer%20in%20Hyderabad"
+              href="https://wa.me/919876543210?text=Hi,%20I%20want%20to%20hire%20a%20photographer%20in%20Hyderabad"
               target="_blank"
               rel="noreferrer"
               className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-sm cursor-pointer"
@@ -1919,7 +2142,7 @@ export default function EventsMiniWebsiteView({
       </div>
 
       {/* =========================================================================
-          17. MEGA FOOTER (All 8 Indian Cities & HORA Service Lines)
+          17. MEGA FOOTER (All 8 Indian Cities & Event Service Lines)
          ========================================================================= */}
       <footer className="bg-[#18181B] text-slate-400 text-xs pt-16 pb-24 px-4 border-t border-slate-800 mt-16">
         <div className="max-w-7xl mx-auto space-y-12">
@@ -1973,8 +2196,8 @@ export default function EventsMiniWebsiteView({
             <div>
               <h5 className="font-bold text-white uppercase text-[11px] tracking-wider mb-3">Contact &amp; Support</h5>
               <ul className="space-y-1.5 text-[11px]">
-                <li><span>Phone: +91 73385 84828</span></li>
-                <li><span>Email: dev@horaservices.com</span></li>
+                <li><span>Phone: +91 98765 43210</span></li>
+                <li><span>Email: bookings@oneclickbiz.in</span></li>
                 <li><span>Support: 24/7 WhatsApp Chat</span></li>
                 <li><span>Free Invite Worth ₹500</span></li>
                 <li><span>Verified Background Checked</span></li>
@@ -1984,7 +2207,7 @@ export default function EventsMiniWebsiteView({
           </div>
 
           <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
-            <p>&copy; 2026 HORA Services &bull; All rights reserved. Hyderabad Event &amp; Photography Platform.</p>
+            <p>&copy; 2026 SnapVibe Studios &bull; Powered by OneClickBiz. All rights reserved.</p>
             <div className="flex items-center gap-4 text-slate-500">
               <span>Privacy Policy</span>
               <span>&bull;</span>
