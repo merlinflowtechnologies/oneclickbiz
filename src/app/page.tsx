@@ -432,13 +432,6 @@ export default function LandingPage() {
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1 sm:pt-2">
-                <Link 
-                  href="/signup?intent=build_card"
-                  className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-95 text-white font-bold text-sm shadow-xl shadow-indigo-500/30 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
-                >
-                  <span>Build Your Smart Card</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
                 <a 
                   href="#demo"
                   className="w-full sm:w-auto px-6 py-3.5 rounded-2xl glass-card hover:bg-slate-800/80 text-white border border-white/20 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-md"
