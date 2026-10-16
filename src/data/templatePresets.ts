@@ -1632,8 +1632,9 @@ TEMPLATE_PRESETS_DATA['beauty-salon'] = {
     { id: 'soc_bs_wa', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp Us' },
     { id: 'soc_bs_ph', platform: 'phone', url: 'tel:+919876543210', label: 'Call Salon' },
     { id: 'soc_bs_ig', platform: 'instagram', url: 'https://instagram.com/auraluxesalon', label: 'Instagram' },
+    { id: 'soc_bs_yt', platform: 'youtube', url: 'https://youtube.com/@auraluxesalon', label: 'YouTube Masterclasses' },
     { id: 'soc_bs_map', platform: 'maps', url: 'https://maps.google.com/?q=Road+No+36+Jubilee+Hills+Hyderabad', label: 'Google Maps' },
-    { id: 'soc_bs_web', platform: 'website', url: 'https://auraluxesalon.in', label: 'Official Website' }
+    { id: 'soc_bs_web', platform: 'website', url: 'https://www.oneclickbiz.in/v/beauty-salon', label: 'Official Website' }
   ]
 };
 
@@ -1643,6 +1644,10 @@ TEMPLATE_PRESETS_DATA['greentrends'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
 TEMPLATE_PRESETS_DATA['greentrends-kothapet'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
 TEMPLATE_PRESETS_DATA['salon'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
 TEMPLATE_PRESETS_DATA['luxury-salon'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+
+TEMPLATE_PRESETS_DATA['event-planner'] = TEMPLATE_PRESETS_DATA['events-planner'];
+TEMPLATE_PRESETS_DATA['event-photography'] = TEMPLATE_PRESETS_DATA['events-planner'];
+TEMPLATE_PRESETS_DATA['photography'] = TEMPLATE_PRESETS_DATA['events-planner'];
 
 
 

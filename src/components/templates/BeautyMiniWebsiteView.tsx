@@ -36,8 +36,10 @@ import {
   Menu,
   Check,
   Camera,
-  MessageSquare
+  MessageSquare,
+  Play
 } from 'lucide-react';
+import SocialIcon from '@/components/common/SocialIcon';
 import { DigitalProfile } from '@/lib/types';
 import ShareCardModal from '@/components/common/ShareCardModal';
 import { downloadVcfFile } from '@/lib/vcf';
@@ -444,6 +446,67 @@ const DEFAULT_LOOKBOOK = [
   }
 ];
 
+// Curated Instagram Reels showcase for AuraLuxe Salon
+const INSTAGRAM_SALON_REELS = [
+  {
+    title: 'Honey Caramel Balayage & Silk Gloss Finish',
+    views: '142K Views',
+    duration: '0:45',
+    imageUrl: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80',
+    likes: '8.4K',
+    tag: 'Balayage'
+  },
+  {
+    title: 'O3+ Porcelain Glass Skin Hydra-Facial Glow',
+    views: '98K Views',
+    duration: '0:38',
+    imageUrl: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80',
+    likes: '6.1K',
+    tag: 'Skin Glow'
+  },
+  {
+    title: 'Gentlemen Executive Fade & Hot Towel Beard Sculpt',
+    views: '76K Views',
+    duration: '0:52',
+    imageUrl: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80',
+    likes: '5.2K',
+    tag: 'Men Grooming'
+  },
+  {
+    title: 'Royal HD Bridal Makeover & Jasmine Hair Art',
+    views: '230K Views',
+    duration: '1:10',
+    imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80',
+    likes: '14.8K',
+    tag: 'Bridal Glam'
+  }
+];
+
+// Curated YouTube Masterclass episodes for AuraLuxe Salon
+const YOUTUBE_SALON_MASTERCLASSES = [
+  {
+    title: 'Keratin Nanoplastia Straightening: Complete Step-by-Step Salon Protocol',
+    subtitle: 'Zero formaldehyde mirror gloss straightening guide',
+    duration: '11:24',
+    views: '48K views',
+    imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    title: '7-Step Bridal Glow Facial with Oxygen Infusion & Pore Extraction',
+    subtitle: 'Dermatologically formulated deep bridal skin prep',
+    duration: '08:45',
+    views: '35K views',
+    imageUrl: 'https://images.unsplash.com/photo-1512290900672-1f0233329978?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    title: 'Gentlemen Executive Beard Contouring & Razor Sharp Line-Up',
+    subtitle: 'Hot towel herbal steam & charcoal detan routine',
+    duration: '07:15',
+    views: '29K views',
+    imageUrl: 'https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=600&q=80'
+  }
+];
+
 export default function BeautyMiniWebsiteView({
   profile,
   trackAction = () => {},
@@ -533,6 +596,11 @@ export default function BeautyMiniWebsiteView({
   const salonAddress = (profile.address && !profile.address.includes('Kothapet') && !profile.address.includes('Nagole'))
     ? profile.address
     : 'Plot No. 482, 2nd Floor, Luxury Square Building, Road No. 36, Jubilee Hills, Hyderabad, Telangana 500033';
+
+  // Social Channels & Canonical URL
+  const instagramUrl = profile.sectionData?.socials?.items?.find((s: any) => s.platform === 'instagram')?.url || 'https://instagram.com/auraluxesalon';
+  const youtubeUrl = profile.sectionData?.socials?.items?.find((s: any) => s.platform === 'youtube')?.url || 'https://youtube.com/@auraluxesalon';
+  const websiteUrl = 'https://www.oneclickbiz.in/v/beauty-salon';
 
   // --- Cart Helpers ---
   const showToast = (msg: string) => {
@@ -809,6 +877,10 @@ export default function BeautyMiniWebsiteView({
             </a>
             <a href="#why-us" className="hover:text-[#1BD741] transition">Why Us</a>
             <a href="#lookbook" className="hover:text-[#1BD741] transition">Lookbook</a>
+            <a href="#social" className="hover:text-pink-400 transition flex items-center gap-1">
+              <span className="text-pink-400">✦</span>
+              <span>Social Media</span>
+            </a>
             <a href="#reviews" className="hover:text-[#1BD741] transition">Reviews (4.9★)</a>
             <a href="#location" className="hover:text-[#1BD741] transition">Find Us</a>
           </nav>
@@ -884,6 +956,7 @@ export default function BeautyMiniWebsiteView({
             <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-[#1BD741]">Services &amp; Pricing Menu</a>
             <a href="#why-us" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-[#1BD741]">Why Choose Us</a>
             <a href="#lookbook" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-[#1BD741]">Hair Transformations Lookbook</a>
+            <a href="#social" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-pink-400">Instagram &amp; YouTube Stories</a>
             <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-zinc-800/60 hover:text-[#1BD741]">Verified Client Reviews (4.9★)</a>
             <a href="#location" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 hover:text-[#1BD741]">Directions &amp; Contact Desk</a>
           </div>
@@ -1659,6 +1732,267 @@ export default function BeautyMiniWebsiteView({
         </div>
       </section>
 
+      {/* =========================================================================
+          8.5 ⭐ SOCIAL MEDIA HUB (INSTAGRAM & YOUTUBE SPACES)
+         ========================================================================= */}
+      <section id="social" className="relative py-16 border-b border-white/10 z-10">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-pink-500/20 via-rose-500/20 to-red-500/20 text-pink-300 text-xs font-bold border border-pink-500/30 backdrop-blur-md">
+              <Share2 className="w-3.5 h-3.5 text-pink-400" />
+              <span>Behind The Scenes &amp; Styling Stories</span>
+            </div>
+            <h3 className="text-2xl sm:text-4xl font-black text-white drop-shadow-md">
+              Connect With Us On Social Media
+            </h3>
+            <p className="text-xs sm:text-sm text-zinc-300">
+              Watch our master stylists craft bespoke transformations, explore daily hair &amp; beauty reels, and learn professional salon secrets on Instagram and YouTube.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-10 max-w-6xl mx-auto">
+            
+            {/* 1. INSTAGRAM PLATFORM SPACE */}
+            <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-[#833ab4]/20 via-[#fd1d1d]/15 to-[#fcb045]/15 border-2 border-pink-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between space-y-6 group hover:border-pink-500/60 transition-all duration-300">
+              <div className="space-y-4">
+                
+                {/* Instagram Top Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-lg shadow-pink-950/40 shrink-0">
+                      <SocialIcon platform="instagram" size={24} colored={false} className="text-white" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <h4 className="font-extrabold text-base sm:text-lg text-white">@auraluxesalon</h4>
+                        <span className="w-4 h-4 rounded-full bg-sky-500 text-white text-[10px] flex items-center justify-center font-bold" title="Verified Creator">✓</span>
+                      </div>
+                      <p className="text-xs text-pink-200/90 font-medium">48.5K Followers • 420 Styling Reels • Jubilee Hills</p>
+                    </div>
+                  </div>
+
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('instagram_follow_click')}
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-95 text-white text-xs font-black shadow-lg shadow-pink-900/40 transition flex items-center gap-2 cursor-pointer active:scale-95"
+                  >
+                    <SocialIcon platform="instagram" size={14} colored={false} className="text-white" />
+                    <span>Follow on Instagram</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+
+                {/* Bio Snippet */}
+                <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed max-w-3xl">
+                  Bespoke hair coloring, caramel balayage transformations, keratin nanoplastia rituals, and royal bridal makeovers in Jubilee Hills, Hyderabad. Tag <strong className="text-white">#AuraLuxeSalon</strong> to get featured in our daily stories!
+                </p>
+
+                {/* Instagram Reels Preview Grid (4 Cards) */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
+                  {INSTAGRAM_SALON_REELS.map((reel, rIdx) => (
+                    <a
+                      key={rIdx}
+                      href={instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative h-56 sm:h-64 rounded-2xl overflow-hidden shadow-xl group/item block bg-zinc-950 border border-white/15 hover:border-pink-500/50 transition-all duration-300"
+                    >
+                      <Image
+                        src={reel.imageUrl}
+                        alt={reel.title}
+                        fill
+                        className="object-cover group-hover/item:scale-105 transition-transform duration-500 opacity-90"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex flex-col justify-between p-3 text-white">
+                        <div className="flex items-center justify-between">
+                          <span className="px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-[9px] font-extrabold flex items-center gap-1 border border-white/10 text-pink-300">
+                            <Play className="w-2.5 h-2.5 fill-pink-400 text-pink-400" />
+                            <span>Reel</span>
+                          </span>
+                          <span className="text-[10px] font-bold text-amber-300 bg-black/60 px-1.5 py-0.5 rounded backdrop-blur-md">
+                            ❤️ {reel.likes}
+                          </span>
+                        </div>
+
+                        <div className="space-y-1">
+                          <span className="text-[9px] font-bold text-[#1BD741] uppercase tracking-wider block">
+                            {reel.tag}
+                          </span>
+                          <p className="text-[11px] sm:text-xs font-bold leading-tight line-clamp-2 text-white">
+                            {reel.title}
+                          </p>
+                          <span className="text-[10px] text-zinc-300 font-mono block">
+                            👁️ {reel.views}
+                          </span>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+
+              </div>
+
+              {/* Bottom Instagram Link Bar */}
+              <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-300">
+                <span className="font-semibold text-pink-200">Official Hashtags: #AuraLuxeSalon • #HyderabadHairCare • #JubileeHills</span>
+                <a 
+                  href={instagramUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="font-extrabold text-pink-400 hover:text-pink-300 hover:underline flex items-center gap-1 transition"
+                >
+                  <span>Explore All Reels on Instagram</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* 2. YOUTUBE PLATFORM SPACE */}
+            <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-red-950/35 via-zinc-950/85 to-[#0A0A0C]/90 border-2 border-red-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between space-y-6 group hover:border-red-500/60 transition-all duration-300">
+              <div className="space-y-5">
+                
+                {/* YouTube Card Top Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-red-600 to-rose-700 flex items-center justify-center text-white shadow-lg shadow-red-950/50 shrink-0">
+                      <SocialIcon platform="youtube" size={24} colored={false} className="text-white" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <h4 className="font-extrabold text-base sm:text-lg text-white">AuraLuxe Salon Masterclasses</h4>
+                        <span className="w-4 h-4 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-bold">▶</span>
+                      </div>
+                      <p className="text-xs text-red-200/90 font-medium">35.2K Subscribers • 4K Hair Care &amp; Makeover Tutorials</p>
+                    </div>
+                  </div>
+
+                  <a
+                    href={youtubeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAction('youtube_subscribe_click')}
+                    className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black shadow-lg shadow-red-950/50 transition flex items-center gap-2 cursor-pointer active:scale-95"
+                  >
+                    <SocialIcon platform="youtube" size={14} colored={false} className="text-white" />
+                    <span>Subscribe on YouTube</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+
+                {/* YouTube Video Showcase Grid (Main 4K Video + Episode Playlist) */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                  
+                  {/* Main 4K Video Player Showcase (Left / 7 cols) */}
+                  <div className="lg:col-span-7 relative rounded-2xl overflow-hidden shadow-2xl border border-red-500/30 group/vid flex flex-col justify-end min-h-[280px] sm:min-h-[340px] bg-zinc-950">
+                    <Image
+                      src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=80"
+                      alt="Bespoke Balayage Masterclass"
+                      fill
+                      className="object-cover group-hover/vid:scale-105 transition-transform duration-700 opacity-80"
+                    />
+                    
+                    {/* Dark Overlay & Play Button */}
+                    <div className="absolute inset-0 bg-black/45 group-hover/vid:bg-black/30 transition-colors flex items-center justify-center">
+                      <a
+                        href={youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackAction('youtube_play_click')}
+                        className="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center shadow-2xl transition hover:scale-110 active:scale-95 cursor-pointer border border-white/20"
+                        title="Play on YouTube"
+                      >
+                        <Play className="w-7 h-7 fill-white translate-x-0.5" />
+                      </a>
+                    </div>
+
+                    {/* Duration Badge */}
+                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-black/80 text-white text-[11px] font-mono font-bold backdrop-blur-md flex items-center gap-1.5 z-10 border border-white/10">
+                      <span>14:20</span>
+                      <span>•</span>
+                      <span className="text-amber-400">4K UHD</span>
+                    </div>
+
+                    {/* Video Info Bottom Banner */}
+                    <div className="relative z-10 p-5 bg-gradient-to-t from-black via-black/80 to-transparent text-white space-y-1.5">
+                      <span className="px-2.5 py-0.5 rounded-full bg-red-600/90 text-white text-[10px] font-extrabold uppercase tracking-wider inline-block">
+                        FEATURED MASTERCLASS
+                      </span>
+                      <h5 className="text-sm sm:text-base font-extrabold leading-snug">
+                        Bespoke Balayage Masterclass: Step-by-Step Foil Placement &amp; Ammonia-Free Toning
+                      </h5>
+                      <p className="text-[11px] text-zinc-300 leading-relaxed line-clamp-2">
+                        Watch our senior hair director walk through sectioning, balayage clay formulation, freehand lightener painting, and mirror gloss glossing.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Playlist Highlights (Right / 5 cols) */}
+                  <div className="lg:col-span-5 flex flex-col justify-between gap-3">
+                    <div className="space-y-3">
+                      <p className="text-xs font-black uppercase tracking-wider text-red-400 flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-red-400" />
+                        <span>Recent Masterclass Tutorials</span>
+                      </p>
+
+                      {YOUTUBE_SALON_MASTERCLASSES.map((item, yIdx) => (
+                        <a
+                          key={yIdx}
+                          href={youtubeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-3 rounded-2xl bg-zinc-950/80 hover:bg-zinc-900 border border-white/10 hover:border-red-500/40 shadow-lg flex items-center gap-3.5 group/clip transition backdrop-blur-md cursor-pointer"
+                        >
+                          <div className="relative w-24 h-16 rounded-xl overflow-hidden shrink-0 bg-zinc-900 border border-white/10">
+                            <Image
+                              src={item.imageUrl}
+                              alt={item.title}
+                              fill
+                              className="object-cover group-hover/clip:scale-105 transition-transform duration-300"
+                            />
+                            <span className="absolute bottom-1 right-1 px-1.5 py-0.2 rounded bg-black/80 text-[9px] font-mono text-white font-bold backdrop-blur-xs">
+                              {item.duration}
+                            </span>
+                          </div>
+                          <div className="min-w-0 flex-1 space-y-0.5">
+                            <h6 className="text-xs font-bold text-white group-hover/clip:text-red-400 transition line-clamp-2 leading-tight">
+                              {item.title}
+                            </h6>
+                            <p className="text-[10px] text-zinc-400 truncate">{item.subtitle}</p>
+                            <span className="text-[9px] text-amber-300 font-mono block">{item.views}</span>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+
+                    <a
+                      href={youtubeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-white font-bold text-xs flex items-center justify-center gap-2 border border-white/10 transition mt-2 cursor-pointer"
+                    >
+                      <SocialIcon platform="youtube" size={14} colored={false} className="text-red-500" />
+                      <span>View All Tutorials on YouTube</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
+                    </a>
+                  </div>
+
+                </div>
+
+              </div>
+
+              {/* Bottom YouTube Bar */}
+              <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-400">
+                <span className="font-semibold text-zinc-300">New masterclass episode uploaded every Friday!</span>
+                <span className="text-red-400 font-bold">100% Free Hair &amp; Skin Education</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 9. ⭐ DEDICATED REVIEWS & TESTIMONIALS (RICH VERIFIED CUSTOMER REVIEWS) */}
       <section id="reviews" className="relative py-16 border-b border-white/10 z-10">
         <div className="max-w-7xl mx-auto px-4">
@@ -1927,6 +2261,42 @@ export default function BeautyMiniWebsiteView({
             <p className="text-zinc-300 leading-relaxed">
               Hyderabad’s premier luxury unisex salon lounge delivering trendsetting hair, skin, and bridal styling in Jubilee Hills.
             </p>
+            {/* Social Icons Strip */}
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-xl bg-pink-950/60 hover:bg-pink-900 border border-pink-700/40 flex items-center justify-center text-pink-300 transition hover:scale-105"
+                title="Follow on Instagram"
+              >
+                <SocialIcon platform="instagram" size={16} colored={false} className="text-pink-300" />
+              </a>
+              <a
+                href={youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-xl bg-red-950/60 hover:bg-red-900 border border-red-700/40 flex items-center justify-center text-red-300 transition hover:scale-105"
+                title="Subscribe on YouTube"
+              >
+                <SocialIcon platform="youtube" size={16} colored={false} className="text-red-300" />
+              </a>
+              <a
+                href={`https://wa.me/${cleanWa}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-xl bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-700/40 flex items-center justify-center text-emerald-300 transition hover:scale-105"
+                title="Chat on WhatsApp"
+              >
+                <SocialIcon platform="whatsapp" size={16} colored={false} className="text-emerald-300" />
+              </a>
+            </div>
+            <a 
+              href="https://www.oneclickbiz.in/v/beauty-salon" 
+              className="text-[#1BD741] font-mono text-[11px] block hover:underline pt-1"
+            >
+              https://www.oneclickbiz.in/v/beauty-salon
+            </a>
           </div>
 
           <div className="space-y-2">
@@ -1936,7 +2306,9 @@ export default function BeautyMiniWebsiteView({
               <li><a href="#services" className="hover:text-[#1BD741] transition">Salon Services Menu</a></li>
               <li><a href="#shop" className="hover:text-[#1BD741] transition">Buy Salon Products</a></li>
               <li><a href="#lookbook" className="hover:text-[#1BD741] transition">Lookbook Gallery</a></li>
+              <li><a href="#social" className="hover:text-pink-400 transition">Instagram &amp; YouTube Stories</a></li>
               <li><a href="#reviews" className="hover:text-[#1BD741] transition">Verified Reviews (4.9★)</a></li>
+              <li><a href="#location" className="hover:text-[#1BD741] transition">Find Us</a></li>
             </ul>
           </div>
 
@@ -1963,7 +2335,9 @@ export default function BeautyMiniWebsiteView({
 
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
           <p>© {new Date().getFullYear()} AuraLuxe Luxury Unisex Salon &amp; Spa. All rights reserved.</p>
-          <p className="text-zinc-500">Digital Mini-Website Powered by OneClickBiz</p>
+          <p className="text-zinc-500">
+            Digital Mini-Website Powered by <a href="https://www.oneclickbiz.in" className="hover:text-white transition">OneClickBiz</a> • <a href="https://www.oneclickbiz.in/v/beauty-salon" className="text-emerald-400 hover:underline">oneclickbiz.in/v/beauty-salon</a>
+          </p>
         </div>
       </footer>
 
