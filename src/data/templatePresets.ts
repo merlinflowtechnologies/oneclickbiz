@@ -1111,6 +1111,274 @@ TEMPLATE_PRESETS_DATA['insurance'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
 TEMPLATE_PRESETS_DATA['mediclaim'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
 TEMPLATE_PRESETS_DATA['insurance-advisor'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
 
+TEMPLATE_PRESETS_DATA['edu-school'] = {
+  name: 'Geethanjali Group of Schools',
+  designation: 'Best Schools in Warangal | SSC CBSE & ICSE Integrated Syllabus | IIT & NEET Foundation',
+  company: 'Geethanjali Group of Schools – Warangal',
+  bio: 'Geethanjali Group of Schools is renowned for delivering exceptional education across Warangal, Narsampet, Mahbubabad, and Kothagudem. Offering SSC, CBSE & ICSE Integrated syllabus, digital classrooms, experienced faculty, IIT & NEET foundation, robotics lab, and comprehensive boarding facilities.',
+  theme: 'modern-indigo',
+  avatarUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/Geethanjali_School_Logo-removebg-preview.png',
+  coverUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0154.jpg',
+  email: 'info@geethanjaligroupofschools-wgl.com',
+  phone: '+91 7732071452',
+  whatsapp: '917732071452',
+  website: 'https://geethanjaligroupofschools-wgl.com/',
+  address: 'H. No. 19-219, Warangal Rd, opp. Ayyappa Temple, Narsampet, Telangana 506132',
+  services: [
+    {
+      id: 'srv_edu_1',
+      title: 'Admissions Counseling & Campus Tour',
+      description: 'One-on-one session with senior academic counselors and an interactive guided tour of our digital classrooms and laboratories.',
+      durationMinutes: 45,
+      price: 0,
+      currency: '₹'
+    },
+    {
+      id: 'srv_edu_2',
+      title: 'IIT & NEET Foundation Diagnostic Test',
+      description: 'Comprehensive evaluation of mathematical aptitude, analytical reasoning, and scientific problem-solving skills.',
+      durationMinutes: 60,
+      price: 0,
+      currency: '₹'
+    },
+    {
+      id: 'srv_edu_3',
+      title: 'Hostel & Semi-Residential Counseling',
+      description: 'Orientation for outstation parents regarding safe boarding wings, nutritious dining schedule, and evening study supervision.',
+      durationMinutes: 30,
+      price: 0,
+      currency: '₹'
+    },
+    {
+      id: 'srv_edu_4',
+      title: 'Navodaya & Sainik School Entrance Guidance',
+      description: 'Specialized strategy consultation and mock reasoning tests for admission into premier government national schools.',
+      durationMinutes: 45,
+      price: 0,
+      currency: '₹'
+    }
+  ],
+  products: [
+    {
+      id: 'prod_edu_1',
+      name: 'Pre-Primary Wing (Nursery, LKG, UKG)',
+      description: 'Activity-based child-centric pedagogy, phonetics, sensory play, basic numeracy, and English language communication in a caring environment.',
+      price: 28000,
+      currency: '₹',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/freepicdownloader.com-happy-indian-schoolgirl-uniform-with-books-bag-medium.jpg',
+      category: 'Pre-Primary Education',
+      isAvailable: true
+    },
+    {
+      id: 'prod_edu_2',
+      name: 'Primary Wing (Classes 1 to 5)',
+      description: 'Strong foundation in Mathematics, General Science, Languages, Environmental Studies, and mental arithmetic with interactive digital boards.',
+      price: 36000,
+      currency: '₹',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/WhatsApp-Image-2024-03-14-at-22.12.52_79c2d4ed.jpg',
+      category: 'Primary School',
+      isAvailable: true
+    },
+    {
+      id: 'prod_edu_3',
+      name: 'Middle School (Classes 6 to 8)',
+      description: 'Integrated ICSE, CBSE & State syllabus with early preparation for National Science Olympiads and English speech debates.',
+      price: 45000,
+      currency: '₹',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0201-scaled.jpg',
+      category: 'Middle School',
+      isAvailable: true
+    },
+    {
+      id: 'prod_edu_4',
+      name: 'High School & Board Examination Prep (Classes 9 & 10)',
+      description: 'Rigorous academic drills, past-paper analysis, regular revision tests, and personalized mentor attention targeting 100% GPA in SSC & Board exams.',
+      price: 55000,
+      currency: '₹',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0163-1024x680.jpg',
+      category: 'High School',
+      isAvailable: true
+    },
+    {
+      id: 'prod_edu_5',
+      name: 'IIT & NEET Advanced Integrated Foundation Program',
+      description: 'Comprehensive weekend national-level exams, advanced physics-chemistry-math concepts, shortcut techniques, and doubt resolution labs.',
+      price: 65000,
+      currency: '₹',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0215-scaled.jpg',
+      category: 'Competitive Foundation',
+      isAvailable: true
+    },
+    {
+      id: 'prod_edu_6',
+      name: 'Robotics, AI & 21st-Century STEM Innovation Wing',
+      description: 'Practical coding, hardware sensor circuits, LEGO mechanics, and science project modeling for futuristic skill development.',
+      price: 48000,
+      currency: '₹',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/06/3X3-2-PAGE-ROBOTICS-LAB-LALIPOP-KOTHADUEM_page-0001.jpg',
+      category: 'STEM & Robotics',
+      isAvailable: true
+    }
+  ],
+  gallery: [
+    {
+      id: 'gal_edu_1',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0154.jpg',
+      title: 'Geethanjali Digi School (Main Campus)',
+      category: 'Campuses',
+      description: 'Main flagship campus at Narsampet, Warangal with state-of-the-art infrastructure.'
+    },
+    {
+      id: 'gal_edu_2',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0207.jpg',
+      title: 'Geethanjali Global School',
+      category: 'Campuses',
+      description: 'Expansive global school campus at Maheshwaram with dedicated sports fields.'
+    },
+    {
+      id: 'gal_edu_3',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0241.jpg',
+      title: 'Geethanjali High School - Mahbubabad',
+      category: 'Campuses',
+      description: 'Premier academic campus in Mahbubabad town.'
+    },
+    {
+      id: 'gal_edu_4',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/06/3X3-LALIPOP-KOTHADUEM_page-0001-900x492.jpg',
+      title: 'Geethanjali Public School - Old Kothagudem (New Branch)',
+      category: 'New Branch',
+      description: 'Opening 10th June 2025 at Old Arunachaleshwara School Campus, Gouthamnagar.'
+    },
+    {
+      id: 'gal_edu_5',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/WhatsApp-Image-2024-03-14-at-22.12.52_79c2d4ed.jpg',
+      title: 'Digital Interactive Smart Classrooms',
+      category: 'Classrooms',
+      description: 'Fully multimedia-equipped classrooms with digital interactive learning panels.'
+    },
+    {
+      id: 'gal_edu_6',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0201-scaled.jpg',
+      title: 'Playground & Sports Grounds',
+      category: 'Sports',
+      description: 'Spacious outdoor playing arenas for football, volleyball, cricket, and athletic events.'
+    },
+    {
+      id: 'gal_edu_7',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/WhatsApp-Image-2024-01-31-at-12.03.05.jpeg',
+      title: 'Residential Hostels & Boarding Life',
+      category: 'Boarding',
+      description: 'Comfortable, safe, and nurturing semi-residential and full hostel accommodations.'
+    },
+    {
+      id: 'gal_edu_8',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/P1089642-scaled.jpg',
+      title: 'N.C.C Cadet & Leadership Training',
+      category: 'Activities',
+      description: 'Discipline, marching, endurance, and national leadership drills.'
+    },
+    {
+      id: 'gal_edu_9',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/P1089628-scaled.jpg',
+      title: 'Periodic Doctor Health Checkups',
+      category: 'Health',
+      description: 'Routine healthcare evaluations, dental checkups, and physical fitness monitoring.'
+    },
+    {
+      id: 'gal_edu_10',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/P1090284-scaled.jpg',
+      title: 'Hygienic Dining & Nutritious Meals',
+      category: 'Dining',
+      description: 'Strict cleanliness standards in cooking with balanced, nutritious, and appetizing food.'
+    },
+    {
+      id: 'gal_edu_11',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/P1089745-scaled.jpg',
+      title: 'Faculty Development Program (FDP)',
+      category: 'Faculty',
+      description: 'Continuous pedagogical training keeping educators aligned with modern 21st-century teaching methods.'
+    },
+    {
+      id: 'gal_edu_12',
+      imageUrl: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/06/3X3-2-PAGE-ROBOTICS-LAB-LALIPOP-KOTHADUEM_page-0001.jpg',
+      title: 'Robotics & STEM Innovation Lab',
+      category: 'Labs',
+      description: 'Hands-on experiential robotics kits, microcontrollers, and logic coding kits.'
+    }
+  ],
+  testimonials: [
+    {
+      id: 't_edu_1',
+      clientName: 'Mrs. Meena',
+      clientRole: 'Parent of Aarav, Class 3',
+      clientCompany: 'Geethanjali Digi School Narsampet',
+      content: 'The dedication of the teachers and staff at Geethanjali is commendable. My little one enjoys every class, and I have seen tremendous growth in his confidence and communication skills. The school provides the perfect blend of academics, sports, and extracurricular activities.',
+      rating: 5,
+      clientAvatar: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/portrait-of-happy-woman-with-curly-hair-at-park.jpg'
+    },
+    {
+      id: 't_edu_2',
+      clientName: 'Mr. Prakash',
+      clientRole: 'Parent of Rahul, Geethanjali Alumni, Class 10',
+      clientCompany: 'Geethanjali Group of Schools',
+      content: 'As parents, we wanted a school that not only focuses on academics but also on values and life skills. Geethanjali School has exceeded our expectations. Our son, who recently completed his 10th grade, has been nurtured with great discipline, leadership qualities, and strong academic excellence. Thank you for shaping his future.',
+      rating: 5,
+      clientAvatar: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/portrait-of-happy-woman-with-curly-hair-at-park.jpg'
+    },
+    {
+      id: 't_edu_3',
+      clientName: 'Mr. & Mrs. Kumar',
+      clientRole: 'Parents of Sneha, Class 5',
+      clientCompany: 'Geethanjali Global School Maheshwaram',
+      content: 'My daughter loves going to school every day! The innovative teaching methods and well-structured curriculum at Geethanjali have helped her develop strong foundational knowledge. The teachers encourage curiosity and creativity, which has made learning enjoyable for her. We are extremely happy with our decision to enroll her here.',
+      rating: 5,
+      clientAvatar: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/portrait-of-happy-woman-with-curly-hair-at-park.jpg'
+    },
+    {
+      id: 't_edu_4',
+      clientName: 'Mrs. S. Reddy',
+      clientRole: 'Parent of Sneha, Class 5',
+      clientCompany: 'Geethanjali E/M High School',
+      content: 'Geethanjali Group of Schools has been a second home for my child. The teachers are highly supportive, and the learning environment is exceptional. My son has not only excelled academically but also gained confidence through extracurricular activities. We are truly grateful for the school’s dedication to holistic education.',
+      rating: 5,
+      clientAvatar: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/portrait-of-happy-woman-with-curly-hair-at-park.jpg'
+    }
+  ],
+  videos: [
+    {
+      id: 'v_edu_1',
+      title: 'Geethanjali Schools - Learning, Friendship and Fun For Everyone',
+      url: 'https://www.youtube.com/watch?v=1MTkZPys7mU',
+      type: 'youtube',
+      embedUrl: 'https://www.youtube.com/embed/1MTkZPys7mU',
+      caption: 'Discover the inspiring campus life, happy children, caring teachers, and holistic development at Geethanjali Group of Schools.'
+    },
+    {
+      id: 'v_edu_2',
+      title: 'Geethanjali Group of Schools Campus Tour & Environment',
+      url: 'https://www.youtube.com/watch?v=XHOmBV4js_E',
+      type: 'youtube',
+      embedUrl: 'https://www.youtube.com/embed/XHOmBV4js_E',
+      caption: 'Experience world-class classrooms, science labs, computer rooms, and sports amenities across our campuses.'
+    }
+  ],
+  socials: [
+    { id: 'soc_edu_wa', platform: 'whatsapp', url: 'https://wa.me/917732071452', label: 'WhatsApp' },
+    { id: 'soc_edu_ph', platform: 'phone', url: 'tel:+917732071452', label: 'Call Us' },
+    { id: 'soc_edu_ig', platform: 'instagram', url: 'https://www.instagram.com/geethanjaligroupofschools_wgl/', label: 'Instagram' },
+    { id: 'soc_edu_fb', platform: 'facebook', url: 'https://www.facebook.com/profile', label: 'Facebook' },
+    { id: 'soc_edu_yt', platform: 'youtube', url: 'https://www.youtube.com/@geethanjaligroupofschools', label: 'YouTube' },
+    { id: 'soc_edu_em', platform: 'email', url: 'mailto:info@geethanjaligroupofschools-wgl.com', label: 'Email' },
+    { id: 'soc_edu_map', platform: 'maps', url: 'https://maps.google.com/?q=Geethanjali+Digi+School+Narsampet+Warangal', label: 'Main Campus Map' },
+    { id: 'soc_edu_web', platform: 'website', url: 'https://geethanjaligroupofschools-wgl.com/', label: 'Official Website' }
+  ]
+};
+
+TEMPLATE_PRESETS_DATA['geethanjali'] = TEMPLATE_PRESETS_DATA['edu-school'];
+TEMPLATE_PRESETS_DATA['geethanjali-school'] = TEMPLATE_PRESETS_DATA['edu-school'];
+TEMPLATE_PRESETS_DATA['geethanjali-schools'] = TEMPLATE_PRESETS_DATA['edu-school'];
+TEMPLATE_PRESETS_DATA['geethanjaligroupofschools'] = TEMPLATE_PRESETS_DATA['edu-school'];
+
 
 
 /**
@@ -1259,6 +1527,59 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
         reservationPolicy: 'Table hold for 15 mins. Prior booking advised on weekends.',
         deliveryRadius: 'Up to 12 km via WhatsApp Direct & Swiggy/Zomato',
         dietaryHighlights: 'Pure Desi Ghee • Halal Certified • Jain Options Available'
+      } : undefined,
+      education: ((meta.category as string) === 'Education' || effectiveId.startsWith('edu-') || effectiveId.includes('school')) ? {
+        accreditation: 'SSC, CBSE & ICSE Integrated Syllabus',
+        boardAffiliation: 'Central Board & State Council Accredited',
+        establishedYear: '2010',
+        totalStudentsTrained: '10,000+',
+        placementRate: '100% Pass Rate & Top IIT/NEET Ranks',
+        demoTimings: 'Mon - Sat (8:00 AM - 5:00 PM)',
+        admissionCommence: 'Commencing Last Week of March',
+        gradesOffered: 'Nursery to Class X',
+        schoolLogo: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/Geethanjali_School_Logo-removebg-preview.png',
+        branches: [
+          {
+            name: 'Geethanjali Digi School (Main Campus)',
+            location: 'Narsampet, Warangal',
+            address: 'H. No. 19-219, Warangal Rd, opp. Ayyappa Temple, Narsampet, Telangana 506132',
+            phone: '+91 7732071452',
+            image: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0154.jpg',
+            type: 'Digi Smart Campus & IIT/NEET Labs'
+          },
+          {
+            name: 'Geethanjali Global School',
+            location: 'Maheshwaram, Warangal',
+            address: 'Maheshwaram Campus, Warangal District, Telangana',
+            phone: '+91 7732071452',
+            image: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0207.jpg',
+            type: 'Global Campus & Sports Arena'
+          },
+          {
+            name: 'Geethanjali E/M High School',
+            location: 'Mallampally Road, Narsampet',
+            address: 'Mallampally Road, Narsampet, Warangal, Telangana',
+            phone: '+91 7732071452',
+            image: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/WhatsApp-Image-2024-03-15-at-10.23.26.jpeg',
+            type: 'English Medium High School'
+          },
+          {
+            name: 'Geethanjali High School',
+            location: 'Mahbubabad',
+            address: 'Main Town Campus, Mahbubabad, Telangana',
+            phone: '+91 7732071452',
+            image: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/03/DSC0241.jpg',
+            type: 'High School & Boarding Wings'
+          },
+          {
+            name: 'Geethanjali Public School (New Branch)',
+            location: 'Old Kothagudem',
+            address: 'Old Arunachaleshwara School Campus, Gouthamnagar, Old Kothagudem, Bhadradri Kothagudem Dist.',
+            phone: '+91 7732071452',
+            image: 'https://geethanjaligroupofschools-wgl.com/wp-content/uploads/2025/06/3X3-LALIPOP-KOTHADUEM_page-0001-900x492.jpg',
+            type: 'Opening 10th June 2025 - World-Class Robotics & STEM'
+          }
+        ]
       } : undefined,
       contact: {
         showEmail: true,

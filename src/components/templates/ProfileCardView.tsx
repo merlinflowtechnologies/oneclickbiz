@@ -811,6 +811,9 @@ export default function ProfileCardView({
   );
 
   const isEducation = Boolean(
+    profile.slug === 'edu-school' ||
+    profile.slug?.includes('geethanjali') ||
+    profile.slug?.startsWith('edu-') ||
     (profile as any).category === 'Education' ||
     (profile as any).templateId?.includes('edu') ||
     (profile as any).templateId?.includes('school') ||
@@ -1053,7 +1056,7 @@ export default function ProfileCardView({
           <div className="flex items-center gap-1.5 sm:gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
             <span className="text-[11px] sm:text-xs font-bold text-slate-800 bg-white/90 backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-full border border-slate-200 shadow-xs whitespace-nowrap">
-              {isFashionTemplate ? 'Smart Fashion Card' : isRestaurantTemplate ? 'Smart Dining Card' : isInsuranceTemplate ? 'Smart Advisor Card' : 'Mobile Card'}
+              {isFashionTemplate ? 'Smart Fashion Card' : isRestaurantTemplate ? 'Smart Dining Card' : isInsuranceTemplate ? 'Smart Advisor Card' : isEducation ? 'Smart School Card' : 'Mobile Card'}
             </span>
           </div>
           <div className="flex items-center gap-1 p-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md">
@@ -1062,14 +1065,14 @@ export default function ProfileCardView({
               className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100 cursor-pointer"
             >
               <Globe className="w-3.5 h-3.5 shrink-0" />
-              <span>{isFashionTemplate ? 'Fashion Mall Website' : isRestaurantTemplate ? 'Dining Website' : isInsuranceTemplate ? 'Insurance Advisory Website' : 'Mini-Website'}</span>
+              <span>{isFashionTemplate ? 'Fashion Mall Website' : isRestaurantTemplate ? 'Dining Website' : isInsuranceTemplate ? 'Insurance Advisory Website' : isEducation ? 'School Website' : 'Mini-Website'}</span>
             </button>
             <button
               onClick={() => setViewMode('mobile')}
               className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all bg-black text-white shadow-sm cursor-pointer"
             >
               <Smartphone className="w-3.5 h-3.5 shrink-0" />
-              <span>{isFashionTemplate ? 'Fashion Card' : isInsuranceTemplate ? 'Advisor Card' : 'Card'}</span>
+              <span>{isFashionTemplate ? 'Fashion Card' : isInsuranceTemplate ? 'Advisor Card' : isEducation ? 'School Card' : 'Card'}</span>
             </button>
           </div>
         </div>

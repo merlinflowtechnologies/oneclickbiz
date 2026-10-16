@@ -378,6 +378,26 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     };
   }
 
+  // 3.7 Check if slug is education / school related (Geethanjali Group of Schools)
+  const isEducationSchoolPattern = 
+    cleanSlug === 'edu-school' ||
+    cleanSlug === 'geethanjali' ||
+    cleanSlug === 'geethanjali-school' ||
+    cleanSlug === 'geethanjali-schools' ||
+    cleanSlug === 'geethanjaligroupofschools' ||
+    cleanSlug.includes('geethanjali');
+
+  if (isEducationSchoolPattern) {
+    const tProf = getTemplateProfile('edu-school');
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
   // 4. Check if slug matches any catalog template (by id or normalized name)
   const matchedTemplate = VCARD_TEMPLATES_CATALOG.find(
     t => t.id.toLowerCase() === cleanSlug || 
