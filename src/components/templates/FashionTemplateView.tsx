@@ -132,12 +132,19 @@ export default function FashionTemplateView({
   setViewMode,
   showViewToggle = true
 }: FashionTemplateViewProps) {
-  // Brand name & contacts
-  const brandName = profile.company || profile.name || 'HK Fashion House';
+  // Brand name & contacts (profile-driven, no external branding)
+  const brandName = profile.company || profile.name || 'Your Fashion Store';
   const cleanPhone = getCleanWhatsAppNumber(profile) || '919876543210';
   const displayPhone = profile.phone || '+91 98765 43210';
 
-  // Navigation category list matching HK Fashion House
+  // Derive brand initials from profile name for monogram logo
+  const brandInitials = useMemo(() => {
+    const words = brandName.trim().split(/\s+/);
+    if (words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
+    return brandName.slice(0, 2).toUpperCase();
+  }, [brandName]);
+
+  // Generic fashion navigation categories
   const NAV_CATEGORIES = [
     'ALL',
     'LONG MIDI DRESS',
@@ -158,115 +165,115 @@ export default function FashionTemplateView({
   // Hero Slider State
   const [activeSlide, setActiveSlide] = useState(0);
 
-  // Watch and Buy Reels Data
+  // Watch and Buy Reels Data (generic placeholder images)
   const WATCH_AND_BUY_REELS: WatchAndBuyReel[] = [
     {
       id: 'reel-1',
       title: 'Timeless Cotton Empire Waist Midi Dress',
-      modelImage: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_2378_720x.jpg?v=1784992757',
+      modelImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=720&q=80',
       product: {
         id: 'prod-w1',
         title: 'TIMELESS COTTON EMPIRE WAIST MIDI DRESS',
         price: 699,
         originalPrice: 2999,
-        thumbnail: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_2378_220x.jpg?v=1784992757',
+        thumbnail: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=220&q=80',
         category: 'LONG MIDI DRESS'
       }
     },
     {
       id: 'reel-2',
       title: 'Contemporary Cotton Panelled Midi Dress',
-      modelImage: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_7381_720x.png?v=1784726168',
+      modelImage: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=720&q=80',
       product: {
         id: 'prod-w2',
         title: 'CONTEMPORARY COTTON PANELLED MIDI DRESS',
         price: 699,
         originalPrice: 2999,
-        thumbnail: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_7381_220x.png?v=1784726168',
+        thumbnail: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=220&q=80',
         category: 'COTTON MIDI DRESS'
       }
     },
     {
       id: 'reel-3',
       title: 'Teal Elegance Button-Down Midi Dress',
-      modelImage: 'https://www.hkfashionhouse.in/cdn/shop/files/G2_720x.jpg?v=1784635866',
+      modelImage: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=720&q=80',
       product: {
         id: 'prod-w3',
         title: 'COTTON BUTTON-DOWN MIDI DRESS WITH PUFF SLEEVES',
         price: 799,
         originalPrice: 2499,
-        thumbnail: 'https://www.hkfashionhouse.in/cdn/shop/files/G2_220x.jpg?v=1784635866',
+        thumbnail: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=220&q=80',
         category: 'SHORT MIDI DRESS'
       }
     },
     {
       id: 'reel-4',
-      title: 'Striped Cotton Shirt & Khadi Palazzo Set',
-      modelImage: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_2379_720x.jpg?v=1784992757',
+      title: 'Striped Cotton Shirt & Palazzo Set',
+      modelImage: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=720&q=80',
       product: {
         id: 'prod-w4',
-        title: 'STRIPED COTTON SHIRT & KHADI PALAZZO FULL PAIR',
+        title: 'STRIPED COTTON SHIRT & PALAZZO FULL PAIR',
         price: 999,
         originalPrice: 1999,
-        thumbnail: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_2379_220x.jpg?v=1784992757',
+        thumbnail: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=220&q=80',
         category: 'COTTON TWO PIECE PAIR'
       }
     },
     {
       id: 'reel-5',
       title: 'Sophisticated Black Denim Long Midi Dress',
-      modelImage: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_7382_720x.png?v=1784726166',
+      modelImage: 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=720&q=80',
       product: {
         id: 'prod-w5',
         title: 'ELEGANT BLACK DENIM LONG MIDI DRESS FOR WOMEN',
         price: 899,
         originalPrice: 2199,
-        thumbnail: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_7382_220x.png?v=1784726166',
+        thumbnail: 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=220&q=80',
         category: 'LONG MIDI DRESS'
       }
     },
     {
       id: 'reel-6',
       title: 'Floral Print Smocked Cotton Tiered Dress',
-      modelImage: 'https://www.hkfashionhouse.in/cdn/shop/files/G1_720x.jpg?v=1784635866',
+      modelImage: 'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=720&q=80',
       product: {
         id: 'prod-w6',
         title: 'FLORAL PRINT SMOCKED COTTON MIDI DRESS WITH TIERED HEM',
         price: 749,
         originalPrice: 2299,
-        thumbnail: 'https://www.hkfashionhouse.in/cdn/shop/files/G1_220x.jpg?v=1784635866',
+        thumbnail: 'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=220&q=80',
         category: 'LONG MIDI DRESS'
       }
     }
   ];
 
-  // Authentic HK Fashion House Products Catalog
+  // Generic Designer Boutique Products Catalog (Unsplash placeholder images)
   const DEFAULT_FASHION_PRODUCTS: FashionProduct[] = [
     {
-      id: 'hk-1',
-      title: 'ELEGANT COTTON SHIRT WITH KHADI COTTON PALAZZO SET',
+      id: 'fp-1',
+      title: 'ELEGANT COTTON SHIRT WITH PALAZZO CO-ORD SET',
       category: 'CO-ORD SET',
       price: 999,
       originalPrice: 1999,
       badge: 'Sale 50%',
-      image: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_2378_720x.jpg?v=1784992757',
-      hoverImage: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_2379_720x.jpg?v=1784992757',
+      image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=720&q=80',
+      hoverImage: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=720&q=80',
       colors: ['#E11D48', '#0F172A', '#0D9488'],
       sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-      description: 'Crafted from breathable premium khadi cotton, this elegant matching shirt & palazzo set provides unmatched comfort with effortless chic aesthetics.',
-      fabric: '100% Breathable Khadi Cotton',
+      description: 'Crafted from breathable premium cotton, this elegant matching shirt & palazzo set provides unmatched comfort with effortless chic aesthetics.',
+      fabric: '100% Breathable Premium Cotton',
       rating: 5.0,
       reviewsCount: 38
     },
     {
-      id: 'hk-2',
-      title: 'STRIPED COTTON SHIRT & KHADI COTTON PALAZZO FULL PAIR',
+      id: 'fp-2',
+      title: 'STRIPED COTTON SHIRT & PALAZZO FULL PAIR',
       category: 'COTTON TWO PIECE PAIR',
       price: 999,
       originalPrice: 1999,
       badge: 'Sale 50%',
-      image: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_2379_720x.jpg?v=1784992757',
-      hoverImage: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_2378_720x.jpg?v=1784992757',
+      image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=720&q=80',
+      hoverImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=720&q=80',
       colors: ['#0284C7', '#D97706', '#334155'],
       sizes: ['M', 'L', 'XL', 'XXL'],
       description: 'Vertical pin-stripe tailored top paired with relaxed fit wide-leg palazzo pants. Includes functional pockets and mother-of-pearl buttons.',
@@ -275,14 +282,14 @@ export default function FashionTemplateView({
       reviewsCount: 42
     },
     {
-      id: 'hk-3',
+      id: 'fp-3',
       title: 'ELEGANT BLACK DENIM LONG MIDI DRESS FOR WOMEN',
       category: 'LONG MIDI DRESS',
       price: 899,
       originalPrice: 2199,
       badge: 'Sale 59%',
-      image: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_7381_720x.png?v=1784726168',
-      hoverImage: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_7382_720x.png?v=1784726166',
+      image: 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=720&q=80',
+      hoverImage: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=720&q=80',
       colors: ['#09090B', '#1E3A8A'],
       sizes: ['S', 'M', 'L', 'XL'],
       description: 'Structured lightweight black denim midi dress with contrast white topstitching, puff sleeves, and a tailored silhouette that flatters all body types.',
@@ -291,14 +298,14 @@ export default function FashionTemplateView({
       reviewsCount: 29
     },
     {
-      id: 'hk-4',
+      id: 'fp-4',
       title: 'ELEGANT COLLARED BUTTON-DOWN SHORT MIDI DRESS',
       category: 'SHORT MIDI DRESS',
       price: 699,
       originalPrice: 1399,
       badge: 'Sale 50%',
-      image: 'https://www.hkfashionhouse.in/cdn/shop/files/G2_720x.jpg?v=1784635866',
-      hoverImage: 'https://www.hkfashionhouse.in/cdn/shop/files/G1_720x.jpg?v=1784635866',
+      image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=720&q=80',
+      hoverImage: 'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=720&q=80',
       colors: ['#0D9488', '#BE123C', '#1E293B'],
       sizes: ['S', 'M', 'L', 'XL', 'XXL'],
       description: 'Sophisticated teal dress with classic spread collar, puff sleeves, front button closure, and side seam pockets. Ideal for office & casual outings.',
@@ -307,14 +314,14 @@ export default function FashionTemplateView({
       reviewsCount: 31
     },
     {
-      id: 'hk-5',
+      id: 'fp-5',
       title: 'CONTEMPORARY COTTON PANELLED MIDI DRESS WITH PUFF SLEEVES',
       category: 'COTTON MIDI DRESS',
       price: 699,
       originalPrice: 2999,
       badge: 'Sale 76%',
-      image: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_7382_720x.png?v=1784726166',
-      hoverImage: 'https://www.hkfashionhouse.in/cdn/shop/files/IMG_7381_720x.png?v=1784726168',
+      image: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=720&q=80',
+      hoverImage: 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=720&q=80',
       colors: ['#18181B', '#475569'],
       sizes: ['M', 'L', 'XL'],
       description: 'Figure-elongating panelled construction with delicate ruched puff sleeves. Crafted for everyday elegance with a relaxed flowy drape.',
@@ -323,14 +330,14 @@ export default function FashionTemplateView({
       reviewsCount: 54
     },
     {
-      id: 'hk-6',
+      id: 'fp-6',
       title: 'FLORAL PRINT SMOCKED COTTON MIDI DRESS WITH TIERED HEM',
       category: 'LONG MIDI DRESS',
       price: 749,
       originalPrice: 2299,
       badge: 'Sale 67%',
-      image: 'https://www.hkfashionhouse.in/cdn/shop/files/G1_720x.jpg?v=1784635866',
-      hoverImage: 'https://www.hkfashionhouse.in/cdn/shop/files/G2_720x.jpg?v=1784635866',
+      image: 'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=720&q=80',
+      hoverImage: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=720&q=80',
       colors: ['#DB2777', '#4F46E5', '#059669'],
       sizes: ['S', 'M', 'L', 'XL'],
       description: 'Bohemian floral prints meet comfort smocking at the bodice, culminating in an airy tiered frill hem. A vacation and Sunday brunch essential.',
@@ -339,7 +346,7 @@ export default function FashionTemplateView({
       reviewsCount: 22
     },
     {
-      id: 'hk-7',
+      id: 'fp-7',
       title: 'COTTON STRIPED CAMI JUMPSUIT WITH FLARED LEGS',
       category: 'JUMPSUIT',
       price: 849,
@@ -355,18 +362,18 @@ export default function FashionTemplateView({
       reviewsCount: 19
     },
     {
-      id: 'hk-8',
+      id: 'fp-8',
       title: 'CASUAL COTTON OVERSIZED FANCY TOP WITH BUTTON DETAIL',
       category: 'FANCY TOPS',
       price: 549,
       originalPrice: 1199,
       badge: 'Sale 54%',
-      image: 'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=720&q=80',
-      hoverImage: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=720&q=80',
+      image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=720&q=80',
+      hoverImage: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=720&q=80',
       colors: ['#F59E0B', '#10B981', '#64748B'],
       sizes: ['M', 'L', 'XL', 'XXL'],
       description: 'Relaxed drop-shoulder silhouette with coconut-shell buttons and cuffed sleeves. Looks exceptional paired with jeans or linen palazzos.',
-      fabric: 'Soft Washed Khadi Slub Cotton',
+      fabric: 'Soft Washed Slub Cotton',
       rating: 4.8,
       reviewsCount: 27
     }
@@ -395,7 +402,7 @@ export default function FashionTemplateView({
       reviewsCount: 24 + idx * 3
     }));
 
-    // Combine custom items with HK defaults for a rich storefront experience
+    // Combine custom items with defaults for a rich storefront experience
     return [...profileMapped, ...DEFAULT_FASHION_PRODUCTS.slice(profileMapped.length)];
   }, [profile.sectionData?.products?.items]);
 
@@ -508,7 +515,7 @@ export default function FashionTemplateView({
   return (
     <div className="w-full min-h-screen bg-white text-[#191919] font-sans relative antialiased selection:bg-[#1f3d2b] selection:text-white pb-16 md:pb-0 overflow-x-hidden">
       
-      {/* HK Fashion House Authentic Google Fonts (Cinzel + Jost) */}
+      {/* Fashion Template Fonts (Cinzel + Jost) */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -631,7 +638,7 @@ export default function FashionTemplateView({
                 <div className="flex items-center gap-2.5">
                   <div className="border border-white/80 p-1 px-2 text-center group-hover:border-emerald-400 transition">
                     <span className="hk-font-serif text-lg sm:text-xl font-bold tracking-widest text-white">
-                      HK
+                      {brandInitials}
                     </span>
                   </div>
                   <div className="flex flex-col text-left">
@@ -639,7 +646,7 @@ export default function FashionTemplateView({
                       {brandName.length > 20 ? brandName.slice(0, 20) : brandName}
                     </span>
                     <span className="hk-font-sans text-[9px] sm:text-[10px] tracking-[0.3em] text-neutral-400 uppercase">
-                      FASHION HOUSE
+                      DESIGNER BOUTIQUE
                     </span>
                   </div>
                 </div>
@@ -740,11 +747,11 @@ export default function FashionTemplateView({
               <picture>
                 <source 
                   media="(max-width: 768px)" 
-                  srcSet="https://www.hkfashionhouse.in/cdn/shop/files/Mobile_1.jpg?v=1784279532&width=750" 
+                  srcSet="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=750&q=80" 
                 />
                 <img
-                  src="https://www.hkfashionhouse.in/cdn/shop/files/ChatGPT_Image_Jul_17_2026_02_35_58_PM.png?v=1784279302&width=1880"
-                  alt="Style That Inspires - HK Fashion House"
+                  src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1880&q=80"
+                  alt={`Style That Inspires - ${brandName}`}
                   className="w-full h-full object-cover object-center lg:object-right filter brightness-95"
                 />
               </picture>
@@ -760,7 +767,7 @@ export default function FashionTemplateView({
                 <div className="flex items-center gap-3">
                   <div className="border border-[#c5a880] p-1.5 px-2.5 rounded-sm bg-black/40 backdrop-blur-sm">
                     <span className="hk-font-serif text-lg font-bold text-[#e6ca9f] tracking-widest">
-                      HK
+                      {brandInitials}
                     </span>
                   </div>
                   <div>
@@ -768,7 +775,7 @@ export default function FashionTemplateView({
                       {brandName}
                     </h2>
                     <p className="text-[10px] text-emerald-200 tracking-[0.2em] uppercase font-sans">
-                      FASHION HOUSE
+                      DESIGNER BOUTIQUE
                     </p>
                   </div>
                 </div>
@@ -865,11 +872,11 @@ export default function FashionTemplateView({
               <picture>
                 <source 
                   media="(max-width: 768px)" 
-                  srcSet="https://www.hkfashionhouse.in/cdn/shop/files/Mobile_2.jpg?v=1784283242&width=750" 
+                  srcSet="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=750&q=80" 
                 />
                 <img
-                  src="https://www.hkfashionhouse.in/cdn/shop/files/Slider_2.jpg?v=1784283283&width=1880"
-                  alt="Summer & Festive Outfits - HK Fashion House"
+                  src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1880&q=80"
+                  alt={`Summer & Festive Outfits - ${brandName}`}
                   className="w-full h-full object-cover object-center filter brightness-95"
                 />
               </picture>
@@ -1195,10 +1202,10 @@ export default function FashionTemplateView({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             
-            {/* Banner 1: HK Fashion House Co-Ords */}
+            {/* Banner 1: Signature Co-Ords Collection */}
             <div className="relative rounded overflow-hidden group h-[260px] sm:h-[320px] shadow">
               <img
-                src="https://www.hkfashionhouse.in/cdn/shop/files/HK-Fashion-House_940x.jpg?v=1784107055"
+                src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=940&q=80"
                 alt="Exclusive Co-Ord Sets"
                 className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
               />
@@ -1230,7 +1237,7 @@ export default function FashionTemplateView({
             {/* Banner 2: New Season Cotton Midi Dresses */}
             <div className="relative rounded overflow-hidden group h-[260px] sm:h-[320px] shadow">
               <img
-                src="https://www.hkfashionhouse.in/cdn/shop/files/New-Collection_940x.jpg?v=1784107073"
+                src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=940&q=80"
                 alt="New Cotton Midi Dresses"
                 className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
               />
@@ -1285,7 +1292,7 @@ export default function FashionTemplateView({
                 ))}
               </div>
               <p className="hk-font-sans text-neutral-700 text-sm sm:text-[15px] leading-relaxed italic">
-                &ldquo;Absolutely in love with my co-ord set from hkfashionhouse! The fit is perfect and the fabric feels premium. Got so many compliments at my family brunch!&rdquo;
+                &ldquo;Absolutely in love with my co-ord set! The fit is perfect and the fabric feels premium. Got so many compliments at my family brunch!&rdquo;
               </p>
               <div className="mt-5 pt-3 border-t border-neutral-200 w-full">
                 <p className="hk-font-serif font-semibold text-sm text-[#191919]">
@@ -1438,8 +1445,8 @@ export default function FashionTemplateView({
             {/* Store Photo */}
             <div className="w-full lg:w-1/2 h-64 sm:h-80 relative overflow-hidden">
               <img
-                src="https://www.hkfashionhouse.in/cdn/shop/files/Our-Store.jpg?v=1784108252&width=1200"
-                alt="HK Fashion House Boutique Store"
+                src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=1200&q=80"
+                alt={`${brandName} Boutique Store`}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/30" />
@@ -1460,7 +1467,7 @@ export default function FashionTemplateView({
               <div className="space-y-2 text-xs sm:text-sm text-neutral-200 pt-2">
                 <div className="flex items-center gap-2.5">
                   <MapPin className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                  <span>{profile.address || 'HK Fashion House Flagship Store, Fashion Street, India'}</span>
+                  <span>{profile.address || 'Designer Boutique Flagship Store, Fashion Street, India'}</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Clock className="w-4 h-4 text-emerald-400 flex-shrink-0" />
@@ -1474,7 +1481,7 @@ export default function FashionTemplateView({
 
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <a
-                  href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hello, I would like directions and store timings for HK Fashion House!')}`}
+                  href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hello, I would like directions and store timings for ${brandName}!`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-semibold uppercase tracking-wider flex items-center gap-2 transition"
@@ -1536,7 +1543,7 @@ export default function FashionTemplateView({
               <div className="flex items-center gap-2">
                 <div className="border border-white/80 p-1 px-2">
                   <span className="hk-font-serif text-base font-bold text-white tracking-widest">
-                    HK
+                    {brandInitials}
                   </span>
                 </div>
                 <span className="hk-font-serif text-sm tracking-[0.2em] font-bold uppercase">
@@ -1612,7 +1619,7 @@ export default function FashionTemplateView({
               </h4>
               <p>Customer Support: Mon - Sat (10am - 8pm)</p>
               <p className="text-white font-semibold">{displayPhone}</p>
-              <p className="pt-2 text-neutral-400">Email: {profile.email || 'support@hkfashionhouse.in'}</p>
+              <p className="pt-2 text-neutral-400">Email: {profile.email || 'support@yourboutique.com'}</p>
               <p className="text-emerald-400 font-medium">⚡ Instant Support on WhatsApp</p>
             </div>
 
@@ -1698,7 +1705,7 @@ export default function FashionTemplateView({
           target="_blank"
           rel="noopener noreferrer"
           className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-xl hk-wa-pulse hover:scale-110 active:scale-95 transition"
-          title="Chat with HK Stylist on WhatsApp"
+          title="Chat with Stylist on WhatsApp"
         >
           <MessageCircle className="w-7 h-7 fill-white" />
         </a>

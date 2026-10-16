@@ -851,18 +851,18 @@ TEMPLATE_PRESETS_DATA['food-dhaba'] = TEMPLATE_PRESETS_DATA['restaurant-menu'];
 TEMPLATE_PRESETS_DATA['food-southindian'] = TEMPLATE_PRESETS_DATA['restaurant-menu'];
 
 TEMPLATE_PRESETS_DATA['fash-boutique'] = {
-  name: 'HK Fashion House',
+  name: 'Grand Fashion Mall',
   designation: 'Premium Women’s Apparel & Designer Outfits',
-  company: 'HK Fashion House',
-  bio: 'Welcome to HK Fashion House. Style that inspires with elegant outfits and effortless you. Handcrafted breathable cotton midi dresses, contemporary co-ord sets, and timeless fashion with 1-click WhatsApp video shopping & doorstep delivery across India.',
+  company: 'Grand Fashion Mall',
+  bio: 'Welcome to Grand Fashion Mall. Style that inspires with elegant outfits and effortless you. Handcrafted breathable cotton midi dresses, contemporary co-ord sets, and timeless fashion with 1-click WhatsApp video shopping & doorstep delivery across India.',
   theme: 'emerald-pro',
-  avatarUrl: 'https://www.hkfashionhouse.in/cdn/shop/files/HK_fashion_320x.jpg?v=1747648201',
-  coverUrl: 'https://www.hkfashionhouse.in/cdn/shop/files/ChatGPT_Image_Jul_17_2026_02_35_58_PM.png?v=1784279302&width=1880',
-  email: 'support@hkfashionhouse.in',
+  avatarUrl: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=320&q=80',
+  coverUrl: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1880&q=80',
+  email: 'mall@oneclickbiz.in',
   phone: '+91 98765 43210',
   whatsapp: '919876543210',
-  website: 'https://www.hkfashionhouse.in',
-  address: 'HK Fashion House Flagship Store, Fashion Street, India',
+  website: 'https://oneclickbiz.in/v/fash-boutique',
+  address: 'Grand Fashion Mall, Indiranagar, Bengaluru, India',
   services: [
     { id: 's_fb_1', title: '1-on-1 Video Shopping Call', description: 'Explore live models and dresses over WhatsApp video call from the comfort of your home.', durationMinutes: 30, price: 0, currency: '₹' },
     { id: 's_fb_2', title: 'Curated Cotton Midi Dresses', description: 'Timeless empire waist, button-front, and panelled pure cotton midi dresses.', durationMinutes: 45, price: 699, currency: '₹' },
