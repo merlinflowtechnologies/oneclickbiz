@@ -772,10 +772,10 @@ export default function BeautyMiniWebsiteView({
   }, [profileGallery, galleryCategory]);
 
   return (
-    <div className="min-h-screen text-zinc-100 font-sans selection:bg-[#1BD741] selection:text-black pb-28 relative bg-[#0A0A0C]">
+    <div className="min-h-screen text-zinc-100 font-sans selection:bg-[#1BD741] selection:text-black pb-28 relative">
       {/* =========================================================================
           ⭐ CONTINUOUS BACKGROUND: BEAUTY PARLOUR WITH ACTIVE CUSTOMERS
-          Spanning from the top Hero section down to the Contact/Footer section!
+          High Brightness & Vivid Clarity spanning from Hero to Contact/Footer!
          ========================================================================= */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <Image
@@ -783,10 +783,10 @@ export default function BeautyMiniWebsiteView({
           alt="Lively Luxury Beauty Parlour with Customers Arriving and Taking Services"
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-center brightness-125 contrast-105 saturate-110 filter"
         />
-        {/* Translucent Dark Gradient Overlay: Customers and active salon stations clearly visible while text is 100% readable */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/80 via-[#0A0A0C]/75 to-[#0A0A0C]/90 backdrop-blur-[2px]" />
+        {/* Soft Translucent Sheer Gradient: Background is bright, vibrant, and clearly visible while keeping text 100% readable */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/50" />
       </div>
 
       {/* TOAST NOTIFICATION */}
