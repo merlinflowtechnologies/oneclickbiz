@@ -379,6 +379,42 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     };
   }
 
+  // 3.8 Check if slug is bus booking related (AbhiBus clone / SwiftVoyage)
+  const isBusBookingPattern = 
+    cleanSlug === 'abhibus' ||
+    cleanSlug === 'bus' ||
+    cleanSlug === 'buses' ||
+    cleanSlug === 'bus-booking' ||
+    cleanSlug === 'bus-ticket' ||
+    cleanSlug.startsWith('bus-');
+
+  if (isBusBookingPattern) {
+    return {
+      id: `prof_${cleanSlug}`,
+      organizationId: `org_${cleanSlug}`,
+      slug: cleanSlug,
+      templateId: 'bus-booking',
+      category: 'Bus Booking & Transport',
+      name: 'SwiftVoyage Express',
+      designation: 'Intercity Bus Tickets & Luxury AC Sleepers',
+      company: 'SwiftVoyage Express Transport Pvt Ltd',
+      bio: 'Book verified Volvo Multi-Axle, Scania and Electric Intercity bus tickets across India with live GPS tracking and zero cancellation charges.',
+      email: 'bookings@swiftvoyage.in',
+      phone: '+91 63049 89071',
+      whatsapp: '916304989071',
+      website: `https://oneclickbiz.in/v/${cleanSlug}`,
+      address: 'Central Intercity Terminal, Hyderabad & Bangalore, India',
+      avatarUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80',
+      coverUrl: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1200&q=80',
+      theme: 'emerald-pro',
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE',
+      sections: [],
+      sectionData: {}
+    } as any;
+  }
+
   // 3.7 Check if slug is education / school related (Apex Global Group of Schools)
   const isEducationSchoolPattern = 
     cleanSlug === 'edu-school' ||
@@ -390,6 +426,29 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
 
   if (isEducationSchoolPattern) {
     const tProf = getTemplateProfile('edu-school');
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
+  // 3.8 Check if slug is beauty salon / Green Trends related
+  const isBeautySalonPattern = 
+    cleanSlug === 'beauty-salon' ||
+    cleanSlug === 'green-trends' ||
+    cleanSlug === 'greentrends' ||
+    cleanSlug === 'greentrends-kothapet' ||
+    cleanSlug === 'salon' ||
+    cleanSlug === 'luxury-salon' ||
+    cleanSlug === 'hair-salon' ||
+    cleanSlug === 'beauty' ||
+    cleanSlug.includes('greentrends');
+
+  if (isBeautySalonPattern) {
+    const tProf = getTemplateProfile('beauty-salon');
     return {
       ...tProf,
       slug: cleanSlug,

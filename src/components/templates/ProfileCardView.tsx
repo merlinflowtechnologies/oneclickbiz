@@ -58,6 +58,7 @@ import EducationMiniWebsiteView from './EducationMiniWebsiteView';
 import BeautyMiniWebsiteView from './BeautyMiniWebsiteView';
 import EventsMiniWebsiteView from './EventsMiniWebsiteView';
 import TravelMiniWebsiteView from './TravelMiniWebsiteView';
+import BusBookingTemplateView from './BusBookingTemplateView';
 import ProfessionalMiniWebsiteView from './ProfessionalMiniWebsiteView';
 import HomeServicesMiniWebsiteView from './HomeServicesMiniWebsiteView';
 import RetailMiniWebsiteView from './RetailMiniWebsiteView';
@@ -847,6 +848,15 @@ export default function ProfileCardView({
     profile.company?.toLowerCase().includes('parlour') ||
     profile.company?.toLowerCase().includes('beauty') ||
     profile.company?.toLowerCase().includes('makeover') ||
+    profile.slug === 'beauty-salon' ||
+    profile.slug === 'green-trends' ||
+    profile.slug === 'greentrends' ||
+    profile.slug === 'greentrends-kothapet' ||
+    profile.slug === 'salon' ||
+    profile.slug === 'luxury-salon' ||
+    profile.slug?.includes('beauty') ||
+    profile.slug?.includes('salon') ||
+    profile.slug?.includes('greentrends') ||
     Boolean(profile.sectionData?.beauty)
   );
 
@@ -866,6 +876,17 @@ export default function ProfileCardView({
     profile.company?.toLowerCase().includes('production') ||
     profile.company?.toLowerCase().includes('studio') ||
     Boolean(profile.sectionData?.events)
+  );
+
+  const isBusBooking = Boolean(
+    profile.slug === 'abhibus' ||
+    profile.slug === 'bus' ||
+    profile.slug === 'buses' ||
+    profile.slug === 'bus-booking' ||
+    profile.slug === 'bus-ticket' ||
+    profile.slug?.startsWith('bus-') ||
+    (profile as any).templateId === 'bus-booking' ||
+    (profile as any).category === 'Bus Booking & Transport'
   );
 
   const isTravel = Boolean(
@@ -1247,6 +1268,14 @@ export default function ProfileCardView({
           <EventsMiniWebsiteView
             profile={profile}
             getEmbedUrl={getEmbedUrl}
+          />
+        ) : isBusBooking ? (
+          <BusBookingTemplateView
+            profile={profile}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
           />
         ) : isTravel ? (
           <TravelMiniWebsiteView

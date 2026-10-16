@@ -1379,6 +1379,274 @@ TEMPLATE_PRESETS_DATA['apex-school'] = TEMPLATE_PRESETS_DATA['edu-school'];
 TEMPLATE_PRESETS_DATA['apex-schools'] = TEMPLATE_PRESETS_DATA['edu-school'];
 TEMPLATE_PRESETS_DATA['global-school'] = TEMPLATE_PRESETS_DATA['edu-school'];
 
+TEMPLATE_PRESETS_DATA['beauty-salon'] = {
+  name: 'Green Trends — Kothapet',
+  designation: 'Unisex Hair & Style Salon',
+  company: 'Green Trends Unisex Hair & Style Salon',
+  bio: 'Top-rated unisex hair & beauty salon in Kothapet, Hyderabad. Expert haircuts, hair color, bridal makeovers, facials & men’s grooming. Premium brands: L’Oréal, Wella, Schwarzkopf, Matrix & O3+.',
+  theme: 'glassmorphic',
+  avatarUrl: 'https://greentrends-kothapet.salon4u.in/assets/logo-dark-BXW1rSvd.png',
+  coverUrl: 'https://greentrends-kothapet.salon4u.in/assets/hero-B9AyMNJQ.jpg',
+  email: 'kothapet@greentrendssalon.in',
+  phone: '+91 63033 18078',
+  whatsapp: '916303318078',
+  website: 'https://greentrends-kothapet.salon4u.in/',
+  address: 'No. 11-9-11/1/2, New Nagole Main Rd, opp. Ratnadeep Supermarket, Laxmi Nagar Colony, Kothapet, Hyderabad, Telangana 500102',
+  services: [
+    {
+      id: 'srv_bs_1',
+      title: 'Haircut & Styling',
+      description: 'Precision haircuts, wash, blow-dry and signature styling by certified master stylists.',
+      durationMinutes: 45,
+      price: 299,
+      currency: '₹'
+    },
+    {
+      id: 'srv_bs_2',
+      title: 'Hair Color & Highlights',
+      description: 'Global hair color, balayage, ombre, and foil highlights using premium ammonia-free shades.',
+      durationMinutes: 90,
+      price: 1499,
+      currency: '₹'
+    },
+    {
+      id: 'srv_bs_3',
+      title: 'Hair Spa & Smoothening',
+      description: 'Deep cellular nourishment, damage repair, keratin infusion, and silky frizz control.',
+      durationMinutes: 60,
+      price: 999,
+      currency: '₹'
+    },
+    {
+      id: 'srv_bs_4',
+      title: 'Facial & Skin Care Rituals',
+      description: 'Dermatological clean-up, fruit, gold radiance, hydra facials, and anti-pollution detan.',
+      durationMinutes: 50,
+      price: 699,
+      currency: '₹'
+    },
+    {
+      id: 'srv_bs_5',
+      title: 'Bridal Glow & Makeover Packages',
+      description: 'Complete HD bridal makeup, hair art, saree draping, pre-bridal glow sitting & consultation.',
+      durationMinutes: 180,
+      price: 9999,
+      currency: '₹'
+    },
+    {
+      id: 'srv_bs_6',
+      title: 'Men’s Executive Grooming',
+      description: 'Gentlemen precision haircut, beard sculpt & trim, head massage, and charcoal facial detan.',
+      durationMinutes: 45,
+      price: 199,
+      currency: '₹'
+    },
+    {
+      id: 'srv_bs_7',
+      title: 'Keratin & Nanoplastia Treatment',
+      description: 'Advanced formal-free hair straightening with long-lasting mirror shine and deep protein repair.',
+      durationMinutes: 120,
+      price: 3499,
+      currency: '₹'
+    },
+    {
+      id: 'srv_bs_8',
+      title: 'Deluxe Pedicure & Manicure',
+      description: 'Foot reflexology scrub, cuticle care, brightening massage, and salon gel polish finish.',
+      durationMinutes: 45,
+      price: 499,
+      currency: '₹'
+    }
+  ],
+  products: [
+    {
+      id: 'prod_bs_1',
+      name: 'L’Oréal Professionnel Absolut Repair Molecular Shampoo (300ml)',
+      description: 'Patented peptide bonder formula restores elasticity, strength and movement to heavily damaged hair.',
+      price: 1150,
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=600&q=80',
+      category: 'Shampoos & Conditioners',
+      isAvailable: true
+    },
+    {
+      id: 'prod_bs_2',
+      name: 'L’Oréal Professionnel Absolut Repair Golden Hair Mask (250ml)',
+      description: 'Gold Quinoa + Protein resurfacing mask instantly restores shine with zero greasy residue.',
+      price: 920,
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=600&q=80',
+      category: 'Hair Spa & Masks',
+      isAvailable: true
+    },
+    {
+      id: 'prod_bs_3',
+      name: 'Wella Professionals Elements Calming Scalp Serum (100ml)',
+      description: 'Zero silicones & parabens. Soothes sensitive scalps with antioxidant White Tea extract.',
+      price: 1299,
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1608248597359-2e09e13a967f?auto=format&fit=crop&w=600&q=80',
+      category: 'Serums & Oils',
+      isAvailable: true
+    },
+    {
+      id: 'prod_bs_4',
+      name: 'Moroccanoil Treatment Original Argan Oil (100ml)',
+      description: 'Iconic argan oil elixir for silky, healthy, frizz-free hair and instant salon glossy shine.',
+      price: 3150,
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=600&q=80',
+      category: 'Serums & Oils',
+      isAvailable: true
+    },
+    {
+      id: 'prod_bs_5',
+      name: 'O3+ Professional D-Tan Radiance Cream Pack (100g)',
+      description: 'Dermatologically formulated tan removal cream pack with instant glow and pigmentation defense.',
+      price: 850,
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80',
+      category: 'Skin Care & Facials',
+      isAvailable: true
+    },
+    {
+      id: 'prod_bs_6',
+      name: 'O3+ Seaweed Purifying Cleanser & Pore Toner Kit (200ml)',
+      description: 'Deep cleansing seaweed and mineral algae balances oiliness, refines pores and hydrates skin.',
+      price: 1450,
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80',
+      category: 'Skin Care & Facials',
+      isAvailable: true
+    },
+    {
+      id: 'prod_bs_7',
+      name: 'Schwarzkopf Professional Osis+ Dust It Matte Volume Powder (10g)',
+      description: 'Iconic micro-fine texturizing powder delivers instant gravity-defying root volume and matte hold.',
+      price: 750,
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80',
+      category: 'Styling & Grooming',
+      isAvailable: true
+    },
+    {
+      id: 'prod_bs_8',
+      name: 'Matrix Biolage Smoothproof 6-in-1 Professional Hair Serum (100ml)',
+      description: 'Camellia infused botanical serum controls humidity frizz and seals rough split ends for 72 hrs.',
+      price: 399,
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80',
+      category: 'Serums & Oils',
+      isAvailable: true
+    },
+    {
+      id: 'prod_bs_9',
+      name: 'Schwarzkopf BC Bonacure Color Freeze pH 4.5 Shampoo (250ml)',
+      description: 'Zero sulfate gentle micellar cleanser locks color pigments deep inside hair structure.',
+      price: 999,
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1585232351009-aa87416fca90?auto=format&fit=crop&w=600&q=80',
+      category: 'Shampoos & Conditioners',
+      isAvailable: true
+    },
+    {
+      id: 'prod_bs_10',
+      name: 'L’Oréal Professionnel SteamPod Concentrated Smoothing Serum (50ml)',
+      description: 'Pro-keratin thermal heat defense serum up to 210°C protects during blow-dry and flat ironing.',
+      price: 1750,
+      currency: '₹',
+      imageUrl: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=80',
+      category: 'Styling & Grooming',
+      isAvailable: true
+    }
+  ],
+  gallery: [
+    {
+      id: 'gal_bs_1',
+      imageUrl: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80',
+      title: 'Green Trends Salon Interior & Stations',
+      category: 'Ambience'
+    },
+    {
+      id: 'gal_bs_2',
+      imageUrl: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80',
+      title: 'Signature Haircut & Blow Dry Finish',
+      category: 'Haircut'
+    },
+    {
+      id: 'gal_bs_3',
+      imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+      title: 'Global Hair Color & Ash Balayage',
+      category: 'Color'
+    },
+    {
+      id: 'gal_bs_4',
+      imageUrl: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80',
+      title: 'Royal HD Bridal Makeup & Saree Draping',
+      category: 'Bridal'
+    },
+    {
+      id: 'gal_bs_5',
+      imageUrl: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80',
+      title: 'Gentlemen Beard Sculpt & Hair Styling',
+      category: 'Grooming'
+    },
+    {
+      id: 'gal_bs_6',
+      imageUrl: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80',
+      title: 'Hydra Glow Skin Ritual & Detan Therapy',
+      category: 'Skin'
+    }
+  ],
+  testimonials: [
+    {
+      id: 't_bs_1',
+      clientName: 'Sravani Reddy',
+      clientRole: 'Verified Client • Kothapet',
+      content: 'Best salon in Kothapet! Got my hair coloured here and the result was exactly what I wanted. Staff is very polite and the place is super clean.',
+      rating: 5,
+      clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
+    },
+    {
+      id: 't_bs_2',
+      clientName: 'Rahul Varma',
+      clientRole: 'Verified Client • New Nagole Rd',
+      content: 'Great haircut and beard styling at a very reasonable price. The barber really listens to what you want. Will definitely come back.',
+      rating: 5,
+      clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80'
+    },
+    {
+      id: 't_bs_3',
+      clientName: 'Anjali Sharma',
+      clientRole: 'Bride • Dilsukhnagar',
+      content: 'Took the bridal package for my sister’s wedding. They did an amazing job — makeup lasted the whole day. Highly recommend!',
+      rating: 5,
+      clientAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80'
+    },
+    {
+      id: 't_bs_4',
+      clientName: 'Pranay K.',
+      clientRole: 'Verified Client • Kothapet',
+      content: 'Clean, hygienic, and uses good products. Got a hair spa and felt the difference immediately. Bit busy on weekends so book ahead.',
+      rating: 5,
+      clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80'
+    }
+  ],
+  socials: [
+    { id: 'soc_bs_wa', platform: 'whatsapp', url: 'https://wa.me/916303318078', label: 'WhatsApp Us' },
+    { id: 'soc_bs_ph', platform: 'phone', url: 'tel:+916303318078', label: 'Call Salon' },
+    { id: 'soc_bs_ig', platform: 'instagram', url: 'https://instagram.com/mygreentrends', label: 'Instagram' },
+    { id: 'soc_bs_map', platform: 'maps', url: 'https://www.google.com/maps?q=Green+Trends+Kothapet+New+Nagole+Main+Rd+Hyderabad', label: 'Google Maps' },
+    { id: 'soc_bs_web', platform: 'website', url: 'https://greentrends-kothapet.salon4u.in/', label: 'Official Website' }
+  ]
+};
+
+TEMPLATE_PRESETS_DATA['green-trends'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+TEMPLATE_PRESETS_DATA['greentrends'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+TEMPLATE_PRESETS_DATA['greentrends-kothapet'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+TEMPLATE_PRESETS_DATA['salon'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+TEMPLATE_PRESETS_DATA['luxury-salon'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+
 
 
 /**
