@@ -526,69 +526,69 @@ export const INSURANCE_STAGE_CARDS = [
   }
 ];
 
-// Curated Instagram Reels matching Restaurant Template Layout
+// Curated Instagram Reels matching Layout (Insurance Financial Protection & Claims)
 export const INSURANCE_INSTAGRAM_REELS = [
   {
     id: 'reel-1',
-    title: 'Cracking Open 40kg Handi Dum & Advisory Shield',
-    views: '72.4K views',
-    imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80',
-    caption: 'Discover the exact 80C & 80D tax deductions and claim settlement strategies that save thousands every year.'
+    title: 'How to Avoid 99% Claim Rejection in Health Insurance',
+    views: '142.8K views',
+    imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80',
+    caption: '3 golden documents to carry to hospital admissions to ensure instant cashless authorization without stress or deduction disputes.'
   },
   {
     id: 'reel-2',
-    title: 'Charcoal Tandoori Tikka Sizzle & 60-Min TPA Desk',
-    views: '89.1K views',
-    imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80',
-    caption: '3 golden documents to carry to hospital admissions to ensure instant cashless authorization without stress.'
+    title: 'Term Life Cover: Why 20x Your Annual Salary is Mandatory',
+    views: '98.4K views',
+    imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80',
+    caption: 'Calculate your exact family liability protection cover: home loans, children higher education fund, and inflation-proof income replacement.'
   },
   {
     id: 'reel-3',
-    title: 'Clay Skewer Paneer Angaara & Room Rent Sub-Limits',
-    views: '45.1K views',
+    title: 'Hidden Room Rent Sub-Limit Capping Explained',
+    views: '76.2K views',
     imageUrl: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80',
-    caption: 'Why picking a deluxe hospital room can cause proportionate deductions on surgeon and ICU bills!'
+    caption: 'Why picking a deluxe hospital room when your policy has a 1% room rent cap causes proportionate deductions on surgeon, doctor, and ICU bills!'
   },
   {
     id: 'reel-4',
-    title: 'Fresh Garlic Naan Butter Splash & Child Future Shield',
-    views: '110K views',
+    title: 'Child Higher Education & Inbuilt Waiver of Premium',
+    views: '118.5K views',
     imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
-    caption: 'How Waiver of Premium ensures your family dreams remain 100% safeguarded regardless of circumstances.'
+    caption: 'How Waiver of Premium guarantees your child’s university education milestones remain 100% funded regardless of life uncertainties.'
   }
 ];
 
-// Curated YouTube Playlist Items matching Restaurant Template Layout
+// Curated YouTube Playlist Items matching Layout (Insurance Masterclasses with Working Video Embeds)
 export const INSURANCE_YOUTUBE_PLAYLIST_ITEMS = [
   {
     id: 'yt-item-1',
-    title: 'Roasting with 14 Whole Spices & Fiduciary Policy Audit',
-    subtitle: 'Live Clay Tandoor • 38K views',
-    duration: '08:45',
+    title: 'Cashless Mediclaim Secrets: Avoiding TPA Deductions',
+    subtitle: 'Hospital Claim Guide • 94K views',
+    duration: '14:20',
     quality: '4K UHD',
-    embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0',
-    imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80',
-    description: 'Learn how to detect room rent capping, disease sub-limits, and co-payment clauses before hospital admission.'
+    embedUrl: 'https://www.youtube.com/embed/0HIUhPM-4Sk?autoplay=1&rel=0',
+    imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80',
+    description: 'Step-by-step blueprint to get zero-out-of-pocket hospital claims settled within 60 minutes across 14,000+ cashless network hospitals.'
   },
   {
     id: 'yt-item-2',
-    title: 'The Secret Marinade: Structuring High Sum-Assured Shield',
-    subtitle: 'MDRT Masterclass • 54K views',
-    duration: '12:10',
+    title: 'The Best Term Insurance Guide: No Mis-selling',
+    subtitle: 'Underwriting Masterclass • 82K views',
+    duration: '16:10',
     quality: '4K UHD',
-    embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0',
+    embedUrl: 'https://www.youtube.com/embed/wETGWFYsqMM?autoplay=1&rel=0',
     imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80',
-    description: 'Smart structuring tips: choosing whole life vs term to 65, waiver of premium riders, and accidental boosters.'
+    description: 'Understand regular pay vs limited pay, medical disclosure rules, and how Section 45 protects your nominees after 3 years.'
   },
   {
     id: 'yt-item-3',
-    title: 'Slow-Fire Handi Sealing: 100% Cashless Sanction Guide',
-    subtitle: 'Hospital TPA Guide • 89K views',
-    duration: '10:30',
+    title: 'Section 80C, 80D & 10(10D) Tax Optimization Guide',
+    subtitle: 'Tax Strategy • 67K views',
+    duration: '11:35',
     quality: 'HD 1080p',
-    embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0',
-    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
-    description: 'Complete breakdown of self, spouse, children, and senior citizen parent health premiums under Old Tax Regime.'
+    embedUrl: 'https://www.youtube.com/embed/q7iGqIna4Ss?autoplay=1&rel=0',
+    imageUrl: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80',
+    description: 'Save up to ₹75,000 on health mediclaim deductions and get 100% tax-free maturity payouts with sovereign compliance.'
   }
 ];
 
@@ -640,14 +640,14 @@ export default function InsuranceTemplateView({
   const [isPlayingYouTube, setIsPlayingYouTube] = useState(false);
   const [activeYouTubeVideo, setActiveYouTubeVideo] = useState({
     id: 'yt-featured',
-    title: 'Behind The Dum: The 18-Hour Slow Charcoal Embers Technique',
-    subtitle: 'Featured Episode • 4K UHD',
-    duration: '14:20',
+    title: 'Term Insurance Masterclass: 2x Sum Assured at 1/3rd Price',
+    subtitle: 'Featured Masterclass • 4K UHD',
+    duration: '18:45',
     quality: '4K UHD',
-    embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0',
-    imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=900&q=80',
-    description: 'Watch our master chefs and specialists demonstrate the art of earthen pot dough sealing, whole garam masala tempering, and royal dum steaming.',
-    tag: 'FEATURED EPISODE'
+    embedUrl: 'https://www.youtube.com/embed/liuKy5IVcHU?autoplay=1&rel=0',
+    imageUrl: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=900&q=80',
+    description: 'Learn how to calculate optimum family cover, evaluate Claim Settlement Ratios, eliminate unnecessary riders, and secure low fixed premium rates.',
+    tag: 'FEATURED MASTERCLASS'
   });
 
   // Instagram Reel in-window viewer state
@@ -3378,13 +3378,13 @@ export default function InsuranceTemplateView({
       <section id="socials" className="relative z-10 py-16 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto">
         <div className="text-center max-w-2xl mx-auto space-y-2 mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/95 border border-[#D8A63D]/40 text-[#C1621F] text-xs font-black uppercase tracking-wider shadow-2xs">
-            <Share2 className="w-3.5 h-3.5 text-[#C1621F]" /> Behind The Scenes & Kitchen Stories
+            <Share2 className="w-3.5 h-3.5 text-[#C1621F]" /> Financial Protection & Advisory Masterclasses
           </div>
           <h2 className="ocb-font-serif text-3xl sm:text-4xl font-black text-slate-950">
             Connect With Us On Social Media
           </h2>
           <p className="text-xs sm:text-sm text-slate-800 font-bold">
-            Watch our master specialists in the live demonstration kitchen, discover daily special reels, and join our community on Instagram and YouTube.
+            Watch our fiduciary advisory masterclasses, discover claim settlement tips & tax strategies, and join 28,000+ policyholders on Instagram and YouTube.
           </p>
         </div>
 
@@ -3402,10 +3402,10 @@ export default function InsuranceTemplateView({
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
-                      <h3 className="font-extrabold text-base text-slate-950">@oneclickbiz</h3>
+                      <h3 className="font-extrabold text-base text-slate-950">@insurance.advisory</h3>
                       <span className="w-4 h-4 rounded-full bg-sky-500 text-white text-[10px] flex items-center justify-center font-bold shadow-2xs">✓</span>
                     </div>
-                    <p className="text-xs text-slate-700 font-bold">18.2K Foodies • 320 Kitchen Reels</p>
+                    <p className="text-xs text-slate-700 font-bold">28.4K Policyholders • 185 Advisory Reels</p>
                   </div>
                 </div>
 
@@ -3424,7 +3424,7 @@ export default function InsuranceTemplateView({
 
               {/* Bio snippet */}
               <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-semibold">
-                Authentic charcoal-tandoor roasting, royal handi dum biryani unveilings, and live dining experiences in Indiranagar, Bengaluru. Tag us in your stories to get featured!
+                Fiduciary term life audits, 100% cashless hospital claims guidance, tax-saving masterclasses, and family financial security tips. Tag us with your policy questions to get featured!
               </p>
 
               {/* Instagram Reels Preview Grid */}
@@ -3459,7 +3459,7 @@ export default function InsuranceTemplateView({
 
             {/* Bottom Tag link */}
             <div className="pt-2 border-t border-pink-400/30 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-700 font-semibold">
-              <span>Hashtag: #OneClickBizDining • Tag us to get featured</span>
+              <span>Hashtags: #InsuranceAdvisory #LifeInsurance #HealthMediclaim • Follow us for daily financial security tips</span>
               <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="font-extrabold text-[#C1621F] hover:underline flex items-center gap-1">
                 View All Reels on Instagram →
               </a>
@@ -3478,8 +3478,8 @@ export default function InsuranceTemplateView({
                     <SocialIcon platform="youtube" size={24} colored={false} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-base text-slate-950">OneClickBiz Kitchen Stories</h3>
-                    <p className="text-xs text-slate-700 font-semibold">25.8K Subscribers • 4K Documentary Series</p>
+                    <h3 className="font-extrabold text-base text-slate-950">OneClickBiz Insurance & Wealth Masterclasses</h3>
+                    <p className="text-xs text-slate-700 font-semibold">48.5K Subscribers • Financial Protection & Claim Guidance Series</p>
                   </div>
                 </div>
 
@@ -3567,7 +3567,7 @@ export default function InsuranceTemplateView({
                 <div className="lg:col-span-5 flex flex-col justify-between gap-3">
                   <div className="space-y-2.5">
                     <p className="text-xs font-black uppercase tracking-wider text-[#C1621F] flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5" /> Recent Kitchen Masterclasses
+                      <Sparkles className="w-3.5 h-3.5" /> Recent Insurance Advisory Masterclasses
                     </p>
 
                     {INSURANCE_YOUTUBE_PLAYLIST_ITEMS.map((item, yIdx) => (
@@ -3978,7 +3978,7 @@ export default function InsuranceTemplateView({
                 </div>
                 <div>
                   <div className="flex items-center gap-1">
-                    <span className="text-xs font-black">@oneclickbiz</span>
+                    <span className="text-xs font-black">@insurance.advisory</span>
                     <BadgeCheck className="w-3.5 h-3.5 text-blue-400 fill-blue-400" />
                   </div>
                   <span className="text-[10px] text-pink-400 font-mono font-bold">{activeInstagramReel.views}</span>
