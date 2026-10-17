@@ -58,7 +58,8 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
             description: 'Targeted Google, Meta, and LinkedIn advertising campaigns delivering verified, high-intent property investors and home buyers.',
             durationMinutes: 45,
             price: 49999,
-            currency: '₹'
+            currency: '₹',
+            imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'
           },
           {
             id: 'srv_2',
@@ -66,7 +67,8 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
             description: 'Photorealistic interactive 3D virtual site tours accessible seamlessly from any smartphone, tablet, or web browser.',
             durationMinutes: 60,
             price: 34999,
-            currency: '₹'
+            currency: '₹',
+            imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'
           },
           {
             id: 'srv_3',
@@ -74,7 +76,8 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
             description: 'Direct 1-on-1 strategy session to audit project positioning, sales collateral, and digital marketing funnels.',
             durationMinutes: 60,
             price: 4999,
-            currency: '₹'
+            currency: '₹',
+            imageUrl: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80'
           }
         ]
       },

@@ -63,6 +63,7 @@ import ProfessionalMiniWebsiteView from './ProfessionalMiniWebsiteView';
 import HomeServicesMiniWebsiteView from './HomeServicesMiniWebsiteView';
 import RetailMiniWebsiteView from './RetailMiniWebsiteView';
 import { VCARD_TEMPLATES_CATALOG } from '@/data/vcardTemplates';
+import { getServiceImageUrl } from '@/lib/service-image';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -1714,58 +1715,89 @@ export default function ProfileCardView({
                     </span>
                   </div>
                   <div className={`grid ${isWebsiteMode ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-3 sm:gap-4`}>
-                    {profile.sectionData.services.items.map(srv => (
-                      <div key={srv.id} className={`p-4 rounded-xl ${theme.itemBg} flex flex-col justify-between hover:border-purple-500/40 border border-slate-200/60 dark:border-slate-800/80 transition-all hover:shadow-md`}>
-                        <div>
-                          <div className="flex items-start justify-between gap-2">
-                            <h4 className={`text-xs sm:text-sm font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'}`}>{srv.title}</h4>
-                            <span className={`text-xs sm:text-sm font-black shrink-0 ${theme.isLight ? 'text-emerald-700' : 'text-emerald-400'}`}>{srv.currency}{srv.price}</span>
+                    {profile.sectionData.services.items.map(srv => {
+                      const svcImg = getServiceImageUrl(srv, profile.category);
+                      return (
+                        <div key={srv.id} className={`group rounded-2xl ${theme.itemBg} overflow-hidden border border-slate-200/60 dark:border-slate-800/80 hover:border-purple-500/40 transition-all hover:shadow-lg flex flex-col justify-between`}>
+                          {/* Justdial-style Service Thumbnail Banner */}
+                          <div className="relative h-36 sm:h-40 w-full overflow-hidden bg-slate-950 shrink-0">
+                            <img
+                              src={svcImg}
+                              alt={srv.title}
+                              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
+                            <div className="absolute top-2.5 right-2.5 z-10">
+                              <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-black/80 backdrop-blur-md text-white border border-white/20 shadow-md flex items-center gap-1">
+                                <Clock className="w-3 h-3 text-amber-400" />
+                                {srv.durationMinutes > 0 ? `${srv.durationMinutes} Mins` : 'Verified'}
+                              </span>
+                            </div>
+                            {srv.category && (
+                              <div className="absolute bottom-2.5 left-2.5 z-10">
+                                <span className="px-2 py-0.5 rounded-md text-[9px] font-extrabold uppercase tracking-wider text-white bg-purple-600/90 backdrop-blur-xs shadow-sm">
+                                  {srv.category}
+                                </span>
+                              </div>
+                            )}
                           </div>
-                          <p className={`text-[11px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'} mt-1.5 leading-relaxed`}>{srv.description}</p>
-                        </div>
-                        <div className={`flex items-center justify-between mt-4 pt-3 ${theme.isLight ? 'border-t border-slate-200' : 'border-t border-slate-800'} gap-2`}>
-                          <span className={`text-[10px] ${theme.isLight ? 'text-slate-500 font-medium' : 'text-slate-500'} flex items-center gap-1`}>
-                            <Clock className="w-3 h-3 text-purple-500" />
-                            {srv.durationMinutes} Mins
-                          </span>
-                          <div className="flex items-center gap-1.5">
-                            <button
-                              type="button"
-                              onClick={() => toggleQuoteService(srv)}
-                              className={`px-2.5 py-1.5 rounded-lg text-[10px] font-semibold flex items-center gap-1 border transition active:scale-95 ${
-                                quoteServices.some(s => s.id === srv.id)
-                                  ? 'bg-emerald-500/20 text-emerald-700 border-emerald-500/50'
-                                  : theme.isLight
-                                  ? 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
-                                  : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:text-white'
-                              }`}
-                            >
-                              {quoteServices.some(s => s.id === srv.id) ? (
-                                <>
-                                  <Check className="w-3 h-3 text-emerald-500" />
-                                  <span>In Quote</span>
-                                </>
-                              ) : (
-                                <>
-                                  <Plus className="w-3 h-3" />
-                                  <span>Add Quote</span>
-                                </>
-                              )}
-                            </button>
-                            <button 
-                              onClick={() => {
-                                setBookingService(srv);
-                                setBookingSuccess(false);
-                              }}
-                              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 text-white text-[10px] font-bold flex items-center gap-1 shadow transition active:scale-95"
-                            >
-                              <span>Book Slot</span>
-                              <ArrowRight className="w-3 h-3" />
-                            </button>
+
+                          <div className="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                              <div className="flex items-start justify-between gap-2">
+                                <h4 className={`text-xs sm:text-sm font-bold ${theme.isLight ? 'text-slate-900' : 'text-white'} group-hover:text-purple-500 transition-colors leading-snug`}>{srv.title}</h4>
+                                <span className={`text-xs sm:text-sm font-black shrink-0 ${theme.isLight ? 'text-emerald-700' : 'text-emerald-400'}`}>
+                                  {srv.price === 0 ? 'Complimentary' : `${srv.currency || '₹'}${srv.price.toLocaleString('en-IN')}`}
+                                </span>
+                              </div>
+                              <p className={`text-[11px] ${theme.isLight ? 'text-slate-600' : 'text-slate-400'} mt-1.5 leading-relaxed line-clamp-2`}>{srv.description}</p>
+                            </div>
+                            <div className={`flex items-center justify-between mt-3.5 pt-3 ${theme.isLight ? 'border-t border-slate-200' : 'border-t border-slate-800'} gap-2`}>
+                              <span className={`text-[10px] ${theme.isLight ? 'text-slate-500 font-medium' : 'text-slate-500'} flex items-center gap-1`}>
+                                <Check className="w-3 h-3 text-emerald-500" />
+                                100% Quality Assured
+                              </span>
+                              <div className="flex items-center gap-1.5">
+                                <button
+                                  type="button"
+                                  onClick={() => toggleQuoteService(srv)}
+                                  className={`px-2.5 py-1.5 rounded-lg text-[10px] font-semibold flex items-center gap-1 border transition active:scale-95 ${
+                                    quoteServices.some(s => s.id === srv.id)
+                                      ? 'bg-emerald-500/20 text-emerald-700 border-emerald-500/50'
+                                      : theme.isLight
+                                      ? 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                                      : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:text-white'
+                                  }`}
+                                >
+                                  {quoteServices.some(s => s.id === srv.id) ? (
+                                    <>
+                                      <Check className="w-3 h-3 text-emerald-500" />
+                                      <span>In Quote</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Plus className="w-3 h-3" />
+                                      <span>Add Quote</span>
+                                    </>
+                                  )}
+                                </button>
+                                <button 
+                                  onClick={() => {
+                                    setBookingService(srv);
+                                    setBookingSuccess(false);
+                                  }}
+                                  className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 text-white text-[10px] font-bold flex items-center gap-1 shadow transition active:scale-95 cursor-pointer"
+                                >
+                                  <span>Book Slot</span>
+                                  <ArrowRight className="w-3 h-3" />
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               ) : null;

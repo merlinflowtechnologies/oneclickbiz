@@ -36,6 +36,7 @@ import {
   FileText
 } from 'lucide-react';
 import ShareCardModal from '@/components/common/ShareCardModal';
+import { getServiceImageUrl } from '@/lib/service-image';
 
 interface TravelMiniWebsiteViewProps {
   profile: DigitalProfile;
@@ -126,7 +127,8 @@ export default function TravelMiniWebsiteView({ profile, getEmbedUrl }: TravelMi
       price: 0,
       currency: '₹',
       durationMinutes: 45,
-      isAvailable: true
+      isAvailable: true,
+      imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'trv_svc_2',
@@ -136,7 +138,8 @@ export default function TravelMiniWebsiteView({ profile, getEmbedUrl }: TravelMi
       price: 1999,
       currency: '₹',
       durationMinutes: 30,
-      isAvailable: true
+      isAvailable: true,
+      imageUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'trv_svc_3',
@@ -146,7 +149,8 @@ export default function TravelMiniWebsiteView({ profile, getEmbedUrl }: TravelMi
       price: 0,
       currency: '₹',
       durationMinutes: 60,
-      isAvailable: true
+      isAvailable: true,
+      imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'trv_svc_4',
@@ -156,7 +160,8 @@ export default function TravelMiniWebsiteView({ profile, getEmbedUrl }: TravelMi
       price: 3500,
       currency: '₹',
       durationMinutes: 480,
-      isAvailable: true
+      isAvailable: true,
+      imageUrl: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80'
     }
   ];
 
@@ -473,52 +478,69 @@ END:VCARD`;
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {services.map((svc) => (
-                <div 
-                  key={svc.id}
-                  className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/40 transition group space-y-3"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center shrink-0">
-                        {svc.category?.toLowerCase().includes('visa') ? <FileText className="w-5 h-5" /> :
-                         svc.category?.toLowerCase().includes('fleet') ? <Luggage className="w-5 h-5" /> :
-                         <Plane className="w-5 h-5" />}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {services.map((svc) => {
+                const srvImage = getServiceImageUrl(svc, 'Travel');
+                return (
+                  <div 
+                    key={svc.id}
+                    className="rounded-2xl bg-slate-900/80 border border-slate-800/80 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 group flex flex-col justify-between overflow-hidden"
+                  >
+                    <div>
+                      {/* Service Photo Banner */}
+                      <div className="relative w-full h-44 sm:h-48 overflow-hidden bg-slate-950">
+                        <img
+                          src={srvImage}
+                          alt={svc.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                        
+                        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/10 text-cyan-300 text-[11px] font-bold flex items-center gap-1.5">
+                          {svc.category?.toLowerCase().includes('visa') ? <FileText className="w-3.5 h-3.5" /> :
+                           svc.category?.toLowerCase().includes('fleet') ? <Luggage className="w-3.5 h-3.5" /> :
+                           <Plane className="w-3.5 h-3.5" />}
+                          <span>{svc.category || 'Travel Service'}</span>
+                        </div>
+
+                        {svc.price !== undefined && (
+                          <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-cyan-500 text-slate-950 font-extrabold text-xs shadow-md">
+                            {svc.price === 0 ? 'Complimentary' : `₹${svc.price.toLocaleString('en-IN')}`}
+                          </div>
+                        )}
                       </div>
-                      <div>
-                        <h3 className="text-sm font-bold text-white group-hover:text-cyan-300 transition">{svc.title}</h3>
-                        <span className="text-[11px] text-cyan-400 font-medium">{svc.category}</span>
+
+                      <div className="p-4 sm:p-5">
+                        <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition line-clamp-2">
+                          {svc.title}
+                        </h3>
+                        <p className="text-xs text-slate-400 leading-relaxed mt-2 line-clamp-3">
+                          {svc.description}
+                        </p>
                       </div>
                     </div>
-                    {svc.price !== undefined && (
-                      <span className="text-sm font-bold text-amber-400 font-mono">
-                        {svc.price === 0 ? 'Complimentary' : `₹${svc.price.toLocaleString('en-IN')}`}
-                      </span>
-                    )}
-                  </div>
 
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    {svc.description}
-                  </p>
-
-                  <div className="pt-2 flex items-center justify-between border-t border-slate-800/60 text-xs">
-                    <span className="text-[11px] text-slate-400 flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-cyan-400" />
-                      {svc.durationMinutes ? `${svc.durationMinutes} Mins Consult` : 'Instant Concierge'}
-                    </span>
-                    <button
-                      onClick={() => {
-                        setSelectedService(svc);
-                        setIsTripModalOpen(true);
-                      }}
-                      className="px-3 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 font-semibold text-xs border border-cyan-500/30 transition cursor-pointer"
-                    >
-                      Book Service →
-                    </button>
+                    <div className="p-4 sm:p-5 pt-0">
+                      <div className="pt-3 flex items-center justify-between border-t border-slate-800/60 text-xs">
+                        <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                          <span>{svc.durationMinutes ? `${svc.durationMinutes} Mins Consult` : 'Instant Concierge'}</span>
+                        </span>
+                        <button
+                          onClick={() => {
+                            setSelectedService(svc);
+                            setIsTripModalOpen(true);
+                          }}
+                          className="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 font-bold text-xs border border-cyan-500/30 transition shadow-sm cursor-pointer"
+                        >
+                          Book Service →
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </section>
         )}
