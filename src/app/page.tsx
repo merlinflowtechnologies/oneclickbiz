@@ -45,6 +45,7 @@ import {
   Eye,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   Wifi,
   RefreshCw,
   X,
@@ -199,6 +200,129 @@ const VCARD_TEMPLATES = [
   }
 ];
 
+const CORE_SERVICES = [
+  {
+    id: 'mini-websites',
+    title: 'Mini Websites & Business Profiles',
+    category: 'Web & Digital Presence',
+    icon: Smartphone,
+    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80',
+    badge: 'Instant Deployment',
+    tagline: 'Instant Cloud Deployment',
+    description: 'Launch a turnkey, mobile-optimized business mini-website in under 2 minutes. Showcase your story, services, photo lookbooks, client testimonials, and connect your custom domain.',
+    features: [
+      '93+ Ready industry niche templates',
+      'Custom domain & white-label support',
+      '100% cloud-hosted — zero coding or apps'
+    ]
+  },
+  {
+    id: 'visiting-card',
+    title: 'Visiting Card Studio & 300 DPI PDF',
+    category: 'Graphic & Print Design',
+    icon: CreditCard,
+    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
+    badge: '300 DPI Export',
+    tagline: 'High-Resolution Vector Export',
+    description: 'Design luxury business cards with real-time 3D interactive flip view, custom finishes (Gold, Matte, Neo-Glass), and download vector print-ready front & back PDFs.',
+    features: [
+      '6 Luxury print presets & themes',
+      '300 DPI CMYK commercial print ready',
+      'Dual-sided interactive 3D preview'
+    ]
+  },
+  {
+    id: 'whatsapp-store',
+    title: 'WhatsApp Store Onboarding',
+    category: 'Conversational Commerce',
+    icon: ShoppingBag,
+    image: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=800&q=80',
+    badge: '1-Click Checkout',
+    tagline: 'Ready-to-Sell Catalog Setup',
+    description: 'Our e-commerce team formats your product catalogs, configures tiered pricing, formats high-res images, and connects direct in-card WhatsApp cart checkout.',
+    features: [
+      'High-res product photo formatting',
+      'Pre-filled structured WhatsApp orders',
+      'In-card checkout cart integration'
+    ]
+  },
+  {
+    id: 'appointment-booking',
+    title: 'Appointment & Booking Setup',
+    category: 'Scheduling Engine',
+    icon: Calendar,
+    image: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80',
+    badge: 'Live Booking',
+    tagline: 'Zero Double-Bookings Guaranteed',
+    description: 'Set up consultation booking slots with automated calendar sync, buffer times, custom appointment durations, and automated client notifications.',
+    features: [
+      'Time slot availability matrix',
+      'Double-booking protection engine',
+      'Instant WhatsApp & Email alerts'
+    ]
+  },
+  {
+    id: 'blog-brochure',
+    title: 'SEO Blog & Brochure Studios',
+    category: 'Publishing & Collateral',
+    icon: BookOpen,
+    image: 'https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&w=800&q=80',
+    badge: 'Print Ready',
+    tagline: 'Full Content Publishing',
+    description: 'Author search-optimized blog posts with custom categories and featured covers. Automatically generate multi-page business brochures with PDF download suites.',
+    features: [
+      'Rich blog post editor with tags',
+      '300 DPI print-ready PDF export',
+      '1-Click WhatsApp & social sharing'
+    ]
+  },
+  {
+    id: 'upi-qr-payments',
+    title: 'Direct UPI QR & Instant Pay',
+    category: 'Digital Payments',
+    icon: CreditCard,
+    image: 'https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=800&q=80',
+    badge: '0% Commission',
+    tagline: '100% Software • 0% Gateway Cuts',
+    description: 'Integrated dynamic QR code and 1-tap payment buttons for GPay, PhonePe, Paytm, and BHIM UPI. Money deposits directly into your bank account with zero gateway fee deductions.',
+    features: [
+      '0% commission on all UPI transactions',
+      'Instant GPay, PhonePe & Paytm links',
+      'Direct bank account instant settlement'
+    ]
+  },
+  {
+    id: 'dynamic-qr',
+    title: 'Dynamic Branded QR Systems',
+    category: 'QR Engineering',
+    icon: QrCode,
+    image: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80',
+    badge: 'Cloud Redirect',
+    tagline: 'Zero Reprinting Required',
+    description: 'Generate high-contrast vector QR codes with your company logo embedded. Change redirect URLs and campaign targets anytime in the cloud without reprinting materials.',
+    features: [
+      'High-res SVG & PNG vector export',
+      'Real-time cloud target redirecting',
+      'Custom logo centering & color tuning'
+    ]
+  },
+  {
+    id: 'lead-analytics',
+    title: 'Lead Capture & Live Analytics',
+    category: 'Business Intelligence',
+    icon: TrendingUp,
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+    badge: 'Live Telemetry',
+    tagline: 'Live Data Insights',
+    description: 'Real-time conversion tracking for dynamic QR scans, unique profile visitors, phone calls, WhatsApp inquiries, and 1-click contact save conversion rates.',
+    features: [
+      'Real-time scan & click telemetry',
+      '1-Click contact save rate tracking',
+      'Exportable CSV & PDF lead summaries'
+    ]
+  }
+];
+
 export default function LandingPage() {
   const [aliasSearch, setAliasSearch] = useState('');
   const [aliasStatus, setAliasStatus] = useState<'idle' | 'available' | 'taken'>('idle');
@@ -207,6 +331,8 @@ export default function LandingPage() {
   const [templateFilter, setTemplateFilter] = useState<string>('all');
   const [previewTemplate, setPreviewTemplate] = useState<VCardTemplateItem | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [expandedServiceId, setExpandedServiceId] = useState<string | null>(null);
+  const [showAllServiceDetails, setShowAllServiceDetails] = useState<boolean>(false);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const [pricing, setPricing] = useState({
@@ -1286,7 +1412,7 @@ export default function LandingPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider">
               <Briefcase className="w-3.5 h-3.5" /> What Services We Offer
             </div>
@@ -1296,370 +1422,148 @@ export default function LandingPage() {
             <p className="text-sm sm:text-base text-slate-600">
               From bespoke digital smart cards to multi-team cards and WhatsApp commerce onboarding, here is how our team empowers your business.
             </p>
+
+            {/* Click-to-Reveal Mode Controls */}
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowAllServiceDetails(!showAllServiceDetails);
+                  if (!showAllServiceDetails) setExpandedServiceId(null);
+                }}
+                className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer ${
+                  showAllServiceDetails
+                    ? 'bg-indigo-600 text-white shadow-indigo-500/25'
+                    : 'bg-white/90 text-slate-700 hover:text-indigo-600 border border-slate-200/90'
+                }`}
+              >
+                <span>{showAllServiceDetails ? '🖼️ Switch to Images-Only View' : '📄 Show All Matter / Details'}</span>
+              </button>
+              <span className="text-[11px] text-slate-500 font-medium">
+                ✨ Tap on any image below to reveal its details
+              </span>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            {/* Service 1: Turnkey Mini Websites & Business Profiles */}
-            <div className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/80 hover:border-indigo-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
-              <div>
-                {/* Visual Photo Banner */}
-                <div className="relative w-full h-44 overflow-hidden bg-slate-900">
-                  <img
-                    src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80"
-                    alt="Mini Websites & Business Profiles"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-indigo-700 flex items-center gap-1.5 shadow-sm">
-                    <Smartphone className="w-3.5 h-3.5 text-indigo-600" />
-                    <span>Web &amp; Digital Presence</span>
+            {CORE_SERVICES.map((svc) => {
+              const isExpanded = showAllServiceDetails || expandedServiceId === svc.id;
+              const IconComp = svc.icon;
+
+              return (
+                <div
+                  key={svc.id}
+                  onClick={() => {
+                    if (!showAllServiceDetails) {
+                      setExpandedServiceId(expandedServiceId === svc.id ? null : svc.id);
+                    }
+                  }}
+                  className={`rounded-3xl bg-white/95 backdrop-blur-xl border transition-all duration-300 overflow-hidden group cursor-pointer relative flex flex-col justify-between ${
+                    isExpanded
+                      ? 'border-indigo-500 shadow-2xl ring-2 ring-indigo-500/20'
+                      : 'border-slate-200/90 hover:border-indigo-400 hover:shadow-xl hover:-translate-y-1'
+                  }`}
+                >
+                  {/* Visual Photo Banner */}
+                  <div className={`relative w-full overflow-hidden bg-slate-950 transition-all duration-300 ${
+                    isExpanded ? 'h-40 sm:h-44' : 'h-64 sm:h-72'
+                  }`}>
+                    <img
+                      src={svc.image}
+                      alt={svc.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                    
+                    {/* Top Category Badge */}
+                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[11px] font-bold text-slate-900 flex items-center gap-1.5 shadow-md">
+                      <IconComp className="w-3.5 h-3.5 text-indigo-600" />
+                      <span>{svc.category}</span>
+                    </div>
+
+                    {/* Top-Right Toggle Hint */}
+                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold shadow-md flex items-center gap-1">
+                      {isExpanded ? (
+                        <>
+                          <span>Hide</span>
+                          <X className="w-3 h-3 text-rose-400" />
+                        </>
+                      ) : (
+                        <>
+                          <span>Click for Matter</span>
+                          <ChevronDown className="w-3 h-3 text-amber-400" />
+                        </>
+                      )}
+                    </div>
+
+                    {/* Collapsed State Title on Image (Only image + title visible) */}
+                    {!isExpanded && (
+                      <div className="absolute inset-x-0 bottom-0 p-5 pt-12 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent flex flex-col justify-end">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-300 mb-1">
+                          {svc.badge}
+                        </span>
+                        <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-indigo-300 transition-colors leading-snug">
+                          {svc.title}
+                        </h3>
+                        <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-400 mt-2">
+                          <span>Click image to see matter</span>
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <div className="absolute bottom-2.5 right-3 px-2.5 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-bold shadow-sm">
-                    Instant Deployment
-                  </div>
-                </div>
 
-                <div className="p-6 space-y-3">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                    Mini Websites &amp; Business Profiles
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Launch a turnkey, mobile-optimized business mini-website in under 2 minutes. Showcase your story, services, photo lookbooks, client testimonials, and connect your custom domain.
-                  </p>
-                  <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" /> 93+ Ready industry niche templates</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" /> Custom domain &amp; white-label support</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" /> 100% cloud-hosted — zero coding or apps</li>
-                  </ul>
-                </div>
-              </div>
+                  {/* The Matter (Revealed when clicked) */}
+                  {isExpanded && (
+                    <div className="p-6 space-y-4 flex-1 flex flex-col justify-between animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="space-y-3">
+                        <div className="flex items-start justify-between gap-2">
+                          <h3 className="text-base font-bold text-slate-900 leading-snug">
+                            {svc.title}
+                          </h3>
+                          <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 shrink-0">
+                            {svc.badge}
+                          </span>
+                        </div>
 
-              <div className="p-6 pt-0">
-                <div className="pt-3 border-t border-slate-100">
-                  <span className="text-[11px] font-semibold text-indigo-700 flex items-center gap-1.5">
-                    <BadgeCheck className="w-3.5 h-3.5 text-indigo-600" /> Instant Cloud Deployment
-                  </span>
-                </div>
-              </div>
-            </div>
+                        <p className="text-xs text-slate-600 leading-relaxed">
+                          {svc.description}
+                        </p>
 
-            {/* Service 2: Smart Visiting Card Studio */}
-            <div className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/80 hover:border-sky-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
-              <div>
-                {/* Visual Photo Banner */}
-                <div className="relative w-full h-44 overflow-hidden bg-slate-900">
-                  <img
-                    src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80"
-                    alt="Visiting Card Studio"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-sky-700 flex items-center gap-1.5 shadow-sm">
-                    <CreditCard className="w-3.5 h-3.5 text-sky-600" />
-                    <span>Graphic &amp; Print Design</span>
-                  </div>
-                  <div className="absolute bottom-2.5 right-3 px-2.5 py-0.5 rounded-full bg-sky-500 text-white text-[10px] font-bold shadow-sm">
-                    300 DPI Export
-                  </div>
-                </div>
+                        <ul className="space-y-1.5 text-[11px] text-slate-700 pt-3 border-t border-slate-100">
+                          {svc.features.map((feat, fIdx) => (
+                            <li key={fIdx} className="flex items-center gap-1.5">
+                              <Check className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                              <span>{feat}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                <div className="p-6 space-y-3">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
-                    Visiting Card Studio &amp; 300 DPI PDF
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Design luxury business cards with real-time 3D interactive flip view, custom finishes (Gold, Matte, Neo-Glass), and download vector print-ready front &amp; back PDFs.
-                  </p>
-                  <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" /> 6 Luxury print presets &amp; themes</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" /> 300 DPI CMYK commercial print ready</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" /> Dual-sided interactive 3D preview</li>
-                  </ul>
-                </div>
-              </div>
+                      <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <span className="text-[11px] font-semibold text-indigo-700 flex items-center gap-1.5">
+                          <BadgeCheck className="w-3.5 h-3.5 text-indigo-600" />
+                          <span>{svc.tagline}</span>
+                        </span>
 
-              <div className="p-6 pt-0">
-                <div className="pt-3 border-t border-slate-100">
-                  <span className="text-[11px] font-semibold text-sky-700 flex items-center gap-1.5">
-                    <BadgeCheck className="w-3.5 h-3.5 text-sky-600" /> High-Resolution Vector Export
-                  </span>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedServiceId(null);
+                          }}
+                          className="text-[11px] font-bold text-slate-500 hover:text-rose-600 transition flex items-center gap-1 cursor-pointer"
+                        >
+                          <span>Show image only</span>
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-            </div>
-
-            {/* Service 3: WhatsApp Store Onboarding */}
-            <div className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/80 hover:border-emerald-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
-              <div>
-                {/* Visual Photo Banner */}
-                <div className="relative w-full h-44 overflow-hidden bg-slate-900">
-                  <img
-                    src="https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=800&q=80"
-                    alt="WhatsApp Store Onboarding"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-emerald-700 flex items-center gap-1.5 shadow-sm">
-                    <ShoppingBag className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Conversational Commerce</span>
-                  </div>
-                  <div className="absolute bottom-2.5 right-3 px-2.5 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-bold shadow-sm">
-                    1-Click Checkout
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-3">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
-                    WhatsApp Store Onboarding
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Our e-commerce team formats your product catalogs, configures tiered pricing, formats high-res images, and connects direct in-card WhatsApp cart checkout.
-                  </p>
-                  <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" /> High-res product photo formatting</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" /> Pre-filled structured WhatsApp orders</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" /> In-card checkout cart integration</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="p-6 pt-0">
-                <div className="pt-3 border-t border-slate-100">
-                  <span className="text-[11px] font-semibold text-emerald-700 flex items-center gap-1.5">
-                    <BadgeCheck className="w-3.5 h-3.5 text-emerald-600" /> Ready-to-Sell Catalog Setup
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Service 4: Appointment & Booking */}
-            <div className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/80 hover:border-purple-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
-              <div>
-                {/* Visual Photo Banner */}
-                <div className="relative w-full h-44 overflow-hidden bg-slate-900">
-                  <img
-                    src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80"
-                    alt="Appointment & Booking"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-purple-700 flex items-center gap-1.5 shadow-sm">
-                    <Calendar className="w-3.5 h-3.5 text-purple-600" />
-                    <span>Scheduling Engine</span>
-                  </div>
-                  <div className="absolute bottom-2.5 right-3 px-2.5 py-0.5 rounded-full bg-purple-500 text-white text-[10px] font-bold shadow-sm">
-                    Live Booking
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-3">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-purple-600 transition-colors">
-                    Appointment &amp; Booking Setup
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Set up consultation booking slots with automated calendar sync, buffer times, custom appointment durations, and automated client notifications.
-                  </p>
-                  <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" /> Time slot availability matrix</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" /> Double-booking protection engine</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-500 flex-shrink-0" /> Instant WhatsApp &amp; Email alerts</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="p-6 pt-0">
-                <div className="pt-3 border-t border-slate-100">
-                  <span className="text-[11px] font-semibold text-purple-700 flex items-center gap-1.5">
-                    <BadgeCheck className="w-3.5 h-3.5 text-purple-600" /> Zero Double-Bookings Guaranteed
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Service 5: Blog & Brochure Studio */}
-            <div className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/80 hover:border-cyan-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
-              <div>
-                {/* Visual Photo Banner */}
-                <div className="relative w-full h-44 overflow-hidden bg-slate-900">
-                  <img
-                    src="https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&w=800&q=80"
-                    alt="SEO Blog & Brochure Studios"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-cyan-700 flex items-center gap-1.5 shadow-sm">
-                    <BookOpen className="w-3.5 h-3.5 text-cyan-600" />
-                    <span>Publishing &amp; Collateral</span>
-                  </div>
-                  <div className="absolute bottom-2.5 right-3 px-2.5 py-0.5 rounded-full bg-cyan-500 text-white text-[10px] font-bold shadow-sm">
-                    Print Ready
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-3">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">
-                    SEO Blog &amp; Brochure Studios
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Author search-optimized blog posts with custom categories and featured covers. Automatically generate multi-page business brochures with PDF download suites.
-                  </p>
-                  <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-cyan-500 flex-shrink-0" /> Rich blog post editor with tags</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-cyan-500 flex-shrink-0" /> 300 DPI print-ready PDF export</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-cyan-500 flex-shrink-0" /> 1-Click WhatsApp &amp; social sharing</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="p-6 pt-0">
-                <div className="pt-3 border-t border-slate-100">
-                  <span className="text-[11px] font-semibold text-cyan-700 flex items-center gap-1.5">
-                    <BadgeCheck className="w-3.5 h-3.5 text-cyan-600" /> Full Content Publishing
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Service 6: Direct 0% Fee UPI QR Payments */}
-            <div className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/80 hover:border-amber-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
-              <div>
-                {/* Visual Photo Banner */}
-                <div className="relative w-full h-44 overflow-hidden bg-slate-900">
-                  <img
-                    src="https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=800&q=80"
-                    alt="Direct UPI QR Payments"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-amber-700 flex items-center gap-1.5 shadow-sm">
-                    <CreditCard className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Digital Payments</span>
-                  </div>
-                  <div className="absolute bottom-2.5 right-3 px-2.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold shadow-sm">
-                    0% Commission
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-3">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
-                    Direct UPI QR &amp; Instant Pay
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Integrated dynamic QR code and 1-tap payment buttons for GPay, PhonePe, Paytm, and BHIM UPI. Money deposits directly into your bank account with zero gateway fee deductions.
-                  </p>
-                  <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> 0% commission on all UPI transactions</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Instant GPay, PhonePe &amp; Paytm links</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" /> Direct bank account instant settlement</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="p-6 pt-0">
-                <div className="pt-3 border-t border-slate-100">
-                  <span className="text-[11px] font-semibold text-amber-700 flex items-center gap-1.5">
-                    <BadgeCheck className="w-3.5 h-3.5 text-amber-600" /> 100% Software • 0% Gateway Cuts
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Service 7: Dynamic QR Engine */}
-            <div className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/80 hover:border-pink-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
-              <div>
-                {/* Visual Photo Banner */}
-                <div className="relative w-full h-44 overflow-hidden bg-slate-900">
-                  <img
-                    src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80"
-                    alt="Dynamic Branded QR Systems"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-pink-700 flex items-center gap-1.5 shadow-sm">
-                    <QrCode className="w-3.5 h-3.5 text-pink-600" />
-                    <span>QR Engineering</span>
-                  </div>
-                  <div className="absolute bottom-2.5 right-3 px-2.5 py-0.5 rounded-full bg-pink-500 text-white text-[10px] font-bold shadow-sm">
-                    Cloud Redirect
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-3">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-pink-600 transition-colors">
-                    Dynamic Branded QR Systems
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Generate high-contrast vector QR codes with your company logo embedded. Change redirect URLs and campaign targets anytime in the cloud without reprinting materials.
-                  </p>
-                  <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-pink-500 flex-shrink-0" /> High-res SVG &amp; PNG vector export</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-pink-500 flex-shrink-0" /> Real-time cloud target redirecting</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-pink-500 flex-shrink-0" /> Custom logo centering &amp; color tuning</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="p-6 pt-0">
-                <div className="pt-3 border-t border-slate-100">
-                  <span className="text-[11px] font-semibold text-pink-700 flex items-center gap-1.5">
-                    <BadgeCheck className="w-3.5 h-3.5 text-pink-600" /> Zero Reprinting Required
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Service 8: Real-Time Event & Lead Analytics */}
-            <div className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/80 hover:border-violet-400/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
-              <div>
-                {/* Visual Photo Banner */}
-                <div className="relative w-full h-44 overflow-hidden bg-slate-900">
-                  <img
-                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
-                    alt="Lead Capture & Live Analytics"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-violet-700 flex items-center gap-1.5 shadow-sm">
-                    <TrendingUp className="w-3.5 h-3.5 text-violet-600" />
-                    <span>Business Intelligence</span>
-                  </div>
-                  <div className="absolute bottom-2.5 right-3 px-2.5 py-0.5 rounded-full bg-violet-500 text-white text-[10px] font-bold shadow-sm">
-                    Live Telemetry
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-3">
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-violet-600 transition-colors">
-                    Lead Capture &amp; Live Analytics
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Real-time conversion tracking for dynamic QR scans, unique profile visitors, phone calls, WhatsApp inquiries, and 1-click contact save conversion rates.
-                  </p>
-                  <ul className="space-y-1.5 text-[11px] text-slate-700 pt-2 border-t border-slate-100">
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-violet-500 flex-shrink-0" /> Real-time scan &amp; click telemetry</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-violet-500 flex-shrink-0" /> 1-Click contact save rate tracking</li>
-                    <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-violet-500 flex-shrink-0" /> Exportable CSV &amp; PDF lead summaries</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="p-6 pt-0">
-                <div className="pt-3 border-t border-slate-100">
-                  <span className="text-[11px] font-semibold text-violet-700 flex items-center gap-1.5">
-                    <BadgeCheck className="w-3.5 h-3.5 text-violet-600" /> Live Data Insights
-                  </span>
-                </div>
-              </div>
-            </div>
-
+              );
+            })}
           </div>
 
           {/* Justdial-style Trending Services & Popular Business Categories Strip */}
