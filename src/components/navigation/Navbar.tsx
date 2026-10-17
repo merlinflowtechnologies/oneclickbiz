@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { 
   Sparkles, 
-  ArrowRight, 
   Menu, 
   X,
   ExternalLink
@@ -115,17 +114,9 @@ export default function Navbar() {
           <div className="flex items-center space-x-2 sm:space-x-3">
             <Link 
               href="/login"
-              className="hidden sm:inline-flex px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200/90 shadow-xs transition-all backdrop-blur-md"
+              className="inline-flex px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200/90 shadow-xs transition-all backdrop-blur-md"
             >
               Sign In
-            </Link>
-            
-            <Link 
-              href="/signup?intent=create_card"
-              className="px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 transition-all shadow-md shadow-indigo-500/25 flex items-center gap-1.5 active:scale-95 shrink-0"
-            >
-              <span>Create Card</span>
-              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 
             {/* Mobile & Tablet Menu Toggle Button (Visible on screens < lg) */}
@@ -205,21 +196,13 @@ export default function Navbar() {
             ✨ Explore Live Demo Card (/v/kishore)
           </Link>
 
-          <div className="pt-3 flex flex-col sm:flex-row gap-2 border-t border-slate-200">
+          <div className="pt-3 border-t border-slate-200">
             <Link 
               href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-200 transition"
+              className="w-full block text-center py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-semibold text-slate-700 transition"
             >
               <span>Sign In</span>
-            </Link>
-            <Link 
-              href="/signup?intent=create_card"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-xs font-bold text-white shadow-md flex items-center justify-center gap-1.5 transition active:scale-95"
-            >
-              <span>Create Card</span>
-              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
