@@ -1644,6 +1644,11 @@ TEMPLATE_PRESETS_DATA['greentrends'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
 TEMPLATE_PRESETS_DATA['greentrends-kothapet'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
 TEMPLATE_PRESETS_DATA['salon'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
 TEMPLATE_PRESETS_DATA['luxury-salon'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+TEMPLATE_PRESETS_DATA['beauty-parlour'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+TEMPLATE_PRESETS_DATA['beauty-parlor'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+TEMPLATE_PRESETS_DATA['parlour'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+TEMPLATE_PRESETS_DATA['parlor'] = TEMPLATE_PRESETS_DATA['beauty-salon'];
+
 
 TEMPLATE_PRESETS_DATA['event-planner'] = TEMPLATE_PRESETS_DATA['events-planner'];
 TEMPLATE_PRESETS_DATA['event-photography'] = TEMPLATE_PRESETS_DATA['events-planner'];

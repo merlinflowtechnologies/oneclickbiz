@@ -811,6 +811,10 @@ export default function ProfileCardView({
     slug === 'beauty-salon' ||
     slug === 'beauty-bridal' ||
     slug.startsWith('beauty-') ||
+    slug === 'parlour' ||
+    slug === 'parlor' ||
+    slug.includes('parlour') ||
+    slug.includes('parlor') ||
     slug === 'auraluxe' ||
     slug.includes('greentrends') ||
     templateId.startsWith('beauty-') ||

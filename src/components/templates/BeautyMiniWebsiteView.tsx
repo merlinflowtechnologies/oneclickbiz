@@ -1157,7 +1157,78 @@ export default function BeautyMiniWebsiteView({
             </div>
           </div>
         </div>
-      </section>
+      
+
+          {/* =========================================================================
+              INSTANT SALON CONTACT BAR WITH ORIGINAL BRAND LOGOS (HERO SECTION)
+             ========================================================================= */}
+          <div className="pt-2 max-w-4xl mx-auto w-full">
+            <div className="bg-black/60 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-white/15 shadow-xl flex flex-wrap items-center justify-between gap-3 text-left">
+              <div className="flex items-center gap-2 text-white">
+                <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping" />
+                <span className="text-xs font-black uppercase tracking-wider text-rose-300">
+                  Direct Lounge Connect:
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+                {/* Official WhatsApp Logo */}
+                <a
+                  href="https://wa.me/919876543210?text=Hi%20AuraLuxe,%20I%20want%20to%20book%20a%20salon%20appointment"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-black flex items-center gap-2 shadow-xs transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <WhatsAppOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>WhatsApp Booking</span>
+                </a>
+
+                {/* Official Phone Call Logo */}
+                <a
+                  href="tel:+919876543210"
+                  className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-black flex items-center gap-2 border border-white/20 transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <PhoneCallOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>+91 98765 43210</span>
+                </a>
+
+                {/* Official Instagram Gradient Logo */}
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-black flex items-center gap-2 border border-white/20 transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <InstagramOriginalLogo className="w-4 h-4 shrink-0 shadow-2xs" />
+                  <span>@auraluxesalon</span>
+                </a>
+
+                {/* Official YouTube Red Logo */}
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-black flex items-center gap-2 border border-white/20 transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <YouTubeOriginalLogo className="w-4 h-4 shrink-0 shadow-2xs" />
+                  <span>Masterclasses</span>
+                </a>
+
+                {/* Official Google Maps Logo */}
+                <a
+                  href="https://maps.google.com/?q=Road+No+36+Jubilee+Hills+Hyderabad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-black flex items-center gap-2 border border-white/20 transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <GoogleMapsOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>Jubilee Hills</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </section>
 
       {/* 4. HOT OFFERS / DEALS FOR EVERYONE */}
       <section id="offers" className="relative py-16 border-b border-white/10 z-10">
@@ -2715,5 +2786,73 @@ export default function BeautyMiniWebsiteView({
         />
       )}
     </div>
+  );
+}
+
+
+// ==========================================
+// AUTHENTIC ORIGINAL BRAND SVG LOGOS
+// ==========================================
+function WhatsAppOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <circle cx="12" cy="12" r="12" fill="#25D366" />
+      <path
+        d="M17.5 14.3c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.5.1-.2.2-.6.7-.7.9-.1.1-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.6-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4.1-.1.2-.2.3-.4.1-.1.1-.2.2-.3 0-.1 0-.2 0-.3s-.5-1.2-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.3c.1.2 1.6 2.4 3.9 3.4.5.2 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1z"
+        fill="white"
+      />
+    </svg>
+  );
+}
+
+function InstagramOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <defs>
+        <radialGradient id="ig-grad-hero-original" cx="30%" cy="107%" r="150%">
+          <stop offset="0%" stopColor="#fdf497" />
+          <stop offset="5%" stopColor="#fdf497" />
+          <stop offset="45%" stopColor="#fd5949" />
+          <stop offset="60%" stopColor="#d6249f" />
+          <stop offset="90%" stopColor="#285AEB" />
+        </radialGradient>
+      </defs>
+      <rect width="24" height="24" rx="6.5" fill="url(#ig-grad-hero-original)" />
+      <path
+        d="M12 6.5A5.5 5.5 0 1 0 12 17.5 5.5 5.5 0 0 0 12 6.5zm0 9A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7zm5.2-9.2a1.3 1.3 0 1 1-2.6 0 1.3 1.3 0 0 1 2.6 0z"
+        fill="white"
+      />
+    </svg>
+  );
+}
+
+function YouTubeOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <rect width="24" height="24" rx="6" fill="#FF0000" />
+      <path d="M9.5 8l6 4-6 4V8z" fill="white" />
+    </svg>
+  );
+}
+
+function GoogleMapsOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335" />
+      <circle cx="12" cy="9" r="3.2" fill="#FFFFFF" />
+      <circle cx="12" cy="9" r="1.8" fill="#4285F4" />
+    </svg>
+  );
+}
+
+function PhoneCallOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <circle cx="12" cy="12" r="12" fill="#0F172A" />
+      <path
+        d="M7.5 9.5c.9 1.8 2.2 3.1 4 4l1.3-1.3c.2-.2.5-.2.7-.1.8.3 1.6.4 2.5.4.4 0 .7.3.7.7v2.3c0 .4-.3.7-.7.7C10.5 20.2 3.8 13.5 3.8 5.2c0-.4.3-.7.7-.7H6.8c.4 0 .7.3.7.7 0 .9.1 1.7.4 2.5.1.2.1.5-.1.7L7.5 9.5z"
+        fill="#10B981"
+      />
+    </svg>
   );
 }

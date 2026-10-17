@@ -453,6 +453,12 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
   // 3.8 Check if slug is beauty salon / Green Trends related
   const isBeautySalonPattern = 
     cleanSlug === 'beauty-salon' ||
+    cleanSlug === 'beauty-parlour' ||
+    cleanSlug === 'beauty-parlor' ||
+    cleanSlug === 'parlour' ||
+    cleanSlug === 'parlor' ||
+    cleanSlug.includes('parlour') ||
+    cleanSlug.includes('parlor') ||
     cleanSlug === 'auraluxe' ||
     cleanSlug.includes('auraluxe') ||
     cleanSlug === 'green-trends' ||
@@ -466,6 +472,27 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
 
   if (isBeautySalonPattern) {
     const tProf = getTemplateProfile('beauty-salon');
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
+
+  // 3.9 Check if slug is event planner / photography related (SnapVibe Events)
+  const isEventsPattern = 
+    cleanSlug === 'events-planner' ||
+    cleanSlug === 'event-planner' ||
+    cleanSlug === 'event-photography' ||
+    cleanSlug === 'photography' ||
+    cleanSlug.includes('events-planner') ||
+    cleanSlug.includes('event-planner');
+
+  if (isEventsPattern) {
+    const tProf = getTemplateProfile('events-planner');
     return {
       ...tProf,
       slug: cleanSlug,

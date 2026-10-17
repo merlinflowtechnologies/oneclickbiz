@@ -1194,6 +1194,76 @@ export default function EventsMiniWebsiteView({
             </button>
           </div>
 
+          
+          {/* =========================================================================
+              INSTANT CONTACT BAR WITH ORIGINAL BRAND LOGOS (HERO SECTION)
+             ========================================================================= */}
+          <div className="pt-2 max-w-4xl mx-auto">
+            <div className="bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-pink-200/80 shadow-md flex flex-wrap items-center justify-between gap-3 text-left">
+              <div className="flex items-center gap-2">
+                <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping" />
+                <span className="text-xs font-black text-slate-800 uppercase tracking-wider">
+                  Instant Studio Connect:
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+                {/* Official WhatsApp Logo */}
+                <a
+                  href="https://wa.me/919876543210?text=Hi,%20I%20want%20to%20book%20an%20event%20photographer%20in%20Hyderabad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-black flex items-center gap-2 shadow-xs transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <WhatsAppOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>WhatsApp Chat</span>
+                </a>
+
+                {/* Official Phone Call Logo */}
+                <a
+                  href="tel:+919876543210"
+                  className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-black flex items-center gap-2 shadow-xs transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <PhoneCallOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>Call +91 98765 43210</span>
+                </a>
+
+                {/* Official Instagram Gradient Logo */}
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl bg-slate-50 hover:bg-pink-50 text-slate-800 text-xs font-black flex items-center gap-2 border border-slate-200 hover:border-pink-300 transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <InstagramOriginalLogo className="w-4 h-4 shrink-0 shadow-2xs" />
+                  <span>@snapvibestudios</span>
+                </a>
+
+                {/* Official YouTube Red Logo */}
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-800 text-xs font-black flex items-center gap-2 border border-slate-200 hover:border-red-300 transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <YouTubeOriginalLogo className="w-4 h-4 shrink-0 shadow-2xs" />
+                  <span>YouTube 4K</span>
+                </a>
+
+                {/* Official Google Maps Logo */}
+                <a
+                  href="https://maps.google.com/?q=Road+No+36+Jubilee+Hills+Hyderabad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 text-xs font-black flex items-center gap-2 border border-slate-200 transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <GoogleMapsOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>Jubilee Hills Studio</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* Trust Pillars Grid */}
           <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl mx-auto">
             <div className="p-3.5 rounded-2xl bg-white border border-pink-100 shadow-xs flex items-center gap-3 text-left">
@@ -2878,6 +2948,74 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    </svg>
+  );
+}
+
+
+// ==========================================
+// AUTHENTIC ORIGINAL BRAND SVG LOGOS
+// ==========================================
+function WhatsAppOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <circle cx="12" cy="12" r="12" fill="#25D366" />
+      <path
+        d="M17.5 14.3c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.5.1-.2.2-.6.7-.7.9-.1.1-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.6-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4.1-.1.2-.2.3-.4.1-.1.1-.2.2-.3 0-.1 0-.2 0-.3s-.5-1.2-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.3c.1.2 1.6 2.4 3.9 3.4.5.2 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1z"
+        fill="white"
+      />
+    </svg>
+  );
+}
+
+function InstagramOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <defs>
+        <radialGradient id="ig-grad-hero-original" cx="30%" cy="107%" r="150%">
+          <stop offset="0%" stopColor="#fdf497" />
+          <stop offset="5%" stopColor="#fdf497" />
+          <stop offset="45%" stopColor="#fd5949" />
+          <stop offset="60%" stopColor="#d6249f" />
+          <stop offset="90%" stopColor="#285AEB" />
+        </radialGradient>
+      </defs>
+      <rect width="24" height="24" rx="6.5" fill="url(#ig-grad-hero-original)" />
+      <path
+        d="M12 6.5A5.5 5.5 0 1 0 12 17.5 5.5 5.5 0 0 0 12 6.5zm0 9A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7zm5.2-9.2a1.3 1.3 0 1 1-2.6 0 1.3 1.3 0 0 1 2.6 0z"
+        fill="white"
+      />
+    </svg>
+  );
+}
+
+function YouTubeOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <rect width="24" height="24" rx="6" fill="#FF0000" />
+      <path d="M9.5 8l6 4-6 4V8z" fill="white" />
+    </svg>
+  );
+}
+
+function GoogleMapsOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335" />
+      <circle cx="12" cy="9" r="3.2" fill="#FFFFFF" />
+      <circle cx="12" cy="9" r="1.8" fill="#4285F4" />
+    </svg>
+  );
+}
+
+function PhoneCallOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <circle cx="12" cy="12" r="12" fill="#0F172A" />
+      <path
+        d="M7.5 9.5c.9 1.8 2.2 3.1 4 4l1.3-1.3c.2-.2.5-.2.7-.1.8.3 1.6.4 2.5.4.4 0 .7.3.7.7v2.3c0 .4-.3.7-.7.7C10.5 20.2 3.8 13.5 3.8 5.2c0-.4.3-.7.7-.7H6.8c.4 0 .7.3.7.7 0 .9.1 1.7.4 2.5.1.2.1.5-.1.7L7.5 9.5z"
+        fill="#10B981"
+      />
     </svg>
   );
 }
