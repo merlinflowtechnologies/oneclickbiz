@@ -6,7 +6,8 @@ import {
   Sparkles, 
   Menu, 
   X,
-  ExternalLink
+  ExternalLink,
+  ArrowRight
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -114,9 +115,17 @@ export default function Navbar() {
           <div className="flex items-center space-x-2 sm:space-x-3">
             <Link 
               href="/login"
-              className="inline-flex px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200/90 shadow-xs transition-all backdrop-blur-md"
+              className="inline-flex px-3 sm:px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200/90 shadow-xs transition-all backdrop-blur-md"
             >
               Sign In
+            </Link>
+
+            <Link 
+              href="/signup?intent=get_started"
+              className="hidden sm:inline-flex px-4 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/25 items-center gap-1.5 transition-all active:scale-95 shrink-0"
+            >
+              <span>Get Started</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 
             {/* Mobile & Tablet Menu Toggle Button (Visible on screens < lg) */}
@@ -196,13 +205,21 @@ export default function Navbar() {
             ✨ Explore Live Demo Card (/v/kishore)
           </Link>
 
-          <div className="pt-3 border-t border-slate-200">
+          <div className="pt-3 border-t border-slate-200 flex flex-col sm:flex-row gap-2">
             <Link 
               href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full block text-center py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-semibold text-slate-700 transition"
+              className="w-full text-center py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-semibold text-slate-700 transition"
             >
               <span>Sign In</span>
+            </Link>
+            <Link 
+              href="/signup?intent=get_started"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white shadow-md flex items-center justify-center gap-1.5 transition active:scale-95"
+            >
+              <span>Get Started</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

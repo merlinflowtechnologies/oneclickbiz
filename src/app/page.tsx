@@ -56,7 +56,20 @@ import {
   Store,
   FileText,
   Edit3,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Play,
+  Bell,
+  Search,
+  Home,
+  Armchair,
+  Utensils,
+  Coffee,
+  Shirt,
+  Flower2,
+  Car,
+  HeartPulse,
+  Dumbbell,
+  Grid
 } from 'lucide-react';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/navigation/Footer';
@@ -486,37 +499,86 @@ export default function LandingPage() {
       />
       <Navbar />
 
-      {/* Hero Section with Vibrant Light Ambient Aurora Mesh */}
-      <section className="relative pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden bg-gradient-to-b from-indigo-100/95 via-purple-100/70 to-sky-100/90 border-b border-indigo-200/80">
+      {/* Hero Section with Vibrant Light Ambient Mesh */}
+      <section className="relative pt-8 pb-14 sm:pt-12 sm:pb-20 lg:pt-14 lg:pb-20 overflow-hidden bg-gradient-to-b from-sky-100/70 via-indigo-50/40 to-white border-b border-indigo-100/80">
         
-        {/* Multi-layered Vibrant Ambient Pastel Glows */}
-        <div className="absolute top-5 left-1/4 w-[750px] h-[500px] bg-gradient-to-tr from-indigo-400/45 via-purple-400/40 to-pink-400/35 blur-[130px] -z-10 pointer-events-none" />
-        <div className="absolute top-1/3 right-5 w-[650px] h-[450px] bg-gradient-to-br from-sky-400/40 via-cyan-300/40 to-emerald-300/35 blur-[120px] -z-10 pointer-events-none" />
-        <div className="absolute -bottom-10 left-1/3 w-[600px] h-[400px] bg-gradient-to-r from-pink-400/35 to-amber-300/40 blur-[110px] -z-10 pointer-events-none" />
+        {/* Multi-layered Soft Ambient Pastel Glows */}
+        <div className="absolute top-2 left-10 w-[550px] h-[350px] bg-gradient-to-tr from-sky-300/35 via-blue-200/30 to-indigo-300/25 blur-[120px] -z-10 pointer-events-none" />
+        <div className="absolute top-1/4 right-5 w-[600px] h-[400px] bg-gradient-to-br from-purple-300/30 via-pink-200/25 to-sky-200/30 blur-[130px] -z-10 pointer-events-none" />
+        <div className="absolute -bottom-10 left-1/3 w-[500px] h-[300px] bg-gradient-to-r from-amber-200/30 to-rose-200/25 blur-[110px] -z-10 pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-center">
+          
+          {/* Main Top Grid: Headline/Copy on Left + 3D Device Showcase on Right */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-12 items-center">
             
             {/* Left Hero Content */}
-            <div className="lg:col-span-6 xl:col-span-6 space-y-6 sm:space-y-8 text-center lg:text-left">
+            <div className="lg:col-span-5 xl:col-span-5 space-y-5 sm:space-y-6 text-center lg:text-left">
               
-              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-200/80 text-indigo-700 text-xs font-bold uppercase tracking-wider shadow-xs backdrop-blur-md">
-                <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
-                <span>Connect &bull; Build &bull; Share</span>
+              {/* Badge Pill */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50/90 border border-amber-200/90 text-amber-800 text-xs font-bold shadow-xs backdrop-blur-md">
+                <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                <span>All-in-One Digital Business Platform</span>
               </div>
 
-              <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-6xl 2xl:text-7xl font-bold font-serif tracking-tight text-slate-900 leading-[1.18] lg:leading-[1.15]">
-                Your Complete <span className="italic font-serif bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Business Identity</span> In One Click.
+              {/* Headline */}
+              <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black tracking-tight text-slate-900 leading-[1.12]">
+                Build Your <br />
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent italic font-serif">
+                  Business Online
+                </span> <br />
+                — In One Click.
               </h1>
 
-              <p className="text-sm sm:text-base lg:text-base xl:text-lg text-slate-600 max-w-2xl leading-relaxed font-normal mx-auto lg:mx-0">
-                Replace outdated paper business cards with turnkey mini-websites, smart digital visiting cards, 1-click WhatsApp stores, and appointment booking calendars.
+              {/* Subtitle */}
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal max-w-xl mx-auto lg:mx-0">
+                Create your website, digital visiting card, WhatsApp store, e-commerce, QR codes, booking system and more — all in one powerful platform.
               </p>
 
-              {/* Live URL Alias Claimer */}
-              <div className="max-w-md mx-auto lg:mx-0">
-                <form onSubmit={handleCheckAlias} className="p-1.5 rounded-2xl bg-white/90 backdrop-blur-xl border border-slate-300/80 shadow-xl shadow-slate-200/60 flex items-center focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 transition-all">
-                  <div className="pl-3 pr-1 text-slate-500 font-mono text-xs hidden sm:block font-medium">
+              {/* 3 Green Checkmarks */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-2.5 text-xs font-semibold text-slate-700">
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>No Technical Skills</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Easy to Use</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Affordable Plans</span>
+                </div>
+              </div>
+
+              {/* Action Buttons: Get Started Now + Watch Video */}
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1 sm:pt-2">
+                <Link
+                  href="/signup?intent=get_started"
+                  className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all hover:scale-105 active:scale-95 shrink-0"
+                >
+                  <span>Get Started Now</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <a 
+                  href="#demo"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 font-semibold text-xs flex items-center justify-center gap-3 transition-all shadow-xs hover:shadow group"
+                >
+                  <span className="w-8 h-8 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                  </span>
+                  <div className="text-left">
+                    <div className="font-bold text-slate-900 leading-tight">Watch Video</div>
+                    <div className="text-[10px] text-slate-500">See How It Works</div>
+                  </div>
+                </a>
+              </div>
+
+              {/* Live URL Alias Claimer Bar */}
+              <div className="pt-2 max-w-md mx-auto lg:mx-0">
+                <form onSubmit={handleCheckAlias} className="p-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-300/80 shadow-md flex items-center focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
+                  <div className="pl-3 pr-1 text-slate-400 font-mono text-xs hidden sm:block font-medium">
                     oneclickbiz.in/v/
                   </div>
                   <input 
@@ -527,231 +589,633 @@ export default function LandingPage() {
                       setAliasSearch(e.target.value);
                       setAliasStatus('idle');
                     }}
-                    className="flex-1 bg-transparent px-2 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none font-semibold"
+                    className="flex-1 bg-transparent px-2 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none font-semibold"
                     required
                   />
                   <button 
                     type="submit"
-                    className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white text-xs font-bold transition-all shadow-md shadow-indigo-500/20 shrink-0 hover:scale-[1.02] active:scale-95 cursor-pointer"
+                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold transition-all shadow-sm shrink-0 active:scale-95 cursor-pointer"
                   >
                     Check Handle
                   </button>
                 </form>
 
                 {aliasStatus === 'available' && (
-                  <div className="mt-2.5 p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs flex items-center justify-between animate-in fade-in shadow-xs">
-                    <span className="flex items-center gap-1.5 font-semibold">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <div className="mt-2 p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs flex items-center justify-between animate-in fade-in shadow-xs">
+                    <span className="flex items-center gap-1.5 font-semibold text-[11px]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                       <strong>oneclickbiz.in/v/{aliasSearch.toLowerCase()}</strong> is available!
                     </span>
-                    <Link href={`/signup?slug=${aliasSearch.toLowerCase()}&intent=build_card`} className="underline font-bold text-emerald-900 hover:text-emerald-950">
+                    <Link href={`/signup?slug=${aliasSearch.toLowerCase()}&intent=build_card`} className="underline font-bold text-emerald-900 text-[11px]">
                       Claim Now →
                     </Link>
                   </div>
                 )}
                 {aliasStatus === 'taken' && (
-                  <p className="mt-2 text-xs text-rose-600 font-medium">
+                  <p className="mt-1.5 text-[11px] text-rose-600 font-medium">
                     This alias is reserved or taken. Please try another one!
                   </p>
                 )}
               </div>
 
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1 sm:pt-2">
-
-                <a 
-                  href="#demo"
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white/90 hover:bg-slate-50 text-slate-800 border border-slate-300/80 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow"
-                >
-                  <span>Explore Live Card Demo ↓</span>
-                </a>
-              </div>
-
-              {/* Social Proof Badges */}
-              <div className="pt-2 sm:pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 text-xs text-slate-600">
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-semibold shadow-xs">
-                  <RefreshCw className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Unlimited Real-Time Edits (Edit N Times)</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span className="font-medium">1-Click Contact Save</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span className="font-medium">WhatsApp Orders</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span className="font-medium">No App Required</span>
-                </div>
-              </div>
-
             </div>
 
-            {/* Right Hero Content: Point-by-Point Services We Offer */}
-            <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center w-full mt-8 lg:mt-0">
-              <div className="p-5 sm:p-6 lg:p-7 rounded-3xl bg-white/95 backdrop-blur-xl border border-indigo-200/80 shadow-2xl shadow-indigo-500/10 space-y-4 relative overflow-hidden">
+            {/* Right Hero Visual: MacBook Dashboard + Overlapping Phone Storefront + Floating Feature Cards */}
+            <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center pt-6 lg:pt-0">
+              <div className="relative w-full max-w-[580px] xl:max-w-[650px] mx-auto select-none">
                 
-                {/* Subtle Decorative Ambient Glow */}
-                <div className="absolute -top-16 -right-16 w-52 h-52 bg-gradient-to-br from-emerald-500/15 via-indigo-500/15 to-purple-500/10 rounded-full blur-2xl pointer-events-none" />
-
-                {/* Section Header */}
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                  <div>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-bold uppercase tracking-wider mb-1">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>Services We Offer</span>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-bold font-serif text-slate-900 tracking-tight">
-                      Create your business website
-                    </h3>
-                  </div>
-                  <span className="hidden sm:inline-flex px-2.5 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-[11px] font-bold shrink-0">
-                    6-in-1 Platform
-                  </span>
-                </div>
-
-                {/* Point-by-Point Service List */}
-                <div className="space-y-2 sm:space-y-2.5">
+                {/* 1. MacBook Display Frame */}
+                <div className="relative w-full rounded-t-2xl bg-slate-900 p-2 sm:p-2.5 shadow-2xl border-t border-x border-slate-700">
+                  {/* Laptop Web Camera Notch */}
+                  <div className="w-2 h-2 rounded-full bg-slate-800 mx-auto mb-1.5 ring-1 ring-slate-700/50" />
                   
-                  {/* Point 1: Mini Websites & Business Profiles */}
-                  <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-300 transition-all flex items-center gap-3 group">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-                      <Check className="w-4 h-4 stroke-[3]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
-                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                          Mini Websites &amp; Business Profiles
-                        </h4>
-                        <span className="text-[10px] font-semibold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-md shrink-0">
-                          93+ Templates
+                  {/* Inside Screen Container */}
+                  <div className="rounded-lg overflow-hidden bg-slate-50 border border-slate-200 flex flex-col text-slate-800 shadow-inner">
+                    
+                    {/* Top App Bar */}
+                    <div className="bg-white border-b border-slate-200 px-3 py-1.5 flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-5 h-5 rounded-md bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-[10px] font-black">
+                          1
+                        </div>
+                        <span className="text-xs font-black tracking-tight text-slate-900">
+                          OneClickBiz
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-500 leading-tight">
-                        Turnkey websites across 13 business niches with custom domain support
-                      </p>
-                    </div>
-                  </div>
 
-                  {/* Point 2: Digital Visiting Cards */}
-                  <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-300 transition-all flex items-center gap-3 group">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-                      <Check className="w-4 h-4 stroke-[3]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
-                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                          Digital Visiting Cards
-                        </h4>
-                        <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md shrink-0">
-                          1-Click Save
-                        </span>
+                      {/* Mock Search Input */}
+                      <div className="hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10px] text-slate-400 w-36 md:w-48">
+                        <Search className="w-3 h-3 text-slate-400" />
+                        <span>Search anything...</span>
                       </div>
-                      <p className="text-[11px] text-slate-500 leading-tight">
-                        Instant dynamic QR, custom link &amp; 1-click address book save (.vcf)
-                      </p>
-                    </div>
-                  </div>
 
-                  {/* Point 3: WhatsApp Store & E-commerce */}
-                  <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-300 transition-all flex items-center gap-3 group">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-                      <Check className="w-4 h-4 stroke-[3]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
-                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                          WhatsApp Store &amp; E-commerce
-                        </h4>
-                        <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md shrink-0">
-                          0% Fee
-                        </span>
+                      {/* Header Icons & User Avatar */}
+                      <div className="flex items-center gap-2">
+                        <div className="relative">
+                          <Bell className="w-3.5 h-3.5 text-slate-500" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-red-500 absolute -top-0.5 -right-0.5" />
+                        </div>
+                        <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold">
+                          A
+                        </div>
                       </div>
-                      <p className="text-[11px] text-slate-500 leading-tight">
-                        Interactive catalog, live shopping cart &amp; 1-tap WhatsApp direct checkout
-                      </p>
                     </div>
-                  </div>
 
-                  {/* Point 4: Showcase Products & Services */}
-                  <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-300 transition-all flex items-center gap-3 group">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-                      <Check className="w-4 h-4 stroke-[3]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
-                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                          Showcase Products &amp; Services
-                        </h4>
-                        <span className="text-[10px] font-semibold text-sky-700 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-md shrink-0">
-                          Rich Media
-                        </span>
+                    {/* Main Dashboard Layout */}
+                    <div className="flex">
+                      
+                      {/* Slim Left Sidebar */}
+                      <div className="w-24 sm:w-28 bg-slate-900 text-slate-300 p-2 space-y-1 text-[9px] sm:text-[10px] hidden xs:block shrink-0">
+                        <div className="px-2 py-1 rounded-md bg-blue-600 text-white font-bold flex items-center gap-1.5">
+                          <Monitor className="w-3 h-3" />
+                          <span>Dashboard</span>
+                        </div>
+                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
+                          <Globe2 className="w-3 h-3" />
+                          <span>Website</span>
+                        </div>
+                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
+                          <MessageCircle className="w-3 h-3 text-emerald-400" />
+                          <span>WhatsApp Store</span>
+                        </div>
+                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
+                          <CreditCard className="w-3 h-3 text-purple-400" />
+                          <span>Digital VCard</span>
+                        </div>
+                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
+                          <ShoppingBag className="w-3 h-3 text-pink-400" />
+                          <span>E-commerce</span>
+                        </div>
+                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
+                          <Store className="w-3 h-3 text-amber-400" />
+                          <span>Products</span>
+                        </div>
+                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
+                          <TrendingUp className="w-3 h-3 text-cyan-400" />
+                          <span>Analytics</span>
+                        </div>
                       </div>
-                      <p className="text-[11px] text-slate-500 leading-tight">
-                        High-res photo lookbooks, menus, pricing cards &amp; portfolio reels
-                      </p>
-                    </div>
-                  </div>
 
-                  {/* Point 5: QR Codes & Landing Pages */}
-                  <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-300 transition-all flex items-center gap-3 group">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-                      <Check className="w-4 h-4 stroke-[3]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
-                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                          QR Codes &amp; Landing Pages
-                        </h4>
-                        <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md shrink-0">
-                          Instant Load
-                        </span>
+                      {/* Right Main Dashboard Canvas */}
+                      <div className="flex-1 p-2.5 sm:p-3.5 space-y-2.5 sm:space-y-3 bg-white">
+                        
+                        {/* Greeting Banner */}
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 leading-tight">
+                              Welcome Back, 👋
+                            </h4>
+                            <p className="text-[9px] sm:text-[10px] text-slate-500">
+                              Manage your business from one place.
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* 4 Stat Cards */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2">
+                          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-50 border border-slate-200">
+                            <span className="text-[8px] sm:text-[9px] text-slate-500 block">Total Views</span>
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-xs sm:text-sm font-black text-slate-900">12,450</span>
+                              <span className="text-[8px] font-bold text-emerald-600">↑ 12%</span>
+                            </div>
+                          </div>
+                          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-50 border border-slate-200">
+                            <span className="text-[8px] sm:text-[9px] text-slate-500 block">WhatsApp Leads</span>
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-xs sm:text-sm font-black text-slate-900">892</span>
+                              <span className="text-[8px] font-bold text-emerald-600">↑ 18%</span>
+                            </div>
+                          </div>
+                          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-50 border border-slate-200">
+                            <span className="text-[8px] sm:text-[9px] text-slate-500 block">Orders</span>
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-xs sm:text-sm font-black text-slate-900">156</span>
+                              <span className="text-[8px] font-bold text-emerald-600">↑ 20%</span>
+                            </div>
+                          </div>
+                          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-50 border border-slate-200">
+                            <span className="text-[8px] sm:text-[9px] text-slate-500 block">Revenue</span>
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-xs sm:text-sm font-black text-slate-900">₹48,320</span>
+                              <span className="text-[8px] font-bold text-emerald-600">↑ 22%</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Your Tools Section */}
+                        <div className="space-y-1.5">
+                          <div className="flex items-center justify-between text-[10px]">
+                            <span className="font-bold text-slate-900">Your Tools</span>
+                            <span className="text-blue-600 font-semibold cursor-pointer">View All →</span>
+                          </div>
+
+                          <div className="grid grid-cols-4 gap-1.5">
+                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-blue-50 transition cursor-pointer">
+                              <div className="w-6 h-6 rounded-md bg-blue-100 text-blue-600 flex items-center justify-center mb-1">
+                                <Monitor className="w-3.5 h-3.5" />
+                              </div>
+                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">Website</span>
+                            </div>
+                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-emerald-50 transition cursor-pointer">
+                              <div className="w-6 h-6 rounded-md bg-emerald-100 text-emerald-600 flex items-center justify-center mb-1">
+                                <MessageCircle className="w-3.5 h-3.5" />
+                              </div>
+                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">WhatsApp Store</span>
+                            </div>
+                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-purple-50 transition cursor-pointer">
+                              <div className="w-6 h-6 rounded-md bg-purple-100 text-purple-600 flex items-center justify-center mb-1">
+                                <CreditCard className="w-3.5 h-3.5" />
+                              </div>
+                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">Digital VCard</span>
+                            </div>
+                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-pink-50 transition cursor-pointer">
+                              <div className="w-6 h-6 rounded-md bg-pink-100 text-pink-600 flex items-center justify-center mb-1">
+                                <ShoppingBag className="w-3.5 h-3.5" />
+                              </div>
+                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">E-commerce</span>
+                            </div>
+                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-cyan-50 transition cursor-pointer">
+                              <div className="w-6 h-6 rounded-md bg-cyan-100 text-cyan-600 flex items-center justify-center mb-1">
+                                <QrCode className="w-3.5 h-3.5" />
+                              </div>
+                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">QR Codes</span>
+                            </div>
+                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-orange-50 transition cursor-pointer">
+                              <div className="w-6 h-6 rounded-md bg-orange-100 text-orange-600 flex items-center justify-center mb-1">
+                                <Calendar className="w-3.5 h-3.5" />
+                              </div>
+                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800 leading-tight">Booking</span>
+                            </div>
+                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-amber-50 transition cursor-pointer">
+                              <div className="w-6 h-6 rounded-md bg-amber-100 text-amber-600 flex items-center justify-center mb-1">
+                                <FileText className="w-3.5 h-3.5" />
+                              </div>
+                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800 leading-tight">Catalog</span>
+                            </div>
+                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-violet-50 transition cursor-pointer">
+                              <div className="w-6 h-6 rounded-md bg-violet-100 text-violet-600 flex items-center justify-center mb-1">
+                                <TrendingUp className="w-3.5 h-3.5" />
+                              </div>
+                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">Analytics</span>
+                            </div>
+                          </div>
+                        </div>
+
                       </div>
-                      <p className="text-[11px] text-slate-500 leading-tight">
-                        Permanent dynamic QR codes, fast-loading SEO pages &amp; lead capture
-                      </p>
+
                     </div>
                   </div>
-
-                  {/* Point 6: Promote Your Business with One Smart Link */}
-                  <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50/90 hover:bg-emerald-50/40 border border-slate-200/80 hover:border-emerald-300 transition-all flex items-center gap-3 group">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-                      <Check className="w-4 h-4 stroke-[3]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
-                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                          Promote Your Business with One Smart Link
-                        </h4>
-                        <span className="text-[10px] font-semibold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-md shrink-0">
-                          One Smart Link
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-slate-500 leading-tight">
-                        <code className="text-indigo-600 bg-indigo-50 px-1 rounded font-semibold break-all">oneclickbiz.in/v/your-name</code> — share across Instagram bio, WhatsApp &amp; ads
-                      </p>
-                    </div>
-                  </div>
-
                 </div>
 
-                {/* Footer Navigation within Services Panel */}
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <a href="#demo" className="font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 transition-colors">
-                    <span>Try Interactive Demo Below</span>
-                    <ArrowRight className="w-3.5 h-3.5 animate-bounce" />
-                  </a>
-                  <a href="#services" className="text-slate-500 hover:text-slate-800 font-medium transition-colors">
-                    View Full Services Suite →
-                  </a>
+                {/* Laptop Base Hinge */}
+                <div className="h-3 sm:h-4 bg-gradient-to-r from-slate-300 via-slate-100 to-slate-300 rounded-b-xl shadow-xl border-t border-slate-400 w-[104%] -ml-[2%] relative flex items-center justify-center">
+                  <div className="w-14 h-1 bg-slate-400/80 rounded-b-md" />
+                </div>
+
+                {/* 2. Smartphone Mockup (Overlapping on bottom-left) */}
+                <div className="absolute -bottom-6 -left-3 sm:-bottom-8 sm:-left-4 md:-left-6 lg:-left-6 z-30 w-[170px] xs:w-[195px] sm:w-[220px] md:w-[245px] drop-shadow-2xl">
+                  <div className="rounded-[32px] border-[5px] border-slate-900 bg-white overflow-hidden shadow-2xl flex flex-col text-slate-800">
+                    
+                    {/* Dynamic Island Notch */}
+                    <div className="bg-slate-950 pt-1 pb-1">
+                      <div className="w-14 h-3 bg-slate-900 rounded-full mx-auto" />
+                    </div>
+
+                    {/* Smartphone Header Cover */}
+                    <div className="relative h-20 overflow-hidden bg-slate-900">
+                      <img 
+                        src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=400&q=80" 
+                        alt="The Brew House Cafe"
+                        className="w-full h-full object-cover opacity-80"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute -bottom-3 left-3 w-9 h-9 rounded-full bg-amber-900 border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-md">
+                        ☕
+                      </div>
+                    </div>
+
+                    {/* Smartphone Body Details */}
+                    <div className="p-3 pt-4 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h5 className="text-[11px] font-black text-slate-900 leading-tight">The Brew House</h5>
+                          <p className="text-[9px] text-slate-500">Coffee • Food • Good Vibes</p>
+                        </div>
+                        <div className="flex items-center gap-1 text-[10px] text-slate-400">
+                          <Share2 className="w-3 h-3" />
+                        </div>
+                      </div>
+
+                      {/* 4 Action Circle Buttons */}
+                      <div className="grid grid-cols-4 gap-1 text-center py-1 border-y border-slate-100">
+                        <div className="flex flex-col items-center">
+                          <div className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-[10px]">
+                            <Phone className="w-3 h-3" />
+                          </div>
+                          <span className="text-[8px] font-bold text-slate-600 mt-0.5">Call</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]">
+                            <MessageCircle className="w-3 h-3" />
+                          </div>
+                          <span className="text-[8px] font-bold text-slate-600 mt-0.5">WhatsApp</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-6 h-6 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-[10px]">
+                            <MapPin className="w-3 h-3" />
+                          </div>
+                          <span className="text-[8px] font-bold text-slate-600 mt-0.5">Map</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-6 h-6 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center text-[10px]">
+                            <Share2 className="w-3 h-3" />
+                          </div>
+                          <span className="text-[8px] font-bold text-slate-600 mt-0.5">Share</span>
+                        </div>
+                      </div>
+
+                      {/* Store Tabs */}
+                      <div className="flex items-center gap-2 text-[9px] font-bold border-b border-slate-100 pb-1">
+                        <span className="text-blue-600 border-b-2 border-blue-600 pb-0.5">Menu</span>
+                        <span className="text-slate-400">Gallery</span>
+                        <span className="text-slate-400">About</span>
+                      </div>
+
+                      {/* 2 Food Items */}
+                      <div className="space-y-1.5">
+                        <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
+                          <div className="flex items-center gap-1.5">
+                            <img 
+                              src="https://images.unsplash.com/photo-1572442388796-11668ba67e53?auto=format&fit=crop&w=120&q=80" 
+                              alt="Cappuccino"
+                              className="w-7 h-7 rounded-md object-cover" 
+                            />
+                            <div>
+                              <div className="text-[9px] font-bold text-slate-900 leading-tight">Cappuccino</div>
+                              <div className="text-[8px] font-semibold text-emerald-700">₹120</div>
+                            </div>
+                          </div>
+                          <button className="px-1.5 py-0.5 rounded bg-emerald-600 text-white text-[8px] font-bold">
+                            + Add
+                          </button>
+                        </div>
+
+                        <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
+                          <div className="flex items-center gap-1.5">
+                            <img 
+                              src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=120&q=80" 
+                              alt="Iced Latte"
+                              className="w-7 h-7 rounded-md object-cover" 
+                            />
+                            <div>
+                              <div className="text-[9px] font-bold text-slate-900 leading-tight">Iced Latte</div>
+                              <div className="text-[8px] font-semibold text-emerald-700">₹150</div>
+                            </div>
+                          </div>
+                          <button className="px-1.5 py-0.5 rounded bg-emerald-600 text-white text-[8px] font-bold">
+                            + Add
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Sticky Order on WhatsApp Button */}
+                      <button className="w-full py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-[10px] font-bold flex items-center justify-center gap-1 shadow-md shadow-emerald-500/25 transition">
+                        <MessageCircle className="w-3 h-3" />
+                        <span>Order on WhatsApp</span>
+                      </button>
+
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Floating Feature Cards (Stacked on Right side) */}
+                <div className="absolute -top-4 -right-2 sm:-right-4 md:-right-6 lg:-right-6 z-20 w-[180px] sm:w-[205px] hidden md:flex flex-col gap-2">
+                  
+                  {/* Handwritten Callout Note */}
+                  <div className="text-right pr-2">
+                    <span className="font-serif italic text-xs font-bold text-blue-600 tracking-tight inline-flex items-center gap-1">
+                      <span>Your Business Online Made Easy!</span>
+                      <span className="text-sm">⤵</span>
+                    </span>
+                  </div>
+
+                  {/* Card 1: Digital Visiting Card */}
+                  <div className="p-2 sm:p-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1 group">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-5 h-5 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center text-[10px]">
+                          <CreditCard className="w-3 h-3" />
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-900">Digital Visiting Card</span>
+                      </div>
+                      <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-purple-600 transition-colors" />
+                    </div>
+                    <div className="flex items-center gap-2 pt-1 border-t border-slate-100 text-[8px] text-slate-500">
+                      <div className="w-6 h-6 bg-slate-900 text-white rounded p-0.5 flex items-center justify-center font-mono font-bold text-[6px]">
+                        QR
+                      </div>
+                      <div className="truncate">
+                        <span className="font-bold text-slate-800 block">Your Name</span>
+                        <span className="text-[7px] text-purple-700">oneclickbiz.in/yourname</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card 2: WhatsApp Store */}
+                  <div className="p-2 sm:p-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1 group">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-5 h-5 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px]">
+                          <MessageCircle className="w-3 h-3" />
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-900">WhatsApp Store</span>
+                      </div>
+                      <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-emerald-600 transition-colors" />
+                    </div>
+                    <div className="text-[8px] text-slate-500">Sell products via WhatsApp</div>
+                    <div className="flex items-center gap-1.5 pt-0.5">
+                      <img 
+                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=80&q=80" 
+                        alt="Shoes" 
+                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                      />
+                      <img 
+                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=80&q=80" 
+                        alt="Watch" 
+                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                      />
+                      <img 
+                        src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=80&q=80" 
+                        alt="Bag" 
+                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                      />
+                    </div>
+                  </div>
+
+                  {/* Card 3: E-commerce */}
+                  <div className="p-2 sm:p-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1 group">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-5 h-5 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center text-[10px]">
+                          <ShoppingBag className="w-3 h-3" />
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-900">E-commerce</span>
+                      </div>
+                      <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-pink-600 transition-colors" />
+                    </div>
+                    <div className="text-[8px] text-slate-500">Full online store with payments</div>
+                    <div className="flex items-center gap-1.5 pt-0.5">
+                      <img 
+                        src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=80&q=80" 
+                        alt="Shirt" 
+                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                      />
+                      <img 
+                        src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=80&q=80" 
+                        alt="Sneakers" 
+                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                      />
+                      <img 
+                        src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=80&q=80" 
+                        alt="Headphones" 
+                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                      />
+                    </div>
+                  </div>
+
+                  {/* Card 4: QR Codes */}
+                  <div className="p-2 sm:p-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1 group">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-5 h-5 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-[10px]">
+                          <QrCode className="w-3 h-3" />
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-900">QR Codes</span>
+                      </div>
+                      <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-blue-600 transition-colors" />
+                    </div>
+                    <div className="text-[8px] text-slate-500">Scan &amp; connect instantly</div>
+                    <div className="grid grid-cols-2 gap-1 text-[7px] text-slate-600 font-semibold pt-0.5">
+                      <span className="flex items-center gap-0.5"><Check className="w-2.5 h-2.5 text-blue-600" /> Website</span>
+                      <span className="flex items-center gap-0.5"><Check className="w-2.5 h-2.5 text-emerald-600" /> WhatsApp</span>
+                      <span className="flex items-center gap-0.5"><Check className="w-2.5 h-2.5 text-purple-600" /> Products</span>
+                      <span className="flex items-center gap-0.5"><Check className="w-2.5 h-2.5 text-pink-600" /> Social</span>
+                    </div>
+                  </div>
+
                 </div>
 
               </div>
             </div>
 
           </div>
+
+          {/* 10 Industry Circles Row (Directly below hero visual showcase) */}
+          <div className="mt-14 sm:mt-18 pt-8 border-t border-slate-200/80">
+            <div className="flex items-center justify-between gap-3 overflow-x-auto pb-3 pt-1 scrollbar-none scroll-smooth">
+              
+              {/* 1. Real Estate */}
+              <a href="#features" className="flex flex-col items-center gap-2 group min-w-[70px] sm:min-w-[85px] cursor-pointer">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-100 text-blue-600 border border-blue-200 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:shadow-md group-hover:bg-blue-600 group-hover:text-white transition-all">
+                  <Home className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 group-hover:text-blue-600 text-center transition-colors">
+                  Real Estate
+                </span>
+              </a>
+
+              {/* 2. Interiors */}
+              <a href="#features" className="flex flex-col items-center gap-2 group min-w-[70px] sm:min-w-[85px] cursor-pointer">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-purple-100 text-purple-600 border border-purple-200 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:shadow-md group-hover:bg-purple-600 group-hover:text-white transition-all">
+                  <Armchair className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 group-hover:text-purple-600 text-center transition-colors">
+                  Interiors
+                </span>
+              </a>
+
+              {/* 3. Food & Restaurant */}
+              <a href="#features" className="flex flex-col items-center gap-2 group min-w-[70px] sm:min-w-[85px] cursor-pointer">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-orange-100 text-orange-600 border border-orange-200 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:shadow-md group-hover:bg-orange-600 group-hover:text-white transition-all">
+                  <Utensils className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 group-hover:text-orange-600 text-center transition-colors">
+                  Food &amp; Restaurant
+                </span>
+              </a>
+
+              {/* 4. Fashion & Clothing */}
+              <a href="#features" className="flex flex-col items-center gap-2 group min-w-[70px] sm:min-w-[85px] cursor-pointer">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-pink-100 text-pink-600 border border-pink-200 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:shadow-md group-hover:bg-pink-600 group-hover:text-white transition-all">
+                  <Shirt className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 group-hover:text-pink-600 text-center transition-colors">
+                  Fashion &amp; Clothing
+                </span>
+              </a>
+
+              {/* 5. Beauty & Wellness */}
+              <a href="#features" className="flex flex-col items-center gap-2 group min-w-[70px] sm:min-w-[85px] cursor-pointer">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-teal-100 text-teal-600 border border-teal-200 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:shadow-md group-hover:bg-teal-600 group-hover:text-white transition-all">
+                  <Flower2 className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 group-hover:text-teal-600 text-center transition-colors">
+                  Beauty &amp; Wellness
+                </span>
+              </a>
+
+              {/* 6. Insurance & Banking */}
+              <a href="#features" className="flex flex-col items-center gap-2 group min-w-[70px] sm:min-w-[85px] cursor-pointer">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-indigo-100 text-indigo-700 border border-indigo-200 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:shadow-md group-hover:bg-indigo-700 group-hover:text-white transition-all">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 group-hover:text-indigo-700 text-center transition-colors">
+                  Insurance &amp; Banking
+                </span>
+              </a>
+
+              {/* 7. Automotive */}
+              <a href="#features" className="flex flex-col items-center gap-2 group min-w-[70px] sm:min-w-[85px] cursor-pointer">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-sky-100 text-sky-600 border border-sky-200 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:shadow-md group-hover:bg-sky-600 group-hover:text-white transition-all">
+                  <Car className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 group-hover:text-sky-600 text-center transition-colors">
+                  Automotive
+                </span>
+              </a>
+
+              {/* 8. Healthcare */}
+              <a href="#features" className="flex flex-col items-center gap-2 group min-w-[70px] sm:min-w-[85px] cursor-pointer">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-rose-100 text-rose-600 border border-rose-200 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:shadow-md group-hover:bg-rose-600 group-hover:text-white transition-all">
+                  <HeartPulse className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 group-hover:text-rose-600 text-center transition-colors">
+                  Healthcare
+                </span>
+              </a>
+
+              {/* 9. Fitness & Gyms */}
+              <a href="#features" className="flex flex-col items-center gap-2 group min-w-[70px] sm:min-w-[85px] cursor-pointer">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-cyan-100 text-cyan-700 border border-cyan-200 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:shadow-md group-hover:bg-cyan-700 group-hover:text-white transition-all">
+                  <Dumbbell className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 group-hover:text-cyan-700 text-center transition-colors">
+                  Fitness &amp; Gyms
+                </span>
+              </a>
+
+              {/* 10. And Many More */}
+              <a href="#features" className="flex flex-col items-center gap-2 group min-w-[70px] sm:min-w-[85px] cursor-pointer">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-violet-100 text-violet-700 border border-violet-200 flex items-center justify-center shadow-xs group-hover:scale-110 group-hover:shadow-md group-hover:bg-violet-700 group-hover:text-white transition-all">
+                  <Grid className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 group-hover:text-violet-700 text-center transition-colors">
+                  And Many More
+                </span>
+              </a>
+
+            </div>
+          </div>
+
+          {/* Trust Metrics Bottom Bar */}
+          <div className="mt-8 p-4 sm:p-5 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-md grid grid-cols-2 md:grid-cols-4 gap-4 items-center relative">
+            
+            {/* Metric 1 */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center shrink-0">
+                <BadgeCheck className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-base sm:text-lg font-black text-slate-900 leading-tight">10,000+</div>
+                <div className="text-[10px] sm:text-xs text-slate-500 font-medium">Businesses Trust Us</div>
+              </div>
+            </div>
+
+            {/* Metric 2 */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center shrink-0">
+                <Star className="w-5 h-5 fill-purple-600" />
+              </div>
+              <div>
+                <div className="text-base sm:text-lg font-black text-slate-900 leading-tight">93+</div>
+                <div className="text-[10px] sm:text-xs text-slate-500 font-medium">Ready-to-Use Templates</div>
+              </div>
+            </div>
+
+            {/* Metric 3 */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center shrink-0">
+                <Zap className="w-5 h-5 fill-amber-500 text-amber-500" />
+              </div>
+              <div>
+                <div className="text-base sm:text-lg font-black text-slate-900 leading-tight">5 Min</div>
+                <div className="text-[10px] sm:text-xs text-slate-500 font-medium">To Get Online</div>
+              </div>
+            </div>
+
+            {/* Metric 4 with Handwritten Note */}
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0">
+                  <Users className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-base sm:text-lg font-black text-slate-900 leading-tight">24/7</div>
+                  <div className="text-[10px] sm:text-xs text-slate-500 font-medium">Support &amp; Updates</div>
+                </div>
+              </div>
+
+              {/* Handwritten Note Callout */}
+              <div className="hidden xl:block text-right pr-2">
+                <span className="font-serif italic text-xs font-bold text-blue-600 tracking-tight leading-tight block">
+                  All Your <br /> Business Tools <br /> in One Place! ⤴
+                </span>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
