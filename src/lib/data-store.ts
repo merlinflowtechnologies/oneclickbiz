@@ -502,6 +502,36 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     };
   }
 
+  // 3.10 Check if slug is travel / tours / holidays related (Wanderlust International Travels)
+  const isTravelPattern = 
+    cleanSlug === 'travel' ||
+    cleanSlug === 'travels' ||
+    cleanSlug === 'tours-travels' ||
+    cleanSlug === 'travel-tour' ||
+    cleanSlug === 'trav-agency' ||
+    cleanSlug === 'tour' ||
+    cleanSlug === 'tours' ||
+    cleanSlug === 'holiday' ||
+    cleanSlug === 'holidays' ||
+    cleanSlug === 'luxury-resort' ||
+    cleanSlug === 'cab-services' ||
+    cleanSlug === 'homestay' ||
+    cleanSlug.startsWith('travel-') ||
+    cleanSlug.startsWith('trav-') ||
+    cleanSlug.startsWith('tour-');
+
+  if (isTravelPattern) {
+    const tProf = getTemplateProfile('travel-tour');
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      category: 'Travel & Hospitality',
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
   // 4. Check if slug matches any catalog template (by id or normalized name)
   const matchedTemplate = VCARD_TEMPLATES_CATALOG.find(
     t => t.id.toLowerCase() === cleanSlug || 
@@ -532,6 +562,7 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     const templateId = matchedTemplate?.id || 
       (cleanSlug === 'interior' || cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'home-interior' : 
        cleanSlug.startsWith('food-') ? 'food-restaurant' :
+       cleanSlug.startsWith('travel-') || cleanSlug.startsWith('trav-') || cleanSlug.startsWith('tour-') ? 'travel-tour' :
        cleanSlug.startsWith('vcard') ? cleanSlug : 're-builders');
     const tProf = getTemplateProfile(templateId);
     return {

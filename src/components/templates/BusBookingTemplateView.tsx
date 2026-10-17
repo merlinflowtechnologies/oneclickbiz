@@ -1024,6 +1024,78 @@ export default function BusBookingTemplateView({
 
           </div>
 
+          {/* =========================================================================
+              INSTANT BUS BOOKING SUPPORT BAR WITH AUTHENTIC ORIGINAL BRAND LOGOS
+             ========================================================================= */}
+          <div className="pt-2">
+            <div className="bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-white/60 shadow-xl flex flex-wrap items-center justify-between gap-3 text-left text-slate-800">
+              <div className="flex items-center gap-2">
+                <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping" />
+                <span className="text-xs font-black text-slate-900 uppercase tracking-wider">
+                  Instant Booking Support:
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+                {/* Official WhatsApp Logo */}
+                <a
+                  href="https://wa.me/916304989071?text=Hi,%20I%20need%20assistance%20with%20online%20bus%20ticket%20booking%20and%20live%20GPS%20tracking."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-black flex items-center gap-2 shadow-xs transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <WhatsAppOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>WhatsApp M-Ticket</span>
+                </a>
+
+                {/* Official Phone Call Logo */}
+                <a
+                  href="tel:+916304989071"
+                  className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-black flex items-center gap-2 shadow-xs transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <PhoneCallOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>24x7 Helpline: +91 63049 89071</span>
+                </a>
+
+                {/* Official YouTube Red Logo */}
+                <a
+                  href="#travel-media-space"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById('travel-media-space');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-3 py-2 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-800 text-xs font-black flex items-center gap-2 border border-slate-200 hover:border-red-300 transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <YouTubeOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>YouTube Cabin Tours</span>
+                </a>
+
+                {/* Official Instagram Gradient Logo */}
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl bg-slate-50 hover:bg-pink-50 text-slate-800 text-xs font-black flex items-center gap-2 border border-slate-200 hover:border-pink-300 transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <InstagramOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>@swiftvoyage_express</span>
+                </a>
+
+                {/* Official Google Maps Logo */}
+                <a
+                  href="https://maps.google.com/?q=MGBS+Bus+Station+Hyderabad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 text-xs font-black flex items-center gap-2 border border-slate-200 transition transform hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <GoogleMapsOriginalLogo className="w-4 h-4 shrink-0" />
+                  <span>MGBS &amp; Majestic Terminals</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -2847,6 +2919,74 @@ function SteeringWheelIcon(props: React.SVGProps<SVGSVGElement>) {
       <path d="M12 2v8" />
       <path d="m4.93 16.07 6.14-3.07" />
       <path d="m19.07 16.07-6.14-3.07" />
+    </svg>
+  );
+}
+
+
+// ==========================================
+// AUTHENTIC ORIGINAL BRAND SVG LOGOS
+// ==========================================
+function WhatsAppOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <circle cx="12" cy="12" r="12" fill="#25D366" />
+      <path
+        d="M17.5 14.3c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.5.1-.2.2-.6.7-.7.9-.1.1-.3.2-.5.1-.2-.1-.9-.3-1.7-1-.6-.6-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4.1-.1.2-.2.3-.4.1-.1.1-.2.2-.3 0-.1 0-.2 0-.3s-.5-1.2-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.3c.1.2 1.6 2.4 3.9 3.4.5.2 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1z"
+        fill="white"
+      />
+    </svg>
+  );
+}
+
+function InstagramOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <defs>
+        <radialGradient id="ig-grad-hero-bus" cx="30%" cy="107%" r="150%">
+          <stop offset="0%" stopColor="#fdf497" />
+          <stop offset="5%" stopColor="#fdf497" />
+          <stop offset="45%" stopColor="#fd5949" />
+          <stop offset="60%" stopColor="#d6249f" />
+          <stop offset="90%" stopColor="#285AEB" />
+        </radialGradient>
+      </defs>
+      <rect width="24" height="24" rx="6.5" fill="url(#ig-grad-hero-bus)" />
+      <path
+        d="M12 6.5A5.5 5.5 0 1 0 12 17.5 5.5 5.5 0 0 0 12 6.5zm0 9A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7zm5.2-9.2a1.3 1.3 0 1 1-2.6 0 1.3 1.3 0 0 1 2.6 0z"
+        fill="white"
+      />
+    </svg>
+  );
+}
+
+function YouTubeOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <rect width="24" height="24" rx="6" fill="#FF0000" />
+      <path d="M9.5 8l6 4-6 4V8z" fill="white" />
+    </svg>
+  );
+}
+
+function GoogleMapsOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335" />
+      <circle cx="12" cy="9" r="3.2" fill="#FFFFFF" />
+      <circle cx="12" cy="9" r="1.8" fill="#4285F4" />
+    </svg>
+  );
+}
+
+function PhoneCallOriginalLogo(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <circle cx="12" cy="12" r="12" fill="#0F172A" />
+      <path
+        d="M7.5 9.5c.9 1.8 2.2 3.1 4 4l1.3-1.3c.2-.2.5-.2.7-.1.8.3 1.6.4 2.5.4.4 0 .7.3.7.7v2.3c0 .4-.3.7-.7.7C10.5 20.2 3.8 13.5 3.8 5.2c0-.4.3-.7.7-.7H6.8c.4 0 .7.3.7.7 0 .9.1 1.7.4 2.5.1.2.1.5-.1.7L7.5 9.5z"
+        fill="#10B981"
+      />
     </svg>
   );
 }

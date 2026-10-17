@@ -733,8 +733,23 @@ export default function ProfileCardView({
   // 4. Travel & Hospitality (Must precede Restaurant because "Banquet Suites & Dining" has "dining")
   const isTravel = !isKishore && !isInsuranceTemplate && !isInterior && !isEvents && Boolean(
     category === 'Travel & Hospitality' ||
+    slug === 'travel' ||
+    slug === 'travels' ||
+    slug === 'tours-travels' ||
+    slug === 'travel-tour' ||
+    slug === 'trav-agency' ||
+    slug === 'tour' ||
+    slug === 'tours' ||
+    slug === 'holiday' ||
+    slug === 'holidays' ||
+    slug === 'luxury-resort' ||
+    slug === 'cab-services' ||
+    slug === 'homestay' ||
     slug.startsWith('travel-') ||
+    slug.startsWith('trav-') ||
+    slug.startsWith('tour-') ||
     templateId.startsWith('travel-') ||
+    templateId.startsWith('trav-') ||
     Boolean(profile.sectionData?.travel)
   );
 
@@ -825,6 +840,10 @@ export default function ProfileCardView({
   const isBusBooking = Boolean(
     category === 'Bus Booking & Transport' ||
     slug === 'abhibus' ||
+    slug === 'bus' ||
+    slug === 'buses' ||
+    slug === 'bus-booking' ||
+    slug === 'bus-ticket' ||
     slug.startsWith('bus-') ||
     templateId === 'bus-booking'
   );

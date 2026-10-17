@@ -1654,6 +1654,103 @@ TEMPLATE_PRESETS_DATA['event-planner'] = TEMPLATE_PRESETS_DATA['events-planner']
 TEMPLATE_PRESETS_DATA['event-photography'] = TEMPLATE_PRESETS_DATA['events-planner'];
 TEMPLATE_PRESETS_DATA['photography'] = TEMPLATE_PRESETS_DATA['events-planner'];
 
+TEMPLATE_PRESETS_DATA['travel-tour'] = {
+  name: 'Pankaj Malhotra',
+  designation: 'Managing Partner & Luxury Tour Specialist',
+  company: 'Wanderlust International Travels',
+  bio: 'Crafting unforgettable global vacations, romantic honeymoon escapes, and group holidays with handcrafted itineraries, verified 4-star & 5-star resorts, and 24/7 ground support.',
+  theme: 'sunset-gold',
+  avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
+  coverUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+  email: 'concierge@wanderlust-international.com',
+  phone: '+91 98765 44036',
+  whatsapp: '919876544036',
+  website: 'https://www.oneclickbiz.in/v/travel-tour',
+  address: 'Aerocity Worldmark 2, New Delhi & Road No 36, Jubilee Hills, Hyderabad, India',
+  services: [
+    { id: 's_trv_1', title: 'Bespoke International Vacation Curation', description: '7-14 day private itinerary with 5-star villas, VIP train passes, chauffeur and local expert guides.', durationMinutes: 60, price: 25000, currency: '₹' },
+    { id: 's_trv_2', title: 'Fast-Track Global Visa Concierge', description: 'Complete documentation and interview preparation for US, UK, Schengen, Dubai & Singapore visas.', durationMinutes: 45, price: 6500, currency: '₹' },
+    { id: 's_trv_3', title: 'Private Island & Yacht Charter', description: 'Exclusive yacht booking in Maldives, Dubai Marina, and the Greek Isles with onboard chef.', durationMinutes: 60, price: 50000, currency: '₹' },
+    { id: 's_trv_4', title: 'Corporate Offsites, MICE & Group Flights', description: 'Complete corporate retreat management, conference banquets, and group chartered airfare.', durationMinutes: 90, price: 75000, currency: '₹' }
+  ],
+  products: [
+    { id: 'p_trv_1', name: 'Dubai Luxury Extravaganza (5N/6D)', description: '5-star Marina stay, private desert safari, Burj Khalifa At The Top VIP access, and luxury yacht dinner cruise.', price: 48999, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80', category: 'International Packages', isAvailable: true },
+    { id: 'p_trv_2', name: 'Bali Tropical Honeymoon Villa (6N/7D)', description: 'Private pool villa in Seminyak & Ubud, floating breakfast, Nusa Penida island speedboat tour, and spa retreat.', price: 54500, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80', category: 'Honeymoon Specials', isAvailable: true },
+    { id: 'p_trv_3', name: 'Swiss Alps & Paris Highlights (7N/8D)', description: 'Scenic Swiss Glacier Express train pass, Mount Titlis cable car, Lucerne lake cruise, and Eiffel Tower summit.', price: 145000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=800&q=80', category: 'Europe Tours', isAvailable: true },
+    { id: 'p_trv_4', name: 'Kashmir Paradise in Snow (5N/6D)', description: 'Dal Lake luxury wooden houseboat stay, Gulmarg Gondola Phase 2 snow cable car, and Pahalgam valley drive.', price: 28999, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=800&q=80', category: 'Domestic Escapes', isAvailable: true }
+  ],
+  gallery: [
+    { id: 'g_trv_1', imageUrl: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80', title: 'Bali Private Pool Villa Sanctuary' },
+    { id: 'g_trv_2', imageUrl: 'https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=800&q=80', title: 'Kashmir Winter Snow Valley' },
+    { id: 'g_trv_3', imageUrl: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80', title: 'Dubai Marina & Desert Dune Safari' },
+    { id: 'g_trv_4', imageUrl: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80', title: 'Kerala Backwaters Houseboat Cruise' }
+  ],
+  testimonials: [
+    { id: 't_trv_1', clientName: 'Karthik & Sneha Reddy', clientRole: 'Bali Honeymoon Travelers', content: 'From the private pool villa to our candlelit beach dinner in Jimbaran, our Bali trip was seamless. Their 24/7 WhatsApp concierge was always one text away!', rating: 5 },
+    { id: 't_trv_2', clientName: 'Sunil Verma', clientRole: 'Family Vacation in Kashmir', content: 'Best travel agency experience! The houseboat in Dal Lake was breathtaking and the driver in Gulmarg was extremely helpful. Highly recommend their personalized itineraries.', rating: 5 }
+  ],
+  socials: [
+    { id: 'soc_trv_wa', platform: 'whatsapp', url: 'https://wa.me/919876544036?text=Hi,%20I%20am%20interested%20in%20planning%20a%20holiday%20package.', label: 'WhatsApp Concierge' },
+    { id: 'soc_trv_ig', platform: 'instagram', url: 'https://instagram.com/wanderlust_holidays', label: 'Instagram' },
+    { id: 'soc_trv_yt', platform: 'youtube', url: 'https://youtube.com', label: 'YouTube 4K Travel' },
+    { id: 'soc_trv_map', platform: 'maps', url: 'https://maps.google.com/?q=Aerocity+Worldmark+New+Delhi', label: 'Office Location' }
+  ]
+};
+
+TEMPLATE_PRESETS_DATA['travel'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['travels'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['tours-travels'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['tour'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['tours'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['holiday'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['holidays'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['trav-agency'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['trav-resort'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['luxury-resort'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['trav-cab'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['cab-services'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['trav-homestay'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['homestay'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+
+TEMPLATE_PRESETS_DATA['bus-booking'] = {
+  name: 'SwiftVoyage Express',
+  designation: 'Intercity Bus Tickets & Luxury AC Sleepers',
+  company: 'SwiftVoyage Express Transport Pvt Ltd',
+  bio: 'Book verified Volvo Multi-Axle, Scania and Electric Intercity bus tickets across India with live GPS tracking and zero cancellation charges.',
+  theme: 'emerald-pro',
+  avatarUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80',
+  coverUrl: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1200&q=80',
+  email: 'bookings@swiftvoyage.in',
+  phone: '+91 63049 89071',
+  whatsapp: '916304989071',
+  website: 'https://oneclickbiz.in/v/bus-booking',
+  address: 'Central Intercity Bus Terminal, Hyderabad & Bangalore, India',
+  services: [
+    { id: 's_bus_1', title: 'Volvo 9600 Multi-Axle AC Sleeper Ticket', description: 'Spacious 2+1 individual berths with personal charging ports, blanket, water bottle and GPS tracking.', durationMinutes: 480, price: 1250, currency: '₹' },
+    { id: 's_bus_2', title: 'Scania Metrolink Semi-Sleeper AC Seat', description: 'Push-back ergonomic calf support seats with onboard WiFi and entertainment.', durationMinutes: 360, price: 850, currency: '₹' },
+    { id: 's_bus_3', title: 'Electric Intercity Express Green Bus', description: 'Zero-emission quiet luxury coach with USB-C high-speed chargers and climate control.', durationMinutes: 300, price: 799, currency: '₹' }
+  ],
+  products: [
+    { id: 'p_bus_1', name: 'Hyderabad to Bangalore Luxury AC Sleeper', description: 'Overnight non-stop Volvo Multi-Axle with live GPS tracking and sanitized berth.', price: 1199, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80', category: 'Popular Routes', isAvailable: true },
+    { id: 'p_bus_2', name: 'Hyderabad to Vijayawada Express Seater', description: 'Daily every 30 mins departure from MGBS & Ameerpet with fast highway transit.', price: 499, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=600&q=80', category: 'Day Schedules', isAvailable: true }
+  ],
+  testimonials: [
+    { id: 't_bus_1', clientName: 'Rajesh K.', clientRole: 'Frequent Business Commuter', content: 'Booking on SwiftVoyage was instant. The Volvo sleeper was clean, departed exactly on time, and live GPS made boarding effortless!', rating: 5 },
+    { id: 't_bus_2', clientName: 'Priya Sundaram', clientRole: 'Solo Traveler', content: 'Loved the designated women single berth and clean blankets. The M-Ticket on WhatsApp worked perfectly with the conductor.', rating: 5 }
+  ],
+  socials: [
+    { id: 'soc_bus_wa', platform: 'whatsapp', url: 'https://wa.me/916304989071?text=Hi,%20I%20need%20help%20with%20bus%20booking', label: 'WhatsApp Support' },
+    { id: 'soc_bus_yt', platform: 'youtube', url: 'https://youtube.com', label: 'YouTube Fleet Tours' },
+    { id: 'soc_bus_ig', platform: 'instagram', url: 'https://instagram.com', label: 'Instagram' }
+  ]
+};
+
+TEMPLATE_PRESETS_DATA['abhibus'] = TEMPLATE_PRESETS_DATA['bus-booking'];
+TEMPLATE_PRESETS_DATA['bus'] = TEMPLATE_PRESETS_DATA['bus-booking'];
+TEMPLATE_PRESETS_DATA['buses'] = TEMPLATE_PRESETS_DATA['bus-booking'];
+TEMPLATE_PRESETS_DATA['bus-ticket'] = TEMPLATE_PRESETS_DATA['bus-booking'];
+
+
 
 
 /**

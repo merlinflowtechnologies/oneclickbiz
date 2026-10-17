@@ -520,6 +520,23 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
       "Virtual room walkthrough",
       "Airport pickup booking"
     ]
+  },
+  {
+    "id": "bus-booking",
+    "templateNumber": 1204,
+    "name": "SwiftVoyage Bus Booking & Luxury AC Sleepers",
+    "category": "Travel & Hospitality",
+    "subCategory": "Bus Booking & Transport",
+    "actionSubtitle": "Bus Tickets & Sleepers",
+    "imgUrl": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Lowest Fare",
+    "tagline": "Intercity bus tickets, Volvo Multi-Axle sleeper seats & GPS tracking",
+    "features": [
+      "Live seat selection layout",
+      "Instant paperless WhatsApp M-Ticket",
+      "YouTube cabin tours & Instagram reels",
+      "Live bus GPS tracking & zero cancellation"
+    ]
   }
 ];
 
@@ -830,6 +847,7 @@ export const CATEGORY_QUICK_PRESETS: Record<VCardCategory, QuickPresetItem[]> = 
   ],
   'Travel & Hospitality': [
     { id: 'trav-agency', title: 'Tours & Holiday Travel Agency', icon: '✈️', slug: 'tours-travels', name: 'Pankaj Malhotra', company: 'Wanderlust International Travels', desig: 'Managing Partner' },
+    { id: 'bus-booking', title: 'SwiftVoyage Intercity Bus Booking', icon: '🚌', slug: 'bus-booking', name: 'SwiftVoyage Express', company: 'SwiftVoyage Express Transport Pvt Ltd', desig: 'Operations Lead' },
     { id: 'trav-resort', title: 'Luxury Resort & Pool Villas', icon: '🏝️', slug: 'luxury-resort', name: 'Kavita Menon', company: 'Palm Breeze Luxury Resort & Spa', desig: 'General Manager' },
     { id: 'trav-cab', title: '24/7 Airport & Outstation Cabs', icon: '🚕', slug: 'cab-services', name: 'Satish Goud', company: 'CityExpress Airport Cabs & Rentals', desig: 'Fleet Director' },
     { id: 'trav-homestay', title: 'Heritage Plantation Homestay', icon: '🏡', slug: 'homestay', name: 'Bipin Thomas', company: 'Misty Pines Heritage Homestay', desig: 'Host & Property Owner' },
