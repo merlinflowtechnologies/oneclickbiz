@@ -507,10 +507,10 @@ export default function LandingPage() {
         <div className="absolute top-1/4 right-5 w-[600px] h-[400px] bg-gradient-to-br from-purple-300/30 via-pink-200/25 to-sky-200/30 blur-[130px] -z-10 pointer-events-none" />
         <div className="absolute -bottom-10 left-1/3 w-[500px] h-[300px] bg-gradient-to-r from-amber-200/30 to-rose-200/25 blur-[110px] -z-10 pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           
           {/* Main Top Grid: Headline/Copy on Left + 3D Device Showcase on Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-14 items-center">
             
             {/* Left Hero Content */}
             <div className="lg:col-span-5 xl:col-span-5 space-y-5 sm:space-y-6 text-center lg:text-left">
@@ -620,42 +620,42 @@ export default function LandingPage() {
 
             </div>
 
-            {/* Right Hero Visual: MacBook Dashboard + Overlapping Phone Storefront + Floating Feature Cards */}
-            <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center pt-6 lg:pt-0">
-              <div className="relative w-full max-w-[580px] xl:max-w-[650px] mx-auto select-none">
+            {/* Right Hero Visual: Prominent Wide MacBook Dashboard + Left Phone Storefront + Floating Feature Cards */}
+            <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center pt-8 lg:pt-0">
+              <div className="relative w-full max-w-[700px] lg:max-w-[760px] xl:max-w-[850px] mx-auto select-none">
                 
                 {/* 1. MacBook Display Frame */}
-                <div className="relative w-full rounded-t-2xl bg-slate-900 p-2 sm:p-2.5 shadow-2xl border-t border-x border-slate-700">
+                <div className="relative w-full rounded-t-2xl bg-slate-900 p-2.5 sm:p-3.5 shadow-2xl border-t border-x border-slate-700">
                   {/* Laptop Web Camera Notch */}
-                  <div className="w-2 h-2 rounded-full bg-slate-800 mx-auto mb-1.5 ring-1 ring-slate-700/50" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-slate-800 mx-auto mb-2 ring-1 ring-slate-700/50" />
                   
                   {/* Inside Screen Container */}
-                  <div className="rounded-lg overflow-hidden bg-slate-50 border border-slate-200 flex flex-col text-slate-800 shadow-inner">
+                  <div className="rounded-xl overflow-hidden bg-slate-50 border border-slate-200 flex flex-col text-slate-800 shadow-inner">
                     
                     {/* Top App Bar */}
-                    <div className="bg-white border-b border-slate-200 px-3 py-1.5 flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-5 h-5 rounded-md bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-[10px] font-black">
+                    <div className="bg-white border-b border-slate-200 px-3.5 sm:px-4 py-2 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-black shadow-xs">
                           1
                         </div>
-                        <span className="text-xs font-black tracking-tight text-slate-900">
+                        <span className="text-xs sm:text-sm font-black tracking-tight text-slate-900">
                           OneClickBiz
                         </span>
                       </div>
 
                       {/* Mock Search Input */}
-                      <div className="hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10px] text-slate-400 w-36 md:w-48">
-                        <Search className="w-3 h-3 text-slate-400" />
+                      <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-400 w-44 md:w-56">
+                        <Search className="w-3.5 h-3.5 text-slate-400" />
                         <span>Search anything...</span>
                       </div>
 
                       {/* Header Icons & User Avatar */}
-                      <div className="flex items-center gap-2">
-                        <div className="relative">
-                          <Bell className="w-3.5 h-3.5 text-slate-500" />
-                          <span className="w-1.5 h-1.5 rounded-full bg-red-500 absolute -top-0.5 -right-0.5" />
+                      <div className="flex items-center gap-2.5">
+                        <div className="relative cursor-pointer">
+                          <Bell className="w-4 h-4 text-slate-500" />
+                          <span className="w-2 h-2 rounded-full bg-red-500 absolute -top-0.5 -right-0.5 ring-2 ring-white" />
                         </div>
-                        <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold">
+                        <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shadow-xs">
                           A
                         </div>
                       </div>
@@ -665,139 +665,139 @@ export default function LandingPage() {
                     <div className="flex">
                       
                       {/* Slim Left Sidebar */}
-                      <div className="w-24 sm:w-28 bg-slate-900 text-slate-300 p-2 space-y-1 text-[9px] sm:text-[10px] hidden xs:block shrink-0">
-                        <div className="px-2 py-1 rounded-md bg-blue-600 text-white font-bold flex items-center gap-1.5">
-                          <Monitor className="w-3 h-3" />
+                      <div className="w-28 sm:w-32 bg-slate-900 text-slate-300 p-2.5 space-y-1 text-[10px] hidden sm:block shrink-0">
+                        <div className="px-2.5 py-1.5 rounded-lg bg-blue-600 text-white font-bold flex items-center gap-2 shadow-xs">
+                          <Monitor className="w-3.5 h-3.5" />
                           <span>Dashboard</span>
                         </div>
-                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
-                          <Globe2 className="w-3 h-3" />
+                        <div className="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-2 transition-colors">
+                          <Globe2 className="w-3.5 h-3.5" />
                           <span>Website</span>
                         </div>
-                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
-                          <MessageCircle className="w-3 h-3 text-emerald-400" />
+                        <div className="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-2 transition-colors">
+                          <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
                           <span>WhatsApp Store</span>
                         </div>
-                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
-                          <CreditCard className="w-3 h-3 text-purple-400" />
+                        <div className="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-2 transition-colors">
+                          <CreditCard className="w-3.5 h-3.5 text-purple-400" />
                           <span>Digital VCard</span>
                         </div>
-                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
-                          <ShoppingBag className="w-3 h-3 text-pink-400" />
+                        <div className="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-2 transition-colors">
+                          <ShoppingBag className="w-3.5 h-3.5 text-pink-400" />
                           <span>E-commerce</span>
                         </div>
-                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
-                          <Store className="w-3 h-3 text-amber-400" />
+                        <div className="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-2 transition-colors">
+                          <Store className="w-3.5 h-3.5 text-amber-400" />
                           <span>Products</span>
                         </div>
-                        <div className="px-2 py-1 rounded-md hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-1.5">
-                          <TrendingUp className="w-3 h-3 text-cyan-400" />
+                        <div className="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-slate-400 font-medium flex items-center gap-2 transition-colors">
+                          <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />
                           <span>Analytics</span>
                         </div>
                       </div>
 
                       {/* Right Main Dashboard Canvas */}
-                      <div className="flex-1 p-2.5 sm:p-3.5 space-y-2.5 sm:space-y-3 bg-white">
+                      <div className="flex-1 p-3.5 sm:p-5 space-y-3 sm:space-y-4 bg-white">
                         
                         {/* Greeting Banner */}
                         <div className="flex items-center justify-between">
                           <div>
-                            <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 leading-tight">
+                            <h4 className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
                               Welcome Back, 👋
                             </h4>
-                            <p className="text-[9px] sm:text-[10px] text-slate-500">
+                            <p className="text-[10px] sm:text-xs text-slate-500">
                               Manage your business from one place.
                             </p>
                           </div>
                         </div>
 
                         {/* 4 Stat Cards */}
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2">
-                          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-50 border border-slate-200">
-                            <span className="text-[8px] sm:text-[9px] text-slate-500 block">Total Views</span>
-                            <div className="flex items-baseline gap-1">
-                              <span className="text-xs sm:text-sm font-black text-slate-900">12,450</span>
-                              <span className="text-[8px] font-bold text-emerald-600">↑ 12%</span>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5">
+                          <div className="p-2 sm:p-2.5 rounded-xl bg-slate-50 border border-slate-200 shadow-xs">
+                            <span className="text-[9px] sm:text-[10px] text-slate-500 block font-medium">Total Views</span>
+                            <div className="flex items-baseline gap-1 mt-0.5">
+                              <span className="text-sm sm:text-base font-black text-slate-900">12,450</span>
+                              <span className="text-[9px] font-bold text-emerald-600">↑ 12%</span>
                             </div>
                           </div>
-                          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-50 border border-slate-200">
-                            <span className="text-[8px] sm:text-[9px] text-slate-500 block">WhatsApp Leads</span>
-                            <div className="flex items-baseline gap-1">
-                              <span className="text-xs sm:text-sm font-black text-slate-900">892</span>
-                              <span className="text-[8px] font-bold text-emerald-600">↑ 18%</span>
+                          <div className="p-2 sm:p-2.5 rounded-xl bg-slate-50 border border-slate-200 shadow-xs">
+                            <span className="text-[9px] sm:text-[10px] text-slate-500 block font-medium">WhatsApp Leads</span>
+                            <div className="flex items-baseline gap-1 mt-0.5">
+                              <span className="text-sm sm:text-base font-black text-slate-900">892</span>
+                              <span className="text-[9px] font-bold text-emerald-600">↑ 18%</span>
                             </div>
                           </div>
-                          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-50 border border-slate-200">
-                            <span className="text-[8px] sm:text-[9px] text-slate-500 block">Orders</span>
-                            <div className="flex items-baseline gap-1">
-                              <span className="text-xs sm:text-sm font-black text-slate-900">156</span>
-                              <span className="text-[8px] font-bold text-emerald-600">↑ 20%</span>
+                          <div className="p-2 sm:p-2.5 rounded-xl bg-slate-50 border border-slate-200 shadow-xs">
+                            <span className="text-[9px] sm:text-[10px] text-slate-500 block font-medium">Orders</span>
+                            <div className="flex items-baseline gap-1 mt-0.5">
+                              <span className="text-sm sm:text-base font-black text-slate-900">156</span>
+                              <span className="text-[9px] font-bold text-emerald-600">↑ 20%</span>
                             </div>
                           </div>
-                          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-50 border border-slate-200">
-                            <span className="text-[8px] sm:text-[9px] text-slate-500 block">Revenue</span>
-                            <div className="flex items-baseline gap-1">
-                              <span className="text-xs sm:text-sm font-black text-slate-900">₹48,320</span>
-                              <span className="text-[8px] font-bold text-emerald-600">↑ 22%</span>
+                          <div className="p-2 sm:p-2.5 rounded-xl bg-slate-50 border border-slate-200 shadow-xs">
+                            <span className="text-[9px] sm:text-[10px] text-slate-500 block font-medium">Revenue</span>
+                            <div className="flex items-baseline gap-1 mt-0.5">
+                              <span className="text-sm sm:text-base font-black text-slate-900">₹48,320</span>
+                              <span className="text-[9px] font-bold text-emerald-600">↑ 22%</span>
                             </div>
                           </div>
                         </div>
 
                         {/* Your Tools Section */}
-                        <div className="space-y-1.5">
-                          <div className="flex items-center justify-between text-[10px]">
-                            <span className="font-bold text-slate-900">Your Tools</span>
-                            <span className="text-blue-600 font-semibold cursor-pointer">View All →</span>
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-extrabold text-slate-900">Your Tools</span>
+                            <span className="text-blue-600 font-bold hover:underline cursor-pointer">View All →</span>
                           </div>
 
-                          <div className="grid grid-cols-4 gap-1.5">
-                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-blue-50 transition cursor-pointer">
-                              <div className="w-6 h-6 rounded-md bg-blue-100 text-blue-600 flex items-center justify-center mb-1">
-                                <Monitor className="w-3.5 h-3.5" />
+                          <div className="grid grid-cols-4 gap-2">
+                            <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center hover:bg-blue-50/70 hover:border-blue-200 transition-all cursor-pointer shadow-2xs group">
+                              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                                <Monitor className="w-4 h-4" />
                               </div>
-                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">Website</span>
+                              <span className="text-[9px] sm:text-[10px] font-bold text-slate-800">Website</span>
                             </div>
-                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-emerald-50 transition cursor-pointer">
-                              <div className="w-6 h-6 rounded-md bg-emerald-100 text-emerald-600 flex items-center justify-center mb-1">
-                                <MessageCircle className="w-3.5 h-3.5" />
+                            <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center hover:bg-emerald-50/70 hover:border-emerald-200 transition-all cursor-pointer shadow-2xs group">
+                              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                                <MessageCircle className="w-4 h-4" />
                               </div>
-                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">WhatsApp Store</span>
+                              <span className="text-[9px] sm:text-[10px] font-bold text-slate-800">WhatsApp Store</span>
                             </div>
-                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-purple-50 transition cursor-pointer">
-                              <div className="w-6 h-6 rounded-md bg-purple-100 text-purple-600 flex items-center justify-center mb-1">
-                                <CreditCard className="w-3.5 h-3.5" />
+                            <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center hover:bg-purple-50/70 hover:border-purple-200 transition-all cursor-pointer shadow-2xs group">
+                              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                                <CreditCard className="w-4 h-4" />
                               </div>
-                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">Digital VCard</span>
+                              <span className="text-[9px] sm:text-[10px] font-bold text-slate-800">Digital VCard</span>
                             </div>
-                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-pink-50 transition cursor-pointer">
-                              <div className="w-6 h-6 rounded-md bg-pink-100 text-pink-600 flex items-center justify-center mb-1">
-                                <ShoppingBag className="w-3.5 h-3.5" />
+                            <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center hover:bg-pink-50/70 hover:border-pink-200 transition-all cursor-pointer shadow-2xs group">
+                              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                                <ShoppingBag className="w-4 h-4" />
                               </div>
-                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">E-commerce</span>
+                              <span className="text-[9px] sm:text-[10px] font-bold text-slate-800">E-commerce</span>
                             </div>
-                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-cyan-50 transition cursor-pointer">
-                              <div className="w-6 h-6 rounded-md bg-cyan-100 text-cyan-600 flex items-center justify-center mb-1">
-                                <QrCode className="w-3.5 h-3.5" />
+                            <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center hover:bg-cyan-50/70 hover:border-cyan-200 transition-all cursor-pointer shadow-2xs group">
+                              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-cyan-100 text-cyan-600 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                                <QrCode className="w-4 h-4" />
                               </div>
-                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">QR Codes</span>
+                              <span className="text-[9px] sm:text-[10px] font-bold text-slate-800">QR Codes</span>
                             </div>
-                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-orange-50 transition cursor-pointer">
-                              <div className="w-6 h-6 rounded-md bg-orange-100 text-orange-600 flex items-center justify-center mb-1">
-                                <Calendar className="w-3.5 h-3.5" />
+                            <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center hover:bg-orange-50/70 hover:border-orange-200 transition-all cursor-pointer shadow-2xs group">
+                              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                                <Calendar className="w-4 h-4" />
                               </div>
-                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800 leading-tight">Booking</span>
+                              <span className="text-[9px] sm:text-[10px] font-bold text-slate-800 leading-tight">Booking</span>
                             </div>
-                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-amber-50 transition cursor-pointer">
-                              <div className="w-6 h-6 rounded-md bg-amber-100 text-amber-600 flex items-center justify-center mb-1">
-                                <FileText className="w-3.5 h-3.5" />
+                            <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center hover:bg-amber-50/70 hover:border-amber-200 transition-all cursor-pointer shadow-2xs group">
+                              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                                <FileText className="w-4 h-4" />
                               </div>
-                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800 leading-tight">Catalog</span>
+                              <span className="text-[9px] sm:text-[10px] font-bold text-slate-800 leading-tight">Catalog</span>
                             </div>
-                            <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-violet-50 transition cursor-pointer">
-                              <div className="w-6 h-6 rounded-md bg-violet-100 text-violet-600 flex items-center justify-center mb-1">
-                                <TrendingUp className="w-3.5 h-3.5" />
+                            <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center hover:bg-violet-50/70 hover:border-violet-200 transition-all cursor-pointer shadow-2xs group">
+                              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-violet-100 text-violet-600 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                                <TrendingUp className="w-4 h-4" />
                               </div>
-                              <span className="text-[8px] sm:text-[9px] font-bold text-slate-800">Analytics</span>
+                              <span className="text-[9px] sm:text-[10px] font-bold text-slate-800">Analytics</span>
                             </div>
                           </div>
                         </div>
@@ -809,119 +809,119 @@ export default function LandingPage() {
                 </div>
 
                 {/* Laptop Base Hinge */}
-                <div className="h-3 sm:h-4 bg-gradient-to-r from-slate-300 via-slate-100 to-slate-300 rounded-b-xl shadow-xl border-t border-slate-400 w-[104%] -ml-[2%] relative flex items-center justify-center">
-                  <div className="w-14 h-1 bg-slate-400/80 rounded-b-md" />
+                <div className="h-4 sm:h-5 bg-gradient-to-r from-slate-300 via-slate-100 to-slate-300 rounded-b-2xl shadow-xl border-t border-slate-400 w-[104%] -ml-[2%] relative flex items-center justify-center">
+                  <div className="w-16 h-1 bg-slate-400/80 rounded-b-md" />
                 </div>
 
-                {/* 2. Smartphone Mockup (Overlapping on bottom-left) */}
-                <div className="absolute -bottom-6 -left-3 sm:-bottom-8 sm:-left-4 md:-left-6 lg:-left-6 z-30 w-[170px] xs:w-[195px] sm:w-[220px] md:w-[245px] drop-shadow-2xl">
-                  <div className="rounded-[32px] border-[5px] border-slate-900 bg-white overflow-hidden shadow-2xl flex flex-col text-slate-800">
+                {/* 2. Smartphone Mockup (Overlapping gracefully on the left edge, leaving the center laptop visible) */}
+                <div className="absolute -bottom-6 sm:-bottom-8 -left-2 sm:-left-6 md:-left-10 lg:-left-16 xl:-left-20 z-30 w-[185px] xs:w-[205px] sm:w-[225px] md:w-[245px] lg:w-[265px] drop-shadow-2xl">
+                  <div className="rounded-[36px] border-[5px] sm:border-[6px] border-slate-900 bg-white overflow-hidden shadow-2xl flex flex-col text-slate-800">
                     
                     {/* Dynamic Island Notch */}
-                    <div className="bg-slate-950 pt-1 pb-1">
-                      <div className="w-14 h-3 bg-slate-900 rounded-full mx-auto" />
+                    <div className="bg-slate-950 pt-1.5 pb-1">
+                      <div className="w-16 h-3.5 bg-slate-900 rounded-full mx-auto" />
                     </div>
 
                     {/* Smartphone Header Cover */}
-                    <div className="relative h-20 overflow-hidden bg-slate-900">
+                    <div className="relative h-24 sm:h-28 overflow-hidden bg-slate-900">
                       <img 
-                        src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=400&q=80" 
+                        src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80" 
                         alt="The Brew House Cafe"
-                        className="w-full h-full object-cover opacity-80"
+                        className="w-full h-full object-cover opacity-85"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                      <div className="absolute -bottom-3 left-3 w-9 h-9 rounded-full bg-amber-900 border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-md">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                      <div className="absolute -bottom-3 left-3 w-10 h-10 rounded-full bg-amber-900 border-2 border-white flex items-center justify-center text-white text-sm font-bold shadow-md">
                         ☕
                       </div>
                     </div>
 
                     {/* Smartphone Body Details */}
-                    <div className="p-3 pt-4 space-y-2">
+                    <div className="p-3 sm:p-3.5 pt-4 space-y-2.5">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h5 className="text-[11px] font-black text-slate-900 leading-tight">The Brew House</h5>
-                          <p className="text-[9px] text-slate-500">Coffee • Food • Good Vibes</p>
+                          <h5 className="text-xs font-black text-slate-900 leading-tight">The Brew House</h5>
+                          <p className="text-[10px] text-slate-500">Coffee • Food • Good Vibes</p>
                         </div>
-                        <div className="flex items-center gap-1 text-[10px] text-slate-400">
-                          <Share2 className="w-3 h-3" />
+                        <div className="flex items-center gap-1 text-slate-400">
+                          <Share2 className="w-3.5 h-3.5" />
                         </div>
                       </div>
 
                       {/* 4 Action Circle Buttons */}
-                      <div className="grid grid-cols-4 gap-1 text-center py-1 border-y border-slate-100">
+                      <div className="grid grid-cols-4 gap-1 text-center py-1.5 border-y border-slate-100">
                         <div className="flex flex-col items-center">
-                          <div className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-[10px]">
-                            <Phone className="w-3 h-3" />
+                          <div className="w-7 h-7 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-xs">
+                            <Phone className="w-3.5 h-3.5" />
                           </div>
-                          <span className="text-[8px] font-bold text-slate-600 mt-0.5">Call</span>
+                          <span className="text-[8px] font-bold text-slate-600 mt-1">Call</span>
                         </div>
                         <div className="flex flex-col items-center">
-                          <div className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]">
-                            <MessageCircle className="w-3 h-3" />
+                          <div className="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs">
+                            <MessageCircle className="w-3.5 h-3.5" />
                           </div>
-                          <span className="text-[8px] font-bold text-slate-600 mt-0.5">WhatsApp</span>
+                          <span className="text-[8px] font-bold text-slate-600 mt-1">WhatsApp</span>
                         </div>
                         <div className="flex flex-col items-center">
-                          <div className="w-6 h-6 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-[10px]">
-                            <MapPin className="w-3 h-3" />
+                          <div className="w-7 h-7 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shadow-xs">
+                            <MapPin className="w-3.5 h-3.5" />
                           </div>
-                          <span className="text-[8px] font-bold text-slate-600 mt-0.5">Map</span>
+                          <span className="text-[8px] font-bold text-slate-600 mt-1">Map</span>
                         </div>
                         <div className="flex flex-col items-center">
-                          <div className="w-6 h-6 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center text-[10px]">
-                            <Share2 className="w-3 h-3" />
+                          <div className="w-7 h-7 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center shadow-xs">
+                            <Share2 className="w-3.5 h-3.5" />
                           </div>
-                          <span className="text-[8px] font-bold text-slate-600 mt-0.5">Share</span>
+                          <span className="text-[8px] font-bold text-slate-600 mt-1">Share</span>
                         </div>
                       </div>
 
                       {/* Store Tabs */}
-                      <div className="flex items-center gap-2 text-[9px] font-bold border-b border-slate-100 pb-1">
+                      <div className="flex items-center gap-3 text-[10px] font-bold border-b border-slate-100 pb-1">
                         <span className="text-blue-600 border-b-2 border-blue-600 pb-0.5">Menu</span>
                         <span className="text-slate-400">Gallery</span>
                         <span className="text-slate-400">About</span>
                       </div>
 
-                      {/* 2 Food Items */}
+                      {/* 2 Food Items with Crisp High-Res Images */}
                       <div className="space-y-1.5">
-                        <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
-                          <div className="flex items-center gap-1.5">
+                        <div className="p-1.5 sm:p-2 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between shadow-2xs">
+                          <div className="flex items-center gap-2">
                             <img 
-                              src="https://images.unsplash.com/photo-1572442388796-11668ba67e53?auto=format&fit=crop&w=120&q=80" 
+                              src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=300&q=80" 
                               alt="Cappuccino"
-                              className="w-7 h-7 rounded-md object-cover" 
+                              className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-cover shadow-xs shrink-0" 
                             />
                             <div>
-                              <div className="text-[9px] font-bold text-slate-900 leading-tight">Cappuccino</div>
-                              <div className="text-[8px] font-semibold text-emerald-700">₹120</div>
+                              <div className="text-[10px] font-bold text-slate-900 leading-tight">Cappuccino</div>
+                              <div className="text-[9px] font-semibold text-emerald-700">₹120</div>
                             </div>
                           </div>
-                          <button className="px-1.5 py-0.5 rounded bg-emerald-600 text-white text-[8px] font-bold">
+                          <button className="px-2 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold transition shadow-xs">
                             + Add
                           </button>
                         </div>
 
-                        <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
-                          <div className="flex items-center gap-1.5">
+                        <div className="p-1.5 sm:p-2 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between shadow-2xs">
+                          <div className="flex items-center gap-2">
                             <img 
-                              src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=120&q=80" 
+                              src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=300&q=80" 
                               alt="Iced Latte"
-                              className="w-7 h-7 rounded-md object-cover" 
+                              className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-cover shadow-xs shrink-0" 
                             />
                             <div>
-                              <div className="text-[9px] font-bold text-slate-900 leading-tight">Iced Latte</div>
-                              <div className="text-[8px] font-semibold text-emerald-700">₹150</div>
+                              <div className="text-[10px] font-bold text-slate-900 leading-tight">Iced Latte</div>
+                              <div className="text-[9px] font-semibold text-emerald-700">₹150</div>
                             </div>
                           </div>
-                          <button className="px-1.5 py-0.5 rounded bg-emerald-600 text-white text-[8px] font-bold">
+                          <button className="px-2 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold transition shadow-xs">
                             + Add
                           </button>
                         </div>
                       </div>
 
                       {/* Sticky Order on WhatsApp Button */}
-                      <button className="w-full py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-[10px] font-bold flex items-center justify-center gap-1 shadow-md shadow-emerald-500/25 transition">
-                        <MessageCircle className="w-3 h-3" />
+                      <button className="w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/25 transition">
+                        <MessageCircle className="w-3.5 h-3.5" />
                         <span>Order on WhatsApp</span>
                       </button>
 
@@ -930,117 +930,117 @@ export default function LandingPage() {
                 </div>
 
                 {/* 3. Floating Feature Cards (Stacked on Right side) */}
-                <div className="absolute -top-4 -right-2 sm:-right-4 md:-right-6 lg:-right-6 z-20 w-[180px] sm:w-[205px] hidden md:flex flex-col gap-2">
+                <div className="absolute -top-8 -right-2 sm:-right-4 md:-right-8 lg:-right-12 xl:-right-16 z-20 w-[190px] sm:w-[215px] xl:w-[235px] hidden md:flex flex-col gap-2.5">
                   
                   {/* Handwritten Callout Note */}
-                  <div className="text-right pr-2">
-                    <span className="font-serif italic text-xs font-bold text-blue-600 tracking-tight inline-flex items-center gap-1">
+                  <div className="text-right pr-2 pb-0.5">
+                    <span className="font-serif italic text-xs font-bold text-blue-600 tracking-tight inline-flex items-center gap-1 drop-shadow-xs">
                       <span>Your Business Online Made Easy!</span>
-                      <span className="text-sm">⤵</span>
+                      <span className="text-sm font-sans">⤵</span>
                     </span>
                   </div>
 
                   {/* Card 1: Digital Visiting Card */}
-                  <div className="p-2 sm:p-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1 group">
+                  <div className="p-2.5 sm:p-3 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1.5 group">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-5 h-5 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center text-[10px]">
-                          <CreditCard className="w-3 h-3" />
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center text-xs shadow-xs">
+                          <CreditCard className="w-3.5 h-3.5" />
                         </div>
-                        <span className="text-[10px] font-bold text-slate-900">Digital Visiting Card</span>
+                        <span className="text-[11px] font-bold text-slate-900">Digital Visiting Card</span>
                       </div>
-                      <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-purple-600 transition-colors" />
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-purple-600 transition-colors" />
                     </div>
-                    <div className="flex items-center gap-2 pt-1 border-t border-slate-100 text-[8px] text-slate-500">
-                      <div className="w-6 h-6 bg-slate-900 text-white rounded p-0.5 flex items-center justify-center font-mono font-bold text-[6px]">
+                    <div className="flex items-center gap-2.5 pt-1.5 border-t border-slate-100 text-[9px] text-slate-500">
+                      <div className="w-7 h-7 bg-slate-900 text-white rounded-lg p-0.5 flex items-center justify-center font-mono font-bold text-[8px] shadow-xs shrink-0">
                         QR
                       </div>
                       <div className="truncate">
-                        <span className="font-bold text-slate-800 block">Your Name</span>
-                        <span className="text-[7px] text-purple-700">oneclickbiz.in/yourname</span>
+                        <span className="font-bold text-slate-800 block text-[10px]">Your Name</span>
+                        <span className="text-[8px] text-purple-700">oneclickbiz.in/yourname</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Card 2: WhatsApp Store */}
-                  <div className="p-2 sm:p-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1 group">
+                  <div className="p-2.5 sm:p-3 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1.5 group">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-5 h-5 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px]">
-                          <MessageCircle className="w-3 h-3" />
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs shadow-xs">
+                          <MessageCircle className="w-3.5 h-3.5" />
                         </div>
-                        <span className="text-[10px] font-bold text-slate-900">WhatsApp Store</span>
+                        <span className="text-[11px] font-bold text-slate-900">WhatsApp Store</span>
                       </div>
-                      <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-emerald-600 transition-colors" />
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600 transition-colors" />
                     </div>
-                    <div className="text-[8px] text-slate-500">Sell products via WhatsApp</div>
-                    <div className="flex items-center gap-1.5 pt-0.5">
+                    <div className="text-[9px] text-slate-500 font-medium">Sell products via WhatsApp</div>
+                    <div className="flex items-center gap-2 pt-1">
                       <img 
-                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=80&q=80" 
+                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=150&q=80" 
                         alt="Shoes" 
-                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover border border-slate-200/80 shadow-xs hover:scale-105 transition-transform" 
                       />
                       <img 
-                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=80&q=80" 
+                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=150&q=80" 
                         alt="Watch" 
-                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover border border-slate-200/80 shadow-xs hover:scale-105 transition-transform" 
                       />
                       <img 
-                        src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=80&q=80" 
+                        src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=150&q=80" 
                         alt="Bag" 
-                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover border border-slate-200/80 shadow-xs hover:scale-105 transition-transform" 
                       />
                     </div>
                   </div>
 
                   {/* Card 3: E-commerce */}
-                  <div className="p-2 sm:p-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1 group">
+                  <div className="p-2.5 sm:p-3 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1.5 group">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-5 h-5 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center text-[10px]">
-                          <ShoppingBag className="w-3 h-3" />
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center text-xs shadow-xs">
+                          <ShoppingBag className="w-3.5 h-3.5" />
                         </div>
-                        <span className="text-[10px] font-bold text-slate-900">E-commerce</span>
+                        <span className="text-[11px] font-bold text-slate-900">E-commerce</span>
                       </div>
-                      <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-pink-600 transition-colors" />
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-pink-600 transition-colors" />
                     </div>
-                    <div className="text-[8px] text-slate-500">Full online store with payments</div>
-                    <div className="flex items-center gap-1.5 pt-0.5">
+                    <div className="text-[9px] text-slate-500 font-medium">Full online store with payments</div>
+                    <div className="flex items-center gap-2 pt-1">
                       <img 
-                        src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=80&q=80" 
+                        src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=150&q=80" 
                         alt="Shirt" 
-                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover border border-slate-200/80 shadow-xs hover:scale-105 transition-transform" 
                       />
                       <img 
-                        src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=80&q=80" 
+                        src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=150&q=80" 
                         alt="Sneakers" 
-                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover border border-slate-200/80 shadow-xs hover:scale-105 transition-transform" 
                       />
                       <img 
-                        src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=80&q=80" 
+                        src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=150&q=80" 
                         alt="Headphones" 
-                        className="w-6 h-6 rounded-md object-cover border border-slate-100" 
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover border border-slate-200/80 shadow-xs hover:scale-105 transition-transform" 
                       />
                     </div>
                   </div>
 
                   {/* Card 4: QR Codes */}
-                  <div className="p-2 sm:p-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1 group">
+                  <div className="p-2.5 sm:p-3 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 space-y-1.5 group">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-5 h-5 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-[10px]">
-                          <QrCode className="w-3 h-3" />
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-xs shadow-xs">
+                          <QrCode className="w-3.5 h-3.5" />
                         </div>
-                        <span className="text-[10px] font-bold text-slate-900">QR Codes</span>
+                        <span className="text-[11px] font-bold text-slate-900">QR Codes</span>
                       </div>
-                      <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-blue-600 transition-colors" />
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-colors" />
                     </div>
-                    <div className="text-[8px] text-slate-500">Scan &amp; connect instantly</div>
-                    <div className="grid grid-cols-2 gap-1 text-[7px] text-slate-600 font-semibold pt-0.5">
-                      <span className="flex items-center gap-0.5"><Check className="w-2.5 h-2.5 text-blue-600" /> Website</span>
-                      <span className="flex items-center gap-0.5"><Check className="w-2.5 h-2.5 text-emerald-600" /> WhatsApp</span>
-                      <span className="flex items-center gap-0.5"><Check className="w-2.5 h-2.5 text-purple-600" /> Products</span>
-                      <span className="flex items-center gap-0.5"><Check className="w-2.5 h-2.5 text-pink-600" /> Social</span>
+                    <div className="text-[9px] text-slate-500 font-medium">Scan &amp; connect instantly</div>
+                    <div className="grid grid-cols-2 gap-1.5 text-[8px] text-slate-700 font-bold pt-1">
+                      <span className="flex items-center gap-1"><Check className="w-3 h-3 text-blue-600" /> Website</span>
+                      <span className="flex items-center gap-1"><Check className="w-3 h-3 text-emerald-600" /> WhatsApp</span>
+                      <span className="flex items-center gap-1"><Check className="w-3 h-3 text-purple-600" /> Products</span>
+                      <span className="flex items-center gap-1"><Check className="w-3 h-3 text-pink-600" /> Social</span>
                     </div>
                   </div>
 
