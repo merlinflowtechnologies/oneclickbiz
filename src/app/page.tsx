@@ -925,8 +925,9 @@ export default function LandingPage() {
 
                       {/* Card Preview Image */}
                       <div 
-                        onClick={() => setPreviewTemplate(template)}
+                        onClick={() => window.open(`/v/${template.id}`, '_blank', 'noopener,noreferrer')}
                         className="relative h-[240px] sm:h-[265px] w-full bg-slate-950 overflow-hidden cursor-pointer group/img flex items-center justify-center"
+                        title="Click to preview live mini-website"
                       >
                         <img
                           src={template.imgUrl}
@@ -967,17 +968,16 @@ export default function LandingPage() {
                             <span>Use Template</span>
                             <ArrowRight className="w-3 h-3" />
                           </Link>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setPreviewTemplate(template);
-                            }}
+                          <a
+                            href={`/v/${template.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
                             className="w-full py-1.5 px-3 rounded-xl text-center text-[10px] font-semibold text-slate-200 hover:text-white bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-md transition-all flex items-center justify-center gap-1 cursor-pointer"
                           >
                             <Eye className="w-3 h-3 text-indigo-300" />
                             <span>Preview</span>
-                          </button>
+                          </a>
                         </div>
                       </div>
 
@@ -996,14 +996,16 @@ export default function LandingPage() {
                           >
                             Use Free
                           </Link>
-                          <button
-                            type="button"
-                            onClick={() => setPreviewTemplate(template)}
-                            className="py-1.5 px-2 rounded-lg text-[10px] sm:text-[11px] font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 border border-slate-200 hover:bg-slate-200 transition-all flex items-center justify-center gap-1 cursor-pointer shrink-0"
+                          <a
+                            href={`/v/${template.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="py-1.5 px-2.5 rounded-lg text-[10px] sm:text-[11px] font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 border border-slate-200 hover:bg-slate-200 transition-all flex items-center justify-center gap-1 cursor-pointer shrink-0"
+                            title="Preview live mini-website"
                           >
                             <Eye className="w-3 h-3 text-slate-500" />
                             <span>Preview</span>
-                          </button>
+                          </a>
                         </div>
                       </div>
 

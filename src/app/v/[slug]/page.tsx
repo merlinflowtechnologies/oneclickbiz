@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import prisma, { isDatabaseConfigured } from '@/lib/prisma';
 import { getProfileBySlug } from '@/lib/data-store';
 import ProfileCardView from '@/components/templates/ProfileCardView';
+import SharePreviewFloatingBar from '@/components/common/SharePreviewFloatingBar';
 import { DigitalProfile } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
@@ -297,6 +298,9 @@ export default async function PublicProfilePage({
       <div className="w-full relative z-10">
         <ProfileCardView profile={displayProfile} isMockup={false} initialViewMode="website" showViewToggle={true} />
       </div>
+
+      {/* Floating Share, Copy Link & Template Action Bar */}
+      <SharePreviewFloatingBar profile={displayProfile} />
     </main>
   );
 }

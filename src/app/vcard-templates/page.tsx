@@ -203,8 +203,9 @@ export default function VCardTemplatesPage() {
 
                   {/* Card Image Container with Justdial Style Banner & Overlay */}
                   <div
-                    onClick={() => setPreviewTemplate(template)}
+                    onClick={() => window.open(`/v/${template.id}`, '_blank', 'noopener,noreferrer')}
                     className="relative h-[220px] sm:h-[250px] w-full bg-slate-950 overflow-hidden cursor-pointer group/img flex items-center justify-center"
+                    title="Click to preview live mini-website"
                   >
                     <img
                       src={template.imgUrl}
@@ -237,16 +238,16 @@ export default function VCardTemplatesPage() {
 
                     {/* Hover Overlay with Preview button */}
                     <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-3 z-20">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setPreviewTemplate(template);
-                        }}
+                      <a
+                        href={`/v/${template.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-slate-900 font-bold text-[10px] shadow-xl hover:bg-slate-100 hover:scale-105 transition-all cursor-pointer"
                       >
                         <Eye className="w-3 h-3 text-indigo-600" />
                         Preview
-                      </button>
+                      </a>
 
                       <Link
                         href={`/signup?intent=build_card&template=${template.id}`}
@@ -278,14 +279,16 @@ export default function VCardTemplatesPage() {
                       >
                         Use Free
                       </Link>
-                      <button
-                        onClick={() => setPreviewTemplate(template)}
-                        className="py-1.5 px-2 rounded-lg border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 transition-all text-[10px] sm:text-[11px] font-semibold flex items-center gap-1 shadow-xs cursor-pointer"
-                        title="Preview template"
+                      <a
+                        href={`/v/${template.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-1.5 px-2.5 rounded-lg border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 transition-all text-[10px] sm:text-[11px] font-semibold flex items-center gap-1 shadow-xs cursor-pointer"
+                        title="Preview live mini-website"
                       >
                         <Eye className="w-3 h-3 text-slate-600" />
                         <span>Preview</span>
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
