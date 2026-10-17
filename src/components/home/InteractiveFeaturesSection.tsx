@@ -61,23 +61,23 @@ export default function InteractiveFeaturesSection() {
   };
 
   return (
-    <section id="features" className="py-24 bg-slate-950/45 backdrop-blur-md border-y border-white/10 relative scroll-mt-20 overflow-hidden">
+    <section id="features" className="py-24 bg-gradient-to-b from-violet-100/90 via-pink-100/80 to-amber-100/75 backdrop-blur-xl border-y border-purple-200/80 relative scroll-mt-20 overflow-hidden">
       {/* Soft Ambient Floating Blurs */}
-      <div className="absolute top-10 left-10 w-[600px] h-[400px] bg-gradient-to-r from-purple-500/15 via-pink-500/20 to-rose-500/15 blur-[120px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-10 w-[650px] h-[450px] bg-gradient-to-l from-amber-500/15 via-indigo-500/15 to-purple-500/15 blur-[130px] pointer-events-none -z-10" />
+      <div className="absolute top-10 left-10 w-[600px] h-[400px] bg-gradient-to-r from-purple-400/35 via-pink-400/40 to-rose-300/35 blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[650px] h-[450px] bg-gradient-to-l from-amber-300/35 via-orange-300/30 to-yellow-200/40 blur-[130px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-bold uppercase tracking-wider shadow-sm backdrop-blur-md">
-            <Sparkles size={13} className="text-indigo-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold uppercase tracking-wider shadow-sm">
+            <Sparkles size={13} className="text-indigo-600" />
             Interactive Feature Matrix &amp; Sector Impact
           </div>
-          <h3 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h3 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
             Everything Your Brand Needs to Network &amp; Close Deals
           </h3>
-          <p className="text-sm text-slate-300 leading-relaxed">
+          <p className="text-sm text-slate-600 leading-relaxed">
             Click any feature below to see how it specifically solves pain points and accelerates revenue for your industry sector.
           </p>
         </div>
@@ -85,8 +85,8 @@ export default function InteractiveFeaturesSection() {
         {/* Sector Filter Bar */}
         <div className="mb-10">
           <div className="flex items-center justify-center gap-2 flex-wrap">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-slate-300 px-2 mr-1">
-              <Filter size={13} className="text-indigo-400" />
+            <div className="flex items-center gap-1.5 text-xs font-bold text-slate-600 px-2 mr-1">
+              <Filter size={13} className="text-indigo-600" />
               <span>Filter by Industry:</span>
             </div>
             {SECTORS.map((sec) => {
@@ -98,8 +98,8 @@ export default function InteractiveFeaturesSection() {
                   onClick={() => setActiveSector(sec.id)}
                   className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all border shadow-sm ${
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-indigo-400/50 shadow-indigo-500/30 scale-105'
-                      : 'bg-slate-900/60 backdrop-blur-md text-slate-300 border-white/15 hover:bg-white/10 hover:border-white/30 hover:text-white'
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-transparent shadow-indigo-300/50 scale-105'
+                      : 'bg-white/90 text-slate-700 border-slate-200 hover:bg-white hover:border-indigo-300 hover:text-indigo-600'
                   }`}
                 >
                   <span>{sec.icon}</span>
@@ -126,35 +126,35 @@ export default function InteractiveFeaturesSection() {
                 key={feat.id}
                 id={`feature-card-${feat.id}`}
                 onClick={() => handleOpenFeature(feat)}
-                className={`p-7 rounded-3xl glass-card glass-card-hover border border-white/15 hover:border-indigo-400/80 shadow-[0_8px_30px_rgb(0,0,0,0.25)] hover:shadow-2xl transition-all cursor-pointer space-y-4 group hover:-translate-y-1 duration-300 flex flex-col justify-between`}
+                className={`p-7 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 hover:border-indigo-400/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all cursor-pointer space-y-4 group hover:-translate-y-1 duration-300 flex flex-col justify-between`}
               >
                 <div className="space-y-3.5">
                   {/* Top Bar */}
                   <div className="flex items-center justify-between">
-                    <div className={`w-12 h-12 rounded-2xl bg-white/10 ${theme.text} flex items-center justify-center border border-white/15 group-hover:scale-110 transition-transform shadow-sm`}>
+                    <div className={`w-12 h-12 rounded-2xl ${theme.bg} ${theme.text} flex items-center justify-center border ${theme.border} group-hover:scale-110 transition-transform shadow-sm`}>
                       <IconComponent className="w-6 h-6" />
                     </div>
-                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/15`}>
+                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${theme.bg} ${theme.text} border ${theme.border}`}>
                       {feat.badge}
                     </span>
                   </div>
 
                   {/* Title & Description */}
-                  <h4 className={`text-base sm:text-lg font-bold text-white group-hover:text-indigo-300 transition-colors leading-snug`}>
+                  <h4 className={`text-base sm:text-lg font-bold text-slate-900 ${theme.glow} transition-colors leading-snug`}>
                     {feat.name}
                   </h4>
-                  <p className="text-xs leading-relaxed text-slate-300">
+                  <p className="text-xs leading-relaxed text-slate-600">
                     {feat.description}
                   </p>
 
                   {/* Dynamic Sector Pill if an industry is selected */}
                   {sectorInsight && (
-                    <div className="p-3 rounded-2xl bg-indigo-950/70 border border-indigo-500/30 space-y-1 animate-in fade-in duration-200">
-                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-indigo-300">
+                    <div className="p-3 rounded-2xl bg-indigo-50/80 border border-indigo-200/80 space-y-1 animate-in fade-in duration-200">
+                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-indigo-900">
                         <span>{sectorInsight.sectorIcon}</span>
                         <span>For {sectorInsight.sectorName}:</span>
                       </div>
-                      <p className="text-[11px] text-slate-300 leading-tight">
+                      <p className="text-[11px] text-slate-700 leading-tight">
                         {sectorInsight.roiBenefit}
                       </p>
                     </div>
@@ -162,12 +162,12 @@ export default function InteractiveFeaturesSection() {
                 </div>
 
                 {/* Card Action Footer */}
-                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-bold text-indigo-400 group-hover:text-indigo-300">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-indigo-600 group-hover:text-indigo-700">
                   <span className="flex items-center gap-1">
                     <span>How this helps your sector</span>
                     <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
                   </span>
-                  <span className="text-[10px] text-slate-400 font-normal group-hover:text-slate-300">
+                  <span className="text-[10px] text-slate-400 font-normal group-hover:text-slate-600">
                     Click to explore →
                   </span>
                 </div>
@@ -178,7 +178,7 @@ export default function InteractiveFeaturesSection() {
 
         {/* Bottom Helper Note */}
         <div className="mt-12 text-center">
-          <p className="text-xs text-slate-400 font-medium">
+          <p className="text-xs text-slate-600 font-medium">
             💡 <strong>Pro-Tip:</strong> Click on any feature above to view interactive case studies, pain point solutions, and expected ROI for your specific business domain.
           </p>
         </div>

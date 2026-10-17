@@ -30,14 +30,10 @@ export default function ShareCardModal({ profile, onClose }: ShareCardModalProps
     ? `${window.location.origin}/v/${profile.slug}`
     : `https://oneclickbiz.in/v/${profile.slug}`;
 
-  const fullName = profile.fullName || profile.name || 'Business Card';
-  const businessName = profile.businessName || profile.company || '';
-  const designation = profile.designation ? ` (${profile.designation}${businessName ? ` at ${businessName}` : ''})` : (businessName ? ` (${businessName})` : '');
-
-  const shareText = `Connect with ${fullName}${designation}. View digital card & official portal: ${cardUrl}`;
+  const shareText = `Connect with ${profile.fullName} (${profile.designation} at ${profile.businessName}). View digital card & WhatsApp store: ${cardUrl}`;
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(cardUrl)}&color=000000&bgcolor=ffffff`;
 
-  const embedCode = `<iframe src="${cardUrl}" width="380" height="680" style="border:none; border-radius:32px; box-shadow:0 20px 50px rgba(0,0,0,0.3);" title="${fullName} Digital Business Card"></iframe>`;
+  const embedCode = `<iframe src="${cardUrl}" width="380" height="680" style="border:none; border-radius:32px; box-shadow:0 20px 50px rgba(0,0,0,0.3);" title="${profile.fullName} Digital Business Card"></iframe>`;
 
   const handleCopyUrl = async () => {
     await navigator.clipboard.writeText(cardUrl);
@@ -138,14 +134,14 @@ export default function ShareCardModal({ profile, onClose }: ShareCardModalProps
             </div>
 
             {/* Social Grid */}
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center text-[10px] font-semibold text-slate-300">
+            <div className="grid grid-cols-4 gap-2.5 text-center text-[10px] font-semibold text-slate-300">
               
               {/* WhatsApp */}
               <a
                 href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/20 hover:border-emerald-500/50 hover:bg-emerald-900/40 transition flex flex-col items-center gap-1 text-emerald-400"
+                className="p-3 rounded-2xl bg-emerald-950/40 border border-emerald-500/20 hover:border-emerald-500/50 hover:bg-emerald-900/40 transition flex flex-col items-center gap-1.5 text-emerald-400"
               >
                 <div className="w-8 h-8 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center font-bold">
                   <MessageCircle className="w-4 h-4 fill-slate-950" />
@@ -158,7 +154,7 @@ export default function ShareCardModal({ profile, onClose }: ShareCardModalProps
                 href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(cardUrl)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2.5 rounded-2xl bg-sky-950/40 border border-sky-500/20 hover:border-sky-500/50 hover:bg-sky-900/40 transition flex flex-col items-center gap-1 text-sky-400"
+                className="p-3 rounded-2xl bg-sky-950/40 border border-sky-500/20 hover:border-sky-500/50 hover:bg-sky-900/40 transition flex flex-col items-center gap-1.5 text-sky-400"
               >
                 <div className="w-8 h-8 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold">
                   in
@@ -171,44 +167,18 @@ export default function ShareCardModal({ profile, onClose }: ShareCardModalProps
                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2.5 rounded-2xl bg-slate-950 border border-slate-700 hover:border-slate-500 transition flex flex-col items-center gap-1 text-slate-200"
+                className="p-3 rounded-2xl bg-slate-950 border border-slate-700 hover:border-slate-500 transition flex flex-col items-center gap-1.5 text-slate-200"
               >
                 <div className="w-8 h-8 rounded-xl bg-black border border-slate-700 text-white flex items-center justify-center font-black">
                   𝕏
                 </div>
-                <span>X</span>
-              </a>
-
-              {/* Telegram */}
-              <a
-                href={`https://t.me/share/url?url=${encodeURIComponent(cardUrl)}&text=${encodeURIComponent(shareText)}`}
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-2xl bg-sky-950/40 border border-sky-400/20 hover:border-sky-400/50 hover:bg-sky-900/40 transition flex flex-col items-center gap-1 text-sky-300"
-              >
-                <div className="w-8 h-8 rounded-xl bg-sky-500 text-white flex items-center justify-center font-bold">
-                  <Send className="w-4 h-4" />
-                </div>
-                <span>Telegram</span>
-              </a>
-
-              {/* Facebook */}
-              <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(cardUrl)}`}
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-2xl bg-blue-950/40 border border-blue-500/20 hover:border-blue-500/50 hover:bg-blue-900/40 transition flex flex-col items-center gap-1 text-blue-400"
-              >
-                <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold">
-                  f
-                </div>
-                <span>Facebook</span>
+                <span>X / Twitter</span>
               </a>
 
               {/* Email */}
               <a
-                href={`mailto:?subject=${encodeURIComponent(`Connecting with ${fullName}`)}&body=${encodeURIComponent(shareText)}`}
-                className="p-2.5 rounded-2xl bg-indigo-950/40 border border-indigo-500/20 hover:border-indigo-500/50 hover:bg-indigo-900/40 transition flex flex-col items-center gap-1 text-indigo-400"
+                href={`mailto:?subject=${encodeURIComponent(`Connecting with ${profile.fullName}`)}&body=${encodeURIComponent(shareText)}`}
+                className="p-3 rounded-2xl bg-indigo-950/40 border border-indigo-500/20 hover:border-indigo-500/50 hover:bg-indigo-900/40 transition flex flex-col items-center gap-1.5 text-indigo-400"
               >
                 <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center">
                   <Mail className="w-4 h-4" />
