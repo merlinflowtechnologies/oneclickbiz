@@ -83,10 +83,20 @@ export default function FeatureImpactModal({ feature, onClose, defaultSectorId =
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header Banner */}
-        <div className="relative p-6 sm:p-8 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border-b border-slate-800 flex-shrink-0">
+        <div className="relative p-6 sm:p-8 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border-b border-slate-800 flex-shrink-0 overflow-hidden">
+          {feature.imageUrl && (
+            <div className="absolute inset-0 pointer-events-none">
+              <img 
+                src={feature.imageUrl} 
+                alt={feature.name} 
+                className="w-full h-full object-cover opacity-20 filter blur-[1px]" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/60" />
+            </div>
+          )}
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all border border-white/10"
+            className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all border border-white/10 relative z-10"
             aria-label="Close modal"
           >
             <X size={18} />

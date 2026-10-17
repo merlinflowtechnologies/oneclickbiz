@@ -126,50 +126,69 @@ export default function InteractiveFeaturesSection() {
                 key={feat.id}
                 id={`feature-card-${feat.id}`}
                 onClick={() => handleOpenFeature(feat)}
-                className={`p-7 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 hover:border-indigo-400/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all cursor-pointer space-y-4 group hover:-translate-y-1 duration-300 flex flex-col justify-between`}
+                className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/90 hover:border-indigo-400/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all cursor-pointer overflow-hidden group hover:-translate-y-1.5 duration-300 flex flex-col justify-between"
               >
-                <div className="space-y-3.5">
-                  {/* Top Bar */}
-                  <div className="flex items-center justify-between">
-                    <div className={`w-12 h-12 rounded-2xl ${theme.bg} ${theme.text} flex items-center justify-center border ${theme.border} group-hover:scale-110 transition-transform shadow-sm`}>
-                      <IconComponent className="w-6 h-6" />
-                    </div>
-                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${theme.bg} ${theme.text} border ${theme.border}`}>
-                      {feat.badge}
-                    </span>
+                {/* Feature Image Header (Matching ProfessionalMiniWebsiteView pattern) */}
+                <div className="relative h-44 sm:h-48 overflow-hidden bg-slate-100">
+                  <img 
+                    src={feat.imageUrl || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'} 
+                    alt={feat.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/25 to-transparent" />
+                  
+                  {/* Floating Icon Box on Image */}
+                  <div className={`absolute top-3 left-3 w-10 h-10 rounded-xl ${theme.bg} ${theme.text} flex items-center justify-center border ${theme.border} shadow-md backdrop-blur-md group-hover:scale-110 transition-transform`}>
+                    <IconComponent className="w-5 h-5" />
                   </div>
 
-                  {/* Title & Description */}
-                  <h4 className={`text-base sm:text-lg font-bold text-slate-900 ${theme.glow} transition-colors leading-snug`}>
-                    {feat.name}
-                  </h4>
-                  <p className="text-xs leading-relaxed text-slate-600">
-                    {feat.description}
-                  </p>
+                  {/* Feature Badge */}
+                  <span className={`absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${theme.bg} ${theme.text} border ${theme.border} backdrop-blur-md shadow-xs`}>
+                    {feat.badge}
+                  </span>
 
-                  {/* Dynamic Sector Pill if an industry is selected */}
-                  {sectorInsight && (
-                    <div className="p-3 rounded-2xl bg-indigo-50/80 border border-indigo-200/80 space-y-1 animate-in fade-in duration-200">
-                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-indigo-900">
-                        <span>{sectorInsight.sectorIcon}</span>
-                        <span>For {sectorInsight.sectorName}:</span>
-                      </div>
-                      <p className="text-[11px] text-slate-700 leading-tight">
-                        {sectorInsight.roiBenefit}
-                      </p>
-                    </div>
-                  )}
+                  {/* Quick Tagline Pill on bottom of Image */}
+                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-medium drop-shadow-sm">
+                    <span className="truncate max-w-[80%] font-semibold tracking-wide text-white/95">{feat.tagline}</span>
+                    <span className="text-[10px] text-amber-300 font-bold shrink-0">Explore →</span>
+                  </div>
                 </div>
 
-                {/* Card Action Footer */}
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-indigo-600 group-hover:text-indigo-700">
-                  <span className="flex items-center gap-1">
-                    <span>How this helps your sector</span>
-                    <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-normal group-hover:text-slate-600">
-                    Click to explore →
-                  </span>
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2.5">
+                    {/* Title & Description */}
+                    <h4 className={`text-base sm:text-lg font-bold text-slate-900 ${theme.glow} transition-colors leading-snug`}>
+                      {feat.name}
+                    </h4>
+                    <p className="text-xs leading-relaxed text-slate-600 line-clamp-3">
+                      {feat.description}
+                    </p>
+
+                    {/* Dynamic Sector Pill if an industry is selected */}
+                    {sectorInsight && (
+                      <div className="p-3 rounded-2xl bg-indigo-50/80 border border-indigo-200/80 space-y-1 animate-in fade-in duration-200">
+                        <div className="flex items-center gap-1.5 text-[11px] font-bold text-indigo-900">
+                          <span>{sectorInsight.sectorIcon}</span>
+                          <span>For {sectorInsight.sectorName}:</span>
+                        </div>
+                        <p className="text-[11px] text-slate-700 leading-tight">
+                          {sectorInsight.roiBenefit}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card Action Footer */}
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-indigo-600 group-hover:text-indigo-700">
+                    <span className="flex items-center gap-1">
+                      <span>How this helps your sector</span>
+                      <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-normal group-hover:text-slate-600">
+                      Click to explore →
+                    </span>
+                  </div>
                 </div>
               </div>
             );

@@ -15,6 +15,7 @@ export interface FeatureDetail {
   badge: string;
   iconName: string;
   themeColor: string; // e.g. 'indigo', 'emerald', 'amber', etc.
+  imageUrl?: string;
   description: string;
   metrics: { value: string; label: string }[];
   keyCapabilities: string[];
@@ -40,6 +41,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: '28+ Templates',
     iconName: 'Smartphone',
     themeColor: 'indigo',
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
     description: 'Launch a complete, interactive mobile mini-website for your business in under 2 minutes. Showcase your story, services, galleries, client reviews, and custom domain — 100% cloud-hosted with zero coding or hardware.',
     metrics: [
       { value: '28+', label: 'Ready Templates' },
@@ -125,6 +127,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: '300 DPI Print & Digital',
     iconName: 'CreditCard',
     themeColor: 'amber',
+    imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
     description: 'Design luxury business cards with 6 premium templates, 3D interactive flip preview, custom company logos, and download print-ready 300 DPI front & back PDFs paired with dynamic digital links.',
     metrics: [
       { value: '100%', label: 'Zero Paper Waste' },
@@ -210,6 +213,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: 'Instant Checkout',
     iconName: 'ShoppingBag',
     themeColor: 'emerald',
+    imageUrl: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80',
     description: 'Transform your digital profile into an interactive mobile storefront. Showcase products with multi-image galleries, prices, discounts, and custom options. Customers build a cart and checkout via pre-formatted WhatsApp orders.',
     metrics: [
       { value: '98%', label: 'WhatsApp Message Open Rate' },
@@ -295,6 +299,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: 'Calendar Sync',
     iconName: 'Calendar',
     themeColor: 'purple',
+    imageUrl: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80',
     description: 'Allow clients, patients, and prospects to view your real-time availability, select consultation slots, and book meetings directly from your profile—complete with duration, pricing, and automated reminders.',
     metrics: [
       { value: 'Zero', label: 'Scheduling Back-and-Forth' },
@@ -380,6 +385,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: 'Tri-Fold & Flyers',
     iconName: 'BookOpen',
     themeColor: 'sky',
+    imageUrl: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=800&q=80',
     description: 'Design multi-page tri-fold flyers, product lookbooks, and rate cards with rich layouts, pricing tables, QR codes, and export print-ready 300 DPI PDFs for commercial printers.',
     metrics: [
       { value: '300 DPI', label: 'Commercial Print Ready' },
@@ -465,6 +471,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: 'SEO Ranked',
     iconName: 'Sparkles',
     themeColor: 'pink',
+    imageUrl: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80',
     description: 'Write, publish, and distribute SEO-optimized articles, client success stories, and industry guides under your brand. Features automatic JSON-LD schema, social cards, and lightning-fast Google indexing.',
     metrics: [
       { value: 'Google #1', label: 'Local Search Visibility' },
@@ -550,6 +557,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: 'Universal .VCF',
     iconName: 'Download',
     themeColor: 'teal',
+    imageUrl: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=800&q=80',
     description: 'Allow clients to download your complete contact card (.vcf) with 1 click. Automatically saves your name, phone number, email, designation, company, website, address, and profile photo straight into Apple Contacts and Google Contacts.',
     metrics: [
       { value: '1 Tap', label: 'Instant Contact Save' },
@@ -635,6 +643,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: 'Dynamic URL',
     iconName: 'QrCode',
     themeColor: 'cyan',
+    imageUrl: 'https://images.unsplash.com/photo-1595079672139-545c025556ce?auto=format&fit=crop&w=800&q=80',
     description: 'Generate high-resolution PNG & SVG vector QR codes customized with your brand logo, colors, and frame. The destination URL is dynamic—meaning you can update your digital profile anytime without ever reprinting your materials.',
     metrics: [
       { value: '100%', label: 'Vector Resolution (SVG)' },
@@ -720,6 +729,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: 'Live Insights',
     iconName: 'TrendingUp',
     themeColor: 'violet',
+    imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
     description: 'Get actionable data on who is viewing your brand. Track QR scans vs. profile visits, unique visitors, geographic city locations, WhatsApp inquiry triggers, phone dials, and contact save conversion rates.',
     metrics: [
       { value: 'Real-time', label: 'Instant Event Logging' },
