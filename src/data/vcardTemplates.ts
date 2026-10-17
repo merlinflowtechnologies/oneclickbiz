@@ -490,13 +490,13 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
     "id": "travel-tour",
     "templateNumber": 1202,
-    "name": "Holiday Tour Operator vCard",
+    "name": "SwiftVoyage Bus Booking & Luxury AC Sleepers",
     "category": "Travel & Hospitality",
     "subCategory": "Tour Operators",
-    "actionSubtitle": "Holiday Packages",
-    "imgUrl": "https://images.unsplash.com/photo-1587135941948-670b381f08ce?auto=format&fit=crop&w=800&h=1000&q=85",
+    "actionSubtitle": "Bus Tickets & Luxury AC Sleepers",
+    "imgUrl": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&h=1000&q=85",
     "badge": "Hot Deal",
-    "tagline": "Dubai, Bali, Europe, Kashmir & Goa holiday packages",
+    "tagline": "Intercity bus tickets, Volvo Multi-Axle sleeper seats & live GPS tracking",
     "features": [
       "Tour itinerary PDF downloads",
       "Book holiday package slot",

@@ -736,7 +736,6 @@ export default function ProfileCardView({
     slug === 'travel' ||
     slug === 'travels' ||
     slug === 'tours-travels' ||
-    slug === 'travel-tour' ||
     slug === 'trav-agency' ||
     slug === 'tour' ||
     slug === 'tours' ||
@@ -844,6 +843,7 @@ export default function ProfileCardView({
     slug === 'buses' ||
     slug === 'bus-booking' ||
     slug === 'bus-ticket' ||
+    slug === 'travel-tour' ||
     slug.startsWith('bus-') ||
     templateId === 'bus-booking'
   );

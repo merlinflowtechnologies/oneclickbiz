@@ -1654,7 +1654,7 @@ TEMPLATE_PRESETS_DATA['event-planner'] = TEMPLATE_PRESETS_DATA['events-planner']
 TEMPLATE_PRESETS_DATA['event-photography'] = TEMPLATE_PRESETS_DATA['events-planner'];
 TEMPLATE_PRESETS_DATA['photography'] = TEMPLATE_PRESETS_DATA['events-planner'];
 
-TEMPLATE_PRESETS_DATA['travel-tour'] = {
+TEMPLATE_PRESETS_DATA['travel-tour-packages'] = {
   name: 'Pankaj Malhotra',
   designation: 'Managing Partner & Luxury Tour Specialist',
   company: 'Wanderlust International Travels',
@@ -1697,20 +1697,20 @@ TEMPLATE_PRESETS_DATA['travel-tour'] = {
   ]
 };
 
-TEMPLATE_PRESETS_DATA['travel'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['travels'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['tours-travels'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['tour'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['tours'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['holiday'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['holidays'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['trav-agency'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['trav-resort'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['luxury-resort'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['trav-cab'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['cab-services'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['trav-homestay'] = TEMPLATE_PRESETS_DATA['travel-tour'];
-TEMPLATE_PRESETS_DATA['homestay'] = TEMPLATE_PRESETS_DATA['travel-tour'];
+TEMPLATE_PRESETS_DATA['travel'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['travels'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['tours-travels'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['tour'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['tours'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['holiday'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['holidays'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['trav-agency'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['trav-resort'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['luxury-resort'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['trav-cab'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['cab-services'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['trav-homestay'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
+TEMPLATE_PRESETS_DATA['homestay'] = TEMPLATE_PRESETS_DATA['travel-tour-packages'];
 
 TEMPLATE_PRESETS_DATA['bus-booking'] = {
   name: 'SwiftVoyage Express',
@@ -1749,6 +1749,7 @@ TEMPLATE_PRESETS_DATA['abhibus'] = TEMPLATE_PRESETS_DATA['bus-booking'];
 TEMPLATE_PRESETS_DATA['bus'] = TEMPLATE_PRESETS_DATA['bus-booking'];
 TEMPLATE_PRESETS_DATA['buses'] = TEMPLATE_PRESETS_DATA['bus-booking'];
 TEMPLATE_PRESETS_DATA['bus-ticket'] = TEMPLATE_PRESETS_DATA['bus-booking'];
+TEMPLATE_PRESETS_DATA['travel-tour'] = TEMPLATE_PRESETS_DATA['bus-booking'];
 
 
 

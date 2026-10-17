@@ -401,6 +401,7 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     cleanSlug === 'buses' ||
     cleanSlug === 'bus-booking' ||
     cleanSlug === 'bus-ticket' ||
+    cleanSlug === 'travel-tour' ||
     cleanSlug.startsWith('bus-');
 
   if (isBusBookingPattern) {
@@ -507,7 +508,6 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     cleanSlug === 'travel' ||
     cleanSlug === 'travels' ||
     cleanSlug === 'tours-travels' ||
-    cleanSlug === 'travel-tour' ||
     cleanSlug === 'trav-agency' ||
     cleanSlug === 'tour' ||
     cleanSlug === 'tours' ||
@@ -521,7 +521,7 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     cleanSlug.startsWith('tour-');
 
   if (isTravelPattern) {
-    const tProf = getTemplateProfile('travel-tour');
+    const tProf = getTemplateProfile('travel-tour-packages');
     return {
       ...tProf,
       slug: cleanSlug,
