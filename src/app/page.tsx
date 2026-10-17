@@ -642,8 +642,198 @@ export default function LandingPage() {
 
           </div>
 
+          {/* Continuous Animated Feature Ribbon Marquee */}
+          <div className="mt-10 sm:mt-12 relative overflow-hidden py-3 px-2 sm:px-4 rounded-3xl bg-white/75 backdrop-blur-xl border border-indigo-100/90 shadow-md">
+            
+            {/* Left & Right Soft Fade Masks */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-sky-50 via-sky-50/90 to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-white via-white/90 to-transparent z-10" />
+
+            {/* Ribbon Caption */}
+            <div className="flex items-center justify-between mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+              <div className="flex items-center gap-1.5 text-indigo-700 font-extrabold">
+                <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
+                <span>All Capabilities Included in One Unified Platform</span>
+              </div>
+              <span className="hidden sm:inline-block text-[10px] text-slate-400 font-medium lowercase">
+                (hover to pause • click to explore)
+              </span>
+            </div>
+
+            {/* Seamless Infinite Marquee Track */}
+            <div className="flex overflow-hidden">
+              <div className="animate-continuous-marquee flex items-center gap-3 shrink-0">
+                
+                {/* Feature 1 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Monitor className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Turnkey Mini-Websites</span>
+                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">93+ Themes</span>
+                </a>
+
+                {/* Feature 2 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-emerald-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-emerald-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <MessageCircle className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">0% Fee WhatsApp Store</span>
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">Direct Orders</span>
+                </a>
+
+                {/* Feature 3 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-purple-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-purple-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <CreditCard className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-purple-700 transition-colors">Smart Digital Cards</span>
+                  <span className="text-[10px] font-bold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-full">1-Tap VCF</span>
+                </a>
+
+                {/* Feature 4 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-orange-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-orange-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Calendar className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-orange-700 transition-colors">Appointment Booking</span>
+                  <span className="text-[10px] font-bold text-orange-700 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">Auto-Sync</span>
+                </a>
+
+                {/* Feature 5 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-rose-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-rose-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <FileText className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-rose-700 transition-colors">Flyers &amp; Brochures</span>
+                  <span className="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full">300 DPI Print</span>
+                </a>
+
+                {/* Feature 6 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-cyan-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-cyan-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Edit3 className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-cyan-700 transition-colors">SEO Blog Engine</span>
+                  <span className="text-[10px] font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded-full">Rank on Google</span>
+                </a>
+
+                {/* Feature 7 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-indigo-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <QrCode className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-indigo-700 transition-colors">Dynamic QR Engine</span>
+                  <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full">Custom Logo</span>
+                </a>
+
+                {/* Feature 8 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-amber-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-amber-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Wifi className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-amber-700 transition-colors">Smart NFC Cards</span>
+                  <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">Tap &amp; Connect</span>
+                </a>
+
+                {/* Feature 9 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-violet-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-violet-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <TrendingUp className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-violet-700 transition-colors">Live Lead Analytics</span>
+                  <span className="text-[10px] font-bold text-violet-700 bg-violet-50 border border-violet-200 px-2 py-0.5 rounded-full">Real-Time</span>
+                </a>
+
+                {/* DUPLICATE SET FOR SEAMLESS 100% INFINITE LOOP */}
+                {/* Feature 1 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Monitor className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Turnkey Mini-Websites</span>
+                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">93+ Themes</span>
+                </a>
+
+                {/* Feature 2 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-emerald-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-emerald-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <MessageCircle className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">0% Fee WhatsApp Store</span>
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">Direct Orders</span>
+                </a>
+
+                {/* Feature 3 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-purple-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-purple-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <CreditCard className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-purple-700 transition-colors">Smart Digital Cards</span>
+                  <span className="text-[10px] font-bold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-full">1-Tap VCF</span>
+                </a>
+
+                {/* Feature 4 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-orange-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-orange-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Calendar className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-orange-700 transition-colors">Appointment Booking</span>
+                  <span className="text-[10px] font-bold text-orange-700 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">Auto-Sync</span>
+                </a>
+
+                {/* Feature 5 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-rose-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-rose-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <FileText className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-rose-700 transition-colors">Flyers &amp; Brochures</span>
+                  <span className="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full">300 DPI Print</span>
+                </a>
+
+                {/* Feature 6 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-cyan-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-cyan-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Edit3 className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-cyan-700 transition-colors">SEO Blog Engine</span>
+                  <span className="text-[10px] font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded-full">Rank on Google</span>
+                </a>
+
+                {/* Feature 7 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-indigo-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <QrCode className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-indigo-700 transition-colors">Dynamic QR Engine</span>
+                  <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full">Custom Logo</span>
+                </a>
+
+                {/* Feature 8 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-amber-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-amber-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Wifi className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-amber-700 transition-colors">Smart NFC Cards</span>
+                  <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">Tap &amp; Connect</span>
+                </a>
+
+                {/* Feature 9 */}
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-violet-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-violet-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <TrendingUp className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-violet-700 transition-colors">Live Lead Analytics</span>
+                  <span className="text-[10px] font-bold text-violet-700 bg-violet-50 border border-violet-200 px-2 py-0.5 rounded-full">Real-Time</span>
+                </a>
+
+              </div>
+            </div>
+
+          </div>
+
           {/* 10 Industry Circles Row (Directly below hero visual showcase) */}
-          <div className="mt-14 sm:mt-18 pt-8 border-t border-slate-200/80">
+          <div className="mt-10 sm:mt-14 pt-8 border-t border-slate-200/80">
             <div className="flex items-center justify-between gap-3 overflow-x-auto pb-3 pt-1 scrollbar-none scroll-smooth">
               
               {/* 1. Real Estate */}
