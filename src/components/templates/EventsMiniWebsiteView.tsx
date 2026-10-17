@@ -365,7 +365,7 @@ export const VERIFIED_REVIEWS = [
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80'
   },
   {
-    name: 'Bhanupriya Sharma',
+    name: 'Bhavna Patel',
     occasion: 'House Warming Pooja • Kondapur',
     rating: 5,
     text: 'Great experience! The photographer was active throughout, photo quality is very good, and he stayed a few extra minutes without rushing us. Best part was booking just for 2 hours instead of paying full day.',
@@ -379,14 +379,14 @@ export const VERIFIED_REVIEWS = [
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'
   },
   {
-    name: 'Chitra Karkera',
+    name: 'Chaitanya K.',
     occasion: 'Naming Ceremony • Madhapur',
     rating: 5,
     text: 'The photography is amazing, and the price is very reasonable. A really great experience with our photographer overall. Handled the crowd gracefully and captured crisp candid closeups.',
     avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80'
   },
   {
-    name: 'Priya Pakhare',
+    name: 'Priya Rao',
     occasion: 'Engagement Ceremony • Financial District',
     rating: 5,
     text: 'Absolute perfection! Our engagement party was captured so beautifully. Every shot felt authentic, warm and stunning, so naturally. Highly recommend SnapVibe Photography in Hyderabad!',
