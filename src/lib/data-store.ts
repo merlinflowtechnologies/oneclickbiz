@@ -235,6 +235,21 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
 export function getProfileBySlug(rawSlug: string): DigitalProfile {
   const cleanSlug = (rawSlug || '').toLowerCase().trim();
   
+  // 0. Direct match against catalog templates
+  const matchedCatalog = VCARD_TEMPLATES_CATALOG.find(t => t.id.toLowerCase() === cleanSlug);
+  if (matchedCatalog) {
+    const tProf = getTemplateProfile(matchedCatalog.id);
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      templateId: matchedCatalog.id,
+      category: matchedCatalog.category,
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
   // 1. Check in initial profiles or aliases
   if (['kishore', 'kishore-patel', 'alex', 'demo', 'preview', 'sample'].includes(cleanSlug)) {
     return {

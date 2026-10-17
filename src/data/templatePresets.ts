@@ -1851,6 +1851,14 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
           }
         ]
       } : undefined,
+      insurance: (meta.category === 'Professional Services' && (templateId.includes('insurance') || effectiveId.includes('insurance'))) ? {
+        irdaiLicence: 'IRDAI Regn. No. 111 / MDRT Life Member',
+        experienceYears: 18,
+        familiesProtected: '4,500+ Families',
+        claimSettlementRatio: '99.5% Direct Settlement Track Record',
+        cashlessHospitals: '14,500+ Partner Hospitals Nationwide',
+        primaryCity: 'Mumbai & Hyderabad'
+      } : undefined,
       contact: {
         showEmail: true,
         showPhone: true,

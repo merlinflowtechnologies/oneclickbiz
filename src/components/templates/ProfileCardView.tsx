@@ -62,6 +62,7 @@ import BusBookingTemplateView from './BusBookingTemplateView';
 import ProfessionalMiniWebsiteView from './ProfessionalMiniWebsiteView';
 import HomeServicesMiniWebsiteView from './HomeServicesMiniWebsiteView';
 import RetailMiniWebsiteView from './RetailMiniWebsiteView';
+import { VCARD_TEMPLATES_CATALOG } from '@/data/vcardTemplates';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -132,6 +133,15 @@ export default function ProfileCardView({
 
   useEffect(() => {
     if (typeof window !== 'undefined' && initialProfile?.slug) {
+      // Guard: Never let localStorage corrupt official catalog template previews or insurance alias
+      const isOfficialCatalogTemplate = VCARD_TEMPLATES_CATALOG.some(
+        t => t.id.toLowerCase() === initialProfile.slug.toLowerCase()
+      ) || ['insurance', 'mediclaim', 'insurance-advisor'].includes(initialProfile.slug.toLowerCase());
+
+      if (isOfficialCatalogTemplate) {
+        return;
+      }
+
       try {
         const cached = localStorage.getItem(`oneclickbiz_custom_profile_${initialProfile.slug}`);
         if (cached) {
@@ -672,339 +682,180 @@ export default function ProfileCardView({
     profile.slug === 'kishore-patel' || 
     profile.id === 'prof_kishore_1';
 
-  const isRealEstate = !isKishore && Boolean(
-    profile.slug === 'venu' ||
-    profile.slug === 'builders' ||
-    profile.slug === 're-builders' ||
-    profile.slug === 'villas' ||
-    profile.slug === 're-villas' ||
-    profile.slug === 'plots' ||
-    profile.slug === 're-plots' ||
-    profile.slug === 'skyline' ||
-    (profile as any).templateId === 'vcard35' ||
-    profile.id?.startsWith('re-') ||
-    (profile as any).templateId?.startsWith('re-') ||
-    (profile as any).category === 'Real Estate' ||
-    Boolean(profile.sectionData?.realEstate) ||
-    profile.company?.toLowerCase().includes('realty') ||
-    profile.company?.toLowerCase().includes('real estate') ||
-    profile.company?.toLowerCase().includes('builder') ||
-    profile.company?.toLowerCase().includes('developer') ||
-    profile.company?.toLowerCase().includes('properties') ||
-    profile.company?.toLowerCase().includes('constructions') ||
-    profile.designation?.toLowerCase().includes('realtor') ||
-    profile.designation?.toLowerCase().includes('builder') ||
-    profile.designation?.toLowerCase().includes('infrastructure') ||
-    profile.id === 're-agents' ||
-    profile.id === 're-builders' ||
-    profile.id === 're-plots' ||
-    profile.id === 're-villas' ||
-    profile.id === 're-consultants'
-  );
+  const slug = (profile.slug || '').toLowerCase();
+  const templateId = (((profile as any).templateId || profile.id || '') as string).toLowerCase();
+  const category = profile.category || (profile as any).category || '';
+  const subCategory = (((profile as any).subCategory || '') as string).toLowerCase();
 
-  const isInterior = 
-    profile.slug === 'interior' ||
-    profile.slug === 'architect' ||
-    profile.slug === 'home-interior' ||
-    profile.id === 'home-interior' ||
-    profile.id === 'interior' ||
-    (profile as any).templateId === 'home-interior' ||
-    (profile as any).templateId === 'interior' ||
-    (profile as any).templateId === 'vcard36' ||
-    (profile as any).templateId === 'vcard38' ||
-    (profile as any).templateId?.startsWith('interior-') ||
-    profile.id?.startsWith('interior-') ||
-    (profile as any).category === 'Interior Design' ||
-    (profile as any).category === 'Architecture' ||
-    profile.company?.toLowerCase().includes('interior') ||
-    profile.company?.toLowerCase().includes('decor') ||
-    profile.company?.toLowerCase().includes('architect') ||
-    profile.designation?.toLowerCase().includes('interior') ||
-    profile.designation?.toLowerCase().includes('architect') ||
-    profile.bio?.toLowerCase().includes('interior') ||
-    profile.bio?.toLowerCase().includes('architect');
-
-  const isWebsiteMode = viewMode === 'website';
-  const isRestaurantTemplate = 
-    profile.slug === 'food-restaurant' || 
-    profile.slug === 'restaurant-menu' ||
-    profile.slug?.includes('restaurant') || 
-    profile.slug?.includes('food') || 
-    profile.slug?.includes('brahmin') || 
-    profile.slug?.includes('dining') || 
-    profile.slug?.includes('cafe') || 
-    profile.slug?.includes('kitchen') || 
-    profile.slug?.includes('bistro') ||
-    profile.slug?.includes('menu') ||
-    profile.id === 'food-restaurant' ||
-    profile.id === 'restaurant-menu' ||
-    profile.id === 'food-home' ||
-    profile.id === 'brahmin-food' ||
-    profile.id?.startsWith('food-') ||
-    (profile as any).templateId === 'food-restaurant' ||
-    (profile as any).templateId === 'restaurant-menu' ||
-    (profile as any).templateId === 'food-home' ||
-    (profile as any).templateId === 'brahmin-food' ||
-    (profile as any).templateId?.startsWith('food-') ||
-    (profile as any).category === 'Food Business' ||
-    (profile as any).category === 'Restaurants & Dining' ||
-    (profile as any).category === 'Restaurant' ||
-    (profile as any).category === 'Restaurants & Lounges' ||
-    (profile as any).category === 'Smart Dining & Digital Menus' ||
-    Boolean(profile.sectionData?.restaurant) ||
-    profile.company?.toLowerCase().includes('restaurant') ||
-    profile.company?.toLowerCase().includes('dining') ||
-    profile.company?.toLowerCase().includes('kitchen') ||
-    profile.company?.toLowerCase().includes('cafe') ||
-    profile.company?.toLowerCase().includes('bistro') ||
-    profile.company?.toLowerCase().includes('food') ||
-    profile.designation?.toLowerCase().includes('restaurant') ||
-    profile.designation?.toLowerCase().includes('chef') ||
-    profile.designation?.toLowerCase().includes('dining') ||
-    profile.theme === 'brahmin-food';
-
-  const isHealthcare = Boolean(
-    (profile as any).category === 'Healthcare' ||
-    (profile as any).templateId?.includes('doctor') ||
-    (profile as any).templateId?.includes('clinic') ||
-    ((profile as any).templateId?.includes('hospital') && !(profile as any).templateId?.includes('hospitality')) ||
-    profile.designation?.toLowerCase().includes('doctor') ||
-    profile.designation?.toLowerCase().includes('dr.') ||
-    profile.designation?.toLowerCase().includes('physician') ||
-    profile.designation?.toLowerCase().includes('surgeon') ||
-    profile.designation?.toLowerCase().includes('dentist') ||
-    profile.designation?.toLowerCase().includes('clinic') ||
-    (profile.company?.toLowerCase().includes('hospital') && !profile.company?.toLowerCase().includes('hospitality')) ||
-    profile.company?.toLowerCase().includes('clinic') ||
-    profile.company?.toLowerCase().includes('dental') ||
-    Boolean(profile.sectionData?.healthcare)
-  );
-
-  const isAutomobile = Boolean(
-    (profile as any).category === 'Automobile' ||
-    (profile as any).templateId?.includes('auto') ||
-    (profile as any).templateId?.includes('car') ||
-    (profile as any).templateId?.includes('bike') ||
-    profile.designation?.toLowerCase().includes('automobile') ||
-    profile.designation?.toLowerCase().includes('car') ||
-    profile.company?.toLowerCase().includes('motors') ||
-    profile.company?.toLowerCase().includes('automobiles') ||
-    profile.company?.toLowerCase().includes('cars') ||
-    profile.company?.toLowerCase().includes('dealership') ||
-    profile.company?.toLowerCase().includes('garage') ||
-    Boolean(profile.sectionData?.automobile)
-  );
-
-  const isFashion = Boolean(
-    (profile as any).category === 'Fashion & Clothing' ||
-    (profile as any).templateId?.includes('boutique') ||
-    (profile as any).templateId?.includes('fashion') ||
-    (profile as any).templateId?.includes('saree') ||
-    profile.designation?.toLowerCase().includes('designer') ||
-    profile.designation?.toLowerCase().includes('couturier') ||
-    profile.designation?.toLowerCase().includes('stylist') ||
-    profile.company?.toLowerCase().includes('boutique') ||
-    profile.company?.toLowerCase().includes('fashion') ||
-    profile.company?.toLowerCase().includes('silks') ||
-    profile.company?.toLowerCase().includes('saree') ||
-    profile.company?.toLowerCase().includes('couture') ||
-    Boolean(profile.sectionData?.fashion)
-  );
-
-  const isEducation = Boolean(
-    profile.slug === 'edu-school' ||
-    profile.slug?.includes('apex') ||
-    profile.slug?.startsWith('edu-') ||
-    (profile as any).category === 'Education' ||
-    (profile as any).templateId?.includes('edu') ||
-    (profile as any).templateId?.includes('school') ||
-    (profile as any).templateId?.includes('academy') ||
-    (profile as any).templateId?.includes('coaching') ||
-    profile.designation?.toLowerCase().includes('teacher') ||
-    profile.designation?.toLowerCase().includes('professor') ||
-    profile.designation?.toLowerCase().includes('faculty') ||
-    profile.designation?.toLowerCase().includes('tutor') ||
-    profile.designation?.toLowerCase().includes('principal') ||
-    profile.company?.toLowerCase().includes('academy') ||
-    profile.company?.toLowerCase().includes('school') ||
-    profile.company?.toLowerCase().includes('classes') ||
-    profile.company?.toLowerCase().includes('institute') ||
-    profile.company?.toLowerCase().includes('education') ||
-    Boolean(profile.sectionData?.education)
-  );
-
-  const isBeauty = Boolean(
-    (profile as any).category === 'Beauty & Personal Care' ||
-    (profile as any).templateId?.includes('beauty') ||
-    (profile as any).templateId?.includes('salon') ||
-    (profile as any).templateId?.includes('spa') ||
-    (profile as any).templateId?.includes('makeup') ||
-    profile.designation?.toLowerCase().includes('stylist') ||
-    profile.designation?.toLowerCase().includes('beautician') ||
-    profile.designation?.toLowerCase().includes('makeup') ||
-    profile.designation?.toLowerCase().includes('esthetician') ||
-    profile.company?.toLowerCase().includes('salon') ||
-    profile.company?.toLowerCase().includes('spa') ||
-    profile.company?.toLowerCase().includes('parlour') ||
-    profile.company?.toLowerCase().includes('beauty') ||
-    profile.company?.toLowerCase().includes('makeover') ||
-    profile.slug === 'beauty-salon' ||
-    profile.slug === 'auraluxe' ||
-    profile.slug?.includes('auraluxe') ||
-    profile.slug === 'green-trends' ||
-    profile.slug === 'greentrends' ||
-    profile.slug === 'greentrends-kothapet' ||
-    profile.slug === 'salon' ||
-    profile.slug === 'luxury-salon' ||
-    profile.slug?.includes('beauty') ||
-    profile.slug?.includes('salon') ||
-    profile.slug?.includes('greentrends') ||
-    Boolean(profile.sectionData?.beauty)
-  );
-
-  const isEvents = Boolean(
-    profile.slug === 'events-planner' ||
-    profile.slug === 'event-planner' ||
-    profile.slug?.includes('event') ||
-    (profile as any).category === 'Events & Creative' ||
-    (profile as any).templateId?.includes('event') ||
-    (profile as any).templateId?.includes('photo') ||
-    (profile as any).templateId?.includes('wedding') ||
-    (profile as any).templateId?.includes('dj') ||
-    profile.designation?.toLowerCase().includes('photographer') ||
-    profile.designation?.toLowerCase().includes('event planner') ||
-    profile.designation?.toLowerCase().includes('cinematographer') ||
-    profile.designation?.toLowerCase().includes('decor') ||
-    profile.company?.toLowerCase().includes('events') ||
-    profile.company?.toLowerCase().includes('wedding') ||
-    profile.company?.toLowerCase().includes('photography') ||
-    profile.company?.toLowerCase().includes('production') ||
-    profile.company?.toLowerCase().includes('studio') ||
-    Boolean(profile.sectionData?.events)
-  );
-
-  const isBusBooking = Boolean(
-    profile.slug === 'abhibus' ||
-    profile.slug === 'bus' ||
-    profile.slug === 'buses' ||
-    profile.slug === 'bus-booking' ||
-    profile.slug === 'bus-ticket' ||
-    profile.slug?.startsWith('bus-') ||
-    (profile as any).templateId === 'bus-booking' ||
-    (profile as any).category === 'Bus Booking & Transport'
-  );
-
-  const isTravel = Boolean(
-    (profile as any).category === 'Travel & Hospitality' ||
-    (profile as any).templateId?.includes('travel') ||
-    (profile as any).templateId?.includes('tour') ||
-    (profile as any).templateId?.includes('holiday') ||
-    (profile as any).templateId?.includes('resort') ||
-    (profile as any).templateId?.includes('hotel') ||
-    profile.designation?.toLowerCase().includes('travel') ||
-    profile.designation?.toLowerCase().includes('tour') ||
-    profile.designation?.toLowerCase().includes('holiday') ||
-    profile.company?.toLowerCase().includes('travels') ||
-    profile.company?.toLowerCase().includes('tours') ||
-    profile.company?.toLowerCase().includes('holidays') ||
-    profile.company?.toLowerCase().includes('resort') ||
-    profile.company?.toLowerCase().includes('getaways') ||
-    Boolean(profile.sectionData?.travel)
-  );
-
-  const isProfessional = Boolean(
-    (profile as any).category === 'Professional Services' ||
-    (profile as any).templateId?.includes('prof') ||
-    (profile as any).templateId?.includes('legal') ||
-    (profile as any).templateId?.includes('tax') ||
-    (profile as any).templateId?.includes('ca-') ||
-    (profile as any).templateId?.includes('consult') ||
-    profile.designation?.toLowerCase().includes('advocate') ||
-    profile.designation?.toLowerCase().includes('lawyer') ||
-    profile.designation?.toLowerCase().includes('chartered accountant') ||
-    profile.designation?.toLowerCase().includes('consultant') ||
-    profile.company?.toLowerCase().includes('legal') ||
-    profile.company?.toLowerCase().includes('associates') ||
-    profile.company?.toLowerCase().includes('consulting') ||
-    profile.company?.toLowerCase().includes('tax') ||
-    Boolean(profile.sectionData?.professional)
-  );
-
-  const isHomeServices = Boolean(
-    (profile as any).category === 'Home & Professional Services' ||
-    (profile as any).templateId?.includes('home') ||
-    (profile as any).templateId?.includes('repair') ||
-    (profile as any).templateId?.includes('clean') ||
-    (profile as any).templateId?.includes('plumb') ||
-    (profile as any).templateId?.includes('electric') ||
-    (profile as any).templateId?.includes('hvac') ||
-    (profile as any).templateId?.includes('pest') ||
-    profile.designation?.toLowerCase().includes('technician') ||
-    profile.designation?.toLowerCase().includes('plumber') ||
-    profile.designation?.toLowerCase().includes('electrician') ||
-    profile.designation?.toLowerCase().includes('cleaning') ||
-    profile.company?.toLowerCase().includes('services') ||
-    profile.company?.toLowerCase().includes('repairs') ||
-    profile.company?.toLowerCase().includes('pest') ||
-    profile.company?.toLowerCase().includes('cooling') ||
-    Boolean(profile.sectionData?.homeServices)
-  );
-
-  const isRetail = Boolean(
-    (profile as any).category === 'Retail & Local Shops' ||
-    (profile as any).templateId?.includes('retail') ||
-    (profile as any).templateId?.includes('shop') ||
-    (profile as any).templateId?.includes('store') ||
-    (profile as any).templateId?.includes('jewel') ||
-    (profile as any).templateId?.includes('supermarket') ||
-    (profile as any).templateId?.includes('gadget') ||
-    profile.designation?.toLowerCase().includes('proprietor') ||
-    profile.designation?.toLowerCase().includes('store manager') ||
-    profile.designation?.toLowerCase().includes('merchant') ||
-    profile.company?.toLowerCase().includes('store') ||
-    profile.company?.toLowerCase().includes('shop') ||
-    profile.company?.toLowerCase().includes('mart') ||
-    profile.company?.toLowerCase().includes('jewellers') ||
-    profile.company?.toLowerCase().includes('bazaar') ||
-    Boolean(profile.sectionData?.retail)
-  );
-
-  const isFashionTemplate = 
-    isFashion ||
-    profile.slug === 'fash-boutique' || 
-    profile.slug === 'fash-ladies' ||
-    profile.slug === 'fash-mens' ||
-    profile.slug === 'fash-saree' ||
-    profile.slug === 'fash-online' ||
-    profile.slug?.startsWith('fash-') ||
-    profile.slug?.startsWith('fashion-') ||
-    profile.slug?.includes('boutique') ||
-    profile.slug?.includes('couture') ||
-    profile.slug?.includes('tailor') ||
-    profile.slug?.includes('apparel') ||
-    profile.id === 'fash-boutique' ||
-    profile.id?.startsWith('fash-') ||
-    (profile as any).templateId === 'fash-boutique' ||
-    (profile as any).templateId?.startsWith('fash-') ||
-    (profile as any).category === 'Fashion & Clothing' ||
-    (profile as any).category === 'Fashion' ||
-    (profile as any).category === 'Clothing & Boutiques';
-
-  const isInsuranceTemplate = Boolean(
-    profile.slug === 'prof-insurance' ||
-    profile.slug === 'insurance' ||
-    profile.slug === 'mediclaim' ||
-    profile.slug === 'insurance-advisor' ||
-    profile.slug?.startsWith('insurance-') ||
-    profile.slug?.includes('insurance') ||
-    profile.id === 'prof-insurance' ||
-    (profile as any).templateId === 'prof-insurance' ||
-    (profile as any).templateId?.includes('insurance') ||
-    (profile as any).subCategory?.toLowerCase().includes('insurance') ||
+  // 1. Insurance (Top Priority - Must never be misidentified as general professional, beauty, or fashion)
+  const isInsuranceTemplate = !isKishore && Boolean(
+    slug === 'prof-insurance' ||
+    slug === 'insurance' ||
+    slug === 'mediclaim' ||
+    slug === 'insurance-advisor' ||
+    slug.startsWith('insurance-') ||
+    slug.includes('insurance') ||
+    templateId === 'prof-insurance' ||
+    templateId.includes('insurance') ||
+    subCategory.includes('insurance') ||
     profile.designation?.toLowerCase().includes('insurance') ||
     profile.company?.toLowerCase().includes('insurance') ||
     Boolean(profile.sectionData?.insurance)
   );
+
+  // 2. Interior Design (Must precede Fashion because "Interior Designer" has "designer")
+  const isInterior = !isKishore && !isInsuranceTemplate && Boolean(
+    category === 'Interior Design' ||
+    category === 'Architecture' ||
+    slug === 'home-interior' ||
+    slug === 'home-architect' ||
+    slug === 'interior' ||
+    slug === 'architect' ||
+    templateId === 'home-interior' ||
+    templateId === 'home-architect' ||
+    templateId === 'interior' ||
+    templateId.startsWith('interior-') ||
+    Boolean(profile.sectionData?.interior)
+  );
+
+  // 3. Events & Creative (Must precede Fashion because "Wedding & Fashion Photographer" has "fashion")
+  const isEvents = !isKishore && !isInsuranceTemplate && !isInterior && Boolean(
+    category === 'Events & Creative' ||
+    slug === 'events-planner' ||
+    slug === 'event-planner' ||
+    slug === 'event-photo' ||
+    slug.startsWith('event-') ||
+    templateId === 'events-planner' ||
+    templateId === 'event-photo' ||
+    Boolean(profile.sectionData?.events)
+  );
+
+  // 4. Travel & Hospitality (Must precede Restaurant because "Banquet Suites & Dining" has "dining")
+  const isTravel = !isKishore && !isInsuranceTemplate && !isInterior && !isEvents && Boolean(
+    category === 'Travel & Hospitality' ||
+    slug.startsWith('travel-') ||
+    templateId.startsWith('travel-') ||
+    Boolean(profile.sectionData?.travel)
+  );
+
+  // 5. Food & Restaurant
+  const isRestaurantTemplate = !isKishore && !isTravel && Boolean(
+    category === 'Food Business' ||
+    category === 'Restaurants & Dining' ||
+    category === 'Restaurant' ||
+    slug === 'restaurant-menu' ||
+    slug === 'pickles-snacks' ||
+    slug === 'food-restaurant' ||
+    slug === 'food-home' ||
+    slug === 'brahmin-food' ||
+    slug.startsWith('food-') ||
+    templateId === 'restaurant-menu' ||
+    templateId === 'pickles-snacks' ||
+    templateId.startsWith('food-') ||
+    Boolean(profile.sectionData?.restaurant)
+  );
+
+  // 6. Real Estate
+  const isRealEstate = !isKishore && !isInterior && Boolean(
+    category === 'Real Estate' ||
+    slug.startsWith('re-') ||
+    slug === 'builders' ||
+    slug === 'villas' ||
+    slug === 'plots' ||
+    slug === 'skyline' ||
+    slug === 'venu' ||
+    templateId.startsWith('re-') ||
+    Boolean(profile.sectionData?.realEstate)
+  );
+
+  // 7. Fashion & Clothing (Guarded so interior/events never get swallowed)
+  const isFashionTemplate = !isInterior && !isEvents && !isInsuranceTemplate && Boolean(
+    category === 'Fashion & Clothing' ||
+    category === 'Fashion' ||
+    slug.startsWith('fash-') ||
+    slug.startsWith('fashion-') ||
+    templateId.startsWith('fash-') ||
+    templateId.startsWith('fashion-') ||
+    Boolean(profile.sectionData?.fashion)
+  );
+  const isFashion = isFashionTemplate;
+
+  // 8. Healthcare
+  const isHealthcare = Boolean(
+    category === 'Healthcare' ||
+    slug.startsWith('health-') ||
+    templateId.startsWith('health-') ||
+    Boolean(profile.sectionData?.healthcare)
+  );
+
+  // 9. Automobile
+  const isAutomobile = Boolean(
+    category === 'Automobile' ||
+    slug.startsWith('auto-') ||
+    templateId.startsWith('auto-') ||
+    Boolean(profile.sectionData?.automobile)
+  );
+
+  // 10. Education (Guarded against CA / Insurance "Institutes")
+  const isEducation = !isInsuranceTemplate && Boolean(
+    category === 'Education' ||
+    slug.startsWith('edu-') ||
+    slug === 'apex' ||
+    templateId.startsWith('edu-') ||
+    Boolean(profile.sectionData?.education)
+  );
+
+  // 11. Beauty & Personal Care (Guarded against Fashion & Insurance)
+  const isBeauty = !isFashionTemplate && !isInsuranceTemplate && Boolean(
+    category === 'Beauty & Personal Care' ||
+    slug === 'beauty-salon' ||
+    slug === 'beauty-bridal' ||
+    slug.startsWith('beauty-') ||
+    slug === 'auraluxe' ||
+    slug.includes('greentrends') ||
+    templateId.startsWith('beauty-') ||
+    Boolean(profile.sectionData?.beauty)
+  );
+
+  // 12. Bus Booking & Transport
+  const isBusBooking = Boolean(
+    category === 'Bus Booking & Transport' ||
+    slug === 'abhibus' ||
+    slug.startsWith('bus-') ||
+    templateId === 'bus-booking'
+  );
+
+  // 13. Professional Services (Tech Portfolio, CA, Legal - excluding Insurance)
+  const isProfessional = !isInsuranceTemplate && Boolean(
+    category === 'Professional Services' ||
+    slug === 'tech-portfolio' ||
+    slug === 'prof-ca' ||
+    slug.startsWith('prof-') ||
+    templateId === 'tech-portfolio' ||
+    templateId === 'prof-ca' ||
+    templateId.startsWith('prof-') ||
+    Boolean(profile.sectionData?.professional)
+  );
+
+  // 14. Home & Professional Services
+  const isHomeServices = Boolean(
+    category === 'Home & Professional Services' ||
+    slug.startsWith('home-electrician') ||
+    slug.startsWith('home-plumber') ||
+    templateId.startsWith('home-electrician') ||
+    templateId.startsWith('home-plumber') ||
+    Boolean(profile.sectionData?.homeServices)
+  );
+
+  // 15. Retail & Local Shops
+  const isRetail = Boolean(
+    category === 'Retail & Local Shops' ||
+    slug.startsWith('retail-') ||
+    templateId.startsWith('retail-') ||
+    Boolean(profile.sectionData?.retail)
+  );
+
+  const isWebsiteMode = viewMode === 'website';
 
   const [cardOpenFaqId, setCardOpenFaqId] = useState<string | null>(null);
 
@@ -1139,7 +990,7 @@ export default function ProfileCardView({
           setViewMode={setViewMode}
           showViewToggle={showViewToggle}
         />
-      ) : isFashionTemplate ? (
+      ) : isFashionTemplate && isWebsiteMode ? (
         <FashionTemplateView
           profile={profile}
           cart={cart}

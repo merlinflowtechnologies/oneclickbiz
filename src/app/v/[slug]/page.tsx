@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import prisma, { isDatabaseConfigured } from '@/lib/prisma';
 import { getProfileBySlug } from '@/lib/data-store';
+import { VCARD_TEMPLATES_CATALOG } from '@/data/vcardTemplates';
 import ProfileCardView from '@/components/templates/ProfileCardView';
 import SharePreviewFloatingBar from '@/components/common/SharePreviewFloatingBar';
 import { DigitalProfile } from '@/lib/types';
@@ -17,6 +18,14 @@ interface ProfilePageProps {
 
 async function fetchProfileData(slug: string): Promise<DigitalProfile> {
   const cleanSlug = (slug || '').toLowerCase().trim();
+
+  // If slug matches any official catalog template or alias, return pure catalog preview immediately
+  const isCatalogTemplate = VCARD_TEMPLATES_CATALOG.some(t => t.id.toLowerCase() === cleanSlug) ||
+    ['insurance', 'mediclaim', 'insurance-advisor'].includes(cleanSlug);
+  if (isCatalogTemplate) {
+    return getProfileBySlug(cleanSlug);
+  }
+
   if (isDatabaseConfigured) {
     try {
       const dbProfile = await prisma.profile.findUnique({
