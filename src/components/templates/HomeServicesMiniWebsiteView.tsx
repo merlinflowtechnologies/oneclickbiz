@@ -32,7 +32,6 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import ShareCardModal from '@/components/common/ShareCardModal';
-import { getServiceImageUrl } from '@/lib/service-image';
 
 interface HomeServicesMiniWebsiteViewProps {
   profile: DigitalProfile;
@@ -76,8 +75,7 @@ export default function HomeServicesMiniWebsiteView({ profile, getEmbedUrl }: Ho
       price: 299,
       currency: '₹',
       durationMinutes: 45,
-      isAvailable: true,
-      imageUrl: 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=800&q=80'
+      isAvailable: true
     },
     {
       id: 'hs-2',
@@ -86,8 +84,7 @@ export default function HomeServicesMiniWebsiteView({ profile, getEmbedUrl }: Ho
       price: 599,
       currency: '₹',
       durationMinutes: 90,
-      isAvailable: true,
-      imageUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80'
+      isAvailable: true
     },
     {
       id: 'hs-3',
@@ -96,8 +93,7 @@ export default function HomeServicesMiniWebsiteView({ profile, getEmbedUrl }: Ho
       price: 249,
       currency: '₹',
       durationMinutes: 60,
-      isAvailable: true,
-      imageUrl: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80'
+      isAvailable: true
     },
     {
       id: 'hs-4',
@@ -106,8 +102,7 @@ export default function HomeServicesMiniWebsiteView({ profile, getEmbedUrl }: Ho
       price: 899,
       currency: '₹',
       durationMinutes: 120,
-      isAvailable: true,
-      imageUrl: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=800&q=80'
+      isAvailable: true
     },
     {
       id: 'hs-5',
@@ -116,8 +111,7 @@ export default function HomeServicesMiniWebsiteView({ profile, getEmbedUrl }: Ho
       price: 2499,
       currency: '₹',
       durationMinutes: 240,
-      isAvailable: true,
-      imageUrl: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80'
+      isAvailable: true
     }
   ];
 
@@ -519,68 +513,44 @@ Requested via OneClickBizz verified service portal.`;
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {displayServices.map((svc) => {
-                const srvImage = getServiceImageUrl(svc, 'Home Services');
-                return (
-                  <div
-                    key={svc.id}
-                    className="bg-slate-900/80 border border-slate-800/80 hover:border-amber-500/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/10 flex flex-col justify-between group"
-                  >
-                    <div>
-                      {/* Service Image Banner */}
-                      <div className="relative w-full h-44 sm:h-48 overflow-hidden bg-slate-950">
-                        <img
-                          src={srvImage}
-                          alt={svc.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-                        
-                        {svc.durationMinutes && (
-                          <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/10 text-slate-200 text-[11px] font-medium flex items-center gap-1.5">
-                            <Clock className="w-3 h-3 text-amber-400" />
-                            <span>{svc.durationMinutes} Mins</span>
-                          </div>
-                        )}
-
-                        {svc.price !== undefined && (
-                          <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-amber-500 text-slate-950 font-extrabold text-xs shadow-md">
-                            {typeof svc.price === 'number' ? `₹${svc.price.toLocaleString('en-IN')}` : svc.price}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="p-4 sm:p-5">
-                        <h3 className="font-bold text-white text-base group-hover:text-amber-400 transition-colors line-clamp-2">
-                          {svc.title}
-                        </h3>
-                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mt-2 line-clamp-3">
-                          {svc.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="p-4 sm:p-5 pt-0">
-                      <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                        <span className="text-[11px] font-medium text-slate-400 flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                          <span>Verified Pros</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {displayServices.map((svc) => (
+                <div
+                  key={svc.id}
+                  className="bg-slate-900/70 border border-slate-800 hover:border-amber-500/50 rounded-xl p-5 transition-all hover:bg-slate-900 flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <h3 className="font-bold text-white text-base group-hover:text-amber-400 transition-colors">
+                        {svc.title}
+                      </h3>
+                      {svc.price !== undefined && (
+                        <span className="px-2.5 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-300 font-extrabold text-xs rounded-lg shrink-0">
+                          {typeof svc.price === 'number' ? `₹${svc.price}` : svc.price}
                         </span>
-
-                        <button
-                          onClick={() => triggerDirectServiceBooking(svc.title)}
-                          className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
-                        >
-                          <span>Book Service</span>
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
+                      )}
                     </div>
+                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4">
+                      {svc.description}
+                    </p>
                   </div>
-                );
-              })}
+
+                  <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                    <span className="text-slate-400 flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-blue-400" />
+                      <span>{svc.durationMinutes ? `${svc.durationMinutes} Mins` : 'Fast Dispatch'}</span>
+                    </span>
+
+                    <button
+                      onClick={() => triggerDirectServiceBooking(svc.title)}
+                      className="px-3.5 py-1.5 bg-amber-500/10 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-bold rounded-lg transition-all flex items-center gap-1.5 border border-amber-500/30"
+                    >
+                      <span>Book Service</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

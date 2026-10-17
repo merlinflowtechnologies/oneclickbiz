@@ -34,7 +34,6 @@ import {
   ChevronRight
 } from 'lucide-react';
 import ShareCardModal from '@/components/common/ShareCardModal';
-import { getServiceImageUrl } from '@/lib/service-image';
 
 interface ProfessionalMiniWebsiteViewProps {
   profile: DigitalProfile;
@@ -76,8 +75,7 @@ export default function ProfessionalMiniWebsiteView({ profile, getEmbedUrl }: Pr
       price: 15000,
       currency: '₹',
       durationMinutes: 60,
-      isAvailable: true,
-      imageUrl: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80'
+      isAvailable: true
     },
     {
       id: 'prof_2',
@@ -87,8 +85,7 @@ export default function ProfessionalMiniWebsiteView({ profile, getEmbedUrl }: Pr
       price: 12500,
       currency: '₹',
       durationMinutes: 90,
-      isAvailable: true,
-      imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80'
+      isAvailable: true
     },
     {
       id: 'prof_3',
@@ -98,8 +95,7 @@ export default function ProfessionalMiniWebsiteView({ profile, getEmbedUrl }: Pr
       price: 20000,
       currency: '₹',
       durationMinutes: 60,
-      isAvailable: true,
-      imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+      isAvailable: true
     },
     {
       id: 'prof_4',
@@ -109,8 +105,7 @@ export default function ProfessionalMiniWebsiteView({ profile, getEmbedUrl }: Pr
       price: 9500,
       currency: '₹',
       durationMinutes: 45,
-      isAvailable: true,
-      imageUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
+      isAvailable: true
     }
   ];
 
@@ -397,67 +392,50 @@ END:VCARD`;
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {services.map((svc) => {
-                const srvImage = getServiceImageUrl(svc, 'Legal');
-                return (
-                  <div 
-                    key={svc.id}
-                    className="rounded-2xl bg-slate-900/80 border border-slate-800/80 hover:border-amber-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/10 group flex flex-col justify-between overflow-hidden"
-                  >
-                    <div>
-                      {/* Service Photo Banner */}
-                      <div className="relative w-full h-44 sm:h-48 overflow-hidden bg-slate-950">
-                        <img
-                          src={srvImage}
-                          alt={svc.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-                        
-                        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/10 text-amber-300 text-[11px] font-bold flex items-center gap-1.5">
-                          <Scale className="w-3.5 h-3.5" />
-                          <span>{svc.category || 'Practice Area'}</span>
-                        </div>
-
-                        {svc.price !== undefined && (
-                          <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-amber-500 text-slate-950 font-extrabold text-xs shadow-md">
-                            {svc.price === 0 ? 'By Assessment' : `₹${svc.price.toLocaleString('en-IN')}`}
-                          </div>
-                        )}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {services.map((svc) => (
+                <div 
+                  key={svc.id}
+                  className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/40 transition group space-y-3"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0">
+                        <Scale className="w-5 h-5" />
                       </div>
-
-                      <div className="p-4 sm:p-5">
-                        <h3 className="text-base font-bold text-white group-hover:text-amber-300 transition line-clamp-2">
-                          {svc.title}
-                        </h3>
-                        <p className="text-xs text-slate-400 leading-relaxed mt-2 line-clamp-3">
-                          {svc.description}
-                        </p>
+                      <div>
+                        <h3 className="text-sm font-bold text-white group-hover:text-amber-300 transition">{svc.title}</h3>
+                        <span className="text-[11px] text-amber-400 font-medium">{svc.category}</span>
                       </div>
                     </div>
-
-                    <div className="p-4 sm:p-5 pt-0">
-                      <div className="pt-3 flex items-center justify-between border-t border-slate-800/60 text-xs">
-                        <span className="text-[11px] text-slate-400 flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5 text-amber-400" />
-                          <span>{svc.durationMinutes ? `${svc.durationMinutes} Mins Session` : '60 Mins Advisory'}</span>
-                        </span>
-                        <button
-                          onClick={() => {
-                            setSelectedService(svc);
-                            setIsConsultModalOpen(true);
-                          }}
-                          className="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-bold text-xs border border-amber-500/30 transition shadow-sm cursor-pointer"
-                        >
-                          Book Consultation →
-                        </button>
-                      </div>
-                    </div>
+                    {svc.price !== undefined && (
+                      <span className="text-sm font-bold text-amber-400 font-mono">
+                        {svc.price === 0 ? 'By Assessment' : `₹${svc.price.toLocaleString('en-IN')}`}
+                      </span>
+                    )}
                   </div>
-                );
-              })}
+
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    {svc.description}
+                  </p>
+
+                  <div className="pt-2 flex items-center justify-between border-t border-slate-800/60 text-xs">
+                    <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-amber-400" />
+                      {svc.durationMinutes ? `${svc.durationMinutes} Mins Session` : '60 Mins Advisory'}
+                    </span>
+                    <button
+                      onClick={() => {
+                        setSelectedService(svc);
+                        setIsConsultModalOpen(true);
+                      }}
+                      className="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-semibold text-xs border border-amber-500/30 transition cursor-pointer"
+                    >
+                      Book Consultation →
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
         )}

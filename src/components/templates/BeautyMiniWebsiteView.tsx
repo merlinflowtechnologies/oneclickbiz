@@ -43,7 +43,6 @@ import SocialIcon from '@/components/common/SocialIcon';
 import { DigitalProfile } from '@/lib/types';
 import ShareCardModal from '@/components/common/ShareCardModal';
 import { downloadVcfFile } from '@/lib/vcf';
-import { getServiceImageUrl } from '@/lib/service-image';
 
 interface BeautyMiniWebsiteViewProps {
   profile: DigitalProfile;
@@ -1363,7 +1362,16 @@ export default function BeautyMiniWebsiteView({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {profileServices.map(srv => {
-              const servicePhoto = getServiceImageUrl(srv, 'Beauty & Salon');
+              const servicePhoto = srv.imageUrl || (
+                srv.title.toLowerCase().includes('color') ? 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('spa') ? 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('facial') ? 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('bridal') ? 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('men') ? 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('keratin') ? 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80' :
+                srv.title.toLowerCase().includes('pedicure') ? 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=600&q=80' :
+                'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80'
+              );
 
               return (
                 <div 

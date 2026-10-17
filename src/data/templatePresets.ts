@@ -1,6 +1,5 @@
 import { DigitalProfile, ThemeType, ServiceItem, ProductItem, GalleryItem, VideoItem, TestimonialItem, SocialLinkItem } from '@/lib/types';
 import { VCARD_TEMPLATES_CATALOG } from './vcardTemplates';
-import { getServiceImageUrl } from '@/lib/service-image';
 
 export interface TemplatePresetConfig {
   id: string;
@@ -1692,18 +1691,13 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
   const avatarUrl = custom.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';
   const coverUrl = custom.coverUrl || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80';
 
-  const rawServices: ServiceItem[] = custom.services || meta.features.map((feat, idx) => ({
+  const services: ServiceItem[] = custom.services || meta.features.map((feat, idx) => ({
     id: `srv_${templateId}_${idx + 1}`,
     title: feat,
     description: `Professional ${feat.toLowerCase()} tailored to your individual and corporate requirements.`,
     durationMinutes: 45 + idx * 15,
     price: 1500 + idx * 1000,
     currency: '₹'
-  }));
-
-  const services: ServiceItem[] = rawServices.map((srv) => ({
-    ...srv,
-    imageUrl: srv.imageUrl || getServiceImageUrl(srv, meta.category)
   }));
 
   const products: ProductItem[] = custom.products || [
