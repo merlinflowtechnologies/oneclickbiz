@@ -563,6 +563,100 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
   },
 
   // ========================================================
+  // 1B. ⚖️ LEGAL COUNSEL & HIGH COURT ADVOCATE
+  // ========================================================
+  'legal-counsel': {
+    name: 'Adv. Harrison Reed & Partners',
+    designation: 'Senior High Court & Corporate Legal Counsel',
+    company: 'Reed & Chambers Law Firm LLP',
+    bio: '18+ years of strategic legal counsel defending corporate enterprises, startup founders, and high-net-worth clients in complex commercial litigation, NCLT insolvency proceedings, mergers & acquisitions, and intellectual property disputes. Bar Council Enrollment No. D/1842/2006.',
+    theme: 'dark-onyx',
+    avatarUrl: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
+    email: 'chambers@reedlawchambers.in',
+    phone: '+91 98765 40101',
+    whatsapp: '919876540101',
+    website: 'https://reedlawchambers.in',
+    address: 'High Court Chambers Complex & Corporate Desk, Barakhamba Road, New Delhi / Banjara Hills, Hyderabad',
+    services: [
+      { id: 's_leg_1', title: 'Corporate Compliance, M&A & Due Diligence', description: 'End-to-end statutory review, shareholder pacts, cross-border joint ventures, and board governance audits.', durationMinutes: 60, price: 15000, currency: '₹' },
+      { id: 's_leg_2', title: 'Commercial Contracts & Master Service Agreements', description: 'Meticulous drafting and vetting of vendor contracts, licensing pacts, employee NDAs, and SaaS terms.', durationMinutes: 60, price: 12500, currency: '₹' },
+      { id: 's_leg_3', title: 'NCLT Insolvency & Debt Recovery Proceedings', description: 'Strategic representation under IBC Code 2016 for corporate debtors, financial creditors, and resolution applicants.', durationMinutes: 90, price: 25000, currency: '₹' },
+      { id: 's_leg_4', title: 'High Court Commercial Writs & Injunctions', description: 'Urgent interim relief, status-quo petitions, contractual dispute representation, and appellate advocacy.', durationMinutes: 90, price: 30000, currency: '₹' },
+      { id: 's_leg_5', title: 'Intellectual Property, Trademark & Copyright Desk', description: 'Comprehensive trademark searches, notice of opposition hearings, brand protection, and cease-and-desist filings.', durationMinutes: 45, price: 9500, currency: '₹' },
+      { id: 's_leg_6', title: 'Real Estate Title Search & 30-Year Audit', description: 'Exhaustive 30-year encumbrance search, mutation verification, RERA compliance audit, and conveyance drafting.', durationMinutes: 60, price: 18000, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_leg_1', name: 'Startup Legal Launchpad & Founders Kit', description: 'Complete legal foundation: Pvt Ltd incorporation, founders agreement, IP assignment deeds, master client contract, and ESOP pool scheme.', price: 49999, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80', category: 'Startup Retainer', isAvailable: true },
+      { id: 'p_leg_2', name: 'Quarterly Corporate Retainer Advisory (15 Hrs/Mo)', description: 'Dedicated retainer counsel: continuous contract vetting, employee NDAs, vendor dispute notices, and board meeting representation.', price: 85000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80', category: 'Corporate Retainer', isAvailable: true },
+      { id: 'p_leg_3', name: 'Comprehensive Litigation Defense & Appellate Mandate', description: 'Senior counsel appearance across High Court, NCLT, and arbitral tribunals with dedicated associate research team.', price: 150000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80', category: 'Litigation Mandate', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_leg_1', imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80', title: 'Senior Chambers & Legal Research Library', category: 'Chambers' },
+      { id: 'g_leg_2', imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80', title: 'Corporate Boardroom & Client Advisory Suite', category: 'Boardroom' },
+      { id: 'g_leg_3', imageUrl: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80', title: 'Document Vetting & Notarial Verification Desk', category: 'Verification' },
+      { id: 'g_leg_4', imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80', title: 'Appellate Moot & Strategy Room', category: 'Strategy' }
+    ],
+    testimonials: [
+      { id: 't_leg_1', clientName: 'Siddharth Nambiar', clientRole: 'Founder & CEO, Apex Cloudworks', content: 'Their corporate retainer support saved us countless hours during our Series-A due diligence. Meticulous drafting and swift contract clearances.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_leg_2', clientName: 'Meera Krishnan', clientRole: 'Managing Director, Zenith Logistics Ltd.', content: 'Exceptional representation in our High Court commercial dispute. Obtained an interim injunction within 48 hours that protected our business operations.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_leg_3', clientName: 'Rohan Singhania', clientRole: 'Promoter, Singhania Infrastructure Group', content: 'Their 30-year real estate title audit uncovered crucial encumbrances before our land acquisition. Absolute integrity and unmatched legal rigor.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_leg_wa', platform: 'whatsapp', url: 'https://wa.me/919876540101', label: 'Confidential WhatsApp' },
+      { id: 'soc_leg_ph', platform: 'phone', url: 'tel:+919876540101', label: 'Call Chambers' },
+      { id: 'soc_leg_li', platform: 'linkedin', url: 'https://linkedin.com/in/reed-law-chambers', label: 'LinkedIn Counsel' },
+      { id: 'soc_leg_em', platform: 'email', url: 'mailto:chambers@reedlawchambers.in', label: 'Chambers Email' }
+    ]
+  },
+
+  // ========================================================
+  // 1C. 📊 CHARTERED ACCOUNTANT, TAX & AUDIT DESK
+  // ========================================================
+  'prof-ca': {
+    name: 'CA Vivek Agrawal, FCA, DISA',
+    designation: 'Senior Managing Partner • Fellow Chartered Accountant',
+    company: 'Agrawal & Associates Chartered Accountants',
+    bio: '20+ years of excellence leading statutory audits, GST litigation appeals, international transfer pricing, and corporate valuations for 850+ enterprises. Member of ICAI (FCA Reg. No. 048291, Firm Registration No. 018492C).',
+    theme: 'dark-onyx',
+    avatarUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80',
+    email: 'vivek@agrawalca.in',
+    phone: '+91 98765 30101',
+    whatsapp: '919876530101',
+    website: 'https://agrawalca.in',
+    address: 'ICAI Bhawan Enclave, Nariman Point, Mumbai / Somajiguda, Hyderabad',
+    services: [
+      { id: 's_ca_1', title: 'Corporate Statutory Audit & Tax Audit (Sec 44AB)', description: 'Independent statutory audits, true-and-fair view reporting, CARO 2020 compliance, and Form 3CD filing.', durationMinutes: 60, price: 25000, currency: '₹' },
+      { id: 's_ca_2', title: 'GST Scrutiny Reply, Appeals & Refund Claims', description: 'Departmental notice replies (ASMT-10, DRC-01), input tax credit reconciliation, and appellate tribunal filing.', durationMinutes: 60, price: 15000, currency: '₹' },
+      { id: 's_ca_3', title: 'Income Tax Scrutiny & Faceless Assessment Appeals', description: 'Strategic drafting for Sec 148 notices, reassessments, high-pitched demand stay petitions, and CIT(A) representation.', durationMinutes: 90, price: 30000, currency: '₹' },
+      { id: 's_ca_4', title: 'Virtual CFO & Board MIS Reporting Retainer', description: 'Weekly cash flow planning, investor financial models, unit economics optimization, and board reporting.', durationMinutes: 60, price: 35000, currency: '₹' },
+      { id: 's_ca_5', title: 'Transfer Pricing Study & International Taxation', description: 'Arm’s length price benchmarking, Master File/Local File documentation, and Form 3CEB certification.', durationMinutes: 90, price: 40000, currency: '₹' },
+      { id: 's_ca_6', title: 'ROC/MCA Annual Filings, Valuations & Secretarial Audits', description: 'AOC-4, MGT-7 annual filings, registered valuer certificates for funding, and company strike-off/revival.', durationMinutes: 45, price: 12000, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_ca_1', name: 'Annual Corporate Tax & Statutory Audit Shield', description: 'Complete year-round statutory audit, tax audit report, advance tax quarterly schedules, and tax department representation.', price: 65000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80', category: 'Audit Shield', isAvailable: true },
+      { id: 'p_ca_2', name: 'Virtual CFO & Enterprise Controller Retainer', description: 'Dedicated CA desk for high-growth businesses: budget controls, payroll tax oversight, vendor payment scrutiny, and monthly MIS.', price: 95000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80', category: 'CFO Retainer', isAvailable: true },
+      { id: 'p_ca_3', name: 'GST Audit, Monthly Reconciliation & Input Credit Desk', description: '2A/2B input credit automated matching, zero-error GSTR-1 & 3B filings, and export refund processing.', price: 35000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80', category: 'GST Retainer', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_ca_1', imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80', title: 'Financial Audit & Taxation Advisory Chambers', category: 'Audit Chambers' },
+      { id: 'g_ca_2', imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80', title: 'Corporate Analytics & Financial Modeling Room', category: 'Analytics' },
+      { id: 'g_ca_3', imageUrl: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80', title: 'Statutory Books & Compliance Library', category: 'Compliance' }
+    ],
+    testimonials: [
+      { id: 't_ca_1', clientName: 'Kavita Subramanian', clientRole: 'Chief Financial Officer, Bharat Fintech Corp', content: 'CA Vivek Agrawal and his team resolved our complex transfer pricing audit with zero additions. Their understanding of cross-border tax treaties is unmatched.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_ca_2', clientName: 'Anil Ruia', clientRole: 'Managing Director, Ruia Steel & Infra', content: 'Our GST input tax credit mismatches were running into crores. Agrawal & Associates recovered 100% of eligible credits within two quarters.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_ca_wa', platform: 'whatsapp', url: 'https://wa.me/919876530101', label: 'CA WhatsApp Desk' },
+      { id: 'soc_ca_ph', platform: 'phone', url: 'tel:+919876530101', label: 'Call Office' },
+      { id: 'soc_ca_li', platform: 'linkedin', url: 'https://linkedin.com/in/ca-vivek-agrawal', label: 'LinkedIn Profile' },
+      { id: 'soc_ca_em', platform: 'email', url: 'mailto:vivek@agrawalca.in', label: 'Email Advisory' }
+    ]
+  },
+
+  // ========================================================
   // 2. 💻 SOFTWARE ENGINEER & TECH PORTFOLIO
   // ========================================================
   'tech-portfolio': {
@@ -1098,6 +1192,12 @@ TEMPLATE_PRESETS_DATA['fash-online'] = TEMPLATE_PRESETS_DATA['fash-boutique'];
 TEMPLATE_PRESETS_DATA['insurance'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
 TEMPLATE_PRESETS_DATA['mediclaim'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
 TEMPLATE_PRESETS_DATA['insurance-advisor'] = TEMPLATE_PRESETS_DATA['prof-insurance'];
+
+TEMPLATE_PRESETS_DATA['legal-counsel'] = TEMPLATE_PRESETS_DATA['vcard16'];
+TEMPLATE_PRESETS_DATA['legal'] = TEMPLATE_PRESETS_DATA['vcard16'];
+TEMPLATE_PRESETS_DATA['advocate'] = TEMPLATE_PRESETS_DATA['vcard16'];
+TEMPLATE_PRESETS_DATA['prof-ca'] = TEMPLATE_PRESETS_DATA['vcard16'];
+TEMPLATE_PRESETS_DATA['ca-firm'] = TEMPLATE_PRESETS_DATA['vcard16'];
 
 TEMPLATE_PRESETS_DATA['edu-school'] = {
   name: 'Apex Global Group of Schools',
@@ -1961,6 +2061,19 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
         claimSettlementRatio: '99.5% Direct Settlement Track Record',
         cashlessHospitals: '14,500+ Partner Hospitals Nationwide',
         primaryCity: 'Mumbai & Hyderabad'
+      } : undefined,
+      professional: ((meta.category === 'Professional Services' && !templateId.includes('insurance') && !effectiveId.includes('insurance')) || templateId.includes('legal') || templateId.includes('ca') || templateId === 'vcard16' || templateId === 'prof-ca') ? {
+        barCouncilOrIcaId: (templateId.includes('ca') || effectiveId.includes('ca')) 
+          ? 'ICAI Fellow Chartered Accountant (Reg. No. 048291 / FRN 018492C)'
+          : 'Bar Council of India Enrolled • High Court & NCLT Advocate (D/1842/2006)',
+        practiceYears: (templateId.includes('ca') || effectiveId.includes('ca')) ? '20+ Years Active Practice' : '18+ Years Active Practice',
+        casesOrClientsCount: (templateId.includes('ca') || effectiveId.includes('ca')) ? '850+ Companies & HNIs Audited' : '1,400+ Corporate & Commercial Matters',
+        consultationMode: 'In-Chamber & Secure Virtual Advisory Desk',
+        confidentialityPolicy: '100% Strict Attorney-Client Privilege & NDA Protected',
+        professionType: (templateId.includes('ca') || effectiveId.includes('ca')) ? 'ca' : 'legal',
+        courtOrJurisdiction: (templateId.includes('ca') || effectiveId.includes('ca')) ? 'ICAI & National Financial Reporting Authority (NFRA)' : 'Supreme Court of India, Delhi & Telangana High Courts',
+        successRate: '98.4% Favorable Resolution Track Record',
+        advisoryDeskHours: 'Mon - Sat: 10:00 AM - 7:30 PM'
       } : undefined,
       contact: {
         showEmail: true,

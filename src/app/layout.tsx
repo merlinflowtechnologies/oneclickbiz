@@ -186,7 +186,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${jakarta.variable} h-full antialiased dark`} suppressHydrationWarning>
+    <html lang="en" className={`${jakarta.variable} h-full antialiased`} suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4" />

@@ -1172,7 +1172,8 @@ export default function RestaurantTemplateView({
       `• *Special Requests:* ${leadMessage || 'None'}\n\n` +
       `Sent via OneClickBiz Smart Dining Portal. Please confirm reservation.`;
 
-    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+    const targetWa = (restaurantConfig?.tableBookingPhone || waNumber || '916304989071').replace(/[^\d]/g, '');
+    const waUrl = `https://wa.me/${targetWa}?text=${encodeURIComponent(msg)}`;
     window.open(waUrl, '_blank');
     setIsTableBookingOpen(false);
   };
@@ -1867,8 +1868,13 @@ export default function RestaurantTemplateView({
           </div>
 
           {/* Combos Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {COMBO_DEALS.map(deal => (
+          {(() => {
+            const activeCombos: ComboDeal[] = (restaurantConfig?.combos && restaurantConfig.combos.length > 0)
+              ? restaurantConfig.combos
+              : COMBO_DEALS;
+            return (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {activeCombos.map(deal => (
               <div
                 key={deal.id}
                 className="bg-white/5 rounded-2xl border border-[#D8A63D]/30 p-5 flex flex-col justify-between space-y-4 hover:border-[#D8A63D] hover:bg-white/10 transition-all group"
@@ -1952,10 +1958,11 @@ export default function RestaurantTemplateView({
                     </button>
                   </div>
                 </div>
-
               </div>
             ))}
           </div>
+        );
+      })()}
 
         </div>
       </section>

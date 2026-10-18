@@ -64,6 +64,16 @@ export interface ProductItem {
   fabric?: string;
   sizes?: string[];
   occasion?: string;
+  // Insurance Policy Extended Properties
+  sumAssured?: string;
+  insurer?: string;
+  uin?: string;
+  tenure?: string;
+  features?: string[];
+  recommendedFor?: string;
+  badge?: string;
+  tag?: string;
+  popular?: boolean;
 }
 
 export interface GalleryItem {
@@ -213,6 +223,11 @@ export interface ProfessionalTrustConfig {
   casesOrClientsCount?: string;
   consultationMode?: string;
   confidentialityPolicy?: string;
+  professionType?: 'legal' | 'ca' | 'tech' | 'corporate';
+  courtOrJurisdiction?: string;
+  successRate?: string;
+  advisoryDeskHours?: string;
+  firmRegistrationNo?: string;
   [key: string]: any;
 }
 
@@ -248,10 +263,27 @@ export interface RestaurantConfig {
   reservationPolicy?: string;
   deliveryRadius?: string;
   dietaryHighlights?: string;
+  combos?: any[];
   [key: string]: any;
 }
 
 export type RestaurantTrustConfig = RestaurantConfig;
+
+export interface InsuranceTrustConfig {
+  irdaiNumber?: string;
+  irdaiLicence?: string;
+  claimSettlementRatio?: string;
+  totalClaimsSettled?: string;
+  activeClientsCount?: string;
+  cashlessHospitalsCount?: string;
+  cashlessHospitals?: string;
+  familiesProtected?: string;
+  primaryCity?: string;
+  partnerInsurers?: string[];
+  emergencyClaimPhone?: string;
+  experienceYears?: string | number;
+  [key: string]: any;
+}
 
 export interface ProfileSectionConfig {
   about?: { content: string };
@@ -266,6 +298,7 @@ export interface ProfileSectionConfig {
   realEstate?: RealEstateTrustConfig;
   interior?: InteriorTrustConfig;
   restaurant?: RestaurantConfig;
+  insurance?: InsuranceTrustConfig;
   healthcare?: HealthcareTrustConfig;
   automobile?: AutomobileTrustConfig;
   fashion?: FashionTrustConfig;

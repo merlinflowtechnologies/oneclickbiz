@@ -59,13 +59,13 @@ export default function Navbar() {
             </Link>
 
             <Link 
-              href="/#features" 
-              onClick={(e) => handleAnchorClick(e, 'features')}
+              href="/#pricing" 
+              onClick={(e) => handleAnchorClick(e, 'pricing')}
               className="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-100/80 transition-all"
             >
-              Features
+              Pricing
             </Link>
-            
+
             <Link 
               href="/#about" 
               onClick={(e) => handleAnchorClick(e, 'about')}
@@ -73,14 +73,13 @@ export default function Navbar() {
             >
               Why OneClickBiz
             </Link>
-            
 
             <Link 
-              href="/#pricing" 
-              onClick={(e) => handleAnchorClick(e, 'pricing')}
+              href="/#faq" 
+              onClick={(e) => handleAnchorClick(e, 'faq')}
               className="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-100/80 transition-all"
             >
-              Pricing
+              FAQ
             </Link>
 
             <Link 
@@ -154,11 +153,11 @@ export default function Navbar() {
             Templates Catalog
           </Link>
           <Link 
-            href="/#features" 
-            onClick={(e) => handleAnchorClick(e, 'features')}
+            href="/#pricing" 
+            onClick={(e) => handleAnchorClick(e, 'pricing')}
             className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
           >
-            Core Features
+            Pricing
           </Link>
           <Link 
             href="/#about" 
@@ -167,13 +166,12 @@ export default function Navbar() {
           >
             Why OneClickBiz
           </Link>
-
           <Link 
-            href="/#pricing" 
-            onClick={(e) => handleAnchorClick(e, 'pricing')}
+            href="/#faq" 
+            onClick={(e) => handleAnchorClick(e, 'faq')}
             className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
           >
-            Pricing
+            FAQ
           </Link>
           <Link 
             href="/#contact" 

@@ -723,7 +723,13 @@ export default function InsuranceTemplateView({
   const advisorName = profile.name || 'Rajesh Sengupta';
   const advisorCompany = profile.company || 'Insurance Advisory & Wealth Planning';
   const advisorDesignation = profile.designation || 'MDRT Life Member | Senior Insurance Advisor';
-  const irdaNumber = 'IRDAI/AGN/2012/849102';
+  const insuranceConfig = profile.sectionData?.insurance || {};
+  const irdaNumber = insuranceConfig.irdaiNumber || (insuranceConfig as any).irdaiLicence || 'IRDAI/AGN/2012/849102';
+  const claimSettlementRatio = insuranceConfig.claimSettlementRatio || '99.4%';
+  const cashlessHospitals = insuranceConfig.cashlessHospitalsCount || (insuranceConfig as any).cashlessHospitals || '14,500+';
+  const totalClaimsSettled = insuranceConfig.totalClaimsSettled || '₹14.8 Cr+';
+  const emergencyPhone = insuranceConfig.emergencyClaimPhone || profile.phone || '+91 98765 43210';
+  const experienceYears = insuranceConfig.experienceYears || '12+ Years';
 
   // Resolved Social and Contact Links with fallbacks
   const socialLinks = useMemo(() => {
@@ -897,18 +903,81 @@ export default function InsuranceTemplateView({
     setIsEmergencyModalOpen(false);
   };
 
+  // Dynamically resolve insurance plans: read from profile.sectionData.products.items or fallback to default
+  const allInsurancePlans = useMemo(() => {
+    const customItems = profile.sectionData?.products?.items;
+    if (customItems && customItems.length > 0) {
+      return customItems.map((prod, idx): InsurancePlanItem => {
+        const p = prod as any;
+        const rawFeatures = p.features;
+        const featuresList = Array.isArray(rawFeatures)
+          ? rawFeatures
+          : (typeof rawFeatures === 'string' && rawFeatures.trim())
+            ? rawFeatures.split(',').map((s: string) => s.trim()).filter(Boolean)
+            : (p.description ? p.description.split('.').map((s: string) => s.trim()).filter(Boolean) : [
+                'Pure Protection with instant digital underwriting',
+                'Comprehensive Tax deduction under Section 80C & 10(10D)',
+                '14,500+ Cashless Hospital Network admission desk'
+              ]);
+
+        return {
+          id: p.id || `plan_custom_${idx}`,
+          category: p.category || 'Term Life Insurance',
+          title: p.name,
+          insurer: p.insurer || 'Leading Life Insurance Partners',
+          uin: p.uin || `UIN: 111N${idx + 1}34V02`,
+          sumAssured: p.sumAssured || (p.priceLabel ? p.priceLabel : '₹1,00,00,000 - ₹5,00,00,000'),
+          startingPremium: typeof p.price === 'number' ? p.price : 999,
+          tenure: p.tenure || 'Up to Age 85 / 100',
+          tag: p.tag || 'Highest Settlement (99.4%)',
+          badge: p.badge || (p.category ? String(p.category).toUpperCase() : 'TERM INSURANCE'),
+          popular: p.popular ?? (idx === 0 || idx === 1),
+          imageUrl: p.imageUrl || 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80',
+          features: featuresList,
+          recommendedFor: p.recommendedFor || 'Salaried professionals, self-employed business founders, and family breadwinners.'
+        };
+      });
+    }
+    return DEFAULT_INSURANCE_PLANS;
+  }, [profile.sectionData?.products?.items]);
+
   // Plan WhatsApp Inquiry
-  const handlePlanWhatsAppInquiry = (plan: typeof DEFAULT_INSURANCE_PLANS[0]) => {
+  const handlePlanWhatsAppInquiry = (plan: InsurancePlanItem) => {
     trackAction(`plan_inquiry_${plan.id}`);
-    const msg = `Hello ${advisorName}! 👋\n\nI am interested in your *${plan.title}*:\n\n• *Insurer Partner:* ${plan.insurer}\n• *Sum Assured:* ${plan.sumAssured}\n• *Starting Premium:* ~₹${plan.startingPremium.toLocaleString()}/month\n• *Key Feature:* ${plan.features[0]}\n\nPlease share the official policy brochure (PDF), network hospital list, and custom quote for my family. Thank you!`;
+    const msg = `Hello ${advisorName}! 👋\n\nI am interested in your *${plan.title}*:\n\n• *Insurer Partner:* ${plan.insurer}\n• *Sum Assured:* ${plan.sumAssured}\n• *Starting Premium:* ~₹${plan.startingPremium.toLocaleString()}/month\n• *Key Feature:* ${plan.features[0] || 'Comprehensive Coverage'}\n\nPlease share the official policy brochure (PDF), network hospital list, and custom quote for my family. Thank you!`;
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   // Filtered Plans
   const filteredPlans = useMemo(() => {
-    if (selectedPlanCategory === 'All') return DEFAULT_INSURANCE_PLANS;
-    return DEFAULT_INSURANCE_PLANS.filter(p => p.category.toLowerCase().includes(selectedPlanCategory.toLowerCase()));
-  }, [selectedPlanCategory]);
+    if (selectedPlanCategory === 'All') return allInsurancePlans;
+    return allInsurancePlans.filter(p => p.category.toLowerCase().includes(selectedPlanCategory.toLowerCase()));
+  }, [selectedPlanCategory, allInsurancePlans]);
+
+  // Dynamic Verified Claim Stories (from profile testimonials if customized)
+  const claimStories = useMemo(() => {
+    const customTestimonials = profile.sectionData?.testimonials?.items;
+    if (customTestimonials && customTestimonials.length > 0) {
+      return customTestimonials.map((item, idx) => {
+        const t = item as any;
+        const clientName = t.clientName || t.name || 'Verified Client';
+        return {
+          id: t.id || `claim-custom-${idx}`,
+          patient: clientName,
+          hospital: t.clientCompany || t.project || 'Trusted Hospital Network',
+          condition: 'Health & Life Claim Settlement',
+          claimedAmount: '₹5,00,00,00+',
+          settledAmount: '100% Cashless Settled',
+          tat: 'Rapid 1-Hour Approval',
+          rating: t.rating || 5,
+          story: t.content || t.review || 'Exceptional claim assistance and end-to-end guidance from our dedicated advisor.',
+          author: clientName,
+          role: t.clientRole || t.role || 'Policyholder'
+        };
+      });
+    }
+    return VERIFIED_CLAIM_STORIES;
+  }, [profile.sectionData?.testimonials?.items]);
 
   // Frequently Asked Questions
   const FAQS = [
@@ -3005,7 +3074,7 @@ export default function InsuranceTemplateView({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {VERIFIED_CLAIM_STORIES.map(story => (
+          {claimStories.map(story => (
             <div
               key={story.id}
               className="glass-surface flex flex-col justify-between shadow-xl hover:-translate-y-1 transition-all duration-300"

@@ -80,7 +80,7 @@ import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/navigation/Footer';
 import ProfileCardView from '@/components/templates/ProfileCardView';
 import TemplateQuickPreviewModal from '@/components/templates/TemplateQuickPreviewModal';
-import InteractiveFeaturesSection from '@/components/home/InteractiveFeaturesSection';
+
 import { INITIAL_PROFILES } from '@/lib/data-store';
 import { VCARD_TEMPLATES_CATALOG, VCardTemplateItem } from '@/data/vcardTemplates';
 
@@ -427,33 +427,33 @@ export default function LandingPage() {
               {/* Prestigious Trust Badge */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/90 text-blue-700 text-xs font-bold shadow-xs">
                 <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                <span>All-in-One Digital Business Platform</span>
+                <span>Trusted by modern businesses</span>
               </div>
 
               {/* Authoritative Headline */}
-              <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-                Build Your Business <br className="hidden sm:inline" />
-                <span className="text-blue-600">Online</span> — Easily!
+              <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.08]">
+                Turn your business into <br className="hidden sm:inline" />
+                a smarter digital presence.
               </h1>
 
               {/* Subtitle */}
               <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed font-normal max-w-xl mx-auto lg:mx-0">
-                Create your website, WhatsApp store, digital vCard, e-Commerce, videos, QR codes and more — all in one place.
+                Create a polished digital card, WhatsApp storefront, and lead capture system in minutes — without needing technical skills.
               </p>
 
               {/* Clean Trust Strip */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 text-xs font-bold text-slate-700">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>No Technical Skills</span>
+                  <span>2-minute setup</span>
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Easy to Use</span>
+                  <span>No code needed</span>
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Affordable Plans</span>
+                  <span>Built for growth</span>
                 </div>
               </div>
 
@@ -463,20 +463,20 @@ export default function LandingPage() {
                   href="/signup?intent=get_started"
                   className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-95 shrink-0"
                 >
-                  <span>Get Started Now</span>
+                  <span>Start free</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <a 
                   href="#demo"
-                  className="inline-flex items-center gap-3 px-4 py-2 rounded-full hover:bg-blue-50/70 transition-all text-slate-800 group cursor-pointer"
+                  className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-slate-200 bg-white/80 hover:bg-blue-50/70 transition-all text-slate-800 group cursor-pointer shadow-sm"
                 >
-                  <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
+                  <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
                     <Play className="w-4 h-4 fill-current ml-0.5" />
                   </div>
                   <div className="text-left">
-                    <span className="text-xs font-bold text-slate-900 block group-hover:text-blue-600 transition-colors">Watch Video</span>
-                    <span className="text-[10px] text-slate-500 block">See How It Works</span>
+                    <span className="text-xs font-bold text-slate-900 block group-hover:text-blue-600 transition-colors">See live demo</span>
+                    <span className="text-[10px] text-slate-500 block">How it works</span>
                   </div>
                 </a>
               </div>
@@ -485,7 +485,7 @@ export default function LandingPage() {
               <div className="pt-2 max-w-md mx-auto lg:mx-0">
                 <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-center lg:justify-start gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>Claim your permanent business URL:</span>
+                  <span>Claim your business link</span>
                 </div>
                 <form onSubmit={handleCheckAlias} className="p-1 rounded-xl bg-white border border-slate-300/90 shadow-sm flex items-center focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
                   <div className="pl-3 pr-1 text-slate-400 font-mono text-xs hidden sm:block font-medium">
@@ -506,7 +506,7 @@ export default function LandingPage() {
                     type="submit"
                     className="px-4 py-2 rounded-lg bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
                   >
-                    Check Handle
+                    Check
                   </button>
                 </form>
 
@@ -552,338 +552,129 @@ export default function LandingPage() {
 
           </div>
 
-          {/* Continuous Animated Feature Ribbon Marquee */}
+          {/* Simplified feature strip */}
           <div className="mt-10 sm:mt-14 max-w-6xl mx-auto relative rounded-2xl sm:rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-[0_10px_35px_rgba(0,0,0,0.05)] p-3 sm:p-4">
-            
-            {/* Ribbon Caption Header */}
             <div className="flex items-center justify-between mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
               <div className="flex items-center gap-1.5 text-indigo-700 font-extrabold">
                 <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
-                <span>All Capabilities Included in One Unified Platform</span>
+                <span>Everything your business needs</span>
               </div>
               <span className="hidden sm:inline-block text-[10px] text-slate-400 font-medium normal-case">
-                (hover to pause • click to explore)
+                built in one place
               </span>
             </div>
 
-            {/* Seamless Infinite Marquee Track with Scoped Fades */}
             <div className="relative overflow-hidden py-1 rounded-xl">
-              {/* Left & Right Soft Fade Masks (Strictly Scoped to Track, Matching White Background) */}
               <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
               <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
 
               <div className="flex overflow-hidden">
                 <div className="animate-continuous-marquee flex items-center gap-3 shrink-0 py-0.5">
-                
-                {/* Feature 1 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Monitor className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Turnkey Mini-Websites</span>
-                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">12+ Flagship Themes</span>
-                </a>
+                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
+                    <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <CreditCard className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Digital card</span>
+                  </a>
 
-                {/* Feature 2 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-emerald-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-emerald-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <MessageCircle className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">0% Fee WhatsApp Store</span>
-                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">Direct Orders</span>
-                </a>
+                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-emerald-50/60 border border-slate-200/90 shadow-sm hover:border-emerald-300 transition-all cursor-pointer group shrink-0">
+                    <div className="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <MessageCircle className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">WhatsApp store</span>
+                  </a>
 
-                {/* Feature 3 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <CreditCard className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Smart Digital Cards</span>
-                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">1-Tap VCF</span>
-                </a>
+                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-orange-50/60 border border-slate-200/90 shadow-sm hover:border-orange-300 transition-all cursor-pointer group shrink-0">
+                    <div className="w-7 h-7 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Calendar className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 group-hover:text-orange-700 transition-colors">Bookings</span>
+                  </a>
 
-                {/* Feature 4 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-orange-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-orange-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Calendar className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-orange-700 transition-colors">Appointment Booking</span>
-                  <span className="text-[10px] font-bold text-orange-700 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">Auto-Sync</span>
-                </a>
+                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-cyan-50/60 border border-slate-200/90 shadow-sm hover:border-cyan-300 transition-all cursor-pointer group shrink-0">
+                    <div className="w-7 h-7 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <QrCode className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 group-hover:text-cyan-700 transition-colors">QR access</span>
+                  </a>
 
-                {/* Feature 5 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-rose-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-rose-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <FileText className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-rose-700 transition-colors">Flyers &amp; Brochures</span>
-                  <span className="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full">300 DPI Print</span>
-                </a>
+                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-violet-50/60 border border-slate-200/90 shadow-sm hover:border-violet-300 transition-all cursor-pointer group shrink-0">
+                    <div className="w-7 h-7 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Edit3 className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 group-hover:text-violet-700 transition-colors">Blog studio</span>
+                  </a>
 
-                {/* Feature 6 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-cyan-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-cyan-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Edit3 className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-cyan-700 transition-colors">SEO Blog Engine</span>
-                  <span className="text-[10px] font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded-full">Rank on Google</span>
-                </a>
+                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
+                    <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <CreditCard className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Digital card</span>
+                  </a>
 
-                {/* Feature 7 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-indigo-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <QrCode className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-indigo-700 transition-colors">Dynamic QR Engine</span>
-                  <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full">Custom Logo</span>
-                </a>
+                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-emerald-50/60 border border-slate-200/90 shadow-sm hover:border-emerald-300 transition-all cursor-pointer group shrink-0">
+                    <div className="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <MessageCircle className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">WhatsApp store</span>
+                  </a>
 
-                {/* Feature 8 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-amber-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-amber-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Wifi className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-amber-700 transition-colors">Smart NFC Cards</span>
-                  <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">Tap &amp; Connect</span>
-                </a>
+                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-orange-50/60 border border-slate-200/90 shadow-sm hover:border-orange-300 transition-all cursor-pointer group shrink-0">
+                    <div className="w-7 h-7 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Calendar className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 group-hover:text-orange-700 transition-colors">Bookings</span>
+                  </a>
 
-                {/* Feature 9 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-violet-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-violet-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <TrendingUp className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-violet-700 transition-colors">Live Lead Analytics</span>
-                  <span className="text-[10px] font-bold text-violet-700 bg-violet-50 border border-violet-200 px-2 py-0.5 rounded-full">Real-Time</span>
-                </a>
+                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-cyan-50/60 border border-slate-200/90 shadow-sm hover:border-cyan-300 transition-all cursor-pointer group shrink-0">
+                    <div className="w-7 h-7 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <QrCode className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 group-hover:text-cyan-700 transition-colors">QR access</span>
+                  </a>
 
-                {/* DUPLICATE SET FOR SEAMLESS 100% INFINITE LOOP */}
-                {/* Feature 1 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Monitor className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Turnkey Mini-Websites</span>
-                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">12+ Flagship Themes</span>
-                </a>
-
-                {/* Feature 2 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-emerald-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-emerald-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <MessageCircle className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">0% Fee WhatsApp Store</span>
-                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">Direct Orders</span>
-                </a>
-
-                {/* Feature 3 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <CreditCard className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Smart Digital Cards</span>
-                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">1-Tap VCF</span>
-                </a>
-
-                {/* Feature 4 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-orange-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-orange-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Calendar className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-orange-700 transition-colors">Appointment Booking</span>
-                  <span className="text-[10px] font-bold text-orange-700 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full">Auto-Sync</span>
-                </a>
-
-                {/* Feature 5 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-rose-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-rose-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <FileText className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-rose-700 transition-colors">Flyers &amp; Brochures</span>
-                  <span className="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full">300 DPI Print</span>
-                </a>
-
-                {/* Feature 6 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-cyan-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-cyan-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Edit3 className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-cyan-700 transition-colors">SEO Blog Engine</span>
-                  <span className="text-[10px] font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded-full">Rank on Google</span>
-                </a>
-
-                {/* Feature 7 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-indigo-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-indigo-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <QrCode className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-indigo-700 transition-colors">Dynamic QR Engine</span>
-                  <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full">Custom Logo</span>
-                </a>
-
-                {/* Feature 8 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-amber-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-amber-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Wifi className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-amber-700 transition-colors">Smart NFC Cards</span>
-                  <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">Tap &amp; Connect</span>
-                </a>
-
-                {/* Feature 9 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-violet-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-violet-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <TrendingUp className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-violet-700 transition-colors">Live Lead Analytics</span>
-                  <span className="text-[10px] font-bold text-violet-700 bg-violet-50 border border-violet-200 px-2 py-0.5 rounded-full">Real-Time</span>
-                </a>
-
+                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-violet-50/60 border border-slate-200/90 shadow-sm hover:border-violet-300 transition-all cursor-pointer group shrink-0">
+                    <div className="w-7 h-7 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Edit3 className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 group-hover:text-violet-700 transition-colors">Blog studio</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
-        </div>
-
-          {/* 10 All-in-One Capabilities Grid & Social Proof Badges (Matching Brand Design) */}
-          <div className="mt-14 p-6 sm:p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-white/95 via-blue-50/50 to-slate-50/90 border border-blue-200/80 shadow-[0_12px_45px_rgba(37,99,235,0.08)] backdrop-blur-xl relative overflow-hidden">
-            {/* Ambient Corner Glow */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="text-center max-w-2xl mx-auto mb-8 relative z-10 space-y-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100/80 border border-blue-200 text-blue-700 text-[11px] font-bold uppercase tracking-wider shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600" /> All-in-One Growth Engine
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                Everything Your Business Needs Under One Brand
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600">
-                Tap on any capability to see how OneClickBiz powers your operations from day one.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5 sm:gap-4 relative z-10">
-              
-              {/* 1. Website */}
-              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-0.5 transition-all group">
-                <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform mb-2.5">
-                  <Globe className="w-6 h-6" />
-                </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Website</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Your Online Storefront</p>
-              </a>
-
-              {/* 2. WhatsApp Store */}
-              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-0.5 transition-all group">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/30 group-hover:scale-110 transition-transform mb-2.5">
-                  <MessageCircle className="w-6 h-6" />
-                </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">WhatsApp Store</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Sell on WhatsApp</p>
-              </a>
-
-              {/* 3. E-Commerce */}
-              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-rose-400 hover:shadow-lg hover:shadow-rose-500/10 hover:-translate-y-0.5 transition-all group">
-                <div className="w-12 h-12 rounded-2xl bg-rose-500 text-white flex items-center justify-center shadow-md shadow-rose-500/30 group-hover:scale-110 transition-transform mb-2.5">
-                  <ShoppingBag className="w-6 h-6" />
-                </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-rose-600 transition-colors">E-Commerce</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Products &amp; Payments</p>
-              </a>
-
-              {/* 4. Videos */}
-              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/10 hover:-translate-y-0.5 transition-all group">
-                <div className="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center shadow-md shadow-purple-500/30 group-hover:scale-110 transition-transform mb-2.5">
-                  <Video className="w-6 h-6" />
-                </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Videos</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Showcase Your Business</p>
-              </a>
-
-              {/* 5. Digital VCards */}
-              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/10 hover:-translate-y-0.5 transition-all group">
-                <div className="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-md shadow-amber-500/30 group-hover:scale-110 transition-transform mb-2.5">
-                  <CreditCard className="w-6 h-6" />
-                </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-amber-600 transition-colors">Digital VCards</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Share Instantly</p>
-              </a>
-
-              {/* 6. Products & Services */}
-              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-teal-400 hover:shadow-lg hover:shadow-teal-500/10 hover:-translate-y-0.5 transition-all group">
-                <div className="w-12 h-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center shadow-md shadow-teal-500/30 group-hover:scale-110 transition-transform mb-2.5">
-                  <Package className="w-6 h-6" />
-                </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-teal-600 transition-colors">Products &amp; Services</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Show What You Offer</p>
-              </a>
-
-              {/* 7. QR Codes */}
-              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-pink-400 hover:shadow-lg hover:shadow-pink-500/10 hover:-translate-y-0.5 transition-all group">
-                <div className="w-12 h-12 rounded-2xl bg-pink-600 text-white flex items-center justify-center shadow-md shadow-pink-500/30 group-hover:scale-110 transition-transform mb-2.5">
-                  <QrCode className="w-6 h-6" />
-                </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-pink-600 transition-colors">QR Codes</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Scan &amp; Connect</p>
-              </a>
-
-              {/* 8. Social Media */}
-              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-indigo-400 hover:shadow-lg hover:shadow-indigo-500/10 hover:-translate-y-0.5 transition-all group">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/30 group-hover:scale-110 transition-transform mb-2.5">
-                  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                  </svg>
-                </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Social Media</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Grow Your Audience</p>
-              </a>
-
-              {/* 9. & More */}
-              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-sky-400 hover:shadow-lg hover:shadow-sky-500/10 hover:-translate-y-0.5 transition-all group col-span-2 sm:col-span-1">
-                <div className="w-12 h-12 rounded-2xl bg-sky-500 text-white flex items-center justify-center shadow-md shadow-sky-500/30 group-hover:scale-110 transition-transform mb-2.5">
-                  <Plus className="w-6 h-6 stroke-[3]" />
-                </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-sky-600 transition-colors">&amp; More</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Everything You Need</p>
-              </a>
-
-            </div>
-
-            {/* 3 Key Social Proof Cards with Rich Corporate Tinting */}
-            <div className="mt-8 pt-7 border-t border-blue-200/70 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 max-w-4xl mx-auto relative z-10">
-              <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-200/90 shadow-sm flex items-center justify-center gap-3.5 hover:bg-blue-50 transition-colors">
-                <div className="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/30">
-                  <Rocket className="w-5 h-5" />
-                </div>
-                <div className="text-left">
-                  <h5 className="text-base font-black text-slate-900 leading-none">500+</h5>
-                  <p className="text-xs text-slate-600 font-semibold mt-1">Happy Businesses</p>
-                </div>
+          {/* High-Converting Social Proof Strip */}
+          <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 max-w-4xl mx-auto">
+            <div className="p-4 rounded-2xl bg-white/95 border border-blue-200/90 shadow-sm flex items-center justify-center gap-3.5 hover:bg-blue-50/50 transition-colors">
+              <div className="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/30">
+                <Rocket className="w-5 h-5" />
               </div>
-
-              <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 shadow-sm flex items-center justify-center gap-3.5 hover:bg-emerald-50 transition-colors">
-                <div className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/30">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div className="text-left">
-                  <h5 className="text-base font-black text-slate-900 leading-none">100%</h5>
-                  <p className="text-xs text-slate-600 font-semibold mt-1">Secure &amp; Reliable</p>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200/90 shadow-sm flex items-center justify-center gap-3.5 hover:bg-indigo-50 transition-colors">
-                <div className="w-11 h-11 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-indigo-500/30">
-                  <Headphones className="w-5 h-5" />
-                </div>
-                <div className="text-left">
-                  <h5 className="text-base font-black text-slate-900 leading-none">Dedicated</h5>
-                  <p className="text-xs text-slate-600 font-semibold mt-1">Customer Support</p>
-                </div>
+              <div className="text-left">
+                <h5 className="text-base font-black text-slate-900 leading-none">500+</h5>
+                <p className="text-xs text-slate-600 font-semibold mt-1">Happy Businesses</p>
               </div>
             </div>
 
+            <div className="p-4 rounded-2xl bg-white/95 border border-emerald-200/90 shadow-sm flex items-center justify-center gap-3.5 hover:bg-emerald-50/50 transition-colors">
+              <div className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/30">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div className="text-left">
+                <h5 className="text-base font-black text-slate-900 leading-none">100%</h5>
+                <p className="text-xs text-slate-600 font-semibold mt-1">Secure &amp; Reliable</p>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-white/95 border border-indigo-200/90 shadow-sm flex items-center justify-center gap-3.5 hover:bg-indigo-50/50 transition-colors">
+              <div className="w-11 h-11 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-indigo-500/30">
+                <Headphones className="w-5 h-5" />
+              </div>
+              <div className="text-left">
+                <h5 className="text-base font-black text-slate-900 leading-none">Dedicated</h5>
+                <p className="text-xs text-slate-600 font-semibold mt-1">Customer Support</p>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -1448,257 +1239,169 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* INTERACTIVE BENTO GRID FEATURE MATRIX WITH SECTOR IMPACT DEEP-DIVE */}
-      <InteractiveFeaturesSection />
-
-      {/* DETAILED FOUNDER STORY SECTION: WHY ONECLICKBIZ? */}
-      <section id="about" className="py-24 bg-gradient-to-b from-slate-50 via-blue-50/50 to-indigo-50/60 border-y border-slate-200/80 relative overflow-hidden scroll-mt-24">
+      {/* Pricing Section with Soft Brand Sky-Blue Background */}
+      <section id="pricing" className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/60 to-blue-50/70 border-y border-slate-200/80 relative scroll-mt-24 overflow-hidden">
+        {/* Glowing Background Orbs */}
+        <div className="absolute top-10 left-1/3 w-[750px] h-[500px] bg-gradient-to-r from-sky-400/25 via-blue-400/25 to-indigo-400/20 blur-[130px] pointer-events-none -z-10" />
         
-        {/* Glow Background Accent */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[850px] h-[650px] bg-gradient-to-r from-blue-300/20 via-sky-300/20 to-indigo-300/20 blur-[140px] pointer-events-none -z-10" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
-
-          {/* Section Header */}
-          <div className="text-center max-w-4xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-blue-200 shadow-sm text-blue-700 text-xs font-bold uppercase tracking-wider">
-              <Quote className="w-3.5 h-3.5 text-blue-600" /> Founder Story
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/90 text-blue-700 text-xs font-bold uppercase tracking-wider mb-2">
+              <Zap className="w-3.5 h-3.5 text-blue-600 fill-blue-600" />
+              <span>Simple &amp; Transparent Pricing</span>
             </div>
-            
-            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-              Why <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">OneClickBiz?</span>
-            </h2>
-
-            <p className="text-base sm:text-xl lg:text-2xl font-bold text-slate-800 tracking-tight">
-              One Platform. Every Business. Endless Possibilities.
+            <h3 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+              Choose Your Perfect Plan
+            </h3>
+            <p className="text-xs sm:text-sm font-semibold text-slate-600">
+              No Hidden Charges &nbsp;|&nbsp; One Time Payment &nbsp;|&nbsp; Annual Plan
             </p>
           </div>
 
-          {/* Vision vs The Real Problem - 2 Side-by-Side Narrative Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            
-            {/* Our Vision Card */}
-            <div className="p-5 sm:p-8 md:p-10 rounded-3xl bg-white/90 backdrop-blur-xl border border-indigo-200/90 shadow-[0_12px_40px_rgb(0,0,0,0.05)] hover:shadow-xl transition-all space-y-4 sm:space-y-5 flex flex-col justify-between">
-              <div className="space-y-3 sm:space-y-4">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shadow-sm">
-                  <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6" />
-                </div>
-                <h3 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">
-                  Our Vision
-                </h3>
-                <p className="text-slate-700 text-sm sm:text-base lg:text-lg leading-relaxed">
-                  In today’s digital world, every business needs an online presence. Whether it is real estate, interior design, food, fashion, beauty, insurance, banking, or any other industry, having a website is no longer just an option — it is an essential part of business growth.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-slate-100 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-indigo-600 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Essential for Modern Business Growth
-              </div>
-            </div>
-
-            {/* The Common Problem Card */}
-            <div className="p-5 sm:p-8 md:p-10 rounded-3xl bg-white/90 backdrop-blur-xl border border-rose-200/90 shadow-[0_12px_40px_rgb(0,0,0,0.05)] hover:shadow-xl transition-all space-y-4 sm:space-y-5 flex flex-col justify-between">
-              <div className="space-y-3 sm:space-y-4">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shadow-sm">
-                  <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
-                </div>
-                <h3 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">
-                  But There is a Common Problem.
-                </h3>
-                <p className="text-slate-700 text-sm sm:text-base lg:text-lg leading-relaxed">
-                  Businesses that already have websites often depend on developers even for small changes. Updating prices, changing photos, adding products, modifying services, or updating business information can become time-consuming and expensive. Small businesses deserve a simpler solution.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-slate-100 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-rose-600 flex items-center gap-1.5">
-                <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Eliminating Costly Developer Bottlenecks
-              </div>
-            </div>
-
+        {/* Highlight Banner: Edit Details N Number of Times */}
+        <div className="mb-12 max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-white/90 border-2 border-emerald-500/40 backdrop-blur-md shadow-lg shadow-emerald-500/10 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-600 text-white font-bold text-[10px] uppercase tracking-wider mb-2 shadow-xs">
+            <RefreshCw className="w-3 h-3 animate-spin" />
+            100% Free Unlimited Updates
           </div>
+          <h4 className="text-base sm:text-lg font-black text-slate-900">
+            Edit Your Details N Number of Times — ZERO Extra Fees
+          </h4>
+          <p className="text-xs sm:text-sm text-slate-700 mt-1 max-w-2xl mx-auto leading-relaxed">
+            Update your phone, WhatsApp, email, social links, photos, services, pricing, or templates whenever your business evolves. You never need an extra recharge or special plan to make changes.
+          </p>
+        </div>
 
-          {/* Breakthrough: That is why we created OneClickBiz */}
-          <div className="p-6 sm:p-8 md:p-12 rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-950 text-white shadow-2xl border border-indigo-800/80 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-            
-            <div className="relative z-10 max-w-4xl space-y-4 sm:space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-[11px] sm:text-xs font-semibold tracking-wider uppercase">
-                <Rocket className="w-3.5 h-3.5 text-indigo-400" /> The Turning Point
+        {/* Free Tier Callout to eliminate any upfront payment hesitation */}
+        <div className="mb-10 max-w-4xl mx-auto p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-indigo-500/15 border-2 border-emerald-500/30 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-5 shadow-lg shadow-emerald-500/5">
+          <div className="flex items-center gap-4 text-left">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-600/20">
+              <BadgeCheck className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-base font-extrabold text-slate-900">Try 100% Free First</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200">₹0 Upfront</span>
               </div>
-
-              <h3 className="text-xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
-                That is why we created OneClickBiz.
-              </h3>
-
-              <p className="text-sm sm:text-lg md:text-xl text-indigo-100/90 leading-relaxed font-medium">
-                Our vision is to make digital business tools simple, accessible, and affordable for everyone — even for people without technical knowledge.
-              </p>
-
-              <div className="p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-white shadow-inner">
-                <p className="text-xs sm:text-base md:text-lg font-bold text-amber-200 leading-relaxed">
-                  &ldquo;We believe every business owner should have the freedom to create, manage, edit, and grow their online presence independently.&rdquo;
-                </p>
-              </div>
+              <p className="text-xs text-slate-600 mt-0.5">Create, customize, and test your live card on your phone before spending a single rupee. No credit card required.</p>
             </div>
           </div>
+          <Link href="/signup?intent=build_card" className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 shadow-md transition-all active:scale-95">
+            Start Free Card
+          </Link>
+        </div>
 
-          {/* Everything Your Business Needs. All in One Place. (19 Tools) */}
-          <div className="space-y-8">
-            <div className="text-center max-w-3xl mx-auto space-y-3">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider shadow-sm">
-                <Layers className="w-3.5 h-3.5 text-blue-600" /> Unified Business Ecosystem
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Plan 1: Basic (Soft Sky Blue) */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#ebf4ff] border border-blue-200/90 flex flex-col justify-between space-y-6 shadow-sm hover:shadow-xl transition-all">
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600">Solo Professionals</span>
+                <h4 className="text-2xl font-black text-blue-700">Basic</h4>
               </div>
-              <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                Everything Your Business Needs. All in One Place.
-              </h3>
-              <p className="text-slate-600 text-sm sm:text-base">
-                OneClickBiz brings together essential digital business tools on a single platform:
-              </p>
+              <p className="text-xs text-slate-600">Essential digital smart card for individual practitioners and consultants.</p>
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl sm:text-4xl font-black text-slate-900">₹{pricing.basicPrice.toLocaleString()}/-</span>
+                <span className="text-xs text-slate-600 font-semibold ml-1">Per Year</span>
+              </div>
+              <ul className="space-y-2.5 pt-4 text-xs text-slate-700 border-t border-blue-200/60">
+                <li className="flex items-center gap-2 text-emerald-800 font-semibold"><Check className="w-4 h-4 text-emerald-600 shrink-0" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> <strong>1 Digital Card (/v/your-name)</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> 1-Click .VCF Contact Downloader</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> Dynamic Cloud QR Code (Editable)</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> Social Links &amp; Portfolio Showcase</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> Inbound Lead Inquiry Capture Form</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> Standard Visitor Analytics</li>
+              </ul>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
-              {[
-                { title: 'Mini Website & Live Business Profile', icon: Globe2, color: 'text-sky-600 bg-sky-50 border-sky-200' },
-                { title: 'Personal Profile', icon: Smartphone, color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
-                { title: 'WhatsApp Store & E-commerce', icon: ShoppingBag, color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
-                { title: 'Digital Visiting Cards, Flyers & Brochures', icon: CreditCard, color: 'text-blue-600 bg-blue-50 border-blue-200' },
-                { title: 'Lead Extraction Tools', icon: Target, color: 'text-amber-600 bg-amber-50 border-amber-200' },
-                { title: 'Custom Domains & Landing Pages', icon: Monitor, color: 'text-cyan-600 bg-cyan-50 border-cyan-200' },
-                { title: 'Customer Reviews & Ratings', icon: Star, color: 'text-yellow-600 bg-yellow-50 border-yellow-200' },
-                { title: 'Image Gallery & Product Space', icon: ImageIcon, color: 'text-rose-600 bg-rose-50 border-rose-200' },
-                { title: 'Articles & Blogs', icon: FileText, color: 'text-blue-600 bg-blue-50 border-blue-200' },
-                { title: 'Products & Services Showcase', icon: Layers, color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
-                { title: 'Customizable Templates', icon: Palette, color: 'text-cyan-600 bg-cyan-50 border-cyan-200' },
-                { title: 'Easy Website Designing & Multiple Edits', icon: Edit3, color: 'text-teal-600 bg-teal-50 border-teal-200' },
-                { title: 'Customized QR Codes', icon: QrCode, color: 'text-slate-700 bg-slate-100 border-slate-300' },
-                { title: 'Payment Gateway Integration', icon: ShieldCheck, color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
-                { title: 'Canva & Adobe Integration, where supported', icon: Zap, color: 'text-orange-600 bg-orange-50 border-orange-200' },
-                { title: 'Email Signature Generator', icon: Mail, color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
-                { title: 'PDF Report Generation', icon: Download, color: 'text-blue-600 bg-blue-50 border-blue-200' },
-                { title: 'Commercial Usage & Business Scaling', icon: TrendingUp, color: 'text-green-600 bg-green-50 border-green-200' },
-                { title: 'Installable App-like Experience with a Direct Installation Prompt, where supported', icon: Rocket, color: 'text-blue-600 bg-blue-50 border-blue-200' },
-              ].map((item, idx) => {
-                const IconComponent = item.icon;
-                return (
-                  <div 
-                    key={idx}
-                    className={`p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-md hover:border-indigo-300 transition-all flex items-start gap-3.5 group ${idx === 18 ? 'sm:col-span-2 lg:col-span-3 xl:col-span-2' : ''}`}
-                  >
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border transition-transform group-hover:scale-110 ${item.color}`}>
-                      <IconComponent className="w-4 h-4" />
-                    </div>
-                    <div className="space-y-0.5">
-                      <p className="text-xs font-bold text-slate-800 leading-snug group-hover:text-indigo-700 transition-colors">
-                        {item.title}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <Link href="/signup?plan=Basic&intent=select_plan" className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs text-center shadow-md shadow-blue-500/25 transition-all">
+              Select Basic Plan (₹{pricing.basicPrice.toLocaleString()})
+            </Link>
           </div>
 
-          {/* Designed for Every Industry */}
-          <div className="p-5 sm:p-8 md:p-12 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-[0_10px_35px_rgb(0,0,0,0.05)] space-y-6 sm:space-y-8">
-            <div className="max-w-3xl space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-[11px] sm:text-xs font-bold uppercase tracking-wider">
-                <Building2 className="w-3.5 h-3.5 text-amber-600" /> Broad Industry Reach
+          {/* Plan 2: Pro (Fresh Mint Green - Most Popular) */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#e6f9f0] border-2 border-emerald-500 flex flex-col justify-between space-y-6 relative shadow-xl shadow-emerald-500/15 overflow-hidden">
+            <div className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-2xl bg-emerald-600 text-white font-black text-[10px] tracking-wider uppercase shadow-xs">
+              Most Popular
+            </div>
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Multi-service Professionals &amp; Agencies</span>
+                <h4 className="text-2xl font-black text-emerald-700">Pro</h4>
               </div>
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
-                Designed for Every Industry
-              </h3>
-              <p className="text-slate-700 text-sm sm:text-base lg:text-lg leading-relaxed">
-                Whether you are a real estate developer, interior designer, restaurant owner, fashion retailer, beauty salon owner, insurance professional, banking service provider, or entrepreneur, OneClickBiz helps bring your digital business presence together.
-              </p>
+              <p className="text-xs text-slate-700">Complete suite for multi-service professionals, agencies, and growing businesses.</p>
+              <div className="flex items-baseline gap-1">
+                <span className="text-4xl font-black text-slate-900">₹{pricing.proPrice.toLocaleString()}/-</span>
+                <span className="text-xs text-slate-700 font-semibold ml-1">Per Year</span>
+              </div>
+              <ul className="space-y-2.5 pt-4 text-xs text-slate-800 border-t border-emerald-200/80">
+                <li className="flex items-center gap-2 text-emerald-900 font-semibold"><Check className="w-4 h-4 text-emerald-600 shrink-0" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> <strong>Up to 3 Digital Cards</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> <strong>1 Custom Domain CNAME (White-Label)</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> <strong>Unlimited WhatsApp Store Catalog</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> <strong>Appointment &amp; Slot Booking Engine</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> <strong>PDF Data Reporting &amp; Exporting Suite</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> Leads CRM Pipeline Inbox with Exports</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> Priority WhatsApp &amp; Email Support</li>
+              </ul>
             </div>
-
-            <div className="flex flex-wrap gap-2 sm:gap-2.5 md:gap-3 pt-2">
-              {[
-                { name: 'Real Estate Developers', icon: Building2 },
-                { name: 'Interior Designers', icon: Palette },
-                { name: 'Restaurant & Food Owners', icon: Store },
-                { name: 'Fashion Retailers', icon: ShoppingBag },
-                { name: 'Beauty & Salon Owners', icon: Sparkles },
-                { name: 'Insurance Professionals', icon: ShieldCheck },
-                { name: 'Banking & Financial Services', icon: CreditCard },
-                { name: 'Entrepreneurs & Creators', icon: Rocket }
-              ].map((ind, idx) => {
-                const IndIcon = ind.icon;
-                return (
-                  <span 
-                    key={idx}
-                    className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-800 hover:text-indigo-700 text-xs sm:text-sm font-semibold transition-all shadow-sm"
-                  >
-                    <IndIcon className="w-3.5 h-3.5 text-indigo-600" />
-                    {ind.name}
-                  </span>
-                );
-              })}
-            </div>
+            <Link href="/signup?plan=Pro&intent=select_plan" className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs text-center shadow-lg shadow-emerald-500/30 transition-all active:scale-95">
+              Get Started with Pro (₹{pricing.proPrice.toLocaleString()})
+            </Link>
           </div>
 
-          {/* Your Business. Your Website. Your Control. */}
-          <div className="p-5 sm:p-8 md:p-12 rounded-3xl bg-gradient-to-r from-blue-50/90 via-sky-50/90 to-indigo-50/90 border border-blue-200 shadow-sm backdrop-blur-md space-y-6">
-            <h3 className="text-xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
-              Your Business. Your Website. <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 bg-clip-text text-transparent">Your Control.</span>
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-slate-700">
-              <div className="p-4 sm:p-5 rounded-2xl bg-white/80 border border-indigo-100 space-y-2">
-                <div className="flex items-center gap-2 text-indigo-700 font-bold text-xs sm:text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> Zero Developer Hassle
-                </div>
-                <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
-                  No unnecessary dependency on developers for every small update. No need to manage your entire digital presence through multiple disconnected tools when the required features are available in one place.
-                </p>
+          {/* Plan 3: Advance (Soft Lavender) */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#f5eefc] border border-purple-200/90 flex flex-col justify-between space-y-6 shadow-sm hover:shadow-xl transition-all">
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-purple-600">Growing Businesses &amp; Executives</span>
+                <h4 className="text-2xl font-black text-purple-700">Advance</h4>
               </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-white/80 border border-indigo-100 space-y-2">
-                <div className="flex items-center gap-2 text-indigo-700 font-bold text-xs sm:text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> One Smart Link
-                </div>
-                <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
-                  Create your business presence, update your information, showcase your products and services, connect with customers, and promote your business through one smart link.
-                </p>
+              <p className="text-xs text-slate-600">For growing businesses and executives with multiple companies or team staff.</p>
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl sm:text-4xl font-black text-slate-900">₹{pricing.advancedPrice.toLocaleString()}/-</span>
+                <span className="text-xs text-slate-600 font-semibold ml-1">Per Year</span>
               </div>
+              <ul className="space-y-2.5 pt-4 text-xs text-slate-700 border-t border-purple-200/60">
+                <li className="flex items-center gap-2 text-emerald-800 font-semibold"><Check className="w-4 h-4 text-emerald-600 shrink-0" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> <strong>Up to 5 Digital Cards &amp; Team Profiles</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> <strong>5 White-Label Custom Domains</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> <strong>Unlimited 4K Video Uploads &amp; CDN</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> Blog Studio &amp; Unlimited Article Publishing</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> 50+ Portfolio Case Studies with Zoom</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> Dedicated Account Manager &amp; VIP SLA</li>
+              </ul>
             </div>
-          </div>
-
-          {/* Our Mission & Call to Action Footer */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center p-5 sm:p-8 md:p-10 rounded-3xl bg-slate-900 text-white shadow-xl border border-slate-800">
-            <div className="lg:col-span-8 space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-indigo-300 text-[11px] sm:text-xs font-bold uppercase tracking-wider">
-                <Target className="w-3.5 h-3.5 text-indigo-400" /> Our Mission
-              </div>
-              <h4 className="text-lg sm:text-2xl md:text-3xl font-black text-white tracking-tight">
-                Empowering Independent Digital Growth
-              </h4>
-              <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl">
-                To help every business build a stronger digital presence, simplify online business management, and make digital growth more accessible and affordable.
-              </p>
-              <div className="pt-2 text-xs sm:text-sm md:text-base font-bold text-transparent bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300 bg-clip-text">
-                OneClickBiz — One Platform. Every Business. Your Control.
-              </div>
-            </div>
-
-            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center items-stretch lg:items-end">
-              <Link
-                href="/signup"
-                className="w-full px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30 transition-all text-center"
-              >
-                <span>Explore: oneclickbiz.in</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <Link href="/signup?plan=Advanced&intent=select_plan" className="w-full py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs text-center shadow-md shadow-purple-500/25 transition-all">
+              Choose Advance Plan (₹{pricing.advancedPrice.toLocaleString()})
+            </Link>
           </div>
 
         </div>
 
+        {/* 7-Day Money Back Guarantee Strip */}
+        <div className="mt-12 max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-white/95 border border-slate-200/90 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-900">100% Risk-Free Guarantee</p>
+              <p className="text-[11px] text-slate-600">Try any paid plan for 7 days. If you aren&apos;t completely delighted, WhatsApp or email us for an instant, no-questions-asked refund.</p>
+            </div>
+          </div>
+          <Link href="/refund" className="text-xs font-bold text-blue-600 hover:text-blue-700 shrink-0 flex items-center gap-1">
+            <span>Refund Terms</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        </div>
       </section>
 
-
-
-
       {/* Head-to-Head Comparison & Differentiation Section - Executive Dark Sapphire Theme */}
-      <section className="py-24 bg-gradient-to-b from-[#061224] via-[#0a1e3f] to-[#050e1c] border-y border-blue-900/60 relative overflow-hidden text-white">
+      <section id="about" className="py-24 bg-gradient-to-b from-[#061224] via-[#0a1e3f] to-[#050e1c] border-y border-blue-900/60 relative overflow-hidden text-white scroll-mt-24">
         {/* Subtle Professional Grid Texture */}
         <div className="absolute inset-0 bg-[radial-gradient(#38bdf820_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none -z-10" />
 
@@ -2030,166 +1733,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing Section with Soft Brand Sky-Blue Background */}
-      <section id="pricing" className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/60 to-blue-50/70 border-y border-slate-200/80 relative scroll-mt-24 overflow-hidden">
-        {/* Glowing Background Orbs */}
-        <div className="absolute top-10 left-1/3 w-[750px] h-[500px] bg-gradient-to-r from-sky-400/25 via-blue-400/25 to-indigo-400/20 blur-[130px] pointer-events-none -z-10" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/90 text-blue-700 text-xs font-bold uppercase tracking-wider mb-2">
-              <Zap className="w-3.5 h-3.5 text-blue-600 fill-blue-600" />
-              <span>Simple &amp; Transparent Pricing</span>
-            </div>
-            <h3 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-              Choose Your Perfect Plan
-            </h3>
-            <p className="text-xs sm:text-sm font-semibold text-slate-600">
-              No Hidden Charges &nbsp;|&nbsp; One Time Payment &nbsp;|&nbsp; Annual Plan
-            </p>
-          </div>
 
-        {/* Highlight Banner: Edit Details N Number of Times */}
-        <div className="mb-12 max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-white/90 border-2 border-emerald-500/40 backdrop-blur-md shadow-lg shadow-emerald-500/10 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-600 text-white font-bold text-[10px] uppercase tracking-wider mb-2 shadow-xs">
-            <RefreshCw className="w-3 h-3 animate-spin" />
-            100% Free Unlimited Updates
-          </div>
-          <h4 className="text-base sm:text-lg font-black text-slate-900">
-            Edit Your Details N Number of Times — ZERO Extra Fees
-          </h4>
-          <p className="text-xs sm:text-sm text-slate-700 mt-1 max-w-2xl mx-auto leading-relaxed">
-            Update your phone, WhatsApp, email, social links, photos, services, pricing, or templates whenever your business evolves. You never need an extra recharge or special plan to make changes.
-          </p>
-        </div>
-
-        {/* Free Tier Callout to eliminate any upfront payment hesitation */}
-        <div className="mb-10 max-w-4xl mx-auto p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-indigo-500/15 border-2 border-emerald-500/30 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-5 shadow-lg shadow-emerald-500/5">
-          <div className="flex items-center gap-4 text-left">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-600/20">
-              <BadgeCheck className="w-6 h-6" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-base font-extrabold text-slate-900">Try 100% Free First</span>
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200">₹0 Upfront</span>
-              </div>
-              <p className="text-xs text-slate-600 mt-0.5">Create, customize, and test your live card on your phone before spending a single rupee. No credit card required.</p>
-            </div>
-          </div>
-          <Link href="/signup?intent=build_card" className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 shadow-md transition-all active:scale-95">
-            Start Free Card
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* Plan 1: Basic (Soft Sky Blue) */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#ebf4ff] border border-blue-200/90 flex flex-col justify-between space-y-6 shadow-sm hover:shadow-xl transition-all">
-            <div className="space-y-4">
-              <div className="space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600">Solo Professionals</span>
-                <h4 className="text-2xl font-black text-blue-700">Basic</h4>
-              </div>
-              <p className="text-xs text-slate-600">Essential digital smart card for individual practitioners and consultants.</p>
-              <div className="flex items-baseline gap-1">
-                <span className="text-3xl sm:text-4xl font-black text-slate-900">₹{pricing.basicPrice.toLocaleString()}/-</span>
-                <span className="text-xs text-slate-600 font-semibold ml-1">Per Year</span>
-              </div>
-              <ul className="space-y-2.5 pt-4 text-xs text-slate-700 border-t border-blue-200/60">
-                <li className="flex items-center gap-2 text-emerald-800 font-semibold"><Check className="w-4 h-4 text-emerald-600 shrink-0" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> <strong>1 Digital Card (/v/your-name)</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> 1-Click .VCF Contact Downloader</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> Dynamic Cloud QR Code (Editable)</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> Social Links &amp; Portfolio Showcase</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> Inbound Lead Inquiry Capture Form</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0" /> Standard Visitor Analytics</li>
-              </ul>
-            </div>
-            <Link href="/signup?plan=Basic&intent=select_plan" className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs text-center shadow-md shadow-blue-500/25 transition-all">
-              Select Basic Plan (₹{pricing.basicPrice.toLocaleString()})
-            </Link>
-          </div>
-
-          {/* Plan 2: Pro (Fresh Mint Green - Most Popular) */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#e6f9f0] border-2 border-emerald-500 flex flex-col justify-between space-y-6 relative shadow-xl shadow-emerald-500/15 overflow-hidden">
-            <div className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-2xl bg-emerald-600 text-white font-black text-[10px] tracking-wider uppercase shadow-xs">
-              Most Popular
-            </div>
-            <div className="space-y-4">
-              <div className="space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Multi-service Professionals &amp; Agencies</span>
-                <h4 className="text-2xl font-black text-emerald-700">Pro</h4>
-              </div>
-              <p className="text-xs text-slate-700">Complete suite for multi-service professionals, agencies, and growing businesses.</p>
-              <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-black text-slate-900">₹{pricing.proPrice.toLocaleString()}/-</span>
-                <span className="text-xs text-slate-700 font-semibold ml-1">Per Year</span>
-              </div>
-              <ul className="space-y-2.5 pt-4 text-xs text-slate-800 border-t border-emerald-200/80">
-                <li className="flex items-center gap-2 text-emerald-900 font-semibold"><Check className="w-4 h-4 text-emerald-600 shrink-0" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> <strong>Up to 3 Digital Cards</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> <strong>1 Custom Domain CNAME (White-Label)</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> <strong>Unlimited WhatsApp Store Catalog</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> <strong>Appointment &amp; Slot Booking Engine</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> <strong>PDF Data Reporting &amp; Exporting Suite</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> Leads CRM Pipeline Inbox with Exports</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-700 shrink-0" /> Priority WhatsApp &amp; Email Support</li>
-              </ul>
-            </div>
-            <Link href="/signup?plan=Pro&intent=select_plan" className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs text-center shadow-lg shadow-emerald-500/30 transition-all active:scale-95">
-              Get Started with Pro (₹{pricing.proPrice.toLocaleString()})
-            </Link>
-          </div>
-
-          {/* Plan 3: Advance (Soft Lavender) */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#f5eefc] border border-purple-200/90 flex flex-col justify-between space-y-6 shadow-sm hover:shadow-xl transition-all">
-            <div className="space-y-4">
-              <div className="space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-purple-600">Growing Businesses &amp; Executives</span>
-                <h4 className="text-2xl font-black text-purple-700">Advance</h4>
-              </div>
-              <p className="text-xs text-slate-600">For growing businesses and executives with multiple companies or team staff.</p>
-              <div className="flex items-baseline gap-1">
-                <span className="text-3xl sm:text-4xl font-black text-slate-900">₹{pricing.advancedPrice.toLocaleString()}/-</span>
-                <span className="text-xs text-slate-600 font-semibold ml-1">Per Year</span>
-              </div>
-              <ul className="space-y-2.5 pt-4 text-xs text-slate-700 border-t border-purple-200/60">
-                <li className="flex items-center gap-2 text-emerald-800 font-semibold"><Check className="w-4 h-4 text-emerald-600 shrink-0" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> <strong>Up to 5 Digital Cards &amp; Team Profiles</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> <strong>5 White-Label Custom Domains</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> <strong>Unlimited 4K Video Uploads &amp; CDN</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> Blog Studio &amp; Unlimited Article Publishing</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> 50+ Portfolio Case Studies with Zoom</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-600 shrink-0" /> Dedicated Account Manager &amp; VIP SLA</li>
-              </ul>
-            </div>
-            <Link href="/signup?plan=Advanced&intent=select_plan" className="w-full py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs text-center shadow-md shadow-purple-500/25 transition-all">
-              Choose Advance Plan (₹{pricing.advancedPrice.toLocaleString()})
-            </Link>
-          </div>
-
-        </div>
-
-        {/* 7-Day Money Back Guarantee Strip */}
-        <div className="mt-12 max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-white/95 border border-slate-200/90 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-slate-900">100% Risk-Free Guarantee</p>
-              <p className="text-[11px] text-slate-600">Try any paid plan for 7 days. If you aren&apos;t completely delighted, WhatsApp or email us for an instant, no-questions-asked refund.</p>
-            </div>
-          </div>
-          <Link href="/refund" className="text-xs font-bold text-blue-600 hover:text-blue-700 shrink-0 flex items-center gap-1">
-            <span>Refund Terms</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        </div>
-      </section>
 
       {/* FAQ Accordion with Soft Brand Blue Background */}
       <section id="faq" className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/50 to-blue-50/60 backdrop-blur-xl border-t border-slate-200/80 scroll-mt-20 relative overflow-hidden">

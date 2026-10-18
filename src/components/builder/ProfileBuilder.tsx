@@ -89,6 +89,7 @@ import SocialIcon, { getSocialBrandColor } from '@/components/common/SocialIcon'
 import ShareCardModal from '@/components/common/ShareCardModal';
 import { getCurrentUserPlan } from '@/lib/plan-guards';
 import { downloadVcfFile } from '@/lib/vcf';
+import { COMBO_DEALS, ComboDeal } from '@/components/templates/RestaurantTemplateView';
 
 // Helper to permanently convert and compress image files to lightweight base64 data URLs
 export const readFileAsDataUrl = (file: File): Promise<string> => {
@@ -567,6 +568,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
   // Template browser state
   const [templateSearch, setTemplateSearch] = useState('');
   const [templateCategory, setTemplateCategory] = useState('all');
+  const [restaurantMenuSubTab, setRestaurantMenuSubTab] = useState<'dishes' | 'combos'>('dishes');
 
   // User plan & storage limits
   const [userPlan, setUserPlan] = useState<'Basic' | 'Pro' | 'Advanced'>('Pro');
