@@ -213,7 +213,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: 'Instant Checkout',
     iconName: 'ShoppingBag',
     themeColor: 'emerald',
-    imageUrl: 'https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '/images/whatsapp-storefront.png',
     description: 'Transform your digital profile into an interactive mobile storefront. Showcase products with multi-image galleries, prices, discounts, and custom options. Customers build a cart and checkout via pre-formatted WhatsApp orders.',
     metrics: [
       { value: '98%', label: 'WhatsApp Message Open Rate' },

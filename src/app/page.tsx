@@ -249,7 +249,7 @@ const CORE_SERVICES = [
     title: 'WhatsApp Store Onboarding',
     category: 'Conversational Commerce',
     icon: ShoppingBag,
-    image: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=800&q=80',
+    image: '/images/whatsapp-storefront.png',
     badge: '1-Click Checkout',
     tagline: 'Ready-to-Sell Catalog Setup',
     description: 'Our e-commerce team formats your product catalogs, configures tiered pricing, formats high-res images, and connects direct in-card WhatsApp cart checkout.',
