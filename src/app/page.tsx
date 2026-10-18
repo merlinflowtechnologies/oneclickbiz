@@ -643,26 +643,27 @@ export default function LandingPage() {
           </div>
 
           {/* Continuous Animated Feature Ribbon Marquee */}
-          <div className="mt-10 sm:mt-12 relative overflow-hidden py-3 px-2 sm:px-4 rounded-3xl bg-white/75 backdrop-blur-xl border border-indigo-100/90 shadow-md">
+          <div className="mt-10 sm:mt-14 max-w-6xl mx-auto relative rounded-2xl sm:rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-[0_10px_35px_rgba(0,0,0,0.05)] p-3 sm:p-4">
             
-            {/* Left & Right Soft Fade Masks */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-sky-50 via-sky-50/90 to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-white via-white/90 to-transparent z-10" />
-
-            {/* Ribbon Caption */}
+            {/* Ribbon Caption Header */}
             <div className="flex items-center justify-between mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
               <div className="flex items-center gap-1.5 text-indigo-700 font-extrabold">
                 <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
                 <span>All Capabilities Included in One Unified Platform</span>
               </div>
-              <span className="hidden sm:inline-block text-[10px] text-slate-400 font-medium lowercase">
+              <span className="hidden sm:inline-block text-[10px] text-slate-400 font-medium normal-case">
                 (hover to pause • click to explore)
               </span>
             </div>
 
-            {/* Seamless Infinite Marquee Track */}
-            <div className="flex overflow-hidden">
-              <div className="animate-continuous-marquee flex items-center gap-3 shrink-0">
+            {/* Seamless Infinite Marquee Track with Scoped Fades */}
+            <div className="relative overflow-hidden py-1 rounded-xl">
+              {/* Left & Right Soft Fade Masks (Strictly Scoped to Track, Matching White Background) */}
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
+
+              <div className="flex overflow-hidden">
+                <div className="animate-continuous-marquee flex items-center gap-3 shrink-0 py-0.5">
                 
                 {/* Feature 1 */}
                 <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
@@ -829,8 +830,9 @@ export default function LandingPage() {
 
               </div>
             </div>
-
           </div>
+
+        </div>
 
           {/* 10 Industry Circles Row (Directly below hero visual showcase) */}
           <div className="mt-10 sm:mt-14 pt-8 border-t border-slate-200/80">
