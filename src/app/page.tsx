@@ -941,63 +941,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Trust Metrics Bottom Bar */}
-          <div className="mt-8 p-4 sm:p-5 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-md grid grid-cols-2 md:grid-cols-4 gap-4 items-center relative">
-            
-            {/* Metric 1 */}
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center shrink-0">
-                <BadgeCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-base sm:text-lg font-black text-slate-900 leading-tight">10,000+</div>
-                <div className="text-[10px] sm:text-xs text-slate-500 font-medium">Businesses Trust Us</div>
-              </div>
-            </div>
 
-            {/* Metric 2 */}
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center shrink-0">
-                <Star className="w-5 h-5 fill-purple-600" />
-              </div>
-              <div>
-                <div className="text-base sm:text-lg font-black text-slate-900 leading-tight">93+</div>
-                <div className="text-[10px] sm:text-xs text-slate-500 font-medium">Ready-to-Use Templates</div>
-              </div>
-            </div>
-
-            {/* Metric 3 */}
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center shrink-0">
-                <Zap className="w-5 h-5 fill-amber-500 text-amber-500" />
-              </div>
-              <div>
-                <div className="text-base sm:text-lg font-black text-slate-900 leading-tight">5 Min</div>
-                <div className="text-[10px] sm:text-xs text-slate-500 font-medium">To Get Online</div>
-              </div>
-            </div>
-
-            {/* Metric 4 with Handwritten Note */}
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0">
-                  <Users className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-base sm:text-lg font-black text-slate-900 leading-tight">24/7</div>
-                  <div className="text-[10px] sm:text-xs text-slate-500 font-medium">Support &amp; Updates</div>
-                </div>
-              </div>
-
-              {/* Handwritten Note Callout */}
-              <div className="hidden xl:block text-right pr-2">
-                <span className="font-serif italic text-xs font-bold text-blue-600 tracking-tight leading-tight block">
-                  All Your <br /> Business Tools <br /> in One Place! ⤴
-                </span>
-              </div>
-            </div>
-
-          </div>
 
         </div>
       </section>
