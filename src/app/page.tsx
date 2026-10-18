@@ -80,7 +80,6 @@ import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/navigation/Footer';
 import ProfileCardView from '@/components/templates/ProfileCardView';
 import TemplateQuickPreviewModal from '@/components/templates/TemplateQuickPreviewModal';
-import DemoVideoSection from '@/components/home/DemoVideoSection';
 import InteractiveFeaturesSection from '@/components/home/InteractiveFeaturesSection';
 import { INITIAL_PROFILES } from '@/lib/data-store';
 import { VCARD_TEMPLATES_CATALOG, VCardTemplateItem } from '@/data/vcardTemplates';
@@ -1448,9 +1447,6 @@ export default function LandingPage() {
 
         </div>
       </section>
-
-      {/* DEMO VIDEO & HOW TO USE WALKTHROUGH SECTION */}
-      <DemoVideoSection />
 
       {/* INTERACTIVE BENTO GRID FEATURE MATRIX WITH SECTOR IMPACT DEEP-DIVE */}
       <InteractiveFeaturesSection />
