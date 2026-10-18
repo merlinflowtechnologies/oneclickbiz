@@ -911,251 +911,328 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+          <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-12 space-y-3">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-900 text-xs font-bold uppercase tracking-wider shadow-xs backdrop-blur-md">
               <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-              <span>Live Interactive Experience</span>
+              <span>Interactive Mini-Website Studio</span>
             </div>
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Experience Your Mini-Website in Action
+              Why Every Business Needs a OneClickBiz Mini-Website
             </h2>
 
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-              Toggle between the full desktop Mini-Website view and the pocket-sized Mobile Card. Switch themes in real-time to preview how your brand will impress customers.
+              Skip weeks of expensive web design and costly maintenance. Launch an interactive, high-converting digital storefront that turns casual visitors into booked clients and direct WhatsApp orders in seconds.
             </p>
           </div>
 
-          {/* Interactive Controls Bar: Dual View Mode Switcher + Theme Switcher */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10">
+          {/* Two-Column Side-by-Side Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
             
-            {/* Dual View Mode Switcher */}
-            <div className="flex items-center gap-1 sm:gap-1.5 p-1 rounded-2xl bg-white border border-slate-200/90 shadow-md shadow-slate-200/60 max-w-full">
-              <button
-                type="button"
-                onClick={() => setHeroDemoMode('website')}
-                className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
-                  heroDemoMode === 'website'
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                }`}
-              >
-                <Monitor className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-                <span className="whitespace-nowrap">Mini-Website View</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setHeroDemoMode('mobile')}
-                className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
-                  heroDemoMode === 'mobile'
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                }`}
-              >
-                <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-                <span className="whitespace-nowrap">Mobile Card</span>
-              </button>
-            </div>
-
-            {/* Theme Switcher Chips */}
-            <div className="flex items-center justify-center gap-1 sm:gap-1.5 p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex-wrap">
-              <span className="text-[11px] font-bold text-slate-400 px-2 uppercase hidden sm:inline">Theme:</span>
-              {(['modern-indigo', 'dark-onyx', 'glassmorphic', 'emerald-pro', 'sunset-gold'] as const).map(t => (
-                <button
-                  key={t}
-                  onClick={() => setSelectedDemoTheme(t)}
-                  className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer ${
-                    selectedDemoTheme === t 
-                      ? 'bg-slate-900 text-white shadow-xs' 
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                  }`}
-                >
-                  {t === 'modern-indigo' ? 'LIGHT' : t.split('-')[0].toUpperCase()}
-                </button>
-              ))}
-            </div>
-
-            {/* Direct Open Tab Link */}
-            <a
-              href="/v/kishore"
-              target="_blank"
-              rel="noreferrer"
-              className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-xs"
-            >
-              <span>Open in New Tab</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {/* Interactive Frame Rendering */}
-          {heroDemoMode === 'website' ? (
-            /* Desktop Browser Shell Frame Mockup (Expanded Width) */
-            <div 
-              onMouseLeave={() => setIsDemoInteractive(false)}
-              className="w-full max-w-4xl xl:max-w-5xl mx-auto rounded-2xl sm:rounded-3xl bg-white border border-slate-300 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.25)] overflow-hidden transition-all duration-300 relative"
-            >
-              {/* Browser Chrome Window Bar */}
-              <div className="bg-slate-900 px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between border-b border-slate-800">
-                <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500 inline-block shrink-0" />
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500 inline-block shrink-0" />
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500 inline-block shrink-0" />
-                  <div className="flex items-center gap-1 sm:gap-1.5 ml-1 sm:ml-3 px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg bg-slate-950 text-[10px] sm:text-xs text-slate-300 font-mono border border-slate-800 truncate">
-                    <Lock className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 shrink-0" />
-                    <span className="text-emerald-400 hidden xs:inline">https://</span>
-                    <span className="truncate">oneclickbiz.in/v/kishore</span>
+            {/* LEFT COLUMN: The Matter - How OneClickBiz Helps & Why It's Useful */}
+            <div className="lg:col-span-5 flex flex-col justify-between space-y-5">
+              
+              <div className="space-y-3.5">
+                
+                {/* Point 1: Launch Fast & No Coding */}
+                <div className="p-4 rounded-2xl bg-white/95 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all group">
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-xs">
+                      <Rocket className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                        Launch in 5 Minutes — Zero Coding
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                        Choose from 29+ industry-curated templates. Add your services, photos, pricing, and links with no web hosting, domain setups, or developers needed.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  {isDemoInteractive ? (
-                    <button
-                      type="button"
-                      onClick={() => setIsDemoInteractive(false)}
-                      className="text-[11px] sm:text-xs font-bold text-white flex items-center gap-1 sm:gap-1.5 transition px-2.5 sm:px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 shadow-sm shrink-0 cursor-pointer"
-                      title="Lock inner demo scroll to freely scroll the webpage"
-                    >
-                      <Lock className="w-3 h-3 text-white" />
-                      <span>Lock Scroll (Scroll Page)</span>
-                    </button>
-                  ) : null}
+                {/* Point 2: 1-Click Save to Phonebook */}
+                <div className="p-4 rounded-2xl bg-white/95 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all group">
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-xs">
+                      <Download className="w-5 h-5 text-indigo-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                        1-Click Contact Save to Phonebook (.VCF)
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                        Clients save your phone, WhatsApp, email, designation, and company address directly into their mobile contacts with a single tap.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Point 3: Direct WhatsApp Store */}
+                <div className="p-4 rounded-2xl bg-white/95 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all group">
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-xs">
+                      <MessageCircle className="w-5 h-5 text-emerald-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
+                        Direct WhatsApp Orders &amp; Inquiries
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                        Pre-filled WhatsApp messages let clients book appointments, request quotes, or order products straight into your chat with 0 friction.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Point 4: 0% Fee Instant UPI Payments */}
+                <div className="p-4 rounded-2xl bg-white/95 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all group">
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-xs">
+                      <CreditCard className="w-5 h-5 text-amber-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
+                        Direct 0% Commission UPI Payments
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                        Receive instant payments directly to your Google Pay, PhonePe, or Paytm with zero intermediary gateway cuts or monthly fees.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Point 5: Dynamic QR & Real-Time Analytics */}
+                <div className="p-4 rounded-2xl bg-white/95 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all group">
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-xs">
+                      <QrCode className="w-5 h-5 text-sky-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
+                        Dynamic QR Studio &amp; Real-Time Analytics
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                        Update your website anytime without re-printing QR codes. Track visitor counts, scan geography, and top-clicked links in real-time.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Action Buttons & Trust Strip */}
+              <div className="pt-2 space-y-3.5">
+                <div className="flex flex-col sm:flex-row items-center gap-3">
+                  <Link
+                    href="/signup?intent=mini_website"
+                    className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm text-center shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition-all hover:scale-105"
+                  >
+                    <span>Create Your Mini-Website Free</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
 
                   <a
-                    href="/v/kishore"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[11px] sm:text-xs font-bold text-blue-200 hover:text-white flex items-center gap-1 sm:gap-1.5 transition px-2.5 sm:px-3 py-1 rounded-lg bg-blue-950/90 hover:bg-blue-900 border border-blue-700/60 shrink-0"
+                    href="#templates"
+                    className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 hover:text-blue-600 border border-slate-200/90 font-bold text-sm text-center transition-all shadow-xs"
                   >
-                    <span className="hidden xs:inline">Full Screen View</span>
-                    <span className="xs:hidden">Full Screen</span>
-                    <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                    Browse 29+ Templates
                   </a>
+                </div>
+
+                {/* Trust Badges */}
+                <div className="flex items-center gap-3.5 text-xs font-semibold text-slate-500 flex-wrap">
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Free Plan Available
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> No Hosting Needed
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Live in 5 Mins
+                  </span>
                 </div>
               </div>
 
-              {/* Inner Website Content with Scroll Hijacking Prevention */}
-              <div 
-                className={`h-[600px] xs:h-[660px] sm:h-[720px] lg:h-[780px] scrollbar-none bg-slate-50 relative ${
-                  isDemoInteractive ? 'overflow-y-auto pointer-events-auto' : 'overflow-hidden pointer-events-none'
-                }`}
-                style={{ maxHeight: '780px', contain: 'paint' }}
-              >
-                <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
+            </div>
+
+            {/* RIGHT COLUMN: The Interactive Mini-Website Preview Mockup */}
+            <div className="lg:col-span-7 flex flex-col space-y-3">
+              
+              {/* Controls Bar for Live Preview */}
+              <div className="flex flex-wrap items-center justify-between gap-2 p-2 rounded-2xl bg-white/95 border border-slate-200/90 shadow-sm backdrop-blur-md">
+                
+                {/* View Mode Switcher */}
+                <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-100 border border-slate-200/70">
+                  <button
+                    type="button"
+                    onClick={() => setHeroDemoMode('website')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
+                      heroDemoMode === 'website'
+                        ? 'bg-blue-600 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    <Monitor className="w-3.5 h-3.5" />
+                    <span>Mini-Website</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setHeroDemoMode('mobile')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
+                      heroDemoMode === 'mobile'
+                        ? 'bg-blue-600 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    <Smartphone className="w-3.5 h-3.5" />
+                    <span>Mobile Card</span>
+                  </button>
+                </div>
+
+                {/* Theme Switcher Chips */}
+                <div className="flex items-center gap-1">
+                  {(['modern-indigo', 'dark-onyx', 'glassmorphic', 'emerald-pro', 'sunset-gold'] as const).map(t => (
+                    <button
+                      key={t}
+                      onClick={() => setSelectedDemoTheme(t)}
+                      className={`px-2 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold transition-all cursor-pointer ${
+                        selectedDemoTheme === t 
+                          ? 'bg-slate-900 text-white shadow-xs' 
+                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      }`}
+                    >
+                      {t === 'modern-indigo' ? 'LIGHT' : t.split('-')[0].toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Direct Open Link */}
+                <a
+                  href="/v/kishore"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-1 transition shadow-xs"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Open Live</span>
+                </a>
               </div>
 
-              {/* Click to Interact Overlay when not actively scrolling demo */}
-              {!isDemoInteractive && (
+              {/* Interactive Frame Rendering */}
+              {heroDemoMode === 'website' ? (
+                /* Desktop Browser Shell Frame Mockup */
                 <div 
-                  onClick={() => setIsDemoInteractive(true)}
-                  className="absolute inset-x-0 bottom-0 top-[48px] z-20 flex items-end justify-center pb-6 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent cursor-pointer group"
+                  onMouseLeave={() => setIsDemoInteractive(false)}
+                  className="w-full rounded-2xl sm:rounded-3xl bg-white border border-slate-300 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.2)] overflow-hidden transition-all duration-300 relative"
                 >
-                  <div className="px-5 py-2.5 rounded-full bg-slate-900/95 hover:bg-blue-600 text-white text-xs sm:text-sm font-bold shadow-2xl border border-white/20 flex items-center gap-2 group-hover:scale-105 transition-all backdrop-blur-md">
-                    <MousePointerClick className="w-4 h-4 text-sky-400 group-hover:text-white" />
-                    <span>Click / Tap to Scroll & Explore Demo</span>
+                  {/* Browser Chrome Window Bar */}
+                  <div className="bg-slate-900 px-3 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between border-b border-slate-800">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block shrink-0" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block shrink-0" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block shrink-0" />
+                      <div className="flex items-center gap-1 ml-1 sm:ml-2 px-2 py-0.5 rounded-md bg-slate-950 text-[10px] text-slate-300 font-mono border border-slate-800 truncate">
+                        <Lock className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
+                        <span className="text-emerald-400 hidden xs:inline">https://</span>
+                        <span className="truncate">oneclickbiz.in/v/kishore</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      {isDemoInteractive ? (
+                        <button
+                          type="button"
+                          onClick={() => setIsDemoInteractive(false)}
+                          className="text-[10px] sm:text-xs font-bold text-white flex items-center gap-1 transition px-2 py-0.5 rounded-md bg-blue-600 hover:bg-blue-700 shadow-sm shrink-0 cursor-pointer"
+                          title="Lock inner demo scroll to freely scroll the webpage"
+                        >
+                          <Lock className="w-2.5 h-2.5 text-white" />
+                          <span>Lock Scroll</span>
+                        </button>
+                      ) : null}
+
+                      <a
+                        href="/v/kishore"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[10px] sm:text-xs font-bold text-blue-200 hover:text-white flex items-center gap-1 transition px-2 py-0.5 rounded-md bg-blue-950/90 hover:bg-blue-900 border border-blue-700/60 shrink-0"
+                      >
+                        <span>Full Screen</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Inner Website Content with Scroll Hijacking Prevention */}
+                  <div 
+                    className={`h-[560px] xs:h-[600px] sm:h-[640px] lg:h-[680px] scrollbar-none bg-slate-50 relative ${
+                      isDemoInteractive ? 'overflow-y-auto pointer-events-auto' : 'overflow-hidden pointer-events-none'
+                    }`}
+                    style={{ maxHeight: '680px', contain: 'paint' }}
+                  >
+                    <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
+                  </div>
+
+                  {/* Click to Interact Overlay when not actively scrolling demo */}
+                  {!isDemoInteractive && (
+                    <div 
+                      onClick={() => setIsDemoInteractive(true)}
+                      className="absolute inset-x-0 bottom-0 top-[40px] z-20 flex items-end justify-center pb-5 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent cursor-pointer group"
+                    >
+                      <div className="px-4 py-2 rounded-full bg-slate-900/95 hover:bg-blue-600 text-white text-xs font-bold shadow-xl border border-white/20 flex items-center gap-1.5 group-hover:scale-105 transition-all backdrop-blur-md">
+                        <MousePointerClick className="w-3.5 h-3.5 text-sky-400 group-hover:text-white" />
+                        <span>Click to Scroll &amp; Test Live</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                /* Mobile Phone Mockup Frame Centered in Right Column */
+                <div className="flex justify-center items-center py-4">
+                  <div 
+                    onMouseLeave={() => setIsDemoInteractive(false)}
+                    className="w-full max-w-[285px] xs:max-w-[320px] sm:max-w-[340px] rounded-[40px] sm:rounded-[44px] p-2.5 sm:p-3 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300"
+                  >
+                    {/* Dynamic Island Speaker Notch */}
+                    <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
+                      <div className="w-2 h-2 rounded-full bg-slate-800" />
+                    </div>
+                    <div className={`rounded-[32px] sm:rounded-[36px] overflow-hidden bg-white h-[540px] xs:h-[580px] sm:h-[620px] scrollbar-none border border-slate-200/80 shadow-inner relative ${
+                      isDemoInteractive ? 'overflow-y-auto pointer-events-auto' : 'overflow-hidden pointer-events-none'
+                    }`}>
+                      <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="mobile" showViewToggle={false} />
+                    </div>
+
+                    {/* Unlock / Relock controls for Mobile frame */}
+                    {!isDemoInteractive ? (
+                      <div 
+                        onClick={() => setIsDemoInteractive(true)}
+                        className="absolute inset-x-3 bottom-5 z-20 flex items-end justify-center cursor-pointer group"
+                      >
+                        <div className="px-4 py-2 rounded-full bg-slate-900/95 hover:bg-blue-600 text-white text-xs font-bold shadow-xl border border-white/20 flex items-center gap-1.5 group-hover:scale-105 transition-all backdrop-blur-md">
+                          <MousePointerClick className="w-3.5 h-3.5 text-sky-400 group-hover:text-white" />
+                          <span>Tap to Scroll Demo</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="absolute inset-x-3 bottom-5 z-20 flex justify-center pointer-events-auto">
+                        <button
+                          type="button"
+                          onClick={() => setIsDemoInteractive(false)}
+                          className="px-3.5 py-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xl flex items-center gap-1.5 transition-all cursor-pointer"
+                        >
+                          <Lock className="w-3 h-3" />
+                          <span>Lock Scroll</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
-            </div>
-          ) : (
-            /* Mobile Phone Mockup Frame with Companion Callouts */
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 max-w-5xl mx-auto">
-              
-              {/* Left Companion Highlights */}
-              <div className="hidden lg:flex flex-col gap-4 w-72">
-                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
-                  <div className="flex items-center gap-2 text-indigo-600 font-bold text-xs uppercase">
-                    <Download className="w-4 h-4" /> 1-Click Contact Save
-                  </div>
-                  <p className="text-xs text-slate-600">Downloads complete .vcf contact card straight into phone address book.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
-                  <div className="flex items-center gap-2 text-emerald-600 font-bold text-xs uppercase">
-                    <MessageCircle className="w-4 h-4" /> Direct WhatsApp Orders
-                  </div>
-                  <p className="text-xs text-slate-600">Instant customer messaging, pre-filled enquiries and WhatsApp orders.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
-                  <div className="flex items-center gap-2 text-amber-600 font-bold text-xs uppercase">
-                    <CreditCard className="w-4 h-4" /> 0% Fee UPI Pay
-                  </div>
-                  <p className="text-xs text-slate-600">Customers pay directly via GPay, PhonePe, Paytm with zero gateway cuts.</p>
-                </div>
-              </div>
-
-              {/* Center Phone Mockup Frame */}
-              <div 
-                onMouseLeave={() => setIsDemoInteractive(false)}
-                className="w-full max-w-[285px] xs:max-w-[320px] sm:max-w-[360px] rounded-[40px] sm:rounded-[48px] p-2.5 sm:p-3 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300"
-              >
-                {/* Dynamic Island Speaker Notch */}
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
-                  <div className="w-2 h-2 rounded-full bg-slate-800" />
-                </div>
-                <div className={`rounded-[32px] sm:rounded-[38px] overflow-hidden bg-white h-[580px] xs:h-[620px] sm:h-[660px] scrollbar-none border border-slate-200/80 shadow-inner relative ${
-                  isDemoInteractive ? 'overflow-y-auto pointer-events-auto' : 'overflow-hidden pointer-events-none'
-                }`}>
-                  <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="mobile" showViewToggle={false} />
-                </div>
-
-                {/* Unlock / Relock controls for Mobile frame */}
-                {!isDemoInteractive ? (
-                  <div 
-                    onClick={() => setIsDemoInteractive(true)}
-                    className="absolute inset-x-3 bottom-5 z-20 flex items-end justify-center cursor-pointer group"
-                  >
-                    <div className="px-4 py-2 rounded-full bg-slate-900/95 hover:bg-blue-600 text-white text-xs font-bold shadow-xl border border-white/20 flex items-center gap-1.5 group-hover:scale-105 transition-all backdrop-blur-md">
-                      <MousePointerClick className="w-3.5 h-3.5 text-sky-400 group-hover:text-white" />
-                      <span>Tap to Scroll Demo</span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="absolute inset-x-3 bottom-5 z-20 flex justify-center pointer-events-auto">
-                    <button
-                      type="button"
-                      onClick={() => setIsDemoInteractive(false)}
-                      className="px-3.5 py-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xl flex items-center gap-1.5 transition-all cursor-pointer"
-                    >
-                      <Lock className="w-3 h-3" />
-                      <span>Lock Scroll (Scroll Page)</span>
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              {/* Right Companion Highlights */}
-              <div className="hidden lg:flex flex-col gap-4 w-72">
-                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
-                  <div className="flex items-center gap-2 text-blue-600 font-bold text-xs uppercase">
-                    <Sparkles className="w-4 h-4" /> 100% Cloud Software
-                  </div>
-                  <p className="text-xs text-slate-600">Pure digital web software — zero hardware required, nothing to carry or lose.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
-                  <div className="flex items-center gap-2 text-sky-600 font-bold text-xs uppercase">
-                    <QrCode className="w-4 h-4" /> Permanent Dynamic QR
-                  </div>
-                  <p className="text-xs text-slate-600">Scan anywhere. Update your card profile anytime without changing the QR.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
-                  <div className="flex items-center gap-2 text-emerald-600 font-bold text-xs uppercase">
-                    <Sparkles className="w-4 h-4" /> No App Needed
-                  </div>
-                  <p className="text-xs text-slate-600">Opens instantly in Safari, Chrome, and any browser on iOS &amp; Android.</p>
-                </div>
-              </div>
 
             </div>
-          )}
 
-          {/* Bottom CTAs inside Demo Section */}
-          <div className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
-
-            <a
-              href="#templates"
-              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm"
-            >
-              <span>Browse 12+ Live Templates ↓</span>
-            </a>
           </div>
 
         </div>
