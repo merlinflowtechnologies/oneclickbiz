@@ -258,11 +258,36 @@ export default function LandingPage() {
     loadDynamicPricing();
   }, []);
 
+  const [isTemplatesPaused, setIsTemplatesPaused] = useState(false);
+
+  // Auto-scroll templates gallery
+  useEffect(() => {
+    if (isTemplatesPaused) return;
+
+    const interval = setInterval(() => {
+      if (sliderRef.current) {
+        const slider = sliderRef.current;
+        const maxScroll = slider.scrollWidth - slider.clientWidth;
+
+        if (slider.scrollLeft >= maxScroll - 25) {
+          slider.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          slider.scrollBy({ left: 240, behavior: 'smooth' });
+        }
+      }
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [isTemplatesPaused]);
+
   const scrollSlider = (direction: 'left' | 'right') => {
+    setIsTemplatesPaused(true);
     if (sliderRef.current) {
       const scrollAmount = direction === 'left' ? -420 : 420;
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
+    const timer = setTimeout(() => setIsTemplatesPaused(false), 4000);
+    return () => clearTimeout(timer);
   };
 
   const [contactForm, setContactForm] = useState({
@@ -1213,11 +1238,15 @@ export default function LandingPage() {
               <ChevronRight className="w-6 h-6" />
             </button>
 
-            {/* Scrollable Templates Track */}
+            {/* Scrollable Templates Track with Auto-Scroll */}
             <div
               ref={sliderRef}
+              onMouseEnter={() => setIsTemplatesPaused(true)}
+              onMouseLeave={() => setIsTemplatesPaused(false)}
+              onTouchStart={() => setIsTemplatesPaused(true)}
+              onTouchEnd={() => setIsTemplatesPaused(false)}
               className="flex items-stretch gap-3 sm:gap-4 overflow-x-auto scrollbar-none scroll-smooth py-4 px-2 select-none"
-              style={{ scrollSnapType: 'x mandatory' }}
+              style={{ scrollSnapType: 'x proximity' }}
             >
               {VCARD_TEMPLATES_CATALOG
                 .filter((t) => templateFilter === 'all' || t.category === templateFilter)

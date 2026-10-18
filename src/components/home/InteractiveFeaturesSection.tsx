@@ -60,30 +60,42 @@ export default function InteractiveFeaturesSection() {
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll effect with pause-on-hover & smooth circular loop
+  // Auto-scroll effect with smooth circular loop & auto-resume
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || selectedFeature !== null) return;
 
     const interval = setInterval(() => {
       if (sliderRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
-        // Loop back to start if at the end
-        if (scrollLeft + clientWidth >= scrollWidth - 15) {
-          sliderRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        const slider = sliderRef.current;
+        const maxScroll = slider.scrollWidth - slider.clientWidth;
+
+        // Loop back smoothly to start if at the end
+        if (slider.scrollLeft >= maxScroll - 25) {
+          slider.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
-          sliderRef.current.scrollBy({ left: 390, behavior: 'smooth' });
+          const firstCard = slider.firstElementChild as HTMLElement;
+          const step = firstCard ? firstCard.offsetWidth + 24 : 390;
+          slider.scrollBy({ left: step, behavior: 'smooth' });
         }
       }
-    }, 3200);
+    }, 3000);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, selectedFeature]);
 
   const scrollSlider = (direction: 'left' | 'right') => {
+    setIsPaused(true);
     if (sliderRef.current) {
-      const scrollAmount = direction === 'left' ? -400 : 400;
+      const firstCard = sliderRef.current.firstElementChild as HTMLElement;
+      const step = firstCard ? firstCard.offsetWidth + 24 : 390;
+      const scrollAmount = direction === 'left' ? -step : step;
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
+    // Resume auto-scroll after 4s after manual button click
+    const timer = setTimeout(() => {
+      setIsPaused(false);
+    }, 4000);
+    return () => clearTimeout(timer);
   };
 
   const handleOpenFeature = (feat: FeatureDetail) => {
@@ -150,8 +162,8 @@ export default function InteractiveFeaturesSection() {
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
               8 Core Capabilities
             </span>
-            <span className="hidden sm:inline text-slate-400 font-normal">
-              • Swipe or use arrows to scroll horizontally
+            <span className="hidden sm:inline text-slate-500 font-medium">
+              • Auto-scrolling • Swipe or use arrows to navigate
             </span>
           </div>
 
@@ -173,14 +185,8 @@ export default function InteractiveFeaturesSection() {
           </div>
         </div>
 
-        {/* Scrollable Features Track Container with Auto-Scroll & Pause-on-Hover */}
-        <div 
-          className="relative group/slider"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          onTouchStart={() => setIsPaused(true)}
-          onTouchEnd={() => setIsPaused(false)}
-        >
+        {/* Scrollable Features Track Container */}
+        <div className="relative group/slider">
           {/* Floating Left Scroll Arrow (Desktop) */}
           <button
             onClick={() => scrollSlider('left')}
@@ -199,11 +205,15 @@ export default function InteractiveFeaturesSection() {
             <ChevronRight className="w-6 h-6" />
           </button>
 
-          {/* Scrollable Features Track */}
+          {/* Scrollable Features Track with Auto-Scroll & Proximity Snap */}
           <div
             ref={sliderRef}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+            onTouchEnd={() => setIsPaused(false)}
             className="flex items-stretch gap-6 overflow-x-auto scrollbar-none scroll-smooth py-4 px-1 select-none"
-            style={{ scrollSnapType: 'x mandatory' }}
+            style={{ scrollSnapType: 'x proximity' }}
           >
             {FEATURES_DATA.map((feat) => {
               const IconComponent = ICON_MAP[feat.iconName] || CreditCard;
