@@ -502,13 +502,12 @@ export default function LandingPage() {
       />
       <Navbar />
 
-      {/* Hero Section with Vibrant Light Ambient Mesh */}
-      <section className="relative pt-8 pb-14 sm:pt-12 sm:pb-20 lg:pt-14 lg:pb-20 overflow-hidden bg-gradient-to-b from-sky-100/70 via-indigo-50/40 to-white border-b border-indigo-100/80">
+      {/* Hero Section with Clean Corporate SaaS Aesthetic */}
+      <section className="relative pt-10 pb-16 sm:pt-14 sm:pb-22 lg:pt-16 lg:pb-24 overflow-hidden bg-gradient-to-b from-slate-50 via-blue-50/25 to-white border-b border-slate-200/80">
         
-        {/* Multi-layered Soft Ambient Pastel Glows */}
-        <div className="absolute top-2 left-10 w-[550px] h-[350px] bg-gradient-to-tr from-sky-300/35 via-blue-200/30 to-indigo-300/25 blur-[120px] -z-10 pointer-events-none" />
-        <div className="absolute top-1/4 right-5 w-[600px] h-[400px] bg-gradient-to-br from-blue-300/25 via-sky-200/25 to-teal-200/20 blur-[130px] -z-10 pointer-events-none" />
-        <div className="absolute -bottom-10 left-1/3 w-[500px] h-[300px] bg-gradient-to-r from-sky-200/30 to-blue-200/25 blur-[110px] -z-10 pointer-events-none" />
+        {/* Subtle Ambient Glow */}
+        <div className="absolute top-0 right-1/4 w-[600px] h-[350px] bg-blue-400/10 blur-[130px] -z-10 pointer-events-none" />
+        <div className="absolute bottom-0 left-10 w-[500px] h-[300px] bg-indigo-400/10 blur-[130px] -z-10 pointer-events-none" />
         
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           
@@ -516,88 +515,86 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-14 items-center">
             
             {/* Left Hero Content */}
-            <div className="lg:col-span-5 xl:col-span-5 space-y-5 sm:space-y-6 text-center lg:text-left">
+            <div className="lg:col-span-5 xl:col-span-5 space-y-6 text-center lg:text-left">
               
-              {/* Badge Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50/90 border border-amber-200/90 text-amber-800 text-xs font-bold shadow-xs backdrop-blur-md">
-                <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                <span>All-in-One Digital Business Platform</span>
+              {/* Prestigious Trust Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-900 text-xs font-semibold shadow-xs">
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+                <span>Enterprise Digital Identity &amp; Commerce Platform</span>
               </div>
 
-              {/* Headline */}
-              <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black tracking-tight text-slate-900 leading-[1.12]">
-                Build Your <br />
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 bg-clip-text text-transparent italic font-serif">
-                  Business Online
-                </span> <br />
-                — In One Click.
+              {/* Authoritative Headline */}
+              <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-slate-950 leading-[1.12]">
+                Launch Your Entire <br className="hidden sm:inline" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800">
+                  Digital Business
+                </span> <br className="hidden sm:inline" />
+                In One Click.
               </h1>
 
               {/* Subtitle */}
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal max-w-xl mx-auto lg:mx-0">
-                Create your website, digital visiting card, WhatsApp store, e-commerce, QR codes, booking system and more — all in one powerful platform.
+              <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed font-normal max-w-xl mx-auto lg:mx-0">
+                Turnkey mini-websites, smart digital visiting cards, zero-commission WhatsApp store ordering, dynamic QR codes, and integrated lead capture — engineered for fast-growing Indian enterprises.
               </p>
 
-              {/* 3 Green Checkmarks */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-2.5 text-xs font-semibold text-slate-700">
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-xs">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>No Technical Skills</span>
+              {/* Clean Trust Strip */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-semibold text-slate-700">
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-blue-600" />
+                  <span>Zero Technical Skills</span>
                 </div>
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-xs">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Easy to Use</span>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-blue-600" />
+                  <span>Live on Phone in 5 Mins</span>
                 </div>
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-xs">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Affordable Plans</span>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-blue-600" />
+                  <span>0% Fee Direct WhatsApp</span>
                 </div>
               </div>
 
-              {/* Action Buttons: Get Started Now + Watch Video */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1 sm:pt-2">
+              {/* Action Buttons: Clean Dual CTA */}
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1">
                 <Link
                   href="/signup?intent=get_started"
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all hover:scale-105 active:scale-95 shrink-0"
+                  className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5 active:translate-y-0 shrink-0"
                 >
-                  <span>Get Started Now</span>
+                  <span>Start Free Trial</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <a 
-                  href="#demo"
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 font-semibold text-xs flex items-center justify-center gap-3 transition-all shadow-xs hover:shadow group"
+                  href="#templates"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-xs hover:border-slate-400 shrink-0"
                 >
-                  <span className="w-8 h-8 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                    <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
-                  </span>
-                  <div className="text-left">
-                    <div className="font-bold text-slate-900 leading-tight">Watch Video</div>
-                    <div className="text-[10px] text-slate-500">See How It Works</div>
-                  </div>
+                  <span>Browse 12+ Templates ↓</span>
                 </a>
               </div>
 
               {/* Live URL Alias Claimer Bar */}
               <div className="pt-2 max-w-md mx-auto lg:mx-0">
-                <form onSubmit={handleCheckAlias} className="p-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-300/80 shadow-md flex items-center focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
+                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-center lg:justify-start gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Claim your permanent business URL:</span>
+                </div>
+                <form onSubmit={handleCheckAlias} className="p-1 rounded-xl bg-white border border-slate-300/90 shadow-sm flex items-center focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
                   <div className="pl-3 pr-1 text-slate-400 font-mono text-xs hidden sm:block font-medium">
                     oneclickbiz.in/v/
                   </div>
                   <input 
                     type="text" 
-                    placeholder="your-name"
+                    placeholder="your-business-name"
                     value={aliasSearch}
                     onChange={e => {
                       setAliasSearch(e.target.value);
                       setAliasStatus('idle');
                     }}
-                    className="flex-1 bg-transparent px-2 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none font-semibold"
+                    className="flex-1 bg-transparent px-2 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none font-semibold font-mono"
                     required
                   />
                   <button 
                     type="submit"
-                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold transition-all shadow-sm shrink-0 active:scale-95 cursor-pointer"
+                    className="px-4 py-2 rounded-lg bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
                   >
                     Check Handle
                   </button>
@@ -607,7 +604,7 @@ export default function LandingPage() {
                   <div className="mt-2 p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs flex items-center justify-between animate-in fade-in shadow-xs">
                     <span className="flex items-center gap-1.5 font-semibold text-[11px]">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                      <strong>oneclickbiz.in/v/{aliasSearch.toLowerCase()}</strong> is available!
+                      <span><strong>oneclickbiz.in/v/{aliasSearch.toLowerCase()}</strong> is available!</span>
                     </span>
                     <Link href={`/signup?slug=${aliasSearch.toLowerCase()}&intent=build_card`} className="underline font-bold text-emerald-900 text-[11px]">
                       Claim Now →
@@ -628,14 +625,14 @@ export default function LandingPage() {
               <div className="relative w-full max-w-[720px] lg:max-w-[780px] xl:max-w-[860px] mx-auto select-none group">
                 
                 {/* Ambient Soft Glow Behind Graphic */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/20 via-sky-400/15 to-teal-300/20 rounded-3xl blur-2xl -z-10 transform scale-95 group-hover:scale-100 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 via-indigo-500/10 to-transparent rounded-3xl blur-2xl -z-10" />
                 
-                {/* 3D Multi-Device & Cards Graphic with Smooth Ambient Container */}
-                <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.10)] border border-slate-200/90 bg-white/60 backdrop-blur-md p-1.5 sm:p-2 transition-all duration-500 hover:shadow-[0_25px_60px_rgba(59,130,246,0.18)] hover:-translate-y-1">
+                {/* 3D Multi-Device & Cards Graphic with Crisp Corporate Container */}
+                <div className="relative rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(15,23,42,0.08)] border border-slate-200 bg-white p-1.5 sm:p-2 transition-all duration-500 hover:shadow-[0_25px_60px_rgba(37,99,235,0.12)]">
                   <img
                     src="/hero-showcase-retina.png"
                     alt="OneClickBiz Multi-Device Dashboard, WhatsApp Store, Mobile Site & Digital Cards Showcase"
-                    className="w-full h-auto object-contain rounded-2xl block"
+                    className="w-full h-auto object-contain rounded-xl block"
                     loading="eager"
                   />
                 </div>
@@ -674,7 +671,7 @@ export default function LandingPage() {
                     <Monitor className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Turnkey Mini-Websites</span>
-                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">93+ Themes</span>
+                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">12+ Flagship Themes</span>
                 </a>
 
                 {/* Feature 2 */}
@@ -756,7 +753,7 @@ export default function LandingPage() {
                     <Monitor className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Turnkey Mini-Websites</span>
-                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">93+ Themes</span>
+                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">12+ Flagship Themes</span>
                 </a>
 
                 {/* Feature 2 */}
@@ -960,8 +957,8 @@ export default function LandingPage() {
           
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50/90 border border-indigo-200/80 text-indigo-700 text-xs font-bold uppercase tracking-wider shadow-xs backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-900 text-xs font-bold uppercase tracking-wider shadow-xs backdrop-blur-md">
+              <Sparkles className="w-3.5 h-3.5 text-blue-600" />
               <span>Live Interactive Experience</span>
             </div>
             
@@ -1072,7 +1069,7 @@ export default function LandingPage() {
                     href="/v/kishore"
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[11px] sm:text-xs font-bold text-indigo-300 hover:text-white flex items-center gap-1 sm:gap-1.5 transition px-2.5 sm:px-3 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700/50 shrink-0"
+                    className="text-[11px] sm:text-xs font-bold text-blue-200 hover:text-white flex items-center gap-1 sm:gap-1.5 transition px-2.5 sm:px-3 py-1 rounded-lg bg-blue-950/90 hover:bg-blue-900 border border-blue-700/60 shrink-0"
                   >
                     <span className="hidden xs:inline">Full Screen View</span>
                     <span className="xs:hidden">Full Screen</span>
@@ -1209,21 +1206,24 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* VCARD TEMPLATES SHOWCASE SECTION with Ambient Sky-Blue Tint */}
-      <section id="templates" className="py-20 bg-gradient-to-b from-slate-50 via-sky-50/60 to-blue-50/70 backdrop-blur-xl border-b border-slate-200/80 relative overflow-hidden scroll-mt-20">
-        {/* Colorful Glow Background Accents */}
-        <div className="absolute top-1/2 left-1/4 w-[700px] h-[400px] bg-gradient-to-r from-sky-400/25 via-blue-400/25 to-teal-400/20 blur-[130px] pointer-events-none -z-10" />
-        <div className="absolute bottom-10 right-10 w-[600px] h-[350px] bg-gradient-to-l from-blue-400/20 to-sky-400/20 blur-[120px] pointer-events-none -z-10" />
+      {/* VCARD TEMPLATES SHOWCASE SECTION with Clean Corporate Tint */}
+      <section id="templates" className="py-20 bg-slate-50/80 border-b border-slate-200/80 relative overflow-hidden scroll-mt-20">
+        {/* Subtle Ambient Glow */}
+        <div className="absolute top-1/2 left-1/4 w-[600px] h-[350px] bg-blue-400/10 blur-[130px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 bg-clip-text text-transparent tracking-tight">
-              Business Templates
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-900 text-xs font-semibold shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+              <span>Curated Industry Showcase</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight">
+              Templates Built for Every Industry
             </h2>
             <p className="text-sm sm:text-base text-slate-600 font-medium">
-              Select from {VCARD_TEMPLATES_CATALOG.length}+ professional digital business cards engineered across 12 major industries for rapid networking, instant 1-click contact downloads, and integrated WhatsApp orders.
+              Choose from {VCARD_TEMPLATES_CATALOG.length}+ high-converting digital business cards across 12 major sectors — engineered for rapid networking, 1-click contact downloads, and instant WhatsApp orders.
             </p>
           </div>
 
@@ -2193,7 +2193,7 @@ export default function LandingPage() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-600">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-blue-600">
             Simple, Transparent Pricing
           </h2>
           <h3 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
@@ -2250,16 +2250,16 @@ export default function LandingPage() {
               <div className="flex items-baseline gap-1">
                 <span className="text-3xl font-extrabold text-slate-900">₹{pricing.basicPrice.toLocaleString()}</span>
                 <span className="text-xs text-slate-500">/ year</span>
-                <span className="ml-2 px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-[10px] font-bold text-indigo-700">Annual</span>
+                <span className="ml-2 px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[10px] font-bold text-blue-700">Annual</span>
               </div>
               <ul className="space-y-2.5 pt-4 text-xs text-slate-700 border-t border-slate-100">
                 <li className="flex items-center gap-2 text-emerald-800 font-semibold"><Check className="w-4 h-4 text-emerald-600" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> <strong>1 Digital Card (/v/your-name)</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> 1-Click .VCF Contact Downloader</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> Dynamic Cloud QR Code (Editable)</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> Social Links &amp; Portfolio Showcase</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> Inbound Lead Inquiry Capture Form</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> Standard Visitor Analytics</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> <strong>1 Digital Card (/v/your-name)</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> 1-Click .VCF Contact Downloader</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> Dynamic Cloud QR Code (Editable)</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> Social Links &amp; Portfolio Showcase</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> Inbound Lead Inquiry Capture Form</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> Standard Visitor Analytics</li>
               </ul>
             </div>
             <Link href="/signup?plan=Basic&intent=select_plan" className="w-full py-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs text-center border border-slate-200 transition-all shadow-xs">
@@ -2285,13 +2285,13 @@ export default function LandingPage() {
               </div>
               <ul className="space-y-2.5 pt-4 text-xs text-slate-700 border-t border-slate-100">
                 <li className="flex items-center gap-2 text-emerald-800 font-semibold"><Check className="w-4 h-4 text-emerald-600" /> <strong>Unlimited 24x7 Card Edits (Edit N Times)</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> <strong>Up to 3 Digital Cards</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> <strong>1 Custom Domain CNAME (White-Label)</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> <strong>Unlimited WhatsApp Store Catalog</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> <strong>Appointment &amp; Slot Booking Engine</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> <strong>PDF Data Reporting &amp; Exporting Suite</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> Leads CRM Pipeline Inbox with Exports</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> Priority WhatsApp &amp; Email Support</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> <strong>Up to 3 Digital Cards</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> <strong>1 Custom Domain CNAME (White-Label)</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> <strong>Unlimited WhatsApp Store Catalog</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> <strong>Appointment &amp; Slot Booking Engine</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> <strong>PDF Data Reporting &amp; Exporting Suite</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> Leads CRM Pipeline Inbox with Exports</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-600" /> Priority WhatsApp &amp; Email Support</li>
               </ul>
             </div>
             <Link href="/signup?plan=Pro&intent=select_plan" className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs text-center shadow-lg shadow-blue-500/30 transition-all active:scale-95">
@@ -2340,7 +2340,7 @@ export default function LandingPage() {
               <p className="text-[11px] text-slate-600">Try any paid plan for 7 days. If you aren&apos;t completely delighted, WhatsApp or email us for an instant, no-questions-asked refund.</p>
             </div>
           </div>
-          <Link href="/refund" className="text-xs font-bold text-indigo-600 hover:text-indigo-700 shrink-0 flex items-center gap-1">
+          <Link href="/refund" className="text-xs font-bold text-blue-600 hover:text-blue-700 shrink-0 flex items-center gap-1">
             <span>Refund Terms</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -2427,8 +2427,8 @@ export default function LandingPage() {
               </div>
 
               {/* Email Card */}
-              <div className="p-5 rounded-2xl bg-white/90 backdrop-blur-xl border border-slate-200/80 hover:border-indigo-400/60 shadow-xs hover:shadow-sm transition flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 border border-indigo-200">
+              <div className="p-5 rounded-2xl bg-white/90 backdrop-blur-xl border border-slate-200/80 hover:border-blue-400/60 shadow-xs hover:shadow-sm transition flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-200">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div className="space-y-1.5 flex-1">
@@ -2437,14 +2437,14 @@ export default function LandingPage() {
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 pt-1">
                     <a 
                       href="mailto:support@oneclickbiz.in" 
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-700 transition"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition"
                     >
                       <span>support@oneclickbiz.in</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </a>
                     <a 
                       href="mailto:contact@oneclickbiz.in" 
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-700 transition"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition"
                     >
                       <span>contact@oneclickbiz.in</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -2504,7 +2504,7 @@ export default function LandingPage() {
                         value={contactForm.name}
                         onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
                         placeholder="e.g. Kishore Patel"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                       />
                     </div>
                     <div className="space-y-1.5">
@@ -2515,7 +2515,7 @@ export default function LandingPage() {
                         value={contactForm.email}
                         onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
                         placeholder="kishore@himastech.com"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                       />
                     </div>
                   </div>
@@ -2529,7 +2529,7 @@ export default function LandingPage() {
                         value={contactForm.phone}
                         onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
                         placeholder="+91 63049 89071"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                       />
                     </div>
                     <div className="space-y-1.5">
@@ -2537,7 +2537,7 @@ export default function LandingPage() {
                       <select 
                         value={contactForm.subject}
                         onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                       >
                         <option value="General Inquiry">General Product Inquiry</option>
                         <option value="Team Onboarding">Multi-User / Team Card Setup</option>
@@ -2556,7 +2556,7 @@ export default function LandingPage() {
                       value={contactForm.message}
                       onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                       placeholder="Tell us about your business goals or any questions you have..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition resize-none"
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/90 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition resize-none"
                     />
                   </div>
 

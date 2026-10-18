@@ -418,27 +418,26 @@ export default function DemoVideoSection() {
   const progressPercent = Math.min(100, (currentTime / activeMode.totalSeconds) * 100);
 
   return (
-    <section id="demo" className="py-24 bg-gradient-to-b from-purple-100/90 via-indigo-100/80 to-sky-100/90 backdrop-blur-md border-y border-indigo-200/80 relative overflow-hidden scroll-mt-20 select-none">
+    <section id="demo" className="py-24 bg-white border-y border-slate-200/80 relative overflow-hidden scroll-mt-20 select-none">
       
-      {/* Dynamic Ambient Neon Glows */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[950px] h-[550px] bg-gradient-to-r from-indigo-400/40 via-purple-400/40 to-pink-400/35 blur-[150px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-10 w-[500px] h-[350px] bg-gradient-to-l from-emerald-400/35 to-sky-400/35 blur-[140px] pointer-events-none -z-10" />
+      {/* Subtle Ambient Glows */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-blue-500/10 blur-[150px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200/80 text-indigo-700 text-xs font-semibold tracking-wide shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
-            <span>Complete Lifecycle Walkthrough</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-900 text-xs font-semibold tracking-wide shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+            <span>Interactive Product Tour</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-            See How OneClickBiz Works in <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">2 Minutes</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight leading-[1.15]">
+            See How OneClickBiz Works in <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">2 Minutes</span>
           </h2>
 
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            From creating an account and designing your smart profile to generating dynamic QR codes and sharing across users via dynamic QR &amp; 1-click .VCF.
+            From creating an account and designing your smart profile to generating dynamic QR codes and sharing across customers via 1-click .VCF.
           </p>
         </div>
 
@@ -452,10 +451,10 @@ export default function DemoVideoSection() {
                 <button
                   key={mode.id}
                   onClick={() => handleModeChange(mode.id)}
-                  className={`px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 shrink-0 border ${
+                  className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 shrink-0 border cursor-pointer ${
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white border-indigo-400/40 shadow-lg shadow-indigo-500/25 scale-[1.02]'
-                      : 'bg-white/90 backdrop-blur-md text-slate-700 hover:text-slate-950 hover:bg-white border-slate-200/90 shadow-xs'
+                      ? 'bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/25 scale-[1.02]'
+                      : 'bg-white text-slate-700 hover:text-slate-950 hover:bg-slate-50 border-slate-200/90 shadow-xs'
                   }`}
                 >
                   <IconComponent className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-500'}`} />
@@ -468,7 +467,7 @@ export default function DemoVideoSection() {
             })}
           </div>
           {/* Right edge fade gradient hint on mobile */}
-          <div className="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none sm:hidden" />
+          <div className="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none sm:hidden" />
         </div>
 
         {/* Main Video Cinema Showcase Grid */}
@@ -579,7 +578,7 @@ export default function DemoVideoSection() {
                           </div>
 
                           <div className="relative">
-                            <button className="w-full py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-[11px] sm:text-xs shadow flex items-center justify-center gap-1.5">
+                            <button className="w-full py-1.5 sm:py-2 rounded-xl bg-blue-600 text-white font-bold text-[11px] sm:text-xs shadow flex items-center justify-center gap-1.5">
                               <span>Sign Up & Claim My Card Free</span>
                               <ArrowRight className="w-3 h-3" />
                             </button>
@@ -1054,25 +1053,25 @@ export default function DemoVideoSection() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* Step 1 */}
-            <div className="p-6 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 hover:border-indigo-400/60 transition-all space-y-3 relative group shadow-lg shadow-slate-900/5">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-800 text-white font-black text-sm flex items-center justify-center shadow-md shadow-indigo-500/20">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 transition-all space-y-3 relative group shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-blue-500/20">
                 1
               </div>
-              <h5 className="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                Claim Handle & Pick Template
+              <h5 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                Claim Handle &amp; Pick Template
               </h5>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Choose your custom link <code className="text-indigo-700 bg-indigo-50 border border-indigo-100 px-1 py-0.5 rounded">oneclickbiz.in/v/name</code> and select from 28+ designer templates matching your industry.
+                Choose your custom link <code className="text-blue-700 bg-blue-50 border border-blue-100 px-1 py-0.5 rounded">oneclickbiz.in/v/name</code> and select from 12+ designer templates matching your industry.
               </p>
             </div>
 
             {/* Step 2 */}
-            <div className="p-6 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 hover:border-purple-400/60 transition-all space-y-3 relative group shadow-lg shadow-slate-900/5">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-purple-500/20">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 transition-all space-y-3 relative group shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-slate-900 text-white font-black text-sm flex items-center justify-center shadow-md">
                 2
               </div>
-              <h5 className="text-base font-bold text-slate-900 group-hover:text-purple-600 transition-colors">
-                Add Products, Bio & Services
+              <h5 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                Add Products, Bio &amp; Services
               </h5>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Add your business details, WhatsApp mini-store catalog items, appointment booking slots, and portfolio with drag-and-drop ease.
@@ -1080,11 +1079,11 @@ export default function DemoVideoSection() {
             </div>
 
             {/* Step 3 */}
-            <div className="p-6 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 hover:border-pink-400/60 transition-all space-y-3 relative group shadow-lg shadow-slate-900/5">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-pink-600 to-rose-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-pink-500/20">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 transition-all space-y-3 relative group shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-blue-500/20">
                 3
               </div>
-              <h5 className="text-base font-bold text-slate-900 group-hover:text-pink-600 transition-colors">
+              <h5 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                 Share, Connect &amp; Close Leads
               </h5>
               <p className="text-xs text-slate-600 leading-relaxed">
@@ -1103,7 +1102,7 @@ export default function DemoVideoSection() {
           <div className="w-full max-w-5xl bg-slate-950 rounded-3xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
             <div className="p-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-indigo-400" />
+                <Sparkles className="w-4 h-4 text-blue-400" />
                 <span className="text-sm font-bold text-white">{activeMode.title}</span>
               </div>
               <button
@@ -1115,7 +1114,7 @@ export default function DemoVideoSection() {
             </div>
             <div className="p-6 overflow-y-auto space-y-6">
               <div className="aspect-video w-full bg-slate-900/90 rounded-2xl border border-slate-800 flex flex-col items-center justify-center p-6 text-center space-y-4 relative">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-600 to-pink-500 text-white flex items-center justify-center shadow-xl">
+                <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl">
                   <Tv className="w-8 h-8" />
                 </div>
                 <h4 className="text-xl sm:text-2xl font-bold text-white">{activeMode.title}</h4>
@@ -1123,7 +1122,7 @@ export default function DemoVideoSection() {
                 <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                   <Link
                     href="/signup?intent=build_card"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-pink-500 text-white font-bold text-xs shadow-lg shadow-indigo-500/30"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-lg shadow-blue-500/30"
                   >
                     <span>Create Your Smart Card Now</span>
                     <ArrowRight className="w-4 h-4" />

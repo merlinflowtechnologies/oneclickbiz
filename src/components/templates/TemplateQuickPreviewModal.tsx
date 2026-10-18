@@ -111,7 +111,7 @@ export default function TemplateQuickPreviewModal({
                 onClick={() => setActiveTab('interactive')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
                   activeTab === 'interactive'
-                    ? 'bg-indigo-600 text-white shadow-md'
+                    ? 'bg-blue-600 text-white shadow-md'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
@@ -123,7 +123,7 @@ export default function TemplateQuickPreviewModal({
                 onClick={() => setActiveTab('poster')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
                   activeTab === 'poster'
-                    ? 'bg-indigo-600 text-white shadow-md'
+                    ? 'bg-blue-600 text-white shadow-md'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
@@ -237,7 +237,7 @@ export default function TemplateQuickPreviewModal({
               <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-50/60 to-purple-50/60 border border-indigo-100 flex items-center justify-between gap-4">
                 <div className="space-y-1">
                   <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <QrCode className="w-4 h-4 text-indigo-600" />
+                    <QrCode className="w-4 h-4 text-blue-600" />
                     Scan to Preview on Phone
                   </span>
                   <p className="text-[11px] text-slate-500 leading-snug">
@@ -245,7 +245,7 @@ export default function TemplateQuickPreviewModal({
                   </p>
                 </div>
                 {qrCodeUrl ? (
-                  <div className="w-16 h-16 shrink-0 bg-white p-1 rounded-xl border border-indigo-200 shadow-sm">
+                  <div className="w-16 h-16 shrink-0 bg-white p-1 rounded-xl border border-blue-200 shadow-sm">
                     <img src={qrCodeUrl} alt="QR Code Preview" className="w-full h-full object-contain" />
                   </div>
                 ) : (
@@ -258,7 +258,7 @@ export default function TemplateQuickPreviewModal({
             <div className="pt-2 space-y-3">
               <Link
                 href={`/signup?intent=build_card&template=${template.id}`}
-                className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-extrabold text-sm shadow-xl shadow-indigo-600/25 hover:scale-[1.02] active:scale-98 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold text-sm shadow-xl shadow-blue-500/25 hover:scale-[1.02] active:scale-98 transition-all flex items-center justify-center gap-2"
               >
                 <span>Use This Template Free</span>
                 <ArrowRight className="w-4 h-4" />
