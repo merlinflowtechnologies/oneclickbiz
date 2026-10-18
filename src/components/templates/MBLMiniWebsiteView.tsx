@@ -984,11 +984,15 @@ export default function MBLMiniWebsiteView({
                 </div>
 
                 {/* 5. Main Hero Portrait Frame - Aspect 3/4 with object-top guarantees head is completely visible! */}
-                <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] rounded-[2rem] sm:rounded-[3rem] overflow-hidden bg-slate-100 border-4 border-white shadow-2xl group">
+                <div 
+                  className="relative w-full aspect-[3/4] sm:aspect-[4/5] rounded-[2rem] sm:rounded-[3rem] overflow-hidden bg-slate-100 border-4 border-white shadow-2xl group max-w-sm mx-auto"
+                  style={{ maxWidth: '380px', maxHeight: '500px' }}
+                >
                   <img
                     src={profile.avatarUrl}
                     alt={profile.name}
                     className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    style={{ maxWidth: '100%', maxHeight: '500px', objectFit: 'cover', display: 'block' }}
                   />
                   
                   {/* Subtle Bottom Fade */}

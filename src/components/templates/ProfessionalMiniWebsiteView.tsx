@@ -264,23 +264,37 @@ END:VCARD`;
         </div>
       </div>
 
-      {/* 2. HERO HEADER SECTION */}
-      <header className="relative overflow-hidden pt-8 pb-12 px-4 border-b border-slate-800/80">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-amber-950/20 via-transparent to-transparent pointer-events-none" />
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 text-center md:text-left">
-            {/* Avatar / Seal */}
+      {/* 2. HERO HEADER SECTION WITH EXECUTIVE COVER BANNER */}
+      <header className="relative overflow-hidden pb-12 border-b border-slate-800/80">
+        {/* Executive Chambers Cover Banner */}
+        <div className="h-44 sm:h-56 md:h-64 w-full relative overflow-hidden bg-gradient-to-r from-slate-950 via-amber-950/40 to-slate-950">
+          <img 
+            src={profile.coverUrl || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80'} 
+            alt="Corporate Chambers & Headquarters"
+            className="w-full h-full object-cover opacity-30"
+            style={{ maxWidth: '100%', height: '100%', objectFit: 'cover' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060A12] via-[#060A12]/60 to-transparent" />
+        </div>
+
+        <div className="max-w-5xl mx-auto px-4 relative z-10 -mt-20 sm:-mt-24">
+          <div className="flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-8 text-center md:text-left">
+            {/* Avatar / Seal - Enlarged Executive Portrait */}
             <div className="relative shrink-0">
-              <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl p-1 bg-gradient-to-tr from-amber-600 via-slate-700 to-amber-400 shadow-2xl shadow-amber-500/10">
+              <div 
+                className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-3xl p-1.5 bg-gradient-to-tr from-amber-500 via-slate-800 to-amber-300 shadow-2xl shadow-amber-500/20 border-2 border-amber-500/30 overflow-hidden bg-slate-900"
+                style={{ maxWidth: '200px', maxHeight: '200px' }}
+              >
                 <img 
-                  src={profile.avatarUrl || 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=400&q=80'} 
+                  src={profile.avatarUrl || 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80'} 
                   alt={profile.name}
-                  className="w-full h-full object-cover rounded-[14px]"
+                  className="w-full h-full object-cover rounded-[20px]"
+                  style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover', display: 'block' }}
                 />
               </div>
-              <span className="absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-full bg-slate-900 border border-amber-500/60 text-[10px] font-bold text-amber-300 shadow-lg flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3 text-amber-400" />
-                Verified
+              <span className="absolute -bottom-2 -right-2 px-3 py-1 rounded-full bg-slate-900 border border-amber-500/80 text-[11px] font-bold text-amber-300 shadow-xl flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                Verified Counsel
               </span>
             </div>
 

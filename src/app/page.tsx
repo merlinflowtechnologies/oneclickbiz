@@ -1114,7 +1114,10 @@ export default function LandingPage() {
                 </a>
               </div>
               {/* Inner Scrollable Website Content */}
-              <div className="h-[600px] xs:h-[660px] sm:h-[720px] lg:h-[780px] overflow-y-auto scrollbar-none bg-slate-50 relative">
+              <div 
+                className="h-[600px] xs:h-[660px] sm:h-[720px] lg:h-[780px] overflow-y-auto scrollbar-none bg-slate-50 relative"
+                style={{ maxHeight: '780px', overflowY: 'auto', contain: 'paint' }}
+              >
                 <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
                 {/* Floating Bottom Scroll Hint for Mobile Users */}
                 <div className="sticky bottom-2 inset-x-0 flex justify-center pointer-events-none pb-1 sm:hidden z-30">
