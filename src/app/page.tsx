@@ -1142,7 +1142,7 @@ export default function LandingPage() {
               href="#templates"
               className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm"
             >
-              <span>Browse 93+ Live Templates ↓</span>
+              <span>Browse 12+ Live Templates ↓</span>
             </a>
           </div>
 
@@ -1163,7 +1163,7 @@ export default function LandingPage() {
               Business Templates
             </h2>
             <p className="text-sm sm:text-base text-slate-600 font-medium">
-              Select from {VCARD_TEMPLATES_CATALOG.length}+ professional digital business cards engineered across 13 major industries for rapid networking, instant 1-click contact downloads, and integrated WhatsApp orders.
+              Select from {VCARD_TEMPLATES_CATALOG.length}+ professional digital business cards engineered across 12 major industries for rapid networking, instant 1-click contact downloads, and integrated WhatsApp orders.
             </p>
           </div>
 
@@ -1172,17 +1172,17 @@ export default function LandingPage() {
             {[
               { id: 'all', label: `All (${VCARD_TEMPLATES_CATALOG.length})`, icon: '✨' },
               { id: 'Real Estate', label: 'Real Estate', icon: '🏠' },
+              { id: 'Interior Design', label: 'Interiors', icon: '🛋️' },
+              { id: 'Healthcare', label: 'Healthcare', icon: '🏥' },
+              { id: 'Food Business', label: 'Food', icon: '🍽️' },
               { id: 'Fashion & Clothing', label: 'Fashion', icon: '👗' },
               { id: 'Beauty & Personal Care', label: 'Beauty', icon: '💄' },
-              { id: 'Food Business', label: 'Food', icon: '🍽️' },
-              { id: 'Healthcare', label: 'Healthcare', icon: '🏥' },
-              { id: 'Education', label: 'Education', icon: '🎓' },
-              { id: 'Home & Professional Services', label: 'Home Services', icon: '🛠️' },
-              { id: 'Automobile', label: 'Automobile', icon: '🚗' },
-              { id: 'Events & Creative', label: 'Events', icon: '📸' },
               { id: 'Professional Services', label: 'Professional', icon: '💼' },
+              { id: 'Education', label: 'Education', icon: '🎓' },
+              { id: 'Events & Creative', label: 'Events', icon: '📸' },
+              { id: 'Automobile', label: 'Automobile', icon: '🚗' },
               { id: 'Retail & Local Shops', label: 'Retail', icon: '🛍️' },
-              { id: 'Travel & Hospitality', label: 'Travel', icon: '✈️' },
+              { id: 'Home & Professional Services', label: 'Home Services', icon: '🛠️' },
             ].map((cat) => (
               <button
                 key={cat.id}

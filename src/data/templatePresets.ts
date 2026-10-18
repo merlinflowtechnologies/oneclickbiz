@@ -1,5 +1,5 @@
 import { DigitalProfile, ThemeType, ServiceItem, ProductItem, GalleryItem, VideoItem, TestimonialItem, SocialLinkItem } from '@/lib/types';
-import { VCARD_TEMPLATES_CATALOG } from './vcardTemplates';
+import { VCARD_TEMPLATES_CATALOG, ALL_VCARD_TEMPLATES } from './vcardTemplates';
 
 export interface TemplatePresetConfig {
   id: string;
@@ -1760,8 +1760,8 @@ TEMPLATE_PRESETS_DATA['travel-tour'] = TEMPLATE_PRESETS_DATA['bus-booking'];
 export function getTemplateProfile(templateId: string): DigitalProfile {
   // Fallback alias for real estate templates
   const effectiveId = (templateId.startsWith('re-') || templateId === 'vcard35') ? 're-builders' : templateId;
-  const meta = VCARD_TEMPLATES_CATALOG.find((t) => t.id === templateId) || 
-               VCARD_TEMPLATES_CATALOG.find((t) => t.id === effectiveId) || 
+  const meta = ALL_VCARD_TEMPLATES.find((t) => t.id === templateId) || 
+               ALL_VCARD_TEMPLATES.find((t) => t.id === effectiveId) || 
                VCARD_TEMPLATES_CATALOG[0];
   const custom = TEMPLATE_PRESETS_DATA[templateId] || TEMPLATE_PRESETS_DATA[effectiveId] || {};
 

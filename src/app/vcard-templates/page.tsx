@@ -30,17 +30,16 @@ export default function VCardTemplatesPage() {
     { id: 'all', label: `All Templates (${VCARD_TEMPLATES_CATALOG.length})`, icon: '✨' },
     { id: 'Real Estate', label: 'Real Estate', icon: '🏠' },
     { id: 'Interior Design', label: 'Interior Design', icon: '🛋️' },
+    { id: 'Healthcare', label: 'Healthcare', icon: '🏥' },
+    { id: 'Food Business', label: 'Food Business', icon: '🍽️' },
     { id: 'Fashion & Clothing', label: 'Fashion & Clothing', icon: '👗' },
     { id: 'Beauty & Personal Care', label: 'Beauty & Care', icon: '💄' },
-    { id: 'Food Business', label: 'Food Business', icon: '🍽️' },
-    { id: 'Healthcare', label: 'Healthcare', icon: '🏥' },
-    { id: 'Education', label: 'Education', icon: '🎓' },
-    { id: 'Home & Professional Services', label: 'Home Services', icon: '🛠️' },
-    { id: 'Automobile', label: 'Automobile', icon: '🚗' },
-    { id: 'Events & Creative', label: 'Events & Creative', icon: '📸' },
     { id: 'Professional Services', label: 'Professional', icon: '💼' },
+    { id: 'Education', label: 'Education', icon: '🎓' },
+    { id: 'Events & Creative', label: 'Events & Creative', icon: '📸' },
+    { id: 'Automobile', label: 'Automobile', icon: '🚗' },
     { id: 'Retail & Local Shops', label: 'Retail & Shops', icon: '🛍️' },
-    { id: 'Travel & Hospitality', label: 'Travel & Hotels', icon: '✈️' },
+    { id: 'Home & Professional Services', label: 'Home Services', icon: '🛠️' },
   ];
 
   const filteredTemplates = useMemo(() => {
@@ -74,7 +73,7 @@ export default function VCardTemplatesPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-blue-200/80 text-blue-700 text-xs font-bold uppercase tracking-wider shadow-sm backdrop-blur-md">
               <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-              13 Industry Categories &bull; {VCARD_TEMPLATES_CATALOG.length}+ Designer Templates
+              12 Industry Categories &bull; {VCARD_TEMPLATES_CATALOG.length}+ Designer Templates
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">

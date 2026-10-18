@@ -62,7 +62,7 @@ import BusBookingTemplateView from './BusBookingTemplateView';
 import ProfessionalMiniWebsiteView from './ProfessionalMiniWebsiteView';
 import HomeServicesMiniWebsiteView from './HomeServicesMiniWebsiteView';
 import RetailMiniWebsiteView from './RetailMiniWebsiteView';
-import { VCARD_TEMPLATES_CATALOG } from '@/data/vcardTemplates';
+import { VCARD_TEMPLATES_CATALOG, ALL_VCARD_TEMPLATES } from '@/data/vcardTemplates';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
 const CURRENCY_CONFIG: Record<CurrencyCode, { symbol: string; rate: number; label: string }> = {
@@ -134,7 +134,7 @@ export default function ProfileCardView({
   useEffect(() => {
     if (typeof window !== 'undefined' && initialProfile?.slug) {
       // Guard: Never let localStorage corrupt official catalog template previews or insurance alias
-      const isOfficialCatalogTemplate = VCARD_TEMPLATES_CATALOG.some(
+      const isOfficialCatalogTemplate = ALL_VCARD_TEMPLATES.some(
         t => t.id.toLowerCase() === initialProfile.slug.toLowerCase()
       ) || ['insurance', 'mediclaim', 'insurance-advisor'].includes(initialProfile.slug.toLowerCase());
 

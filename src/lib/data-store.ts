@@ -1,7 +1,7 @@
 import { DigitalProfile, BookingSlot, LeadItem, StoreOrder, DynamicQrConfig, NfcCardItem, BlogPostItem, ThemeType } from './types';
 import { SAMPLE_BLOG_POSTS } from './blog-data';
 import { getTemplateProfile } from '@/data/templatePresets';
-import { VCARD_TEMPLATES_CATALOG } from '@/data/vcardTemplates';
+import { VCARD_TEMPLATES_CATALOG, ALL_VCARD_TEMPLATES } from '@/data/vcardTemplates';
 
 export const INITIAL_BLOGS: BlogPostItem[] = SAMPLE_BLOG_POSTS;
 
@@ -236,7 +236,7 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
   const cleanSlug = (rawSlug || '').toLowerCase().trim();
   
   // 0. Direct match against catalog templates
-  const matchedCatalog = VCARD_TEMPLATES_CATALOG.find(t => t.id.toLowerCase() === cleanSlug);
+  const matchedCatalog = ALL_VCARD_TEMPLATES.find(t => t.id.toLowerCase() === cleanSlug);
   if (matchedCatalog) {
     const tProf = getTemplateProfile(matchedCatalog.id);
     return {
@@ -533,7 +533,7 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
   }
 
   // 4. Check if slug matches any catalog template (by id or normalized name)
-  const matchedTemplate = VCARD_TEMPLATES_CATALOG.find(
+  const matchedTemplate = ALL_VCARD_TEMPLATES.find(
     t => t.id.toLowerCase() === cleanSlug || 
          t.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === cleanSlug ||
          t.name.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanSlug.replace(/[^a-z0-9]/g, '')

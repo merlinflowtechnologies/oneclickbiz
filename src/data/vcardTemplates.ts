@@ -46,6 +46,142 @@ export const VCARD_CATEGORY_LIST: { id: VCardCategory; name: string; icon: strin
 
 export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
+    "id": "re-builders",
+    "templateNumber": 903,
+    "name": "Real Estate Master & High-Rise Developers",
+    "category": "Real Estate",
+    "subCategory": "Real Estate Developers",
+    "actionSubtitle": "High-Rise Sky Villas",
+    "imgUrl": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Top Seller",
+    "tagline": "Sky-villas, gated communities, RERA verified projects & instant site visit booking",
+    "features": [
+      "Dynamic project floor plans & pricing",
+      "Integrated 3D virtual walkthroughs",
+      "1-Click WhatsApp site visit request",
+      "Lead generation callback modal"
+    ]
+  },
+  {
+    "id": "home-interior",
+    "templateNumber": 907,
+    "name": "Interior Designer & Modular Kitchens Mini-Website",
+    "category": "Interior Design",
+    "subCategory": "Interior Designers",
+    "actionSubtitle": "Interior & Kitchens",
+    "imgUrl": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Design Studio",
+    "tagline": "Turnkey luxury interiors, modular kitchens & 3D space visualizer",
+    "features": [
+      "Room-by-room portfolio gallery",
+      "Instant design consultation form",
+      "Direct WhatsApp designer chat",
+      "Client testimonial slider"
+    ]
+  },
+  {
+    "id": "health-doctor",
+    "templateNumber": 906,
+    "name": "Doctor & Specialist Clinic vCard",
+    "category": "Healthcare",
+    "subCategory": "Doctors & Clinics",
+    "actionSubtitle": "Consultation Desk",
+    "imgUrl": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Verified Doctor",
+    "tagline": "OPD timings, clinic address navigation, credentials & instant booking",
+    "features": [
+      "1-Tap appointment booking",
+      "Google Maps clinic directions",
+      "Doctor qualifications & hospital affiliations",
+      "Emergency WhatsApp hotline"
+    ]
+  },
+  {
+    "id": "restaurant-menu",
+    "templateNumber": 902,
+    "name": "Interactive Restaurant & Cafe Digital Dining Menu",
+    "category": "Food Business",
+    "subCategory": "Fine Dining & Cafes",
+    "actionSubtitle": "Table Booking & Menu",
+    "imgUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Popular",
+    "tagline": "Visual photo food menu, 1-tap table reservations & chef specials",
+    "features": [
+      "Filterable food menu by veg/non-veg",
+      "Direct table reservation form",
+      "Google Maps dining directions",
+      "Chef recommendations showcase"
+    ]
+  },
+  {
+    "id": "fash-boutique",
+    "templateNumber": 904,
+    "name": "Grand Fashion & Clothing Mall vCard",
+    "category": "Fashion & Clothing",
+    "subCategory": "Fashion & Clothing Malls",
+    "actionSubtitle": "Designer Collections",
+    "imgUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Trending",
+    "tagline": "Designer wear, festive collections, WhatsApp catalog & video lookbooks",
+    "features": [
+      "Seasonal lookbook video reels",
+      "WhatsApp product order desk",
+      "Customer VIP club discounts",
+      "Google review collection prompt"
+    ]
+  },
+  {
+    "id": "beauty-salon",
+    "templateNumber": 905,
+    "name": "Luxury Hair & Beauty Salon vCard",
+    "category": "Beauty & Personal Care",
+    "subCategory": "Hair & Beauty Salons",
+    "actionSubtitle": "Salon Services & Spa",
+    "imgUrl": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Luxury Salon",
+    "tagline": "Bridal styling, hair care, spa treatments & instant stylist bookings",
+    "features": [
+      "Salon service menu with pricing",
+      "Stylist appointment booking",
+      "Before & after transformation gallery",
+      "1-Click WhatsApp appointment"
+    ]
+  },
+  {
+    "id": "prof-ca",
+    "templateNumber": 1001,
+    "name": "Chartered Accountant (CA) & Audit Firm vCard",
+    "category": "Professional Services",
+    "subCategory": "CA",
+    "actionSubtitle": "Quick Tax Quotes",
+    "imgUrl": "https://images.unsplash.com/photo-1771244688590-1e481dba1b5a?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Executive",
+    "tagline": "GST returns, income tax filing, statutory audits & ROC",
+    "features": [
+      "Tax advisory appointment form",
+      "Compliance due date calendar",
+      "Service fee packages",
+      "Client confidentiality badge"
+    ]
+  },
+  {
+    "id": "edu-coaching",
+    "templateNumber": 908,
+    "name": "Coaching Institute (IIT/NEET/UPSC) vCard",
+    "category": "Education",
+    "subCategory": "Coaching & Test Prep",
+    "actionSubtitle": "IIT / NEET Batches",
+    "imgUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Top Faculty",
+    "tagline": "Batch schedules, ranker hall of fame, fee charts & demo registrations",
+    "features": [
+      "Online demo class booking",
+      "Course syllabus & fee downloads",
+      "Toppers testimonial carousel",
+      "Counseling hotline WhatsApp button"
+    ]
+  },
+  {
     "id": "events-planner",
     "templateNumber": 901,
     "name": "Luxury Events & Wedding Planner vCard",
@@ -62,6 +198,60 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
       "WhatsApp quotation desk"
     ]
   },
+  {
+    "id": "auto-car-dealer",
+    "templateNumber": 910,
+    "name": "Car Dealer & Showroom vCard",
+    "category": "Automobile",
+    "subCategory": "Car Dealers",
+    "actionSubtitle": "Book Test Drive",
+    "imgUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Showroom Pro",
+    "tagline": "Certified pre-owned cars, test drive bookings, finance & insurance desk",
+    "features": [
+      "Car inventory showcase with EMI calculator",
+      "1-Click test drive schedule form",
+      "Direct WhatsApp quote button",
+      "Google Maps showroom navigation"
+    ]
+  },
+  {
+    "id": "retail-jewellery",
+    "templateNumber": 911,
+    "name": "Gold & Diamond Jewellery vCard",
+    "category": "Retail & Local Shops",
+    "subCategory": "Jewellery Stores",
+    "actionSubtitle": "Gold & Diamonds",
+    "imgUrl": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "916 Hallmarked",
+    "tagline": "Gold bridal sets, diamond rings, daily gold rate alerts & video shopping",
+    "features": [
+      "Daily live gold/silver rate widget",
+      "Video call shopping appointment",
+      "Hallmark certification trust badge",
+      "Custom design inquiry on WhatsApp"
+    ]
+  },
+  {
+    "id": "home-electrician",
+    "templateNumber": 909,
+    "name": "Certified Electrician vCard",
+    "category": "Home & Professional Services",
+    "subCategory": "Electricians",
+    "actionSubtitle": "24/7 Electrical Care",
+    "imgUrl": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Govt Licensed",
+    "tagline": "Emergency wiring, short-circuit repair, MCB install & appliance wiring",
+    "features": [
+      "24/7 emergency dispatch call button",
+      "Fixed rate card for common repairs",
+      "WhatsApp photo quotation request",
+      "Customer safety & license guarantee"
+    ]
+  }
+];
+
+export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "event-photo",
     "templateNumber": 901,
@@ -97,23 +287,6 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     ]
   },
   {
-    "id": "prof-ca",
-    "templateNumber": 1001,
-    "name": "Chartered Accountant (CA) & Audit Firm vCard",
-    "category": "Professional Services",
-    "subCategory": "CA",
-    "actionSubtitle": "Quick Tax Quotes",
-    "imgUrl": "https://images.unsplash.com/photo-1771244688590-1e481dba1b5a?auto=format&fit=crop&w=800&h=1000&q=85",
-    "badge": "Executive",
-    "tagline": "GST returns, income tax filing, statutory audits & ROC",
-    "features": [
-      "Tax advisory appointment form",
-      "Compliance due date calendar",
-      "Service fee packages",
-      "Client confidentiality badge"
-    ]
-  },
-  {
     "id": "prof-insurance",
     "templateNumber": 1003,
     "name": "Insurance Advisor & Financial Security vCard",
@@ -121,6 +294,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     "subCategory": "Insurance Agents",
     "actionSubtitle": "Financial Shield",
     "imgUrl": "https://images.unsplash.com/photo-1650110002977-3ee8cc5eac91?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Licensed",
     "tagline": "Term life insurance, health mediclaim & motor policies",
     "features": [
       "Instant premium quote calculator",
@@ -540,9 +714,14 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   }
 ];
 
+export const ALL_VCARD_TEMPLATES: VCardTemplateItem[] = [
+  ...VCARD_TEMPLATES_CATALOG,
+  ...EXTENDED_VCARD_TEMPLATES
+];
+
 export function normalizeCategory(cat?: string | null, templateId?: string | null): VCardCategory {
   if (!cat && templateId) {
-    const found = VCARD_TEMPLATES_CATALOG.find(t => t.id === templateId);
+    const found = ALL_VCARD_TEMPLATES.find(t => t.id === templateId);
     if (found) return found.category;
     if (templateId.startsWith('re-') || templateId === 'vcard35') return 'Real Estate';
     if (templateId.startsWith('home-interior') || templateId.startsWith('interior') || templateId === 'vcard38') return 'Interior Design';
@@ -597,7 +776,7 @@ export function normalizeCategory(cat?: string | null, templateId?: string | nul
 
 export function isTemplateAllowedForCategory(templateId: string, category: string): boolean {
   const normCat = normalizeCategory(category, templateId);
-  const tpl = VCARD_TEMPLATES_CATALOG.find(t => t.id === templateId);
+  const tpl = ALL_VCARD_TEMPLATES.find(t => t.id === templateId);
 
   if (tpl) {
     if (normCat === 'Real Estate') {
