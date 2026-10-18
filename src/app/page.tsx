@@ -947,11 +947,11 @@ export default function LandingPage() {
       </section>
 
       {/* LIVE INTERACTIVE DEMO SECTION (Shifted Below Hero Section) */}
-      <section id="demo" className="py-20 lg:py-24 bg-gradient-to-b from-sky-50/95 via-white to-indigo-50/70 border-b border-indigo-200/80 relative overflow-hidden scroll-mt-20">
+      <section id="demo" className="py-20 lg:py-24 bg-gradient-to-b from-sky-50/95 via-white to-blue-50/70 border-b border-blue-200/80 relative overflow-hidden scroll-mt-20">
         
         {/* Soft Ambient Background Highlights */}
-        <div className="absolute top-10 left-1/4 w-[650px] h-[380px] bg-indigo-300/25 blur-[130px] pointer-events-none -z-10" />
-        <div className="absolute bottom-10 right-1/4 w-[550px] h-[320px] bg-purple-300/20 blur-[120px] pointer-events-none -z-10" />
+        <div className="absolute top-10 left-1/4 w-[650px] h-[380px] bg-blue-300/20 blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute bottom-10 right-1/4 w-[550px] h-[320px] bg-sky-300/20 blur-[120px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -1113,7 +1113,7 @@ export default function LandingPage() {
               {/* Right Companion Highlights */}
               <div className="hidden lg:flex flex-col gap-4 w-72">
                 <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
-                  <div className="flex items-center gap-2 text-purple-600 font-bold text-xs uppercase">
+                  <div className="flex items-center gap-2 text-blue-600 font-bold text-xs uppercase">
                     <Sparkles className="w-4 h-4" /> 100% Cloud Software
                   </div>
                   <p className="text-xs text-slate-600">Pure digital web software — zero hardware required, nothing to carry or lose.</p>
@@ -1125,7 +1125,7 @@ export default function LandingPage() {
                   <p className="text-xs text-slate-600">Scan anywhere. Update your card profile anytime without changing the QR.</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-md space-y-1">
-                  <div className="flex items-center gap-2 text-pink-600 font-bold text-xs uppercase">
+                  <div className="flex items-center gap-2 text-emerald-600 font-bold text-xs uppercase">
                     <Sparkles className="w-4 h-4" /> No App Needed
                   </div>
                   <p className="text-xs text-slate-600">Opens instantly in Safari, Chrome, and any browser on iOS &amp; Android.</p>
@@ -1447,8 +1447,8 @@ export default function LandingPage() {
           {/* Everything Your Business Needs. All in One Place. (19 Tools) */}
           <div className="space-y-8">
             <div className="text-center max-w-3xl mx-auto space-y-3">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-purple-200 text-purple-700 text-xs font-bold uppercase tracking-wider shadow-sm">
-                <Layers className="w-3.5 h-3.5 text-purple-600" /> Unified Business Ecosystem
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider shadow-sm">
+                <Layers className="w-3.5 h-3.5 text-blue-600" /> Unified Business Ecosystem
               </div>
               <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
                 Everything Your Business Needs. All in One Place.
@@ -1463,14 +1463,14 @@ export default function LandingPage() {
                 { title: 'Mini Website & Live Business Profile', icon: Globe2, color: 'text-sky-600 bg-sky-50 border-sky-200' },
                 { title: 'Personal Profile', icon: Smartphone, color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
                 { title: 'WhatsApp Store & E-commerce', icon: ShoppingBag, color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
-                { title: 'Digital Visiting Cards, Flyers & Brochures', icon: CreditCard, color: 'text-purple-600 bg-purple-50 border-purple-200' },
+                { title: 'Digital Visiting Cards, Flyers & Brochures', icon: CreditCard, color: 'text-blue-600 bg-blue-50 border-blue-200' },
                 { title: 'Lead Extraction Tools', icon: Target, color: 'text-amber-600 bg-amber-50 border-amber-200' },
                 { title: 'Custom Domains & Landing Pages', icon: Monitor, color: 'text-cyan-600 bg-cyan-50 border-cyan-200' },
                 { title: 'Customer Reviews & Ratings', icon: Star, color: 'text-yellow-600 bg-yellow-50 border-yellow-200' },
                 { title: 'Image Gallery & Product Space', icon: ImageIcon, color: 'text-rose-600 bg-rose-50 border-rose-200' },
                 { title: 'Articles & Blogs', icon: FileText, color: 'text-blue-600 bg-blue-50 border-blue-200' },
-                { title: 'Products & Services Showcase', icon: Layers, color: 'text-violet-600 bg-violet-50 border-violet-200' },
-                { title: 'Customizable Templates', icon: Palette, color: 'text-pink-600 bg-pink-50 border-pink-200' },
+                { title: 'Products & Services Showcase', icon: Layers, color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
+                { title: 'Customizable Templates', icon: Palette, color: 'text-cyan-600 bg-cyan-50 border-cyan-200' },
                 { title: 'Easy Website Designing & Multiple Edits', icon: Edit3, color: 'text-teal-600 bg-teal-50 border-teal-200' },
                 { title: 'Customized QR Codes', icon: QrCode, color: 'text-slate-700 bg-slate-100 border-slate-300' },
                 { title: 'Payment Gateway Integration', icon: ShieldCheck, color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
@@ -1478,7 +1478,7 @@ export default function LandingPage() {
                 { title: 'Email Signature Generator', icon: Mail, color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
                 { title: 'PDF Report Generation', icon: Download, color: 'text-blue-600 bg-blue-50 border-blue-200' },
                 { title: 'Commercial Usage & Business Scaling', icon: TrendingUp, color: 'text-green-600 bg-green-50 border-green-200' },
-                { title: 'Installable App-like Experience with a Direct Installation Prompt, where supported', icon: Rocket, color: 'text-purple-600 bg-purple-50 border-purple-200' },
+                { title: 'Installable App-like Experience with a Direct Installation Prompt, where supported', icon: Rocket, color: 'text-blue-600 bg-blue-50 border-blue-200' },
               ].map((item, idx) => {
                 const IconComponent = item.icon;
                 return (
@@ -1598,16 +1598,16 @@ export default function LandingPage() {
 
       </section>
 
-      {/* SERVICES OFFERED SECTION with Soft Sky-Teal-Indigo Gradient */}
-      <section id="services" className="py-24 bg-gradient-to-b from-sky-100/90 via-teal-100/75 to-indigo-100/85 backdrop-blur-xl border-y border-sky-200/80 relative scroll-mt-24 overflow-hidden">
+      {/* SERVICES OFFERED SECTION with Soft Brand Sky-Blue Background */}
+      <section id="services" className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/50 to-blue-50/60 backdrop-blur-xl border-y border-slate-200/80 relative scroll-mt-24 overflow-hidden">
         {/* Floating Glowing Mesh Orbs */}
-        <div className="absolute top-10 right-10 w-[650px] h-[400px] bg-gradient-to-l from-sky-400/35 via-teal-300/30 to-indigo-300/35 blur-[120px] pointer-events-none -z-10" />
-        <div className="absolute bottom-10 left-10 w-[600px] h-[350px] bg-gradient-to-r from-indigo-400/30 via-purple-300/30 to-pink-300/30 blur-[120px] pointer-events-none -z-10" />
+        <div className="absolute top-10 right-10 w-[650px] h-[400px] bg-gradient-to-l from-blue-300/20 via-sky-300/20 to-indigo-300/20 blur-[120px] pointer-events-none -z-10" />
+        <div className="absolute bottom-10 left-10 w-[600px] h-[350px] bg-gradient-to-r from-sky-300/20 via-blue-300/20 to-cyan-200/20 blur-[120px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider">
               <Briefcase className="w-3.5 h-3.5" /> What Services We Offer
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
@@ -1627,8 +1627,8 @@ export default function LandingPage() {
                 }}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer ${
                   showAllServiceDetails
-                    ? 'bg-indigo-600 text-white shadow-indigo-500/25'
-                    : 'bg-white/90 text-slate-700 hover:text-indigo-600 border border-slate-200/90'
+                    ? 'bg-blue-600 text-white shadow-blue-500/25'
+                    : 'bg-white/90 text-slate-700 hover:text-blue-600 border border-slate-200/90'
                 }`}
               >
                 <span>{showAllServiceDetails ? '🖼️ Switch to Images-Only View' : '📄 Show All Matter / Details'}</span>
@@ -1654,8 +1654,8 @@ export default function LandingPage() {
                   }}
                   className={`rounded-3xl bg-white/95 backdrop-blur-xl border transition-all duration-300 overflow-hidden group cursor-pointer relative flex flex-col justify-between ${
                     isExpanded
-                      ? 'border-indigo-500 shadow-2xl ring-2 ring-indigo-500/20'
-                      : 'border-slate-200/90 hover:border-indigo-400 hover:shadow-xl hover:-translate-y-1'
+                      ? 'border-blue-500 shadow-2xl ring-2 ring-blue-500/20'
+                      : 'border-slate-200/90 hover:border-blue-400 hover:shadow-xl hover:-translate-y-1'
                   }`}
                 >
                   {/* Visual Photo Banner */}
@@ -1763,7 +1763,7 @@ export default function LandingPage() {
 
 
           {/* Service Consultation CTA Strip */}
-          <div className="mt-14 p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-purple-950 border border-indigo-500/30 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 text-white">
+          <div className="mt-14 p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-950 to-blue-950 border border-blue-500/30 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 text-white">
             <div className="space-y-1 text-center md:text-left">
               <h4 className="text-lg font-bold text-white flex items-center justify-center md:justify-start gap-2">
                 <span>Need a Custom Solution for Your Team or Brand?</span>
@@ -1799,13 +1799,13 @@ export default function LandingPage() {
       {/* Head-to-Head Comparison & Differentiation Section */}
       <section className="py-24 bg-white border-t border-slate-200/80 relative overflow-hidden">
         {/* Ambient Gradient Glows */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5 blur-[140px] pointer-events-none -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-r from-blue-500/5 via-sky-500/5 to-indigo-500/5 blur-[140px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold shadow-xs">
-              <Zap className="w-4 h-4 text-indigo-600" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold shadow-xs">
+              <Zap className="w-4 h-4 text-blue-600" />
               <span>Built Different For Indian Commerce</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
@@ -1817,7 +1817,7 @@ export default function LandingPage() {
           </div>
 
           {/* Mobile Swipe Notice */}
-          <div className="flex items-center justify-center gap-1.5 mb-3 sm:hidden text-[11px] font-semibold text-indigo-700 bg-indigo-50/90 px-3.5 py-1.5 rounded-full border border-indigo-200/90 w-fit mx-auto shadow-xs">
+          <div className="flex items-center justify-center gap-1.5 mb-3 sm:hidden text-[11px] font-semibold text-blue-700 bg-blue-50/90 px-3.5 py-1.5 rounded-full border border-blue-200/90 w-fit mx-auto shadow-xs">
             <span>👈 Swipe horizontally to view full comparison 👉</span>
           </div>
 
@@ -1836,12 +1836,12 @@ export default function LandingPage() {
                   Traditional Digital Cards
                   <span className="block text-[10px] font-normal text-slate-400 mt-0.5">(Popl, Blinq, HiHello)</span>
                 </div>
-                <div className="col-span-3 p-5 text-center bg-indigo-600 text-white rounded-t-2xl shadow-md">
+                <div className="col-span-3 p-5 text-center bg-blue-600 text-white rounded-t-2xl shadow-md">
                   <div className="inline-flex items-center gap-1.5 font-extrabold">
                     <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
                     <span>OneClickBiz</span>
                   </div>
-                  <span className="block text-[10px] font-medium text-indigo-100 mt-0.5">Engineered for Indian Commerce</span>
+                  <span className="block text-[10px] font-medium text-blue-100 mt-0.5">Engineered for Indian Commerce</span>
                 </div>
               </div>
 
@@ -1940,8 +1940,8 @@ export default function LandingPage() {
                       row.western
                     )}
                   </div>
-                  <div className="col-span-3 p-4 sm:p-5 text-center font-bold text-indigo-950 bg-indigo-50/60 border-l border-indigo-100">
-                    <span className="text-indigo-900">{row.oneclickbiz}</span>
+                  <div className="col-span-3 p-4 sm:p-5 text-center font-bold text-blue-950 bg-blue-50/60 border-l border-blue-100">
+                    <span className="text-blue-900">{row.oneclickbiz}</span>
                   </div>
                 </div>
               ))}
@@ -1949,7 +1949,7 @@ export default function LandingPage() {
           </div>
 
           {/* Consolidate & Save Banner */}
-          <div className="mt-12 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-purple-950 to-slate-900 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="mt-12 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-1 text-center md:text-left">
               <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
                 COST CONSOLIDATION
@@ -1974,7 +1974,7 @@ export default function LandingPage() {
       </section>
 
       {/* Authentic Transparency & Risk-Free Guarantees Section */}
-      <section className="py-24 bg-gradient-to-b from-slate-50 via-indigo-50/60 to-purple-50/50 border-t border-slate-200/80 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/50 to-blue-50/50 border-t border-slate-200/80 relative overflow-hidden">
         <div className="absolute top-1/3 left-1/4 w-[600px] h-[350px] bg-gradient-to-r from-emerald-400/20 via-indigo-400/20 to-sky-400/20 blur-[130px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2049,8 +2049,8 @@ export default function LandingPage() {
             {/* Pillar 4: Corporate Transparency & Support */}
             <div className="p-7 rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-4 flex flex-col justify-between">
               <div className="space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center">
-                  <Building className="w-6 h-6 text-purple-600" />
+                <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center">
+                  <Building className="w-6 h-6 text-blue-600" />
                 </div>
                 <h3 className="text-base font-bold text-slate-900">Registered Corporate Entity</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
@@ -2061,7 +2061,7 @@ export default function LandingPage() {
                 href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Team%2C%20I%20have%20a%20question%20before%20signing%20up." 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-xs font-bold text-purple-700 hover:text-purple-800 flex items-center gap-1.5 group pt-2"
+                className="text-xs font-bold text-blue-700 hover:text-blue-800 flex items-center gap-1.5 group pt-2"
               >
                 <span>Chat With Our Team</span>
                 <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -2289,12 +2289,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* FAQ Accordion with Soft Lavender-Sky Background */}
-      <section id="faq" className="py-24 bg-gradient-to-b from-purple-100/90 via-slate-100/90 to-sky-100/90 backdrop-blur-xl border-t border-indigo-200/80 scroll-mt-20 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-purple-300/40 to-sky-300/40 blur-[120px] pointer-events-none -z-10" />
+      {/* FAQ Accordion with Soft Brand Blue Background */}
+      <section id="faq" className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/50 to-blue-50/60 backdrop-blur-xl border-t border-slate-200/80 scroll-mt-20 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-blue-300/20 to-sky-300/20 blur-[120px] pointer-events-none -z-10" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 space-y-3">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-600">FAQ</h2>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-blue-600">FAQ</h2>
             <h3 className="text-3xl font-bold text-slate-900">Frequently Asked Questions</h3>
           </div>
 
@@ -2302,12 +2302,12 @@ export default function LandingPage() {
             {faqs.map((faq, idx) => (
               <div 
                 key={idx} 
-                className="p-5 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs cursor-pointer transition-all hover:border-indigo-400/60 hover:shadow-sm"
+                className="p-5 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs cursor-pointer transition-all hover:border-blue-400/60 hover:shadow-sm"
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
               >
                 <div className="flex items-center justify-between">
                   <h4 className="text-sm font-semibold text-slate-900">{faq.q}</h4>
-                  <span className="text-indigo-600 font-bold text-base">
+                  <span className="text-blue-600 font-bold text-base">
                     {openFaq === idx ? '−' : '+'}
                   </span>
                 </div>
@@ -2322,14 +2322,14 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Contact Support Section with Sky-Indigo-Pink Light Background */}
-      <section id="contact" className="py-24 bg-gradient-to-b from-sky-100/90 via-indigo-100/80 to-pink-100/80 border-t border-slate-300/80 relative overflow-hidden scroll-mt-20">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-300/30 via-purple-200/25 to-transparent pointer-events-none" />
+      {/* Contact Support Section with Soft Sky-Blue Light Background */}
+      <section id="contact" className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/60 to-blue-50/70 border-t border-slate-200/80 relative overflow-hidden scroll-mt-20">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-300/20 via-sky-200/15 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold uppercase tracking-wider">
-              <MessageCircle className="w-3.5 h-3.5 text-indigo-600" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider">
+              <MessageCircle className="w-3.5 h-3.5 text-blue-600" />
               <span>Get In Touch</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -2395,7 +2395,7 @@ export default function LandingPage() {
 
               {/* Office Location Card */}
               <div className="p-5 rounded-2xl bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-xs flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 border border-purple-200">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-200">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div className="space-y-1">

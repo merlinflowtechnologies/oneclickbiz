@@ -134,9 +134,9 @@ export default function VCardTemplatesPage() {
         <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Canva & Adobe Express Pro Integration Banner */}
-          <div className="mb-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-purple-950 border border-indigo-500/30 shadow-2xl text-white flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="mb-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-950 to-blue-950 border border-blue-500/30 shadow-2xl text-white flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2 text-center md:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-300 text-xs font-bold border border-cyan-500/30">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-500/30">
                 <Sparkles className="w-3.5 h-3.5" /> 100% Canva &amp; Adobe Express Compatible
               </div>
               <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white">
@@ -150,7 +150,7 @@ export default function VCardTemplatesPage() {
             <div className="flex items-center flex-wrap gap-3 shrink-0">
               <Link
                 href="/dashboard/visiting-cards"
-                className="px-5 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:opacity-95 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-purple-500/25 transition-all hover:scale-105 active:scale-95"
+                className="px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-blue-500/25 transition-all hover:scale-105 active:scale-95"
               >
                 <span>Open Canva / Adobe Studio</span>
                 <ArrowRight className="w-4 h-4" />

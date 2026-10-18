@@ -61,17 +61,17 @@ export default function InteractiveFeaturesSection() {
   };
 
   return (
-    <section id="features" className="py-24 bg-gradient-to-b from-violet-100/90 via-pink-100/80 to-amber-100/75 backdrop-blur-xl border-y border-purple-200/80 relative scroll-mt-20 overflow-hidden">
+    <section id="features" className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/50 to-blue-50/60 backdrop-blur-xl border-y border-slate-200/80 relative scroll-mt-20 overflow-hidden">
       {/* Soft Ambient Floating Blurs */}
-      <div className="absolute top-10 left-10 w-[600px] h-[400px] bg-gradient-to-r from-purple-400/35 via-pink-400/40 to-rose-300/35 blur-[120px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-10 w-[650px] h-[450px] bg-gradient-to-l from-amber-300/35 via-orange-300/30 to-yellow-200/40 blur-[130px] pointer-events-none -z-10" />
+      <div className="absolute top-10 left-10 w-[600px] h-[400px] bg-gradient-to-r from-blue-300/20 via-sky-300/20 to-indigo-300/20 blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[650px] h-[450px] bg-gradient-to-l from-sky-300/20 via-blue-300/20 to-cyan-200/20 blur-[130px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold uppercase tracking-wider shadow-sm">
-            <Sparkles size={13} className="text-indigo-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider shadow-sm">
+            <Sparkles size={13} className="text-blue-600" />
             Interactive Feature Matrix &amp; Sector Impact
           </div>
           <h3 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -86,7 +86,7 @@ export default function InteractiveFeaturesSection() {
         <div className="mb-10">
           <div className="flex items-center justify-center gap-2 flex-wrap">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-600 px-2 mr-1">
-              <Filter size={13} className="text-indigo-600" />
+              <Filter size={13} className="text-blue-600" />
               <span>Filter by Industry:</span>
             </div>
             {SECTORS.map((sec) => {
@@ -98,8 +98,8 @@ export default function InteractiveFeaturesSection() {
                   onClick={() => setActiveSector(sec.id)}
                   className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all border shadow-sm ${
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-transparent shadow-indigo-300/50 scale-105'
-                      : 'bg-white/90 text-slate-700 border-slate-200 hover:bg-white hover:border-indigo-300 hover:text-indigo-600'
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white border-transparent shadow-blue-300/50 scale-105'
+                      : 'bg-white/90 text-slate-700 border-slate-200 hover:bg-white hover:border-blue-300 hover:text-blue-600'
                   }`}
                 >
                   <span>{sec.icon}</span>
@@ -126,7 +126,7 @@ export default function InteractiveFeaturesSection() {
                 key={feat.id}
                 id={`feature-card-${feat.id}`}
                 onClick={() => handleOpenFeature(feat)}
-                className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/90 hover:border-indigo-400/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all cursor-pointer overflow-hidden group hover:-translate-y-1.5 duration-300 flex flex-col justify-between"
+                className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/90 hover:border-blue-400/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all cursor-pointer overflow-hidden group hover:-translate-y-1.5 duration-300 flex flex-col justify-between"
               >
                 {/* Feature Image Header (Matching ProfessionalMiniWebsiteView pattern) */}
                 <div className="relative h-44 sm:h-48 overflow-hidden bg-slate-100">
@@ -180,7 +180,7 @@ export default function InteractiveFeaturesSection() {
                   </div>
 
                   {/* Card Action Footer */}
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-indigo-600 group-hover:text-indigo-700">
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600 group-hover:text-blue-700">
                     <span className="flex items-center gap-1">
                       <span>How this helps your sector</span>
                       <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
