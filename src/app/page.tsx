@@ -93,12 +93,12 @@ const VCARD_TEMPLATES = [
     coverUrl: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80',
     themeClass: {
       cardBg: 'bg-slate-900/90 border-slate-800',
-      accentGradient: 'from-indigo-500 via-purple-500 to-pink-500',
-      textColor: 'text-indigo-400',
-      btnPrimary: 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-indigo-500/25',
+      accentGradient: 'from-blue-600 via-indigo-600 to-teal-500',
+      textColor: 'text-blue-400',
+      btnPrimary: 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/25',
       btnSecondary: 'bg-slate-800 text-slate-200 border-slate-700',
-      dotColor: 'bg-indigo-400',
-      borderHover: 'group-hover:border-indigo-500/50'
+      dotColor: 'bg-blue-400',
+      borderHover: 'group-hover:border-blue-500/50'
     },
     features: [
       '1-Click iOS & Android .VCF Address Book Download',
@@ -504,8 +504,8 @@ export default function LandingPage() {
         
         {/* Multi-layered Soft Ambient Pastel Glows */}
         <div className="absolute top-2 left-10 w-[550px] h-[350px] bg-gradient-to-tr from-sky-300/35 via-blue-200/30 to-indigo-300/25 blur-[120px] -z-10 pointer-events-none" />
-        <div className="absolute top-1/4 right-5 w-[600px] h-[400px] bg-gradient-to-br from-purple-300/30 via-pink-200/25 to-sky-200/30 blur-[130px] -z-10 pointer-events-none" />
-        <div className="absolute -bottom-10 left-1/3 w-[500px] h-[300px] bg-gradient-to-r from-amber-200/30 to-rose-200/25 blur-[110px] -z-10 pointer-events-none" />
+        <div className="absolute top-1/4 right-5 w-[600px] h-[400px] bg-gradient-to-br from-blue-300/25 via-sky-200/25 to-teal-200/20 blur-[130px] -z-10 pointer-events-none" />
+        <div className="absolute -bottom-10 left-1/3 w-[500px] h-[300px] bg-gradient-to-r from-sky-200/30 to-blue-200/25 blur-[110px] -z-10 pointer-events-none" />
         
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           
@@ -524,7 +524,7 @@ export default function LandingPage() {
               {/* Headline */}
               <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black tracking-tight text-slate-900 leading-[1.12]">
                 Build Your <br />
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent italic font-serif">
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 bg-clip-text text-transparent italic font-serif">
                   Business Online
                 </span> <br />
                 — In One Click.
@@ -625,7 +625,7 @@ export default function LandingPage() {
               <div className="relative w-full max-w-[720px] lg:max-w-[780px] xl:max-w-[860px] mx-auto select-none group">
                 
                 {/* Ambient Soft Glow Behind Graphic */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/20 via-purple-400/15 to-pink-300/20 rounded-3xl blur-2xl -z-10 transform scale-95 group-hover:scale-100 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/20 via-sky-400/15 to-teal-300/20 rounded-3xl blur-2xl -z-10 transform scale-95 group-hover:scale-100 transition-transform duration-700" />
                 
                 {/* 3D Multi-Device & Cards Graphic with Smooth Ambient Container */}
                 <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.10)] border border-slate-200/90 bg-white/60 backdrop-blur-md p-1.5 sm:p-2 transition-all duration-500 hover:shadow-[0_25px_60px_rgba(59,130,246,0.18)] hover:-translate-y-1">
@@ -684,12 +684,12 @@ export default function LandingPage() {
                 </a>
 
                 {/* Feature 3 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-purple-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-purple-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                     <CreditCard className="w-4 h-4" />
                   </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-purple-700 transition-colors">Smart Digital Cards</span>
-                  <span className="text-[10px] font-bold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-full">1-Tap VCF</span>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Smart Digital Cards</span>
+                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">1-Tap VCF</span>
                 </a>
 
                 {/* Feature 4 */}
@@ -766,12 +766,12 @@ export default function LandingPage() {
                 </a>
 
                 {/* Feature 3 */}
-                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-purple-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-purple-300 transition-all cursor-pointer group shrink-0">
-                  <div className="w-7 h-7 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-blue-50/60 border border-slate-200/90 shadow-2xs hover:shadow-sm hover:border-blue-300 transition-all cursor-pointer group shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                     <CreditCard className="w-4 h-4" />
                   </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-purple-700 transition-colors">Smart Digital Cards</span>
-                  <span className="text-[10px] font-bold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-full">1-Tap VCF</span>
+                  <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Smart Digital Cards</span>
+                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">1-Tap VCF</span>
                 </a>
 
                 {/* Feature 4 */}
@@ -981,7 +981,7 @@ export default function LandingPage() {
                 onClick={() => setHeroDemoMode('website')}
                 className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
                   heroDemoMode === 'website'
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
@@ -993,7 +993,7 @@ export default function LandingPage() {
                 onClick={() => setHeroDemoMode('mobile')}
                 className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
                   heroDemoMode === 'mobile'
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/25'
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
@@ -1149,17 +1149,17 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* VCARD TEMPLATES SHOWCASE SECTION with Ambient Lavender-Sky Tint */}
-      <section id="templates" className="py-20 bg-gradient-to-b from-sky-100/90 via-indigo-100/80 to-purple-100/90 backdrop-blur-xl border-b border-indigo-200/80 relative overflow-hidden scroll-mt-20">
+      {/* VCARD TEMPLATES SHOWCASE SECTION with Ambient Sky-Blue Tint */}
+      <section id="templates" className="py-20 bg-gradient-to-b from-slate-50 via-sky-50/60 to-blue-50/70 backdrop-blur-xl border-b border-slate-200/80 relative overflow-hidden scroll-mt-20">
         {/* Colorful Glow Background Accents */}
-        <div className="absolute top-1/2 left-1/4 w-[700px] h-[400px] bg-gradient-to-r from-sky-400/35 via-indigo-400/40 to-purple-400/35 blur-[130px] pointer-events-none -z-10" />
-        <div className="absolute bottom-10 right-10 w-[600px] h-[350px] bg-gradient-to-l from-pink-400/35 to-purple-400/30 blur-[120px] pointer-events-none -z-10" />
+        <div className="absolute top-1/2 left-1/4 w-[700px] h-[400px] bg-gradient-to-r from-sky-400/25 via-blue-400/25 to-teal-400/20 blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute bottom-10 right-10 w-[600px] h-[350px] bg-gradient-to-l from-blue-400/20 to-sky-400/20 blur-[120px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 bg-clip-text text-transparent tracking-tight">
               Business Templates
             </h2>
             <p className="text-sm sm:text-base text-slate-600 font-medium">
@@ -1189,8 +1189,8 @@ export default function LandingPage() {
                 onClick={() => setTemplateFilter(cat.id)}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs backdrop-blur-md ${
                   templateFilter === cat.id
-                    ? 'bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-md shadow-indigo-500/30 scale-105'
-                    : 'bg-white/80 text-slate-700 hover:text-indigo-600 hover:bg-white border border-slate-200/80 shadow-xs'
+                    ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/30 scale-105'
+                    : 'bg-white/80 text-slate-700 hover:text-blue-600 hover:bg-white border border-slate-200/80 shadow-xs'
                 }`}
               >
                 <span>{cat.icon}</span>
@@ -1204,7 +1204,7 @@ export default function LandingPage() {
             {/* Left Scroll Arrow */}
             <button
               onClick={() => scrollSlider('left')}
-              className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 border border-slate-200/80 text-slate-700 shadow-xl items-center justify-center hover:bg-indigo-600 hover:text-white transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
+              className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 border border-slate-200/80 text-slate-700 shadow-xl items-center justify-center hover:bg-blue-600 hover:text-white transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-6 h-6" />
@@ -1213,7 +1213,7 @@ export default function LandingPage() {
             {/* Right Scroll Arrow */}
             <button
               onClick={() => scrollSlider('right')}
-              className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 border border-slate-200/80 text-slate-700 shadow-xl items-center justify-center hover:bg-indigo-600 hover:text-white transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
+              className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 border border-slate-200/80 text-slate-700 shadow-xl items-center justify-center hover:bg-blue-600 hover:text-white transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
               aria-label="Scroll right"
             >
               <ChevronRight className="w-6 h-6" />
@@ -1232,12 +1232,12 @@ export default function LandingPage() {
                     <div
                       key={template.id}
                       style={{ scrollSnapAlign: 'start' }}
-                      className="w-[180px] xs:w-[195px] sm:w-[220px] md:w-[230px] shrink-0 rounded-2xl sm:rounded-3xl border border-slate-200/80 bg-white/95 backdrop-blur-xl hover:border-indigo-300 transition-all duration-300 flex flex-col justify-between overflow-hidden group/card shadow-[0_6px_25px_rgb(0,0,0,0.06)] hover:shadow-[0_15px_35px_rgb(0,0,0,0.12)] hover:-translate-y-1 relative"
+                      className="w-[180px] xs:w-[195px] sm:w-[220px] md:w-[230px] shrink-0 rounded-2xl sm:rounded-3xl border border-slate-200/80 bg-white/95 backdrop-blur-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between overflow-hidden group/card shadow-[0_6px_25px_rgb(0,0,0,0.06)] hover:shadow-[0_15px_35px_rgb(0,0,0,0.12)] hover:-translate-y-1 relative"
                     >
                       {/* Ribbon or Badge */}
                       {template.badge && (
                         <div className="absolute top-2.5 right-2.5 z-20">
-                          <span className="px-2 py-0.5 rounded-full text-[8.5px] font-black uppercase tracking-wide bg-gradient-to-r from-indigo-600 to-pink-500 text-white shadow-md">
+                          <span className="px-2 py-0.5 rounded-full text-[8.5px] font-black uppercase tracking-wide bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md">
                             {template.badge}
                           </span>
                         </div>
@@ -1283,7 +1283,7 @@ export default function LandingPage() {
                           <Link
                             href={`/signup?intent=build_card&template=${template.id}`}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-full py-2 px-3 rounded-xl text-center text-[11px] font-bold text-white bg-gradient-to-r from-indigo-600 to-pink-500 hover:opacity-95 shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-1 transition-all"
+                            className="w-full py-2 px-3 rounded-xl text-center text-[11px] font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/30 flex items-center justify-center gap-1 transition-all"
                           >
                             <span>Use Template</span>
                             <ArrowRight className="w-3 h-3" />
@@ -1304,7 +1304,7 @@ export default function LandingPage() {
                       {/* Card Body Footer */}
                       <div className="p-3 sm:p-3.5 border-t border-slate-100 bg-white space-y-2">
                         <div>
-                          <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover/card:text-indigo-600 transition-colors truncate">
+                          <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover/card:text-blue-600 transition-colors truncate">
                             {template.name}
                           </h3>
                         </div>
@@ -1312,7 +1312,7 @@ export default function LandingPage() {
                         <div className="flex items-center gap-1.5 pt-0.5">
                           <Link
                             href={`/signup?intent=build_card&template=${template.id}`}
-                            className="flex-1 py-1.5 px-2 rounded-lg text-center text-[10px] sm:text-[11px] font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-all shadow-xs"
+                            className="flex-1 py-1.5 px-2 rounded-lg text-center text-[10px] sm:text-[11px] font-bold text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-xs"
                           >
                             Use Free
                           </Link>
@@ -1339,7 +1339,7 @@ export default function LandingPage() {
           <div className="text-center mt-12">
             <Link
               href="/vcard-templates"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 shadow-xl shadow-indigo-500/25 transition-all duration-300 hover:scale-105 font-bold text-sm tracking-wide group"
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-white bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-500/30 transition-all duration-300 hover:scale-105 font-bold text-sm tracking-wide group"
             >
               <span>See More Templates ({VCARD_TEMPLATES_CATALOG.length})</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -1356,21 +1356,21 @@ export default function LandingPage() {
       <InteractiveFeaturesSection />
 
       {/* DETAILED FOUNDER STORY SECTION: WHY ONECLICKBIZ? */}
-      <section id="about" className="py-24 bg-gradient-to-b from-amber-100/75 via-indigo-100/80 to-purple-100/75 border-y border-indigo-200/80 relative overflow-hidden scroll-mt-24">
+      <section id="about" className="py-24 bg-gradient-to-b from-slate-50 via-blue-50/50 to-indigo-50/60 border-y border-slate-200/80 relative overflow-hidden scroll-mt-24">
         
         {/* Glow Background Accent */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[850px] h-[650px] bg-gradient-to-r from-amber-300/30 via-indigo-400/30 to-purple-400/30 blur-[140px] pointer-events-none -z-10" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[850px] h-[650px] bg-gradient-to-r from-blue-300/20 via-sky-300/20 to-indigo-300/20 blur-[140px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
 
           {/* Section Header */}
           <div className="text-center max-w-4xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-indigo-200 shadow-sm text-indigo-700 text-xs font-bold uppercase tracking-wider">
-              <Quote className="w-3.5 h-3.5 text-indigo-600" /> Founder Story
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-blue-200 shadow-sm text-blue-700 text-xs font-bold uppercase tracking-wider">
+              <Quote className="w-3.5 h-3.5 text-blue-600" /> Founder Story
             </div>
             
             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-              Why <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">OneClickBiz?</span>
+              Why <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 bg-clip-text text-transparent">OneClickBiz?</span>
             </h2>
 
             <p className="text-base sm:text-xl lg:text-2xl font-bold text-slate-800 tracking-tight">
@@ -1420,8 +1420,8 @@ export default function LandingPage() {
           </div>
 
           {/* Breakthrough: That is why we created OneClickBiz */}
-          <div className="p-6 sm:p-8 md:p-12 rounded-3xl bg-gradient-to-br from-indigo-900 via-slate-900 to-purple-950 text-white shadow-2xl border border-indigo-800/80 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-pink-500/20 to-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="p-6 sm:p-8 md:p-12 rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-950 text-white shadow-2xl border border-indigo-800/80 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
             
             <div className="relative z-10 max-w-4xl space-y-4 sm:space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-[11px] sm:text-xs font-semibold tracking-wider uppercase">
@@ -1540,9 +1540,9 @@ export default function LandingPage() {
           </div>
 
           {/* Your Business. Your Website. Your Control. */}
-          <div className="p-5 sm:p-8 md:p-12 rounded-3xl bg-gradient-to-r from-indigo-50/90 via-purple-50/90 to-pink-50/90 border border-indigo-200 shadow-sm backdrop-blur-md space-y-6">
+          <div className="p-5 sm:p-8 md:p-12 rounded-3xl bg-gradient-to-r from-blue-50/90 via-sky-50/90 to-indigo-50/90 border border-blue-200 shadow-sm backdrop-blur-md space-y-6">
             <h3 className="text-xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
-              Your Business. Your Website. <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Your Control.</span>
+              Your Business. Your Website. <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 bg-clip-text text-transparent">Your Control.</span>
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-slate-700">
@@ -1578,7 +1578,7 @@ export default function LandingPage() {
               <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl">
                 To help every business build a stronger digital presence, simplify online business management, and make digital growth more accessible and affordable.
               </p>
-              <div className="pt-2 text-xs sm:text-sm md:text-base font-bold text-transparent bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text">
+              <div className="pt-2 text-xs sm:text-sm md:text-base font-bold text-transparent bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300 bg-clip-text">
                 OneClickBiz — One Platform. Every Business. Your Control.
               </div>
             </div>
@@ -1586,7 +1586,7 @@ export default function LandingPage() {
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center items-stretch lg:items-end">
               <Link
                 href="/signup"
-                className="w-full px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25 transition-all text-center"
+                className="w-full px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30 transition-all text-center"
               >
                 <span>Explore: oneclickbiz.in</span>
                 <ArrowRight className="w-4 h-4" />
@@ -1963,7 +1963,7 @@ export default function LandingPage() {
             </div>
             <Link
               href="/signup?intent=build_card"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-bold text-xs shrink-0 shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 text-center"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shrink-0 shadow-lg shadow-blue-500/30 transition-all active:scale-95 flex items-center justify-center gap-2 text-center"
             >
               <span>Build Your Smart Card Free</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -2126,10 +2126,10 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing Section with Soft Pastel Rose-Indigo Gradient */}
-      <section id="pricing" className="py-24 bg-gradient-to-b from-pink-100/85 via-indigo-100/90 to-purple-100/85 border-y border-indigo-200/80 relative scroll-mt-24 overflow-hidden">
+      {/* Pricing Section with Soft Brand Sky-Blue Background */}
+      <section id="pricing" className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/60 to-blue-50/70 border-y border-slate-200/80 relative scroll-mt-24 overflow-hidden">
         {/* Glowing Background Orbs */}
-        <div className="absolute top-10 left-1/3 w-[750px] h-[500px] bg-gradient-to-r from-pink-400/35 via-purple-400/35 to-indigo-400/35 blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute top-10 left-1/3 w-[750px] h-[500px] bg-gradient-to-r from-sky-400/25 via-blue-400/25 to-indigo-400/20 blur-[130px] pointer-events-none -z-10" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
@@ -2208,13 +2208,13 @@ export default function LandingPage() {
           </div>
 
           {/* Plan 2: Pro (Highlighted) */}
-          <div className="p-5 sm:p-8 rounded-3xl bg-gradient-to-b from-indigo-50/90 via-white to-white border-2 border-indigo-500 flex flex-col justify-between space-y-6 relative shadow-[0_20px_50px_rgba(99,102,241,0.15)]">
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-gradient-to-r from-indigo-600 to-pink-500 text-white font-bold text-[10px] uppercase tracking-wider shadow-lg shadow-indigo-500/25">
+          <div className="p-5 sm:p-8 rounded-3xl bg-gradient-to-b from-blue-50/70 via-white to-white border-2 border-blue-600 flex flex-col justify-between space-y-6 relative shadow-[0_20px_50px_rgba(37,99,235,0.15)]">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-blue-600 text-white font-bold text-[10px] uppercase tracking-wider shadow-lg shadow-blue-500/25">
               ⭐ Most Popular
             </div>
             <div className="space-y-4">
               <div className="space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600">Multi-service Professionals &amp; Agencies</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600">Multi-service Professionals &amp; Agencies</span>
                 <h4 className="text-xl font-bold text-slate-900">Pro Plan</h4>
               </div>
               <p className="text-xs text-slate-600">Complete suite for multi-service professionals, agencies, and side hustles.</p>
@@ -2234,7 +2234,7 @@ export default function LandingPage() {
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-indigo-600" /> Priority WhatsApp &amp; Email Support</li>
               </ul>
             </div>
-            <Link href="/signup?plan=Pro&intent=select_plan" className="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-xs text-center shadow-lg shadow-indigo-500/30 transition-all active:scale-95">
+            <Link href="/signup?plan=Pro&intent=select_plan" className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs text-center shadow-lg shadow-blue-500/30 transition-all active:scale-95">
               Get Started with Pro (₹{pricing.proPrice.toLocaleString()})
             </Link>
           </div>
@@ -2503,7 +2503,7 @@ export default function LandingPage() {
                   <button 
                     type="submit"
                     disabled={isSubmittingContact}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-pink-500 hover:opacity-95 text-white font-bold text-xs shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 transition active:scale-[0.99] disabled:opacity-50"
+                    className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 transition active:scale-[0.99] disabled:opacity-50"
                   >
                     {isSubmittingContact ? (
                       <span>Sending Message...</span>
