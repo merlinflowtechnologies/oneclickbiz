@@ -50,6 +50,8 @@ import {
   RefreshCw,
   X,
   Lock,
+  Unlock,
+  MousePointerClick,
   Quote,
   Lightbulb,
   Building2,
@@ -340,6 +342,7 @@ export default function LandingPage() {
   const [aliasSearch, setAliasSearch] = useState('');
   const [aliasStatus, setAliasStatus] = useState<'idle' | 'available' | 'taken'>('idle');
   const [heroDemoMode, setHeroDemoMode] = useState<'mobile' | 'website'>('website');
+  const [isDemoInteractive, setIsDemoInteractive] = useState<boolean>(false);
   const [selectedDemoTheme, setSelectedDemoTheme] = useState<'modern-indigo' | 'dark-onyx' | 'glassmorphic' | 'emerald-pro' | 'sunset-gold'>('modern-indigo');
   const [templateFilter, setTemplateFilter] = useState<string>('all');
   const [previewTemplate, setPreviewTemplate] = useState<VCardTemplateItem | null>(null);
@@ -1035,7 +1038,10 @@ export default function LandingPage() {
           {/* Interactive Frame Rendering */}
           {heroDemoMode === 'website' ? (
             /* Desktop Browser Shell Frame Mockup (Expanded Width) */
-            <div className="w-full max-w-4xl xl:max-w-5xl mx-auto rounded-2xl sm:rounded-3xl bg-white border border-slate-300 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.25)] overflow-hidden transition-all duration-300">
+            <div 
+              onMouseLeave={() => setIsDemoInteractive(false)}
+              className="w-full max-w-4xl xl:max-w-5xl mx-auto rounded-2xl sm:rounded-3xl bg-white border border-slate-300 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.25)] overflow-hidden transition-all duration-300 relative"
+            >
               {/* Browser Chrome Window Bar */}
               <div className="bg-slate-900 px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between border-b border-slate-800">
                 <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
@@ -1048,30 +1054,55 @@ export default function LandingPage() {
                     <span className="truncate">oneclickbiz.in/v/kishore</span>
                   </div>
                 </div>
-                <a
-                  href="/v/kishore"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[11px] sm:text-xs font-bold text-indigo-300 hover:text-white flex items-center gap-1 sm:gap-1.5 transition px-2.5 sm:px-3 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700/50 shrink-0 ml-1.5"
-                >
-                  <span className="hidden xs:inline">Full Screen View</span>
-                  <span className="xs:hidden">Full Screen</span>
-                  <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                </a>
-              </div>
-              {/* Inner Scrollable Website Content */}
-              <div 
-                className="h-[600px] xs:h-[660px] sm:h-[720px] lg:h-[780px] overflow-y-auto scrollbar-none bg-slate-50 relative"
-                style={{ maxHeight: '780px', overflowY: 'auto', contain: 'paint' }}
-              >
-                <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
-                {/* Floating Bottom Scroll Hint for Mobile Users */}
-                <div className="sticky bottom-2 inset-x-0 flex justify-center pointer-events-none pb-1 sm:hidden z-30">
-                  <div className="px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md text-white text-[10px] font-bold shadow-lg border border-white/20 flex items-center gap-1.5 animate-pulse">
-                    <span>Scroll inside window to explore projects ↓</span>
-                  </div>
+
+                <div className="flex items-center gap-2">
+                  {isDemoInteractive ? (
+                    <button
+                      type="button"
+                      onClick={() => setIsDemoInteractive(false)}
+                      className="text-[11px] sm:text-xs font-bold text-white flex items-center gap-1 sm:gap-1.5 transition px-2.5 sm:px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 shadow-sm shrink-0 cursor-pointer"
+                      title="Lock inner demo scroll to freely scroll the webpage"
+                    >
+                      <Lock className="w-3 h-3 text-white" />
+                      <span>Lock Scroll (Scroll Page)</span>
+                    </button>
+                  ) : null}
+
+                  <a
+                    href="/v/kishore"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[11px] sm:text-xs font-bold text-indigo-300 hover:text-white flex items-center gap-1 sm:gap-1.5 transition px-2.5 sm:px-3 py-1 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700/50 shrink-0"
+                  >
+                    <span className="hidden xs:inline">Full Screen View</span>
+                    <span className="xs:hidden">Full Screen</span>
+                    <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  </a>
                 </div>
               </div>
+
+              {/* Inner Website Content with Scroll Hijacking Prevention */}
+              <div 
+                className={`h-[600px] xs:h-[660px] sm:h-[720px] lg:h-[780px] scrollbar-none bg-slate-50 relative ${
+                  isDemoInteractive ? 'overflow-y-auto pointer-events-auto' : 'overflow-hidden pointer-events-none'
+                }`}
+                style={{ maxHeight: '780px', contain: 'paint' }}
+              >
+                <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="website" showViewToggle={false} />
+              </div>
+
+              {/* Click to Interact Overlay when not actively scrolling demo */}
+              {!isDemoInteractive && (
+                <div 
+                  onClick={() => setIsDemoInteractive(true)}
+                  className="absolute inset-x-0 bottom-0 top-[48px] z-20 flex items-end justify-center pb-6 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent cursor-pointer group"
+                >
+                  <div className="px-5 py-2.5 rounded-full bg-slate-900/95 hover:bg-blue-600 text-white text-xs sm:text-sm font-bold shadow-2xl border border-white/20 flex items-center gap-2 group-hover:scale-105 transition-all backdrop-blur-md">
+                    <MousePointerClick className="w-4 h-4 text-sky-400 group-hover:text-white" />
+                    <span>Click / Tap to Scroll & Explore Demo</span>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             /* Mobile Phone Mockup Frame with Companion Callouts */
@@ -1100,14 +1131,43 @@ export default function LandingPage() {
               </div>
 
               {/* Center Phone Mockup Frame */}
-              <div className="w-full max-w-[285px] xs:max-w-[320px] sm:max-w-[360px] rounded-[40px] sm:rounded-[48px] p-2.5 sm:p-3 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300">
+              <div 
+                onMouseLeave={() => setIsDemoInteractive(false)}
+                className="w-full max-w-[285px] xs:max-w-[320px] sm:max-w-[360px] rounded-[40px] sm:rounded-[48px] p-2.5 sm:p-3 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)] relative ring-1 ring-slate-800 transition-all duration-300"
+              >
                 {/* Dynamic Island Speaker Notch */}
                 <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center justify-end pr-2.5 shadow-xs border border-slate-800/80 pointer-events-none">
                   <div className="w-2 h-2 rounded-full bg-slate-800" />
                 </div>
-                <div className="rounded-[32px] sm:rounded-[38px] overflow-hidden bg-white h-[580px] xs:h-[620px] sm:h-[660px] overflow-y-auto scrollbar-none border border-slate-200/80 shadow-inner">
+                <div className={`rounded-[32px] sm:rounded-[38px] overflow-hidden bg-white h-[580px] xs:h-[620px] sm:h-[660px] scrollbar-none border border-slate-200/80 shadow-inner relative ${
+                  isDemoInteractive ? 'overflow-y-auto pointer-events-auto' : 'overflow-hidden pointer-events-none'
+                }`}>
                   <ProfileCardView profile={demoProfile} isMockup={true} initialViewMode="mobile" showViewToggle={false} />
                 </div>
+
+                {/* Unlock / Relock controls for Mobile frame */}
+                {!isDemoInteractive ? (
+                  <div 
+                    onClick={() => setIsDemoInteractive(true)}
+                    className="absolute inset-x-3 bottom-5 z-20 flex items-end justify-center cursor-pointer group"
+                  >
+                    <div className="px-4 py-2 rounded-full bg-slate-900/95 hover:bg-blue-600 text-white text-xs font-bold shadow-xl border border-white/20 flex items-center gap-1.5 group-hover:scale-105 transition-all backdrop-blur-md">
+                      <MousePointerClick className="w-3.5 h-3.5 text-sky-400 group-hover:text-white" />
+                      <span>Tap to Scroll Demo</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="absolute inset-x-3 bottom-5 z-20 flex justify-center pointer-events-auto">
+                    <button
+                      type="button"
+                      onClick={() => setIsDemoInteractive(false)}
+                      className="px-3.5 py-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xl flex items-center gap-1.5 transition-all cursor-pointer"
+                    >
+                      <Lock className="w-3 h-3" />
+                      <span>Lock Scroll (Scroll Page)</span>
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Right Companion Highlights */}
