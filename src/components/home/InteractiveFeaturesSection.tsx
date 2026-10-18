@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   CreditCard, 
   Wifi, 
@@ -17,7 +17,9 @@ import {
   ArrowRight,
   Filter,
   Zap,
-  CheckCircle2
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { FEATURES_DATA, FeatureDetail, SECTORS } from '@/data/featureSectorImpact';
 import FeatureImpactModal from './FeatureImpactModal';
@@ -55,6 +57,14 @@ const THEME_STYLES: Record<string, { bg: string; text: string; border: string; h
 export default function InteractiveFeaturesSection() {
   const [activeSector, setActiveSector] = useState<string>('all');
   const [selectedFeature, setSelectedFeature] = useState<FeatureDetail | null>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  const scrollSlider = (direction: 'left' | 'right') => {
+    if (sliderRef.current) {
+      const scrollAmount = direction === 'left' ? -400 : 400;
+      sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   const handleOpenFeature = (feat: FeatureDetail) => {
     setSelectedFeature(feat);
@@ -72,7 +82,7 @@ export default function InteractiveFeaturesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider shadow-sm">
             <Sparkles size={13} className="text-blue-600" />
             Interactive Feature Matrix &amp; Sector Impact
@@ -86,7 +96,7 @@ export default function InteractiveFeaturesSection() {
         </div>
 
         {/* Sector Filter Bar */}
-        <div className="mb-10">
+        <div className="mb-8">
           <div className="flex items-center justify-center gap-2 flex-wrap">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-600 px-2 mr-1">
               <Filter size={13} className="text-blue-600" />
@@ -113,93 +123,154 @@ export default function InteractiveFeaturesSection() {
           </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURES_DATA.map((feat) => {
-            const IconComponent = ICON_MAP[feat.iconName] || CreditCard;
-            const theme = THEME_STYLES[feat.themeColor] || THEME_STYLES.indigo;
-            
-            // Check if there is specific sector insight for active sector
-            const sectorInsight = activeSector !== 'all' 
-              ? feat.sectorImpacts.find(s => s.sectorId === activeSector)
-              : null;
+        {/* Top Scroll Notice & Navigation Arrows */}
+        <div className="flex items-center justify-between mb-4 px-1">
+          <div className="flex items-center gap-2 text-xs font-bold text-slate-600">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+              8 Core Capabilities
+            </span>
+            <span className="hidden sm:inline text-slate-400 font-normal">
+              • Swipe or use arrows to scroll horizontally
+            </span>
+          </div>
 
-            return (
-              <div
-                key={feat.id}
-                id={`feature-card-${feat.id}`}
-                onClick={() => handleOpenFeature(feat)}
-                className="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/90 hover:border-blue-400/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all cursor-pointer overflow-hidden group hover:-translate-y-1.5 duration-300 flex flex-col justify-between"
-              >
-                {/* Feature Image Header (Matching ProfessionalMiniWebsiteView pattern) */}
-                <div className="relative h-44 sm:h-48 overflow-hidden bg-slate-100">
-                  <img 
-                    src={feat.imageUrl || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'} 
-                    alt={feat.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/25 to-transparent" />
-                  
-                  {/* Floating Icon Box on Image */}
-                  <div className={`absolute top-3 left-3 w-10 h-10 rounded-xl ${theme.bg} ${theme.text} flex items-center justify-center border ${theme.border} shadow-md backdrop-blur-md group-hover:scale-110 transition-transform`}>
-                    <IconComponent className="w-5 h-5" />
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => scrollSlider('left')}
+              className="w-9 h-9 rounded-full bg-white border border-slate-200/90 text-slate-700 shadow-sm flex items-center justify-center hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all active:scale-95"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => scrollSlider('right')}
+              className="w-9 h-9 rounded-full bg-white border border-slate-200/90 text-slate-700 shadow-sm flex items-center justify-center hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all active:scale-95"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Scrollable Features Track Container */}
+        <div className="relative group/slider">
+          {/* Floating Left Scroll Arrow (Desktop) */}
+          <button
+            onClick={() => scrollSlider('left')}
+            className="hidden lg:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/95 border border-slate-200/90 text-slate-700 shadow-xl items-center justify-center hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
+            aria-label="Scroll left"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+
+          {/* Floating Right Scroll Arrow (Desktop) */}
+          <button
+            onClick={() => scrollSlider('right')}
+            className="hidden lg:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/95 border border-slate-200/90 text-slate-700 shadow-xl items-center justify-center hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all hover:scale-110 active:scale-95 backdrop-blur-md"
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          {/* Scrollable Features Track */}
+          <div
+            ref={sliderRef}
+            className="flex items-stretch gap-6 overflow-x-auto scrollbar-none scroll-smooth py-4 px-1 select-none"
+            style={{ scrollSnapType: 'x mandatory' }}
+          >
+            {FEATURES_DATA.map((feat) => {
+              const IconComponent = ICON_MAP[feat.iconName] || CreditCard;
+              const theme = THEME_STYLES[feat.themeColor] || THEME_STYLES.indigo;
+              
+              // Check if there is specific sector insight for active sector
+              const sectorInsight = activeSector !== 'all' 
+                ? feat.sectorImpacts.find(s => s.sectorId === activeSector)
+                : null;
+
+              return (
+                <div
+                  key={feat.id}
+                  id={`feature-card-${feat.id}`}
+                  onClick={() => handleOpenFeature(feat)}
+                  style={{ scrollSnapAlign: 'start' }}
+                  className="w-[300px] xs:w-[330px] sm:w-[360px] md:w-[380px] shrink-0 rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/90 hover:border-blue-400/80 shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-2xl transition-all cursor-pointer overflow-hidden group hover:-translate-y-1.5 duration-300 flex flex-col justify-between"
+                >
+                  {/* Feature Image Header (Matching ProfessionalMiniWebsiteView pattern) */}
+                  <div className="relative h-44 sm:h-48 overflow-hidden bg-slate-100">
+                    <img 
+                      src={feat.imageUrl || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'} 
+                      alt={feat.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/25 to-transparent" />
+                    
+                    {/* Floating Icon Box on Image */}
+                    <div className={`absolute top-3 left-3 w-10 h-10 rounded-xl ${theme.bg} ${theme.text} flex items-center justify-center border ${theme.border} shadow-md backdrop-blur-md group-hover:scale-110 transition-transform`}>
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+
+                    {/* Feature Badge */}
+                    <span className={`absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${theme.bg} ${theme.text} border ${theme.border} backdrop-blur-md shadow-xs`}>
+                      {feat.badge}
+                    </span>
+
+                    {/* Quick Tagline Pill on bottom of Image */}
+                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-medium drop-shadow-sm">
+                      <span className="truncate max-w-[80%] font-semibold tracking-wide text-white/95">{feat.tagline}</span>
+                      <span className="text-[10px] text-amber-300 font-bold shrink-0">Explore →</span>
+                    </div>
                   </div>
 
-                  {/* Feature Badge */}
-                  <span className={`absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${theme.bg} ${theme.text} border ${theme.border} backdrop-blur-md shadow-xs`}>
-                    {feat.badge}
-                  </span>
+                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div className="space-y-2.5">
+                      {/* Title & Description */}
+                      <h4 className={`text-base sm:text-lg font-bold text-slate-900 ${theme.glow} transition-colors leading-snug`}>
+                        {feat.name}
+                      </h4>
+                      <p className="text-xs leading-relaxed text-slate-600 line-clamp-3">
+                        {feat.description}
+                      </p>
 
-                  {/* Quick Tagline Pill on bottom of Image */}
-                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-medium drop-shadow-sm">
-                    <span className="truncate max-w-[80%] font-semibold tracking-wide text-white/95">{feat.tagline}</span>
-                    <span className="text-[10px] text-amber-300 font-bold shrink-0">Explore →</span>
-                  </div>
-                </div>
-
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2.5">
-                    {/* Title & Description */}
-                    <h4 className={`text-base sm:text-lg font-bold text-slate-900 ${theme.glow} transition-colors leading-snug`}>
-                      {feat.name}
-                    </h4>
-                    <p className="text-xs leading-relaxed text-slate-600 line-clamp-3">
-                      {feat.description}
-                    </p>
-
-                    {/* Dynamic Sector Pill if an industry is selected */}
-                    {sectorInsight && (
-                      <div className="p-3 rounded-2xl bg-indigo-50/80 border border-indigo-200/80 space-y-1 animate-in fade-in duration-200">
-                        <div className="flex items-center gap-1.5 text-[11px] font-bold text-indigo-900">
-                          <span>{sectorInsight.sectorIcon}</span>
-                          <span>For {sectorInsight.sectorName}:</span>
+                      {/* Dynamic Sector Pill if an industry is selected */}
+                      {sectorInsight && (
+                        <div className="p-3 rounded-2xl bg-indigo-50/80 border border-indigo-200/80 space-y-1 animate-in fade-in duration-200">
+                          <div className="flex items-center gap-1.5 text-[11px] font-bold text-indigo-900">
+                            <span>{sectorInsight.sectorIcon}</span>
+                            <span>For {sectorInsight.sectorName}:</span>
+                          </div>
+                          <p className="text-[11px] text-slate-700 leading-tight">
+                            {sectorInsight.roiBenefit}
+                          </p>
                         </div>
-                        <p className="text-[11px] text-slate-700 leading-tight">
-                          {sectorInsight.roiBenefit}
-                        </p>
-                      </div>
-                    )}
-                  </div>
+                      )}
+                    </div>
 
-                  {/* Card Action Footer */}
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600 group-hover:text-blue-700">
-                    <span className="flex items-center gap-1">
-                      <span>How this helps your sector</span>
-                      <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
-                    </span>
-                    <span className="text-[10px] text-slate-400 font-normal group-hover:text-slate-600">
-                      Click to explore →
-                    </span>
+                    {/* Card Action Footer */}
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600 group-hover:text-blue-700">
+                      <span className="flex items-center gap-1">
+                        <span>How this helps your sector</span>
+                        <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-normal group-hover:text-slate-600">
+                        Click to explore →
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Mobile Swipe Notice */}
+        <div className="flex items-center justify-center gap-1.5 mt-4 sm:hidden text-[11px] font-semibold text-blue-700 bg-blue-50/90 px-3.5 py-1.5 rounded-full border border-blue-200/90 w-fit mx-auto shadow-xs">
+          <span>👈 Swipe horizontally to view all capabilities 👉</span>
         </div>
 
         {/* Bottom Helper Note */}
-        <div className="mt-12 text-center">
+        <div className="mt-10 text-center">
           <p className="text-xs text-slate-600 font-medium">
             💡 <strong>Pro-Tip:</strong> Click on any feature above to view interactive case studies, pain point solutions, and expected ROI for your specific business domain.
           </p>
