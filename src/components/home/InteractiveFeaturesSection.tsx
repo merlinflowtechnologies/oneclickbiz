@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   CreditCard, 
   Wifi, 
@@ -57,7 +57,27 @@ const THEME_STYLES: Record<string, { bg: string; text: string; border: string; h
 export default function InteractiveFeaturesSection() {
   const [activeSector, setActiveSector] = useState<string>('all');
   const [selectedFeature, setSelectedFeature] = useState<FeatureDetail | null>(null);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
   const sliderRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll effect with pause-on-hover & smooth circular loop
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      if (sliderRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+        // Loop back to start if at the end
+        if (scrollLeft + clientWidth >= scrollWidth - 15) {
+          sliderRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          sliderRef.current.scrollBy({ left: 390, behavior: 'smooth' });
+        }
+      }
+    }, 3200);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   const scrollSlider = (direction: 'left' | 'right') => {
     if (sliderRef.current) {
@@ -153,8 +173,14 @@ export default function InteractiveFeaturesSection() {
           </div>
         </div>
 
-        {/* Scrollable Features Track Container */}
-        <div className="relative group/slider">
+        {/* Scrollable Features Track Container with Auto-Scroll & Pause-on-Hover */}
+        <div 
+          className="relative group/slider"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => setIsPaused(false)}
+        >
           {/* Floating Left Scroll Arrow (Desktop) */}
           <button
             onClick={() => scrollSlider('left')}

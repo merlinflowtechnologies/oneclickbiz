@@ -231,11 +231,11 @@ export default function Footer() {
                 <span>Products</span>
               </h4>
               <ul className="space-y-2 text-slate-600 text-xs">
-                <li><Link href="/#services" onClick={(e) => handleAnchorClick(e, 'services')} className="hover:text-indigo-600 transition">Mini Websites &amp; Profiles</Link></li>
+                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-600 transition">Mini Websites &amp; Profiles</Link></li>
                 <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-600 transition">Dynamic vCards</Link></li>
-                <li><Link href="/#whatsapp-store" onClick={(e) => handleAnchorClick(e, 'whatsapp-store')} className="hover:text-indigo-600 transition">WhatsApp Store</Link></li>
+                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-600 transition">WhatsApp Store</Link></li>
                 <li><Link href="/scan" className="hover:text-indigo-600 transition">Dynamic QR Studio</Link></li>
-                <li><Link href="/#blogs" onClick={(e) => handleAnchorClick(e, 'blogs')} className="hover:text-indigo-600 transition">Brochure &amp; Blog Studio</Link></li>
+                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-600 transition">Brochure &amp; Blog Studio</Link></li>
                 <li><Link href="/vcard-templates" className="hover:text-indigo-700 transition text-indigo-600 font-semibold flex items-center gap-1">Templates Gallery</Link></li>
               </ul>
             </div>
@@ -243,30 +243,30 @@ export default function Footer() {
             {/* Col 2: Solutions */}
             <div className="space-y-3">
               <h4 className="font-bold text-slate-900 uppercase text-[11px] tracking-wider flex items-center gap-1.5">
-                <Zap className="w-3.5 h-3.5 text-purple-600" />
+                <Zap className="w-3.5 h-3.5 text-indigo-600" />
                 <span>Solutions</span>
               </h4>
               <ul className="space-y-2 text-slate-600 text-xs">
                 <li><Link href="/#about" onClick={(e) => handleAnchorClick(e, 'about')} className="hover:text-indigo-600 transition">For Executives</Link></li>
                 <li><Link href="/#templates" onClick={(e) => handleAnchorClick(e, 'templates')} className="hover:text-indigo-600 transition">For Real Estate</Link></li>
                 <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-600 transition">For Retail &amp; Dining</Link></li>
-                <li><Link href="/#services" onClick={(e) => handleAnchorClick(e, 'services')} className="hover:text-indigo-600 transition">Corporate Teams</Link></li>
-                <li><Link href="/#demo" onClick={(e) => handleAnchorClick(e, 'demo')} className="hover:text-indigo-600 transition">1-Click .VCF Save</Link></li>
-                <li><Link href="/#booking" onClick={(e) => handleAnchorClick(e, 'booking')} className="hover:text-indigo-600 transition">Booking Engine</Link></li>
+                <li><Link href="/#pricing" onClick={(e) => handleAnchorClick(e, 'pricing')} className="hover:text-indigo-600 transition">Corporate Teams</Link></li>
+                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-600 transition">1-Click .VCF Save</Link></li>
+                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-600 transition">Booking Engine</Link></li>
               </ul>
             </div>
 
             {/* Col 3: Company */}
             <div className="space-y-3">
               <h4 className="font-bold text-slate-900 uppercase text-[11px] tracking-wider flex items-center gap-1.5">
-                <Globe className="w-3.5 h-3.5 text-pink-600" />
+                <Globe className="w-3.5 h-3.5 text-blue-600" />
                 <span>Company</span>
               </h4>
               <ul className="space-y-2 text-slate-600 text-xs">
-                <li><Link href="/#demo" onClick={(e) => handleAnchorClick(e, 'demo')} className="hover:text-indigo-700 transition text-indigo-600 font-semibold">How It Works</Link></li>
+                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-indigo-700 transition text-indigo-600 font-semibold">How It Works</Link></li>
                 <li><Link href="/#about" onClick={(e) => handleAnchorClick(e, 'about')} className="hover:text-indigo-600 transition">About Us</Link></li>
                 <li><Link href="/#pricing" onClick={(e) => handleAnchorClick(e, 'pricing')} className="hover:text-indigo-600 transition">Pricing Plans</Link></li>
-                <li><Link href="/#services" onClick={(e) => handleAnchorClick(e, 'services')} className="hover:text-indigo-600 transition">Enterprise</Link></li>
+                <li><Link href="/#pricing" onClick={(e) => handleAnchorClick(e, 'pricing')} className="hover:text-indigo-600 transition">Enterprise</Link></li>
                 <li><Link href="/contact" className="hover:text-indigo-600 transition">Contact Us</Link></li>
                 <li><Link href="/careers" className="hover:text-indigo-600 transition flex items-center gap-1.5"><span>Careers</span><span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700 font-semibold border border-emerald-200">Hiring</span></Link></li>
               </ul>
