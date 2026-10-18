@@ -507,11 +507,14 @@ export default function LandingPage() {
       <Navbar />
 
       {/* Hero Section with Clean Corporate SaaS Aesthetic */}
-      <section className="relative pt-10 pb-16 sm:pt-14 sm:pb-22 lg:pt-16 lg:pb-24 overflow-hidden bg-gradient-to-b from-slate-50 via-blue-50/25 to-white border-b border-slate-200/80">
+      <section className="relative pt-10 pb-16 sm:pt-14 sm:pb-22 lg:pt-16 lg:pb-24 overflow-hidden bg-gradient-to-b from-slate-50 via-blue-50/40 to-sky-50/30 border-b border-slate-200/80">
         
-        {/* Subtle Ambient Glow */}
-        <div className="absolute top-0 right-1/4 w-[600px] h-[350px] bg-blue-400/10 blur-[130px] -z-10 pointer-events-none" />
-        <div className="absolute bottom-0 left-10 w-[500px] h-[300px] bg-indigo-400/10 blur-[130px] -z-10 pointer-events-none" />
+        {/* Subtle Professional Grid Texture */}
+        <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none -z-10" />
+
+        {/* Ambient Glows */}
+        <div className="absolute top-0 right-1/4 w-[650px] h-[400px] bg-gradient-to-r from-blue-400/20 via-sky-400/20 to-indigo-400/15 blur-[140px] -z-10 pointer-events-none" />
+        <div className="absolute bottom-10 left-10 w-[550px] h-[350px] bg-gradient-to-r from-indigo-400/15 via-blue-400/15 to-cyan-300/15 blur-[140px] -z-10 pointer-events-none" />
         
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           
@@ -842,75 +845,91 @@ export default function LandingPage() {
         </div>
 
           {/* 10 All-in-One Capabilities Grid & Social Proof Badges (Matching Brand Design) */}
-          <div className="mt-12 pt-10 border-t border-slate-200/80">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5 sm:gap-5">
+          <div className="mt-14 p-6 sm:p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-white/95 via-blue-50/50 to-slate-50/90 border border-blue-200/80 shadow-[0_12px_45px_rgba(37,99,235,0.08)] backdrop-blur-xl relative overflow-hidden">
+            {/* Ambient Corner Glow */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="text-center max-w-2xl mx-auto mb-8 relative z-10 space-y-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100/80 border border-blue-200 text-blue-700 text-[11px] font-bold uppercase tracking-wider shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-blue-600" /> All-in-One Growth Engine
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                Everything Your Business Needs Under One Brand
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600">
+                Tap on any capability to see how OneClickBiz powers your operations from day one.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5 sm:gap-4 relative z-10">
               
               {/* 1. Website */}
-              <a href="#features" className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-blue-300 hover:shadow-md transition-all group">
-                <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/25 group-hover:scale-110 transition-transform mb-2">
+              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-0.5 transition-all group">
+                <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform mb-2.5">
                   <Globe className="w-6 h-6" />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Website</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5">Your Online Storefront</p>
+                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Your Online Storefront</p>
               </a>
 
               {/* 2. WhatsApp Store */}
-              <a href="#features" className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-300 hover:shadow-md transition-all group">
-                <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/25 group-hover:scale-110 transition-transform mb-2">
+              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-0.5 transition-all group">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/30 group-hover:scale-110 transition-transform mb-2.5">
                   <MessageCircle className="w-6 h-6" />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">WhatsApp Store</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5">Sell on WhatsApp</p>
+                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Sell on WhatsApp</p>
               </a>
 
               {/* 3. E-Commerce */}
-              <a href="#features" className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-rose-300 hover:shadow-md transition-all group">
-                <div className="w-12 h-12 rounded-full bg-rose-500 text-white flex items-center justify-center shadow-md shadow-rose-500/25 group-hover:scale-110 transition-transform mb-2">
+              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-rose-400 hover:shadow-lg hover:shadow-rose-500/10 hover:-translate-y-0.5 transition-all group">
+                <div className="w-12 h-12 rounded-2xl bg-rose-500 text-white flex items-center justify-center shadow-md shadow-rose-500/30 group-hover:scale-110 transition-transform mb-2.5">
                   <ShoppingBag className="w-6 h-6" />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-rose-600 transition-colors">E-Commerce</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5">Products &amp; Payments</p>
+                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Products &amp; Payments</p>
               </a>
 
               {/* 4. Videos */}
-              <a href="#features" className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-purple-300 hover:shadow-md transition-all group">
-                <div className="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-md shadow-purple-500/25 group-hover:scale-110 transition-transform mb-2">
+              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/10 hover:-translate-y-0.5 transition-all group">
+                <div className="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center shadow-md shadow-purple-500/30 group-hover:scale-110 transition-transform mb-2.5">
                   <Video className="w-6 h-6" />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Videos</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5">Showcase Your Business</p>
+                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Showcase Your Business</p>
               </a>
 
               {/* 5. Digital VCards */}
-              <a href="#features" className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all group">
-                <div className="w-12 h-12 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-md shadow-amber-500/25 group-hover:scale-110 transition-transform mb-2">
+              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/10 hover:-translate-y-0.5 transition-all group">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-md shadow-amber-500/30 group-hover:scale-110 transition-transform mb-2.5">
                   <CreditCard className="w-6 h-6" />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-amber-600 transition-colors">Digital VCards</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5">Share Instantly</p>
+                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Share Instantly</p>
               </a>
 
               {/* 6. Products & Services */}
-              <a href="#features" className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-teal-300 hover:shadow-md transition-all group">
-                <div className="w-12 h-12 rounded-full bg-teal-600 text-white flex items-center justify-center shadow-md shadow-teal-500/25 group-hover:scale-110 transition-transform mb-2">
+              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-teal-400 hover:shadow-lg hover:shadow-teal-500/10 hover:-translate-y-0.5 transition-all group">
+                <div className="w-12 h-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center shadow-md shadow-teal-500/30 group-hover:scale-110 transition-transform mb-2.5">
                   <Package className="w-6 h-6" />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-teal-600 transition-colors">Products &amp; Services</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5">Show What You Offer</p>
+                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Show What You Offer</p>
               </a>
 
               {/* 7. QR Codes */}
-              <a href="#features" className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-pink-300 hover:shadow-md transition-all group">
-                <div className="w-12 h-12 rounded-full bg-pink-600 text-white flex items-center justify-center shadow-md shadow-pink-500/25 group-hover:scale-110 transition-transform mb-2">
+              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-pink-400 hover:shadow-lg hover:shadow-pink-500/10 hover:-translate-y-0.5 transition-all group">
+                <div className="w-12 h-12 rounded-2xl bg-pink-600 text-white flex items-center justify-center shadow-md shadow-pink-500/30 group-hover:scale-110 transition-transform mb-2.5">
                   <QrCode className="w-6 h-6" />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-pink-600 transition-colors">QR Codes</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5">Scan &amp; Connect</p>
+                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Scan &amp; Connect</p>
               </a>
 
               {/* 8. Social Media */}
-              <a href="#features" className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-indigo-300 hover:shadow-md transition-all group">
-                <div className="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/25 group-hover:scale-110 transition-transform mb-2">
+              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-indigo-400 hover:shadow-lg hover:shadow-indigo-500/10 hover:-translate-y-0.5 transition-all group">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/30 group-hover:scale-110 transition-transform mb-2.5">
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
@@ -918,49 +937,49 @@ export default function LandingPage() {
                   </svg>
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Social Media</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5">Grow Your Audience</p>
+                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Grow Your Audience</p>
               </a>
 
               {/* 9. & More */}
-              <a href="#features" className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-sky-300 hover:shadow-md transition-all group col-span-2 sm:col-span-1">
-                <div className="w-12 h-12 rounded-full bg-sky-500 text-white flex items-center justify-center shadow-md shadow-sky-500/25 group-hover:scale-110 transition-transform mb-2">
+              <a href="#features" className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/95 border border-slate-200/90 hover:border-sky-400 hover:shadow-lg hover:shadow-sky-500/10 hover:-translate-y-0.5 transition-all group col-span-2 sm:col-span-1">
+                <div className="w-12 h-12 rounded-2xl bg-sky-500 text-white flex items-center justify-center shadow-md shadow-sky-500/30 group-hover:scale-110 transition-transform mb-2.5">
                   <Plus className="w-6 h-6 stroke-[3]" />
                 </div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-sky-600 transition-colors">&amp; More</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5">Everything You Need</p>
+                <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Everything You Need</p>
               </a>
 
             </div>
 
-            {/* 3 Key Social Proof Cards */}
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 max-w-4xl mx-auto">
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center justify-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+            {/* 3 Key Social Proof Cards with Rich Corporate Tinting */}
+            <div className="mt-8 pt-7 border-t border-blue-200/70 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 max-w-4xl mx-auto relative z-10">
+              <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-200/90 shadow-sm flex items-center justify-center gap-3.5 hover:bg-blue-50 transition-colors">
+                <div className="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/30">
                   <Rocket className="w-5 h-5" />
                 </div>
                 <div className="text-left">
-                  <h5 className="text-sm font-extrabold text-slate-900">500+</h5>
-                  <p className="text-xs text-slate-600">Happy Businesses</p>
+                  <h5 className="text-base font-black text-slate-900 leading-none">500+</h5>
+                  <p className="text-xs text-slate-600 font-semibold mt-1">Happy Businesses</p>
                 </div>
               </div>
 
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center justify-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 shadow-sm flex items-center justify-center gap-3.5 hover:bg-emerald-50 transition-colors">
+                <div className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/30">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div className="text-left">
-                  <h5 className="text-sm font-extrabold text-slate-900">100%</h5>
-                  <p className="text-xs text-slate-600">Secure &amp; Reliable</p>
+                  <h5 className="text-base font-black text-slate-900 leading-none">100%</h5>
+                  <p className="text-xs text-slate-600 font-semibold mt-1">Secure &amp; Reliable</p>
                 </div>
               </div>
 
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center justify-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <div className="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200/90 shadow-sm flex items-center justify-center gap-3.5 hover:bg-indigo-50 transition-colors">
+                <div className="w-11 h-11 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-indigo-500/30">
                   <Headphones className="w-5 h-5" />
                 </div>
                 <div className="text-left">
-                  <h5 className="text-sm font-extrabold text-slate-900">Dedicated</h5>
-                  <p className="text-xs text-slate-600">Customer Support</p>
+                  <h5 className="text-base font-black text-slate-900 leading-none">Dedicated</h5>
+                  <p className="text-xs text-slate-600 font-semibold mt-1">Customer Support</p>
                 </div>
               </div>
             </div>
@@ -979,11 +998,14 @@ export default function LandingPage() {
       </section>
 
       {/* LIVE INTERACTIVE DEMO SECTION (Shifted Below Hero Section) */}
-      <section id="demo" className="py-20 lg:py-24 bg-gradient-to-b from-sky-50/95 via-white to-blue-50/70 border-b border-blue-200/80 relative overflow-hidden scroll-mt-20">
+      <section id="demo" className="py-20 lg:py-24 bg-gradient-to-b from-sky-50/90 via-blue-50/40 to-indigo-50/50 border-b border-blue-200/80 relative overflow-hidden scroll-mt-20">
         
+        {/* Subtle Professional Grid Texture */}
+        <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none -z-10" />
+
         {/* Soft Ambient Background Highlights */}
-        <div className="absolute top-10 left-1/4 w-[650px] h-[380px] bg-blue-300/20 blur-[130px] pointer-events-none -z-10" />
-        <div className="absolute bottom-10 right-1/4 w-[550px] h-[320px] bg-sky-300/20 blur-[120px] pointer-events-none -z-10" />
+        <div className="absolute top-10 left-1/4 w-[700px] h-[400px] bg-gradient-to-r from-blue-400/15 via-sky-300/15 to-indigo-300/15 blur-[140px] pointer-events-none -z-10" />
+        <div className="absolute bottom-10 right-1/4 w-[600px] h-[350px] bg-gradient-to-l from-sky-400/15 via-blue-300/15 to-cyan-200/15 blur-[130px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -1239,9 +1261,13 @@ export default function LandingPage() {
       </section>
 
       {/* VCARD TEMPLATES SHOWCASE SECTION with Clean Corporate Tint */}
-      <section id="templates" className="py-20 bg-slate-50/80 border-b border-slate-200/80 relative overflow-hidden scroll-mt-20">
-        {/* Subtle Ambient Glow */}
-        <div className="absolute top-1/2 left-1/4 w-[600px] h-[350px] bg-blue-400/10 blur-[130px] pointer-events-none -z-10" />
+      <section id="templates" className="py-20 bg-gradient-to-b from-slate-50 via-blue-50/40 to-slate-100/70 border-b border-slate-200/80 relative overflow-hidden scroll-mt-20">
+        {/* Subtle Professional Grid Texture */}
+        <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none -z-10" />
+
+        {/* Ambient Glows */}
+        <div className="absolute top-1/4 left-1/4 w-[700px] h-[400px] bg-gradient-to-r from-blue-400/15 via-indigo-300/15 to-sky-300/15 blur-[140px] pointer-events-none -z-10" />
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[350px] bg-gradient-to-l from-sky-400/15 via-blue-300/15 to-purple-300/15 blur-[130px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -1888,47 +1914,50 @@ export default function LandingPage() {
       </section>
 
 
-      {/* Head-to-Head Comparison & Differentiation Section */}
-      <section className="py-24 bg-white border-t border-slate-200/80 relative overflow-hidden">
+      {/* Head-to-Head Comparison & Differentiation Section - Executive Dark Sapphire Theme */}
+      <section className="py-24 bg-gradient-to-b from-[#061224] via-[#0a1e3f] to-[#050e1c] border-y border-blue-900/60 relative overflow-hidden text-white">
+        {/* Subtle Professional Grid Texture */}
+        <div className="absolute inset-0 bg-[radial-gradient(#38bdf820_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none -z-10" />
+
         {/* Ambient Gradient Glows */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-r from-blue-500/5 via-sky-500/5 to-indigo-500/5 blur-[140px] pointer-events-none -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-gradient-to-r from-blue-600/20 via-indigo-600/20 to-cyan-500/15 blur-[160px] pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold shadow-xs">
-              <Zap className="w-4 h-4 text-blue-600" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-blue-200 text-xs font-semibold shadow-xs backdrop-blur-md">
+              <Zap className="w-4 h-4 text-amber-400" />
               <span>Built Different For Indian Commerce</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
               Why OneClickBiz vs. Generic Digital Cards
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               Most digital cards are just a flat list of web links. OneClickBiz combines 1-click address book downloads with native WhatsApp micro-stores, direct UPI payments, and high-resolution corporate print studios.
             </p>
           </div>
 
           {/* Mobile Swipe Notice */}
-          <div className="flex items-center justify-center gap-1.5 mb-3 sm:hidden text-[11px] font-semibold text-blue-700 bg-blue-50/90 px-3.5 py-1.5 rounded-full border border-blue-200/90 w-fit mx-auto shadow-xs">
+          <div className="flex items-center justify-center gap-1.5 mb-3 sm:hidden text-[11px] font-semibold text-blue-300 bg-blue-950/80 px-3.5 py-1.5 rounded-full border border-blue-800 w-fit mx-auto shadow-xs">
             <span>👈 Swipe horizontally to view full comparison 👉</span>
           </div>
 
           {/* Comparison Table */}
           <div className="overflow-x-auto pb-4 -mx-2 px-2 sm:mx-0 sm:px-0 scrollbar-none">
-            <div className="min-w-[720px] xs:min-w-[760px] rounded-3xl bg-white border border-slate-200 shadow-xl overflow-hidden">
-              <div className="grid grid-cols-12 bg-slate-50/90 border-b border-slate-200 text-xs font-bold text-slate-700">
-                <div className="col-span-4 p-5 text-slate-500 uppercase tracking-wider text-[11px]">
+            <div className="min-w-[720px] xs:min-w-[760px] rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl backdrop-blur-xl overflow-hidden">
+              <div className="grid grid-cols-12 bg-slate-950/90 border-b border-slate-800 text-xs font-bold text-slate-300">
+                <div className="col-span-4 p-5 text-slate-400 uppercase tracking-wider text-[11px]">
                   Capability / Feature
                 </div>
-                <div className="col-span-2.5 p-5 text-center text-slate-500">
+                <div className="col-span-2.5 p-5 text-center text-slate-400">
                   Generic Link-in-Bio
-                  <span className="block text-[10px] font-normal text-slate-400 mt-0.5">(Linktree, Carrd)</span>
+                  <span className="block text-[10px] font-normal text-slate-500 mt-0.5">(Linktree, Carrd)</span>
                 </div>
-                <div className="col-span-2.5 p-5 text-center text-slate-500">
+                <div className="col-span-2.5 p-5 text-center text-slate-400">
                   Traditional Digital Cards
-                  <span className="block text-[10px] font-normal text-slate-400 mt-0.5">(Popl, Blinq, HiHello)</span>
+                  <span className="block text-[10px] font-normal text-slate-500 mt-0.5">(Popl, Blinq, HiHello)</span>
                 </div>
-                <div className="col-span-3 p-5 text-center bg-blue-600 text-white rounded-t-2xl shadow-md">
+                <div className="col-span-3 p-5 text-center bg-gradient-to-b from-blue-600 to-indigo-600 text-white rounded-t-2xl shadow-xl shadow-blue-500/30 border-t border-x border-blue-400/40">
                   <div className="inline-flex items-center gap-1.5 font-extrabold">
                     <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
                     <span>OneClickBiz</span>
@@ -2006,34 +2035,34 @@ export default function LandingPage() {
               ].map((row, idx) => (
                 <div 
                   key={idx} 
-                  className={`grid grid-cols-12 text-xs border-b border-slate-100 last:border-0 items-center ${
-                    idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'
+                  className={`grid grid-cols-12 text-xs border-b border-slate-800/80 last:border-0 items-center ${
+                    idx % 2 === 0 ? 'bg-slate-900/60' : 'bg-slate-950/50'
                   }`}
                 >
                   <div className="col-span-4 p-4 sm:p-5">
-                    <p className="font-bold text-slate-900">{row.feature}</p>
-                    <p className="text-[11px] text-slate-500 mt-0.5">{row.sub}</p>
+                    <p className="font-bold text-white">{row.feature}</p>
+                    <p className="text-[11px] text-slate-400 mt-0.5">{row.sub}</p>
                   </div>
-                  <div className="col-span-2.5 p-4 sm:p-5 text-center text-slate-600 font-medium border-l border-slate-100">
+                  <div className="col-span-2.5 p-4 sm:p-5 text-center text-slate-300 font-medium border-l border-slate-800/80">
                     {row.generic === false ? (
-                      <span className="inline-flex items-center gap-1 text-slate-400 font-normal">
-                        <X className="w-4 h-4 text-slate-300" /> None
+                      <span className="inline-flex items-center gap-1 text-slate-500 font-normal">
+                        <X className="w-4 h-4 text-slate-500" /> None
                       </span>
                     ) : (
                       row.generic
                     )}
                   </div>
-                  <div className="col-span-2.5 p-4 sm:p-5 text-center text-slate-600 font-medium border-l border-slate-100">
+                  <div className="col-span-2.5 p-4 sm:p-5 text-center text-slate-300 font-medium border-l border-slate-800/80">
                     {row.western === false ? (
-                      <span className="inline-flex items-center gap-1 text-slate-400 font-normal">
-                        <X className="w-4 h-4 text-slate-300" /> None
+                      <span className="inline-flex items-center gap-1 text-slate-500 font-normal">
+                        <X className="w-4 h-4 text-slate-500" /> None
                       </span>
                     ) : (
                       row.western
                     )}
                   </div>
-                  <div className="col-span-3 p-4 sm:p-5 text-center font-bold text-blue-950 bg-blue-50/60 border-l border-blue-100">
-                    <span className="text-blue-900">{row.oneclickbiz}</span>
+                  <div className="col-span-3 p-4 sm:p-5 text-center font-bold text-blue-100 bg-blue-600/20 border-l border-blue-500/30">
+                    <span className="text-blue-200">{row.oneclickbiz}</span>
                   </div>
                 </div>
               ))}
@@ -2041,7 +2070,7 @@ export default function LandingPage() {
           </div>
 
           {/* Consolidate & Save Banner */}
-          <div className="mt-12 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="mt-12 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-blue-950/90 via-indigo-950/90 to-slate-900 text-white shadow-2xl border border-blue-800/70 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-1 text-center md:text-left">
               <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
                 COST CONSOLIDATION
@@ -2055,7 +2084,7 @@ export default function LandingPage() {
             </div>
             <Link
               href="/signup?intent=build_card"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shrink-0 shadow-lg shadow-blue-500/30 transition-all active:scale-95 flex items-center justify-center gap-2 text-center"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shrink-0 shadow-lg shadow-blue-500/30 transition-all active:scale-95 flex items-center justify-center gap-2 text-center"
             >
               <span>Build Your Smart Card Free</span>
               <ArrowRight className="w-3.5 h-3.5" />

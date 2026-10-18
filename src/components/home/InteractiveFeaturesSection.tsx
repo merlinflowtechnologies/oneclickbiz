@@ -61,10 +61,13 @@ export default function InteractiveFeaturesSection() {
   };
 
   return (
-    <section id="features" className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/50 to-blue-50/60 backdrop-blur-xl border-y border-slate-200/80 relative scroll-mt-20 overflow-hidden">
+    <section id="features" className="py-24 bg-gradient-to-b from-slate-50 via-sky-50/60 to-blue-50/70 backdrop-blur-xl border-y border-slate-200/80 relative scroll-mt-20 overflow-hidden">
+      {/* Subtle Professional Grid Texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none -z-10" />
+
       {/* Soft Ambient Floating Blurs */}
-      <div className="absolute top-10 left-10 w-[600px] h-[400px] bg-gradient-to-r from-blue-300/20 via-sky-300/20 to-indigo-300/20 blur-[120px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-10 w-[650px] h-[450px] bg-gradient-to-l from-sky-300/20 via-blue-300/20 to-cyan-200/20 blur-[130px] pointer-events-none -z-10" />
+      <div className="absolute top-10 left-10 w-[700px] h-[450px] bg-gradient-to-r from-blue-400/20 via-sky-300/20 to-indigo-300/20 blur-[130px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[700px] h-[450px] bg-gradient-to-l from-sky-400/20 via-blue-300/20 to-cyan-200/20 blur-[130px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
