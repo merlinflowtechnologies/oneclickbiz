@@ -234,7 +234,7 @@ const CORE_SERVICES = [
     title: 'Visiting Card Studio & 300 DPI PDF',
     category: 'Graphic & Print Design',
     icon: CreditCard,
-    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
+    image: '/images/smart-visiting-card.png',
     badge: '300 DPI Export',
     tagline: 'High-Resolution Vector Export',
     description: 'Design luxury business cards with real-time 3D interactive flip view, custom finishes (Gold, Matte, Neo-Glass), and download vector print-ready front & back PDFs.',

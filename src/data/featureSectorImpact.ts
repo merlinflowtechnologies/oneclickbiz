@@ -127,7 +127,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     badge: '300 DPI Print & Digital',
     iconName: 'CreditCard',
     themeColor: 'amber',
-    imageUrl: 'https://images.unsplash.com/photo-1616628188506-4ad99d65640e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '/images/smart-visiting-card.png',
     description: 'Design luxury business cards with 6 premium templates, 3D interactive flip preview, custom company logos, and download print-ready 300 DPI front & back PDFs paired with dynamic digital links.',
     metrics: [
       { value: '100%', label: 'Zero Paper Waste' },
