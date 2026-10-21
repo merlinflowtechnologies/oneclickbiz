@@ -200,7 +200,7 @@ export default function VCardTemplatesPage() {
                     </div>
                   )}
 
-                  {/* Card Image Container with Justdial Style Banner & Overlay */}
+                  {/* Card Image Container with Banner & Overlay */}
                   <div
                     onClick={() => window.open(`/v/${template.id}`, '_blank', 'noopener,noreferrer')}
                     className="relative h-[220px] sm:h-[250px] w-full bg-slate-950 overflow-hidden cursor-pointer group/img flex items-center justify-center"
@@ -213,7 +213,7 @@ export default function VCardTemplatesPage() {
                       loading="lazy"
                     />
 
-                    {/* Top Gradient Overlay with Justdial Title & Subtitle */}
+                    {/* Top Gradient Overlay with Title & Subtitle */}
                     <div className="absolute top-0 inset-x-0 p-3 pt-2.5 bg-gradient-to-b from-slate-950/85 via-slate-950/40 to-transparent pointer-events-none z-10">
                       <h4 className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-white drop-shadow-md truncate">
                         {template.category}
@@ -223,7 +223,7 @@ export default function VCardTemplatesPage() {
                       </p>
                     </div>
 
-                    {/* Bottom Gradient Overlay with Justdial signature arrow */}
+                    {/* Bottom Gradient Overlay with signature arrow */}
                     <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent pointer-events-none flex items-end p-3 z-10">
                       <div className="flex items-center gap-1.5">
                         <span className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/40 group-hover:scale-110 transition-transform">

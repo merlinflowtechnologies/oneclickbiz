@@ -217,9 +217,197 @@ const VCARD_TEMPLATES = [
   }
 ];
 
-
+const HERO_SERVICES = [
+  {
+    id: 'personal-profile',
+    title: 'Personal Profile',
+    desc: 'Create a professional business profile.',
+    icon: Users,
+    iconColor: 'bg-blue-50 text-blue-600',
+    link: '#demo',
+  },
+  {
+    id: 'mini-website',
+    title: 'Mini Website',
+    desc: 'Get a modern business website.',
+    icon: Monitor,
+    iconColor: 'bg-purple-50 text-purple-600',
+    link: '#demo',
+  },
+  {
+    id: 'whatsapp-store',
+    title: 'WhatsApp Store',
+    desc: 'Sell products directly on WhatsApp.',
+    icon: MessageCircle,
+    iconColor: 'bg-emerald-50 text-emerald-600',
+    link: '#demo',
+  },
+  {
+    id: 'e-commerce',
+    title: 'E-Commerce',
+    desc: 'Sell products online with secure payments.',
+    icon: ShoppingBag,
+    iconColor: 'bg-pink-50 text-pink-600',
+    link: '#demo',
+  },
+  {
+    id: 'visiting-cards',
+    title: 'Visiting Cards, Flyers, Brochures',
+    desc: 'Create and download print ready designs.',
+    icon: CreditCard,
+    iconColor: 'bg-amber-50 text-amber-600',
+    link: '#templates',
+  },
+  {
+    id: 'lead-extractions',
+    title: 'Lead Extractions',
+    desc: 'Find and grow potential customers.',
+    icon: Users,
+    iconColor: 'bg-violet-50 text-violet-600',
+    link: '#demo',
+  },
+  {
+    id: 'custom-domain',
+    title: 'Custom Domain & Landing Pages',
+    desc: 'Use your own domain with custom pages.',
+    icon: Globe,
+    iconColor: 'bg-sky-50 text-sky-600',
+    link: '#demo',
+  },
+  {
+    id: 'reviews-ratings',
+    title: 'Reviews & Ratings',
+    desc: 'Build trust with customer reviews.',
+    icon: Star,
+    iconColor: 'bg-yellow-50 text-amber-500',
+    link: '#demo',
+  },
+  {
+    id: 'gallery-space',
+    title: 'Gallery Space',
+    desc: 'Showcase photos and videos.',
+    icon: ImageIcon,
+    iconColor: 'bg-emerald-50 text-emerald-600',
+    link: '#demo',
+  },
+  {
+    id: 'articles-blogs',
+    title: 'Articles & Blogs',
+    desc: 'Share updates and news.',
+    icon: FileText,
+    iconColor: 'bg-blue-50 text-blue-600',
+    link: '/blog',
+  },
+  {
+    id: 'commercial-usage',
+    title: 'Commercial Usage',
+    desc: 'Use for business and commercial needs.',
+    icon: Building2,
+    iconColor: 'bg-orange-50 text-orange-600',
+    link: '#pricing',
+  },
+  {
+    id: 'scaling-business',
+    title: 'Scaling Your Business',
+    desc: 'Reach more customers online.',
+    icon: TrendingUp,
+    iconColor: 'bg-rose-50 text-rose-600',
+    link: '#demo',
+  },
+  {
+    id: 'custom-templates',
+    title: 'Custom Templates',
+    desc: 'Choose from beautiful templates.',
+    icon: Grid,
+    iconColor: 'bg-purple-50 text-purple-600',
+    link: '#templates',
+  },
+  {
+    id: 'easy-designing',
+    title: 'Easy Designing with Multiple Edits',
+    desc: 'Customize easily without coding.',
+    icon: Palette,
+    iconColor: 'bg-pink-50 text-pink-600',
+    link: '#demo',
+  },
+  {
+    id: 'product-space',
+    title: 'Product Space',
+    desc: 'Display your products beautifully.',
+    icon: Package,
+    iconColor: 'bg-amber-50 text-amber-600',
+    link: '#demo',
+  },
+  {
+    id: 'services',
+    title: 'Services',
+    desc: 'List and manage your services.',
+    icon: Wrench,
+    iconColor: 'bg-blue-50 text-blue-600',
+    link: '#demo',
+  },
+  {
+    id: 'customized-qr',
+    title: 'Customized QR Code',
+    desc: 'Create branded QR codes.',
+    icon: QrCode,
+    iconColor: 'bg-purple-50 text-purple-600',
+    link: '#demo',
+  },
+  {
+    id: 'payment-gateways',
+    title: 'Payment Gateways',
+    desc: 'Razorpay, Cashfree, Stripe and more.',
+    icon: CreditCard,
+    iconColor: 'bg-sky-50 text-sky-600',
+    link: '#pricing',
+  },
+  {
+    id: 'integrated-canva',
+    title: 'Integrated Canva & Adobe',
+    desc: 'Design professional content easily.',
+    icon: Palette,
+    iconColor: 'bg-blue-50 text-blue-600',
+    link: '#demo',
+  },
+  {
+    id: 'email-signature',
+    title: 'Email Signature Generator',
+    desc: 'Create professional email signatures.',
+    icon: Mail,
+    iconColor: 'bg-cyan-50 text-cyan-600',
+    link: '/dashboard/signature',
+  },
+  {
+    id: 'report-pdf',
+    title: 'Report PDF Extract',
+    desc: 'Generate and export reports easily.',
+    icon: FileText,
+    iconColor: 'bg-rose-50 text-rose-600',
+    link: '#demo',
+  },
+  {
+    id: 'live-profile',
+    title: 'Live Profile',
+    desc: 'Be visible to customers in real-time.',
+    icon: Wifi,
+    iconColor: 'bg-red-50 text-red-600',
+    link: '/v/kishore',
+  },
+  {
+    id: 'use-as-app',
+    title: 'Use as App (Direct Installation)',
+    desc: 'Install on mobile directly.',
+    icon: Smartphone,
+    iconColor: 'bg-emerald-50 text-emerald-600',
+    link: '#demo',
+  },
+];
 
 export default function LandingPage() {
+  const [selectedCity, setSelectedCity] = useState('Hyderabad');
+  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
+  const [heroSearchQuery, setHeroSearchQuery] = useState('');
   const [aliasSearch, setAliasSearch] = useState('');
   const [aliasStatus, setAliasStatus] = useState<'idle' | 'available' | 'taken'>('idle');
   const [heroDemoMode, setHeroDemoMode] = useState<'mobile' | 'website'>('website');
@@ -406,255 +594,223 @@ export default function LandingPage() {
       />
       <Navbar />
 
-      {/* Hero Section — Clean, Solid, Corporate */}
-      <section className="relative pt-12 pb-16 sm:pt-16 sm:pb-24 lg:pt-20 lg:pb-28 overflow-hidden bg-white border-b border-slate-200">
+      {/* Hero Section — Exact Design Matching User Mockup */}
+      <section className="relative pt-8 sm:pt-12 lg:pt-14 pb-14 sm:pb-16 lg:pb-20 overflow-hidden bg-gradient-to-b from-[#F9FBFF] via-white to-white border-b border-slate-100">
         
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        {/* Soft background ambient glow */}
+        <div className="pointer-events-none absolute -top-24 left-1/4 w-[500px] h-[500px] bg-amber-100/30 rounded-full blur-3xl -z-10" />
+        <div className="pointer-events-none absolute -top-20 -right-20 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-3xl -z-10" />
+
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Main Top Grid: Headline/Copy on Left + 3D Device Showcase on Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-14 items-center">
+          {/* Main Hero Grid: Left Content + Right 3D Visual Mockup */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-12 items-center">
             
             {/* Left Hero Content */}
-            <div className="lg:col-span-5 xl:col-span-5 space-y-6 text-center lg:text-left">
+            <div className="lg:col-span-6 xl:col-span-6 space-y-6 text-left">
               
-              {/* Trust Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#0066FF]/5 border border-[#0066FF]/20 text-[#0066FF] text-sm font-bold">
-                <Zap className="w-4 h-4" />
-                <span>Trusted by 500+ businesses</span>
+              {/* Badge: YOUR BUSINESS. ONLINE. IN MINUTES */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF2FF] border border-[#C7D2FE] text-[#4338CA] text-xs font-bold tracking-wider uppercase shadow-2xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#4F46E5]" />
+                <span>YOUR BUSINESS. ONLINE. IN MINUTES</span>
               </div>
 
-              {/* Authoritative Headline */}
-              <h1 className="text-4xl xs:text-5xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-[#1B2A4A] leading-[1.08]">
-                Turn your business into <br className="hidden sm:inline" />
-                a smarter digital presence.
+              {/* Headline */}
+              <h1 className="text-4xl xs:text-5xl sm:text-5xl lg:text-[54px] xl:text-[60px] font-extrabold tracking-tight text-slate-900 leading-[1.12]">
+                Everything your <br />
+                business needs <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#7C3AED]">
+                  in one place.
+                </span>
               </h1>
 
               {/* Subtitle */}
-              <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed font-normal max-w-xl mx-auto lg:mx-0">
-                Create a polished digital card, WhatsApp storefront, and lead capture system in minutes — without needing technical skills.
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-xl">
+                Create a professional profile, mini website, WhatsApp store and more. Get discovered by customers online with your own beautiful, branded website.
               </p>
 
-              {/* Clean Trust Strip */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm text-slate-500">
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#00875A]" />2-minute setup</span>
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#00875A]" />No code needed</span>
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#00875A]" />Built for growth</span>
+              {/* Discovery Search Bar */}
+              <div className="relative max-w-xl rounded-2xl bg-white border border-slate-200/90 shadow-lg shadow-slate-200/60 p-1.5 flex items-center gap-2 focus-within:border-[#2563EB] focus-within:ring-2 focus-within:ring-[#2563EB]/15 transition-all">
+                {/* City Dropdown */}
+                <div className="relative shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setCityDropdownOpen(!cityDropdownOpen)}
+                    className="flex items-center gap-1.5 pl-3 pr-2 py-1.5 text-slate-800 text-sm font-bold hover:text-[#2563EB] transition-colors cursor-pointer select-none"
+                  >
+                    <MapPin className="w-4 h-4 text-rose-500 fill-rose-500/20 shrink-0" />
+                    <span>{selectedCity}</span>
+                    <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${cityDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {cityDropdownOpen && (
+                    <div className="absolute top-full left-0 mt-2 w-44 rounded-xl bg-white border border-slate-200 shadow-xl py-1 z-30 animate-in fade-in zoom-in-95 duration-150">
+                      {['Hyderabad', 'Bengaluru', 'Mumbai', 'Delhi NCR', 'Chennai', 'Pune', 'Kolkata'].map((city) => (
+                        <button
+                          key={city}
+                          type="button"
+                          onClick={() => {
+                            setSelectedCity(city);
+                            setCityDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3.5 py-2 text-xs font-semibold hover:bg-slate-50 transition cursor-pointer ${selectedCity === city ? 'text-[#2563EB] bg-blue-50/60 font-bold' : 'text-slate-700'}`}
+                        >
+                          {city}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Divider */}
+                <div className="w-px h-6 bg-slate-200 shrink-0" />
+
+                {/* Search Input */}
+                <input
+                  id="hero-search-input"
+                  type="text"
+                  placeholder="Search for restaurants, salons, gyms, hospitals, real estate..."
+                  value={heroSearchQuery}
+                  onChange={(e) => setHeroSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      const demoEl = document.getElementById('demo');
+                      if (demoEl) demoEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="w-full bg-transparent px-2 py-2 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
+                />
+
+                {/* Search Action Button */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const demoEl = document.getElementById('demo');
+                    if (demoEl) demoEl.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#4F46E5] hover:from-[#1D4ED8] hover:to-[#4338CA] text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/25 active:scale-95 transition-all cursor-pointer"
+                  aria-label="Search businesses"
+                  title="Search"
+                >
+                  <Search className="w-4 h-4" />
+                </button>
               </div>
 
-              {/* Action Buttons: Clean Dual CTA */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1">
+              {/* Action Buttons: Create Your Free Website -> & Watch Demo */}
+              <div className="flex flex-wrap items-center gap-3 pt-1">
                 <Link
                   href="/signup?intent=get_started"
-                  className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-[#0066FF] hover:bg-[#0052CC] text-white font-bold text-base flex items-center justify-center gap-2 transition-colors active:scale-95 shrink-0"
+                  className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#7C3AED] hover:from-[#1D4ED8] hover:to-[#6D28D9] text-white font-bold text-sm sm:text-base flex items-center gap-2 shadow-lg shadow-indigo-500/25 transition-all active:scale-95"
                 >
-                  <span>Start free</span>
+                  <span>Create Your Free Website</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
-                <a 
+                <a
                   href="#demo"
-                  className="inline-flex items-center gap-3 px-5 py-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors text-[#1B2A4A] group cursor-pointer"
+                  className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/90 text-[#4338CA] font-bold text-sm sm:text-base flex items-center gap-2 shadow-xs transition-all hover:border-indigo-300"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-[#0066FF]/10 flex items-center justify-center text-[#0066FF] group-hover:bg-[#0066FF] group-hover:text-white transition-colors">
-                    <Play className="w-4 h-4 fill-current ml-0.5" />
+                  <div className="w-5 h-5 rounded-full border border-[#4338CA]/30 flex items-center justify-center">
+                    <Play className="w-2.5 h-2.5 fill-[#4338CA] text-[#4338CA] ml-0.5" />
                   </div>
-                  <div className="text-left">
-                    <span className="text-sm font-bold text-[#1B2A4A] block">See live demo</span>
-                    <span className="text-xs text-slate-500 block">How it works</span>
-                  </div>
+                  <span>Watch Demo</span>
                 </a>
               </div>
 
-              {/* Live URL Alias Claimer Bar */}
-              <div className="pt-2 max-w-md mx-auto lg:mx-0">
-                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-center lg:justify-start gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>Claim your business link</span>
-                </div>
-                <form onSubmit={handleCheckAlias} className="p-1 rounded-lg bg-white border border-slate-200 flex items-center focus-within:border-[#0066FF] focus-within:ring-2 focus-within:ring-[#0066FF]/10 transition-all">
-                  <div className="pl-3 pr-1 text-slate-400 font-mono text-sm hidden sm:block">
-                    oneclickbiz.in/v/
-                  </div>
-                  <input 
-                    type="text" 
-                    placeholder="your-business-name"
-                    value={aliasSearch}
-                    onChange={e => {
-                      setAliasSearch(e.target.value);
-                      setAliasStatus('idle');
-                    }}
-                    className="flex-1 bg-transparent px-2 py-2 text-sm text-[#1A1A2E] placeholder-slate-400 focus:outline-none font-semibold font-mono"
-                    required
-                  />
-                  <button 
-                    type="submit"
-                    className="px-4 py-2 rounded-md bg-[#1B2A4A] hover:bg-[#0066FF] text-white text-sm font-bold transition-colors shrink-0 cursor-pointer"
-                  >
-                    Check
-                  </button>
-                </form>
-
-                {aliasStatus === 'available' && (
-                  <div className="mt-2 p-3 rounded-lg bg-[#00875A]/5 border border-[#00875A]/20 text-[#00875A] text-sm flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 font-semibold">
-                      <CheckCircle2 className="w-4 h-4" />
-                      <span><strong>oneclickbiz.in/v/{aliasSearch.toLowerCase()}</strong> is available!</span>
-                    </span>
-                    <Link href={`/signup?slug=${aliasSearch.toLowerCase()}&intent=build_card`} className="underline font-bold">
-                      Claim Now →
-                    </Link>
-                  </div>
-                )}
-                {aliasStatus === 'taken' && (
-                  <p className="mt-1.5 text-[11px] text-rose-600 font-medium">
-                    This alias is reserved or taken. Please try another one!
-                  </p>
-                )}
+              {/* Three Trust Checkpoints */}
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-1 text-xs sm:text-sm text-slate-700 font-medium">
+                <span className="flex items-center gap-2">
+                  <span className="w-4 h-4 rounded-full bg-[#10B981] text-white flex items-center justify-center shrink-0">
+                    <Check className="w-2.5 h-2.5 stroke-[3]" />
+                  </span>
+                  <span>No coding required</span>
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-4 h-4 rounded-full bg-[#10B981] text-white flex items-center justify-center shrink-0">
+                    <Check className="w-2.5 h-2.5 stroke-[3]" />
+                  </span>
+                  <span>Mobile friendly</span>
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-4 h-4 rounded-full bg-[#10B981] text-white flex items-center justify-center shrink-0">
+                    <Check className="w-2.5 h-2.5 stroke-[3]" />
+                  </span>
+                  <span>Free plan available</span>
+                </span>
               </div>
 
             </div>
 
-            {/* Right Hero Visual: 3D High-Fidelity Device Showcase Banner */}
-            <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center pt-6 lg:pt-0">
-              <div className="relative w-full max-w-[720px] lg:max-w-[780px] xl:max-w-[860px] mx-auto select-none group">
-                
-                {/* Corporate Container */}
-                <div className="relative rounded-xl overflow-hidden shadow-lg border border-slate-200 bg-white p-1.5 sm:p-2">
+            {/* Right Hero Visual: 3D Laptop, Smartphone & QR Display Stand Mockup */}
+            <div className="lg:col-span-6 xl:col-span-6 relative flex items-center justify-center pt-6 lg:pt-0">
+              <div className="relative w-full max-w-[680px] lg:max-w-[760px] select-none group">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl transition-transform duration-300 group-hover:scale-[1.01]">
                   <img
-                    src="/hero-showcase-retina.png"
+                    src="/hero-devices-office.png"
                     alt="OneClickBiz Multi-Device Dashboard, WhatsApp Store, Mobile Site & Digital Cards Showcase"
-                    className="w-full h-auto object-contain rounded-lg block"
+                    className="w-full h-auto object-cover block"
                     loading="eager"
                   />
                 </div>
-
               </div>
             </div>
 
           </div>
 
-          {/* Feature Strip */}
-          <div className="mt-10 sm:mt-14 max-w-6xl mx-auto relative rounded-xl bg-white border border-slate-200 shadow-sm p-3 sm:p-4">
-            <div className="flex items-center justify-between mb-2 px-2 text-xs font-bold uppercase tracking-wider text-slate-500">
-              <div className="flex items-center gap-1.5 text-[#0066FF] font-extrabold">
-                <span>Everything your business needs</span>
-              </div>
-              <span className="hidden sm:inline-block text-xs text-slate-400 font-medium normal-case">
-                built in one place
+        </div>
+      </section>
+
+      {/* OUR SERVICES SECTION — All the tools you need to grow your business */}
+      <section id="services" className="py-14 sm:py-18 bg-[#FCFDFF] border-b border-slate-100 relative">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Heading */}
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#EEF2FF] text-[#4F46E5] border border-[#C7D2FE]/70 text-[11px] font-bold uppercase tracking-wider mb-3 shadow-2xs">
+              OUR SERVICES
+            </span>
+            
+            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-extrabold text-slate-900 tracking-tight leading-tight">
+              All the tools you need to{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#7C3AED]">
+                grow your business
               </span>
-            </div>
+            </h2>
 
-            <div className="relative overflow-hidden py-1 rounded-lg">
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-white to-transparent z-10" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-white to-transparent z-10" />
-
-              <div className="flex overflow-hidden">
-                <div className="animate-continuous-marquee flex items-center gap-3 shrink-0 py-0.5">
-                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#0066FF]/30 transition-all cursor-pointer group shrink-0">
-                    <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <CreditCard className="w-4 h-4" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Digital card</span>
-                  </a>
-
-                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-emerald-50/60 border border-slate-200/90 shadow-sm hover:border-emerald-300 transition-all cursor-pointer group shrink-0">
-                    <div className="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <MessageCircle className="w-4 h-4" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">WhatsApp store</span>
-                  </a>
-
-                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-orange-50/60 border border-slate-200/90 shadow-sm hover:border-orange-300 transition-all cursor-pointer group shrink-0">
-                    <div className="w-7 h-7 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <Calendar className="w-4 h-4" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-800 group-hover:text-orange-700 transition-colors">Bookings</span>
-                  </a>
-
-                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-cyan-50/60 border border-slate-200/90 shadow-sm hover:border-cyan-300 transition-all cursor-pointer group shrink-0">
-                    <div className="w-7 h-7 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <QrCode className="w-4 h-4" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-800 group-hover:text-cyan-700 transition-colors">QR access</span>
-                  </a>
-
-                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-violet-50/60 border border-slate-200/90 shadow-sm hover:border-violet-300 transition-all cursor-pointer group shrink-0">
-                    <div className="w-7 h-7 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <Edit3 className="w-4 h-4" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-800 group-hover:text-violet-700 transition-colors">Blog studio</span>
-                  </a>
-
-                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#0066FF]/30 transition-all cursor-pointer group shrink-0">
-                    <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <CreditCard className="w-4 h-4" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-800 group-hover:text-blue-700 transition-colors">Digital card</span>
-                  </a>
-
-                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-emerald-50/60 border border-slate-200/90 shadow-sm hover:border-emerald-300 transition-all cursor-pointer group shrink-0">
-                    <div className="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <MessageCircle className="w-4 h-4" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">WhatsApp store</span>
-                  </a>
-
-                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-orange-50/60 border border-slate-200/90 shadow-sm hover:border-orange-300 transition-all cursor-pointer group shrink-0">
-                    <div className="w-7 h-7 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <Calendar className="w-4 h-4" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-800 group-hover:text-orange-700 transition-colors">Bookings</span>
-                  </a>
-
-                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-cyan-50/60 border border-slate-200/90 shadow-sm hover:border-cyan-300 transition-all cursor-pointer group shrink-0">
-                    <div className="w-7 h-7 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <QrCode className="w-4 h-4" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-800 group-hover:text-cyan-700 transition-colors">QR access</span>
-                  </a>
-
-                  <a href="#features" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-violet-50/60 border border-slate-200/90 shadow-sm hover:border-violet-300 transition-all cursor-pointer group shrink-0">
-                    <div className="w-7 h-7 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <Edit3 className="w-4 h-4" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-800 group-hover:text-violet-700 transition-colors">Blog studio</span>
-                  </a>
-                </div>
-              </div>
-            </div>
+            <p className="mt-2 text-sm sm:text-base text-slate-500 font-normal">
+              Powerful features to create, manage and scale your business online.
+            </p>
           </div>
 
-          {/* High-Converting Social Proof Strip */}
-          <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center gap-3.5">
-              <div className="w-11 h-11 rounded-lg bg-[#0066FF] text-white flex items-center justify-center shrink-0">
-                <Rocket className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <h5 className="text-lg font-extrabold text-[#1B2A4A] leading-none">500+</h5>
-                <p className="text-sm text-slate-500 mt-1">Happy Businesses</p>
-              </div>
-            </div>
-
-            <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center gap-3.5">
-              <div className="w-11 h-11 rounded-lg bg-[#00875A] text-white flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <h5 className="text-lg font-extrabold text-[#1B2A4A] leading-none">100%</h5>
-                <p className="text-sm text-slate-500 mt-1">Secure &amp; Reliable</p>
-              </div>
-            </div>
-
-            <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center gap-3.5">
-              <div className="w-11 h-11 rounded-lg bg-[#1B2A4A] text-white flex items-center justify-center shrink-0">
-                <Headphones className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <h5 className="text-lg font-extrabold text-[#1B2A4A] leading-none">Dedicated</h5>
-                <p className="text-sm text-slate-500 mt-1">Customer Support</p>
-              </div>
-            </div>
+          {/* 23 Feature Cards Grid matching Screenshot */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-3.5">
+            {HERO_SERVICES.map((service) => {
+              const IconComp = service.icon;
+              return (
+                <a
+                  key={service.id}
+                  href={service.link}
+                  className="rounded-2xl bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-indigo-300 transition-all p-3.5 flex items-start justify-between group cursor-pointer"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className={`w-9 h-9 rounded-xl ${service.iconColor} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs`}>
+                      <IconComp className="w-4 h-4" />
+                    </div>
+                    <div className="text-left">
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-[#2563EB] transition-colors leading-snug">
+                        {service.title}
+                      </h4>
+                      <p className="text-[11px] text-slate-500 mt-0.5 leading-snug line-clamp-2">
+                        {service.desc}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-slate-300 group-hover:text-[#2563EB] group-hover:translate-x-0.5 transition-all text-xs shrink-0 pl-1">
+                    →
+                  </span>
+                </a>
+              );
+            })}
           </div>
 
         </div>
