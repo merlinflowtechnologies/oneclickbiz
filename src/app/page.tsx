@@ -760,57 +760,102 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* OUR SERVICES SECTION — All the tools you need to grow your business */}
-      <section id="services" className="py-14 sm:py-18 bg-[#FCFDFF] border-b border-slate-100 relative">
+      {/* OUR SERVICES SECTION — Sleek 2-Row Scrolling Strip */}
+      <section id="services" className="py-10 sm:py-14 bg-[#FCFDFF] border-b border-slate-100 relative overflow-hidden">
+        
+        {/* Left & Right Smooth Edge Fade Masks */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-28 bg-gradient-to-r from-[#FCFDFF] via-[#FCFDFF]/80 to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-28 bg-gradient-to-l from-[#FCFDFF] via-[#FCFDFF]/80 to-transparent z-10" />
+
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Section Heading */}
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-[#EEF2FF] text-[#4F46E5] border border-[#C7D2FE]/70 text-[11px] font-bold uppercase tracking-wider mb-3 shadow-2xs">
+          <div className="text-center max-w-3xl mx-auto mb-7 sm:mb-9">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#EEF2FF] text-[#4F46E5] border border-[#C7D2FE]/70 text-[11px] font-bold uppercase tracking-wider mb-2.5 shadow-2xs">
               OUR SERVICES
             </span>
             
-            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-extrabold text-slate-900 tracking-tight leading-tight">
               All the tools you need to{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#7C3AED]">
                 grow your business
               </span>
             </h2>
 
-            <p className="mt-2 text-sm sm:text-base text-slate-500 font-normal">
+            <p className="mt-1.5 text-xs sm:text-sm text-slate-500 font-normal">
               Powerful features to create, manage and scale your business online.
             </p>
           </div>
 
-          {/* 23 Feature Cards Grid matching Screenshot */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-3.5">
-            {HERO_SERVICES.map((service) => {
-              const IconComp = service.icon;
-              return (
-                <a
-                  key={service.id}
-                  href={service.link}
-                  className="rounded-2xl bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-indigo-300 transition-all p-3.5 flex items-start justify-between group cursor-pointer"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className={`w-9 h-9 rounded-xl ${service.iconColor} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs`}>
-                      <IconComp className="w-4 h-4" />
+        </div>
+
+        {/* 2-Sized Scrolling Strip Container */}
+        <div className="space-y-3 sm:space-y-3.5 overflow-hidden py-1">
+          
+          {/* Strip 1: Scrolls Left */}
+          <div className="flex overflow-hidden">
+            <div className="animate-continuous-marquee flex items-center gap-3 sm:gap-3.5 shrink-0 py-1">
+              {[...HERO_SERVICES.slice(0, 12), ...HERO_SERVICES.slice(0, 12)].map((service, idx) => {
+                const IconComp = service.icon;
+                return (
+                  <a
+                    key={`strip-1-${service.id}-${idx}`}
+                    href={service.link}
+                    className="w-[270px] sm:w-[310px] shrink-0 rounded-2xl bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-indigo-300 transition-all p-3 sm:p-3.5 flex items-center justify-between group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3 overflow-hidden pr-2">
+                      <div className={`w-9 h-9 rounded-xl ${service.iconColor} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs`}>
+                        <IconComp className="w-4 h-4" />
+                      </div>
+                      <div className="text-left overflow-hidden">
+                        <h4 className="text-xs font-bold text-slate-900 group-hover:text-[#2563EB] transition-colors leading-snug truncate">
+                          {service.title}
+                        </h4>
+                        <p className="text-[11px] text-slate-500 mt-0.5 leading-snug truncate">
+                          {service.desc}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-left">
-                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-[#2563EB] transition-colors leading-snug">
-                        {service.title}
-                      </h4>
-                      <p className="text-[11px] text-slate-500 mt-0.5 leading-snug line-clamp-2">
-                        {service.desc}
-                      </p>
+                    <span className="text-slate-300 group-hover:text-[#2563EB] group-hover:translate-x-0.5 transition-all text-xs shrink-0">
+                      →
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Strip 2: Scrolls Right */}
+          <div className="flex overflow-hidden">
+            <div className="animate-continuous-marquee-reverse flex items-center gap-3 sm:gap-3.5 shrink-0 py-1">
+              {[...HERO_SERVICES.slice(12), ...HERO_SERVICES.slice(12)].map((service, idx) => {
+                const IconComp = service.icon;
+                return (
+                  <a
+                    key={`strip-2-${service.id}-${idx}`}
+                    href={service.link}
+                    className="w-[270px] sm:w-[310px] shrink-0 rounded-2xl bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-indigo-300 transition-all p-3 sm:p-3.5 flex items-center justify-between group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3 overflow-hidden pr-2">
+                      <div className={`w-9 h-9 rounded-xl ${service.iconColor} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs`}>
+                        <IconComp className="w-4 h-4" />
+                      </div>
+                      <div className="text-left overflow-hidden">
+                        <h4 className="text-xs font-bold text-slate-900 group-hover:text-[#2563EB] transition-colors leading-snug truncate">
+                          {service.title}
+                        </h4>
+                        <p className="text-[11px] text-slate-500 mt-0.5 leading-snug truncate">
+                          {service.desc}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <span className="text-slate-300 group-hover:text-[#2563EB] group-hover:translate-x-0.5 transition-all text-xs shrink-0 pl-1">
-                    →
-                  </span>
-                </a>
-              );
-            })}
+                    <span className="text-slate-300 group-hover:text-[#2563EB] group-hover:translate-x-0.5 transition-all text-xs shrink-0">
+                      →
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
           </div>
 
         </div>
