@@ -595,7 +595,7 @@ export default function LandingPage() {
       <Navbar />
 
       {/* Hero Section — Exact Design Matching User Mockup */}
-      <section className="relative pt-8 sm:pt-12 lg:pt-14 pb-14 sm:pb-16 lg:pb-20 overflow-hidden bg-gradient-to-b from-[#F9FBFF] via-white to-white border-b border-slate-100">
+      <section className="relative pt-6 sm:pt-12 lg:pt-14 pb-10 sm:pb-16 lg:pb-20 overflow-hidden bg-gradient-to-b from-[#F9FBFF] via-white to-white border-b border-slate-100">
         
         {/* Soft background ambient glow */}
         <div className="pointer-events-none absolute -top-24 left-1/4 w-[500px] h-[500px] bg-amber-100/30 rounded-full blur-3xl -z-10" />
@@ -604,19 +604,19 @@ export default function LandingPage() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Main Hero Grid: Left Content + Right 3D Visual Mockup */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-center">
             
             {/* Left Hero Content */}
-            <div className="lg:col-span-6 xl:col-span-6 space-y-6 text-left">
+            <div className="lg:col-span-6 xl:col-span-6 space-y-5 sm:space-y-6 text-left flex flex-col items-start">
               
               {/* Badge: YOUR BUSINESS. ONLINE. IN MINUTES */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF2FF] border border-[#C7D2FE] text-[#4338CA] text-xs font-bold tracking-wider uppercase shadow-2xs">
+              <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#EEF2FF] border border-[#C7D2FE] text-[#4338CA] text-[11px] sm:text-xs font-bold tracking-wider uppercase shadow-2xs">
                 <Sparkles className="w-3.5 h-3.5 text-[#4F46E5]" />
                 <span>YOUR BUSINESS. ONLINE. IN MINUTES</span>
               </div>
 
               {/* Headline */}
-              <h1 className="text-4xl xs:text-5xl sm:text-5xl lg:text-[54px] xl:text-[60px] font-extrabold tracking-tight text-slate-900 leading-[1.12]">
+              <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-[54px] xl:text-[60px] font-extrabold tracking-tight text-slate-900 leading-[1.14]">
                 Everything your <br />
                 business needs <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#7C3AED]">
@@ -625,22 +625,22 @@ export default function LandingPage() {
               </h1>
 
               {/* Subtitle */}
-              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-xl">
+              <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed font-normal max-w-xl text-left">
                 Create a professional profile, mini website, WhatsApp store and more. Get discovered by customers online with your own beautiful, branded website.
               </p>
 
               {/* Discovery Search Bar */}
-              <div className="relative max-w-xl rounded-2xl bg-white border border-slate-200/90 shadow-lg shadow-slate-200/60 p-1.5 flex items-center gap-2 focus-within:border-[#2563EB] focus-within:ring-2 focus-within:ring-[#2563EB]/15 transition-all">
+              <div className="w-full max-w-xl rounded-2xl bg-white border border-slate-200/90 shadow-md sm:shadow-lg shadow-slate-200/60 p-1.5 flex items-center gap-1.5 sm:gap-2 focus-within:border-[#2563EB] focus-within:ring-2 focus-within:ring-[#2563EB]/15 transition-all text-left">
                 {/* City Dropdown */}
                 <div className="relative shrink-0">
                   <button
                     type="button"
                     onClick={() => setCityDropdownOpen(!cityDropdownOpen)}
-                    className="flex items-center gap-1.5 pl-3 pr-2 py-1.5 text-slate-800 text-sm font-bold hover:text-[#2563EB] transition-colors cursor-pointer select-none"
+                    className="flex items-center gap-1 sm:gap-1.5 pl-2.5 sm:pl-3 pr-1.5 sm:pr-2 py-1 sm:py-1.5 text-slate-800 text-xs sm:text-sm font-bold hover:text-[#2563EB] transition-colors cursor-pointer select-none"
                   >
-                    <MapPin className="w-4 h-4 text-rose-500 fill-rose-500/20 shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-rose-500 fill-rose-500/20 shrink-0" />
                     <span>{selectedCity}</span>
-                    <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${cityDropdownOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 transition-transform ${cityDropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {cityDropdownOpen && (
@@ -663,13 +663,13 @@ export default function LandingPage() {
                 </div>
 
                 {/* Divider */}
-                <div className="w-px h-6 bg-slate-200 shrink-0" />
+                <div className="w-px h-5 sm:h-6 bg-slate-200 shrink-0" />
 
-                {/* Search Input */}
+                {/* Search Input: Desktop (spacious) */}
                 <input
                   id="hero-search-input"
                   type="text"
-                  placeholder="Search for restaurants, salons, gyms, hospitals, real estate..."
+                  placeholder="Search restaurants, salons, gyms, services..."
                   value={heroSearchQuery}
                   onChange={(e) => setHeroSearchQuery(e.target.value)}
                   onKeyDown={(e) => {
@@ -678,7 +678,22 @@ export default function LandingPage() {
                       if (demoEl) demoEl.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
-                  className="w-full bg-transparent px-2 py-2 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
+                  className="hidden sm:block w-full bg-transparent px-2 py-2 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none min-w-0"
+                />
+
+                {/* Search Input: Mobile (concise, fits without truncation) */}
+                <input
+                  type="text"
+                  placeholder="Search businesses..."
+                  value={heroSearchQuery}
+                  onChange={(e) => setHeroSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      const demoEl = document.getElementById('demo');
+                      if (demoEl) demoEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="sm:hidden w-full bg-transparent px-1.5 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none min-w-0"
                 />
 
                 {/* Search Action Button */}
@@ -688,19 +703,19 @@ export default function LandingPage() {
                     const demoEl = document.getElementById('demo');
                     if (demoEl) demoEl.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#4F46E5] hover:from-[#1D4ED8] hover:to-[#4338CA] text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/25 active:scale-95 transition-all cursor-pointer"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#4F46E5] hover:from-[#1D4ED8] hover:to-[#4338CA] text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/25 active:scale-95 transition-all cursor-pointer"
                   aria-label="Search businesses"
                   title="Search"
                 >
-                  <Search className="w-4 h-4" />
+                  <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               </div>
 
               {/* Action Buttons: Create Your Free Website -> & Watch Demo */}
-              <div className="flex flex-wrap items-center gap-3 pt-1">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 pt-1 w-full sm:w-auto">
                 <Link
                   href="/signup?intent=get_started"
-                  className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#7C3AED] hover:from-[#1D4ED8] hover:to-[#6D28D9] text-white font-bold text-sm sm:text-base flex items-center gap-2 shadow-lg shadow-indigo-500/25 transition-all active:scale-95"
+                  className="w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#7C3AED] hover:from-[#1D4ED8] hover:to-[#6D28D9] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25 transition-all active:scale-95"
                 >
                   <span>Create Your Free Website</span>
                   <ArrowRight className="w-4 h-4" />
@@ -708,7 +723,7 @@ export default function LandingPage() {
 
                 <a
                   href="#demo"
-                  className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/90 text-[#4338CA] font-bold text-sm sm:text-base flex items-center gap-2 shadow-xs transition-all hover:border-indigo-300"
+                  className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/90 text-[#4338CA] font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs transition-all hover:border-indigo-300"
                 >
                   <div className="w-5 h-5 rounded-full border border-[#4338CA]/30 flex items-center justify-center">
                     <Play className="w-2.5 h-2.5 fill-[#4338CA] text-[#4338CA] ml-0.5" />
@@ -718,7 +733,7 @@ export default function LandingPage() {
               </div>
 
               {/* Three Trust Checkpoints */}
-              <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-1 text-xs sm:text-sm text-slate-700 font-medium">
+              <div className="flex flex-wrap items-center justify-start gap-x-4 sm:gap-x-6 gap-y-2 pt-1 text-xs sm:text-sm text-slate-700 font-medium">
                 <span className="flex items-center gap-2">
                   <span className="w-4 h-4 rounded-full bg-[#10B981] text-white flex items-center justify-center shrink-0">
                     <Check className="w-2.5 h-2.5 stroke-[3]" />
@@ -742,9 +757,9 @@ export default function LandingPage() {
             </div>
 
             {/* Right Hero Visual: 3D Laptop, Smartphone & QR Display Stand Mockup */}
-            <div className="lg:col-span-6 xl:col-span-6 relative flex items-center justify-center pt-6 lg:pt-0">
-              <div className="relative w-full max-w-[680px] lg:max-w-[760px] select-none group">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl transition-transform duration-300 group-hover:scale-[1.01]">
+            <div className="lg:col-span-6 xl:col-span-6 relative flex items-center justify-center pt-4 sm:pt-6 lg:pt-0 w-full">
+              <div className="relative w-full max-w-[480px] sm:max-w-[620px] lg:max-w-[760px] mx-auto select-none group">
+                <div className="relative rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl transition-transform duration-300 group-hover:scale-[1.01]">
                   <img
                     src="/hero-devices-office.png"
                     alt="OneClickBiz Multi-Device Dashboard, WhatsApp Store, Mobile Site & Digital Cards Showcase"

@@ -114,7 +114,7 @@ export default function Navbar() {
             {/* Login Button */}
             <Link 
               href="/login"
-              className="px-4 py-2 sm:px-4.5 sm:py-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:text-[#2563EB] hover:bg-slate-50 border border-slate-200 transition-all shadow-xs"
+              className="px-3.5 py-1.5 sm:px-4.5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-800 hover:text-[#2563EB] hover:bg-slate-50 border border-slate-200 transition-all shadow-xs"
             >
               Login
             </Link>
@@ -122,7 +122,7 @@ export default function Navbar() {
             {/* Get Started Button */}
             <Link 
               href="/signup?intent=get_started"
-              className="inline-flex px-4.5 py-2 sm:px-5 sm:py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-[#2563EB] to-[#4F46E5] hover:from-[#1D4ED8] hover:to-[#4338CA] items-center gap-1.5 transition-all shadow-md shadow-blue-500/25 active:scale-95 shrink-0"
+              className="hidden sm:inline-flex px-4.5 py-2 sm:px-5 sm:py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-[#2563EB] to-[#4F46E5] hover:from-[#1D4ED8] hover:to-[#4338CA] items-center gap-1.5 transition-all shadow-md shadow-blue-500/25 active:scale-95 shrink-0"
             >
               <span>Get Started</span>
               <ArrowRight className="w-4 h-4" />
