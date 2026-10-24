@@ -16,7 +16,7 @@ export default function CareersPage() {
       department: 'Engineering',
       location: 'Bengaluru / Remote',
       type: 'Full-Time',
-      description: 'Build hyper-responsive client interfaces, real-time profile customizers, and high-throughput serverless microservices for dynamic vCards and WhatsApp stores.',
+      description: 'Build hyper-responsive client interfaces, real-time profile customizers, and high-throughput serverless microservices for dynamic digital business cards and WhatsApp stores.',
       requirements: ['3+ years in React / Next.js, TypeScript, Tailwind CSS', 'Experience with PostgreSQL, Prisma ORM, and Edge Caching', 'Strong intuition for UI/UX micro-interactions']
     },
     {

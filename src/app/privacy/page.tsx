@@ -50,7 +50,7 @@ export default function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p className="text-sm text-slate-400 max-w-3xl leading-relaxed">
-            OneClickBiz (“OneClickBiz”, “Company”, “we”, “us” or “our”) is operated by <strong>Merlinflow Technologies Private Limited</strong>. This Privacy Policy explains how we collect, use, store, disclose, retain and protect personal data across our website, subscription plans, digital business cards, vCard profiles, QR codes, and business management services.
+            OneClickBiz (“OneClickBiz”, “Company”, “we”, “us” or “our”) is operated by <strong>Merlinflow Technologies Private Limited</strong>. This Privacy Policy explains how we collect, use, store, disclose, retain and protect personal data across our website, subscription plans, digital business cards, smart profiles, QR codes, and business management services.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-slate-400 font-medium">
             <span className="flex items-center gap-1.5">
@@ -194,7 +194,7 @@ export default function PrivacyPolicyPage() {
               <li><strong>Subscription delivery:</strong> To activate plans and provide premium features.</li>
               <li><strong>Payment administration:</strong> To verify transactions, maintain billing records and process refunds.</li>
               <li><strong>Recurring payments:</strong> To administer separately authorised renewal arrangements.</li>
-              <li><strong>Service delivery:</strong> To host profiles, generate QR codes, provide vCards and operate tools.</li>
+              <li><strong>Service delivery:</strong> To host profiles, generate QR codes, provide digital cards and operate tools.</li>
               <li><strong>Lead & booking management:</strong> To route customer inquiries and appointment slots.</li>
               <li><strong>Analytics:</strong> To provide engagement reports and understand platform usage.</li>
               <li><strong>Security:</strong> To detect fraud, prevent abuse and protect infrastructure.</li>

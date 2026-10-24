@@ -279,7 +279,7 @@ export default function BlogStudio() {
             <Eye className="w-4 h-4 text-pink-400" />
           </div>
           <p className="text-xl font-bold text-white">{totalViews.toLocaleString()}</p>
-          <span className="text-[10px] text-indigo-300 font-semibold">From vCard visitors</span>
+          <span className="text-[10px] text-indigo-300 font-semibold">From profile visitors</span>
         </div>
 
         <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-1">

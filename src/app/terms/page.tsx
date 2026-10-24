@@ -49,7 +49,7 @@ export default function TermsPage() {
             Terms &amp; Conditions
           </h1>
           <p className="text-sm text-slate-300 max-w-3xl leading-relaxed">
-            These Terms &amp; Conditions (“Terms”) govern your access to and use of OneClickBiz, available at https://www.oneclickbiz.in, including its website, digital business cards, vCard profiles, QR codes, NFC products, subscription plans, business tools and related services (“Services”).
+            These Terms &amp; Conditions (“Terms”) govern your access to and use of OneClickBiz, available at https://www.oneclickbiz.in, including its website, digital business cards, smart profiles, QR codes, NFC products, subscription plans, business tools and related services (“Services”).
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-slate-400 font-medium">
             <span className="flex items-center gap-1.5">
@@ -115,7 +115,7 @@ export default function TermsPage() {
               1. Introduction and Acceptance
             </h2>
             <p>
-              These Terms &amp; Conditions (“Terms”) govern your access to and use of OneClickBiz, available at <a href="https://www.oneclickbiz.in" className="text-indigo-400 hover:underline">https://www.oneclickbiz.in</a>, including its website, digital business cards, vCard profiles, QR codes, NFC products, subscription plans, business tools and related services (“Services”).
+              These Terms &amp; Conditions (“Terms”) govern your access to and use of OneClickBiz, available at <a href="https://www.oneclickbiz.in" className="text-indigo-400 hover:underline">https://www.oneclickbiz.in</a>, including its website, digital business cards, smart profiles, QR codes, NFC products, subscription plans, business tools and related services (“Services”).
             </p>
             <p>
               OneClickBiz is operated by <strong>Merlinflow Technologies Private Limited</strong> (“OneClickBiz”, “Company”, “we”, “us” or “our”).
@@ -166,7 +166,7 @@ export default function TermsPage() {
               OneClickBiz provides digital business identity, networking and business-management features, which may include:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-xs">
-              <li>Digital business cards and downloadable vCards.</li>
+              <li>Digital business cards and downloadable contacts (.VCF).</li>
               <li>Public profiles, profile links and customisable layouts.</li>
               <li>QR codes and NFC-enabled physical products.</li>
               <li>WhatsApp Store, product catalogues and order-message generation.</li>
@@ -200,7 +200,7 @@ export default function TermsPage() {
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Starter Tier</span>
                 <p className="font-bold text-white text-sm">Basic Plan</p>
                 <p className="text-emerald-400 font-extrabold text-base">₹999 / year</p>
-                <p className="text-slate-400 text-[11px]">1 Smart Digital Card (`/v/username`), contact vCard downloading, cloud QR code, and standard analytics.</p>
+                <p className="text-slate-400 text-[11px]">1 Smart Digital Card (`/v/username`), contact downloading (.VCF), cloud QR code, and standard analytics.</p>
               </div>
               <div className="p-4 rounded-2xl bg-slate-950 border border-indigo-500/40 space-y-1">
                 <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Most Popular</span>

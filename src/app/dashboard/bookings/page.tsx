@@ -48,7 +48,7 @@ export default function BookingsManagerPage() {
         requiredPlan="PRO"
         currentPlan={userPlanTier}
         featureTitle="Real-Time Appointment & Slot Booking Engine"
-        featureDescription="The Slot Booking Engine allows your prospective clients, patients, and partners to choose available consultation time slots directly from your digital vCard."
+        featureDescription="The Slot Booking Engine allows your prospective clients, patients, and partners to choose available consultation time slots directly from your digital business card."
         benefits={[
           'Automated real-time appointment calendar & time slots',
           'Instant client booking confirmation & SMS/WhatsApp alerts',
@@ -87,7 +87,7 @@ export default function BookingsManagerPage() {
             <CalendarIcon className="w-3 h-3" /> Real-time Slot Booking Engine
           </div>
           <h1 className="text-2xl font-bold text-white">Bookings & Appointments</h1>
-          <p className="text-xs text-slate-400">Manage client consultation appointments booked directly from your digital vCard.</p>
+          <p className="text-xs text-slate-400">Manage client consultation appointments booked directly from your digital business card.</p>
         </div>
 
         <div className="flex items-center gap-2">
@@ -123,7 +123,7 @@ export default function BookingsManagerPage() {
                       <CalendarIcon className="w-8 h-8 text-slate-600 mb-1" />
                       <span className="font-bold text-slate-300">No Consultation Bookings Yet</span>
                       <span className="text-xs text-slate-500">
-                        When clients book appointment slots through your vCard or booking links, they will appear here.
+                        When clients book appointment slots through your digital profile or booking links, they will appear here.
                       </span>
                     </div>
                   </td>

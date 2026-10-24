@@ -71,7 +71,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. Dynamic Published vCard Profiles from Database
+  // 2. Dynamic Published Digital Profiles from Database
   let dynamicProfiles: MetadataRoute.Sitemap = [];
   if (isDatabaseConfigured) {
     try {

@@ -94,7 +94,7 @@ export default function CookiePolicyPage() {
                   <span className="text-[10px] px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 font-bold">Functional</span>
                 </div>
                 <p className="text-xs text-slate-400">
-                  Allows our smart card customizer to remember your selected theme (Modern, Dark, Glassmorphic, Sunset), draft vCard details, and dashboard tab preferences.
+                  Allows our smart card customizer to remember your selected theme (Modern, Dark, Glassmorphic, Sunset), draft card details, and dashboard tab preferences.
                 </p>
               </div>
 

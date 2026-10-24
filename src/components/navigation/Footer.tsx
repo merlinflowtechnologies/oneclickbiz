@@ -219,7 +219,7 @@ export default function Footer() {
               <h4 className="font-bold text-white uppercase text-xs tracking-wider">Products</h4>
               <ul className="space-y-2.5 text-slate-400 text-sm">
                 <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-white transition">Mini Websites</Link></li>
-                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-white transition">Dynamic vCards</Link></li>
+                <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-white transition">Dynamic Digital Cards</Link></li>
                 <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-white transition">WhatsApp Store</Link></li>
                 <li><Link href="/scan" className="hover:text-white transition">Dynamic QR Studio</Link></li>
                 <li><Link href="/#features" onClick={(e) => handleAnchorClick(e, 'features')} className="hover:text-white transition">Brochure &amp; Blog Studio</Link></li>

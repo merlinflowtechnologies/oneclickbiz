@@ -428,7 +428,7 @@ END:VCARD`;
               title="Save Studio Contact (.vcf)"
             >
               <Download className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Save vCard</span>
+              <span>Save Contact</span>
             </button>
             <a
               href={`https://wa.me/${cleanPhone}?text=Hi%20${encodeURIComponent(profile.name || profile.company || 'Architect')}%2C%20I%20am%20inquiring%20about%20interior%20design%20services.`}
@@ -838,7 +838,7 @@ END:VCARD`;
                     </svg>
                   </div>
                   <span className="font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-900 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
-                    SAVE VCARD
+                    SAVE CONTACT
                   </span>
                 </button>
 

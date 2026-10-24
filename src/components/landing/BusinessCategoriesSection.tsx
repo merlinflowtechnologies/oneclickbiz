@@ -20,7 +20,7 @@ const CATEGORIES_DATA: CategoryItem[] = [
   { id: 'real-estate', name: 'Real Estate', image: '/landing/category_4.png', desc: 'Property showcases', link: '#templates' },
   { id: 'retail', name: 'Retail Stores', image: '/landing/category_5.png', desc: 'Catalog & products', link: '#templates' },
   { id: 'gyms', name: 'Gyms & Fitness', image: '/landing/category_6.png', desc: 'Plans & trainer slots', link: '#templates' },
-  { id: 'consultants', name: 'Consultants & Freelancers', image: '/landing/category_7.png', desc: 'Portfolio & booking', link: '#templates' },
+  { id: 'insurance', name: 'Insurance & Advisory', image: '/landing/category_7.png', desc: 'Policies & claims', link: '#templates' },
   { id: 'services', name: 'Service Businesses', image: '/landing/category_8.png', desc: 'Leads & quotes', link: '#templates' },
   { id: 'other', name: 'Other Businesses', image: '/landing/category_9.png', desc: 'Custom enterprise', link: '#templates' },
 ];

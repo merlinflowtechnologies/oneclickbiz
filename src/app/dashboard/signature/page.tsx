@@ -183,7 +183,7 @@ export default function EmailSignaturePage() {
               Email Signature Generator
             </h1>
             <p className="text-xs sm:text-sm text-slate-400">
-              Create a clickable HTML email signature linked to your digital vCard for Gmail, Outlook, Apple Mail, and Thunderbird.
+              Create a clickable HTML email signature linked to your digital profile for Gmail, Outlook, Apple Mail, and Thunderbird.
             </p>
           </div>
 
@@ -302,7 +302,7 @@ export default function EmailSignaturePage() {
               <div className="space-y-2 text-xs">
                 {[
                   { label: 'Show Avatar Photo', state: showAvatar, setter: setShowAvatar },
-                  { label: 'Show Dynamic vCard QR Code', state: showQr, setter: setShowQr },
+                  { label: 'Show Dynamic QR Code', state: showQr, setter: setShowQr },
                   { label: 'Show Phone Number', state: showPhone, setter: setShowPhone },
                   { label: 'Show Physical Address', state: showAddress, setter: setShowAddress },
                   { label: 'Show CTA Action Banner', state: showBannerCta, setter: setShowBannerCta },

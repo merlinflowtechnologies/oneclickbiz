@@ -990,7 +990,7 @@ export default function RealEstateMiniWebsiteView({
                 title="Save Developer Contact to Phone (.vcf)"
               >
                 <Download className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Save vCard</span>
+                <span>Save Contact</span>
               </button>
               <button
                 onClick={() => handleWhatsAppInquiry('Direct Inquiry', 'Connecting from verified digital profile')}
@@ -1212,7 +1212,7 @@ export default function RealEstateMiniWebsiteView({
                     viewMode === 'mobile' ? 'bg-[#005DAA] text-white shadow-xs' : 'text-slate-600'
                   }`}
                 >
-                  📱 Mobile Card (vCard)
+                  📱 Mobile Card
                 </button>
               </div>
             )}
@@ -1308,7 +1308,7 @@ export default function RealEstateMiniWebsiteView({
                   className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-xs cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5 text-white" />
-                  <span>Save vCard</span>
+                  <span>Save Contact</span>
                 </button>
               </div>
               <button
@@ -3788,7 +3788,7 @@ export default function RealEstateMiniWebsiteView({
                 className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition active:scale-95 cursor-pointer"
               >
                 <Download className="w-4 h-4 text-white" />
-                <span>Save Contact to Phone (vCard / .VCF)</span>
+                <span>Save Contact to Phone (.VCF)</span>
               </button>
 
               <button

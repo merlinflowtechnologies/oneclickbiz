@@ -26,7 +26,7 @@ export default function BlogFooter() {
               />
             </Link>
             <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
-              OneClickBiz helps businesses go digital with smart vCards, WhatsApp stores,
+              OneClickBiz helps businesses go digital with smart digital cards, WhatsApp stores,
               booking systems and now — a blog studio to share your expertise with the world.
             </p>
             <div className="flex items-center gap-3 pt-1">

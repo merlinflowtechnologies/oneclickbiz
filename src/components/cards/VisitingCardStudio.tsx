@@ -1058,7 +1058,7 @@ export default function VisitingCardStudio() {
                       {/* Bottom Footer */}
                       <div className="flex items-center justify-between border-t border-white/10 pt-2 text-[9px]">
                         <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
-                          Scan QR code with smartphone camera for instant vCard save
+                          Scan QR code with smartphone camera for instant contact save
                         </span>
                         <span className={`font-bold uppercase ${isLight ? 'text-slate-950' : 'text-white'}`}>
                           Scan to Connect
@@ -1522,7 +1522,7 @@ export default function VisitingCardStudio() {
                     />
                   </div>
                   <p className="text-[10px] text-slate-400">
-                    QR code instantly downloads your full vCard contact and opens your WhatsApp storefront.
+                    QR code instantly downloads your contact card (.VCF) and opens your WhatsApp storefront.
                   </p>
                 </div>
 
@@ -1865,7 +1865,7 @@ export default function VisitingCardStudio() {
               {/* Bottom Footer */}
               <div className="flex items-center justify-between border-t border-white/10 pt-4 text-xs relative z-10">
                 <span className={isLight ? 'text-slate-500' : 'text-slate-400'}>
-                  Scan QR code with smartphone camera for instant vCard save
+                  Scan QR code with smartphone camera for instant contact save
                 </span>
                 <span className={`font-bold uppercase ${isLight ? 'text-slate-950' : 'text-white'}`}>
                   Scan to Connect

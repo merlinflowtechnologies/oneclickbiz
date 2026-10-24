@@ -197,7 +197,7 @@ export default function AutomobileMiniWebsiteView({
               className="text-slate-300 hover:text-white transition flex items-center gap-1 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Save vCard</span>
+              <span>Save Contact</span>
             </button>
           </div>
         </div>
@@ -349,7 +349,7 @@ export default function AutomobileMiniWebsiteView({
                 </a>
               )}
 
-              {/* Save vCard */}
+              {/* Save Contact */}
               <button
                 onClick={() => downloadVcfFile(profile)}
                 className="flex flex-col items-center gap-1.5 group cursor-pointer"
@@ -357,7 +357,7 @@ export default function AutomobileMiniWebsiteView({
                 <div className="w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center shadow-lg transition group-hover:scale-105 border border-slate-700">
                   <Download className="w-6 h-6" />
                 </div>
-                <span className="text-[10px] sm:text-xs font-bold text-slate-300 uppercase">Save vCard</span>
+                <span className="text-[10px] sm:text-xs font-bold text-slate-300 uppercase">Save Contact</span>
               </button>
 
               {/* Share */}

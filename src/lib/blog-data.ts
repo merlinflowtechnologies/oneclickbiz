@@ -45,7 +45,7 @@ Enter **smart digital business cards** — interactive, dynamic, and instantly s
 - **Dynamic QR Codes:** High-contrast, customizable QR codes that can be displayed anywhere, printed on stands, or shared on screens.
 - **100% Cloud Software:** Opens instantly in any modern iPhone or Android browser without installing any apps.
 - **Interactive WhatsApp Store:** Turn every meeting into an immediate commerce opportunity.
-- **Instant vCard Download:** Frictionless saving to Apple Contacts & Google Contacts.
+- **Instant Contact Download:** Frictionless saving to Apple Contacts & Google Contacts.
 
 > **Pro Tip:** When networking at conferences, save your OneClickBiz QR code on your phone lock screen for instantaneous sharing in crowded rooms!
 
@@ -271,7 +271,7 @@ Showcase products, digital downloads, or service packages with rich photography,
 See exactly who is interacting with your brand:
 - Real-time page views and visitor locations
 - Dynamic QR scan count and direct link visits
-- Click-through rates on WhatsApp, calls, emails, and vCard downloads
+- Click-through rates on WhatsApp, calls, emails, and contact downloads
 
 #### 🌐 3. Custom Domain Support & SSL
 Map your own branded domain (e.g., \`connect.yourcompany.com\`) directly to your OneClickBiz profile with automatic SSL certificate provisioning.

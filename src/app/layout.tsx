@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   keywords: [
     'digital business card',
     'smart business card',
-    'vcard',
+    'digital profile',
     'vcf contact saving',
     'whatsapp store',
     'whatsapp mini store',
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   openGraph: {
     title: 'OneClickBiz - Smart Digital Identity & Commerce SaaS',
-    description: 'Replace paper business cards with interactive digital vCards, WhatsApp mini-stores, booking calendars, and dynamic QR systems.',
+    description: 'Replace paper business cards with interactive digital cards, WhatsApp mini-stores, booking calendars, and dynamic QR systems.',
     url: 'https://oneclickbiz.in',
     siteName: 'OneClickBiz',
     locale: 'en_IN',
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'OneClickBiz - Smart Digital Identity & WhatsApp Mini-Store',
-    description: 'Replace paper business cards with interactive digital vCards, WhatsApp mini-stores, and dynamic QR systems in under 2 minutes.',
+    description: 'Replace paper business cards with interactive digital cards, WhatsApp mini-stores, and dynamic QR systems in under 2 minutes.',
     images: ['/og-cover.png'],
     creator: '@oneclickbiz',
     site: '@oneclickbiz',
@@ -145,7 +145,7 @@ export default function RootLayout({
   const jsonLdSoftwareApp = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'OneClickBiz Digital vCard & WhatsApp Commerce Suite',
+    name: 'OneClickBiz Digital Business Card & WhatsApp Commerce Suite',
     operatingSystem: 'All (Web, iOS, Android)',
     applicationCategory: 'BusinessApplication',
     aggregateRating: {
@@ -165,7 +165,7 @@ export default function RootLayout({
           name: 'Basic Plan',
           price: '999',
           priceCurrency: 'INR',
-          description: '1 Dynamic Digital vCard with 1-click contact save and lead capture.',
+          description: '1 Dynamic Digital Business Card with 1-click contact save and lead capture.',
         },
         {
           '@type': 'Offer',

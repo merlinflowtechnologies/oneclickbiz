@@ -69,7 +69,7 @@ const DEFAULT_PLAN_TIERS: PlanTier[] = [
     price: 999,
     badge: 'Starter Value',
     features: [
-      '1 Digital Business Profile & vCard',
+      '1 Digital Business Profile & Smart Card',
       '3 Video / Reel uploads (Local & YouTube)',
       '5 Portfolio showcase items',
       'Dynamic QR code generation & scan tracking',
@@ -651,7 +651,7 @@ function SettingsContent() {
 
               <div>
                 <h3 className="text-xs font-bold text-slate-900">Profile Photo</h3>
-                <p className="text-[11px] text-slate-500 mt-0.5">Used across your vCard, email signature, and dashboard account.</p>
+                <p className="text-[11px] text-slate-500 mt-0.5">Used across your digital card, email signature, and dashboard account.</p>
                 <p className="text-[10px] text-slate-400 mt-0.5">PNG, JPG or WebP up to 10MB</p>
               </div>
             </div>
@@ -1048,7 +1048,7 @@ function SettingsContent() {
                           <ul className="space-y-1 text-[11px] text-slate-700">
                             {checkoutPlan.id === 'BASIC' && (
                               <>
-                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-600 shrink-0" /> 1 Digital Profile &amp; vCard</li>
+                                <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-600 shrink-0" /> 1 Digital Profile &amp; Smart Card</li>
                                 <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-600 shrink-0" /> Dynamic QR Code &amp; Tracking</li>
                                 <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-emerald-600 shrink-0" /> Direct VCF Contact Download</li>
                               </>

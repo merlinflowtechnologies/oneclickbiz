@@ -115,7 +115,7 @@ export default function LeadsCrmPage() {
             <Users className="w-3 h-3" /> Inquiries & Lead Pipeline
           </div>
           <h1 className="text-2xl font-bold text-white">Captured Leads & Inquiries</h1>
-          <p className="text-xs text-slate-400">Direct inquiries submitted by visitors viewing your digital vCard.</p>
+          <p className="text-xs text-slate-400">Direct inquiries submitted by visitors viewing your digital business card.</p>
         </div>
 
         <div className="flex items-center gap-3 flex-wrap">

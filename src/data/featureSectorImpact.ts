@@ -565,7 +565,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
       { value: '94%', label: 'Save Success Rate' }
     ],
     keyCapabilities: [
-      'Standard vCard 3.0 / 4.0 universal format for iOS & Android',
+      'Standard Contact Card (.VCF) universal format for iOS & Android',
       'Includes profile avatar, designation, company, multiple phone numbers & emails',
       'Embedded direct website, WhatsApp, and Google Maps address links',
       'Zero typing mistakes for prospects saving your number'
@@ -738,7 +738,7 @@ export const FEATURES_DATA: FeatureDetail[] = [
     ],
     keyCapabilities: [
       'Visual interactive charts showing daily/weekly traffic growth',
-      'Track specific button conversion (WhatsApp clicks, call clicks, vCard downloads)',
+      'Track specific button conversion (WhatsApp clicks, call clicks, contact downloads)',
       'Device breakdown (iOS vs Android vs Desktop) and visitor city insights',
       'Export lead inquiries and analytics reports for sales team reviews'
     ],
@@ -763,10 +763,10 @@ export const FEATURES_DATA: FeatureDetail[] = [
       },
       {
         sectorId: 'consulting',
-        sectorName: 'Consultants, Lawyers & CAs',
+        sectorName: 'Consultants, Lawyers & Insurance Advisors',
         sectorIcon: '💼',
         painPoint: 'Partners cannot measure the ROI of attending expensive industry sponsorship summits.',
-        howItHelps: 'Track how many conference attendees viewed the profile, downloaded the vCard, and scheduled follow-up calls.',
+        howItHelps: 'Track how many conference attendees viewed the profile, saved the contact, and scheduled follow-up calls.',
         roiBenefit: 'Clear, quantifiable ROI data for annual marketing budget allocation.',
         realWorldScenario: 'A consulting firm tracks 120 profile views and 14 consultation bookings directly attributable to a single trade summit.'
       },

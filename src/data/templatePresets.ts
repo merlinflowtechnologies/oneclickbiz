@@ -1865,7 +1865,7 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
                VCARD_TEMPLATES_CATALOG[0];
   const custom = TEMPLATE_PRESETS_DATA[templateId] || TEMPLATE_PRESETS_DATA[effectiveId] || {};
 
-  const name = custom.name || meta.name.replace(' vCard', '');
+  const name = custom.name || meta.name.replace(/ vCard/gi, '').trim();
   const designation = custom.designation || meta.tagline;
   const company = custom.company || `${name} ${meta.category} Practice`;
   const bio = custom.bio || `Welcome to ${company}. Providing top-tier ${meta.category.toLowerCase()} solutions, digital contact exchange, and seamless customer service.`;
@@ -1901,7 +1901,7 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
   const products: ProductItem[] = custom.products || [
     {
       id: `prod_${templateId}_1`,
-      name: `${meta.name.replace(' vCard', '')} Consultation Package`,
+      name: `${meta.name.replace(/ vCard/gi, '').trim()} Consultation Package`,
       description: `Comprehensive starter service package including full review and roadmap.`,
       price: 2999,
       currency: '₹',

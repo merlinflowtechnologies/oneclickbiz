@@ -2,12 +2,12 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Instant QR Scanner & Smart Card Reader | OneClickBiz',
-  description: 'Scan digital business cards and dynamic vCard QR codes instantly using your device camera without installing any third-party app.',
+  description: 'Scan digital business cards and dynamic QR codes instantly using your device camera without installing any third-party app.',
   keywords: [
-    'vcard qr scanner',
+    'smart card qr scanner',
     'qr code reader',
     'scan digital business card',
-    'instant vcard scanner'
+    'instant card scanner'
   ],
   alternates: {
     canonical: 'https://oneclickbiz.in/scan',

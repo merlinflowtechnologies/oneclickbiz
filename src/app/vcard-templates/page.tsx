@@ -84,7 +84,7 @@ export default function VCardTemplatesPage() {
             </h1>
 
             <p className="max-w-3xl mx-auto text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
-              Explore {VCARD_TEMPLATES_CATALOG.length}+ industry-crafted digital visiting card templates for Real Estate, Doctors, Boutiques, Restaurants, Salons, Institutes, Car Dealers, and Professional Consultants.
+              Explore {VCARD_TEMPLATES_CATALOG.length}+ industry-crafted digital business website &amp; smart card templates for Real Estate, Doctors, Boutiques, Restaurants, Salons, Institutes, Insurance Agents, and Modern Enterprises.
             </p>
 
             {/* Search and Filters Bar */}
@@ -95,7 +95,7 @@ export default function VCardTemplatesPage() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search by business (e.g. Boutique, Doctor, Saree, Bakery, CA, Hotel)..."
+                  placeholder="Search by business (e.g. Boutique, Doctor, Saree, Bakery, Insurance, Hotel)..."
                   className="w-full pl-12 pr-10 py-3.5 rounded-2xl bg-white/90 border border-slate-200/90 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 focus:bg-white transition-all shadow-md backdrop-blur-xl"
                 />
                 {searchQuery && (
@@ -209,7 +209,7 @@ export default function VCardTemplatesPage() {
                     <img
                       src={template.imgUrl}
                       alt={template.name}
-                      className="vcard-template-img w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      className="business-template-img w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
 

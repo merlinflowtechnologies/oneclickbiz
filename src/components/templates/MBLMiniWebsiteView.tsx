@@ -851,7 +851,7 @@ export default function MBLMiniWebsiteView({
                       </svg>
                     </div>
                     <span className="font-sans text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-slate-800 group-hover:text-black transition-colors whitespace-nowrap">
-                      SAVE VCARD
+                      SAVE CONTACT
                     </span>
                   </button>
 

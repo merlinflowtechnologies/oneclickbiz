@@ -82,7 +82,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
     "id": "health-doctor",
     "templateNumber": 906,
-    "name": "Doctor & Specialist Clinic vCard",
+    "name": "Doctor & Specialist Clinic",
     "category": "Healthcare",
     "subCategory": "Doctors & Clinics",
     "actionSubtitle": "Consultation Desk",
@@ -116,7 +116,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
     "id": "fash-boutique",
     "templateNumber": 904,
-    "name": "Grand Fashion & Clothing Mall vCard",
+    "name": "Grand Fashion & Clothing Mall",
     "category": "Fashion & Clothing",
     "subCategory": "Fashion & Clothing Malls",
     "actionSubtitle": "Designer Collections",
@@ -133,7 +133,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
     "id": "beauty-salon",
     "templateNumber": 905,
-    "name": "Luxury Hair & Beauty Salon vCard",
+    "name": "Luxury Hair & Beauty Salon",
     "category": "Beauty & Personal Care",
     "subCategory": "Hair & Beauty Salons",
     "actionSubtitle": "Salon Services & Spa",
@@ -148,26 +148,9 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     ]
   },
   {
-    "id": "prof-ca",
-    "templateNumber": 1001,
-    "name": "Chartered Accountant (CA) & Audit Firm vCard",
-    "category": "Professional Services",
-    "subCategory": "CA",
-    "actionSubtitle": "Quick Tax Quotes",
-    "imgUrl": "https://images.unsplash.com/photo-1771244688590-1e481dba1b5a?auto=format&fit=crop&w=800&h=1000&q=85",
-    "badge": "Executive",
-    "tagline": "GST returns, income tax filing, statutory audits & ROC",
-    "features": [
-      "Tax advisory appointment form",
-      "Compliance due date calendar",
-      "Service fee packages",
-      "Client confidentiality badge"
-    ]
-  },
-  {
     "id": "edu-coaching",
     "templateNumber": 908,
-    "name": "Coaching Institute (IIT/NEET/UPSC) vCard",
+    "name": "Coaching Institute (IIT/NEET/UPSC)",
     "category": "Education",
     "subCategory": "Coaching & Test Prep",
     "actionSubtitle": "IIT / NEET Batches",
@@ -184,7 +167,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
     "id": "events-planner",
     "templateNumber": 901,
-    "name": "Luxury Events & Wedding Planner vCard",
+    "name": "Luxury Events & Wedding Planner",
     "category": "Events & Creative",
     "subCategory": "Wedding & Event Planners",
     "actionSubtitle": "Destination Weddings",
@@ -199,26 +182,26 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     ]
   },
   {
-    "id": "auto-car-dealer",
+    "id": "prof-insurance",
     "templateNumber": 910,
-    "name": "Car Dealer & Showroom vCard",
-    "category": "Automobile",
-    "subCategory": "Car Dealers",
-    "actionSubtitle": "Book Test Drive",
-    "imgUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&h=1000&q=85",
-    "badge": "Showroom Pro",
-    "tagline": "Certified pre-owned cars, test drive bookings, finance & insurance desk",
+    "name": "Insurance Agents & Policy Advisors",
+    "category": "Professional Services",
+    "subCategory": "Insurance Agents",
+    "actionSubtitle": "Policy & Claims Desk",
+    "imgUrl": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "IRDAI Certified",
+    "tagline": "Life, health & motor insurance policies, claim settlement assistance & instant premium quotes",
     "features": [
-      "Car inventory showcase with EMI calculator",
-      "1-Click test drive schedule form",
-      "Direct WhatsApp quote button",
-      "Google Maps showroom navigation"
+      "Instant Health & Term Insurance Quotes",
+      "Direct 1-Click WhatsApp Claim Desk",
+      "Policy Comparison & Premium Calculator",
+      "Tax Saving (80C / 80D) Advisory"
     ]
   },
   {
     "id": "retail-jewellery",
     "templateNumber": 911,
-    "name": "Gold & Diamond Jewellery vCard",
+    "name": "Gold & Diamond Jewellery",
     "category": "Retail & Local Shops",
     "subCategory": "Jewellery Stores",
     "actionSubtitle": "Gold & Diamonds",
@@ -235,7 +218,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
     "id": "home-electrician",
     "templateNumber": 909,
-    "name": "Certified Electrician vCard",
+    "name": "Certified Electrician & Home Services",
     "category": "Home & Professional Services",
     "subCategory": "Electricians",
     "actionSubtitle": "24/7 Electrical Care",
@@ -248,6 +231,23 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
       "WhatsApp photo quotation request",
       "Customer safety & license guarantee"
     ]
+  },
+  {
+    "id": "travel-tour",
+    "templateNumber": 912,
+    "name": "Tours & Travel Agency",
+    "category": "Travel & Hospitality",
+    "subCategory": "Travel Agents",
+    "actionSubtitle": "Holiday Packages",
+    "imgUrl": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Holiday Planner",
+    "tagline": "Domestic & international holiday packages, flight bookings & visa assistance",
+    "features": [
+      "Custom Holiday Package Planner",
+      "Direct 1-Click WhatsApp Travel Desk",
+      "Visa Guidance & Flight Bookings",
+      "Customer Travel Review Highlights"
+    ]
   }
 ];
 
@@ -255,7 +255,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "event-photo",
     "templateNumber": 901,
-    "name": "Wedding & Fashion Photographer vCard",
+    "name": "Wedding & Fashion Photographer",
     "category": "Events & Creative",
     "subCategory": "Photographers",
     "actionSubtitle": "Book Photo Shoot",
@@ -283,13 +283,13 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
       "GitHub 5k+ stars showcase",
       "Resume & tech consultation booking",
       "Downloadable SaaS boilerplate store",
-      "1-Click vCard save"
+      "1-Click Contact Save"
     ]
   },
   {
     "id": "prof-insurance",
     "templateNumber": 1003,
-    "name": "Insurance Advisor & Financial Security vCard",
+    "name": "Insurance Advisor & Financial Security",
     "category": "Professional Services",
     "subCategory": "Insurance Agents",
     "actionSubtitle": "Financial Shield",
@@ -395,7 +395,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "fash-boutique",
     "templateNumber": 201,
-    "name": "Grand Fashion & Clothing Mall vCard",
+    "name": "Grand Fashion & Clothing Mall",
     "category": "Fashion & Clothing",
     "subCategory": "Shopping Malls & Multi-Brand Apparel",
     "actionSubtitle": "Grand Boutique",
@@ -412,7 +412,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "fash-saree",
     "templateNumber": 204,
-    "name": "Exclusive Saree Shop vCard",
+    "name": "Exclusive Saree Shop",
     "category": "Fashion & Clothing",
     "subCategory": "Saree Shops",
     "actionSubtitle": "Pure Silk Sarees",
@@ -429,7 +429,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "beauty-salon",
     "templateNumber": 301,
-    "name": "Luxury Hair & Beauty Salon vCard",
+    "name": "Luxury Hair & Beauty Salon",
     "category": "Beauty & Personal Care",
     "subCategory": "Salons",
     "actionSubtitle": "Top Rated Salons",
@@ -446,7 +446,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "beauty-bridal",
     "templateNumber": 304,
-    "name": "Bridal Makeup Studio vCard",
+    "name": "Bridal Makeup Studio",
     "category": "Beauty & Personal Care",
     "subCategory": "Bridal Studios",
     "actionSubtitle": "Royal Brides",
@@ -463,7 +463,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "health-doctor",
     "templateNumber": 501,
-    "name": "Doctor & Specialist Clinic vCard",
+    "name": "Doctor & Specialist Clinic",
     "category": "Healthcare",
     "subCategory": "Doctors",
     "actionSubtitle": "Book Now",
@@ -480,7 +480,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "health-dental",
     "templateNumber": 502,
-    "name": "Dental Care & Implant Clinic vCard",
+    "name": "Dental Care & Implant Clinic",
     "category": "Healthcare",
     "subCategory": "Dental Clinics",
     "actionSubtitle": "Dental Implants",
@@ -496,7 +496,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "edu-school",
     "templateNumber": 601,
-    "name": "School & International Academy vCard",
+    "name": "School & International Academy",
     "category": "Education",
     "subCategory": "Schools",
     "actionSubtitle": "Admissions Open",
@@ -513,7 +513,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "edu-coaching",
     "templateNumber": 603,
-    "name": "Coaching Institute (IIT/NEET/UPSC) vCard",
+    "name": "Coaching Institute (IIT/NEET/UPSC)",
     "category": "Education",
     "subCategory": "Coaching Institutes",
     "actionSubtitle": "IIT / NEET Rankers",
@@ -549,7 +549,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "home-architect",
     "templateNumber": 702,
-    "name": "Architect & Structural Engineer vCard",
+    "name": "Architect & Structural Engineer",
     "category": "Interior Design",
     "subCategory": "Architects & Blueprints",
     "actionSubtitle": "Architecture & 3D",
@@ -565,7 +565,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "home-electrician",
     "templateNumber": 704,
-    "name": "Certified Electrician vCard",
+    "name": "Certified Electrician",
     "category": "Home & Professional Services",
     "subCategory": "Electricians",
     "actionSubtitle": "Get Nearest Vendor",
@@ -581,7 +581,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "home-plumber",
     "templateNumber": 703,
-    "name": "Plumbing Services vCard",
+    "name": "Plumbing Services",
     "category": "Home & Professional Services",
     "subCategory": "Plumbers",
     "actionSubtitle": "24/7 Plumber",
@@ -597,7 +597,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "auto-car-dealer",
     "templateNumber": 801,
-    "name": "Car Dealer & Showroom vCard",
+    "name": "Car Dealer & Showroom",
     "category": "Automobile",
     "subCategory": "Car Dealers",
     "actionSubtitle": "Best Car Deals",
@@ -614,7 +614,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "auto-bike-dealer",
     "templateNumber": 803,
-    "name": "Bike & Superbike Dealer vCard",
+    "name": "Bike & Superbike Dealer",
     "category": "Automobile",
     "subCategory": "Bike Dealers",
     "actionSubtitle": "Superbikes & Scooters",
@@ -630,7 +630,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "retail-jewellery",
     "templateNumber": 1104,
-    "name": "Gold & Diamond Jewellery vCard",
+    "name": "Gold & Diamond Jewellery",
     "category": "Retail & Local Shops",
     "subCategory": "Jewellery",
     "actionSubtitle": "Gold & Diamonds",
@@ -647,7 +647,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "retail-mobile",
     "templateNumber": 1101,
-    "name": "Mobile Phone & Gadget Store vCard",
+    "name": "Mobile Phone & Gadget Store",
     "category": "Retail & Local Shops",
     "subCategory": "Mobile Shops",
     "actionSubtitle": "Mobiles & Gadgets",
@@ -681,7 +681,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
   {
     "id": "travel-hotel",
     "templateNumber": 1203,
-    "name": "Luxury Hotel & Banquet Suites vCard",
+    "name": "Luxury Hotel & Banquet Suites",
     "category": "Travel & Hospitality",
     "subCategory": "Hotels",
     "actionSubtitle": "5-Star Suites",

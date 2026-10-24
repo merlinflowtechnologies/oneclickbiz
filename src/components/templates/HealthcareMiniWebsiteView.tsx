@@ -363,7 +363,7 @@ export default function HealthcareMiniWebsiteView({
                 <div className="w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center shadow-lg transition group-hover:scale-105">
                   <Download className="w-6 h-6" />
                 </div>
-                <span className="text-[10px] sm:text-xs font-bold text-slate-700 uppercase">Save vCard</span>
+                <span className="text-[10px] sm:text-xs font-bold text-slate-700 uppercase">Save Contact</span>
               </button>
 
               {/* Share */}

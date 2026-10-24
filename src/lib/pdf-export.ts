@@ -406,7 +406,7 @@ export function exportExecutiveSummaryPDF({
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(71, 85, 105);
   doc.text(`Email: ${profile.email} | Phone: ${profile.phone} | WhatsApp: +${profile.whatsapp}`, 55, 136);
-  doc.text(`Live vCard: https://oneclickbiz.com/v/${profile.slug} | Theme: ${profile.theme}`, 55, 150);
+  doc.text(`Live Profile: https://oneclickbiz.in/v/${profile.slug} | Theme: ${profile.theme}`, 55, 150);
   doc.text(`Total Views: ${profile.stats.views.toLocaleString()} | QR Scans: ${profile.stats.qrScans} | Direct Visits: ${profile.stats.nfcTaps} | VCF Saved: ${profile.stats.vcfDownloads}`, 55, 164);
 
   // 3. Section: Recent Bookings Table
@@ -807,7 +807,7 @@ export async function exportBrochurePDF(
     doc.addImage(qrDataUrl, 'PNG', pageWidth - 110, 25, 70, 70);
     doc.setTextColor(203, 213, 225);
     doc.setFontSize(6.5);
-    doc.text('Scan for vCard Profile', pageWidth - 75, 106, { align: 'center' });
+    doc.text('Scan for Digital Profile', pageWidth - 75, 106, { align: 'center' });
   } catch (e) {
     console.error(e);
   }

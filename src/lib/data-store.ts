@@ -93,7 +93,7 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
           },
           {
             id: 'prod_2',
-            name: 'Smart Digital vCard & Dynamic QR Suite for Sales Teams',
+            name: 'Smart Digital Card & Dynamic QR Suite for Sales Teams',
             description: 'Luxury digital visiting cards with instant 1-tap contact saving, catalog browsing, and WhatsApp booking.',
             price: 1999,
             currency: '₹',
@@ -679,7 +679,7 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
           {
             id: 'prod_1',
             name: 'Smart Digital Profile Starter Pack',
-            description: 'Full profile studio configuration with dynamic QR and vCard management.',
+            description: 'Full profile studio configuration with dynamic QR and digital card management.',
             price: 1499,
             currency: '₹',
             imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80',

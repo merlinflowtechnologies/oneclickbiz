@@ -26,7 +26,7 @@ const TEMPLATES_DATA: TemplateItem[] = [
   },
   {
     id: 'beauty-salon',
-    name: 'Luxury Hair & Beauty Salon vCard',
+    name: 'Luxury Hair & Beauty Salon',
     category: 'salons',
     categoryLabel: 'Salons & Beauty',
     image: '/landing/template_salon.png',
@@ -35,7 +35,7 @@ const TEMPLATES_DATA: TemplateItem[] = [
   },
   {
     id: 'health-doctor',
-    name: 'Doctor & Specialist Clinic vCard',
+    name: 'Doctor & Specialist Clinic',
     category: 'hospitals',
     categoryLabel: 'Hospitals & Healthcare',
     image: '/landing/template_hospital.png',
@@ -44,7 +44,7 @@ const TEMPLATES_DATA: TemplateItem[] = [
   },
   {
     id: 'edu-coaching',
-    name: 'Coaching Institute (IIT/NEET/UPSC) vCard',
+    name: 'Coaching Institute (IIT/NEET/UPSC)',
     category: 'education',
     categoryLabel: 'Education & Coaching',
     image: '/landing/template_education.png',
@@ -71,7 +71,7 @@ const TEMPLATES_DATA: TemplateItem[] = [
   },
   {
     id: 'fash-boutique',
-    name: 'Grand Fashion & Clothing Mall vCard',
+    name: 'Grand Fashion & Clothing Mall',
     category: 'fashion',
     categoryLabel: 'Fashion & Clothing',
     image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&h=500&q=85',
@@ -79,17 +79,8 @@ const TEMPLATES_DATA: TemplateItem[] = [
     features: ['Catalog Lookbook & Collections', 'WhatsApp Order & Size Inquiries', 'Seasonal Discount Banners', 'Store Directions & Timings']
   },
   {
-    id: 'prof-ca',
-    name: 'Chartered Accountant (CA) & Audit Firm vCard',
-    category: 'consultants',
-    categoryLabel: 'Professional & CA Services',
-    image: 'https://images.unsplash.com/photo-1771244688590-1e481dba1b5a?auto=format&fit=crop&w=800&h=500&q=85',
-    liveUrl: '/v/prof-ca',
-    features: ['ITR & GST Filing Calendars', 'Corporate Compliance Checklist', 'Instant Advisory Consultation Form', 'Client Case Studies']
-  },
-  {
     id: 'events-planner',
-    name: 'Luxury Events & Wedding Planner vCard',
+    name: 'Luxury Events & Wedding Planner',
     category: 'events',
     categoryLabel: 'Events & Wedding Planning',
     image: 'https://images.unsplash.com/photo-1610173827043-9db50e0d8ef9?auto=format&fit=crop&w=800&h=500&q=85',
@@ -97,17 +88,17 @@ const TEMPLATES_DATA: TemplateItem[] = [
     features: ['Wedding & Event Showcase Gallery', 'Package Quotation Calculator', 'Vendor Coordination Form', 'Direct WhatsApp Event Hotline']
   },
   {
-    id: 'auto-car-dealer',
-    name: 'Car Dealer & Showroom vCard',
-    category: 'automobile',
-    categoryLabel: 'Automobile & Dealerships',
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&h=500&q=85',
-    liveUrl: '/v/auto-car-dealer',
-    features: ['Interactive Vehicle Inventory', 'Test Drive Booking Form', 'EMI Calculator & Finance Assistant', '1-Tap WhatsApp Deal Desk']
+    id: 'prof-insurance',
+    name: 'Insurance Agents & Policy Advisors',
+    category: 'insurance',
+    categoryLabel: 'Insurance & Advisory',
+    image: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/prof-insurance',
+    features: ['Instant Health & Term Insurance Quotes', 'Direct 1-Click WhatsApp Claim Desk', 'Policy Comparison & Premium Calculator', 'Tax Saving (80C / 80D) Advisory']
   },
   {
     id: 'retail-jewellery',
-    name: 'Gold & Diamond Jewellery vCard',
+    name: 'Gold & Diamond Jewellery',
     category: 'retail',
     categoryLabel: 'Retail & Jewellery',
     image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&h=500&q=85',
@@ -116,12 +107,21 @@ const TEMPLATES_DATA: TemplateItem[] = [
   },
   {
     id: 'home-electrician',
-    name: 'Certified Electrician & Home Services vCard',
+    name: 'Certified Electrician & Home Services',
     category: 'services',
     categoryLabel: 'Home & Professional Services',
     image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&h=500&q=85',
     liveUrl: '/v/home-electrician',
     features: ['Emergency Repair Request Hotline', 'Transparent Service Rate Card', 'Technician Safety Badges & Warranty', '1-Tap WhatsApp Location Sharing']
+  },
+  {
+    id: 'travel-tour',
+    name: 'Tours & Travel Agency',
+    category: 'travel',
+    categoryLabel: 'Travel & Hospitality',
+    image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/travel-tour',
+    features: ['Custom Holiday Package Planner', 'Direct 1-Click WhatsApp Travel Desk', 'Visa Guidance & Flight Bookings', 'Customer Travel Review Highlights']
   },
 ];
 
@@ -134,11 +134,11 @@ const FILTER_TABS = [
   { id: 'real-estate', label: 'Real Estate' },
   { id: 'interior-design', label: 'Interior Design' },
   { id: 'fashion', label: 'Fashion & Boutique' },
-  { id: 'consultants', label: 'CA & Consultants' },
   { id: 'events', label: 'Events & Wedding' },
-  { id: 'automobile', label: 'Automobile' },
+  { id: 'insurance', label: 'Insurance Agents' },
   { id: 'retail', label: 'Retail & Jewellery' },
   { id: 'services', label: 'Home Services' },
+  { id: 'travel', label: 'Tours & Travel' },
 ];
 
 export default function TemplatesSection() {

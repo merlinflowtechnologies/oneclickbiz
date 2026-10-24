@@ -640,7 +640,7 @@ function SignUpForm() {
                     {
                       id: `card_${generatedSlug}`,
                       slug: generatedSlug,
-                      title: `${generatedBizName} vCard`,
+                      title: `${generatedBizName} Card`,
                       name: data.user.name,
                       company: generatedBizName,
                       designation: category === 'Interior Design' ? 'Principal Architect & Founder' : (category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder & Managing Director'),
@@ -747,7 +747,7 @@ function SignUpForm() {
             {
               id: `card_${cleanSlug}`,
               slug: cleanSlug,
-              title: `${cleanBiz} vCard`,
+              title: `${cleanBiz} Card`,
               name: fullName,
               company: cleanBiz,
               designation: category === 'Interior Design' ? 'Principal Architect & Founder' : (category === 'Real Estate' ? 'Managing Director & Builder' : 'Founder & Managing Director'),

@@ -237,8 +237,8 @@ export default function QRScannerPage() {
               {[
                 { name: 'Kishore Patel (MD)', slug: 'kishore' },
                 { name: 'Aravind Reddy (Enterprise)', slug: 'aravind-md' },
-                { name: 'Creative Designer', slug: 'vcard39' },
-                { name: 'Corporate Executive', slug: 'vcard13' }
+                { name: 'Insurance Advisor', slug: 'prof-insurance' },
+                { name: 'Doctor Specialist', slug: 'health-doctor' }
               ].map(item => (
                 <button
                   key={item.slug}
@@ -261,7 +261,7 @@ export default function QRScannerPage() {
                   </div>
                   <div>
                     <h3 className="text-xs font-bold text-white">Smart Card Detected!</h3>
-                    <p className="text-[10px] text-emerald-400">Verified OneClickBiz Dynamic vCard</p>
+                    <p className="text-[10px] text-emerald-400">Verified OneClickBiz Dynamic Card</p>
                   </div>
                 </div>
 

@@ -628,7 +628,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             {
               id: `card_${initialProfile.slug || 'primary'}`,
               slug: initialProfile.slug || 'kishore',
-              title: initialProfile.name ? `${initialProfile.name}'s vCard` : 'Primary Business Card',
+              title: initialProfile.name ? `${initialProfile.name}'s Card` : 'Primary Business Card',
               name: initialProfile.name || 'Kishore Patel',
               company: initialProfile.company || 'Himastech Digital Reality',
               designation: initialProfile.designation || 'Founder & Managing Director',
@@ -1548,7 +1548,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 type="button"
                 onClick={() => downloadVcfFile(profile)}
                 className="p-1.5 rounded-md hover:bg-slate-700 text-slate-300 hover:text-white transition cursor-pointer"
-                title="Download vCard (.vcf)"
+                title="Download Contact (.vcf)"
               >
                 <Download className="w-3.5 h-3.5 text-emerald-400" />
               </button>
@@ -1911,7 +1911,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     </span>
                   </div>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Manage multiple digital identity profiles, niche marketing vCards, or staff cards under your business entity.
+                    Manage multiple digital identity profiles, niche marketing cards, or staff cards under your business entity.
                   </p>
                 </div>
 
@@ -2036,7 +2036,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     + Add New Digital Card ({userCards.length}/{MAX_CARDS})
                   </h4>
                   <p className="text-xs text-slate-400 mt-1 max-w-xs">
-                    Choose from 28 industry presets to build a tailored vCard with custom services and store.
+                    Choose from 28 industry presets to build a tailored digital card with custom services and store.
                   </p>
                 </div>
               </div>
@@ -2105,7 +2105,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                           <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-semibold">Recommended</span>
                         </div>
                         <p className="text-[11px] text-slate-400 mt-0.5">
-                          Shown at top of your digital card, vCard, QR code & email signature.
+                          Shown at top of your digital card, QR code & email signature.
                         </p>
                         <p className="text-[10px] text-slate-500 mt-1 font-mono">
                           PNG, JPG, WEBP • Max 10MB
@@ -4951,7 +4951,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                         <img 
                           src={tpl.imgUrl} 
                           alt={tpl.name}
-                          className="vcard-template-img"
+                          className="business-template-img"
                           loading="lazy"
                         />
                         {tpl.badge && (
@@ -7857,7 +7857,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
                     <BookOpen className="w-4 h-4 text-indigo-400" /> Articles & Thought Leadership
                   </h3>
-                  <p className="text-xs text-slate-400">Manage articles showcased on your digital profile & vCard.</p>
+                  <p className="text-xs text-slate-400">Manage articles showcased on your digital profile.</p>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -8531,7 +8531,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     ? 'bg-indigo-600 text-white shadow-xs'
                     : 'text-slate-400 hover:text-white'
                 }`}
-                title="Live Mobile Card (vCard) View"
+                title="Live Mobile Card View"
               >
                 <Smartphone className="w-3.5 h-3.5" />
                 <span>Mobile View</span>
@@ -8831,7 +8831,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-white">Create New Digital Card</h3>
-                  <p className="text-xs text-slate-400">Launch a new vCard profile with custom catalog &amp; slug</p>
+                  <p className="text-xs text-slate-400">Launch a new card profile with custom catalog &amp; slug</p>
                 </div>
               </div>
               <button 
@@ -9108,7 +9108,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition active:scale-95 cursor-pointer"
               >
                 <Download className="w-4 h-4 text-white" />
-                <span>Save Contact to Phone (vCard / .VCF)</span>
+                <span>Save Contact to Phone (.VCF)</span>
               </button>
 
               <button

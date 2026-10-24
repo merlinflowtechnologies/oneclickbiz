@@ -828,7 +828,7 @@ export default function BrochureStudio() {
                           {data.companyName}
                         </h4>
                         <p className={`text-[8px] ${currentTheme.textSecondary}`}>
-                          Scan QR code to access our interactive digital vCard & start instant WhatsApp chat.
+                          Scan QR code to access our interactive digital profile & start instant WhatsApp chat.
                         </p>
                       </div>
 
@@ -1051,7 +1051,7 @@ export default function BrochureStudio() {
                           {data.companyName}
                         </h3>
                         <p className={`text-[10px] max-w-[220px] ${currentTheme.textSecondary}`}>
-                          Scan QR Code to save full contact vCard & launch WhatsApp chat.
+                          Scan QR Code to save contact (.VCF) & launch WhatsApp chat.
                         </p>
                       </div>
 
@@ -1319,7 +1319,7 @@ export default function BrochureStudio() {
                       />
                     </div>
                     <div className="text-left">
-                      <p className="text-[8px] font-bold text-white">Scan for vCard</p>
+                      <p className="text-[8px] font-bold text-white">Scan for Profile</p>
                       <p className="text-[7px] text-indigo-400 font-mono">oneclickbiz.in/v/{data.slug}</p>
                     </div>
                   </div>
@@ -1982,7 +1982,7 @@ export default function BrochureStudio() {
                       {data.companyName}
                     </h4>
                     <p className={`text-xs max-w-xs ${currentTheme.textSecondary}`}>
-                      Scan QR code to access our interactive digital vCard & start instant WhatsApp chat.
+                      Scan QR code to access our interactive digital profile & start instant WhatsApp chat.
                     </p>
                   </div>
 
@@ -2212,7 +2212,7 @@ export default function BrochureStudio() {
                       {data.companyName}
                     </h3>
                     <p className={`text-xs max-w-sm ${currentTheme.textSecondary}`}>
-                      Scan QR Code to save full contact vCard & launch WhatsApp chat.
+                      Scan QR Code to save contact (.VCF) & launch WhatsApp chat.
                     </p>
                   </div>
 
@@ -2488,7 +2488,7 @@ export default function BrochureStudio() {
                   )}
                 </div>
                 <div className="text-left">
-                  <p className="text-xs font-bold text-white">Scan for vCard</p>
+                  <p className="text-xs font-bold text-white">Scan for Profile</p>
                   <p className="text-[10px] text-indigo-400 font-mono">oneclickbiz.in/v/{data.slug}</p>
                 </div>
               </div>

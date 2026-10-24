@@ -187,7 +187,7 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
       profile.designation,
       profile.company,
       'digital business card',
-      'vcard',
+      'digital contact card',
       'smart business identity',
       'oneclickbiz'
     ].filter(Boolean),

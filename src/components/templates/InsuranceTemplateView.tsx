@@ -3728,7 +3728,7 @@ export default function InsuranceTemplateView({
             </div>
 
             <div className="space-y-3">
-              <p className="text-white font-bold text-sm">Advisor vCard</p>
+              <p className="text-white font-bold text-sm">Advisor Contact</p>
               <button
                 onClick={() => downloadVcfFile(profile)}
                 className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
@@ -3978,8 +3978,8 @@ export default function InsuranceTemplateView({
             </button>
 
             <div>
-              <h3 className="text-lg font-bold text-slate-900 ocb-font-serif">Scan Smart Digital vCard</h3>
-              <p className="text-xs text-slate-600 mt-1 font-medium">Point smartphone camera to instantly save contacts & quotes</p>
+              <h3 className="text-lg font-bold text-slate-900 ocb-font-serif">Scan Smart Digital Card</h3>
+              <p className="text-xs text-slate-600 mt-1 font-medium">Point smartphone camera to instantly save contacts &amp; quotes</p>
             </div>
 
             <div className="bg-slate-50 p-4 rounded-2xl inline-block border border-slate-200 shadow-inner">
@@ -3998,7 +3998,7 @@ export default function InsuranceTemplateView({
                 className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
               >
                 <Download className="w-4 h-4" />
-                <span>Download vCard Contact (.VCF)</span>
+                <span>Download Contact (.VCF)</span>
               </button>
               <button
                 onClick={() => {
