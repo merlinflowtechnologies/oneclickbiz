@@ -31,57 +31,53 @@ export default function BusinessCategoriesSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4">
-          <div>
-            <span className="inline-block px-3 py-1 rounded-full bg-[#EDF3FF] text-[#174BFF] border border-[#C7D7FE] text-[11px] font-bold uppercase tracking-wider mb-2.5">
-              BUSINESS CATEGORIES
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-[#EDF3FF] text-[#174BFF] border border-[#C7D7FE] text-[11px] font-bold uppercase tracking-wider mb-2.5">
+            BUSINESS CATEGORIES
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#10183F] tracking-tight leading-tight">
+            Built for{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#174BFF] via-[#3568FF] to-[#7547F5]">
+              Every Business.
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#10183F] tracking-tight leading-tight">
-              Built for{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#174BFF] via-[#3568FF] to-[#7547F5]">
-                Every Business.
-              </span>
-            </h2>
-            <p className="mt-1.5 text-xs sm:text-sm text-[#64718F] font-normal">
-              Choose your industry and get started with the right website experience.
-            </p>
-          </div>
-
-          <Link
-            href="#templates"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-[#174BFF] bg-blue-50/80 hover:bg-blue-100/80 border border-blue-200 transition-colors shrink-0"
-          >
-            <span>View All Categories</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          </h2>
+          <p className="mt-2 text-sm sm:text-base text-[#64718F] font-normal">
+            Choose your industry and get started with the right website experience.
+          </p>
         </div>
 
-        {/* 10 Categories Grid: 10 cols on wide desktop, 5 on tablet, 2 on mobile */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2.5 sm:gap-3">
+        {/* 10 Categories Grid: 2 rows of 5 on desktop, 3 on tablet, 2 on mobile - Big Clear Images like Justdial */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
           {CATEGORIES_DATA.map((cat) => (
             <Link
               key={cat.id}
               href={cat.link}
-              className="group bg-white rounded-2xl border border-[#E2E9FA] hover:border-blue-300 p-2 sm:p-2.5 flex flex-col items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(23,75,255,0.08)] transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+              className="group bg-white rounded-2xl sm:rounded-3xl border border-[#E2E9FA] hover:border-[#174BFF]/50 p-3 sm:p-4 flex flex-col items-center text-center shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(23,75,255,0.12)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer"
             >
-              {/* Category Image */}
-              <div className="w-full aspect-square rounded-xl overflow-hidden bg-slate-100 mb-2 shadow-2xs">
+              {/* Category Image - Large & Crisp */}
+              <div className="w-full aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-slate-100 mb-3 sm:mb-3.5 shadow-xs relative">
                 <img 
                   src={cat.image} 
                   alt={cat.name} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                  className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-500" 
                   loading="lazy"
                 />
               </div>
 
               {/* Title */}
-              <h3 className="text-[11px] sm:text-xs font-bold text-[#10183F] group-hover:text-[#174BFF] transition-colors leading-tight line-clamp-2 min-h-[28px] flex items-center justify-center">
+              <h3 className="text-sm sm:text-base font-bold text-[#10183F] group-hover:text-[#174BFF] transition-colors leading-snug line-clamp-1">
                 {cat.name}
               </h3>
 
-              {/* Arrow circle */}
-              <div className="mt-1.5 w-5 h-5 rounded-full border border-[#E2E9FA] bg-[#F8FAFF] group-hover:bg-[#EDF3FF] group-hover:border-blue-300 group-hover:text-[#174BFF] flex items-center justify-center text-slate-400 transition-all">
-                <ArrowRight className="w-2.5 h-2.5 group-hover:translate-x-0.5 transition-transform" />
+              {/* Description */}
+              <p className="mt-1 text-xs text-[#64718F] font-medium leading-normal line-clamp-1">
+                {cat.desc}
+              </p>
+
+              {/* Interactive Explore Prompt */}
+              <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[#174BFF] group-hover:text-[#1034B5] transition-colors">
+                <span>View Templates</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
           ))}
