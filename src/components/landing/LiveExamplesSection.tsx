@@ -17,36 +17,35 @@ interface ExampleItem {
 const EXAMPLES_DATA: ExampleItem[] = [
   {
     id: 'restaurant-live',
-    name: 'Restaurant Website',
-    desc: 'A modern restaurant website with online ordering.',
+    name: 'Restaurant & Dining Website',
+    desc: 'Interactive digital menu with direct food ordering & table booking.',
     image: '/landing/template_restaurant.png',
-    btnText: '+91 8374372733',
-    isPhone: true,
-    link: 'tel:+918374372733',
+    btnText: 'View Live Website',
+    link: '/v/restaurant-menu',
   },
   {
     id: 'salon-live',
-    name: 'Salon Website',
-    desc: 'Elegant salon website with booking system.',
+    name: 'Salon & Beauty Website',
+    desc: 'Luxury hair & salon studio with slot booking & price catalog.',
     image: '/landing/template_salon.png',
-    btnText: 'View Live',
-    link: '/v/kishore',
+    btnText: 'View Live Website',
+    link: '/v/beauty-salon',
   },
   {
     id: 'clinic-live',
-    name: 'Clinic Website',
-    desc: 'Complete hospital website with appointments.',
+    name: 'Hospital & Clinic Website',
+    desc: 'Specialist doctors, OPD appointment slots & emergency hotline.',
     image: '/landing/template_hospital.png',
-    btnText: 'View Live',
-    link: '/v/kishore',
+    btnText: 'View Live Website',
+    link: '/v/health-doctor',
   },
   {
     id: 'education-live',
-    name: 'Education Website',
-    desc: 'Coaching institute website with course details.',
+    name: 'Coaching Institute Website',
+    desc: 'IIT/NEET courses, syllabus download & student admission inquiries.',
     image: '/landing/template_education.png',
-    btnText: 'View Live',
-    link: '/v/kishore',
+    btnText: 'View Live Website',
+    link: '/v/edu-coaching',
   },
 ];
 
@@ -68,7 +67,7 @@ export default function LiveExamplesSection() {
               </span>
             </h2>
             <p className="mt-1.5 text-xs sm:text-sm text-[#64718F] font-normal">
-              Explore real websites built with OneClickBiz.
+              Explore real live websites built with OneClickBiz.
             </p>
           </div>
 
@@ -76,7 +75,7 @@ export default function LiveExamplesSection() {
             href="#templates"
             className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-[#174BFF] bg-blue-50/80 hover:bg-blue-100/80 border border-blue-200 transition-colors shrink-0"
           >
-            <span>View More Examples</span>
+            <span>View All Templates</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -110,16 +109,18 @@ export default function LiveExamplesSection() {
                 </div>
               </div>
 
-              {/* Action Button */}
+              {/* Action Button: Opens Live Website */}
               <div className="mt-3 pt-2 border-t border-slate-50">
-                <Link
+                <a
                   href={ex.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full py-1.5 px-3 rounded-xl text-xs font-bold text-[#174BFF] bg-blue-50/80 hover:bg-blue-100/80 border border-blue-200 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                 >
-                  {ex.isPhone ? <Phone className="w-3 h-3 text-[#174BFF]" /> : <ExternalLink className="w-3 h-3 text-[#174BFF]" />}
+                  <ExternalLink className="w-3 h-3 text-[#174BFF]" />
                   <span className="truncate">{ex.btnText}</span>
-                  {!ex.isPhone && <ArrowRight className="w-3 h-3 shrink-0" />}
-                </Link>
+                  <ArrowRight className="w-3 h-3 shrink-0" />
+                </a>
               </div>
             </div>
           ))}

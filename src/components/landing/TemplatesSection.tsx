@@ -10,55 +10,135 @@ interface TemplateItem {
   category: string;
   categoryLabel: string;
   image: string;
+  liveUrl: string;
   features: string[];
 }
 
 const TEMPLATES_DATA: TemplateItem[] = [
   {
-    id: 'restaurant-modern',
-    name: 'Restaurant Template',
+    id: 'restaurant-menu',
+    name: 'Interactive Restaurant & Cafe Digital Dining Menu',
     category: 'restaurants',
     categoryLabel: 'Restaurants & Cafés',
     image: '/landing/template_restaurant.png',
+    liveUrl: '/v/restaurant-menu',
     features: ['Interactive Digital Menu', 'WhatsApp Table Booking', 'Direct Food Ordering', 'Google Reviews Sync']
   },
   {
-    id: 'salon-beauty',
-    name: 'Salon & Beauty Template',
+    id: 'beauty-salon',
+    name: 'Luxury Hair & Beauty Salon vCard',
     category: 'salons',
     categoryLabel: 'Salons & Beauty',
     image: '/landing/template_salon.png',
+    liveUrl: '/v/beauty-salon',
     features: ['Stylist Slot Booking', 'Service Price Catalog', 'Instagram Portfolio Sync', '1-Tap WhatsApp Inquiries']
   },
   {
-    id: 'hospital-clinic',
-    name: 'Hospital & Clinic Template',
+    id: 'health-doctor',
+    name: 'Doctor & Specialist Clinic vCard',
     category: 'hospitals',
-    categoryLabel: 'Hospitals & Clinics',
+    categoryLabel: 'Hospitals & Healthcare',
     image: '/landing/template_hospital.png',
+    liveUrl: '/v/health-doctor',
     features: ['Doctor Profiles & Slots', 'Emergency WhatsApp Hotline', 'Patient Appointment Form', 'Location & Timings Map']
   },
   {
-    id: 'education-coaching',
-    name: 'Education Template',
+    id: 'edu-coaching',
+    name: 'Coaching Institute (IIT/NEET/UPSC) vCard',
     category: 'education',
     categoryLabel: 'Education & Coaching',
     image: '/landing/template_education.png',
+    liveUrl: '/v/edu-coaching',
     features: ['Course Syllabus Download', 'Student Admission Form', 'Teacher Bios & Demo Videos', 'Batch Timetable Display']
+  },
+  {
+    id: 're-builders',
+    name: 'Real Estate Master & High-Rise Developers',
+    category: 'real-estate',
+    categoryLabel: 'Real Estate & Builders',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/re-builders',
+    features: ['Dynamic Floor Plans & Pricing', 'Integrated 3D Virtual Walkthroughs', '1-Click WhatsApp Site Visits', 'Lead Generation Callback Modal']
+  },
+  {
+    id: 'home-interior',
+    name: 'Interior Designer & Modular Kitchens Mini-Website',
+    category: 'interior-design',
+    categoryLabel: 'Interior Design & Decor',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/home-interior',
+    features: ['Room-by-Room Portfolio Gallery', 'Instant Design Consultation Form', 'Direct WhatsApp Designer Chat', 'Client Testimonial Slider']
+  },
+  {
+    id: 'fash-boutique',
+    name: 'Grand Fashion & Clothing Mall vCard',
+    category: 'fashion',
+    categoryLabel: 'Fashion & Clothing',
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/fash-boutique',
+    features: ['Catalog Lookbook & Collections', 'WhatsApp Order & Size Inquiries', 'Seasonal Discount Banners', 'Store Directions & Timings']
+  },
+  {
+    id: 'prof-ca',
+    name: 'Chartered Accountant (CA) & Audit Firm vCard',
+    category: 'consultants',
+    categoryLabel: 'Professional & CA Services',
+    image: 'https://images.unsplash.com/photo-1771244688590-1e481dba1b5a?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/prof-ca',
+    features: ['ITR & GST Filing Calendars', 'Corporate Compliance Checklist', 'Instant Advisory Consultation Form', 'Client Case Studies']
+  },
+  {
+    id: 'events-planner',
+    name: 'Luxury Events & Wedding Planner vCard',
+    category: 'events',
+    categoryLabel: 'Events & Wedding Planning',
+    image: 'https://images.unsplash.com/photo-1610173827043-9db50e0d8ef9?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/events-planner',
+    features: ['Wedding & Event Showcase Gallery', 'Package Quotation Calculator', 'Vendor Coordination Form', 'Direct WhatsApp Event Hotline']
+  },
+  {
+    id: 'auto-car-dealer',
+    name: 'Car Dealer & Showroom vCard',
+    category: 'automobile',
+    categoryLabel: 'Automobile & Dealerships',
+    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/auto-car-dealer',
+    features: ['Interactive Vehicle Inventory', 'Test Drive Booking Form', 'EMI Calculator & Finance Assistant', '1-Tap WhatsApp Deal Desk']
+  },
+  {
+    id: 'retail-jewellery',
+    name: 'Gold & Diamond Jewellery vCard',
+    category: 'retail',
+    categoryLabel: 'Retail & Jewellery',
+    image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/retail-jewellery',
+    features: ['Gold & Diamond Catalog Display', 'Live Daily Gold Rate Ticker', 'Video Call Jewellery Viewing', 'Store Location & Certificate Verification']
+  },
+  {
+    id: 'home-electrician',
+    name: 'Certified Electrician & Home Services vCard',
+    category: 'services',
+    categoryLabel: 'Home & Professional Services',
+    image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/home-electrician',
+    features: ['Emergency Repair Request Hotline', 'Transparent Service Rate Card', 'Technician Safety Badges & Warranty', '1-Tap WhatsApp Location Sharing']
   },
 ];
 
 const FILTER_TABS = [
-  { id: 'all', label: 'All Templates' },
+  { id: 'all', label: 'All Templates (12)' },
   { id: 'restaurants', label: 'Restaurants' },
   { id: 'salons', label: 'Salons & Beauty' },
   { id: 'hospitals', label: 'Hospitals' },
   { id: 'education', label: 'Education' },
   { id: 'real-estate', label: 'Real Estate' },
-  { id: 'retail', label: 'Retail' },
-  { id: 'gyms', label: 'Gyms & Fitness' },
-  { id: 'consultants', label: 'Consultants' },
-  { id: 'services', label: 'Service Business' },
+  { id: 'interior-design', label: 'Interior Design' },
+  { id: 'fashion', label: 'Fashion & Boutique' },
+  { id: 'consultants', label: 'CA & Consultants' },
+  { id: 'events', label: 'Events & Wedding' },
+  { id: 'automobile', label: 'Automobile' },
+  { id: 'retail', label: 'Retail & Jewellery' },
+  { id: 'services', label: 'Home Services' },
 ];
 
 export default function TemplatesSection() {
@@ -83,7 +163,7 @@ export default function TemplatesSection() {
 
   const filteredTemplates = activeTab === 'all' 
     ? TEMPLATES_DATA 
-    : TEMPLATES_DATA.filter(t => t.category === activeTab || activeTab === 'all');
+    : TEMPLATES_DATA.filter(t => t.category === activeTab);
 
   return (
     <section id="templates" className="py-12 sm:py-16 lg:py-20 bg-white border-b border-[#E2E9FA]/60 relative">
@@ -102,7 +182,7 @@ export default function TemplatesSection() {
               </span>
             </h2>
             <p className="mt-1.5 text-xs sm:text-sm text-[#64718F] font-normal">
-              Choose from modern, professional and fully customizable templates.
+              Choose from 12 modern, professional and fully customizable templates with live websites.
             </p>
           </div>
 
@@ -135,9 +215,9 @@ export default function TemplatesSection() {
           })}
         </div>
 
-        {/* 4 Featured Template Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-          {(filteredTemplates.length > 0 ? filteredTemplates : TEMPLATES_DATA).map((tpl) => (
+        {/* 12 Template Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+          {filteredTemplates.map((tpl) => (
             <div
               key={tpl.id}
               className="group bg-white rounded-2xl border border-[#E2E9FA] hover:border-blue-300 p-3 sm:p-3.5 flex flex-col justify-between shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_24px_rgba(23,75,255,0.08)] transition-all duration-300 hover:-translate-y-1"
@@ -151,19 +231,28 @@ export default function TemplatesSection() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 p-2">
-                    <button
-                      onClick={() => setPreviewTemplate(tpl)}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 p-2">
+                    <a
+                      href={tpl.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="px-3 py-1.5 rounded-lg bg-white/95 text-xs font-bold text-[#10183F] shadow-sm hover:bg-white flex items-center gap-1 cursor-pointer"
                     >
-                      <Eye className="w-3.5 h-3.5 text-[#174BFF]" />
+                      <ExternalLink className="w-3.5 h-3.5 text-[#174BFF]" />
+                      <span>Live Demo</span>
+                    </a>
+                    <button
+                      onClick={() => setPreviewTemplate(tpl)}
+                      className="px-3 py-1.5 rounded-lg bg-blue-600/90 text-xs font-bold text-white shadow-sm hover:bg-blue-600 flex items-center gap-1 cursor-pointer"
+                    >
+                      <Eye className="w-3.5 h-3.5 text-white" />
                       <span>Quick View</span>
                     </button>
                   </div>
                 </div>
 
                 {/* Template Name */}
-                <h3 className="text-sm font-bold text-[#10183F] group-hover:text-[#174BFF] transition-colors leading-snug mb-1">
+                <h3 className="text-sm font-bold text-[#10183F] group-hover:text-[#174BFF] transition-colors leading-snug mb-1 line-clamp-1">
                   {tpl.name}
                 </h3>
                 <span className="inline-block text-[11px] font-semibold text-[#64718F] mb-3">
@@ -171,19 +260,22 @@ export default function TemplatesSection() {
                 </span>
               </div>
 
-              {/* Action Buttons: Preview & Use Template */}
+              {/* Action Buttons: Live Preview & Use Template */}
               <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
-                <button
-                  onClick={() => setPreviewTemplate(tpl)}
-                  className="w-full py-2 px-2.5 rounded-xl text-xs font-bold text-[#10183F] bg-slate-50 hover:bg-[#EDF3FF] hover:text-[#174BFF] border border-[#E2E9FA] transition-colors text-center cursor-pointer"
+                <a
+                  href={tpl.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-2.5 rounded-xl text-xs font-bold text-[#10183F] bg-slate-50 hover:bg-[#EDF3FF] hover:text-[#174BFF] border border-[#E2E9FA] transition-colors text-center cursor-pointer flex items-center justify-center gap-1"
                 >
-                  Preview
-                </button>
+                  <Eye className="w-3.5 h-3.5 text-[#174BFF]" />
+                  <span>Preview</span>
+                </a>
                 <Link
                   href={`/signup?intent=template&tpl=${tpl.id}`}
-                  className="w-full py-2 px-2.5 rounded-xl text-xs font-bold text-white bg-[#174BFF] hover:bg-[#133FDF] transition-colors text-center shadow-xs cursor-pointer"
+                  className="w-full py-2 px-2.5 rounded-xl text-xs font-bold text-white bg-[#174BFF] hover:bg-[#133FDF] transition-colors text-center shadow-xs cursor-pointer flex items-center justify-center gap-1"
                 >
-                  Use Template
+                  <span>Use Template</span>
                 </Link>
               </div>
             </div>
@@ -231,12 +323,15 @@ export default function TemplatesSection() {
                 </div>
               </div>
               <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
-                <button
-                  onClick={() => setPreviewTemplate(null)}
-                  className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 cursor-pointer"
+                <a
+                  href={previewTemplate.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-2.5 rounded-xl text-xs font-bold text-[#174BFF] bg-blue-50 hover:bg-blue-100 border border-blue-200 text-center flex items-center justify-center gap-1.5 cursor-pointer"
                 >
-                  Close
-                </button>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Open Live Website</span>
+                </a>
                 <Link
                   href={`/signup?intent=template&tpl=${previewTemplate.id}`}
                   className="flex-1 py-2.5 rounded-xl text-xs font-bold text-white bg-[#174BFF] hover:bg-[#133FDF] text-center shadow-sm cursor-pointer"
