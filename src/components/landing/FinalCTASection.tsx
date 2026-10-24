@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Play, Sparkles } from 'lucide-react';
+import { ArrowRight, Play, Sparkles, ShoppingBag, BarChart3, Globe, MessageCircle } from 'lucide-react';
 
 interface FinalCTASectionProps {
   onWatchHowItWorks?: () => void;
@@ -73,13 +73,36 @@ export default function FinalCTASection({ onWatchHowItWorks }: FinalCTASectionPr
 
             {/* Right Device Visual */}
             <div className="lg:col-span-5 relative flex items-center justify-center">
-              <div className="relative w-full max-w-[460px] drop-shadow-xl hover:scale-102 transition-transform duration-300">
-                <img
-                  src="/landing/final-cta-visual@2x.png"
-                  alt="OneClickBiz Multi-Device Store & Profile Setup"
-                  className="w-full h-auto object-contain block drop-shadow-sm"
-                  loading="lazy"
-                />
+              <div className="relative w-full max-w-[480px] drop-shadow-2xl hover:scale-[1.01] transition-transform duration-300">
+                <div className="relative rounded-2xl overflow-hidden border border-[#C7D7FE]/80 shadow-xl bg-white">
+                  <img
+                    src="/landing/final-cta-visual@2x.png"
+                    alt="OneClickBiz Multi-Device Store & Profile Setup"
+                    className="w-full h-auto object-cover block"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Floating Glass Badges matching reference */}
+                <div className="hidden sm:flex absolute -top-3.5 -left-3 px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#C7D7FE] shadow-lg items-center gap-1.5 text-xs font-bold text-rose-600 hover:-translate-y-0.5 transition-transform">
+                  <ShoppingBag className="w-3.5 h-3.5" />
+                  <span>Online Store</span>
+                </div>
+
+                <div className="hidden sm:flex absolute -top-3.5 right-6 px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#C7D7FE] shadow-lg items-center gap-1.5 text-xs font-bold text-[#174BFF] hover:-translate-y-0.5 transition-transform">
+                  <BarChart3 className="w-3.5 h-3.5" />
+                  <span>Growth Analytics</span>
+                </div>
+
+                <div className="hidden sm:flex absolute -bottom-3 left-4 px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#C7D7FE] shadow-lg items-center gap-1.5 text-xs font-bold text-sky-600 hover:-translate-y-0.5 transition-transform">
+                  <Globe className="w-3.5 h-3.5" />
+                  <span>Custom Domain</span>
+                </div>
+
+                <div className="hidden sm:flex absolute -bottom-3 right-4 px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#C7D7FE] shadow-lg items-center gap-1.5 text-xs font-bold text-[#16B981] hover:-translate-y-0.5 transition-transform">
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>WhatsApp Store</span>
+                </div>
               </div>
             </div>
 
