@@ -516,7 +516,7 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
     company: 'Insurance Advisory & Wealth Planning',
     bio: 'IRDAI Certified Partner (Regn. No. 111) & MDRT USA Life Member. Family Protection & Financial Security. Empowering 4,500+ Indian families and NRI professionals with Term Life Shield Insta, Smart Platina Plus, Retire Smart, and 24/7 dedicated cashless hospital claim settlement.',
     theme: 'glassmorphic',
-    avatarUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80',
+    avatarUrl: '/landing/category_7.png',
     coverUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
     email: 'rajesh.sengupta@surakshainsurance.in',
     phone: '+91 98765 24321',

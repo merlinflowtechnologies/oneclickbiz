@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 
 interface CategoryItem {
   id: string;
@@ -74,11 +73,6 @@ export default function BusinessCategoriesSection() {
                 {cat.desc}
               </p>
 
-              {/* Interactive Explore Prompt */}
-              <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[#174BFF] group-hover:text-[#1034B5] transition-colors">
-                <span>View Templates</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </div>
             </Link>
           ))}
         </div>

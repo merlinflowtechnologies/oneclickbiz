@@ -46,60 +46,9 @@ export const VCARD_CATEGORY_LIST: { id: VCardCategory; name: string; icon: strin
 
 export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
   {
-    "id": "re-builders",
-    "templateNumber": 903,
-    "name": "Real Estate Master & High-Rise Developers",
-    "category": "Real Estate",
-    "subCategory": "Real Estate Developers",
-    "actionSubtitle": "High-Rise Sky Villas",
-    "imgUrl": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&h=1000&q=85",
-    "badge": "Top Seller",
-    "tagline": "Sky-villas, gated communities, RERA verified projects & instant site visit booking",
-    "features": [
-      "Dynamic project floor plans & pricing",
-      "Integrated 3D virtual walkthroughs",
-      "1-Click WhatsApp site visit request",
-      "Lead generation callback modal"
-    ]
-  },
-  {
-    "id": "home-interior",
-    "templateNumber": 907,
-    "name": "Interior Designer & Modular Kitchens Mini-Website",
-    "category": "Interior Design",
-    "subCategory": "Interior Designers",
-    "actionSubtitle": "Interior & Kitchens",
-    "imgUrl": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&h=1000&q=85",
-    "badge": "Design Studio",
-    "tagline": "Turnkey luxury interiors, modular kitchens & 3D space visualizer",
-    "features": [
-      "Room-by-room portfolio gallery",
-      "Instant design consultation form",
-      "Direct WhatsApp designer chat",
-      "Client testimonial slider"
-    ]
-  },
-  {
-    "id": "health-doctor",
-    "templateNumber": 906,
-    "name": "Doctor & Specialist Clinic",
-    "category": "Healthcare",
-    "subCategory": "Doctors & Clinics",
-    "actionSubtitle": "Consultation Desk",
-    "imgUrl": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&h=1000&q=85",
-    "badge": "Verified Doctor",
-    "tagline": "OPD timings, clinic address navigation, credentials & instant booking",
-    "features": [
-      "1-Tap appointment booking",
-      "Google Maps clinic directions",
-      "Doctor qualifications & hospital affiliations",
-      "Emergency WhatsApp hotline"
-    ]
-  },
-  {
     "id": "restaurant-menu",
     "templateNumber": 902,
-    "name": "Interactive Restaurant & Cafe Digital Dining Menu",
+    "name": "Interactive Restaurant & Cafe Digital Dining",
     "category": "Food Business",
     "subCategory": "Fine Dining & Cafes",
     "actionSubtitle": "Table Booking & Menu",
@@ -111,23 +60,6 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
       "Direct table reservation form",
       "Google Maps dining directions",
       "Chef recommendations showcase"
-    ]
-  },
-  {
-    "id": "fash-boutique",
-    "templateNumber": 904,
-    "name": "Grand Fashion & Clothing Mall",
-    "category": "Fashion & Clothing",
-    "subCategory": "Fashion & Clothing Malls",
-    "actionSubtitle": "Designer Collections",
-    "imgUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&h=1000&q=85",
-    "badge": "Trending",
-    "tagline": "Designer wear, festive collections, WhatsApp catalog & video lookbooks",
-    "features": [
-      "Seasonal lookbook video reels",
-      "WhatsApp product order desk",
-      "Customer VIP club discounts",
-      "Google review collection prompt"
     ]
   },
   {
@@ -148,20 +80,37 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     ]
   },
   {
-    "id": "edu-coaching",
-    "templateNumber": 908,
-    "name": "Coaching Institute (IIT/NEET/UPSC)",
-    "category": "Education",
-    "subCategory": "Coaching & Test Prep",
-    "actionSubtitle": "IIT / NEET Batches",
-    "imgUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&h=1000&q=85",
-    "badge": "Top Faculty",
-    "tagline": "Batch schedules, ranker hall of fame, fee charts & demo registrations",
+    "id": "fash-boutique",
+    "templateNumber": 904,
+    "name": "Grand Fashion & Clothing Mall",
+    "category": "Fashion & Clothing",
+    "subCategory": "Fashion & Clothing Malls",
+    "actionSubtitle": "Designer Collections",
+    "imgUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Trending",
+    "tagline": "Designer wear, festive collections, WhatsApp catalog & video lookbooks",
     "features": [
-      "Online demo class booking",
-      "Course syllabus & fee downloads",
-      "Toppers testimonial carousel",
-      "Counseling hotline WhatsApp button"
+      "Seasonal lookbook video reels",
+      "WhatsApp product order desk",
+      "Customer VIP club discounts",
+      "Google review collection prompt"
+    ]
+  },
+  {
+    "id": "re-builders",
+    "templateNumber": 903,
+    "name": "Real Estate Master & High-Rise Developers",
+    "category": "Real Estate",
+    "subCategory": "Real Estate Developers",
+    "actionSubtitle": "High-Rise Sky Villas",
+    "imgUrl": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Top Seller",
+    "tagline": "Sky-villas, gated communities, RERA verified projects & instant site visit booking",
+    "features": [
+      "Dynamic project floor plans & pricing",
+      "Integrated 3D virtual walkthroughs",
+      "1-Click WhatsApp site visit request",
+      "Lead generation callback modal"
     ]
   },
   {
@@ -188,7 +137,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     "category": "Professional Services",
     "subCategory": "Insurance Agents",
     "actionSubtitle": "Policy & Claims Desk",
-    "imgUrl": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&h=1000&q=85",
+    "imgUrl": "/landing/template_insurance.png",
     "badge": "IRDAI Certified",
     "tagline": "Life, health & motor insurance policies, claim settlement assistance & instant premium quotes",
     "features": [
@@ -196,6 +145,74 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
       "Direct 1-Click WhatsApp Claim Desk",
       "Policy Comparison & Premium Calculator",
       "Tax Saving (80C / 80D) Advisory"
+    ]
+  },
+  {
+    "id": "travel-tour",
+    "templateNumber": 912,
+    "name": "Tours & Travel Agency",
+    "category": "Travel & Hospitality",
+    "subCategory": "Travel Agents",
+    "actionSubtitle": "Holiday Packages",
+    "imgUrl": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Holiday Planner",
+    "tagline": "Domestic & international holiday packages, flight bookings & visa assistance",
+    "features": [
+      "Custom Holiday Package Planner",
+      "Direct 1-Click WhatsApp Travel Desk",
+      "Visa Guidance & Flight Bookings",
+      "Customer Travel Review Highlights"
+    ]
+  },
+  {
+    "id": "health-doctor",
+    "templateNumber": 906,
+    "name": "Doctor & Specialist Clinic",
+    "category": "Healthcare",
+    "subCategory": "Doctors & Clinics",
+    "actionSubtitle": "Consultation Desk",
+    "imgUrl": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Verified Doctor",
+    "tagline": "OPD timings, clinic address navigation, credentials & instant booking",
+    "features": [
+      "1-Tap appointment booking",
+      "Google Maps clinic directions",
+      "Doctor qualifications & hospital affiliations",
+      "Emergency WhatsApp hotline"
+    ]
+  },
+  {
+    "id": "home-interior",
+    "templateNumber": 907,
+    "name": "Interior Designer & Modular Kitchens Mini-Website",
+    "category": "Interior Design",
+    "subCategory": "Interior Designers",
+    "actionSubtitle": "Interior & Kitchens",
+    "imgUrl": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Design Studio",
+    "tagline": "Turnkey luxury interiors, modular kitchens & 3D space visualizer",
+    "features": [
+      "Room-by-room portfolio gallery",
+      "Instant design consultation form",
+      "Direct WhatsApp designer chat",
+      "Client testimonial slider"
+    ]
+  },
+  {
+    "id": "edu-coaching",
+    "templateNumber": 908,
+    "name": "Coaching Institute (IIT/NEET/UPSC)",
+    "category": "Education",
+    "subCategory": "Coaching & Test Prep",
+    "actionSubtitle": "IIT / NEET Batches",
+    "imgUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&h=1000&q=85",
+    "badge": "Top Faculty",
+    "tagline": "Batch schedules, ranker hall of fame, fee charts & demo registrations",
+    "features": [
+      "Online demo class booking",
+      "Course syllabus & fee downloads",
+      "Toppers testimonial carousel",
+      "Counseling hotline WhatsApp button"
     ]
   },
   {
@@ -230,23 +247,6 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
       "Fixed rate card for common repairs",
       "WhatsApp photo quotation request",
       "Customer safety & license guarantee"
-    ]
-  },
-  {
-    "id": "travel-tour",
-    "templateNumber": 912,
-    "name": "Tours & Travel Agency",
-    "category": "Travel & Hospitality",
-    "subCategory": "Travel Agents",
-    "actionSubtitle": "Holiday Packages",
-    "imgUrl": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&h=1000&q=85",
-    "badge": "Holiday Planner",
-    "tagline": "Domestic & international holiday packages, flight bookings & visa assistance",
-    "features": [
-      "Custom Holiday Package Planner",
-      "Direct 1-Click WhatsApp Travel Desk",
-      "Visa Guidance & Flight Bookings",
-      "Customer Travel Review Highlights"
     ]
   }
 ];

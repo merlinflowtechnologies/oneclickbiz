@@ -17,7 +17,7 @@ interface TemplateItem {
 const TEMPLATES_DATA: TemplateItem[] = [
   {
     id: 'restaurant-menu',
-    name: 'Interactive Restaurant & Cafe Digital Dining Menu',
+    name: 'Interactive Restaurant & Cafe Digital Dining',
     category: 'restaurants',
     categoryLabel: 'Restaurants & Cafés',
     image: '/landing/template_restaurant.png',
@@ -34,22 +34,13 @@ const TEMPLATES_DATA: TemplateItem[] = [
     features: ['Stylist Slot Booking', 'Service Price Catalog', 'Instagram Portfolio Sync', '1-Tap WhatsApp Inquiries']
   },
   {
-    id: 'health-doctor',
-    name: 'Doctor & Specialist Clinic',
-    category: 'hospitals',
-    categoryLabel: 'Hospitals & Healthcare',
-    image: '/landing/template_hospital.png',
-    liveUrl: '/v/health-doctor',
-    features: ['Doctor Profiles & Slots', 'Emergency WhatsApp Hotline', 'Patient Appointment Form', 'Location & Timings Map']
-  },
-  {
-    id: 'edu-coaching',
-    name: 'Coaching Institute (IIT/NEET/UPSC)',
-    category: 'education',
-    categoryLabel: 'Education & Coaching',
-    image: '/landing/template_education.png',
-    liveUrl: '/v/edu-coaching',
-    features: ['Course Syllabus Download', 'Student Admission Form', 'Teacher Bios & Demo Videos', 'Batch Timetable Display']
+    id: 'fash-boutique',
+    name: 'Grand Fashion & Clothing Mall',
+    category: 'fashion',
+    categoryLabel: 'Fashion & Clothing',
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/fash-boutique',
+    features: ['Catalog Lookbook & Collections', 'WhatsApp Order & Size Inquiries', 'Seasonal Discount Banners', 'Store Directions & Timings']
   },
   {
     id: 're-builders',
@@ -59,24 +50,6 @@ const TEMPLATES_DATA: TemplateItem[] = [
     image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&h=500&q=85',
     liveUrl: '/v/re-builders',
     features: ['Dynamic Floor Plans & Pricing', 'Integrated 3D Virtual Walkthroughs', '1-Click WhatsApp Site Visits', 'Lead Generation Callback Modal']
-  },
-  {
-    id: 'home-interior',
-    name: 'Interior Designer & Modular Kitchens Mini-Website',
-    category: 'interior-design',
-    categoryLabel: 'Interior Design & Decor',
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&h=500&q=85',
-    liveUrl: '/v/home-interior',
-    features: ['Room-by-Room Portfolio Gallery', 'Instant Design Consultation Form', 'Direct WhatsApp Designer Chat', 'Client Testimonial Slider']
-  },
-  {
-    id: 'fash-boutique',
-    name: 'Grand Fashion & Clothing Mall',
-    category: 'fashion',
-    categoryLabel: 'Fashion & Clothing',
-    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&h=500&q=85',
-    liveUrl: '/v/fash-boutique',
-    features: ['Catalog Lookbook & Collections', 'WhatsApp Order & Size Inquiries', 'Seasonal Discount Banners', 'Store Directions & Timings']
   },
   {
     id: 'events-planner',
@@ -92,9 +65,45 @@ const TEMPLATES_DATA: TemplateItem[] = [
     name: 'Insurance Agents & Policy Advisors',
     category: 'insurance',
     categoryLabel: 'Insurance & Advisory',
-    image: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&h=500&q=85',
+    image: '/landing/template_insurance.png',
     liveUrl: '/v/prof-insurance',
     features: ['Instant Health & Term Insurance Quotes', 'Direct 1-Click WhatsApp Claim Desk', 'Policy Comparison & Premium Calculator', 'Tax Saving (80C / 80D) Advisory']
+  },
+  {
+    id: 'travel-tour',
+    name: 'Tours & Travel Agency',
+    category: 'travel',
+    categoryLabel: 'Travel & Hospitality',
+    image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/travel-tour',
+    features: ['Custom Holiday Package Planner', 'Direct 1-Click WhatsApp Travel Desk', 'Visa Guidance & Flight Bookings', 'Customer Travel Review Highlights']
+  },
+  {
+    id: 'health-doctor',
+    name: 'Doctor & Specialist Clinic',
+    category: 'hospitals',
+    categoryLabel: 'Hospitals & Healthcare',
+    image: '/landing/template_hospital.png',
+    liveUrl: '/v/health-doctor',
+    features: ['Doctor Profiles & Slots', 'Emergency WhatsApp Hotline', 'Patient Appointment Form', 'Location & Timings Map']
+  },
+  {
+    id: 'home-interior',
+    name: 'Interior Designer & Modular Kitchens Mini-Website',
+    category: 'interior-design',
+    categoryLabel: 'Interior Design & Decor',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&h=500&q=85',
+    liveUrl: '/v/home-interior',
+    features: ['Room-by-Room Portfolio Gallery', 'Instant Design Consultation Form', 'Direct WhatsApp Designer Chat', 'Client Testimonial Slider']
+  },
+  {
+    id: 'edu-coaching',
+    name: 'Coaching Institute (IIT/NEET/UPSC)',
+    category: 'education',
+    categoryLabel: 'Education & Coaching',
+    image: '/landing/template_education.png',
+    liveUrl: '/v/edu-coaching',
+    features: ['Course Syllabus Download', 'Student Admission Form', 'Teacher Bios & Demo Videos', 'Batch Timetable Display']
   },
   {
     id: 'retail-jewellery',
@@ -114,31 +123,22 @@ const TEMPLATES_DATA: TemplateItem[] = [
     liveUrl: '/v/home-electrician',
     features: ['Emergency Repair Request Hotline', 'Transparent Service Rate Card', 'Technician Safety Badges & Warranty', '1-Tap WhatsApp Location Sharing']
   },
-  {
-    id: 'travel-tour',
-    name: 'Tours & Travel Agency',
-    category: 'travel',
-    categoryLabel: 'Travel & Hospitality',
-    image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&h=500&q=85',
-    liveUrl: '/v/travel-tour',
-    features: ['Custom Holiday Package Planner', 'Direct 1-Click WhatsApp Travel Desk', 'Visa Guidance & Flight Bookings', 'Customer Travel Review Highlights']
-  },
 ];
 
 const FILTER_TABS = [
   { id: 'all', label: 'All Templates (12)' },
   { id: 'restaurants', label: 'Restaurants' },
   { id: 'salons', label: 'Salons & Beauty' },
-  { id: 'hospitals', label: 'Hospitals' },
-  { id: 'education', label: 'Education' },
-  { id: 'real-estate', label: 'Real Estate' },
-  { id: 'interior-design', label: 'Interior Design' },
   { id: 'fashion', label: 'Fashion & Boutique' },
+  { id: 'real-estate', label: 'Real Estate' },
   { id: 'events', label: 'Events & Wedding' },
   { id: 'insurance', label: 'Insurance Agents' },
+  { id: 'travel', label: 'Tours & Travel' },
+  { id: 'hospitals', label: 'Hospitals' },
+  { id: 'interior-design', label: 'Interior Design' },
+  { id: 'education', label: 'Education' },
   { id: 'retail', label: 'Retail & Jewellery' },
   { id: 'services', label: 'Home Services' },
-  { id: 'travel', label: 'Tours & Travel' },
 ];
 
 export default function TemplatesSection() {
