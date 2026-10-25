@@ -10,19 +10,18 @@ import {
   ShieldCheck, 
   Sparkles, 
   MessageCircle, 
-  Phone, 
   Mail, 
   MapPin, 
   Heart, 
   Zap, 
   CheckCircle2, 
-  Layers, 
   Globe2, 
   Quote,
   Building2,
-  Users,
-  Target,
-  Award
+  Compass,
+  Rocket,
+  Lightbulb,
+  Check
 } from 'lucide-react';
 
 export default function AboutPage() {
@@ -52,29 +51,9 @@ export default function AboutPage() {
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#10183F] tracking-tight leading-tight">
             Building India&apos;s Most Accessible <span className="bg-gradient-to-r from-[#174BFF] to-[#4F46E5] bg-clip-text text-transparent">Digital Identity</span> Platform.
           </h1>
-          <p className="text-sm sm:text-base text-[#64718F] leading-relaxed">
-            OneClickBiz was created with a clear purpose: empower every entrepreneur, retail shop, doctor, consultant, and enterprise to connect, showcase, and transact in one click—without expensive agencies or technical complexity.
+          <p className="text-sm sm:text-base text-[#64718F] leading-relaxed max-w-2xl mx-auto">
+            OneClickBiz was created with a clear purpose: empower every entrepreneur, retail shop owner, doctor, consultant, and enterprise to connect, showcase, and transact in one click—without expensive agencies or technical complexity.
           </p>
-
-          {/* Quick Stats Metrics Row */}
-          <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl mx-auto text-left">
-            <div className="p-4 rounded-2xl bg-white border border-[#E2E9FA] shadow-xs">
-              <p className="text-2xl font-black text-[#174BFF]">15,000+</p>
-              <p className="text-xs text-[#64718F] font-medium">Profiles Created</p>
-            </div>
-            <div className="p-4 rounded-2xl bg-white border border-[#E2E9FA] shadow-xs">
-              <p className="text-2xl font-black text-[#059669]">0%</p>
-              <p className="text-xs text-[#64718F] font-medium">Platform Fees</p>
-            </div>
-            <div className="p-4 rounded-2xl bg-white border border-[#E2E9FA] shadow-xs">
-              <p className="text-2xl font-black text-[#7547F5]">0 to 60s</p>
-              <p className="text-xs text-[#64718F] font-medium">Cloud Provisioning</p>
-            </div>
-            <div className="p-4 rounded-2xl bg-white border border-[#E2E9FA] shadow-xs">
-              <p className="text-2xl font-black text-[#10183F]">99.9%</p>
-              <p className="text-xs text-[#64718F] font-medium">Global Uptime</p>
-            </div>
-          </div>
         </div>
 
         {/* FOUNDER STORY SPOTLIGHT CARD */}
@@ -85,10 +64,10 @@ export default function AboutPage() {
             <div className="absolute top-0 right-0 -mt-16 -mr-16 w-80 h-80 bg-blue-100/50 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-80 h-80 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start relative z-10">
               
-              {/* Founder Image & Personal Badge (4 Cols) */}
-              <div className="lg:col-span-5 flex flex-col items-center text-center">
+              {/* Founder Image & Personal Badge (5 Cols) */}
+              <div className="lg:col-span-5 flex flex-col items-center text-center lg:sticky lg:top-28">
                 <div className="relative group">
                   <div className="w-56 h-56 sm:w-64 sm:h-64 rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-gradient-to-tr from-slate-100 to-slate-200">
                     <img 
@@ -99,9 +78,9 @@ export default function AboutPage() {
                   </div>
                   
                   {/* Verified Founder Badge */}
-                  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white px-3.5 py-1 rounded-full border border-emerald-200 shadow-md flex items-center gap-1.5 text-xs font-bold text-[#059669]">
+                  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white px-3.5 py-1 rounded-full border border-emerald-200 shadow-md flex items-center gap-1.5 text-xs font-bold text-[#059669] whitespace-nowrap">
                     <ShieldCheck className="w-4 h-4 text-[#059669]" />
-                    <span>Verified Founder</span>
+                    <span>Verified Founder &amp; Architect</span>
                   </div>
                 </div>
 
@@ -141,41 +120,109 @@ export default function AboutPage() {
                   <MapPin className="w-3.5 h-3.5 text-[#174BFF]" />
                   <span>Nagole, Hyderabad, Telangana, India</span>
                 </div>
+
+                {/* Founder Commitment Pill */}
+                <div className="mt-4 p-3 rounded-2xl bg-slate-50 border border-slate-200/80 text-[11px] text-slate-600 max-w-xs text-left leading-relaxed">
+                  <span className="font-semibold text-slate-800 block mb-0.5">My Personal Promise:</span>
+                  Every business on OneClickBiz gets direct support, 0% platform commission on orders, and enterprise-grade reliability from day one.
+                </div>
               </div>
 
               {/* Founder Story Narrative (7 Cols) */}
-              <div className="lg:col-span-7 space-y-5">
+              <div className="lg:col-span-7 space-y-6">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EEF4FF] border border-[#C7D7FE] text-[#174BFF] text-xs font-bold uppercase tracking-wider">
                   <Quote className="w-3.5 h-3.5" />
                   <span>The Founder&apos;s Journey</span>
                 </div>
 
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-[#10183F] tracking-tight leading-snug">
-                  &ldquo;Why I Built OneClickBiz: Eliminating Friction for Millions of Business Owners.&rdquo;
+                  &ldquo;I saw brilliant businesses held back by paper cards and overpriced agencies. I decided to fix it.&rdquo;
                 </h3>
 
                 <div className="space-y-4 text-xs sm:text-sm text-[#475569] leading-relaxed">
                   <p>
-                    For years while collaborating with retail shop owners, doctors, builders, freelance consultants, and enterprise sales teams across India, I repeatedly witnessed the same frustrating problem: <strong>business identity was fundamentally broken</strong>.
+                    Over the past several years, I had the privilege of meeting hundreds of ambitious business owners across Hyderabad and diverse parts of India—retailers, doctors, chartered accountants, real estate developers, coaching institute founders, and home-grown entrepreneurs.
                   </p>
+                  
                   <p>
-                    Entrepreneurs would spend thousands of rupees printing paper visiting cards. Yet within 48 hours, over <strong>88% of paper cards end up in a drawer or dustbin</strong>. When a client finally wanted to make contact or order, phone numbers were misdialed, addresses had changed, or the business website was too slow to load on a smartphone.
+                    Regardless of their industry or how incredible their products were, I noticed the exact same heartbreaking cycle at every exhibition, clinic lobby, and business meeting:
                   </p>
+
+                  <div className="space-y-2.5 my-3 pl-2 border-l-2 border-blue-200">
+                    <div className="flex items-start gap-2">
+                      <span className="w-5 h-5 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
+                      <p className="text-xs text-slate-700">
+                        <strong>Paper Cards Get Discarded:</strong> Business owners print boxes of visiting cards. Yet within 48 hours, over 88% end up crumpled in pockets, misplaced in drawers, or thrown away.
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+                      <p className="text-xs text-slate-700">
+                        <strong>The Typing Friction:</strong> When someone genuinely wants to save a contact, manually copying 10-digit numbers, spelling email addresses, and typing website URLs creates friction. Most clients give up halfway.
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+                      <p className="text-xs text-slate-700">
+                        <strong>The Agency Trap &amp; Commission Tax:</strong> Web agencies routinely quote ₹30,000 to ₹50,000 for slow, static websites that break on phones, while marketplace platforms charge 5% to 15% commissions on hard-earned sales.
+                      </p>
+                    </div>
+                  </div>
+
                   <p>
-                    Meanwhile, modern Indian commerce doesn&apos;t happen on heavy corporate websites—it happens directly on <strong>WhatsApp and UPI</strong>. But small business owners were forced to either pay ₹30,000 to ₹50,000 to digital agencies for static websites, or surrender 2% to 5% commission fees on e-commerce aggregator platforms.
+                    In India, modern commerce doesn&apos;t happen on heavy corporate websites. <strong>It happens directly on WhatsApp and UPI.</strong> Customers want to glance at a verified catalog, tap once to save full contact details into their phonebook, and send an order directly to WhatsApp.
                   </p>
+
                   <p>
-                    <strong>I knew there had to be a better way.</strong> We engineered OneClickBiz under Merlinflow Technologies to bridge this gap completely: a single, high-speed cloud platform where any professional can set up a modern smart digital card, dynamic vector QR code, catalog showcase, and WhatsApp mini-store in less than 2 minutes.
+                    <strong>That is why I created OneClickBiz.</strong>
                   </p>
+
+                  <p>
+                    Under <strong>Merlinflow Technologies</strong>, our vision was simple: engineer an ultra-fast, intuitive SaaS platform where any professional—without writing a single line of code—can create a stunning digital business card, dynamic vector QR code, appointment booking portal, and WhatsApp mini-store in less than 2 minutes.
+                  </p>
+                </div>
+
+                {/* Key Milestones in Our Vision */}
+                <div className="p-5 rounded-2xl bg-slate-50 border border-[#E2E9FA] space-y-3">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#10183F] flex items-center gap-2">
+                    <Rocket className="w-4 h-4 text-[#174BFF]" />
+                    <span>How We Engineered the Solution:</span>
+                  </h4>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700">
+                    <li className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      </div>
+                      <span>1-Click Contact Save (.VCF to Phonebook)</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      </div>
+                      <span>WhatsApp Mini-Store with 0% Fees</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      </div>
+                      <span>Dynamic Vector QR for Displays &amp; Desks</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      </div>
+                      <span>Full Custom Domain &amp; Sub-Second Speed</span>
+                    </li>
+                  </ul>
                 </div>
 
                 {/* Founder Quote Card */}
                 <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-50 via-white to-indigo-50 border-l-4 border-l-[#174BFF] border-y border-r border-[#E2E9FA] shadow-xs">
                   <p className="text-xs sm:text-sm text-[#10183F] font-semibold italic leading-relaxed">
-                    &ldquo;Our vision is not just replacing paper with screens. It is giving every hardworking entrepreneur—from a local salon in Nagole to a nationwide real estate advisory—a digital presence that commands immediate trust and closes sales with 0% friction.&rdquo;
+                    &ldquo;Our vision is not just replacing paper with screens. It is giving every hardworking entrepreneur—from a local salon in Nagole to a nationwide real estate firm—a digital presence that commands immediate trust and closes sales with zero friction.&rdquo;
                   </p>
                   <p className="mt-2 text-xs text-[#174BFF] font-bold">
-                    — Adduri Sai Kishore, Founder
+                    — Adduri Sai Kishore, Founder &amp; Chief Product Architect
                   </p>
                 </div>
               </div>
