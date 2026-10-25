@@ -120,13 +120,13 @@ export default function BlogFooter() {
             © {year} Merlinflow Technologies Pvt Ltd. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-xs text-slate-500">
-            <a href="mailto:hello@oneclickbiz.in" className="flex items-center gap-1 hover:text-indigo-600 transition-colors">
+            <a href="mailto:info@oneclickbiz.in" className="flex items-center gap-1 hover:text-[#174BFF] transition-colors">
               <Mail size={12} />
-              hello@oneclickbiz.in
+              info@oneclickbiz.in
             </a>
-            <a href="tel:+916304989071" className="flex items-center gap-1 hover:text-indigo-600 transition-colors">
+            <a href="tel:+918374372733" className="flex items-center gap-1 hover:text-[#174BFF] transition-colors">
               <Phone size={12} />
-              +91 63049 89071
+              +91 8374372733
             </a>
           </div>
         </div>
