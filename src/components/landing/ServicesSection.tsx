@@ -79,16 +79,16 @@ export default function ServicesSection() {
             <Link
               key={service.id}
               href={service.link}
-              className="group bg-white rounded-2xl border border-[#E2E9FA] hover:border-blue-300 p-3 sm:p-3.5 flex flex-col items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_28px_rgba(23,75,255,0.09)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer"
+              className="group bg-white rounded-2xl border border-[#E2E9FA] hover:border-blue-300 p-2.5 sm:p-3 flex flex-col items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_28px_rgba(23,75,255,0.09)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer"
             >
               {/* 3D Realistic Icon Squircle (Enlarged) */}
               <div
-                className={`w-[72px] h-[72px] sm:w-[84px] sm:h-[84px] rounded-2xl bg-gradient-to-br ${service.bgGrad} border ${service.borderColor} flex items-center justify-center mb-3 group-hover:scale-108 group-hover:shadow-md transition-all duration-300 shadow-2xs p-1.5`}
+                className={`w-[78px] h-[78px] sm:w-[90px] sm:h-[90px] rounded-2xl bg-gradient-to-br ${service.bgGrad} border ${service.borderColor} flex items-center justify-center mb-2.5 group-hover:scale-108 group-hover:shadow-md transition-all duration-300 shadow-2xs p-1`}
               >
                 <img 
                   src={service.image} 
                   alt={service.name} 
-                  className="w-14 h-14 sm:w-[70px] sm:h-[70px] object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_6px_12px_rgba(0,0,0,0.08)]"
+                  className="w-16 h-16 sm:w-[76px] sm:h-[76px] object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_8px_16px_rgba(0,0,0,0.1)]"
                   loading="lazy"
                 />
               </div>
