@@ -30,7 +30,7 @@ export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
     if (onWatchDemo) {
       onWatchDemo();
     } else {
-      const demoEl = document.getElementById('demo') || document.getElementById('examples');
+      const demoEl = document.getElementById('demo') || document.getElementById('templates');
       if (demoEl) demoEl.scrollIntoView({ behavior: 'smooth' });
     }
   };

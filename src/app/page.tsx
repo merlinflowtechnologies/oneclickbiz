@@ -8,7 +8,6 @@ import BusinessCategoriesSection from '@/components/landing/BusinessCategoriesSe
 import TemplatesSection from '@/components/landing/TemplatesSection';
 import HowItWorksSection from '@/components/landing/HowItWorksSection';
 import PlatformFeaturesSection from '@/components/landing/PlatformFeaturesSection';
-import LiveExamplesSection from '@/components/landing/LiveExamplesSection';
 import PricingSection from '@/components/landing/PricingSection';
 import FAQSection from '@/components/landing/FAQSection';
 import FinalCTASection from '@/components/landing/FinalCTASection';
@@ -45,10 +44,7 @@ export default function LandingPage() {
         {/* SECTION 7 — PLATFORM FEATURES */}
         <PlatformFeaturesSection />
 
-        {/* SECTION 8 — LIVE WEBSITE EXAMPLES */}
-        <LiveExamplesSection />
-
-        {/* SECTION 9 — PRICING PLANS */}
+        {/* SECTION 8 — PRICING PLANS */}
         <PricingSection />
 
         {/* SECTION 10 — FREQUENTLY ASKED QUESTIONS */}

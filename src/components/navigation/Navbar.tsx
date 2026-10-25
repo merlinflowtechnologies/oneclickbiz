@@ -68,14 +68,6 @@ export default function Navbar() {
             </Link>
 
             <Link 
-              href="/#demo" 
-              onClick={(e) => handleAnchorClick(e, 'demo')}
-              className="px-3.5 py-2 text-sm font-medium text-slate-600 hover:text-[#2563EB] transition-colors"
-            >
-              Examples
-            </Link>
-
-            <Link 
               href="/#pricing" 
               onClick={(e) => handleAnchorClick(e, 'pricing')}
               className="px-3.5 py-2 text-sm font-medium text-slate-600 hover:text-[#2563EB] transition-colors"
@@ -159,13 +151,6 @@ export default function Navbar() {
             className="block px-4 py-3 rounded-xl text-sm font-medium text-slate-700 hover:text-[#2563EB] hover:bg-slate-50 transition"
           >
             Templates
-          </Link>
-          <Link 
-            href="/#demo" 
-            onClick={(e) => handleAnchorClick(e, 'demo')}
-            className="block px-4 py-3 rounded-xl text-sm font-medium text-slate-700 hover:text-[#2563EB] hover:bg-slate-50 transition"
-          >
-            Examples
           </Link>
           <Link 
             href="/#pricing" 

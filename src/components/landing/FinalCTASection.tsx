@@ -13,7 +13,7 @@ export default function FinalCTASection({ onWatchHowItWorks }: FinalCTASectionPr
     if (onWatchHowItWorks) {
       onWatchHowItWorks();
     } else {
-      const demoEl = document.getElementById('demo') || document.getElementById('examples');
+      const demoEl = document.getElementById('demo') || document.getElementById('templates');
       if (demoEl) demoEl.scrollIntoView({ behavior: 'smooth' });
     }
   };

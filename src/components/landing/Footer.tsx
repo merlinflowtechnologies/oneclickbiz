@@ -82,11 +82,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#examples" onClick={(e) => handleAnchorClick(e, 'examples')} className="hover:text-[#174BFF] transition-colors">
-                  Examples
-                </Link>
-              </li>
-              <li>
                 <Link href="/#pricing" onClick={(e) => handleAnchorClick(e, 'pricing')} className="hover:text-[#174BFF] transition-colors">
                   Pricing
                 </Link>
