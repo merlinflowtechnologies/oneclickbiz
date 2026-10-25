@@ -260,7 +260,7 @@ function LoginForm() {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 flex flex-col justify-center">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 flex flex-col justify-start">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Headline, Services & Login Card */}
@@ -315,7 +315,7 @@ function LoginForm() {
             {/* Mobile Visual Preview (Exact Mockup 3D Image with Tags & Plant) */}
             <div className="lg:hidden rounded-2xl overflow-hidden my-2 shadow-xs border border-blue-100/80">
               <img 
-                src="/landing/auth_hero_3d_mobile_clean.png" 
+                src="/landing/auth_hero_3d_mobile_clean.png?v=5" 
                 alt="OneClickBiz Multi-Device Business Suite" 
                 className="w-full object-contain mx-auto"
               />
@@ -520,7 +520,7 @@ function LoginForm() {
           {/* Right Column: Desktop 3D Device Showcase (Exact Mockup Artwork with Annotations & Plant) */}
           <div className="hidden lg:flex lg:col-span-5 xl:col-span-5 flex-col items-center justify-center relative">
             <img 
-              src="/landing/auth_hero_3d_desktop_clean.png" 
+              src="/landing/auth_hero_3d_desktop_clean.png?v=5" 
               alt="OneClickBiz 3D Multi-Device Platform" 
               className="w-full max-w-[420px] object-contain drop-shadow-xl"
             />
