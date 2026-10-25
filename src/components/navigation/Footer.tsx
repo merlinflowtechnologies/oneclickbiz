@@ -330,9 +330,9 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#about" onClick={(e) => handleAnchorClick(e, 'about')} className="text-[#64718F] hover:text-[#174BFF] transition-all hover:translate-x-1 inline-flex items-center gap-1">
+                  <Link href="/about" className="text-[#64718F] hover:text-[#174BFF] transition-all hover:translate-x-1 inline-flex items-center gap-1">
                     <ChevronRight className="w-3 h-3 text-[#C7D7FE]" />
-                    <span>About Us</span>
+                    <span>About Us &amp; Founder</span>
                   </Link>
                 </li>
                 <li>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { 
   Menu, 
   X,
@@ -10,6 +11,7 @@ import {
 } from 'lucide-react';
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
@@ -53,10 +55,14 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-1 sm:gap-2">
             <Link 
               href="/" 
-              className="relative px-3.5 py-2 text-sm font-semibold text-[#2563EB] transition-colors"
+              className={`relative px-3.5 py-2 text-sm font-semibold transition-colors ${
+                pathname === '/' ? 'text-[#2563EB]' : 'text-slate-600 hover:text-[#2563EB]'
+              }`}
             >
               <span>Home</span>
-              <span className="absolute bottom-0 left-3.5 right-3.5 h-0.5 bg-[#2563EB] rounded-full" />
+              {pathname === '/' && (
+                <span className="absolute bottom-0 left-3.5 right-3.5 h-0.5 bg-[#2563EB] rounded-full" />
+              )}
             </Link>
 
             <Link 
@@ -84,10 +90,15 @@ export default function Navbar() {
             </Link>
 
             <Link 
-              href="/blog" 
-              className="px-3.5 py-2 text-sm font-medium text-slate-600 hover:text-[#2563EB] transition-colors"
+              href="/about" 
+              className={`relative px-3.5 py-2 text-sm font-semibold transition-colors ${
+                pathname === '/about' ? 'text-[#2563EB]' : 'text-slate-600 hover:text-[#2563EB]'
+              }`}
             >
-              Blog
+              <span>About</span>
+              {pathname === '/about' && (
+                <span className="absolute bottom-0 left-3.5 right-3.5 h-0.5 bg-[#2563EB] rounded-full" />
+              )}
             </Link>
           </div>
 
@@ -141,7 +152,9 @@ export default function Navbar() {
           <Link 
             href="/" 
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-3 rounded-xl text-sm font-semibold text-[#2563EB] bg-blue-50/60"
+            className={`block px-4 py-3 rounded-xl text-sm font-semibold transition ${
+              pathname === '/' ? 'text-[#2563EB] bg-blue-50/60' : 'text-slate-700 hover:text-[#2563EB] hover:bg-slate-50'
+            }`}
           >
             Home
           </Link>
@@ -167,11 +180,13 @@ export default function Navbar() {
             Features
           </Link>
           <Link 
-            href="/blog" 
+            href="/about" 
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-3 rounded-xl text-sm font-medium text-slate-700 hover:text-[#2563EB] hover:bg-slate-50 transition"
+            className={`block px-4 py-3 rounded-xl text-sm font-semibold transition ${
+              pathname === '/about' ? 'text-[#2563EB] bg-blue-50/60' : 'text-slate-700 hover:text-[#2563EB] hover:bg-slate-50'
+            }`}
           >
-            Blog
+            About
           </Link>
 
           <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row gap-2">
