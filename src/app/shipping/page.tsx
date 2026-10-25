@@ -177,8 +177,8 @@ export default function ShippingPage() {
               For account activation assistance, domain routing support, or electronic invoice requests:
             </p>
             <div className="text-xs text-[#475569] space-y-1.5 pt-1">
-              <p><strong className="text-[#10183F]">Primary Support:</strong> Adduri Sai Kishore (<a href="https://wa.me/918374372733" target="_blank" rel="noreferrer" className="text-[#174BFF] hover:underline font-semibold">+91 8374372733</a>)</p>
-              <p><strong className="text-[#10183F]">Provisioning Email:</strong> <a href="mailto:info@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">info@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">contact@oneclickbiz.in</a></p>
+              <p><strong className="text-[#10183F]">Primary Support:</strong> Adduri Sai Kishore (<a href="https://wa.me/916304989071" target="_blank" rel="noreferrer" className="text-[#174BFF] hover:underline font-semibold">+91 6304 989 071</a>)</p>
+              <p><strong className="text-[#10183F]">Provisioning Email:</strong> <a href="mailto:support@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">support@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">contact@oneclickbiz.in</a></p>
               <p><strong className="text-[#10183F]">Operations Hub:</strong> Nagole, Hyderabad, Telangana, 500068, India</p>
               <p><strong className="text-[#10183F]">Platform Engineering:</strong> Developed &amp; Maintained by Merlinflow Technologies Pvt Ltd</p>
             </div>

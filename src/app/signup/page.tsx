@@ -529,7 +529,7 @@ function SignUpForm() {
           if (parsed.fullName && !fullName) setFullName(parsed.fullName);
           if (parsed.businessName && !businessName) setBusinessName(parsed.businessName);
           if (parsed.slug && !slug) setSlug(parsed.slug);
-          if (parsed.phone && (!phone || phone === '+91 8374372733')) setPhone(parsed.phone);
+          if (parsed.phone && (!phone || phone === '+91 6304 989 071')) setPhone(parsed.phone);
         }
       } catch (e) {
         console.error('Failed to parse local session:', e);
@@ -795,8 +795,8 @@ function SignUpForm() {
           price: activePlan.price,
           couponCode: appliedCoupon?.valid ? appliedCoupon.coupon?.code : undefined,
           customerName: fullName || 'OneClickBiz Customer',
-          customerEmail: email || 'billing@oneclickbiz.in',
-          customerPhone: phone || '8374372733'
+          customerEmail: email || 'support@oneclickbiz.in',
+          customerPhone: phone || '6304989071'
         })
       });
 
@@ -1778,13 +1778,13 @@ function SignUpForm() {
               </Link>
             </div>
             <a 
-              href="https://wa.me/918374372733?text=Hi%20OneClickBiz%20Support%2C%20I%20need%20help%20with%20registration." 
+              href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Support%2C%20I%20need%20help%20with%20registration." 
               target="_blank" 
               rel="noreferrer"
               className="text-emerald-600 hover:text-emerald-700 font-semibold inline-flex items-center gap-1 transition-colors"
             >
               <Phone className="w-3 h-3" />
-              <span>Need Help? Desk (+91 8374372733)</span>
+              <span>Need Help? Desk (+91 6304 989 071)</span>
             </a>
           </div>
 

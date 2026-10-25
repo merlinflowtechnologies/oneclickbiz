@@ -58,19 +58,19 @@ export default function ContactSupportPage() {
             
             {/* Primary Contact Person & WhatsApp */}
             <a 
-              href="https://wa.me/918374372733?text=Hi%20Adduri%20Sai%20Kishore%2C%20I%20need%20assistance%20with%20OneClickBiz%20smart%20business%20cards."
-              target="_blank"
-              rel="noreferrer"
+              href="https://wa.me/916304989071?text=Hi%20Adduri%20Sai%20Kishore%2C%20I%20need%20assistance%20with%20OneClickBiz%20smart%20business%20cards."
+              target="_blank" 
+              rel="noreferrer" 
               className="p-6 rounded-3xl bg-white shadow-md border border-[#E2E9FA] hover:border-emerald-500/50 transition-all flex items-start gap-4 group shadow-xl"
             >
               <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-[#059669] border border-emerald-200 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                 <MessageCircle className="w-6 h-6" />
               </div>
               <div className="space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Primary Contact Person</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#059669]">Primary Contact Person</span>
                 <h3 className="text-base font-bold text-[#10183F]">Adduri Sai Kishore</h3>
-                <p className="text-xs text-[#475569] font-mono font-semibold">+91 8374372733</p>
-                <p className="text-[11px] text-emerald-300 font-semibold pt-1">Direct WhatsApp & Mobile Support →</p>
+                <p className="text-xs text-[#475569] font-mono font-semibold">+91 6304 989 071</p>
+                <p className="text-[11px] text-[#059669] font-semibold pt-1">Direct WhatsApp &amp; Mobile Support →</p>
               </div>
             </a>
 
@@ -84,8 +84,8 @@ export default function ContactSupportPage() {
                 <h3 className="text-base font-bold text-[#10183F]">Official Help Desk</h3>
                 <div className="space-y-1 text-xs">
                   <div>
-                    <a href="mailto:info@oneclickbiz.in" className="text-[#475569] hover:text-[#174BFF] font-medium transition flex items-center gap-1.5">
-                      <span className="text-[#174BFF] font-semibold">Support:</span> info@oneclickbiz.in
+                    <a href="mailto:support@oneclickbiz.in" className="text-[#475569] hover:text-[#174BFF] font-medium transition flex items-center gap-1.5">
+                      <span className="text-[#174BFF] font-semibold">Support:</span> support@oneclickbiz.in
                     </a>
                   </div>
                   <div>
@@ -178,7 +178,7 @@ export default function ContactSupportPage() {
                         type="tel"
                         value={phone}
                         onChange={e => setPhone(e.target.value)}
-                        placeholder="+91 8374372733"
+                        placeholder="+91 6304 989 071"
                         className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8FAFD] border border-[#E2E9FA] text-xs text-[#10183F] placeholder-[#94A3B8] focus:outline-none focus:border-indigo-500"
                       />
                     </div>

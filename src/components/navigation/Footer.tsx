@@ -127,23 +127,33 @@ export default function Footer() {
 
               <div className="space-y-2 text-[#64718F] text-sm">
                 <a 
-                  href="https://wa.me/918374372733?text=Hi%20OneClickBiz%20Support%2C%20I%20have%20an%20inquiry." 
+                  href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Support%2C%20I%20have%20an%20inquiry." 
                   target="_blank" 
                   rel="noreferrer" 
                   className="flex items-center gap-2 hover:text-[#174BFF] transition font-medium"
                 >
                   <Phone className="w-4 h-4 text-[#16B981] shrink-0" />
-                  <span className="font-mono font-semibold text-[#10183F]">+91 8374372733</span>
+                  <span className="font-mono font-semibold text-[#10183F]">+91 6304 989 071</span>
                   <span className="text-xs text-[#64718F]">(WhatsApp &amp; Call)</span>
                 </a>
 
-                <a 
-                  href="mailto:info@oneclickbiz.in" 
-                  className="flex items-center gap-2 hover:text-[#174BFF] transition"
-                >
-                  <Mail className="w-4 h-4 text-[#174BFF] shrink-0" />
-                  <span className="font-mono text-[#10183F]">info@oneclickbiz.in</span>
-                </a>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2.5 text-xs pt-0.5">
+                  <a 
+                    href="mailto:support@oneclickbiz.in" 
+                    className="flex items-center gap-1.5 hover:text-[#174BFF] transition"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-[#174BFF] shrink-0" />
+                    <span className="font-mono text-[#10183F]">support@oneclickbiz.in</span>
+                  </a>
+                  <span className="hidden sm:inline text-slate-300">•</span>
+                  <a 
+                    href="mailto:contact@oneclickbiz.in" 
+                    className="flex items-center gap-1.5 hover:text-[#174BFF] transition"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-[#174BFF] shrink-0" />
+                    <span className="font-mono text-[#10183F]">contact@oneclickbiz.in</span>
+                  </a>
+                </div>
 
                 <div className="flex items-start gap-2 text-[#64718F]">
                   <MapPin className="w-4 h-4 text-[#64718F] shrink-0 mt-0.5" />
@@ -156,7 +166,7 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex items-center gap-2 pt-1">
               <a 
-                href="https://wa.me/918374372733?text=Hi%20OneClickBiz%2C%20I%20have%20an%20inquiry." 
+                href="https://wa.me/916304989071?text=Hi%20OneClickBiz%2C%20I%20have%20an%20inquiry." 
                 target="_blank" 
                 rel="noreferrer" 
                 className="w-9 h-9 rounded-xl bg-white hover:bg-[#EEF4FF] text-[#64718F] hover:text-[#16B981] border border-[#E2E9FA] hover:border-emerald-300 flex items-center justify-center transition-all shadow-xs"
@@ -200,7 +210,7 @@ export default function Footer() {
               </a>
 
               <a 
-                href="mailto:info@oneclickbiz.in" 
+                href="mailto:support@oneclickbiz.in" 
                 className="w-9 h-9 rounded-xl bg-white hover:bg-[#EEF4FF] text-[#64718F] hover:text-[#174BFF] border border-[#E2E9FA] hover:border-blue-300 flex items-center justify-center transition-all shadow-xs"
                 title="Email Support Desk"
                 aria-label="Email Support Desk"

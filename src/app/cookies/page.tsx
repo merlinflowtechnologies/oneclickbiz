@@ -150,9 +150,9 @@ export default function CookiePolicyPage() {
               If you have any questions or require clarification regarding our use of cookies and local storage, please reach out to our privacy compliance team directly:
             </p>
             <div className="pt-2 text-xs text-[#475569] space-y-1.5">
-              <p><strong className="text-[#10183F]">Primary Contact:</strong> Adduri Sai Kishore (<a href="https://wa.me/918374372733" target="_blank" rel="noreferrer" className="text-[#174BFF] hover:underline font-semibold">+91 8374372733</a>)</p>
-              <p><strong className="text-[#10183F]">Email:</strong> <a href="mailto:info@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">info@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">contact@oneclickbiz.in</a></p>
-              <p><strong className="text-[#10183F]">Office Location:</strong> Nagole, Hyderabad, Telangana, India</p>
+              <p><strong className="text-[#10183F]">Primary Contact:</strong> Adduri Sai Kishore (<a href="https://wa.me/916304989071" target="_blank" rel="noreferrer" className="text-[#174BFF] hover:underline font-semibold">+91 6304 989 071</a>)</p>
+              <p><strong className="text-[#10183F]">Email:</strong> <a href="mailto:support@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">support@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">contact@oneclickbiz.in</a></p>
+              <p><strong className="text-[#10183F]">Office Location:</strong> Nagole, Hyderabad, Telangana 500068, India</p>
             </div>
           </section>
 

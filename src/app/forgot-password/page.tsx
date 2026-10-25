@@ -410,7 +410,7 @@ export default function ForgotPasswordPage() {
                 </Link>
               </p>
               <a 
-                href="https://wa.me/918374372733?text=Hi%20OneClickBiz%20Support%2C%20I%20need%20help%20resetting%20my%20password." 
+                href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Support%2C%20I%20need%20help%20resetting%20my%20password." 
                 target="_blank" 
                 rel="noreferrer"
                 className="text-emerald-600 hover:text-emerald-700 font-semibold inline-flex items-center gap-1 transition-colors"

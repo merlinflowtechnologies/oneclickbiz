@@ -135,7 +135,7 @@ export default function CareersPage() {
                   </div>
 
                   <a 
-                    href={`mailto:info@oneclickbiz.in?subject=Application for ${encodeURIComponent(role.title)}`}
+                    href={`mailto:contact@oneclickbiz.in?subject=Application for ${encodeURIComponent(role.title)}`}
                     className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#174BFF] hover:bg-[#103ED8] text-white text-xs font-bold transition shadow-sm shrink-0 self-start sm:self-center cursor-pointer"
                   >
                     <span>Apply for Role</span>
@@ -157,14 +157,14 @@ export default function CareersPage() {
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <a 
-              href="mailto:info@oneclickbiz.in?subject=General%20Careers%20Inquiry%20-%20OneClickBiz"
+              href="mailto:contact@oneclickbiz.in?subject=General%20Careers%20Inquiry%20-%20OneClickBiz"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-[#174BFF] hover:bg-blue-50 text-xs font-bold transition shadow-sm"
             >
               <Mail className="w-4 h-4" />
               <span>Email Resume</span>
             </a>
             <a 
-              href="https://wa.me/918374372733?text=Hi%20OneClickBiz%20Team%2C%20I%20am%20interested%20in%20career%20opportunities."
+              href="https://wa.me/916304989071?text=Hi%20OneClickBiz%20Team%2C%20I%20am%20interested%20in%20career%20opportunities."
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition shadow-sm"

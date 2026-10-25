@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
     const orderId = `order_${(planId || 'pro').toLowerCase()}_${Date.now()}`;
     const cleanPhone = (customerPhone || '9876543210').replace(/\D/g, '').slice(-10) || '9876543210';
-    const cleanEmail = customerEmail || (session?.email) || 'billing@oneclickbiz.in';
+    const cleanEmail = customerEmail || (session?.email) || 'support@oneclickbiz.in';
     const cleanName = customerName || 'OneClickBiz Customer';
     const cleanCustomerId = session?.userId || `cust_${Date.now()}`;
 

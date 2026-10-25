@@ -568,11 +568,11 @@ export default function TermsPage() {
                 <p><strong className="text-[#64718F]">Website:</strong> <a href="https://www.oneclickbiz.in" className="text-[#174BFF] hover:underline">https://www.oneclickbiz.in</a></p>
                 <p><strong className="text-[#64718F]">Operator:</strong> <span className="text-[#10183F] font-semibold">Merlinflow Technologies Private Limited</span></p>
                 <p><strong className="text-[#64718F]">Office Location:</strong> <span className="text-[#475569]">Nagole, Hyderabad, Telangana 500068, India</span></p>
-                <p><strong className="text-[#64718F]">Phone / WhatsApp:</strong> <a href="tel:+918374372733" className="text-[#174BFF]">+91 8374372733</a></p>
+                <p><strong className="text-[#64718F]">Phone / WhatsApp:</strong> <a href="tel:+916304989071" className="text-[#174BFF] hover:underline font-semibold">+91 6304 989 071</a></p>
               </div>
               <div className="space-y-1">
-                <p><strong className="text-[#64718F]">Official Support Email:</strong> <a href="mailto:info@oneclickbiz.in" className="text-[#174BFF] hover:underline">info@oneclickbiz.in</a></p>
-                <p><strong className="text-[#64718F]">Privacy &amp; Grievance Email:</strong> <a href="mailto:grievance@oneclickbiz.in" className="text-[#174BFF] hover:underline">grievance@oneclickbiz.in</a></p>
+                <p><strong className="text-[#64718F]">Official Support Email:</strong> <a href="mailto:support@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">support@oneclickbiz.in</a></p>
+                <p><strong className="text-[#64718F]">Privacy &amp; Grievance Email:</strong> <a href="mailto:contact@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">contact@oneclickbiz.in</a></p>
                 <p><strong className="text-[#64718F]">Grievance Officer:</strong> <span className="text-[#10183F] font-semibold">Adduri Sai Kishore</span></p>
                 <p><strong className="text-[#64718F]">Registered Office:</strong> <span className="text-[#475569]">Nagole, Hyderabad, Telangana 500068, India</span></p>
               </div>
