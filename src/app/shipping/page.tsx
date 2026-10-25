@@ -50,12 +50,12 @@ export default function ShippingPage() {
         </div>
 
         {/* Digital Notice Box */}
-        <div className="p-6 rounded-3xl bg-gradient-to-r from-sky-950/40 via-slate-900 to-slate-900 border border-sky-500/30 mb-10 space-y-3 shadow-xl">
-          <div className="flex items-center gap-2 text-sky-400 font-bold text-xs uppercase tracking-wider">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>100% Paperless & Pure Digital SaaS Operation</span>
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-sky-50 via-white to-blue-50 border border-sky-200 mb-10 space-y-3 shadow-xs">
+          <div className="flex items-center gap-2 text-[#0284C7] font-bold text-xs uppercase tracking-wider">
+            <ShieldCheck className="w-4 h-4 text-[#059669]" />
+            <span>100% Paperless &amp; Pure Digital SaaS Operation</span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#10183F] leading-relaxed">
             OneClickBiz does <strong>NOT</strong> ship physical plastic, paper, or metal business cards. All identity cards, dynamic QR codes, portfolio showcases, and WhatsApp mini-stores are provisioned <strong>electronically and delivered instantaneously over the cloud</strong>.
           </p>
         </div>
@@ -122,31 +122,31 @@ export default function ShippingPage() {
                     <th className="p-3 border-b border-[#E2E9FA]">Delivery Timeline</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 text-[#64718F]">
+                <tbody className="divide-y divide-[#E2E9FA] text-[#64718F]">
                   <tr>
                     <td className="p-3 font-bold text-[#10183F]">Smart Identity Card (`/v/username`)</td>
                     <td className="p-3">Global Edge CDN Web URL</td>
-                    <td className="p-3 text-emerald-400 font-medium">Instant (0–60 Seconds)</td>
+                    <td className="p-3 text-[#059669] font-semibold">Instant (0–60 Seconds)</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold text-[#10183F]">Dynamic SVG / PNG QR Code</td>
                     <td className="p-3">In-Dashboard Vector Engine</td>
-                    <td className="p-3 text-emerald-400 font-medium">Instant (Real-time)</td>
+                    <td className="p-3 text-[#059669] font-semibold">Instant (Real-time)</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold text-[#10183F]">1-Click .VCF Contact Download</td>
                     <td className="p-3">Dynamic Mobile File Generator</td>
-                    <td className="p-3 text-emerald-400 font-medium">Instant (On-demand)</td>
+                    <td className="p-3 text-[#059669] font-semibold">Instant (On-demand)</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold text-[#10183F]">Custom Domain CNAME SSL</td>
                     <td className="p-3">Cloudflare / Edge DNS Proxy</td>
-                    <td className="p-3 text-sky-300 font-medium">15 to 60 Minutes</td>
+                    <td className="p-3 text-[#174BFF] font-semibold">15 to 60 Minutes</td>
                   </tr>
                   <tr>
-                    <td className="p-3 font-bold text-[#10183F]">Brochures & PDF Export Suite</td>
+                    <td className="p-3 font-bold text-[#10183F]">Brochures &amp; PDF Export Suite</td>
                     <td className="p-3">Browser Client-Side Vector PDF Engine</td>
-                    <td className="p-3 text-emerald-400 font-medium">Instant Download</td>
+                    <td className="p-3 text-[#059669] font-semibold">Instant Download</td>
                   </tr>
                 </tbody>
               </table>
@@ -168,19 +168,19 @@ export default function ShippingPage() {
           </section>
 
           {/* 5. Official Fulfillment Contact */}
-          <section className="p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-sky-950/30 to-slate-900 border border-[#E2E9FA] space-y-3">
+          <section className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#EDF4FF] via-white to-[#EDF4FF] border border-[#C7D7FE] space-y-3 shadow-xs">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
-              <Mail className="w-4 h-4 text-sky-400" />
-              5. Fulfillment & Digital Provisioning Desk
+              <Mail className="w-4 h-4 text-[#174BFF]" />
+              5. Fulfillment &amp; Digital Provisioning Desk
             </h2>
             <p className="text-xs text-[#64718F]">
               For account activation assistance, domain routing support, or electronic invoice requests:
             </p>
-            <div className="text-xs text-[#475569] space-y-1 pt-1">
-              <p><strong>Primary Support:</strong> Adduri Sai Kishore (<a href="https://wa.me/918374372733" target="_blank" rel="noreferrer" className="text-emerald-400 hover:underline">+91 8374372733</a>)</p>
-              <p><strong>Provisioning Email:</strong> <a href="mailto:info@oneclickbiz.in" className="text-sky-400 hover:underline">info@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-sky-400 hover:underline">contact@oneclickbiz.in</a></p>
-              <p><strong>Operations Hub:</strong> Nagole, Hyderabad, Telangana, 500068, India</p>
-              <p><strong>Platform Engineering:</strong> Developed & Maintained by Merlinflow Technologies Pvt Ltd</p>
+            <div className="text-xs text-[#475569] space-y-1.5 pt-1">
+              <p><strong className="text-[#10183F]">Primary Support:</strong> Adduri Sai Kishore (<a href="https://wa.me/918374372733" target="_blank" rel="noreferrer" className="text-[#174BFF] hover:underline font-semibold">+91 8374372733</a>)</p>
+              <p><strong className="text-[#10183F]">Provisioning Email:</strong> <a href="mailto:info@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">info@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">contact@oneclickbiz.in</a></p>
+              <p><strong className="text-[#10183F]">Operations Hub:</strong> Nagole, Hyderabad, Telangana, 500068, India</p>
+              <p><strong className="text-[#10183F]">Platform Engineering:</strong> Developed &amp; Maintained by Merlinflow Technologies Pvt Ltd</p>
             </div>
           </section>
 

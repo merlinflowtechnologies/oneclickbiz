@@ -11,22 +11,22 @@ export const metadata = {
 
 export default function CookiePolicyPage() {
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-200 flex flex-col selection:bg-[#174BFF]/30 selection:text-[#103ED8]">
+    <div className="min-h-screen bg-[#F8FAFD] text-[#10183F] flex flex-col selection:bg-[#174BFF] selection:text-white">
       <Navbar />
 
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 w-full">
+      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-20 w-full">
         {/* Breadcrumb & Navigation */}
         <div className="mb-8">
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-[#64718F] hover:text-[#10183F] transition group mb-4"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-[#174BFF] hover:text-[#103ED8] transition group mb-4"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span>Back to Home</span>
           </Link>
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#EEF4FF] border border-[#C7D7FE] text-[#174BFF] text-xs font-semibold w-fit mb-3">
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#EEF4FF] border border-[#C7D7FE] text-[#174BFF] text-xs font-bold w-fit mb-3">
             <Cookie className="w-3.5 h-3.5" />
-            <span>COOKIE & TRACKING POLICY</span>
+            <span>COOKIE &amp; TRACKING POLICY</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[#10183F] tracking-tight">
             Cookie Policy
@@ -40,9 +40,9 @@ export default function CookiePolicyPage() {
         </div>
 
         {/* Quick Highlights Summary Box */}
-        <div className="p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA] mb-10 space-y-4">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-400">
-            <ShieldCheck className="w-4 h-4" />
+        <div className="p-6 rounded-2xl bg-white shadow-xs border border-[#E2E9FA] mb-10 space-y-4">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#059669]">
+            <ShieldCheck className="w-4 h-4 text-[#059669]" />
             <span>Zero Cross-Site Ad Tracking Guarantee</span>
           </div>
           <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
@@ -54,7 +54,7 @@ export default function CookiePolicyPage() {
         <div className="space-y-8 text-sm leading-relaxed">
           
           {/* 1. What Are Cookies */}
-          <section className="space-y-3 p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA]">
+          <section className="space-y-3 p-6 rounded-2xl bg-white shadow-xs border border-[#E2E9FA]">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
               <Cookie className="w-4 h-4 text-[#174BFF]" />
               1. What Are Cookies?
@@ -65,18 +65,18 @@ export default function CookiePolicyPage() {
           </section>
 
           {/* 2. Types of Cookies We Use */}
-          <section className="space-y-4 p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA]">
+          <section className="space-y-4 p-6 rounded-2xl bg-white shadow-xs border border-[#E2E9FA]">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
               <Sliders className="w-4 h-4 text-[#174BFF]" />
               2. Categories of Cookies We Use
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-              <div className="p-4 rounded-2xl bg-[#F8FAFD]/60 border border-[#E2E9FA] space-y-2">
+              <div className="p-4 rounded-xl bg-[#F8FAFD] border border-[#E2E9FA] space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-[#10183F] uppercase tracking-wider flex items-center gap-1.5">
                     <Lock className="w-3.5 h-3.5 text-[#174BFF]" />
-                    Essential & Authentication
+                    Essential &amp; Authentication
                   </span>
                   <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-[#059669] border border-emerald-200 font-bold">Required</span>
                 </div>
@@ -85,24 +85,24 @@ export default function CookiePolicyPage() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#F8FAFD]/60 border border-[#E2E9FA] space-y-2">
+              <div className="p-4 rounded-xl bg-[#F8FAFD] border border-[#E2E9FA] space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-[#10183F] uppercase tracking-wider flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-[#174BFF]" />
-                    Preferences & Studio State
+                    Preferences &amp; Studio State
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-indigo-500/10 text-[#174BFF] font-bold">Functional</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-[#EEF4FF] text-[#174BFF] font-bold border border-[#C7D7FE]">Functional</span>
                 </div>
                 <p className="text-xs text-[#64718F]">
                   Allows our smart card customizer to remember your selected theme (Modern, Dark, Glassmorphic, Sunset), draft card details, and dashboard tab preferences.
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#F8FAFD]/60 border border-[#E2E9FA] space-y-2">
+              <div className="p-4 rounded-xl bg-[#F8FAFD] border border-[#E2E9FA] space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-[#10183F] uppercase tracking-wider flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5 text-[#174BFF]" />
-                    Security & Rate Limiting
+                    Security &amp; Rate Limiting
                   </span>
                   <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-[#059669] border border-emerald-200 font-bold">Protection</span>
                 </div>
@@ -111,13 +111,13 @@ export default function CookiePolicyPage() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#F8FAFD]/60 border border-[#E2E9FA] space-y-2">
+              <div className="p-4 rounded-xl bg-[#F8FAFD] border border-[#E2E9FA] space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-[#10183F] uppercase tracking-wider flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#174BFF]" />
                     Aggregated Analytics
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 font-bold">Anonymous</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-blue-50 text-[#174BFF] border border-blue-200 font-bold">Anonymous</span>
                 </div>
                 <p className="text-xs text-[#64718F]">
                   Collects de-identified metrics regarding total card views, QR code scans, and peak traffic hours so creators can monitor their digital networking growth.
@@ -127,7 +127,7 @@ export default function CookiePolicyPage() {
           </section>
 
           {/* 3. Managing Cookies in Your Browser */}
-          <section className="space-y-3 p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA]">
+          <section className="space-y-3 p-6 rounded-2xl bg-white shadow-xs border border-[#E2E9FA]">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
               <Lock className="w-4 h-4 text-[#174BFF]" />
               3. How to Control and Delete Cookies
@@ -141,18 +141,18 @@ export default function CookiePolicyPage() {
           </section>
 
           {/* 4. Updates & Inquiries */}
-          <section className="space-y-3 p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA]">
+          <section className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#EDF4FF] via-white to-[#EDF4FF] border border-[#C7D7FE] space-y-3 shadow-xs">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <ShieldCheck className="w-4 h-4 text-[#16B981]" />
               4. Questions About Our Cookie Usage
             </h2>
             <p className="text-[#64718F] text-xs leading-relaxed">
               If you have any questions or require clarification regarding our use of cookies and local storage, please reach out to our privacy compliance team directly:
             </p>
-            <div className="pt-2 text-xs text-[#475569] space-y-1">
-              <p>Primary Contact: Adduri Sai Kishore (<a href="https://wa.me/918374372733" target="_blank" rel="noreferrer" className="text-emerald-400 hover:underline">+91 8374372733</a>)</p>
-              <p>Email: <a href="mailto:info@oneclickbiz.in" className="text-[#174BFF] hover:underline">info@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-[#174BFF] hover:underline">contact@oneclickbiz.in</a></p>
-              <p>Office Location: Nagole, Hyderabad, Telangana, India</p>
+            <div className="pt-2 text-xs text-[#475569] space-y-1.5">
+              <p><strong className="text-[#10183F]">Primary Contact:</strong> Adduri Sai Kishore (<a href="https://wa.me/918374372733" target="_blank" rel="noreferrer" className="text-[#174BFF] hover:underline font-semibold">+91 8374372733</a>)</p>
+              <p><strong className="text-[#10183F]">Email:</strong> <a href="mailto:info@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">info@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">contact@oneclickbiz.in</a></p>
+              <p><strong className="text-[#10183F]">Office Location:</strong> Nagole, Hyderabad, Telangana, India</p>
             </div>
           </section>
 

@@ -54,26 +54,26 @@ export default function PrivacyPolicyPage() {
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-[#64718F] font-medium">
             <span className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+              <Calendar className="w-3.5 h-3.5 text-[#059669]" />
               <strong>Effective Date:</strong> October 10, 2026
             </span>
             <span>•</span>
             <span className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-emerald-400" />
+              <Clock className="w-3.5 h-3.5 text-[#059669]" />
               <strong>Last Updated:</strong> October 10, 2026
             </span>
             <span>•</span>
             <span className="flex items-center gap-1.5">
-              <Scale className="w-3.5 h-3.5 text-emerald-400" />
+              <Scale className="w-3.5 h-3.5 text-[#059669]" />
               DPDP Act, 2023 Compliant
             </span>
           </div>
         </div>
 
         {/* Highlights Banner: Zero-Ads & No Data Selling */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-indigo-950/40 border border-emerald-500/30 mb-12 space-y-4 shadow-xl">
-          <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
-            <Ban className="w-4 h-4 text-emerald-400" />
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-50 via-white to-blue-50 border border-emerald-200 mb-12 space-y-4 shadow-xs">
+          <div className="flex items-center gap-2 text-[#059669] font-bold text-xs uppercase tracking-wider">
+            <Ban className="w-4 h-4 text-[#059669]" />
             <span>Zero-Ads &amp; No Data Selling Guarantee</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-bold text-[#10183F] tracking-tight">
@@ -83,13 +83,13 @@ export default function PrivacyPolicyPage() {
             We process personal data in accordance with applicable Indian data protection and information technology laws, including the <strong>Digital Personal Data Protection Act, 2023 (DPDP Act)</strong>.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-[#475569] pt-1">
-            <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FAFD]/70 border border-[#E2E9FA]">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span><strong>Zero Ads:</strong> No third-party banner ads or popups on your profiles.</span>
+            <div className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E9FA] shadow-xs">
+              <CheckCircle2 className="w-4 h-4 text-[#059669] shrink-0" />
+              <span><strong className="text-[#10183F]">Zero Ads:</strong> No third-party banner ads or popups on your profiles.</span>
             </div>
-            <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FAFD]/70 border border-[#E2E9FA]">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span><strong>No Data Selling:</strong> We never sell customer lead lists to advertising brokers.</span>
+            <div className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E9FA] shadow-xs">
+              <CheckCircle2 className="w-4 h-4 text-[#059669] shrink-0" />
+              <span><strong className="text-[#10183F]">No Data Selling:</strong> We never sell customer lead lists to advertising brokers.</span>
             </div>
           </div>
         </div>
@@ -97,28 +97,28 @@ export default function PrivacyPolicyPage() {
         {/* Table of Contents */}
         <div className="p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA] mb-12 space-y-3">
           <h3 className="text-xs font-bold text-[#10183F] uppercase tracking-wider flex items-center gap-2">
-            <FileText className="w-4 h-4 text-emerald-400" />
+            <FileText className="w-4 h-4 text-[#174BFF]" />
             Privacy Policy Sections
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 text-xs text-[#64718F]">
-            <a href="#p-1" className="hover:text-emerald-300 transition">1. Introduction</a>
-            <a href="#p-2" className="hover:text-emerald-300 transition">2. Our Role in Data Processing</a>
-            <a href="#p-3" className="hover:text-emerald-300 transition">3. Personal Data We Collect</a>
-            <a href="#p-4" className="hover:text-emerald-300 transition">4. How We Use Data</a>
-            <a href="#p-5" className="hover:text-emerald-300 transition">5. Payments & Billing</a>
-            <a href="#p-6" className="hover:text-emerald-300 transition">6. Automatic Renewal</a>
-            <a href="#p-7" className="hover:text-emerald-300 transition">7. Public Profiles</a>
-            <a href="#p-8" className="hover:text-emerald-300 transition">8. Customer Leads</a>
-            <a href="#p-9" className="hover:text-emerald-300 transition">9. Cookies & Tracking</a>
-            <a href="#p-10" className="hover:text-emerald-300 transition">10. Data Sharing & Disclosure</a>
-            <a href="#p-11" className="hover:text-emerald-300 transition">11. Data Security</a>
-            <a href="#p-12" className="hover:text-emerald-300 transition">12. Retention & Deletion</a>
-            <a href="#p-13" className="hover:text-emerald-300 transition">13. Your Privacy Rights</a>
-            <a href="#p-14" className="hover:text-emerald-300 transition">14. Children's Privacy</a>
-            <a href="#p-15" className="hover:text-emerald-300 transition">15. International Processing</a>
-            <a href="#p-16" className="hover:text-emerald-300 transition">16. Marketing Communications</a>
-            <a href="#p-17" className="hover:text-emerald-300 transition">17. Changes to Policy</a>
-            <a href="#p-18" className="hover:text-emerald-300 transition">18. Contact & Grievance</a>
+            <a href="#p-1" className="hover:text-[#174BFF] transition">1. Introduction</a>
+            <a href="#p-2" className="hover:text-[#174BFF] transition">2. Our Role in Data Processing</a>
+            <a href="#p-3" className="hover:text-[#174BFF] transition">3. Personal Data We Collect</a>
+            <a href="#p-4" className="hover:text-[#174BFF] transition">4. How We Use Data</a>
+            <a href="#p-5" className="hover:text-[#174BFF] transition">5. Payments &amp; Billing</a>
+            <a href="#p-6" className="hover:text-[#174BFF] transition">6. Automatic Renewal</a>
+            <a href="#p-7" className="hover:text-[#174BFF] transition">7. Public Profiles</a>
+            <a href="#p-8" className="hover:text-[#174BFF] transition">8. Customer Leads</a>
+            <a href="#p-9" className="hover:text-[#174BFF] transition">9. Cookies &amp; Tracking</a>
+            <a href="#p-10" className="hover:text-[#174BFF] transition">10. Data Sharing &amp; Disclosure</a>
+            <a href="#p-11" className="hover:text-[#174BFF] transition">11. Data Security</a>
+            <a href="#p-12" className="hover:text-[#174BFF] transition">12. Retention &amp; Deletion</a>
+            <a href="#p-13" className="hover:text-[#174BFF] transition">13. Your Privacy Rights</a>
+            <a href="#p-14" className="hover:text-[#174BFF] transition">14. Children&apos;s Privacy</a>
+            <a href="#p-15" className="hover:text-[#174BFF] transition">15. International Processing</a>
+            <a href="#p-16" className="hover:text-[#174BFF] transition">16. Marketing Communications</a>
+            <a href="#p-17" className="hover:text-[#174BFF] transition">17. Changes to Policy</a>
+            <a href="#p-18" className="hover:text-[#174BFF] transition">18. Contact &amp; Grievance</a>
           </div>
         </div>
 
@@ -128,14 +128,14 @@ export default function PrivacyPolicyPage() {
           {/* 1. Introduction */}
           <section id="p-1" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA]">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <ShieldCheck className="w-4 h-4 text-[#059669]" />
               1. Introduction
             </h2>
             <p>
               OneClickBiz (“OneClickBiz”, “Company”, “we”, “us” or “our”) is operated by <strong>Merlinflow Technologies Private Limited</strong>.
             </p>
             <p>
-              This Privacy Policy explains how we collect, use, store, disclose, retain and protect personal data when you visit <a href="https://www.oneclickbiz.in" className="text-emerald-400 hover:underline">https://www.oneclickbiz.in</a>, create an account, purchase or manage a subscription, publish a digital business card, use business tools, purchase physical products or contact support.
+              This Privacy Policy explains how we collect, use, store, disclose, retain and protect personal data when you visit <a href="https://www.oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">https://www.oneclickbiz.in</a>, create an account, purchase or manage a subscription, publish a digital business card, use business tools, purchase physical products or contact support.
             </p>
             <p>
               We aim to process personal data in accordance with applicable Indian data protection and information technology laws, including the <strong>Digital Personal Data Protection Act, 2023</strong>.
@@ -185,7 +185,7 @@ export default function PrivacyPolicyPage() {
           {/* 4. How We Use Personal Data */}
           <section id="p-4" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA]">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
+              <Sparkles className="w-4 h-4 text-[#059669]" />
               4. How We Use Personal Data
             </h2>
             <p>We process personal data for specified lawful purposes:</p>
@@ -208,7 +208,7 @@ export default function PrivacyPolicyPage() {
           {/* 5. Subscription Payments and Billing */}
           <section id="p-5" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA]">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
-              <CreditCard className="w-4 h-4 text-emerald-400" />
+              <CreditCard className="w-4 h-4 text-[#059669]" />
               5. Subscription Payments and Billing
             </h2>
             <p>
@@ -233,7 +233,7 @@ export default function PrivacyPolicyPage() {
           {/* 7. Public Profiles and User-Published Content */}
           <section id="p-7" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA]">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
-              <Eye className="w-4 h-4 text-emerald-400" />
+              <Eye className="w-4 h-4 text-[#059669]" />
               7. Public Profiles and User-Published Content
             </h2>
             <p>
@@ -247,7 +247,7 @@ export default function PrivacyPolicyPage() {
               <Lock className="w-4 h-4 text-[#174BFF]" />
               8. Customer Leads and Business Data
             </h2>
-            <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+            <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold">
               🔒 We do not sell customer lead lists or personal contact details to advertising brokers or data brokers as a business model.
             </div>
             <p>
@@ -284,7 +284,7 @@ export default function PrivacyPolicyPage() {
           {/* 11. Data Security */}
           <section id="p-11" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA]">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
-              <Lock className="w-4 h-4 text-emerald-400" />
+              <Lock className="w-4 h-4 text-[#059669]" />
               11. Data Security
             </h2>
             <p>
@@ -306,7 +306,7 @@ export default function PrivacyPolicyPage() {
           {/* 13. Your Privacy Rights and Choices */}
           <section id="p-13" className="scroll-mt-24 space-y-3 p-6 rounded-3xl bg-white shadow-xs border border-[#E2E9FA]">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <ShieldCheck className="w-4 h-4 text-[#059669]" />
               13. Your Privacy Rights and Choices (DPDP Act, 2023)
             </h2>
             <p>
@@ -359,23 +359,23 @@ export default function PrivacyPolicyPage() {
           </section>
 
           {/* 18. Privacy Contact and Grievance Redressal */}
-          <section id="p-18" className="scroll-mt-24 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-emerald-950/40 to-slate-900 border border-emerald-500/30 space-y-4">
+          <section id="p-18" className="scroll-mt-24 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#EDF4FF] via-white to-[#EEFDF7] border border-[#C7D7FE] space-y-4 shadow-xs">
             <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-emerald-400" />
+              <Building2 className="w-4 h-4 text-[#174BFF]" />
               18. Privacy Contact and Grievance Redressal
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="space-y-1">
                 <p><strong className="text-[#64718F]">Platform:</strong> <span className="text-[#10183F]">OneClickBiz</span></p>
-                <p><strong className="text-[#64718F]">Website:</strong> <a href="https://www.oneclickbiz.in" className="text-emerald-400 hover:underline">https://www.oneclickbiz.in</a></p>
+                <p><strong className="text-[#64718F]">Website:</strong> <a href="https://www.oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">https://www.oneclickbiz.in</a></p>
                 <p><strong className="text-[#64718F]">Operator:</strong> <span className="text-[#10183F] font-semibold">Merlinflow Technologies Private Limited</span></p>
                 <p><strong className="text-[#64718F]">Office Location:</strong> <span className="text-[#475569]">Nagole, Hyderabad, Telangana 500068, India</span></p>
-                <p><strong className="text-[#64718F]">Phone / WhatsApp:</strong> <a href="tel:+918374372733" className="text-emerald-300">+91 8374372733</a></p>
+                <p><strong className="text-[#64718F]">Phone / WhatsApp:</strong> <a href="tel:+918374372733" className="text-[#174BFF] hover:underline font-semibold">+91 8374372733</a></p>
               </div>
               <div className="space-y-1">
-                <p><strong className="text-[#64718F]">Official Privacy Email:</strong> <a href="mailto:privacy@oneclickbiz.in" className="text-emerald-400 hover:underline">privacy@oneclickbiz.in</a></p>
+                <p><strong className="text-[#64718F]">Official Privacy Email:</strong> <a href="mailto:privacy@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">privacy@oneclickbiz.in</a></p>
                 <p><strong className="text-[#64718F]">Grievance Officer:</strong> <span className="text-[#10183F] font-semibold">Adduri Sai Kishore</span></p>
-                <p><strong className="text-[#64718F]">Grievance Email:</strong> <a href="mailto:grievance@oneclickbiz.in" className="text-emerald-400 hover:underline">grievance@oneclickbiz.in</a></p>
+                <p><strong className="text-[#64718F]">Grievance Email:</strong> <a href="mailto:grievance@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">grievance@oneclickbiz.in</a></p>
                 <p><strong className="text-[#64718F]">Registered Office:</strong> <span className="text-[#475569]">Nagole, Hyderabad, Telangana 500068, India</span></p>
               </div>
             </div>

@@ -56,13 +56,13 @@ export default function RefundPolicyPage() {
         </div>
 
         {/* Key Summary Notice */}
-        <div className="p-6 rounded-3xl bg-gradient-to-r from-rose-950/40 via-slate-900 to-slate-900 border border-rose-500/30 mb-12 space-y-3 shadow-xl">
-          <div className="flex items-center gap-2 text-rose-400 font-bold text-xs uppercase tracking-wider">
-            <AlertTriangle className="w-4 h-4 text-rose-400" />
+        <div className="p-6 rounded-3xl bg-gradient-to-r from-rose-50 via-white to-rose-50 border border-rose-200 mb-12 space-y-3 shadow-xs">
+          <div className="flex items-center gap-2 text-rose-600 font-bold text-xs uppercase tracking-wider">
+            <AlertTriangle className="w-4 h-4 text-rose-600" />
             <span>Binding Legal Notice on Digital Consumption</span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
-            OneClickBiz delivers immediate digital software access, vanity URL provisioning, and dynamic cloud services upon payment. Due to the irrevocable nature of digital provisioning and immediate server allocation, <strong>ALL DIGITAL SALES, PLAN SUBSCRIPTIONS, AND ACCOUNT UPGRADES ARE STRICTLY FINAL AND NON-REFUNDABLE</strong>.
+          <p className="text-xs sm:text-sm text-[#10183F] leading-relaxed font-medium">
+            OneClickBiz delivers immediate digital software access, vanity URL provisioning, and dynamic cloud services upon payment. Due to the irrevocable nature of digital provisioning and immediate server allocation, <strong className="text-rose-700">ALL DIGITAL SALES, PLAN SUBSCRIPTIONS, AND ACCOUNT UPGRADES ARE STRICTLY FINAL AND NON-REFUNDABLE</strong>.
           </p>
         </div>
 
@@ -78,7 +78,7 @@ export default function RefundPolicyPage() {
             <p className="text-[#475569] text-xs leading-relaxed">
               Except where strictly mandated by statutory Indian consumer law, all payments made to OneClickBiz are non-refundable under all circumstances. Once a digital order is completed, server resources, database storage, dynamic QR generation algorithms, and URL vanity handles are instantly allocated.
             </p>
-            <p className="text-slate-200 text-xs font-semibold pt-1">This absolute non-refundable policy applies unconditionally to:</p>
+            <p className="text-[#10183F] text-xs font-semibold pt-1">This absolute non-refundable policy applies unconditionally to:</p>
             <ul className="list-disc pl-5 space-y-1.5 text-[#475569] text-xs">
               <li><strong>Basic Plan (₹999/year)</strong>, <strong>Pro Plan (₹1,599/year)</strong>, and <strong>Advanced Plan (₹2,199/year)</strong> subscriptions.</li>
               <li>Mid-term plan upgrades, feature add-ons, or subscription renewals.</li>
@@ -152,7 +152,7 @@ export default function RefundPolicyPage() {
           </section>
 
           {/* 6. Jurisdiction & Grievance Contact */}
-          <section className="p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950/30 to-slate-900 border border-[#E2E9FA] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <section className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#EDF4FF] via-white to-[#EDF4FF] border border-[#C7D7FE] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div className="space-y-1.5">
               <h2 className="text-base font-bold text-[#10183F] flex items-center gap-2">
                 <Scale className="w-4 h-4 text-[#174BFF]" />
@@ -162,17 +162,17 @@ export default function RefundPolicyPage() {
                 For verified duplicate billing issues or payment escalation queries, contact our designated Grievance Officer:
               </p>
               <div className="text-xs text-[#475569] space-y-1 pt-1.5">
-                <p><strong>Designated Grievance Officer:</strong> Adduri Sai Kishore</p>
-                <p><strong>Direct Helpline / WhatsApp:</strong> <a href="https://wa.me/918374372733" target="_blank" rel="noreferrer" className="text-emerald-400 hover:underline">+91 8374372733</a></p>
-                <p><strong>Official Billing Emails:</strong> <a href="mailto:info@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">info@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">contact@oneclickbiz.in</a></p>
-                <p><strong>Registered Address:</strong> Nagole, Hyderabad, Telangana, 500068, India</p>
-                <p><strong>Platform Engineering:</strong> Developed & Maintained by Merlinflow Technologies Pvt Ltd for OneClickBiz</p>
+                <p><strong className="text-[#10183F]">Designated Grievance Officer:</strong> Adduri Sai Kishore</p>
+                <p><strong className="text-[#10183F]">Direct Helpline / WhatsApp:</strong> <a href="https://wa.me/918374372733" target="_blank" rel="noreferrer" className="text-[#174BFF] hover:underline font-semibold">+91 8374372733</a></p>
+                <p><strong className="text-[#10183F]">Official Billing Emails:</strong> <a href="mailto:info@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">info@oneclickbiz.in</a> / <a href="mailto:contact@oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">contact@oneclickbiz.in</a></p>
+                <p><strong className="text-[#10183F]">Registered Address:</strong> Nagole, Hyderabad, Telangana, 500068, India</p>
+                <p><strong className="text-[#10183F]">Platform Engineering:</strong> Developed &amp; Maintained by Merlinflow Technologies Pvt Ltd for OneClickBiz</p>
               </div>
             </div>
             <div className="shrink-0">
               <Link
                 href="/contact" 
-                className="px-5 py-2.5 rounded-xl bg-[#174BFF] hover:bg-[#103ED8] text-white font-bold text-xs transition shadow-lg inline-flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-xl bg-[#174BFF] hover:bg-[#103ED8] text-white font-bold text-xs transition shadow-md inline-flex items-center gap-1.5"
               >
                 <span>Submit Grievance</span>
               </Link>

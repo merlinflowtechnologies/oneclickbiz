@@ -199,19 +199,19 @@ export default function TermsPage() {
               <div className="p-4 rounded-2xl bg-[#F8FAFD] border border-[#E2E9FA] space-y-1">
                 <span className="text-[10px] font-bold text-[#64718F] uppercase tracking-wider">Starter Tier</span>
                 <p className="font-bold text-[#10183F] text-sm">Basic Plan</p>
-                <p className="text-emerald-400 font-extrabold text-base">₹999 / year</p>
+                <p className="text-[#059669] font-extrabold text-base">₹999 / year</p>
                 <p className="text-[#64718F] text-[11px]">1 Smart Digital Card (`/v/username`), contact downloading (.VCF), cloud QR code, and standard analytics.</p>
               </div>
               <div className="p-4 rounded-2xl bg-[#F8FAFD] border border-[#C7D7FE] space-y-1">
                 <span className="text-[10px] font-bold text-[#174BFF] uppercase tracking-wider">Most Popular</span>
                 <p className="font-bold text-[#103ED8] text-sm">Pro Plan</p>
-                <p className="text-emerald-400 font-extrabold text-base">₹1,599 / year</p>
+                <p className="text-[#059669] font-extrabold text-base">₹1,599 / year</p>
                 <p className="text-[#64718F] text-[11px]">Up to 3 Smart Cards, 1 White-Label Custom Domain, WhatsApp Store, and Appointment Booking Engine.</p>
               </div>
-              <div className="p-4 rounded-2xl bg-[#F8FAFD] border border-purple-500/40 space-y-1">
-                <span className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">Enterprise & Corporate</span>
-                <p className="font-bold text-purple-200 text-sm">Advanced Plan</p>
-                <p className="text-emerald-400 font-extrabold text-base">₹2,199 / year</p>
+              <div className="p-4 rounded-2xl bg-[#F8FAFD] border border-purple-200 space-y-1">
+                <span className="text-[10px] font-bold text-purple-600 uppercase tracking-wider">Enterprise &amp; Corporate</span>
+                <p className="font-bold text-purple-900 text-sm">Advanced Plan</p>
+                <p className="text-[#059669] font-extrabold text-base">₹2,199 / year</p>
                 <p className="text-[#64718F] text-[11px]">Up to 5 Smart Cards, 5 Custom Domains, 4K Video uploads, Blog Studio, and VIP SLA Support.</p>
               </div>
             </div>
