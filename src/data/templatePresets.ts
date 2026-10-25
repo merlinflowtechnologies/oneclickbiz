@@ -1898,17 +1898,17 @@ TEMPLATE_PRESETS_DATA['bus-ticket'] = TEMPLATE_PRESETS_DATA['bus-booking'];
 TEMPLATE_PRESETS_DATA['travel-tour'] = TEMPLATE_PRESETS_DATA['bus-booking'];
 
 TEMPLATE_PRESETS_DATA['retail-jewellery'] = {
-  name: 'Lumière Diamonds & Fine Jewels',
+  name: 'OneClick Jewellery & Fine Jewels',
   designation: 'Conscious Lab-Grown Diamonds & BIS 916 / 18Kt Gold Fine Jewellery',
-  company: 'Lumière Diamonds Atelier',
-  bio: 'Lumière crafts IGI & GIA certified lab-grown diamond solitaires, bridal jewels, and everyday gold essentials with 80% lifetime buyback and zero environmental mining impact.',
+  company: 'OneClick Jewellery Atelier',
+  bio: 'OneClick Jewellery crafts IGI & GIA certified lab-grown diamond solitaires, bridal jewels, and everyday gold essentials with 80% lifetime buyback and zero environmental mining impact.',
   theme: 'sunset-gold',
   avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
   coverUrl: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1200&q=80',
-  email: 'concierge@lumierediamonds.com',
+  email: 'concierge@oneclickjewellery.com',
   phone: '+91 98765 43210',
   whatsapp: '919876543210',
-  website: 'https://lumierediamonds.com',
+  website: 'https://oneclickjewellery.com',
   address: 'Bandra West, Mumbai • South Ex Part II, Delhi • Indiranagar, Bengaluru • Jubilee Hills, Hyderabad',
   services: [
     { id: 'srv_jewel_1', title: 'Private Solitaire & Bridal Viewing Salon', description: 'Complimentary Champagne tasting, loupe diamond inspection, and custom sizing.', durationMinutes: 60, price: 0, currency: '₹' },
@@ -1926,7 +1926,7 @@ TEMPLATE_PRESETS_DATA['retail-jewellery'] = {
     { id: 'g_jewel_3', imageUrl: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=800&q=80', title: 'Sui Dhaga & Drop Earrings', category: 'Earrings' }
   ],
   testimonials: [
-    { id: 't_jewel_1', clientName: 'Aditya & Rhea Sen', clientRole: 'Bandra West, Mumbai', content: 'The brilliance and crisp facets on the Lumière 1.50 Ct oval ring were superior to mined diamonds. Transparent billing and verified IGI laser inscription.', rating: 5 },
+    { id: 't_jewel_1', clientName: 'Aditya & Rhea Sen', clientRole: 'Bandra West, Mumbai', content: 'The brilliance and crisp facets on the OneClick Jewellery 1.50 Ct oval ring were superior to mined diamonds. Transparent billing and verified IGI laser inscription.', rating: 5 },
     { id: 't_jewel_2', clientName: 'Dr. Varun Mathur', clientRole: 'South Extension, Delhi', content: 'Visited the South Ex lounge. Exceptional service, high-tech microscope viewing, and delivered right on time.', rating: 5 }
   ],
   socials: [

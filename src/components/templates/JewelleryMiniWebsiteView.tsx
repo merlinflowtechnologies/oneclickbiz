@@ -227,7 +227,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
   },
   {
     id: 'jb-5',
-    name: 'Lumière Lotus Bloom Diamond Sui Dhaga Earrings',
+    name: 'OneClick Lotus Bloom Diamond Sui Dhaga Earrings',
     category: 'Earrings',
     shape: 'pear',
     carat: '0.85 Ct Total Weight',
@@ -523,7 +523,7 @@ export default function JewelleryMiniWebsiteView({
   const [appointmentSubmitted, setAppointmentSubmitted] = useState(false);
 
   // Brand Name & details
-  const atelierName = 'Lumière Diamonds & Fine Jewels';
+  const atelierName = 'OneClick Jewellery & Fine Jewels';
   const rawPhone = profile.phone || '+91 98765 43210';
   const cleanPhone = rawPhone.replace(/\D/g, '');
   const cleanCallNumber = rawPhone.replace(/[^0-9+]/g, '') || '+919876543210';
@@ -544,8 +544,8 @@ export default function JewelleryMiniWebsiteView({
     return `https://facebook.com/${raw.replace('@', '').trim()}`;
   }, [profile]);
 
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Lumière Diamonds Atelier Linking Road Bandra West Mumbai')}`;
-  const emailUrl = `mailto:${profile.email || 'concierge@lumierediamonds.com'}?subject=${encodeURIComponent('Inquiry from Lumière Digital Boutique')}`;
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('OneClick Jewellery Atelier Linking Road Bandra West Mumbai')}`;
+  const emailUrl = `mailto:${profile.email || 'concierge@oneclick.jewellerydiamonds.com'}?subject=${encodeURIComponent('Inquiry from OneClick Jewellery Digital Boutique')}`;
 
   // Smooth scroll helper ensuring mobile menu closes
   const scrollToSection = (id: string) => {
@@ -560,13 +560,13 @@ export default function JewelleryMiniWebsiteView({
   const handleDownloadVCard = () => {
     const vcard = `BEGIN:VCARD
 VERSION:3.0
-FN:Lumière Diamonds & Fine Jewels
-ORG:Lumière Diamonds Atelier
+FN:OneClick Jewellery & Fine Jewels
+ORG:OneClick Jewellery Atelier
 TITLE:Conscious Lab-Grown Diamonds & Fine Gold Jewellery
 TEL;TYPE=WORK,VOICE:+919876543210
 TEL;TYPE=CELL,VOICE:+919876543210
-EMAIL:concierge@lumierediamonds.com
-URL:https://lumierediamonds.com
+EMAIL:concierge@oneclick.jewellerydiamonds.com
+URL:https://oneclickjewellery.com
 ADR;TYPE=WORK:;;Bandra West;Mumbai;Maharashtra;400050;India
 NOTE:IGI & GIA Certified Lab-Grown Diamonds • BIS Hallmarked 18Kt Gold • 80% Buyback
 END:VCARD`;
@@ -575,7 +575,7 @@ END:VCARD`;
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'Lumiere_Fine_Jewels.vcf');
+    link.setAttribute('download', 'OneClick_Jewellery.vcf');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -637,7 +637,7 @@ END:VCARD`;
   // WhatsApp Order
   const handleWhatsAppCheckout = () => {
     const itemsText = cart.map(i => `• ${i.product.name} (Qty: ${i.qty}, Metal: ${i.metal}) - ₹${(i.product.price * i.qty).toLocaleString('en-IN')}`).join('\n');
-    const msg = `✨ *LUMIÈRE FINE JEWELS - ORDER INQUIRY*\n\nHello Concierge, I would like to place an order for:\n\n${itemsText}\n\n*Total Value:* ₹${cartTotal.toLocaleString('en-IN')}\n*Insured Delivery:* Complimentary Express\n\nPlease confirm availability and payment link. Thank you!`;
+    const msg = `✨ *ONECLICK JEWELLERY - ORDER INQUIRY*\n\nHello Concierge, I would like to place an order for:\n\n${itemsText}\n\n*Total Value:* ₹${cartTotal.toLocaleString('en-IN')}\n*Insured Delivery:* Complimentary Express\n\nPlease confirm availability and payment link. Thank you!`;
     window.open(`https://wa.me/${cleanWa}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -671,7 +671,7 @@ END:VCARD`;
             </button>
             <span className="text-stone-700">|</span>
             <a 
-              href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi Lumiere Concierge, I would like assistance with jewellery selection.')}`}
+              href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi OneClick Jewellery Concierge, I would like assistance with jewellery selection.')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#D4AF37] hover:underline flex items-center gap-1 font-medium"
@@ -700,12 +700,12 @@ END:VCARD`;
               <button onClick={() => scrollToSection('home')} className="flex items-center gap-3 group text-left cursor-pointer">
                 <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-tr from-[#9B7824] via-[#D4AF37] to-[#F3E8D0] p-[1.5px] shadow-md shadow-[#D4AF37]/20 group-hover:scale-105 transition-transform">
                   <div className="w-full h-full rounded-full bg-[#14171A] flex items-center justify-center">
-                    <span className="font-serif text-lg font-bold text-[#F3E8D0] tracking-widest">L</span>
+                    <span className="font-serif text-sm font-bold text-[#F3E8D0] tracking-wider">1C</span>
                   </div>
                 </div>
                 <div>
                   <div className="font-serif text-xl sm:text-2xl font-bold tracking-[0.18em] text-[#14171A] uppercase">
-                    LUMIÈRE
+                    ONECLICK JEWELLERY
                   </div>
                   <div className="text-[9px] sm:text-[10px] tracking-[0.25em] text-[#9B7824] uppercase font-medium">
                     Lab Diamonds & Fine Jewels
@@ -800,7 +800,7 @@ END:VCARD`;
                 Book Private Lounge Viewing
               </button>
               <a 
-                href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi Lumière, I would like to consult with a jewellery specialist.')}`}
+                href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi OneClick Jewellery, I would like to consult with a jewellery specialist.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-2.5 rounded-full border border-emerald-600 text-emerald-800 text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2"
@@ -829,7 +829,7 @@ END:VCARD`;
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-white shadow-xl overflow-hidden bg-white flex items-center justify-center p-0.5">
                 <img 
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" 
-                  alt="Lumière Fine Jewellery Atelier" 
+                  alt="OneClick Jewellery Atelier" 
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
@@ -851,7 +851,7 @@ END:VCARD`;
 
             {/* Sub-headline */}
             <p className="font-sans text-xs xs:text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed px-2">
-              Lumière crafts IGI & GIA certified lab-grown diamond solitaires, bridal jewels, and everyday gold essentials in Mumbai, Delhi, Bengaluru &amp; Hyderabad with 100% optical brilliance, flat 80% lifetime buyback, and zero environmental mining footprint.
+              OneClick Jewellery crafts IGI & GIA certified lab-grown diamond solitaires, bridal jewels, and everyday gold essentials in Mumbai, Delhi, Bengaluru &amp; Hyderabad with 100% optical brilliance, flat 80% lifetime buyback, and zero environmental mining footprint.
             </p>
 
             {/* Studio Location Strip */}
@@ -883,7 +883,7 @@ END:VCARD`;
 
                 {/* 2. WHATSAPP */}
                 <a
-                  href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi Lumière Diamonds Atelier, I would like to inquire about IGI certified lab diamond jewellery.')}`}
+                  href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi OneClick Jewellery Atelier, I would like to inquire about IGI certified lab diamond jewellery.')}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
@@ -1192,7 +1192,7 @@ END:VCARD`;
                     </button>
 
                     <a
-                      href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi Lumière Concierge, I am looking for a loose lab diamond in ${current.name} shape (1.0 to 2.0 Carat). Could you share certified options?`)}`}
+                      href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi OneClick Jewellery Concierge, I am looking for a loose lab diamond in ${current.name} shape (1.0 to 2.0 Carat). Could you share certified options?`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-5 py-2.5 rounded-full border border-stone-300 text-stone-800 text-xs font-semibold tracking-wider uppercase hover:bg-stone-50 flex items-center gap-2"
@@ -1331,7 +1331,7 @@ END:VCARD`;
                         </button>
 
                         <a
-                          href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi Lumière Concierge, I am interested in ${product.name} (₹${product.price.toLocaleString('en-IN')}). Could you confirm availability and customization options?`)}`}
+                          href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi OneClick Jewellery Concierge, I am interested in ${product.name} (₹${product.price.toLocaleString('en-IN')}). Could you confirm availability and customization options?`)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full py-2 rounded-lg border border-emerald-600 text-emerald-800 hover:bg-emerald-50 text-[11px] font-semibold tracking-wider uppercase transition-colors flex items-center justify-center gap-1"
@@ -1603,7 +1603,7 @@ END:VCARD`;
                 className="px-4 py-2 rounded-full bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:opacity-95 flex items-center gap-1.5"
               >
                 <InstagramIcon className="w-4 h-4" />
-                <span>Follow @lumiere</span>
+                <span>Follow @oneclick.jewellery</span>
               </a>
               <a 
                 href="https://youtube.com" 
@@ -1772,7 +1772,7 @@ END:VCARD`;
                   <tr className="bg-[#14171A] text-white">
                     <th className="p-4 sm:p-5 font-medium uppercase tracking-wider text-[11px] text-stone-400">Parameter</th>
                     <th className="p-4 sm:p-5 font-bold uppercase tracking-wider text-[11px] text-[#D4AF37] bg-white/5 border-x border-white/10">
-                      Lumière Lab-Grown Diamonds
+                      OneClick Lab-Grown Diamonds
                     </th>
                     <th className="p-4 sm:p-5 font-medium uppercase tracking-wider text-[11px] text-stone-400">
                       Earth-Mined Diamonds
@@ -1864,7 +1864,7 @@ END:VCARD`;
                 city: 'Bandra, Mumbai',
                 item: '1.50 Ct Oval Solitaire Engagement Ring',
                 avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-                text: 'I compared the diamond under a 20x loupe with my mother\'s mined solitaire. The brilliance, fire, and crisp facets on the Lumière ring were even superior! She cried happy tears when I proposed.'
+                text: 'I compared the diamond under a 20x loupe with my mother\'s mined solitaire. The brilliance, fire, and crisp facets on the OneClick Jewellery ring were even superior! She cried happy tears when I proposed.'
               },
               {
                 id: 'rev-2',
@@ -2022,7 +2022,7 @@ END:VCARD`;
                   </div>
                 </div>
                 <div>
-                  <div className="font-serif text-xl tracking-widest text-white uppercase font-bold">LUMIÈRE</div>
+                  <div className="font-serif text-xl tracking-widest text-white uppercase font-bold">ONECLICK JEWELLERY</div>
                   <div className="text-[9px] tracking-widest text-[#D4AF37] uppercase">Lab Diamonds &amp; Fine Jewels</div>
                 </div>
               </div>
@@ -2117,7 +2117,7 @@ END:VCARD`;
 
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
             <div>
-              © 2026 Lumière Diamonds &amp; Fine Jewels Atelier. All rights reserved. Pure mock demonstration.
+              © 2026 OneClick Jewellery &amp; Fine Jewels Atelier. All rights reserved. Pure mock demonstration.
             </div>
             <div className="flex items-center gap-4">
               <span>Secure 256-Bit SSL Encrypted Checkout</span>
@@ -2140,7 +2140,7 @@ END:VCARD`;
         </a>
 
         <a 
-          href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi Lumière, I would like to consult with a jewellery specialist.')}`}
+          href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi OneClick Jewellery, I would like to consult with a jewellery specialist.')}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex flex-col items-center gap-1 text-[10px] uppercase tracking-wider text-emerald-400"
@@ -2238,7 +2238,7 @@ END:VCARD`;
                     </button>
 
                     <a
-                      href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi Lumière Concierge, I would like to order ${quickViewProduct.name} (₹${quickViewProduct.price.toLocaleString('en-IN')}). Please assist with sizing and delivery.`)}`}
+                      href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi OneClick Jewellery Concierge, I would like to order ${quickViewProduct.name} (₹${quickViewProduct.price.toLocaleString('en-IN')}). Please assist with sizing and delivery.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full py-3 rounded-full border border-emerald-600 text-emerald-800 hover:bg-emerald-50 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5"
@@ -2342,7 +2342,7 @@ END:VCARD`;
                   />
                   <button 
                     onClick={() => {
-                      if (couponCode === 'SPARKLE10' || couponCode === 'LUMIERE10') {
+                      if (couponCode === 'SPARKLE10' || couponCode === 'ONECLICK10') {
                         setCouponApplied(true);
                       } else {
                         alert('Please enter valid coupon SPARKLE10 for 10% discount.');
