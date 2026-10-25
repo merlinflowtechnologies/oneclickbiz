@@ -841,83 +841,129 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
     ]
   },
   'home-interior': {
-    name: 'Ar. Ananya Deshmukh',
-    designation: 'Principal Architect & Interior Designer',
-    company: 'Studio Luxe Interiors & Architecture',
-    bio: 'Crafting bespoke turnkey luxury homes, modular kitchens, and contemporary commercial interiors with German hardware, 3D visualization, and flat 10-year warranty.',
+    name: 'Aura Luxe Studios',
+    designation: 'Principal Architects & Turnkey Luxury Interior Studio',
+    company: 'Aura Luxe Architecture & Interior Design Studio',
+    bio: 'Aura Luxe Studios crafts landmark corporate tech headquarters, experiential retail destinations, and bespoke private residences with 10-year structural warranty and 45-day turnkey delivery.',
     theme: 'modern-indigo',
     avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80',
     coverUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80',
-    email: 'ananya@studioluxe.in',
+    email: 'contact@auraluxestudio.com',
     phone: '+91 98765 43210',
     whatsapp: '919876543210',
-    website: 'https://studioluxe.in',
-    address: 'Road No. 36, Jubilee Hills, Hyderabad, Telangana, India',
+    website: 'https://auraluxestudio.com',
+    address: 'Plot No. 42, Road No. 36, Jubilee Hills, Hyderabad, Telangana, India',
     services: [
-      { id: 's_int_1', title: 'Free 3D Architectural & Interior Consultation', description: 'Personalized site visit, layout blueprint review, and material finishes selection.', durationMinutes: 60, price: 0, currency: '₹' },
-      { id: 's_int_2', title: 'Full Turnkey Residential Interior Execution', description: 'Complete false ceiling, modular woodwork, lighting, civil, and turnkey decor.', durationMinutes: 90, price: 50000, currency: '₹' },
-      { id: 's_int_3', title: 'Modular German Kitchen & Wardrobes', description: 'Factory-built marine ply cabinets with Hafele & Blum soft-close fittings.', durationMinutes: 45, price: 25000, currency: '₹' }
+      { id: 's_int_1', title: 'Free 3D Architectural Blueprint & Site Consultation', description: 'Comprehensive spatial planning, layout blueprint review, and material finishes curation.', durationMinutes: 60, price: 0, currency: '₹' },
+      { id: 's_int_2', title: 'Full Turnkey Luxury Residential Execution', description: 'Complete false ceiling, acoustic woodwork, circadian lighting, and turnkey handover.', durationMinutes: 90, price: 50000, currency: '₹' },
+      { id: 's_int_3', title: 'Modular German Kitchen & Wardrobe Suites', description: 'Factory-precision marine ply cabinetry with Hafele & Blum soft-close fittings.', durationMinutes: 45, price: 25000, currency: '₹' }
     ],
     products: [
-      { id: 'p_int_1', name: 'The Sovereign Living & Dining Lounge', description: 'Italian statuario marble flooring, custom fluted acoustic veneer paneling, ambient magnetic track lighting.', price: 1850000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', category: 'Living Room', isAvailable: true },
-      { id: 'p_int_2', name: 'Minimalist Matte Charcoal Modular Kitchen', description: 'Century Club Prime BWP plywood, quartz stone countertop, Hafele lift-up fittings, Blum soft-close tandem boxes.', price: 1250000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', category: 'Modular Kitchen', isAvailable: true },
+      { id: 'p_int_1', name: 'The Sovereign Living & Dining Pavilion', description: 'Italian Statuario marble flooring, custom fluted acoustic veneer paneling, ambient magnetic track lighting.', price: 1850000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', category: 'Living Room', isAvailable: true },
+      { id: 'p_int_2', name: 'Minimalist Matte Charcoal Island Kitchen', description: 'Century Club Prime BWP plywood, quartz stone countertop, Hafele lift-up fittings, Blum soft-close tandem boxes.', price: 1250000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', category: 'Modular Kitchen', isAvailable: true },
       { id: 'p_int_3', name: 'The Zen Master Suite & Walk-in Wardrobe', description: 'Warm teak fluted headboard, acoustic upholstered panels, tinted bronze glass wardrobes with sensor LED lighting.', price: 1450000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80', category: 'Master Suite', isAvailable: true }
     ],
     gallery: [
-      { id: 'g_int_1', imageUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', title: 'Jubilee Hills Luxury Residence', category: 'Living' },
-      { id: 'g_int_2', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', title: 'Modular Island Kitchen', category: 'Kitchen' },
+      { id: 'g_int_1', imageUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', title: 'Villa Celeste Luxury Living', category: 'Living' },
+      { id: 'g_int_2', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', title: 'Island Kitchen & Pantry', category: 'Kitchen' },
       { id: 'g_int_3', imageUrl: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80', title: 'Master Bedroom Suite', category: 'Bedrooms' }
     ],
     testimonials: [
-      { id: 't_int_1', clientName: 'Karthik & Pooja Reddy', clientRole: 'Owners, 3BHK Kokapet High-Rise', content: 'The 3D render was 100% matched in reality. Delivered right on day 43 with zero delay and flawless finish.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
-      { id: 't_int_2', clientName: 'Vikram & Shruti Malhotra', clientRole: 'Owners, 4BHK Gated Villa', content: 'German hardware and factory modular finish are top tier. Transparent BOQ and excellent project management.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' }
+      { id: 't_int_1', clientName: 'Arjun & Meera Singhania', clientRole: 'Owners, Villa Celeste Jubilee Hills', content: 'The 3D render was 100% matched in reality. Delivered right on day 43 with zero delay and flawless finish.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_int_2', clientName: 'Devendra Patel', clientRole: 'Managing Director, Novus Cloud HQ', content: 'Turned our 25,000 sq.ft bare shell into an international-grade collaborative tech headquarters in record time.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' }
+    ],
+    videos: [
+      {
+        id: 'v_int_1',
+        title: 'Inside Villa Celeste: 7,200 Sq.Ft Ultra-Luxury Residence Walkthrough',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        type: 'youtube',
+        caption: 'Architectural walkthrough of Italian travertine flooring, double-height living foyer, and concealed flush doors.'
+      },
+      {
+        id: 'v_int_2',
+        title: 'Novus Cloud HQ: Converting 25,000 Sq.Ft Bare Shell to Agile Workspace',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        type: 'youtube',
+        caption: 'Enterprise corporate fit-out with acoustic privacy pods, circadian wellness lighting, and town-hall bleachers.'
+      },
+      {
+        id: 'v_int_3',
+        title: 'Amber & Clove Restobar: Coastal Minimalist Hospitality Architecture',
+        url: 'https://www.instagram.com/reel/C3M8W98oG12/',
+        type: 'instagram',
+        caption: 'Curating warm lime-wash plaster, fluted teak booths, and brass bar accents for high-footfall dining.'
+      }
     ],
     socials: [
-      { id: 'soc_int_wa', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp' },
-      { id: 'soc_int_ig', platform: 'instagram', url: 'https://instagram.com/studioluxe_interiors', label: 'Instagram' },
-      { id: 'soc_int_fb', platform: 'facebook', url: 'https://facebook.com/studioluxeinteriors', label: 'Facebook' },
-      { id: 'soc_int_ph', platform: 'phone', url: 'tel:+919876543210', label: 'Call Now' },
-      { id: 'soc_int_em', platform: 'email', url: 'mailto:ananya@studioluxe.in', label: 'Email' }
+      { id: 'soc_int_wa', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp Concierge' },
+      { id: 'soc_int_ig', platform: 'instagram', url: 'https://instagram.com/auraluxestudio', label: 'Instagram @auraluxestudio' },
+      { id: 'soc_int_yt', platform: 'youtube', url: 'https://youtube.com/@auraluxestudio', label: 'YouTube Architectural Tours' },
+      { id: 'soc_int_ph', platform: 'phone', url: 'tel:+919876543210', label: 'Studio Direct Line' },
+      { id: 'soc_int_em', platform: 'email', url: 'mailto:contact@auraluxestudio.com', label: 'Email Studio' }
     ]
   },
   'interior': {
-    name: 'Ar. Ananya Deshmukh',
-    designation: 'Principal Architect & Interior Designer',
-    company: 'Studio Luxe Interiors & Architecture',
-    bio: 'Crafting bespoke turnkey luxury homes, modular kitchens, and contemporary commercial interiors with German hardware, 3D visualization, and flat 10-year warranty.',
+    name: 'Aura Luxe Studios',
+    designation: 'Principal Architects & Turnkey Luxury Interior Studio',
+    company: 'Aura Luxe Architecture & Interior Design Studio',
+    bio: 'Aura Luxe Studios crafts landmark corporate tech headquarters, experiential retail destinations, and bespoke private residences with 10-year structural warranty and 45-day turnkey delivery.',
     theme: 'modern-indigo',
     avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80',
     coverUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80',
-    email: 'ananya@studioluxe.in',
+    email: 'contact@auraluxestudio.com',
     phone: '+91 98765 43210',
     whatsapp: '919876543210',
-    website: 'https://studioluxe.in',
-    address: 'Road No. 36, Jubilee Hills, Hyderabad, Telangana, India',
+    website: 'https://auraluxestudio.com',
+    address: 'Plot No. 42, Road No. 36, Jubilee Hills, Hyderabad, Telangana, India',
     services: [
-      { id: 's_int_1', title: 'Free 3D Architectural & Interior Consultation', description: 'Personalized site visit, layout blueprint review, and material finishes selection.', durationMinutes: 60, price: 0, currency: '₹' },
-      { id: 's_int_2', title: 'Full Turnkey Residential Interior Execution', description: 'Complete false ceiling, modular woodwork, lighting, civil, and turnkey decor.', durationMinutes: 90, price: 50000, currency: '₹' },
-      { id: 's_int_3', title: 'Modular German Kitchen & Wardrobes', description: 'Factory-built marine ply cabinets with Hafele & Blum soft-close fittings.', durationMinutes: 45, price: 25000, currency: '₹' }
+      { id: 's_int_1', title: 'Free 3D Architectural Blueprint & Site Consultation', description: 'Comprehensive spatial planning, layout blueprint review, and material finishes curation.', durationMinutes: 60, price: 0, currency: '₹' },
+      { id: 's_int_2', title: 'Full Turnkey Luxury Residential Execution', description: 'Complete false ceiling, acoustic woodwork, circadian lighting, and turnkey handover.', durationMinutes: 90, price: 50000, currency: '₹' },
+      { id: 's_int_3', title: 'Modular German Kitchen & Wardrobe Suites', description: 'Factory-precision marine ply cabinetry with Hafele & Blum soft-close fittings.', durationMinutes: 45, price: 25000, currency: '₹' }
     ],
     products: [
-      { id: 'p_int_1', name: 'The Sovereign Living & Dining Lounge', description: 'Italian statuario marble flooring, custom fluted acoustic veneer paneling, ambient magnetic track lighting.', price: 1850000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', category: 'Living Room', isAvailable: true },
-      { id: 'p_int_2', name: 'Minimalist Matte Charcoal Modular Kitchen', description: 'Century Club Prime BWP plywood, quartz stone countertop, Hafele lift-up fittings, Blum soft-close tandem boxes.', price: 1250000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', category: 'Modular Kitchen', isAvailable: true },
+      { id: 'p_int_1', name: 'The Sovereign Living & Dining Pavilion', description: 'Italian Statuario marble flooring, custom fluted acoustic veneer paneling, ambient magnetic track lighting.', price: 1850000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', category: 'Living Room', isAvailable: true },
+      { id: 'p_int_2', name: 'Minimalist Matte Charcoal Island Kitchen', description: 'Century Club Prime BWP plywood, quartz stone countertop, Hafele lift-up fittings, Blum soft-close tandem boxes.', price: 1250000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', category: 'Modular Kitchen', isAvailable: true },
       { id: 'p_int_3', name: 'The Zen Master Suite & Walk-in Wardrobe', description: 'Warm teak fluted headboard, acoustic upholstered panels, tinted bronze glass wardrobes with sensor LED lighting.', price: 1450000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80', category: 'Master Suite', isAvailable: true }
     ],
     gallery: [
-      { id: 'g_int_1', imageUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', title: 'Jubilee Hills Luxury Residence', category: 'Living' },
-      { id: 'g_int_2', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', title: 'Modular Island Kitchen', category: 'Kitchen' },
+      { id: 'g_int_1', imageUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', title: 'Villa Celeste Luxury Living', category: 'Living' },
+      { id: 'g_int_2', imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', title: 'Island Kitchen & Pantry', category: 'Kitchen' },
       { id: 'g_int_3', imageUrl: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80', title: 'Master Bedroom Suite', category: 'Bedrooms' }
     ],
     testimonials: [
-      { id: 't_int_1', clientName: 'Karthik & Pooja Reddy', clientRole: 'Owners, 3BHK Kokapet High-Rise', content: 'The 3D render was 100% matched in reality. Delivered right on day 43 with zero delay and flawless finish.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
-      { id: 't_int_2', clientName: 'Vikram & Shruti Malhotra', clientRole: 'Owners, 4BHK Gated Villa', content: 'German hardware and factory modular finish are top tier. Transparent BOQ and excellent project management.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' }
+      { id: 't_int_1', clientName: 'Arjun & Meera Singhania', clientRole: 'Owners, Villa Celeste Jubilee Hills', content: 'The 3D render was 100% matched in reality. Delivered right on day 43 with zero delay and flawless finish.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_int_2', clientName: 'Devendra Patel', clientRole: 'Managing Director, Novus Cloud HQ', content: 'Turned our 25,000 sq.ft bare shell into an international-grade collaborative tech headquarters in record time.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' }
+    ],
+    videos: [
+      {
+        id: 'v_int_1',
+        title: 'Inside Villa Celeste: 7,200 Sq.Ft Ultra-Luxury Residence Walkthrough',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        type: 'youtube',
+        caption: 'Architectural walkthrough of Italian travertine flooring, double-height living foyer, and concealed flush doors.'
+      },
+      {
+        id: 'v_int_2',
+        title: 'Novus Cloud HQ: Converting 25,000 Sq.Ft Bare Shell to Agile Workspace',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        type: 'youtube',
+        caption: 'Enterprise corporate fit-out with acoustic privacy pods, circadian wellness lighting, and town-hall bleachers.'
+      },
+      {
+        id: 'v_int_3',
+        title: 'Amber & Clove Restobar: Coastal Minimalist Hospitality Architecture',
+        url: 'https://www.instagram.com/reel/C3M8W98oG12/',
+        type: 'instagram',
+        caption: 'Curating warm lime-wash plaster, fluted teak booths, and brass bar accents for high-footfall dining.'
+      }
     ],
     socials: [
-      { id: 'soc_int_wa', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp' },
-      { id: 'soc_int_ig', platform: 'instagram', url: 'https://instagram.com/studioluxe_interiors', label: 'Instagram' },
-      { id: 'soc_int_fb', platform: 'facebook', url: 'https://facebook.com/studioluxeinteriors', label: 'Facebook' },
-      { id: 'soc_int_ph', platform: 'phone', url: 'tel:+919876543210', label: 'Call Now' },
-      { id: 'soc_int_em', platform: 'email', url: 'mailto:ananya@studioluxe.in', label: 'Email' }
+      { id: 'soc_int_wa', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp Concierge' },
+      { id: 'soc_int_ig', platform: 'instagram', url: 'https://instagram.com/auraluxestudio', label: 'Instagram @auraluxestudio' },
+      { id: 'soc_int_yt', platform: 'youtube', url: 'https://youtube.com/@auraluxestudio', label: 'YouTube Architectural Tours' },
+      { id: 'soc_int_ph', platform: 'phone', url: 'tel:+919876543210', label: 'Studio Direct Line' },
+      { id: 'soc_int_em', platform: 'email', url: 'mailto:contact@auraluxestudio.com', label: 'Email Studio' }
     ]
   }
 };

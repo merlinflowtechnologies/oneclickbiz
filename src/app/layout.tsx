@@ -202,6 +202,27 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSoftwareApp) }}
         />
+        <Script
+          id="chunk-error-handler"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('error', function(e) {
+                var msg = (e && (e.message || (e.error && e.error.message))) || '';
+                if (
+                  msg.indexOf('Loading chunk') !== -1 ||
+                  msg.indexOf('ChunkLoadError') !== -1 ||
+                  msg.indexOf('Failed to fetch dynamically imported module') !== -1
+                ) {
+                  if (!window.sessionStorage.getItem('chunk_reload_lock')) {
+                    window.sessionStorage.setItem('chunk_reload_lock', '1');
+                    window.location.reload();
+                  }
+                }
+              });
+            `
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col font-sans antialiased">
         {children}

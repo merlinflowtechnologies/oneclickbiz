@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Share2,
   Copy,
@@ -19,16 +19,22 @@ import {
 interface ShareCardModalProps {
   profile: any;
   onClose: () => void;
+  isOpen?: boolean;
 }
 
-export default function ShareCardModal({ profile, onClose }: ShareCardModalProps) {
+export default function ShareCardModal({ profile, onClose, isOpen = true }: ShareCardModalProps) {
   const [copiedUrl, setCopiedUrl] = useState(false);
   const [copiedEmbed, setCopiedEmbed] = useState(false);
   const [activeTab, setActiveTab] = useState<'social' | 'qr' | 'embed'>('social');
+  const [cardUrl, setCardUrl] = useState(`https://oneclickbiz.in/v/${profile.slug}`);
 
-  const cardUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}/v/${profile.slug}`
-    : `https://oneclickbiz.in/v/${profile.slug}`;
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCardUrl(`${window.location.origin}/v/${profile.slug}`);
+    }
+  }, [profile.slug]);
+
+  if (!isOpen) return null;
 
   const shareText = `Connect with ${profile.fullName} (${profile.designation} at ${profile.businessName}). View digital card & WhatsApp store: ${cardUrl}`;
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(cardUrl)}&color=000000&bgcolor=ffffff`;
