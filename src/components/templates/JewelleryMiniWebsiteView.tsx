@@ -447,8 +447,8 @@ const FAQS_LIST = [
 interface JewelleryMiniWebsiteViewProps {
   profile: DigitalProfile;
   getEmbedUrl?: (item: any) => string;
-  viewMode?: 'card' | 'website';
-  setViewMode?: (mode: 'card' | 'website') => void;
+  viewMode?: 'mobile' | 'website';
+  setViewMode?: (mode: 'mobile' | 'website') => void;
   showViewToggle?: boolean;
 }
 
