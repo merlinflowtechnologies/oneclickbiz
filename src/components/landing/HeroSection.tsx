@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { 
   ArrowRight, 
   Play, 
-  CheckCircle2, 
-  LayoutGrid
+  CheckCircle2
 } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -144,13 +143,6 @@ export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
               <p className="text-[11px] text-[#64718F] mt-1 line-clamp-2">
                 Choose a template and launch your business in minutes.
               </p>
-              <Link
-                href="/vcard-templates"
-                className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-[#174BFF] hover:underline"
-              >
-                <span>View All Templates</span>
-                <ArrowRight className="w-3 h-3" />
-              </Link>
             </div>
 
             {/* Auto-scrolling Template Showcase Track */}
@@ -182,20 +174,6 @@ export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
                       </span>
                     </Link>
                   ))}
-
-                  {/* More Businesses Card */}
-                  <Link
-                    key="set1-more"
-                    href="/vcard-templates"
-                    className="group/card bg-[#EDF3FF] hover:bg-[#E2EBFF] rounded-xl border border-[#C7D7FE] p-2 flex flex-col items-center justify-center shrink-0 w-[105px] sm:w-[110px] shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-center cursor-pointer min-h-[105px]"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-[#174BFF] text-white flex items-center justify-center mb-1.5 shadow-xs group-hover/card:scale-110 transition-transform">
-                      <LayoutGrid className="w-4 h-4" />
-                    </div>
-                    <span className="text-[11px] font-bold text-[#174BFF] leading-tight">
-                      More Businesses
-                    </span>
-                  </Link>
                 </div>
 
                 {/* Second Duplicate Set for 100% Seamless Infinite Loop */}
@@ -220,21 +198,6 @@ export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
                       </span>
                     </Link>
                   ))}
-
-                  {/* More Businesses Card Duplicate */}
-                  <Link
-                    key="set2-more"
-                    href="/vcard-templates"
-                    tabIndex={-1}
-                    className="group/card bg-[#EDF3FF] hover:bg-[#E2EBFF] rounded-xl border border-[#C7D7FE] p-2 flex flex-col items-center justify-center shrink-0 w-[105px] sm:w-[110px] shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-center cursor-pointer min-h-[105px]"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-[#174BFF] text-white flex items-center justify-center mb-1.5 shadow-xs group-hover/card:scale-110 transition-transform">
-                      <LayoutGrid className="w-4 h-4" />
-                    </div>
-                    <span className="text-[11px] font-bold text-[#174BFF] leading-tight">
-                      More Businesses
-                    </span>
-                  </Link>
                 </div>
               </div>
             </div>
