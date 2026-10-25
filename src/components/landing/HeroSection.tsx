@@ -6,10 +6,6 @@ import {
   ArrowRight, 
   Play, 
   CheckCircle2, 
-  Users, 
-  Gift, 
-  ShieldCheck, 
-  Headphones,
   LayoutGrid
 } from 'lucide-react';
 
@@ -30,13 +26,6 @@ const HERO_CATEGORIES = [
   { id: 'auto', name: 'Automobile', image: '/landing/category_7.png', link: '/vcard-templates' },
 ];
 
-const TRUST_METRICS = [
-  { icon: Users, iconColor: 'text-[#174BFF]', bg: 'bg-blue-50', value: '10K+', label: 'Businesses Created' },
-  { icon: Gift, iconColor: 'text-[#7547F5]', bg: 'bg-purple-50', value: '50+', label: 'Industry Templates' },
-  { icon: ShieldCheck, iconColor: 'text-[#16B981]', bg: 'bg-emerald-50', value: '99.9%', label: 'Uptime & Security' },
-  { icon: Headphones, iconColor: 'text-[#9333EA]', bg: 'bg-violet-50', value: '24/7', label: 'Customer Support' },
-];
-
 export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
   const handleScrollToDemo = () => {
     if (onWatchDemo) {
@@ -48,7 +37,7 @@ export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 lg:pb-18 bg-gradient-to-b from-[#F8FAFF] via-white to-white overflow-hidden border-b border-[#E2E9FA]/60">
+    <section className="relative pt-8 pb-10 sm:pt-12 sm:pb-14 lg:pt-14 lg:pb-16 bg-gradient-to-b from-[#F8FAFF] via-white to-white overflow-hidden border-b border-[#E2E9FA]/60">
       
       {/* Background Soft Ambient Light Blurs */}
       <div className="absolute top-0 left-1/4 -translate-x-1/2 w-[500px] h-[350px] bg-blue-100/40 rounded-full blur-[100px] pointer-events-none -z-10" />
@@ -141,8 +130,8 @@ export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
         </div>
 
         {/* BOTTOM READY TEMPLATES STRIP */}
-        <div className="mt-10 sm:mt-12 lg:mt-14 pt-6 sm:pt-7 border-t border-[#E2E9FA]">
-          <div className="bg-gradient-to-r from-blue-50/50 via-white to-blue-50/30 rounded-2xl border border-[#E2E9FA] p-3.5 sm:p-4.5 shadow-[0_2px_12px_rgba(23,75,255,0.03)] flex flex-col xl:flex-row xl:items-center gap-4">
+        <div className="mt-8 sm:mt-10 lg:mt-12">
+          <div className="bg-gradient-to-r from-blue-50/50 via-white to-blue-50/30 rounded-2xl border border-[#E2E9FA] p-3.5 sm:p-4.5 shadow-[0_2px_12px_rgba(23,75,255,0.03)] flex flex-col xl:flex-row xl:items-center gap-4 overflow-hidden">
             
             {/* Left Header Box */}
             <div className="xl:w-64 shrink-0 pr-3 border-b xl:border-b-0 xl:border-r border-[#E2E9FA] pb-3 xl:pb-0">
@@ -164,65 +153,93 @@ export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
               </Link>
             </div>
 
-            {/* Horizontal Scrollable Category Cards Carousel */}
-            <div className="flex items-center gap-2.5 overflow-x-auto pb-1.5 no-scrollbar scroll-smooth flex-1">
-              {HERO_CATEGORIES.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={cat.link}
-                  className="group bg-white rounded-xl border border-[#E2E9FA] hover:border-blue-400 p-2 flex flex-col items-center shrink-0 w-[100px] sm:w-[105px] shadow-2xs hover:shadow-sm hover:-translate-y-0.5 transition-all text-center cursor-pointer"
-                >
-                  <div className="w-full aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 mb-1.5 border border-slate-100">
-                    <img
-                      src={cat.image}
-                      alt={cat.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-                      loading="lazy"
-                    />
-                  </div>
-                  <span className="text-[11px] font-semibold text-[#10183F] group-hover:text-[#174BFF] transition-colors leading-tight line-clamp-2 min-h-[26px] flex items-center justify-center">
-                    {cat.name}
-                  </span>
-                </Link>
-              ))}
+            {/* Auto-scrolling Template Showcase Track */}
+            <div className="relative overflow-hidden flex-1 py-1">
+              {/* Left & Right Gradient Fade Masks */}
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-12 z-10 bg-gradient-to-r from-white via-white/60 to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-12 z-10 bg-gradient-to-l from-white via-white/60 to-transparent" />
 
-              {/* More Businesses Card */}
-              <Link
-                href="/vcard-templates"
-                className="group bg-[#EDF3FF] hover:bg-[#E2EBFF] rounded-xl border border-[#C7D7FE] p-2 flex flex-col items-center justify-center shrink-0 w-[100px] sm:w-[105px] shadow-2xs hover:shadow-sm hover:-translate-y-0.5 transition-all text-center cursor-pointer min-h-[105px]"
-              >
-                <div className="w-9 h-9 rounded-full bg-[#174BFF] text-white flex items-center justify-center mb-1.5 shadow-xs group-hover:scale-110 transition-transform">
-                  <LayoutGrid className="w-4 h-4" />
+              {/* Infinite Continuous Marquee Track */}
+              <div className="flex items-center animate-continuous-marquee hover:[animation-play-state:paused]">
+                {/* First Set of Items */}
+                <div className="flex items-center gap-2.5 sm:gap-3 pr-2.5 sm:pr-3 shrink-0">
+                  {HERO_CATEGORIES.map((cat) => (
+                    <Link
+                      key={`set1-${cat.id}`}
+                      href={cat.link}
+                      className="group/card bg-white rounded-xl border border-[#E2E9FA] hover:border-blue-400 p-2 flex flex-col items-center shrink-0 w-[105px] sm:w-[110px] shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-center cursor-pointer"
+                    >
+                      <div className="w-full aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 mb-1.5 border border-slate-100">
+                        <img
+                          src={cat.image}
+                          alt={cat.name}
+                          className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-200"
+                          loading="lazy"
+                        />
+                      </div>
+                      <span className="text-[11px] font-semibold text-[#10183F] group-hover/card:text-[#174BFF] transition-colors leading-tight line-clamp-2 min-h-[26px] flex items-center justify-center">
+                        {cat.name}
+                      </span>
+                    </Link>
+                  ))}
+
+                  {/* More Businesses Card */}
+                  <Link
+                    key="set1-more"
+                    href="/vcard-templates"
+                    className="group/card bg-[#EDF3FF] hover:bg-[#E2EBFF] rounded-xl border border-[#C7D7FE] p-2 flex flex-col items-center justify-center shrink-0 w-[105px] sm:w-[110px] shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-center cursor-pointer min-h-[105px]"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-[#174BFF] text-white flex items-center justify-center mb-1.5 shadow-xs group-hover/card:scale-110 transition-transform">
+                      <LayoutGrid className="w-4 h-4" />
+                    </div>
+                    <span className="text-[11px] font-bold text-[#174BFF] leading-tight">
+                      More Businesses
+                    </span>
+                  </Link>
                 </div>
-                <span className="text-[11px] font-bold text-[#174BFF] leading-tight">
-                  More Businesses
-                </span>
-              </Link>
+
+                {/* Second Duplicate Set for 100% Seamless Infinite Loop */}
+                <div className="flex items-center gap-2.5 sm:gap-3 pr-2.5 sm:pr-3 shrink-0" aria-hidden="true">
+                  {HERO_CATEGORIES.map((cat) => (
+                    <Link
+                      key={`set2-${cat.id}`}
+                      href={cat.link}
+                      tabIndex={-1}
+                      className="group/card bg-white rounded-xl border border-[#E2E9FA] hover:border-blue-400 p-2 flex flex-col items-center shrink-0 w-[105px] sm:w-[110px] shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-center cursor-pointer"
+                    >
+                      <div className="w-full aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 mb-1.5 border border-slate-100">
+                        <img
+                          src={cat.image}
+                          alt={cat.name}
+                          className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-200"
+                          loading="lazy"
+                        />
+                      </div>
+                      <span className="text-[11px] font-semibold text-[#10183F] group-hover/card:text-[#174BFF] transition-colors leading-tight line-clamp-2 min-h-[26px] flex items-center justify-center">
+                        {cat.name}
+                      </span>
+                    </Link>
+                  ))}
+
+                  {/* More Businesses Card Duplicate */}
+                  <Link
+                    key="set2-more"
+                    href="/vcard-templates"
+                    tabIndex={-1}
+                    className="group/card bg-[#EDF3FF] hover:bg-[#E2EBFF] rounded-xl border border-[#C7D7FE] p-2 flex flex-col items-center justify-center shrink-0 w-[105px] sm:w-[110px] shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-center cursor-pointer min-h-[105px]"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-[#174BFF] text-white flex items-center justify-center mb-1.5 shadow-xs group-hover/card:scale-110 transition-transform">
+                      <LayoutGrid className="w-4 h-4" />
+                    </div>
+                    <span className="text-[11px] font-bold text-[#174BFF] leading-tight">
+                      More Businesses
+                    </span>
+                  </Link>
+                </div>
+              </div>
             </div>
 
           </div>
-        </div>
-
-        {/* TRUST METRICS BAR */}
-        <div className="mt-5 sm:mt-6 pt-4 border-t border-[#E2E9FA]/60 grid grid-cols-2 md:grid-cols-4 gap-4 items-center">
-          {TRUST_METRICS.map((metric, idx) => {
-            const IconComp = metric.icon;
-            return (
-              <div key={idx} className="flex items-center gap-3 justify-center md:justify-start">
-                <div className={`w-9 h-9 rounded-xl ${metric.bg} ${metric.iconColor} flex items-center justify-center shrink-0 shadow-2xs`}>
-                  <IconComp className="w-4.5 h-4.5 stroke-[2.2]" />
-                </div>
-                <div>
-                  <div className="text-sm font-extrabold text-[#10183F] leading-tight">
-                    {metric.value}
-                  </div>
-                  <div className="text-[11px] font-medium text-[#64718F] leading-tight mt-0.5">
-                    {metric.label}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
         </div>
 
       </div>
