@@ -87,10 +87,10 @@ export default function Navbar() {
             </Link>
 
             <Link 
-              href="/blog" 
+              href="/about" 
               className="px-3 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
             >
-              Blog
+              About
             </Link>
 
             <Link 
@@ -185,11 +185,11 @@ export default function Navbar() {
             Features
           </Link>
           <Link 
-            href="/blog" 
+            href="/about" 
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-lg text-sm font-medium text-[#64718F] hover:text-[#174BFF] hover:bg-slate-50"
           >
-            Blog
+            About
           </Link>
           <Link 
             href="/#contact" 
