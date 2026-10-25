@@ -688,26 +688,26 @@ END:VCARD`;
           <div className="flex items-center justify-between h-18 sm:h-20">
             
             {/* Left: Mobile Menu Trigger & Brand Name */}
-            <div className="flex items-center gap-3 sm:gap-6">
+            <div className="flex items-center gap-2 sm:gap-6 min-w-0">
               <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-                className="lg:hidden p-2 rounded-lg text-stone-700 hover:bg-stone-200/50 cursor-pointer"
+                className="lg:hidden p-2 rounded-lg text-stone-700 hover:bg-stone-200/50 cursor-pointer shrink-0"
                 aria-label="Toggle Menu"
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 text-stone-800" />}
               </button>
 
-              <button onClick={() => scrollToSection('home')} className="flex items-center gap-3 group text-left cursor-pointer">
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-tr from-[#9B7824] via-[#D4AF37] to-[#F3E8D0] p-[1.5px] shadow-md shadow-[#D4AF37]/20 group-hover:scale-105 transition-transform">
+              <button onClick={() => scrollToSection('home')} className="flex items-center gap-2.5 sm:gap-3 group text-left cursor-pointer min-w-0">
+                <div className="w-9 h-9 sm:w-11 sm:h-11 shrink-0 rounded-full bg-gradient-to-tr from-[#9B7824] via-[#D4AF37] to-[#F3E8D0] p-[1.5px] shadow-md shadow-[#D4AF37]/20 group-hover:scale-105 transition-transform">
                   <div className="w-full h-full rounded-full bg-[#14171A] flex items-center justify-center">
-                    <span className="font-serif text-sm font-bold text-[#F3E8D0] tracking-wider">1C</span>
+                    <span className="font-serif text-xs sm:text-sm font-bold text-[#F3E8D0] tracking-wider">1C</span>
                   </div>
                 </div>
-                <div>
-                  <div className="font-serif text-xl sm:text-2xl font-bold tracking-[0.18em] text-[#14171A] uppercase">
+                <div className="min-w-0">
+                  <div className="font-serif text-sm sm:text-2xl font-bold tracking-[0.08em] sm:tracking-[0.18em] text-[#14171A] uppercase truncate max-w-[130px] xs:max-w-[200px] sm:max-w-none">
                     ONECLICK JEWELLERY
                   </div>
-                  <div className="text-[9px] sm:text-[10px] tracking-[0.25em] text-[#9B7824] uppercase font-medium">
+                  <div className="text-[8px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.25em] text-[#9B7824] uppercase font-medium truncate">
                     Lab Diamonds & Fine Jewels
                   </div>
                 </div>
@@ -727,7 +727,7 @@ END:VCARD`;
             </nav>
 
             {/* Right: Quick Action Icons */}
-            <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-1 sm:gap-4 shrink-0">
               
               {/* Wishlist */}
               <button 
@@ -780,22 +780,49 @@ END:VCARD`;
 
         {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-[#FAF8F5] border-b border-stone-300 px-6 py-6 space-y-4 shadow-xl">
-            <nav className="flex flex-col space-y-3 text-sm tracking-wider uppercase font-medium text-stone-800">
-              <button onClick={() => scrollToSection('bestsellers')} className="py-1 text-left">Bestsellers</button>
-              <button onClick={() => scrollToSection('shapes')} className="py-1 text-left">Shop By Diamond Shape</button>
-              <button onClick={() => scrollToSection('custom-studio')} className="py-1 text-left">Custom 3D CAD Studio</button>
-              <button onClick={() => scrollToSection('occasions')} className="py-1 text-left">Shop By Occasion</button>
-              <button onClick={() => scrollToSection('social')} className="py-1 text-left text-[#9B7824] font-bold">Social Lookbook Reels</button>
-              <button onClick={() => scrollToSection('why-lab')} className="py-1 text-left">Why Lab-Grown Diamonds</button>
-              <button onClick={() => scrollToSection('stores')} className="py-1 text-left">Experience Lounges</button>
-              <button onClick={() => scrollToSection('reviews')} className="py-1 text-left">Customer Reviews</button>
-              <button onClick={() => scrollToSection('faqs')} className="py-1 text-left">Certifications & FAQs</button>
+          <div className="lg:hidden bg-[#FAF8F5] border-b border-stone-300 px-4 sm:px-6 py-5 space-y-3 shadow-xl">
+            <nav className="flex flex-col space-y-1.5 text-xs sm:text-sm tracking-wider uppercase font-medium text-stone-800">
+              <button onClick={() => scrollToSection('bestsellers')} className="py-2 px-3 rounded-lg hover:bg-stone-100 text-left cursor-pointer transition-colors flex items-center justify-between">
+                <span>Bestsellers</span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </button>
+              <button onClick={() => scrollToSection('shapes')} className="py-2 px-3 rounded-lg hover:bg-stone-100 text-left cursor-pointer transition-colors flex items-center justify-between">
+                <span>Shop By Diamond Shape</span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </button>
+              <button onClick={() => scrollToSection('custom-studio')} className="py-2 px-3 rounded-lg hover:bg-stone-100 text-left cursor-pointer transition-colors flex items-center justify-between">
+                <span>Custom 3D CAD Studio</span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </button>
+              <button onClick={() => scrollToSection('occasions')} className="py-2 px-3 rounded-lg hover:bg-stone-100 text-left cursor-pointer transition-colors flex items-center justify-between">
+                <span>Shop By Occasion</span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </button>
+              <button onClick={() => scrollToSection('social')} className="py-2 px-3 rounded-lg hover:bg-stone-100 text-left cursor-pointer transition-colors flex items-center justify-between text-[#9B7824] font-bold">
+                <span>Social Lookbook Reels</span>
+                <ChevronRight className="w-4 h-4 text-[#9B7824]" />
+              </button>
+              <button onClick={() => scrollToSection('why-lab')} className="py-2 px-3 rounded-lg hover:bg-stone-100 text-left cursor-pointer transition-colors flex items-center justify-between">
+                <span>Why Lab-Grown Diamonds</span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </button>
+              <button onClick={() => scrollToSection('stores')} className="py-2 px-3 rounded-lg hover:bg-stone-100 text-left cursor-pointer transition-colors flex items-center justify-between">
+                <span>Experience Lounges</span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </button>
+              <button onClick={() => scrollToSection('reviews')} className="py-2 px-3 rounded-lg hover:bg-stone-100 text-left cursor-pointer transition-colors flex items-center justify-between">
+                <span>Customer Reviews</span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </button>
+              <button onClick={() => scrollToSection('faqs')} className="py-2 px-3 rounded-lg hover:bg-stone-100 text-left cursor-pointer transition-colors flex items-center justify-between">
+                <span>Certifications & FAQs</span>
+                <ChevronRight className="w-4 h-4 text-stone-400" />
+              </button>
             </nav>
-            <div className="pt-4 border-t border-stone-200 flex flex-col gap-2.5">
+            <div className="pt-3 border-t border-stone-200 flex flex-col gap-2">
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); setIsAppointmentModalOpen(true); }}
-                className="w-full py-3 rounded-full bg-[#14171A] text-amber-200 text-xs font-semibold tracking-wider uppercase text-center cursor-pointer"
+                className="w-full py-2.5 rounded-full bg-[#14171A] text-amber-200 text-xs font-semibold tracking-wider uppercase text-center cursor-pointer shadow-sm"
               >
                 Book Private Lounge Viewing
               </button>

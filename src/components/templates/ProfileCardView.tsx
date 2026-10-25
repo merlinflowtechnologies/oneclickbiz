@@ -864,10 +864,18 @@ export default function ProfileCardView({
   // 14. Home & Professional Services
   const isHomeServices = Boolean(
     category === 'Home & Professional Services' ||
+    slug === 'home-services' ||
+    slug.startsWith('home-services') ||
     slug.startsWith('home-electrician') ||
     slug.startsWith('home-plumber') ||
+    slug.startsWith('home-ac') ||
+    slug.startsWith('home-pest') ||
+    templateId === 'home-services' ||
+    templateId.startsWith('home-services') ||
     templateId.startsWith('home-electrician') ||
     templateId.startsWith('home-plumber') ||
+    templateId.startsWith('home-ac') ||
+    templateId.startsWith('home-pest') ||
     Boolean(profile.sectionData?.homeServices)
   );
 

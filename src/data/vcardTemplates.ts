@@ -563,6 +563,22 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
     ]
   },
   {
+    "id": "home-services",
+    "templateNumber": 700,
+    "name": "OneClick Home Services (Hyderabad)",
+    "category": "Home & Professional Services",
+    "subCategory": "Home Cleaning & Repairs",
+    "actionSubtitle": "Book Rapid Service",
+    "imgUrl": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&h=1000&q=85",
+    "tagline": "Full home deep cleaning, sofa shampooing, painting, pest & electrician",
+    "features": [
+      "60-minute doorstep arrival",
+      "German single-disc scrubbers",
+      "Transparent upfront pricing",
+      "30-day rework guarantee"
+    ]
+  },
+  {
     "id": "home-electrician",
     "templateNumber": 704,
     "name": "Certified Electrician",

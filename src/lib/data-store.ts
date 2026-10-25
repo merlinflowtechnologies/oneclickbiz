@@ -561,6 +561,8 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
   if (isTemplatePattern) {
     const templateId = matchedTemplate?.id || 
       (cleanSlug === 'interior' || cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'home-interior' : 
+       cleanSlug === 'home-services' || cleanSlug === 'home-electrician' || cleanSlug.startsWith('home-service') || cleanSlug.startsWith('home-electrician') || cleanSlug.startsWith('home-plumber') || cleanSlug === 'services' ? 'home-services' :
+       cleanSlug.startsWith('retail-jewel') || cleanSlug.startsWith('jewel') ? 'retail-jewellery' :
        cleanSlug.startsWith('food-') ? 'food-restaurant' :
        cleanSlug.startsWith('travel-') || cleanSlug.startsWith('trav-') || cleanSlug.startsWith('tour-') ? 'travel-tour' :
        cleanSlug.startsWith('vcard') ? cleanSlug : 're-builders');

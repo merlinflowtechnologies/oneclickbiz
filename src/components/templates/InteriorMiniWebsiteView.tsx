@@ -717,7 +717,7 @@ END:VCARD`;
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `W_Design_Studio_Contact.vcf`);
+    link.setAttribute('download', `Aura_Luxe_Studios_Contact.vcf`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -757,7 +757,7 @@ END:VCARD`;
               <span>Save vCard</span>
             </button>
             <a
-              href={`https://wa.me/${cleanPhone}?text=Hi%20W%20Design%20Studio%2C%20I%20am%20inquiring%20about%20architectural%20interior%20design%20services.`}
+              href={`https://wa.me/${cleanPhone}?text=Hi%20Aura%20Luxe%20Studios%2C%20I%20am%20inquiring%20about%20architectural%20interior%20design%20services.`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 text-stone-300 hover:text-emerald-400 transition cursor-pointer"
@@ -784,15 +784,15 @@ END:VCARD`;
           <div className="flex items-center justify-between h-20 gap-4">
             
             {/* Aura Luxe Studios Brand Logo */}
-            <a href="#home" className="flex items-center gap-3 shrink-0 select-none">
-              <div className="w-10 h-10 rounded-xl bg-[#111111] border border-[#B7977F]/40 flex items-center justify-center text-white font-serif font-black text-xl shadow-md">
+            <a href="#home" className="flex items-center gap-2.5 sm:gap-3 shrink-0 select-none min-w-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#111111] border border-[#B7977F]/40 flex items-center justify-center text-white font-serif font-black text-lg sm:text-xl shadow-md shrink-0">
                 A
               </div>
-              <div className="flex flex-col">
-                <span className="font-bold text-base sm:text-xl tracking-tight text-[#111111] uppercase font-sans">
+              <div className="flex flex-col min-w-0">
+                <span className="font-bold text-sm sm:text-xl tracking-tight text-[#111111] uppercase font-sans truncate max-w-[130px] xs:max-w-[200px] sm:max-w-none">
                   Aura Luxe Studios
                 </span>
-                <span className="text-[10px] uppercase tracking-widest text-[#B7977F] font-semibold -mt-1">
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#B7977F] font-semibold -mt-0.5 sm:-mt-1 truncate">
                   Architecture &amp; Interior Design
                 </span>
               </div>
@@ -812,7 +812,7 @@ END:VCARD`;
             </nav>
 
             {/* Header Right Action: "Enquire Now" */}
-            <div className="flex items-center gap-3 shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               {showViewToggle && setViewMode && (
                 <div className="hidden sm:flex items-center gap-1 p-1 rounded-full bg-stone-100 border border-stone-200">
                   <button
@@ -839,7 +839,7 @@ END:VCARD`;
               <button
                 type="button"
                 onClick={() => setIsConsultModalOpen(true)}
-                className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-[#111111] hover:bg-[#B7977F] text-white font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-sm active:scale-95 cursor-pointer whitespace-nowrap"
+                className="hidden xs:inline-flex px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-[#111111] hover:bg-[#B7977F] text-white font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-sm active:scale-95 cursor-pointer whitespace-nowrap"
               >
                 Enquire Now
               </button>
@@ -859,17 +859,47 @@ END:VCARD`;
 
         {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-stone-200 bg-white px-6 py-5 space-y-3 shadow-xl">
+          <div className="lg:hidden border-t border-stone-200 bg-white px-4 sm:px-6 py-4 space-y-2 shadow-xl">
             <nav className="grid grid-cols-2 gap-2 text-xs font-bold text-stone-800 uppercase tracking-wider">
-              <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition">Services</a>
-              <a href="#clients" onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition">Clients</a>
-              <a href="#sectors" onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition">Projects</a>
-              <a href="#portfolio" onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition">Portfolio</a>
-              <a href="#social" onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition">Social Media</a>
-              <a href="#estimator" onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition">Cost Estimator</a>
-              <a href="#culture" onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition">Life at Aura</a>
-              <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition">Reviews</a>
-              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="col-span-2 p-3 rounded-xl bg-[#111111] text-white text-center hover:bg-[#B7977F] transition">Book Free Consultation</a>
+              <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 transition flex items-center justify-between">
+                <span>Services</span>
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              </a>
+              <a href="#clients" onClick={() => setIsMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 transition flex items-center justify-between">
+                <span>Clients</span>
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              </a>
+              <a href="#sectors" onClick={() => setIsMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 transition flex items-center justify-between">
+                <span>Projects</span>
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              </a>
+              <a href="#portfolio" onClick={() => setIsMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 transition flex items-center justify-between">
+                <span>Portfolio</span>
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              </a>
+              <a href="#social" onClick={() => setIsMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 transition flex items-center justify-between text-[#B7977F]">
+                <span>Social Reels</span>
+                <ChevronRight className="w-3.5 h-3.5 text-[#B7977F]" />
+              </a>
+              <a href="#estimator" onClick={() => setIsMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 transition flex items-center justify-between">
+                <span>Estimator</span>
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              </a>
+              <a href="#culture" onClick={() => setIsMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 transition flex items-center justify-between">
+                <span>Studio Life</span>
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              </a>
+              <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 transition flex items-center justify-between">
+                <span>Reviews</span>
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              </a>
+              <button 
+                type="button" 
+                onClick={() => { setIsMobileMenuOpen(false); setIsConsultModalOpen(true); }}
+                className="col-span-2 p-3 rounded-xl bg-[#111111] text-white text-center hover:bg-[#B7977F] transition font-bold text-xs uppercase tracking-wider cursor-pointer shadow-sm"
+              >
+                Book Free Consultation
+              </button>
             </nav>
           </div>
         )}

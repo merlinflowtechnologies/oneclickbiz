@@ -1940,6 +1940,58 @@ TEMPLATE_PRESETS_DATA['jewellery'] = TEMPLATE_PRESETS_DATA['retail-jewellery'];
 TEMPLATE_PRESETS_DATA['jewelry'] = TEMPLATE_PRESETS_DATA['retail-jewellery'];
 TEMPLATE_PRESETS_DATA['retail-jewel'] = TEMPLATE_PRESETS_DATA['retail-jewellery'];
 
+TEMPLATE_PRESETS_DATA['home-services'] = {
+  name: 'OneClick Home Services (Hyderabad)',
+  designation: 'Complete Home Deep Cleaning, Repairs, Painting & Pest Control',
+  company: 'OneClick Home Services India Pvt. Ltd.',
+  bio: 'Hyderabad\'s trusted doorstep home maintenance platform. 28,400+ homes served across Banjara Hills, Jubilee Hills, Gachibowli, Hitec City, Madhapur & Kondapur. 60-minute arrival guarantee, certified background-verified technicians, German equipment, and 30-day workmanship warranty.',
+  theme: 'modern-indigo',
+  avatarUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80',
+  coverUrl: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80',
+  email: 'support@oneclickhomeservices.com',
+  phone: '+91 98765 43210',
+  whatsapp: '919876543210',
+  website: 'https://oneclickhomeservices.com',
+  address: 'Level 4, Cyber Gateway, HITEC City, Hyderabad, Telangana 500081',
+  services: [
+    { id: 'srv_hs_1', title: 'Full Home Deep Cleaning', description: 'Mechanized floor scrubbing, degreasing, bathroom descaling & window polishing with German machines.', durationMinutes: 240, price: 2499, currency: '₹' },
+    { id: 'srv_hs_2', title: 'Sofa & Carpet Steam Shampooing', description: 'Kärcher injection-extraction shampooing, 99.9% stain removal & anti-allergen mite sanitization.', durationMinutes: 90, price: 999, currency: '₹' },
+    { id: 'srv_hs_3', title: 'Licensed Electrician & Wiring Repairs', description: 'Short circuit troubleshooting, MCB panel installation, inverter hookup & chandelier hanging.', durationMinutes: 60, price: 299, currency: '₹' },
+    { id: 'srv_hs_4', title: 'Anti-Termite & Herbal Pest Control', description: 'Bayer odourless chemical drill-fill-seal barrier with 2-year warranty and free retreatments.', durationMinutes: 120, price: 1499, currency: '₹' },
+    { id: 'srv_hs_5', title: 'AC Foam Jet Deep Service & Gas Top-up', description: 'Indoor coil high-pressure foam wash, drain tray flush, outdoor unit wash & amperage check.', durationMinutes: 60, price: 599, currency: '₹' },
+    { id: 'srv_hs_6', title: 'Emergency Plumbing & Leak Fix', description: 'Concealed pipeline detection, diverter repair, geyser installation & block drainage jetting.', durationMinutes: 45, price: 299, currency: '₹' }
+  ],
+  products: [
+    { id: 'p_hs_1', name: 'Signature Deep Clean Pro (3 BHK)', description: '5-specialist team with industrial single-disc machine, steam extraction, kitchen degreasing & 2 washrooms.', price: 4499, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80', category: 'Deep Cleaning', isAvailable: true },
+    { id: 'p_hs_2', name: '7-Seater Sofa Steam Extraction', description: '3-stage deep foam shampooing, motorized agitation & hot extraction with dry time under 2 hours.', price: 1299, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80', category: 'Upholstery', isAvailable: true },
+    { id: 'p_hs_3', name: 'Complete 3 BHK Pest Shield', description: 'Odourless Bayer gel baiting for German roaches + wall skirting spray for silverfish & ants.', price: 1899, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1584744982491-665216d95f8b?auto=format&fit=crop&w=800&q=80', category: 'Pest Control', isAvailable: true }
+  ],
+  gallery: [
+    { id: 'g_hs_1', imageUrl: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80', title: 'Mechanized Deep Cleaning', category: 'Cleaning' },
+    { id: 'g_hs_2', imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80', title: 'Sofa Fabric Steam Revitalization', category: 'Upholstery' },
+    { id: 'g_hs_3', imageUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80', title: 'Master Electrician at Work', category: 'Electrical' },
+    { id: 'g_hs_4', imageUrl: 'https://images.unsplash.com/photo-1584744982491-665216d95f8b?auto=format&fit=crop&w=800&q=80', title: 'Eco-Friendly Pest Treatment', category: 'Pest Control' }
+  ],
+  testimonials: [
+    { id: 't_hs_1', clientName: 'Sridhar Rao', clientRole: 'My Home Bhooja, HITEC City', content: 'Booked the 3 BHK Deep Cleaning before housewarming. The team arrived in 40 minutes with single-disc floor scrubbers and steam machines. Spotless kitchen tiles and sparkling bathrooms. 10/10 recommend!', rating: 5 },
+    { id: 't_hs_2', clientName: 'Pooja Reddy', clientRole: 'Aparna Sarovar, Nallagandla', content: 'Our 5-seater velvet sofa had stubborn turmeric stains. The steam extraction made it look brand new without any chemical smell. Transparent pricing and police-verified staff.', rating: 5 },
+    { id: 't_hs_3', clientName: 'Vikram Chandra', clientRole: 'Jubilee Hills, Road No. 45', content: 'Emergency MCB trip on Sunday evening. The electrician arrived in 35 minutes, found the internal short in the inverter line, and replaced the breaker safely. Excellent service.', rating: 5 }
+  ],
+  socials: [
+    { id: 'soc_hs_wa', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp Instant Booking' },
+    { id: 'soc_hs_ig', platform: 'instagram', url: 'https://instagram.com', label: 'Instagram Before & After' },
+    { id: 'soc_hs_yt', platform: 'youtube', url: 'https://youtube.com', label: 'Service Documentary' },
+    { id: 'soc_hs_ph', platform: 'phone', url: 'tel:+919876543210', label: '24/7 Hyderabad Hotline' }
+  ]
+};
+
+TEMPLATE_PRESETS_DATA['home-electrician'] = TEMPLATE_PRESETS_DATA['home-services'];
+TEMPLATE_PRESETS_DATA['home-plumber'] = TEMPLATE_PRESETS_DATA['home-services'];
+TEMPLATE_PRESETS_DATA['home-service'] = TEMPLATE_PRESETS_DATA['home-services'];
+TEMPLATE_PRESETS_DATA['home-ac'] = TEMPLATE_PRESETS_DATA['home-services'];
+TEMPLATE_PRESETS_DATA['home-pest'] = TEMPLATE_PRESETS_DATA['home-services'];
+TEMPLATE_PRESETS_DATA['services'] = TEMPLATE_PRESETS_DATA['home-services'];
+
 
 
 
@@ -2173,6 +2225,12 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
         experienceStores: 'Mumbai • Delhi NCR • Bengaluru • Hyderabad',
         goldRate18K: 6480,
         goldRate24K: 7920
+      } : undefined,
+      homeServices: ((meta.category as string) === 'Home & Professional Services' || effectiveId.startsWith('home-service') || effectiveId.startsWith('home-electrician') || effectiveId.startsWith('home-plumber') || effectiveId.startsWith('home-ac') || effectiveId.startsWith('home-pest') || templateId === 'home-services' || templateId === 'home-electrician' || templateId === 'services') ? {
+        city: 'Hyderabad',
+        guarantee: '60-Minute Arrival & 30-Day Workmanship Warranty',
+        verifiedStaff: '100% Background-Checked Technicians',
+        pricing: 'Transparent Upfront Rate Card, Zero Hidden Fees'
       } : undefined,
       contact: {
         showEmail: true,
