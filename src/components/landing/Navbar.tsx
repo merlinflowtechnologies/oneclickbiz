@@ -48,16 +48,24 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-1 sm:gap-2">
             <Link 
               href="/" 
-              className="px-3.5 py-2 text-sm font-semibold text-[#174BFF] transition-colors relative"
+              className="px-3 py-2 text-sm font-semibold text-[#174BFF] transition-colors relative"
             >
               <span>Home</span>
-              <span className="absolute bottom-0 left-3.5 right-3.5 h-0.5 bg-[#174BFF] rounded-full" />
+              <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#174BFF] rounded-full" />
+            </Link>
+
+            <Link 
+              href="/#services" 
+              onClick={(e) => handleAnchorClick(e, 'services')}
+              className="px-3 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
+            >
+              Services
             </Link>
 
             <Link 
               href="/#templates" 
               onClick={(e) => handleAnchorClick(e, 'templates')}
-              className="px-3.5 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
+              className="px-3 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
             >
               Templates
             </Link>
@@ -65,7 +73,7 @@ export default function Navbar() {
             <Link 
               href="/#examples" 
               onClick={(e) => handleAnchorClick(e, 'examples')}
-              className="px-3.5 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
+              className="px-3 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
             >
               Examples
             </Link>
@@ -73,7 +81,7 @@ export default function Navbar() {
             <Link 
               href="/#pricing" 
               onClick={(e) => handleAnchorClick(e, 'pricing')}
-              className="px-3.5 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
+              className="px-3 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
             >
               Pricing
             </Link>
@@ -81,16 +89,24 @@ export default function Navbar() {
             <Link 
               href="/#features" 
               onClick={(e) => handleAnchorClick(e, 'features')}
-              className="px-3.5 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
+              className="px-3 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
             >
               Features
             </Link>
 
             <Link 
               href="/blog" 
-              className="px-3.5 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
+              className="px-3 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
             >
               Blog
+            </Link>
+
+            <Link 
+              href="/#contact" 
+              onClick={(e) => handleAnchorClick(e, 'contact')}
+              className="px-3 py-2 text-sm font-medium text-[#64718F] hover:text-[#174BFF] transition-colors"
+            >
+              Contact
             </Link>
           </div>
 
@@ -149,6 +165,13 @@ export default function Navbar() {
             Home
           </Link>
           <Link 
+            href="/#services" 
+            onClick={(e) => handleAnchorClick(e, 'services')}
+            className="block px-3 py-2 rounded-lg text-sm font-medium text-[#64718F] hover:text-[#174BFF] hover:bg-slate-50"
+          >
+            Services
+          </Link>
+          <Link 
             href="/#templates" 
             onClick={(e) => handleAnchorClick(e, 'templates')}
             className="block px-3 py-2 rounded-lg text-sm font-medium text-[#64718F] hover:text-[#174BFF] hover:bg-slate-50"
@@ -182,6 +205,13 @@ export default function Navbar() {
             className="block px-3 py-2 rounded-lg text-sm font-medium text-[#64718F] hover:text-[#174BFF] hover:bg-slate-50"
           >
             Blog
+          </Link>
+          <Link 
+            href="/#contact" 
+            onClick={(e) => handleAnchorClick(e, 'contact')}
+            className="block px-3 py-2 rounded-lg text-sm font-medium text-[#64718F] hover:text-[#174BFF] hover:bg-slate-50"
+          >
+            Contact
           </Link>
           <div className="pt-3 flex flex-col gap-2">
             <Link 

@@ -2,11 +2,40 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Play, CheckCircle2, Globe, MessageCircle, Monitor, Store, Star, BarChart3 } from 'lucide-react';
+import { 
+  ArrowRight, 
+  Play, 
+  CheckCircle2, 
+  Users, 
+  Gift, 
+  ShieldCheck, 
+  Headphones,
+  LayoutGrid
+} from 'lucide-react';
 
 interface HeroSectionProps {
   onWatchDemo?: () => void;
 }
+
+const HERO_CATEGORIES = [
+  { id: 'real-estate', name: 'Real Estate', image: '/landing/category_4.png', link: '/v/re-builders' },
+  { id: 'restaurants', name: 'Restaurants & Cafés', image: '/landing/category_0.png', link: '/v/restaurant-menu' },
+  { id: 'salons', name: 'Salon & Beauty', image: '/landing/category_1.png', link: '/v/beauty-salon' },
+  { id: 'hospitals', name: 'Hospitals & Clinics', image: '/landing/category_2.png', link: '/v/health-doctor' },
+  { id: 'education', name: 'Education & Coaching', image: '/landing/category_3.png', link: '/v/edu-coaching' },
+  { id: 'retail', name: 'Retail Stores', image: '/landing/category_5.png', link: '/vcard-templates' },
+  { id: 'gyms', name: 'Gyms & Fitness', image: '/landing/category_6.png', link: '/vcard-templates' },
+  { id: 'services', name: 'Consultants & Freelancers', image: '/landing/category_8.png', link: '/vcard-templates' },
+  { id: 'tech', name: 'IT & Tech', image: '/landing/category_9.png', link: '/vcard-templates' },
+  { id: 'auto', name: 'Automobile', image: '/landing/category_7.png', link: '/vcard-templates' },
+];
+
+const TRUST_METRICS = [
+  { icon: Users, iconColor: 'text-[#174BFF]', bg: 'bg-blue-50', value: '10K+', label: 'Businesses Created' },
+  { icon: Gift, iconColor: 'text-[#7547F5]', bg: 'bg-purple-50', value: '50+', label: 'Industry Templates' },
+  { icon: ShieldCheck, iconColor: 'text-[#16B981]', bg: 'bg-emerald-50', value: '99.9%', label: 'Uptime & Security' },
+  { icon: Headphones, iconColor: 'text-[#9333EA]', bg: 'bg-violet-50', value: '24/7', label: 'Customer Support' },
+];
 
 export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
   const handleScrollToDemo = () => {
@@ -19,38 +48,40 @@ export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative pt-8 pb-16 sm:pt-12 sm:pb-20 lg:pt-16 lg:pb-24 bg-gradient-to-b from-[#F8FAFF] via-white to-white overflow-hidden border-b border-[#E2E9FA]/60">
+    <section className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 lg:pb-18 bg-gradient-to-b from-[#F8FAFF] via-white to-white overflow-hidden border-b border-[#E2E9FA]/60">
       
       {/* Background Soft Ambient Light Blurs */}
       <div className="absolute top-0 left-1/4 -translate-x-1/2 w-[500px] h-[350px] bg-blue-100/40 rounded-full blur-[100px] pointer-events-none -z-10" />
       <div className="absolute top-1/3 right-10 w-[450px] h-[350px] bg-purple-100/30 rounded-full blur-[100px] pointer-events-none -z-10" />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Main Hero Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
           {/* Left Content Column */}
           <div className="lg:col-span-6 xl:col-span-6 text-center lg:text-left space-y-5 sm:space-y-6">
             
-            {/* Top Pill Badge */}
+            {/* Top Pill Badge matching reference */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EDF3FF] border border-[#C7D7FE] text-[#174BFF] text-xs font-bold uppercase tracking-wider shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-[#174BFF] animate-pulse" />
-              <span>One Platform, Endless Possibilities</span>
+              <span className="text-sm">🚀</span>
+              <span>ONE PLATFORM, ENDLESS POSSIBILITIES</span>
             </div>
 
-            {/* Main Headline */}
+            {/* Main Headline matching reference */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold text-[#10183F] tracking-tight leading-[1.12]">
-              Everything your{' '}
+              Create. Manage.{' '}
               <br className="hidden sm:inline" />
-              business needs{' '}
+              Grow Your Business{' '}
               <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#174BFF] via-[#3568FF] to-[#7547F5]">
-                in one place.
+                in One Place.
               </span>
             </h1>
 
-            {/* Description */}
+            {/* Description matching reference */}
             <p className="text-sm sm:text-base lg:text-[17px] text-[#64718F] max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              Create a professional business profile, mini website, WhatsApp store, and more. Get discovered by customers and grow your business with OneClickBiz.
+              Build a professional business profile, mini website, WhatsApp store, online store, bookings, leads, and more. Get discovered by customers and grow your business with OneClickBiz.
             </p>
 
             {/* CTAs: Primary + Secondary */}
@@ -93,50 +124,107 @@ export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
 
           </div>
 
-          {/* Right Product Ecosystem Visual */}
+          {/* Right Product Ecosystem 3D Visual */}
           <div className="lg:col-span-6 xl:col-span-6 relative flex items-center justify-center pt-2 sm:pt-4 lg:pt-0 w-full">
-            <div className="relative w-full max-w-[560px] lg:max-w-[620px] mx-auto select-none group">
-              
-              {/* Product Ecosystem Mockup Container */}
-              <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(23,75,255,0.12)] transition-transform duration-300 group-hover:scale-[1.01] bg-gradient-to-b from-[#F0F5FF] to-[#E8F0FE] border border-[#C7D7FE]/80">
+            <div className="relative w-full max-w-[620px] mx-auto select-none group">
+              <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(23,75,255,0.10)] transition-transform duration-300 group-hover:scale-[1.01] bg-white border border-[#C7D7FE]/80">
                 <img
-                  src="/landing/hero-visual-4k.png?v=4"
+                  src="/landing/hero-visual-4k.png?v=6"
                   alt="OneClickBiz Multi-Device Business Website & WhatsApp Store Ecosystem"
-                  className="w-full h-auto object-cover block"
+                  className="w-full h-auto object-contain block"
                   loading="eager"
                 />
               </div>
-
-              {/* Floating Badges matching reference mockup with crisp typography & icons */}
-              <div className="hidden sm:flex absolute -top-3.5 -left-2.5 px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#C7D7FE] shadow-lg items-center gap-2 text-xs font-bold text-[#10183F] hover:-translate-y-0.5 transition-transform">
-                <Store className="w-4 h-4 text-[#174BFF]" />
-                <span>Custom Store</span>
-              </div>
-
-              <div className="hidden sm:flex absolute -top-3.5 right-1/4 px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#C7D7FE] shadow-lg items-center gap-2 text-xs font-bold text-[#10183F] hover:-translate-y-0.5 transition-transform">
-                <Monitor className="w-4 h-4 text-[#7547F5]" />
-                <span>Mini Website</span>
-              </div>
-
-              <div className="hidden sm:flex absolute top-5 -right-3.5 px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#C7D7FE] shadow-lg items-center gap-2 text-xs font-bold text-[#10183F] hover:-translate-y-0.5 transition-transform">
-                <MessageCircle className="w-4 h-4 text-[#16B981]" />
-                <span>WhatsApp Store</span>
-              </div>
-
-              <div className="hidden sm:flex absolute -bottom-3 left-6 px-3.5 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#C7D7FE] shadow-lg items-center gap-2 text-xs font-bold text-[#10183F] hover:-translate-y-0.5 transition-transform">
-                <Star className="w-4 h-4 fill-amber-400 text-amber-500" />
-                <span>Reviews & Ratings</span>
-              </div>
-
-              <div className="hidden sm:flex absolute -bottom-3 right-8 px-3.5 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#C7D7FE] shadow-lg items-center gap-2 text-xs font-bold text-[#10183F] hover:-translate-y-0.5 transition-transform">
-                <BarChart3 className="w-4 h-4 text-[#174BFF]" />
-                <span>Analytics</span>
-              </div>
-
             </div>
           </div>
 
         </div>
+
+        {/* BOTTOM READY TEMPLATES STRIP */}
+        <div className="mt-10 sm:mt-12 lg:mt-14 pt-6 sm:pt-7 border-t border-[#E2E9FA]">
+          <div className="bg-gradient-to-r from-blue-50/50 via-white to-blue-50/30 rounded-2xl border border-[#E2E9FA] p-3.5 sm:p-4.5 shadow-[0_2px_12px_rgba(23,75,255,0.03)] flex flex-col xl:flex-row xl:items-center gap-4">
+            
+            {/* Left Header Box */}
+            <div className="xl:w-64 shrink-0 pr-3 border-b xl:border-b-0 xl:border-r border-[#E2E9FA] pb-3 xl:pb-0">
+              <span className="text-[11px] font-bold text-[#174BFF] uppercase tracking-wider block mb-0.5">
+                READY TEMPLATES
+              </span>
+              <h3 className="text-sm sm:text-base font-extrabold text-[#10183F] leading-tight">
+                FOR EVERY BUSINESS
+              </h3>
+              <p className="text-[11px] text-[#64718F] mt-1 line-clamp-2">
+                Choose a template and launch your business in minutes.
+              </p>
+              <Link
+                href="/vcard-templates"
+                className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-[#174BFF] hover:underline"
+              >
+                <span>View All Templates</span>
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+
+            {/* Horizontal Scrollable Category Cards Carousel */}
+            <div className="flex items-center gap-2.5 overflow-x-auto pb-1.5 no-scrollbar scroll-smooth flex-1">
+              {HERO_CATEGORIES.map((cat) => (
+                <Link
+                  key={cat.id}
+                  href={cat.link}
+                  className="group bg-white rounded-xl border border-[#E2E9FA] hover:border-blue-400 p-2 flex flex-col items-center shrink-0 w-[100px] sm:w-[105px] shadow-2xs hover:shadow-sm hover:-translate-y-0.5 transition-all text-center cursor-pointer"
+                >
+                  <div className="w-full aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 mb-1.5 border border-slate-100">
+                    <img
+                      src={cat.image}
+                      alt={cat.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-[11px] font-semibold text-[#10183F] group-hover:text-[#174BFF] transition-colors leading-tight line-clamp-2 min-h-[26px] flex items-center justify-center">
+                    {cat.name}
+                  </span>
+                </Link>
+              ))}
+
+              {/* More Businesses Card */}
+              <Link
+                href="/vcard-templates"
+                className="group bg-[#EDF3FF] hover:bg-[#E2EBFF] rounded-xl border border-[#C7D7FE] p-2 flex flex-col items-center justify-center shrink-0 w-[100px] sm:w-[105px] shadow-2xs hover:shadow-sm hover:-translate-y-0.5 transition-all text-center cursor-pointer min-h-[105px]"
+              >
+                <div className="w-9 h-9 rounded-full bg-[#174BFF] text-white flex items-center justify-center mb-1.5 shadow-xs group-hover:scale-110 transition-transform">
+                  <LayoutGrid className="w-4 h-4" />
+                </div>
+                <span className="text-[11px] font-bold text-[#174BFF] leading-tight">
+                  More Businesses
+                </span>
+              </Link>
+            </div>
+
+          </div>
+        </div>
+
+        {/* TRUST METRICS BAR */}
+        <div className="mt-5 sm:mt-6 pt-4 border-t border-[#E2E9FA]/60 grid grid-cols-2 md:grid-cols-4 gap-4 items-center">
+          {TRUST_METRICS.map((metric, idx) => {
+            const IconComp = metric.icon;
+            return (
+              <div key={idx} className="flex items-center gap-3 justify-center md:justify-start">
+                <div className={`w-9 h-9 rounded-xl ${metric.bg} ${metric.iconColor} flex items-center justify-center shrink-0 shadow-2xs`}>
+                  <IconComp className="w-4.5 h-4.5 stroke-[2.2]" />
+                </div>
+                <div>
+                  <div className="text-sm font-extrabold text-[#10183F] leading-tight">
+                    {metric.value}
+                  </div>
+                  <div className="text-[11px] font-medium text-[#64718F] leading-tight mt-0.5">
+                    {metric.label}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );
