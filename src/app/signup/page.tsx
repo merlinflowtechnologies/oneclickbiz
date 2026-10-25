@@ -109,26 +109,26 @@ const DEFAULT_PLANS_CONFIG = {
 };
 
 const ALL_20_CATEGORIES = [
-  { id: 'real-estate', name: 'Real Estate', icon: '🏠', image: '/landing/category_4.png', defaultTag: 'Real Estate' },
-  { id: 'restaurants', name: 'Restaurants & Cafés', icon: '🍽️', image: '/landing/category_0.png', defaultTag: 'Food Business' },
-  { id: 'salons', name: 'Salons & Beauty', icon: '💇‍♀️', image: '/landing/category_1.png', defaultTag: 'Beauty & Personal Care' },
-  { id: 'hospitals', name: 'Hospitals & Clinics', icon: '🏥', image: '/landing/category_2.png', defaultTag: 'Healthcare' },
-  { id: 'education', name: 'Education & Coaching', icon: '🎓', image: '/landing/category_3.png', defaultTag: 'Education' },
-  { id: 'retail', name: 'Retail Stores', icon: '🛍️', image: '/landing/category_5.png', defaultTag: 'Retail & Local Shops' },
-  { id: 'gyms', name: 'Gyms & Fitness', icon: '💪', image: '/landing/category_6.png', defaultTag: 'Beauty & Personal Care' },
-  { id: 'consultants', name: 'Consultants & Freelancers', icon: '👔', image: '/landing/category_8.png', defaultTag: 'Professional Services' },
-  { id: 'services', name: 'Service Businesses', icon: '🛠️', image: '/landing/category_8.png', defaultTag: 'Home & Professional Services' },
-  { id: 'automobile', name: 'Automobile', icon: '🚗', image: '/landing/category_7.png', defaultTag: 'Automobile' },
-  { id: 'finance', name: 'Finance & CA', icon: '💰', image: '/landing/category_7.png', defaultTag: 'Professional Services' },
-  { id: 'tech', name: 'IT & Tech', icon: '💻', image: '/landing/category_9.png', defaultTag: 'Professional Services' },
-  { id: 'law', name: 'Law & Legal', icon: '⚖️', image: '/landing/category_8.png', defaultTag: 'Professional Services' },
-  { id: 'home-services', name: 'Home Services', icon: '👷', image: '/landing/category_8.png', defaultTag: 'Home & Professional Services' },
-  { id: 'travel', name: 'Travel & Hospitality', icon: '🏖️', image: '/landing/category_7.png', defaultTag: 'Travel & Hospitality' },
-  { id: 'manufacturing', name: 'Manufacturing', icon: '🏭', image: '/landing/category_9.png', defaultTag: 'Professional Services' },
-  { id: 'beverages', name: 'Food & Beverages', icon: '🍹', image: '/landing/category_0.png', defaultTag: 'Food Business' },
-  { id: 'healthcare', name: 'Healthcare', icon: '🩺', image: '/landing/category_2.png', defaultTag: 'Healthcare' },
-  { id: 'events', name: 'Events & Studios', icon: '📷', image: '/landing/category_1.png', defaultTag: 'Events & Creative' },
-  { id: 'other', name: 'Other Businesses', icon: '🏢', image: '/landing/category_9.png', defaultTag: 'Professional Services' },
+  { id: 'real-estate', name: 'Real Estate', icon: '🏠', image: '/categories/real-estate.png', defaultTag: 'Real Estate' },
+  { id: 'restaurants', name: 'Restaurants & Cafés', icon: '🍽️', image: '/categories/restaurants.png', defaultTag: 'Food Business' },
+  { id: 'salons', name: 'Salons & Beauty', icon: '💇‍♀️', image: '/categories/salons.png', defaultTag: 'Beauty & Personal Care' },
+  { id: 'hospitals', name: 'Hospitals & Clinics', icon: '🏥', image: '/categories/hospitals.png', defaultTag: 'Healthcare' },
+  { id: 'education', name: 'Education & Coaching', icon: '🎓', image: '/categories/education.png', defaultTag: 'Education' },
+  { id: 'retail', name: 'Retail Stores', icon: '🛍️', image: '/categories/retail.png', defaultTag: 'Retail & Local Shops' },
+  { id: 'gyms', name: 'Gyms & Fitness', icon: '💪', image: '/categories/gyms.png', defaultTag: 'Beauty & Personal Care' },
+  { id: 'consultants', name: 'Consultants & Freelancers', icon: '👔', image: '/categories/consultants.png', defaultTag: 'Professional Services' },
+  { id: 'services', name: 'Service Businesses', icon: '🛠️', image: '/categories/services.png', defaultTag: 'Home & Professional Services' },
+  { id: 'automobile', name: 'Automobile', icon: '🚗', image: '/categories/automobile.png', defaultTag: 'Automobile' },
+  { id: 'finance', name: 'Finance & CA', icon: '💰', image: '/categories/finance.png', defaultTag: 'Professional Services' },
+  { id: 'tech', name: 'IT & Tech', icon: '💻', image: '/categories/tech.png', defaultTag: 'Professional Services' },
+  { id: 'law', name: 'Law & Legal', icon: '⚖️', image: '/categories/law.png', defaultTag: 'Professional Services' },
+  { id: 'home-services', name: 'Home Services', icon: '👷', image: '/categories/home-services.png', defaultTag: 'Home & Professional Services' },
+  { id: 'travel', name: 'Travel & Hospitality', icon: '🏖️', image: '/categories/travel.png', defaultTag: 'Travel & Hospitality' },
+  { id: 'manufacturing', name: 'Manufacturing', icon: '🏭', image: '/categories/manufacturing.png', defaultTag: 'Professional Services' },
+  { id: 'beverages', name: 'Food & Beverages', icon: '🍹', image: '/categories/beverages.png', defaultTag: 'Food Business' },
+  { id: 'healthcare', name: 'Healthcare', icon: '🩺', image: '/categories/healthcare.png', defaultTag: 'Healthcare' },
+  { id: 'events', name: 'Events & Studios', icon: '📷', image: '/categories/events.png', defaultTag: 'Events & Creative' },
+  { id: 'other', name: 'Other Businesses', icon: '🏢', image: '/categories/other.png', defaultTag: 'Professional Services' },
 ];
 
 function SignupForm() {
@@ -498,74 +498,149 @@ function SignupForm() {
     <div className="min-h-screen bg-gradient-to-b from-[#F4F7FF] via-[#F8FAFF] to-[#EDF2FF] text-[#10183F] flex flex-col justify-between selection:bg-blue-100 selection:text-blue-900 pb-12">
       
       {/* Top Header with Stepper */}
-      <header className="w-full border-b border-[#E2E8F0]/70 bg-white/80 backdrop-blur-md sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between">
-          
+      <header className="w-full border-b border-[#E2E8F0]/70 bg-white/90 backdrop-blur-md sticky top-0 z-30">
+        {/* DESKTOP HEADER */}
+        <div className="hidden lg:flex max-w-7xl mx-auto px-8 h-18 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="inline-flex items-center gap-2 group">
             <img 
               src="/logo-brand.png?v=4" 
               alt="OneClickBiz - Connect | Build | Grow" 
-              className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105 duration-200"
+              className="h-9 w-auto object-contain transition-transform group-hover:scale-105 duration-200"
             />
           </Link>
 
-          {/* Stepper (Desktop & Mobile) */}
-          <div className="flex items-center gap-2 sm:gap-6 text-xs sm:text-sm">
-            
-            {/* Step 1: Plan & Profile */}
-            <div 
-              onClick={() => { if (step === 1) setMobileSubStep(1); }}
-              className={`flex items-center gap-1.5 font-bold cursor-pointer transition-colors ${
-                step === 1 ? 'text-[#174BFF]' : 'text-slate-400'
-              }`}
-            >
-              <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-black ${
+          {/* Stepper (Desktop) */}
+          <div className="flex items-center gap-6 text-sm">
+            <div className={`flex items-center gap-2 font-bold ${
+              step === 1 ? 'text-[#174BFF]' : 'text-slate-400'
+            }`}>
+              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black ${
                 step === 1 ? 'bg-[#174BFF] text-white shadow-xs' : 'bg-slate-200 text-slate-600'
               }`}>
                 1
               </span>
-              <span className="hidden sm:inline">Plan & Profile</span>
+              <span>Plan & Profile</span>
             </div>
 
-            <div className={`h-0.5 w-4 sm:w-8 ${step >= 2 ? 'bg-[#174BFF]' : 'bg-slate-200'}`} />
+            <div className={`h-0.5 w-8 ${step >= 2 ? 'bg-[#174BFF]' : 'bg-slate-200'}`} />
 
-            {/* Step 2: Payment */}
-            <div className={`flex items-center gap-1.5 font-bold transition-colors ${
+            <div className={`flex items-center gap-2 font-bold ${
               step === 2 ? 'text-[#174BFF]' : 'text-slate-400'
             }`}>
-              <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-black ${
+              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black ${
                 step === 2 ? 'bg-[#174BFF] text-white shadow-xs' : (step > 2 ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600')
               }`}>
                 2
               </span>
-              <span className="hidden sm:inline">Payment</span>
+              <span>Payment</span>
             </div>
 
-            <div className={`h-0.5 w-4 sm:w-8 ${step >= 3 ? 'bg-emerald-600' : 'bg-slate-200'}`} />
+            <div className={`h-0.5 w-8 ${step >= 3 ? 'bg-emerald-600' : 'bg-slate-200'}`} />
 
-            {/* Step 3: Studio Access */}
-            <div className={`flex items-center gap-1.5 font-bold transition-colors ${
+            <div className={`flex items-center gap-2 font-bold ${
               step === 3 ? 'text-emerald-600' : 'text-slate-400'
             }`}>
-              <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-black ${
+              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black ${
                 step === 3 ? 'bg-emerald-600 text-white shadow-xs' : 'bg-slate-200 text-slate-600'
               }`}>
                 3
               </span>
-              <span className="hidden sm:inline">Studio Access</span>
+              <span>Studio Access</span>
             </div>
-
           </div>
 
           {/* Back to Website */}
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#174BFF] transition-colors px-2.5 sm:px-3 py-1.5 rounded-lg hover:bg-blue-50"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-[#174BFF] transition-colors px-3 py-1.5 rounded-lg hover:bg-blue-50"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">Back to Website</span>
+            <span>Back to Website</span>
           </Link>
+        </div>
+
+        {/* MOBILE HEADER (Matches Mobile Mockup Frames 2, 3, 4) */}
+        <div className="lg:hidden px-4 pt-3 pb-2.5 space-y-2.5">
+          {/* Top Bar: Arrow on Left, Centered Logo */}
+          <div className="flex items-center justify-between">
+            {mobileSubStep === 1 ? (
+              <Link href="/" className="p-1 -ml-1 text-slate-700 hover:text-slate-900">
+                <ArrowLeft className="w-5 h-5" />
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setMobileSubStep((prev) => Math.max(1, prev - 1))}
+                className="p-1 -ml-1 text-slate-700 hover:text-slate-900"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+            )}
+
+            <Link href="/" className="inline-flex items-center">
+              <img 
+                src="/logo-brand.png?v=4" 
+                alt="OneClickBiz - Connect | Build | Grow" 
+                className="h-7 w-auto object-contain"
+              />
+            </Link>
+
+            <div className="w-5" />
+          </div>
+
+          {/* Mobile Stepper (Under Logo) */}
+          <div className="flex items-center justify-between px-6 pt-1">
+            {/* Step 1 */}
+            <div className="flex flex-col items-center">
+              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black ${
+                mobileSubStep >= 1 ? 'bg-[#174BFF] text-white shadow-xs' : 'bg-slate-200 text-slate-600'
+              }`}>
+                1
+              </span>
+              <span className={`text-[10px] mt-1 ${
+                mobileSubStep === 1 ? 'text-[#174BFF] font-bold' : 'text-slate-400 font-medium'
+              }`}>
+                Plan & Profile
+              </span>
+            </div>
+
+            <div className={`flex-1 h-0.5 mx-2 -mt-4 transition-colors ${
+              mobileSubStep >= 2 ? 'bg-[#174BFF]' : 'bg-slate-200'
+            }`} />
+
+            {/* Step 2 */}
+            <div className="flex flex-col items-center">
+              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black ${
+                mobileSubStep >= 2 ? 'bg-[#174BFF] text-white shadow-xs' : 'bg-slate-100 text-slate-400 border border-slate-200'
+              }`}>
+                2
+              </span>
+              <span className={`text-[10px] mt-1 ${
+                mobileSubStep === 2 ? 'text-[#174BFF] font-bold' : 'text-slate-400 font-medium'
+              }`}>
+                Payment
+              </span>
+            </div>
+
+            <div className={`flex-1 h-0.5 mx-2 -mt-4 transition-colors ${
+              mobileSubStep >= 3 ? 'bg-[#174BFF]' : 'bg-slate-200'
+            }`} />
+
+            {/* Step 3 */}
+            <div className="flex flex-col items-center">
+              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black ${
+                mobileSubStep >= 3 ? 'bg-[#174BFF] text-white shadow-xs' : 'bg-slate-100 text-slate-400 border border-slate-200'
+              }`}>
+                3
+              </span>
+              <span className={`text-[10px] mt-1 ${
+                mobileSubStep === 3 ? 'text-[#174BFF] font-bold' : 'text-slate-400 font-medium'
+              }`}>
+                Studio Access
+              </span>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -828,7 +903,11 @@ function SignupForm() {
                         }`}
                       >
                         <div className="flex items-center gap-2.5 truncate">
-                          <span className="text-xl shrink-0">{cat.icon}</span>
+                          <img 
+                            src={cat.image} 
+                            alt={cat.name} 
+                            className="w-7 h-7 shrink-0 object-contain rounded-md" 
+                          />
                           <span className="text-xs font-bold truncate">{cat.name}</span>
                         </div>
                         <ChevronRight className={`w-4 h-4 shrink-0 transition-transform ${
@@ -1237,7 +1316,11 @@ function SignupForm() {
                           }`}
                         >
                           <div className="flex items-center gap-2 truncate">
-                            <span className="text-lg shrink-0">{cat.icon}</span>
+                            <img 
+                              src={cat.image} 
+                              alt={cat.name} 
+                              className="w-6 h-6 shrink-0 object-contain rounded-md" 
+                            />
                             <span className="text-xs font-bold truncate">{cat.name}</span>
                           </div>
                           <ChevronRight className={`w-3.5 h-3.5 shrink-0 ${
@@ -1248,21 +1331,14 @@ function SignupForm() {
                     })}
                   </div>
 
-                  <div className="flex gap-2.5 pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setMobileSubStep(1)}
-                      className="py-3 px-4 rounded-xl border border-slate-200 bg-white text-slate-700 font-bold text-xs"
-                    >
-                      Back
-                    </button>
+                  <div className="pt-2">
                     <button
                       type="button"
                       onClick={() => {
                         setMobileSubStep(3);
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
-                      className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#174BFF] to-[#7547F5] text-white font-bold text-xs shadow-md flex items-center justify-center gap-2"
+                      className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#174BFF] to-[#7547F5] text-white font-bold text-xs shadow-md flex items-center justify-center gap-2"
                     >
                       <span>Continue to Business Details</span>
                       <ArrowRight className="w-4 h-4" />
@@ -1401,30 +1477,37 @@ function SignupForm() {
                       </span>
                     </label>
 
-                    {/* Plan Summary Box */}
-                    <div className="p-3 rounded-xl bg-amber-50/60 border border-amber-200 space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-amber-900">
-                        <Crown className="w-3.5 h-3.5 text-amber-600" />
-                        <span>You have selected {activePlan.displayName} Plan (₹{activePlan.price.toLocaleString()}/year)</span>
+                    {/* Plan Summary Box Matching Mockup Phone 4 */}
+                    <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200/80 space-y-2">
+                      <div className="flex items-start gap-2.5">
+                        <div className="w-7 h-7 rounded-lg bg-amber-100/90 text-amber-700 flex items-center justify-center shrink-0">
+                          <Crown className="w-4 h-4 text-amber-600" />
+                        </div>
+                        <div>
+                          <p className="text-[10px] text-amber-800 font-medium">You have selected</p>
+                          <h4 className="text-xs font-black text-amber-950">
+                            {activePlan.displayName} Plan (₹{activePlan.price.toLocaleString()}/year)
+                          </h4>
+                        </div>
                       </div>
-                      <p className="text-[10px] text-amber-800">
-                        Includes: Unlimited 24×7 Card Edits, Custom Domain & WhatsApp Store Suite.
-                      </p>
+                      
+                      <ul className="space-y-1 pt-1 text-[11px] text-slate-700 font-medium border-t border-amber-200/50">
+                        {activePlan.features.slice(1, 4).map((feat, idx) => (
+                          <li key={idx} className="flex items-center gap-1.5">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 font-bold shrink-0" />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
 
-                    <div className="flex gap-2 pt-2">
-                      <button
-                        type="button"
-                        onClick={() => setMobileSubStep(2)}
-                        className="py-3 px-3.5 rounded-xl border border-slate-200 bg-white text-slate-700 font-bold text-xs"
-                      >
-                        Back
-                      </button>
+                    {/* Full-width Proceed to Payment CTA */}
+                    <div className="pt-2">
                       <button
                         type="button"
                         onClick={() => handleProceedToPaymentStep()}
                         disabled={loading}
-                        className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#174BFF] to-[#7547F5] text-white font-bold text-xs shadow-md flex items-center justify-center gap-2"
+                        className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#174BFF] via-[#7547F5] to-[#D926A9] hover:opacity-95 text-white font-bold text-xs shadow-md shadow-purple-500/20 flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
                       >
                         {loading ? (
                           <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -1437,12 +1520,22 @@ function SignupForm() {
                       </button>
                     </div>
 
+                    {/* Trust Badges under CTA */}
                     <div className="flex items-center justify-center gap-3 text-[10px] text-slate-500 pt-1 font-medium">
-                      <span>Cashfree Verified</span>
+                      <span className="flex items-center gap-1">
+                        <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                        <span>Cashfree Verified Merchant</span>
+                      </span>
                       <span>•</span>
-                      <span>256-Bit SSL</span>
+                      <span className="flex items-center gap-1">
+                        <Lock className="w-3 h-3 text-blue-600" />
+                        <span>256-Bit SSL Encrypted</span>
+                      </span>
                       <span>•</span>
-                      <span>GST Tax Invoice</span>
+                      <span className="flex items-center gap-1">
+                        <Receipt className="w-3 h-3 text-purple-600" />
+                        <span>Instant GST Invoice</span>
+                      </span>
                     </div>
 
                   </div>

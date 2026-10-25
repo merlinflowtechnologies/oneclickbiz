@@ -241,17 +241,17 @@ function LoginForm() {
       {/* Top Header */}
       <header className="w-full border-b border-[#E2E8F0]/70 bg-white/80 backdrop-blur-md sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between">
-          <Link href="/" className="inline-flex items-center gap-2 group">
+          <Link href="/" className="inline-flex items-center gap-2 group mx-auto lg:mx-0">
             <img 
               src="/logo-brand.png?v=4" 
               alt="OneClickBiz - Connect | Build | Grow" 
-              className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105 duration-200"
+              className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105 duration-200"
             />
           </Link>
 
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#174BFF] transition-colors px-3 py-1.5 rounded-lg hover:bg-blue-50"
+            className="hidden lg:inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#174BFF] transition-colors px-3 py-1.5 rounded-lg hover:bg-blue-50"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Website</span>
@@ -260,26 +260,27 @@ function LoginForm() {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col justify-center">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 flex flex-col justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Headline, Services & Login Card */}
-          <div className="lg:col-span-7 xl:col-span-7 space-y-6">
+          <div className="lg:col-span-7 xl:col-span-7 space-y-5">
             
             {/* Header Titles */}
             <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDF3FF] border border-[#C7D7FE] text-[#174BFF] text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-2.5 shadow-2xs">
+              <span className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDF3FF] border border-[#C7D7FE] text-[#174BFF] text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-2.5 shadow-2xs">
                 <Sparkles className="w-3.5 h-3.5 text-[#174BFF]" />
                 <span>All-in-One Business Platform</span>
               </span>
 
-              <p className="lg:hidden text-xs font-bold text-slate-500 mt-1 mb-0.5">Welcome Back 👋</p>
-              <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-black text-[#10183F] tracking-tight leading-tight">
+              <p className="lg:hidden text-xs sm:text-sm font-bold text-slate-500 mb-0.5">Welcome Back 👋</p>
+              <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-black text-[#10183F] tracking-tight leading-tight">
                 Sign in to <span className="text-[#174BFF]">OneClickBiz</span>
               </h1>
               
               <p className="mt-1 text-xs sm:text-sm text-slate-600 max-w-xl font-normal leading-relaxed">
-                Access your dashboard, manage your websites, online store, bookings, leads and more.
+                <span className="hidden lg:inline">Access your business dashboard, manage your websites, online store, bookings, leads and more.</span>
+                <span className="lg:hidden">Access your dashboard, manage your websites, online store, bookings, leads and more.</span>
               </p>
             </div>
 
@@ -311,19 +312,13 @@ function LoginForm() {
               </span>
             </div>
 
-            {/* Mobile Visual Preview (Visible only on mobile) */}
-            <div className="lg:hidden relative rounded-2xl bg-gradient-to-br from-blue-50 via-indigo-50/50 to-white p-3 border border-blue-100 shadow-sm overflow-hidden my-2">
+            {/* Mobile Visual Preview (Exact Mockup 3D Image with Tags & Plant) */}
+            <div className="lg:hidden rounded-2xl overflow-hidden my-2 shadow-xs border border-blue-100/80">
               <img 
-                src="/landing/hero-visual-4k.png" 
-                alt="OneClickBiz Device Suite" 
-                className="w-full max-h-[180px] object-contain mx-auto"
+                src="/landing/auth_hero_3d_mobile_clean.png" 
+                alt="OneClickBiz Multi-Device Business Suite" 
+                className="w-full object-contain mx-auto"
               />
-              <div className="flex flex-wrap justify-center gap-1.5 mt-2">
-                <span className="px-2 py-0.5 rounded-full bg-white/90 border border-slate-200 text-[10px] font-bold text-slate-700 shadow-2xs">🏥 Healthcare</span>
-                <span className="px-2 py-0.5 rounded-full bg-white/90 border border-slate-200 text-[10px] font-bold text-slate-700 shadow-2xs">🏠 Real Estate</span>
-                <span className="px-2 py-0.5 rounded-full bg-white/90 border border-slate-200 text-[10px] font-bold text-slate-700 shadow-2xs">🎓 Education</span>
-                <span className="px-2 py-0.5 rounded-full bg-white/90 border border-slate-200 text-[10px] font-bold text-slate-700 shadow-2xs">🛍️ Retail</span>
-              </div>
             </div>
 
             {/* Login Glassmorphic Card */}
@@ -522,59 +517,13 @@ function LoginForm() {
 
           </div>
 
-          {/* Right Column: Desktop 3D Device Showcase (Hidden on Mobile) */}
+          {/* Right Column: Desktop 3D Device Showcase (Exact Mockup Artwork with Annotations & Plant) */}
           <div className="hidden lg:flex lg:col-span-5 xl:col-span-5 flex-col items-center justify-center relative">
-            
-            {/* Ambient Backlight Glow */}
-            <div className="absolute w-[450px] h-[450px] bg-gradient-to-tr from-blue-300/30 via-indigo-200/25 to-pink-200/20 blur-[100px] pointer-events-none -z-10 rounded-full" />
-
-            {/* Doodles / Annotations */}
-            <div className="w-full relative">
-              
-              {/* Handwritten Note Top-Right */}
-              <div className="absolute -top-6 right-2 z-20 hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-white/95 border border-blue-200/80 shadow-md text-xs font-bold text-[#174BFF] rotate-2">
-                <span>Your Business Starts Here ✍️</span>
-              </div>
-
-              {/* 3D Visual Asset */}
-              <div className="relative group">
-                <img 
-                  src="/landing/hero-visual-4k.png" 
-                  alt="OneClickBiz 3D Multi-Device Platform" 
-                  className="w-full max-w-[500px] mx-auto object-contain transition-transform duration-500 group-hover:scale-[1.02] drop-shadow-[0_20px_40px_rgba(23,75,255,0.12)]"
-                />
-
-                {/* Floating Tags Matching Mockup */}
-                <div className="absolute top-12 -left-3 px-3 py-1.5 rounded-full bg-white/95 border border-emerald-200 text-emerald-800 text-xs font-bold shadow-lg flex items-center gap-1.5 animate-bounce [animation-duration:4s]">
-                  <span>🏥</span>
-                  <span>Healthcare</span>
-                </div>
-
-                <div className="absolute top-8 right-6 px-3 py-1.5 rounded-full bg-white/95 border border-blue-200 text-blue-800 text-xs font-bold shadow-lg flex items-center gap-1.5">
-                  <span>🎓</span>
-                  <span>Education</span>
-                </div>
-
-                <div className="absolute bottom-16 -left-4 px-3 py-1.5 rounded-full bg-white/95 border border-rose-200 text-rose-800 text-xs font-bold shadow-lg flex items-center gap-1.5">
-                  <span>💇‍♀️</span>
-                  <span>Salon & Beauty</span>
-                </div>
-
-                <div className="absolute bottom-10 right-2 px-3 py-1.5 rounded-full bg-white/95 border border-indigo-200 text-indigo-800 text-xs font-bold shadow-lg flex items-center gap-1.5">
-                  <span>💼</span>
-                  <span>Business & Consulting</span>
-                </div>
-              </div>
-
-              {/* Handwritten Note Bottom */}
-              <div className="mt-4 text-center">
-                <p className="inline-block text-xs font-bold text-[#174BFF] bg-blue-50/80 px-4 py-1.5 rounded-full border border-blue-200 shadow-2xs">
-                  ✨ Build Any Type of Business With OneClickBiz
-                </p>
-              </div>
-
-            </div>
-
+            <img 
+              src="/landing/auth_hero_3d_desktop_clean.png" 
+              alt="OneClickBiz 3D Multi-Device Platform" 
+              className="w-full max-w-[420px] object-contain drop-shadow-xl"
+            />
           </div>
 
         </div>
