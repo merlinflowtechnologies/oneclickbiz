@@ -12,7 +12,7 @@ import PricingSection from '@/components/landing/PricingSection';
 import FAQSection from '@/components/landing/FAQSection';
 import FinalCTASection from '@/components/landing/FinalCTASection';
 import ContactSupportSection from '@/components/landing/ContactSupportSection';
-import Footer from '@/components/landing/Footer';
+import Footer from '@/components/navigation/Footer';
 import DemoVideoSection from '@/components/home/DemoVideoSection';
 import { X } from 'lucide-react';
 

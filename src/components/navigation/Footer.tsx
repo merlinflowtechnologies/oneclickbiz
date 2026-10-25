@@ -43,7 +43,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#1B2A4A] text-white relative overflow-hidden">
+    <footer className="bg-[#1B2A4A] border-t border-[#C7D7FE] text-white relative overflow-hidden">
       
       {/* Top CTA Banner */}
       <div className="border-b border-white/10">
