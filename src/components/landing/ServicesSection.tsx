@@ -1,8 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import { SERVICES_CATALOG_24 } from '@/data/servicesData';
+import ServiceDetailSector from '@/components/landing/ServiceDetailSector';
 
 interface ServiceItem {
   id: string;
@@ -14,35 +16,47 @@ interface ServiceItem {
 }
 
 const ALL_SERVICES_24: ServiceItem[] = [
-  { id: 'personal-profile', name: 'Personal Profile', image: '/services/personal-profile.png?v=7', bgGrad: 'from-blue-50 to-indigo-100/60', borderColor: 'border-blue-200/70', link: '#demo' },
-  { id: 'mini-website', name: 'Mini Website', image: '/services/mini-website.png?v=7', bgGrad: 'from-purple-50 to-violet-100/60', borderColor: 'border-purple-200/70', link: '#demo' },
-  { id: 'whatsapp-store', name: 'WhatsApp Store', image: '/services/whatsapp-store.png?v=7', bgGrad: 'from-emerald-50 to-green-100/60', borderColor: 'border-emerald-200/70', link: '#demo' },
-  { id: 'e-commerce', name: 'E-commerce', image: '/services/e-commerce.png?v=7', bgGrad: 'from-rose-50 to-pink-100/60', borderColor: 'border-rose-200/70', link: '#demo' },
-  { id: 'visiting-cards', name: 'Visiting Cards, Flyers & Brochures', image: '/services/visiting-cards.png?v=7', bgGrad: 'from-amber-50 to-orange-100/60', borderColor: 'border-amber-200/70', link: '#templates' },
-  { id: 'lead-extractions', name: 'Lead Extractions', image: '/services/lead-extractions.png?v=7', bgGrad: 'from-indigo-50 to-blue-100/60', borderColor: 'border-indigo-200/70', link: '#demo' },
-  { id: 'custom-domain', name: 'Custom Domain & Landing Pages', image: '/services/custom-domain.png?v=7', bgGrad: 'from-sky-50 to-blue-100/60', borderColor: 'border-sky-200/70', link: '#demo' },
-  { id: 'reviews-ratings', name: 'Reviews & Ratings', image: '/services/reviews-ratings.png?v=7', bgGrad: 'from-amber-50 to-yellow-100/60', borderColor: 'border-amber-200/70', link: '#demo' },
+  { id: 'personal-profile', name: 'Personal Profile', image: '/services/personal-profile.png?v=7', bgGrad: 'from-blue-50 to-indigo-100/60', borderColor: 'border-blue-200/70', link: '#services' },
+  { id: 'mini-website', name: 'Mini Website', image: '/services/mini-website.png?v=7', bgGrad: 'from-purple-50 to-violet-100/60', borderColor: 'border-purple-200/70', link: '#services' },
+  { id: 'whatsapp-store', name: 'WhatsApp Store', image: '/services/whatsapp-store.png?v=7', bgGrad: 'from-emerald-50 to-green-100/60', borderColor: 'border-emerald-200/70', link: '#services' },
+  { id: 'e-commerce', name: 'E-commerce', image: '/services/e-commerce.png?v=7', bgGrad: 'from-rose-50 to-pink-100/60', borderColor: 'border-rose-200/70', link: '#services' },
+  { id: 'visiting-cards', name: 'Visiting Cards, Flyers & Brochures', image: '/services/visiting-cards.png?v=7', bgGrad: 'from-amber-50 to-orange-100/60', borderColor: 'border-amber-200/70', link: '#services' },
+  { id: 'lead-extractions', name: 'Lead Extractions', image: '/services/lead-extractions.png?v=7', bgGrad: 'from-indigo-50 to-blue-100/60', borderColor: 'border-indigo-200/70', link: '#services' },
+  { id: 'custom-domain', name: 'Custom Domain & Landing Pages', image: '/services/custom-domain.png?v=7', bgGrad: 'from-sky-50 to-blue-100/60', borderColor: 'border-sky-200/70', link: '#services' },
+  { id: 'reviews-ratings', name: 'Reviews & Ratings', image: '/services/reviews-ratings.png?v=7', bgGrad: 'from-amber-50 to-yellow-100/60', borderColor: 'border-amber-200/70', link: '#services' },
 
-  { id: 'gallery-space', name: 'Gallery Space', image: '/services/gallery-space.png?v=7', bgGrad: 'from-teal-50 to-emerald-100/60', borderColor: 'border-teal-200/70', link: '#demo' },
-  { id: 'articles-blogs', name: 'Articles & Blogs', image: '/services/articles-blogs.png?v=7', bgGrad: 'from-blue-50 to-indigo-100/60', borderColor: 'border-blue-200/70', link: '/blog' },
-  { id: 'commercial-usage', name: 'Commercial Usage', image: '/services/commercial-usage.png?v=7', bgGrad: 'from-orange-50 to-amber-100/60', borderColor: 'border-orange-200/70', link: '#pricing' },
-  { id: 'scaling-business', name: 'Scaling Your Business', image: '/services/scaling-business.png?v=7', bgGrad: 'from-rose-50 to-red-100/60', borderColor: 'border-rose-200/70', link: '#demo' },
-  { id: 'custom-templates', name: 'Custom Templates', image: '/services/custom-templates.png?v=7', bgGrad: 'from-purple-50 to-fuchsia-100/60', borderColor: 'border-purple-200/70', link: '#templates' },
-  { id: 'easy-designing', name: 'Easy Designing with Multiple Edits', image: '/services/easy-designing.png?v=7', bgGrad: 'from-pink-50 to-rose-100/60', borderColor: 'border-pink-200/70', link: '#demo' },
-  { id: 'product-space', name: 'Product Space', image: '/services/product-space.png?v=7', bgGrad: 'from-amber-50 to-orange-100/60', borderColor: 'border-amber-200/70', link: '#demo' },
-  { id: 'services-management', name: 'Services Management', image: '/services/services-management.png?v=7', bgGrad: 'from-blue-50 to-cyan-100/60', borderColor: 'border-blue-200/70', link: '#demo' },
+  { id: 'gallery-space', name: 'Gallery Space', image: '/services/gallery-space.png?v=7', bgGrad: 'from-teal-50 to-emerald-100/60', borderColor: 'border-teal-200/70', link: '#services' },
+  { id: 'articles-blogs', name: 'Articles & Blogs', image: '/services/articles-blogs.png?v=7', bgGrad: 'from-blue-50 to-indigo-100/60', borderColor: 'border-blue-200/70', link: '#services' },
+  { id: 'commercial-usage', name: 'Commercial Usage', image: '/services/commercial-usage.png?v=7', bgGrad: 'from-orange-50 to-amber-100/60', borderColor: 'border-orange-200/70', link: '#services' },
+  { id: 'scaling-business', name: 'Scaling Your Business', image: '/services/scaling-business.png?v=7', bgGrad: 'from-rose-50 to-red-100/60', borderColor: 'border-rose-200/70', link: '#services' },
+  { id: 'custom-templates', name: 'Custom Templates', image: '/services/custom-templates.png?v=7', bgGrad: 'from-purple-50 to-fuchsia-100/60', borderColor: 'border-purple-200/70', link: '#services' },
+  { id: 'easy-designing', name: 'Easy Designing with Multiple Edits', image: '/services/easy-designing.png?v=7', bgGrad: 'from-pink-50 to-rose-100/60', borderColor: 'border-pink-200/70', link: '#services' },
+  { id: 'product-space', name: 'Product Space', image: '/services/product-space.png?v=7', bgGrad: 'from-amber-50 to-orange-100/60', borderColor: 'border-amber-200/70', link: '#services' },
+  { id: 'services-management', name: 'Services Management', image: '/services/services-management.png?v=7', bgGrad: 'from-blue-50 to-cyan-100/60', borderColor: 'border-blue-200/70', link: '#services' },
 
-  { id: 'customized-qr', name: 'Customized QR Code', image: '/services/customized-qr.png?v=7', bgGrad: 'from-purple-50 to-indigo-100/60', borderColor: 'border-purple-200/70', link: '#demo' },
-  { id: 'payment-gateways', name: 'Payment Gateways', image: '/services/payment-gateways.png?v=7', bgGrad: 'from-sky-50 to-emerald-100/60', borderColor: 'border-sky-200/70', link: '#pricing' },
-  { id: 'canva-adobe', name: 'Canva & Adobe Integration', image: '/services/canva-adobe.png?v=7', bgGrad: 'from-cyan-50 to-rose-100/60', borderColor: 'border-cyan-200/70', link: '#demo' },
-  { id: 'email-signature', name: 'Email Signature Generator', image: '/services/email-signature.png?v=7', bgGrad: 'from-cyan-50 to-teal-100/60', borderColor: 'border-cyan-200/70', link: '/dashboard/signature' },
-  { id: 'report-pdf', name: 'Report PDF Extract', image: '/services/report-pdf.png?v=7', bgGrad: 'from-rose-50 to-red-100/60', borderColor: 'border-rose-200/70', link: '#demo' },
-  { id: 'live-profile', name: 'Live Profile', image: '/services/live-profile.png?v=7', bgGrad: 'from-red-50 to-rose-100/60', borderColor: 'border-red-200/70', link: '/v/kishore' },
-  { id: 'direct-app', name: 'Direct App Installation', image: '/services/direct-app.png?v=7', bgGrad: 'from-emerald-50 to-teal-100/60', borderColor: 'border-emerald-200/70', link: '#demo' },
-  { id: 'business-tools', name: 'Business Management Tools', image: '/services/business-tools.png?v=7', bgGrad: 'from-indigo-50 to-slate-100/60', borderColor: 'border-indigo-200/70', link: '#features' },
+  { id: 'customized-qr', name: 'Customized QR Code', image: '/services/customized-qr.png?v=7', bgGrad: 'from-purple-50 to-indigo-100/60', borderColor: 'border-purple-200/70', link: '#services' },
+  { id: 'payment-gateways', name: 'Payment Gateways', image: '/services/payment-gateways.png?v=7', bgGrad: 'from-sky-50 to-emerald-100/60', borderColor: 'border-sky-200/70', link: '#services' },
+  { id: 'canva-adobe', name: 'Canva & Adobe Integration', image: '/services/canva-adobe.png?v=7', bgGrad: 'from-cyan-50 to-rose-100/60', borderColor: 'border-cyan-200/70', link: '#services' },
+  { id: 'email-signature', name: 'Email Signature Generator', image: '/services/email-signature.png?v=7', bgGrad: 'from-cyan-50 to-teal-100/60', borderColor: 'border-cyan-200/70', link: '#services' },
+  { id: 'report-pdf', name: 'Report PDF Extract', image: '/services/report-pdf.png?v=7', bgGrad: 'from-rose-50 to-red-100/60', borderColor: 'border-rose-200/70', link: '#services' },
+  { id: 'live-profile', name: 'Live Profile', image: '/services/live-profile.png?v=7', bgGrad: 'from-red-50 to-rose-100/60', borderColor: 'border-red-200/70', link: '#services' },
+  { id: 'direct-app', name: 'Direct App Installation', image: '/services/direct-app.png?v=7', bgGrad: 'from-emerald-50 to-teal-100/60', borderColor: 'border-emerald-200/70', link: '#services' },
+  { id: 'business-tools', name: 'Business Management Tools', image: '/services/business-tools.png?v=7', bgGrad: 'from-indigo-50 to-slate-100/60', borderColor: 'border-indigo-200/70', link: '#services' },
 ];
 
 export default function ServicesSection() {
+  const [selectedServiceId, setSelectedServiceId] = useState<string>('whatsapp-store');
+
+  const handleSelectService = (id: string) => {
+    setSelectedServiceId(id);
+    const detailElement = document.getElementById('service-detail-sector');
+    if (detailElement) {
+      detailElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
+
+  const currentDetailService = SERVICES_CATALOG_24[selectedServiceId] || SERVICES_CATALOG_24['whatsapp-store'];
+
   return (
     <section id="services" className="py-12 sm:py-16 lg:py-20 bg-white border-b border-[#C7D7FE] relative">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,48 +74,84 @@ export default function ServicesSection() {
               </span>
             </h2>
             <p className="mt-1.5 text-xs sm:text-sm text-[#64718F] font-normal">
-              Create, manage and grow your business online with powerful tools in one place.
+              Click any tool below to explore how it works, read full capabilities, and view reference mockups.
             </p>
           </div>
 
-          <Link
-            href="#features"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-[#174BFF] bg-blue-50/80 hover:bg-blue-100/80 border border-blue-200 transition-colors shrink-0"
-          >
-            <span>View All Services</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-[#174BFF] bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-xl hidden sm:inline-flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#174BFF]" />
+              Tap any tool to open deep dive sector
+            </span>
+            <Link
+              href="#features"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-[#174BFF] bg-blue-50/80 hover:bg-blue-100/80 border border-blue-200 transition-colors shrink-0"
+            >
+              <span>View All Services</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
 
         {/* 24 Services Icon Grid: 8 columns on desktop, 4 on tablet, 2 on mobile */}
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-3.5">
-          {ALL_SERVICES_24.map((service) => (
-            <Link
-              key={service.id}
-              href={service.link}
-              className="group bg-white rounded-2xl border border-[#E2E9FA] hover:border-blue-300 p-2.5 sm:p-3 flex flex-col items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_28px_rgba(23,75,255,0.09)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer"
-            >
-              {/* 3D Realistic Icon Squircle (Enlarged) */}
-              <div
-                className={`w-[78px] h-[78px] sm:w-[90px] sm:h-[90px] rounded-2xl bg-gradient-to-br ${service.bgGrad} border ${service.borderColor} flex items-center justify-center mb-2.5 group-hover:scale-108 group-hover:shadow-md transition-all duration-300 shadow-2xs p-1`}
-              >
-                <img 
-                  src={service.image} 
-                  alt={service.name} 
-                  className="w-16 h-16 sm:w-[76px] sm:h-[76px] object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_8px_16px_rgba(0,0,0,0.1)]"
-                  loading="lazy"
-                />
-              </div>
+          {ALL_SERVICES_24.map((service) => {
+            const isSelected = selectedServiceId === service.id;
 
-              {/* Service Name */}
-              <h3 className="text-xs font-semibold text-[#10183F] group-hover:text-[#174BFF] transition-colors leading-snug line-clamp-2 min-h-[32px] flex items-center justify-center">
-                {service.name}
-              </h3>
-            </Link>
-          ))}
+            return (
+              <button
+                key={service.id}
+                type="button"
+                onClick={() => handleSelectService(service.id)}
+                className={`group rounded-2xl p-2.5 sm:p-3 flex flex-col items-center text-center transition-all duration-300 cursor-pointer relative text-left ${
+                  isSelected
+                    ? 'bg-blue-50/60 border-2 border-[#174BFF] ring-2 ring-[#174BFF]/20 shadow-[0_12px_28px_rgba(23,75,255,0.16)] -translate-y-1'
+                    : 'bg-white border border-[#E2E9FA] hover:border-blue-300 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_28px_rgba(23,75,255,0.09)] hover:-translate-y-1.5'
+                }`}
+              >
+                {/* Active Indicator Pip */}
+                {isSelected && (
+                  <span className="absolute -top-1.5 right-2 px-1.5 py-0.5 rounded-full bg-[#174BFF] text-white text-[9px] font-black uppercase tracking-wider shadow-xs animate-bounce">
+                    Active
+                  </span>
+                )}
+
+                {/* 3D Realistic Icon Squircle (Enlarged) */}
+                <div
+                  className={`w-[78px] h-[78px] sm:w-[90px] sm:h-[90px] rounded-2xl bg-gradient-to-br ${service.bgGrad} border ${service.borderColor} flex items-center justify-center mb-2.5 transition-all duration-300 shadow-2xs p-1 ${
+                    isSelected ? 'scale-105 shadow-md' : 'group-hover:scale-108 group-hover:shadow-md'
+                  }`}
+                >
+                  <img 
+                    src={service.image} 
+                    alt={service.name} 
+                    className="w-16 h-16 sm:w-[76px] sm:h-[76px] object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_8px_16px_rgba(0,0,0,0.1)]"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Service Name */}
+                <h3 className={`text-xs font-semibold leading-snug line-clamp-2 min-h-[32px] flex items-center justify-center transition-colors ${
+                  isSelected ? 'text-[#174BFF] font-bold' : 'text-[#10183F] group-hover:text-[#174BFF]'
+                }`}>
+                  {service.name}
+                </h3>
+              </button>
+            );
+          })}
         </div>
+
+        {/* DEEP DIVE SECTOR: Opens and displays rich matter, usage steps, and reference images */}
+        {currentDetailService && (
+          <ServiceDetailSector
+            service={currentDetailService}
+            allServiceIds={ALL_SERVICES_24.map((s) => s.id)}
+            onSelectService={handleSelectService}
+          />
+        )}
 
       </div>
     </section>
   );
 }
+
