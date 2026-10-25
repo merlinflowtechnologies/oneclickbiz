@@ -52,7 +52,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     "category": "Food Business",
     "subCategory": "Fine Dining & Cafes",
     "actionSubtitle": "Table Booking & Menu",
-    "imgUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&h=1000&q=85",
+    "imgUrl": "/landing/template_restaurant.png",
     "badge": "Popular",
     "tagline": "Visual photo food menu, 1-tap table reservations & chef specials",
     "features": [
@@ -69,7 +69,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     "category": "Beauty & Personal Care",
     "subCategory": "Hair & Beauty Salons",
     "actionSubtitle": "Salon Services & Spa",
-    "imgUrl": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&h=1000&q=85",
+    "imgUrl": "/landing/template_salon.png",
     "badge": "Luxury Salon",
     "tagline": "Bridal styling, hair care, spa treatments & instant stylist bookings",
     "features": [
@@ -171,7 +171,7 @@ export const VCARD_TEMPLATES_CATALOG: VCardTemplateItem[] = [
     "category": "Healthcare",
     "subCategory": "Doctors & Clinics",
     "actionSubtitle": "Consultation Desk",
-    "imgUrl": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&h=1000&q=85",
+    "imgUrl": "/landing/template_hospital.png",
     "badge": "Verified Doctor",
     "tagline": "OPD timings, clinic address navigation, credentials & instant booking",
     "features": [
@@ -310,7 +310,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
     "category": "Food Business",
     "subCategory": "Restaurants & Lounges",
     "actionSubtitle": "Digital Food Menu",
-    "imgUrl": "https://images.unsplash.com/flagged/photo-1561350117-501b4661f8d4?auto=format&fit=crop&w=800&h=1000&q=85",
+    "imgUrl": "/landing/template_restaurant.png",
     "badge": "Best Seller",
     "tagline": "Hyderabadi dum biryanis, tandoor starters, rooftop cocktails & dessert menu",
     "features": [
@@ -433,7 +433,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
     "category": "Beauty & Personal Care",
     "subCategory": "Salons",
     "actionSubtitle": "Top Rated Salons",
-    "imgUrl": "https://images.unsplash.com/photo-1600685890506-593fdf55949b?auto=format&fit=crop&w=800&h=1000&q=85",
+    "imgUrl": "/landing/template_salon.png",
     "badge": "Hot",
     "tagline": "Unisex hair styling, keratin, spa & grooming",
     "features": [
@@ -467,7 +467,7 @@ export const EXTENDED_VCARD_TEMPLATES: VCardTemplateItem[] = [
     "category": "Healthcare",
     "subCategory": "Doctors",
     "actionSubtitle": "Book Now",
-    "imgUrl": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&h=1000&q=85",
+    "imgUrl": "/landing/template_hospital.png",
     "badge": "Verified",
     "tagline": "Physicians, pediatricians, cardiologists & surgeons",
     "features": [
