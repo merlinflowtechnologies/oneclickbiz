@@ -161,10 +161,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   // Loading state
   if (isAdminAuthenticated === null) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-100/95 via-purple-100/80 to-pink-100/90 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-[#F4F7FF] via-[#F8FAFF] to-[#EDF2FF] text-[#10183F] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3 text-center">
-          <div className="w-9 h-9 border-2 border-rose-600 border-t-transparent rounded-full animate-spin" />
-          <p className="text-xs text-slate-600 font-semibold">Verifying Super Admin clearance...</p>
+          <div className="w-10 h-10 border-3 border-[#174BFF] border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs text-slate-600 font-bold">Verifying Super Admin clearance...</p>
         </div>
       </div>
     );
@@ -173,56 +173,83 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   // Strict Barrier Screen for non-admins / unauthorized
   if (isAdminAuthenticated === false) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-100/95 via-purple-100/80 to-pink-100/90 flex flex-col items-center justify-center p-4 sm:p-6 relative overflow-hidden">
-        {/* Background Ambient Glows */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[500px] bg-rose-300/30 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="min-h-screen bg-gradient-to-b from-[#F4F7FF] via-[#F8FAFF] to-[#EDF2FF] text-[#10183F] flex flex-col justify-between selection:bg-rose-100 selection:text-rose-900">
+        
+        {/* Top Header */}
+        <header className="w-full border-b border-[#E2E8F0]/70 bg-white/80 backdrop-blur-md sticky top-0 z-30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between">
+            <Link href="/" className="inline-flex items-center gap-2 group">
+              <img 
+                src="/logo-brand.png?v=4" 
+                alt="OneClickBiz - Connect | Build | Grow" 
+                className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105 duration-200"
+              />
+            </Link>
 
-        <div className="w-full max-w-lg bg-white/90 border border-white/90 rounded-3xl p-6 sm:p-8 backdrop-blur-2xl shadow-2xl text-center space-y-6">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-600 via-purple-600 to-indigo-600 flex items-center justify-center text-white mx-auto shadow-xl shadow-rose-500/25">
-            <ShieldCheck className="w-7 h-7" />
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#174BFF] transition-colors px-3 py-1.5 rounded-lg hover:bg-blue-50"
+            >
+              <span>Back to Website</span>
+            </Link>
           </div>
+        </header>
 
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold uppercase tracking-wider">
-              <Activity className="w-3.5 h-3.5 text-rose-600" /> Super Admin Access Required
+        {/* Barrier Card Content */}
+        <main className="flex-1 flex items-center justify-center p-4 sm:p-6">
+          <div className="w-full max-w-lg bg-white rounded-3xl border border-[#E2E8F0] p-6 sm:p-8 shadow-[0_12px_40px_rgba(23,75,255,0.06)] text-center space-y-6">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-rose-600 via-purple-600 to-indigo-600 flex items-center justify-center text-white mx-auto shadow-lg shadow-rose-500/20">
+              <ShieldCheck className="w-8 h-8" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Admin Console Restricted
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-              This environment is strictly reserved for platform administrators with root clearance. Business entity accounts cannot access this console.
-            </p>
-          </div>
 
-          <div className="space-y-3 pt-2">
-            <Link
-              href="/admin/login"
-              className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600 hover:from-rose-500 text-white font-bold text-xs shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 transition-all active:scale-95"
-            >
-              <ShieldCheck className="w-4 h-4" />
-              <span>Authenticate with Super Admin Key</span>
-              <ChevronRight className="w-4 h-4 ml-auto" />
-            </Link>
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold uppercase tracking-wider">
+                <Activity className="w-3.5 h-3.5 text-rose-600" /> Super Admin Access Required
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black text-[#10183F] tracking-tight">
+                Admin Console Restricted
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+                This environment is strictly reserved for platform administrators with root clearance. Business entity accounts cannot access this console.
+              </p>
+            </div>
 
-            <Link
-              href="/dashboard"
-              className="w-full py-3 px-4 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-semibold text-xs flex items-center justify-center gap-2 transition-all"
-            >
-              <LayoutDashboard className="w-4 h-4 text-indigo-600" />
-              <span>Go to Business User Dashboard</span>
-              <ChevronRight className="w-4 h-4 ml-auto" />
-            </Link>
-          </div>
+            <div className="space-y-3 pt-2">
+              <Link
+                href="/admin/login"
+                className="w-full h-12 rounded-2xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600 hover:from-rose-500 hover:to-indigo-500 text-white font-bold text-sm shadow-md shadow-rose-500/20 flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
+              >
+                <ShieldCheck className="w-4 h-4" />
+                <span>Authenticate with Super Admin Key</span>
+                <ChevronRight className="w-4 h-4 ml-auto" />
+              </Link>
 
-          <div className="pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
-            <Link href="/" className="hover:text-slate-900 transition">
-              ← Return to Main Website
-            </Link>
-            <Link href="/login" className="text-indigo-600 hover:text-indigo-700 font-semibold">
-              Business Sign In →
-            </Link>
+              <Link
+                href="/dashboard"
+                className="w-full h-11 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-2 transition-all"
+              >
+                <LayoutDashboard className="w-4 h-4 text-[#174BFF]" />
+                <span>Go to Business User Dashboard</span>
+                <ChevronRight className="w-4 h-4 ml-auto" />
+              </Link>
+            </div>
+
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+              <Link href="/" className="hover:text-slate-900 transition font-medium">
+                ← Return to Main Website
+              </Link>
+              <Link href="/login" className="text-[#174BFF] hover:text-blue-700 font-bold">
+                Business Sign In →
+              </Link>
+            </div>
           </div>
-        </div>
+        </main>
+
+        {/* Footer */}
+        <footer className="w-full border-t border-[#E2E8F0] bg-white/80 backdrop-blur-xs py-4 text-xs text-slate-500 text-center">
+          <p>© 2026 OneClickBiz. All rights reserved.</p>
+        </footer>
+
       </div>
     );
   }
