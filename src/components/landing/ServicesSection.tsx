@@ -33,7 +33,7 @@ import {
 interface ServiceItem {
   id: string;
   name: string;
-  icon: React.ComponentType;
+  icon: React.ComponentType<{ className?: string }>;
   bgGrad: string;
   borderColor: string;
   link: string;
@@ -111,9 +111,9 @@ export default function ServicesSection() {
               >
                 {/* Icon Squircle with subtle gradient background and custom border */}
                 <div
-                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.bgGrad} border ${service.borderColor} flex items-center justify-center mb-3 group-hover:scale-110 group-hover:shadow-sm transition-all duration-300 shadow-2xs`}
+                  className={`w-16 h-16 sm:w-[70px] sm:h-[70px] rounded-2xl bg-gradient-to-br ${service.bgGrad} border ${service.borderColor} flex items-center justify-center mb-3 group-hover:scale-110 group-hover:shadow-md transition-all duration-300 shadow-2xs`}
                 >
-                  <IconComp />
+                  <IconComp className="w-10 h-10 sm:w-11 sm:h-11" />
                 </div>
 
                 {/* Service Name */}

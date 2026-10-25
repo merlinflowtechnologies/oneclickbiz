@@ -5,9 +5,15 @@ import React from 'react';
  * designed specifically for OneClickBiz's core services.
  */
 
-export function PersonalProfileIcon() {
+export interface ServiceIconProps {
+  className?: string;
+}
+
+const DEFAULT_CLASS = 'w-10 h-10 sm:w-11 sm:h-11';
+
+export function PersonalProfileIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="ppGrad" x1="4" y1="4" x2="32" y2="32" gradientUnits="userSpaceOnUse">
           <stop stopColor="#3B82F6" />
@@ -23,9 +29,9 @@ export function PersonalProfileIcon() {
   );
 }
 
-export function MiniWebsiteIcon() {
+export function MiniWebsiteIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="mwGrad" x1="6" y1="14" x2="30" y2="21" gradientUnits="userSpaceOnUse">
           <stop stopColor="#8B5CF6" />
@@ -45,9 +51,9 @@ export function MiniWebsiteIcon() {
   );
 }
 
-export function WhatsAppStoreIcon() {
+export function WhatsAppStoreIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="waGrad" x1="3" y1="3" x2="33" y2="33" gradientUnits="userSpaceOnUse">
           <stop stopColor="#25D366" />
@@ -72,9 +78,9 @@ export function WhatsAppStoreIcon() {
   );
 }
 
-export function EcommerceIcon() {
+export function EcommerceIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="ecomGrad" x1="8" y1="11" x2="28" y2="33" gradientUnits="userSpaceOnUse">
           <stop stopColor="#FB7185" />
@@ -91,9 +97,9 @@ export function EcommerceIcon() {
   );
 }
 
-export function VisitingCardIcon() {
+export function VisitingCardIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="4" y="8" width="28" height="20" rx="3.5" fill="#0F172A" stroke="#475569" strokeWidth="1.2" />
       {/* EMV Gold Chip */}
       <rect x="8" y="13" width="6" height="5" rx="1" fill="#FBBF24" stroke="#D97706" strokeWidth="0.8" />
@@ -109,9 +115,9 @@ export function VisitingCardIcon() {
   );
 }
 
-export function LeadExtractionsIcon() {
+export function LeadExtractionsIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="magGrad" x1="7" y1="6" x2="29" y2="28" gradientUnits="userSpaceOnUse">
           <stop stopColor="#4F46E5" />
@@ -132,9 +138,9 @@ export function LeadExtractionsIcon() {
   );
 }
 
-export function CustomDomainIcon() {
+export function CustomDomainIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="globeGrad" x1="4" y1="4" x2="30" y2="30" gradientUnits="userSpaceOnUse">
           <stop stopColor="#0284C7" />
@@ -154,9 +160,9 @@ export function CustomDomainIcon() {
   );
 }
 
-export function ReviewsRatingsIcon() {
+export function ReviewsRatingsIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="starGold" x1="4" y1="3" x2="32" y2="31" gradientUnits="userSpaceOnUse">
           <stop stopColor="#FBBF24" />
@@ -178,9 +184,9 @@ export function ReviewsRatingsIcon() {
   );
 }
 
-export function GallerySpaceIcon() {
+export function GallerySpaceIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="scenicGrad" x1="12" y1="9" x2="30" y2="24" gradientUnits="userSpaceOnUse">
           <stop stopColor="#0EA5E9" />
@@ -201,9 +207,9 @@ export function GallerySpaceIcon() {
   );
 }
 
-export function ArticlesBlogsIcon() {
+export function ArticlesBlogsIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="6" y="4" width="22" height="28" rx="3" fill="#FFFFFF" stroke="#2563EB" strokeWidth="1.5" />
       <rect x="9" y="8" width="16" height="4.5" rx="1" fill="#3B82F6" />
       <rect x="9" y="15.5" width="16" height="2" rx="1" fill="#93C5FD" />
@@ -217,9 +223,9 @@ export function ArticlesBlogsIcon() {
   );
 }
 
-export function CommercialUsageIcon() {
+export function CommercialUsageIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="corpGrad" x1="18" y1="5" x2="32" y2="32" gradientUnits="userSpaceOnUse">
           <stop stopColor="#F97316" />
@@ -246,9 +252,9 @@ export function CommercialUsageIcon() {
   );
 }
 
-export function ScalingBusinessIcon() {
+export function ScalingBusinessIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="rocketGrad" x1="5" y1="20" x2="31" y2="4" gradientUnits="userSpaceOnUse">
           <stop stopColor="#F43F5E" />
@@ -269,9 +275,9 @@ export function ScalingBusinessIcon() {
   );
 }
 
-export function CustomTemplatesIcon() {
+export function CustomTemplatesIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* 4 Multi-Color Template Wireframes */}
       <rect x="4" y="5" width="12.5" height="11.5" rx="2.5" fill="#EDE9FE" stroke="#8B5CF6" strokeWidth="1.2" />
       <rect x="6" y="7" width="8.5" height="3" rx="1" fill="#8B5CF6" />
@@ -292,9 +298,9 @@ export function CustomTemplatesIcon() {
   );
 }
 
-export function EasyDesigningIcon() {
+export function EasyDesigningIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* Artist Palette */}
       <path
         d="M18 4 C10 4 4 10 4 18 C4 23 7 27 12 29 C14 29.8 15.5 28.5 15.5 27 C15.5 25.5 16.5 24.5 18 24.5 C20 24.5 22 25.5 22 27 C22 29 24 31 27 31 C30 31 33 27 33 21 C33 11 26 4 18 4 Z"
@@ -316,9 +322,9 @@ export function EasyDesigningIcon() {
   );
 }
 
-export function ProductSpaceIcon() {
+export function ProductSpaceIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* 3D Isometric Product Box */}
       <polygon points="18,5 29,11 18,17 7,11" fill="#FDE68A" stroke="#D97706" strokeWidth="1.2" />
       <polygon points="7,11 18,17 18,31 7,24" fill="#D97706" stroke="#B45309" strokeWidth="1.2" />
@@ -334,9 +340,9 @@ export function ProductSpaceIcon() {
   );
 }
 
-export function ServicesManagementIcon() {
+export function ServicesManagementIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="gearGrad" x1="8" y1="8" x2="26" y2="26" gradientUnits="userSpaceOnUse">
           <stop stopColor="#3B82F6" />
@@ -361,9 +367,9 @@ export function ServicesManagementIcon() {
   );
 }
 
-export function CustomizedQrIcon() {
+export function CustomizedQrIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* Dynamic QR Container */}
       <rect x="4" y="4" width="28" height="28" rx="4" fill="#F5F3FF" stroke="#7C3AED" strokeWidth="1.4" />
       {/* 3 Corner Positioning Eyes */}
@@ -392,9 +398,9 @@ export function CustomizedQrIcon() {
   );
 }
 
-export function PaymentGatewaysIcon() {
+export function PaymentGatewaysIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="cardGrad" x1="4" y1="7" x2="27" y2="23" gradientUnits="userSpaceOnUse">
           <stop stopColor="#0284C7" />
@@ -420,9 +426,9 @@ export function PaymentGatewaysIcon() {
   );
 }
 
-export function CanvaAdobeIcon() {
+export function CanvaAdobeIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         {/* Official Canva Turquoise-Cyan to Purple Gradient */}
         <linearGradient id="canvaCircleGrad" x1="3" y1="8" x2="21" y2="26" gradientUnits="userSpaceOnUse">
@@ -456,9 +462,9 @@ export function CanvaAdobeIcon() {
   );
 }
 
-export function EmailSignatureIcon() {
+export function EmailSignatureIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* Business Envelope */}
       <rect x="4" y="10" width="28" height="20" rx="3" fill="#ECFEFF" stroke="#0891B2" strokeWidth="1.3" />
       <path d="M4 11 L18 21 L32 11" fill="none" stroke="#0891B2" strokeWidth="1.3" />
@@ -479,9 +485,9 @@ export function EmailSignatureIcon() {
   );
 }
 
-export function ReportPdfIcon() {
+export function ReportPdfIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* Adobe Acrobat Style PDF Document */}
       <path d="M8 4 L22 4 L28 10 L28 32 L8 32 Z" fill="#FEF2F2" stroke="#EF4444" strokeWidth="1.4" />
       <polygon points="22,4 28,10 22,10" fill="#FCA5A5" />
@@ -496,9 +502,9 @@ export function ReportPdfIcon() {
   );
 }
 
-export function LiveProfileIcon() {
+export function LiveProfileIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* Broadcast Transmission Mast */}
       <polygon points="18,12 14.5,30 21.5,30" fill="#EF4444" opacity="0.9" />
       <circle cx="18" cy="11" r="3.5" fill="#DC2626" stroke="#FEF2F2" strokeWidth="1" />
@@ -513,9 +519,9 @@ export function LiveProfileIcon() {
   );
 }
 
-export function DirectAppIcon() {
+export function DirectAppIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* Smartphone Chassis */}
       <rect x="7" y="3" width="22" height="30" rx="4.5" fill="#0F172A" stroke="#334155" strokeWidth="1.3" />
       <rect x="9" y="6" width="18" height="24" rx="2" fill="#F0FDF4" />
@@ -531,9 +537,9 @@ export function DirectAppIcon() {
   );
 }
 
-export function BusinessToolsIcon() {
+export function BusinessToolsIcon({ className = DEFAULT_CLASS }: ServiceIconProps = {}) {
   return (
-    <svg viewBox="0 0 36 36" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 36 36" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bcGrad" x1="5" y1="11" x2="31" y2="30" gradientUnits="userSpaceOnUse">
           <stop stopColor="#4338CA" />
