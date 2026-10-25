@@ -304,20 +304,28 @@ export default function ServiceDetailSector({
             </div>
 
             {/* Reference Image Container with Zoom & Hover Effects */}
-            <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-inner group flex-1 min-h-[260px] sm:min-h-[320px] flex items-center justify-center">
+            <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-inner group flex-1 min-h-[280px] sm:min-h-[340px] flex items-center justify-center">
               <img 
+                key={service.referenceImage}
                 src={service.referenceImage} 
                 alt={`${service.name} reference illustration`}
-                className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${
-                  imageLoaded ? 'opacity-100' : 'opacity-90'
-                }`}
-                onLoad={() => setImageLoaded(true)}
+                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                loading="eager"
               />
 
               {/* Floating Highlight Tag */}
               <div className="absolute top-3 left-3 bg-[#10183F]/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/20 shadow-md flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-400" />
                 {service.name} in Action
+              </div>
+
+              {/* Floating Service 3D Mini Icon Badge */}
+              <div className="absolute top-3 right-3 w-9 h-9 rounded-xl bg-white/90 backdrop-blur-md border border-white/40 shadow-md flex items-center justify-center p-1">
+                <img 
+                  src={service.iconImage} 
+                  alt="" 
+                  className="w-7 h-7 object-contain"
+                />
               </div>
 
               {/* Bottom Gradient Overlay with Caption */}

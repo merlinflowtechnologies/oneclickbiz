@@ -84,8 +84,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Repeat Order Rate', value: '3.8x' },
       { label: 'Order Processing Time', value: '< 30s' }
     ],
-    referenceImage: '/services/references/whatsapp-store.jpg',
-    referenceCaption: 'Customer browsing catalog, adding to cart, and placing direct WhatsApp order with automatic item breakdown.',
+    referenceImage: '/services/references/whatsapp-store.jpg?v=8',
+    referenceCaption: 'Customer browsing mobile catalog, adding items to cart, and placing direct WhatsApp order with automatic item breakdown.',
     demoUrl: '#templates',
     ctaText: 'Launch Your WhatsApp Store Now',
     ctaUrl: '/signup'
@@ -140,8 +140,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Paper Saved / Year', value: '1,000+' },
       { label: 'Update Latency', value: 'Instant' }
     ],
-    referenceImage: '/services/references/visiting-cards.jpg',
-    referenceCaption: 'Luxury matte NFC Smart Card tapping smartphone to instantly save verified profile & contact credentials.',
+    referenceImage: '/services/references/personal-profile.jpg?v=8',
+    referenceCaption: 'Executive digital business card mockup with 1-tap "Save Contact to Phone", verified credentials, and quick action hub.',
     demoUrl: '/v/kishore',
     ctaText: 'Create Your Personal Profile',
     ctaUrl: '/signup'
@@ -196,7 +196,7 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Mobile Conversion', value: '+42%' },
       { label: 'Setup Time', value: '5 Mins' }
     ],
-    referenceImage: '/services/references/mini-website.jpg',
+    referenceImage: '/services/references/mini-website.jpg?v=8',
     referenceCaption: 'Responsive mini-website displaying verified reviews, service menu, and 1-tap booking on laptop and mobile.',
     demoUrl: '#templates',
     ctaText: 'Build Your Mini Website',
@@ -252,7 +252,7 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Payment Success Rate', value: '99.4%' },
       { label: 'Setup Overhead', value: '₹0' }
     ],
-    referenceImage: '/services/references/e-commerce.jpg',
+    referenceImage: '/services/references/e-commerce.jpg?v=8',
     referenceCaption: 'Modern e-commerce showcase featuring interactive product grid, instant checkout, and verified secure payment badges.',
     demoUrl: '#demo',
     ctaText: 'Start Selling Online Today',
@@ -308,7 +308,7 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Print Waste Reduction', value: '90%' },
       { label: 'NFC Compatibility', value: '100%' }
     ],
-    referenceImage: '/services/references/visiting-cards.jpg',
+    referenceImage: '/services/references/visiting-cards.jpg?v=8',
     referenceCaption: 'Luxury matte black smart card with gold foil logo, NFC tap-to-phone contact transfer, and matching marketing flyers.',
     demoUrl: '#templates',
     ctaText: 'Design Your Smart Cards & Flyers',
@@ -364,7 +364,7 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Follow-up Speed', value: '3x Faster' },
       { label: 'Export Format', value: 'Excel / CSV' }
     ],
-    referenceImage: '/services/references/lead-extractions.jpg',
+    referenceImage: '/services/references/lead-extractions.jpg?v=8',
     referenceCaption: 'Real-time Lead Extraction CRM dashboard showing incoming inquiries, conversion analytics, and 1-click Excel export.',
     demoUrl: '#demo',
     ctaText: 'Start Capturing Leads Now',
@@ -420,8 +420,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'SSL Cost', value: '₹0 (Free)' },
       { label: 'Ad Quality Score', value: '9/10' }
     ],
-    referenceImage: '/services/references/mini-website.jpg',
-    referenceCaption: 'Custom domain connected seamlessly with verified SSL padlock and responsive multi-device rendering.',
+    referenceImage: '/services/references/custom-domain.jpg?v=8',
+    referenceCaption: 'Connected custom domain with green SSL padlock, DNS verification checkmarks, and 0.4s global edge CDN status.',
     demoUrl: '#demo',
     ctaText: 'Connect Your Custom Domain',
     ctaUrl: '/signup'
@@ -476,7 +476,7 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Local Search Inquiries', value: '+54%' },
       { label: 'Star Rating Avg', value: '4.9 ★' }
     ],
-    referenceImage: '/services/references/reviews-ratings.jpg',
+    referenceImage: '/services/references/reviews-ratings.jpg?v=8',
     referenceCaption: '5-Star reputation booster smartphone interface showing glowing stars, verified feedback cards, and Google review redirect.',
     demoUrl: '#demo',
     ctaText: 'Boost Your 5-Star Reviews',
@@ -532,8 +532,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Visual Engagement', value: '+65%' },
       { label: 'Storage', value: 'Unlimited' }
     ],
-    referenceImage: '/services/references/mini-website.jpg',
-    referenceCaption: 'High-resolution photo gallery showcasing business projects with categorized tabs and lightbox zoom.',
+    referenceImage: '/services/references/gallery-space.jpg?v=8',
+    referenceCaption: 'Visual portfolio showcase with categorized photo albums, lightbox zoom indicator, and direct WhatsApp project inquiry.',
     demoUrl: '#templates',
     ctaText: 'Create Your Photo Gallery',
     ctaUrl: '/signup'
@@ -588,8 +588,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Google Index Speed', value: '< 24 Hours' },
       { label: 'Ad Spend Saved', value: '100%' }
     ],
-    referenceImage: '/services/references/lead-extractions.jpg',
-    referenceCaption: 'SEO-optimized article reader layout with rich media embeds and integrated customer inquiry banner.',
+    referenceImage: '/services/references/articles-blogs.jpg?v=8',
+    referenceCaption: 'SEO-optimized article reader layout with #1 Google search ranking snippet preview, reading time, and lead capture.',
     demoUrl: '/blog',
     ctaText: 'Start Publishing Blogs',
     ctaUrl: '/signup'
@@ -644,8 +644,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Branding Freedom', value: '100%' },
       { label: 'Staff Seats', value: 'Unlimited' }
     ],
-    referenceImage: '/services/references/visiting-cards.jpg',
-    referenceCaption: 'Enterprise commercial white-label deployment with multi-card team provisioning and custom domain branding.',
+    referenceImage: '/services/references/commercial-usage.jpg?v=8',
+    referenceCaption: 'Enterprise team management screen with multi-staff roles, granular permissions, and 100% white-label certificate.',
     demoUrl: '#pricing',
     ctaText: 'Unlock Commercial License',
     ctaUrl: '/signup'
@@ -700,8 +700,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Customer Retention', value: '+48%' },
       { label: 'Outlets Supported', value: '50+' }
     ],
-    referenceImage: '/services/references/lead-extractions.jpg',
-    referenceCaption: 'Business scaling dashboard with multi-branch performance metrics, lead tracking, and expansion intelligence.',
+    referenceImage: '/services/references/scaling-business.jpg?v=8',
+    referenceCaption: 'Multi-branch performance dashboard with live location metrics across metros, revenue growth charts, and lead routing.',
     demoUrl: '#demo',
     ctaText: 'Scale Your Business Today',
     ctaUrl: '/signup'
@@ -756,8 +756,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Industries Covered', value: '25+' },
       { label: 'Setup Time Saved', value: '95%' }
     ],
-    referenceImage: '/services/references/mini-website.jpg',
-    referenceCaption: 'Industry template library featuring live working demos for restaurants, clinics, salons, and retail shops.',
+    referenceImage: '/services/references/custom-templates.jpg?v=8',
+    referenceCaption: 'Vertical-specific template library featuring ready-made themes for clinics, restaurants, salons, and real estate.',
     demoUrl: '#templates',
     ctaText: 'Explore All 100+ Templates',
     ctaUrl: '/vcard-templates'
@@ -812,8 +812,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Live Sync Latency', value: '50ms' },
       { label: 'Designer Fees Saved', value: '₹20,000+' }
     ],
-    referenceImage: '/services/references/mini-website.jpg',
-    referenceCaption: 'Intuitive visual editor with live phone preview simulator and instant real-time color and text updates.',
+    referenceImage: '/services/references/easy-designing.jpg?v=8',
+    referenceCaption: 'No-code visual studio interface with drag-and-drop elements palette, brand color swatches, and live mobile simulator.',
     demoUrl: '#demo',
     ctaText: 'Try The Visual Designer',
     ctaUrl: '/signup'
@@ -868,8 +868,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Search Speed', value: '15ms' },
       { label: 'Conversion Lift', value: '+38%' }
     ],
-    referenceImage: '/services/references/e-commerce.jpg',
-    referenceCaption: 'Organized product catalog displaying high-resolution photos, variant pricing, and direct purchase triggers.',
+    referenceImage: '/services/references/product-space.jpg?v=8',
+    referenceCaption: 'Comprehensive inventory catalog grid with SKU numbers, stock alert badges, instant search bar, and variant pricing.',
     demoUrl: '#demo',
     ctaText: 'Upload Your Products',
     ctaUrl: '/signup'
@@ -924,8 +924,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Booking Automation', value: '24/7' },
       { label: 'Client Satisfaction', value: '98%' }
     ],
-    referenceImage: '/services/references/mini-website.jpg',
-    referenceCaption: 'Interactive service rate card with time slot selector, staff preference, and instant booking notification.',
+    referenceImage: '/services/references/services-management.jpg?v=8',
+    referenceCaption: 'Interactive appointment booking calendar with date picker, real-time time slots, staff selection, and confirmation slips.',
     demoUrl: '#demo',
     ctaText: 'Automate Your Bookings',
     ctaUrl: '/signup'
@@ -980,7 +980,7 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Error Correction', value: '30% (Level H)' },
       { label: 'Print Resolution', value: 'Vector / 4K' }
     ],
-    referenceImage: '/services/references/customized-qr.jpg',
+    referenceImage: '/services/references/customized-qr.jpg?v=8',
     referenceCaption: 'Premium acrylic QR standee on boutique counter with customer scanning to open live digital store and contacts.',
     demoUrl: '#demo',
     ctaText: 'Generate Your Custom QR Code',
@@ -1036,8 +1036,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Checkout Time', value: '< 15s' },
       { label: 'UPI Compatibility', value: '100%' }
     ],
-    referenceImage: '/services/references/e-commerce.jpg',
-    referenceCaption: 'Secure checkout modal showcasing UPI, debit/credit cards, and instant bank-grade encrypted transaction verification.',
+    referenceImage: '/services/references/payment-gateways.jpg?v=8',
+    referenceCaption: 'Bank-grade payment checkout sheet featuring instant UPI (GPay, PhonePe, Paytm), credit/debit cards, and net banking.',
     demoUrl: '#pricing',
     ctaText: 'Enable Instant Payments',
     ctaUrl: '/signup'
@@ -1092,8 +1092,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Visual Quality Retention', value: '99%' },
       { label: 'Format Support', value: 'PNG, JPG, WebP' }
     ],
-    referenceImage: '/services/references/mini-website.jpg',
-    referenceCaption: 'Creative banner showcase displaying high-fidelity Canva and Adobe promotional graphics with responsive scaling.',
+    referenceImage: '/services/references/canva-adobe.jpg?v=8',
+    referenceCaption: 'Creative suite sync workspace showing Canva and Adobe graphic assets imported and auto-resized for mobile and desktop.',
     demoUrl: '#demo',
     ctaText: 'Integrate Your Designs',
     ctaUrl: '/signup'
@@ -1148,8 +1148,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Client Compatibility', value: '100%' },
       { label: 'Setup Time', value: '60 Seconds' }
     ],
-    referenceImage: '/services/references/visiting-cards.jpg',
-    referenceCaption: 'Interactive digital email signature preview displaying professional headshot, company title, and clickable action buttons.',
+    referenceImage: '/services/references/email-signature.jpg?v=8',
+    referenceCaption: 'Desktop email compose window featuring professional interactive HTML signature footer with clickable WhatsApp and vCard buttons.',
     demoUrl: '/dashboard/signature',
     ctaText: 'Generate Your Email Signature',
     ctaUrl: '/signup'
@@ -1204,8 +1204,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Paperwork Time Saved', value: '4 hrs/wk' },
       { label: 'Print Resolution', value: '300 DPI' }
     ],
-    referenceImage: '/services/references/lead-extractions.jpg',
-    referenceCaption: 'Itemized analytics and inquiry report PDF preview with formatted data tables and company letterhead.',
+    referenceImage: '/services/references/report-pdf.jpg?v=8',
+    referenceCaption: 'Itemized analytics and inquiry report PDF preview with company letterhead, GSTIN, data tables, and print-ready layout.',
     demoUrl: '#demo',
     ctaText: 'Extract Your First Report',
     ctaUrl: '/signup'
@@ -1260,8 +1260,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Uptime', value: '99.99%' },
       { label: 'Outdated Info Risk', value: '0%' }
     ],
-    referenceImage: '/services/references/visiting-cards.jpg',
-    referenceCaption: 'Live profile updating instantly across mobile and desktop devices with real-time status indicators.',
+    referenceImage: '/services/references/live-profile.jpg?v=8',
+    referenceCaption: 'Live business profile simulator with green "Open Now" status pill, live visitor counter, and instant global sync indicator.',
     demoUrl: '/v/kishore',
     ctaText: 'Launch Your Live Profile',
     ctaUrl: '/signup'
@@ -1316,8 +1316,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Install Size', value: '< 2 MB' },
       { label: 'App Store Commission', value: '0%' }
     ],
-    referenceImage: '/services/references/whatsapp-store.jpg',
-    referenceCaption: 'Progressive Web App installation prompt adding branded app icon directly onto customer smartphone home screen.',
+    referenceImage: '/services/references/direct-app.jpg?v=8',
+    referenceCaption: 'Progressive Web App installation prompt adding branded business app icon directly onto customer smartphone home screen.',
     demoUrl: '#demo',
     ctaText: 'Get Your Branded Mobile App',
     ctaUrl: '/signup'
@@ -1372,8 +1372,8 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
       { label: 'Apps Replaced', value: '6 Separate Apps' },
       { label: 'Data Security', value: '256-Bit SSL' }
     ],
-    referenceImage: '/services/references/lead-extractions.jpg',
-    referenceCaption: 'Unified business management dashboard organizing orders, appointments, customer directory, and daily revenue.',
+    referenceImage: '/services/references/business-tools.jpg?v=8',
+    referenceCaption: 'Central business operations command cockpit with quick access modules for CRM, WhatsApp orders, billing, and appointments.',
     demoUrl: '#features',
     ctaText: 'Access All Business Tools',
     ctaUrl: '/signup'
