@@ -37,30 +37,49 @@ import {
   Eye, 
   Check, 
   Menu,
-  ExternalLink
+  ExternalLink,
+  Play,
+  Download,
+  Compass,
+  Zap,
+  MessageCircle
 } from 'lucide-react';
 import ShareCardModal from '@/components/common/ShareCardModal';
 
-// Clean inline SVGs for Brand Icons
+// Clean SVG Brand Icons matching the interior design system
 function WhatsAppIcon({ className = "w-5 h-5" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.84 2.791.84 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.503-4.478 9.98-9.969 9.98-1.748 0-3.37-.45-4.793-1.238l-5.238 1.372 1.396-5.105c-.888-1.488-1.365-3.21-1.365-5.009 0-5.503 4.478-9.98 9.969-9.98 5.491 0 10 4.477 10 9.98zm-5.467 3.513c-.22-.11-1.303-.643-1.505-.716-.202-.074-.35-.11-.498.11-.148.22-.572.716-.701.863-.129.147-.257.165-.477.055-.22-.11-.93-.343-1.771-1.093-.655-.584-1.097-1.306-1.226-1.526-.129-.22-.014-.339.096-.448.099-.099.22-.257.33-.385.11-.129.147-.22.22-.367.074-.147.037-.275-.018-.385-.055-.11-.498-1.2-.682-1.643-.179-.432-.361-.373-.498-.38-.129-.007-.276-.008-.423-.008s-.386.055-.588.275c-.202.22-.772.754-.772 1.838s.79 2.132.9 2.279c.11.147 1.554 2.373 3.765 3.327.526.227.936.363 1.256.465.528.168 1.009.144 1.389.088.423-.063 1.303-.533 1.487-1.047.184-.514.184-.954.129-1.047-.055-.092-.202-.147-.422-.257z"/>
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.57 14.37C16.32 14.24 15.1 13.64 14.87 13.56C14.64 13.48 14.48 13.44 14.31 13.69C14.15 13.94 13.68 14.49 13.54 14.65C13.4 14.81 13.26 14.83 13.01 14.71C12.76 14.59 11.96 14.33 11.01 13.48C10.27 12.82 9.77 12 9.63 11.75C9.49 11.5 9.35 11.37 9.1 11.25C8.85 11.12 7.73 10.57 7.5 10.45C7.27 10.33 7.11 10.27 6.94 10.52C6.78 10.77 6.31 11.32 6.17 11.48C6.03 11.64 5.89 11.66 5.64 11.54C5.39 11.41 4.59 11.15 3.64 10.3C2.9 9.64 2.4 8.82 2.26 8.57C2.12 8.32 2.24 8.19 2.36 8.06C2.47 7.94 2.61 7.77 2.73 7.63C2.85 7.49 2.9 7.39 2.98 7.22C3.06 7.05 3.02 6.9 2.96 6.77C2.9 6.64 2.44 5.51 2.25 5.05C2.06 4.59 1.88 4.65 1.74 4.64C1.6 4.63 1.44 4.63 1.28 4.63C1.12 4.63 0.86 4.69 0.64 4.93C0.42 5.17 -0.19 5.76 -0.19 6.96C-0.19 8.16 0.69 9.31 0.81 9.47C0.93 9.63 2.53 12.1 4.97 13.16C5.55 13.41 6 13.57 6.35 13.68C6.93 13.86 7.46 13.83 7.88 13.77C8.35 13.7 9.32 13.18 9.52 12.61C9.72 12.04 9.72 11.55 9.66 11.45C9.6 11.35 9.44 11.29 9.19 11.17Z" />
     </svg>
   );
 }
 
 function InstagramIcon({ className = "w-5 h-5" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
     </svg>
   );
 }
 
-// 8 Popular Diamond Shapes with descriptions and mock SVG silhouettes
+function FacebookIcon({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+    </svg>
+  );
+}
+
+function YoutubeIcon({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  );
+}
+
+// 8 Popular Diamond Shapes with descriptions, ratios, and real human wearing imagery
 const DIAMOND_SHAPES = [
   {
     id: 'round',
@@ -68,18 +87,18 @@ const DIAMOND_SHAPES = [
     facets: '57 Facets',
     sparkle: 'Maximum Scintillation & Fire',
     ratio: '1.00 : 1.00',
-    description: 'The quintessential diamond cut engineered with mathematical precision for unbeatable brilliance.',
-    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80',
+    description: 'The timeless classic engineered with optical symmetry. Reflects 99.8% of incoming light for unmatched sparkle.',
+    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=700&q=80',
     svgPath: 'M12 2L2 9l3 11h14l3-11L12 2zm0 3.2L18.4 9H5.6L12 5.2zM7.5 10.5h9l-4.5 7.5-4.5-7.5z'
   },
   {
     id: 'oval',
     name: 'Oval Cut',
     facets: '58 Facets',
-    sparkle: 'Elongating Finger Profile',
+    sparkle: 'Finger-Elongating Elegance',
     ratio: '1.35 : 1.50',
-    description: 'Combines the classic sparkle of a round cut with an elegant contour that creates an illusion of larger size.',
-    image: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=600&q=80',
+    description: 'Combines the intense fire of a round cut with a flattering elliptical shape that elongates the hand beautifully.',
+    image: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=700&q=80',
     svgPath: 'M12 2C7 2 4 6.5 4 12s3 10 8 10 8-4.5 8-10-3-10-8-10zm0 2.5c3.5 0 5.5 3.5 5.5 7.5s-2 7.5-5.5 7.5S6.5 16 6.5 12 8.5 4.5 12 4.5z'
   },
   {
@@ -88,8 +107,8 @@ const DIAMOND_SHAPES = [
     facets: '50 Facets',
     sparkle: 'Hall-of-Mirrors Step Cut',
     ratio: '1.40 : 1.55',
-    description: 'Vintage Art Deco glam with rectangular stepped facets that highlight diamond clarity and pure crystalline depth.',
-    image: 'https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?auto=format&fit=crop&w=600&q=80',
+    description: 'Art Deco royalty. Rectangular step-cut facets highlight crystalline optical purity and structural sophistication.',
+    image: 'https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?auto=format&fit=crop&w=700&q=80',
     svgPath: 'M6 3h12l4 4v10l-4 4H6l-4-4V7l4-4zm1.5 2.5L4.5 8v8l3 2.5h9l3-2.5V8L16.5 5.5h-9z'
   },
   {
@@ -98,57 +117,57 @@ const DIAMOND_SHAPES = [
     facets: '58 Facets',
     sparkle: 'Teardrop Silhouette Elegance',
     ratio: '1.50 : 1.70',
-    description: 'A striking hybrid of the round and marquise cuts creating a poetic teardrop shape of extraordinary elegance.',
-    image: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=600&q=80',
+    description: 'Poetic teardrop silhouette pairing the brilliant facets of a round cut with a graceful tapered tip.',
+    image: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=700&q=80',
     svgPath: 'M12 2s-7 8-7 13a7 7 0 0 0 14 0c0-5-7-13-7-13zm0 4.2c2.8 3.5 4.5 7.2 4.5 10.8a4.5 4.5 0 0 1-9 0c0-3.6 1.7-7.3 4.5-10.8z'
   },
   {
     id: 'radiant',
     name: 'Radiant Cut',
     facets: '70 Facets',
-    sparkle: 'Electric Fiery Brilliance',
+    sparkle: 'Fiery Scintillating Modernism',
     ratio: '1.15 : 1.30',
-    description: 'Combines the bold emerald shape silhouette with the dazzling facet brilliance of a round cut.',
-    image: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80',
+    description: 'A cropped-corner octagonal diamond engineered with 70 brilliant facets for deep, high-voltage dispersion.',
+    image: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=700&q=80',
     svgPath: 'M6 2h12l4 4v12l-4 4H6l-4-4V6l4-4zm1.5 2L4 7.5v9L7.5 20h9l3.5-3.5v-9L16.5 4h-9z'
   },
   {
     id: 'princess',
     name: 'Princess Cut',
     facets: '76 Facets',
-    sparkle: 'Sharp Geometric Sparkle',
+    sparkle: 'Contemporary Sharp Geometry',
     ratio: '1.00 : 1.05',
-    description: 'Contemporary square silhouette with inverted pyramid facets that radiate intense sparkle from every corner.',
-    image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=600&q=80',
+    description: 'Iconic square solitaire cut with inverted pyramid facets that shoot blinding light out from every angle.',
+    image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=700&q=80',
     svgPath: 'M3 3h18v18H3V3zm2.5 2.5v13h13v-13h-13zM12 7l4 5-4 5-4-5 4-5z'
   },
   {
     id: 'marquise',
     name: 'Marquise Cut',
     facets: '58 Facets',
-    sparkle: 'Dramatic Regal Proportions',
+    sparkle: 'Regal French Crown Presence',
     ratio: '1.85 : 2.10',
     description: 'Commissioned by King Louis XV of France, this elliptical shape with pointed ends creates an imperial visual presence.',
-    image: 'https://images.unsplash.com/photo-1598560917505-59a3ad559071?auto=format&fit=crop&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1598560917505-59a3ad559071?auto=format&fit=crop&w=700&q=80',
     svgPath: 'M12 2C7 7 2 12 2 12s5 5 10 10c5-5 10-10 10-10s-5-5-10-10zm0 3.5c3.5 3.5 6.5 6.5 6.5 6.5S15.5 15.5 12 18.5c-3.5-3-6.5-6.5-6.5-6.5S8.5 8.5 12 5.5z'
   },
   {
     id: 'heart',
     name: 'Heart Cut',
     facets: '59 Facets',
-    sparkle: 'The Ultimate Romance Solitaire',
+    sparkle: 'The Master Romantic Solitaire',
     ratio: '1.00 : 1.00',
-    description: 'Requiring master-level precision lapidary skill to balance symmetry, cleft depth, and exceptional radiance.',
-    image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80',
+    description: 'Requires master lapidary craftsmanship to balance cleft depth, wing symmetry, and exquisite central fire.',
+    image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80',
     svgPath: 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'
   }
 ];
 
-// Curated Mock Fine Lab Diamond Products
+// Curated Mock Fine Lab Diamond Products - ALL WITH REAL HUMANS WEARING THE JEWELLERY
 const MOCK_JEWELLERY_PRODUCTS = [
   {
     id: 'jb-1',
-    name: 'Toi Et Moi Emerald & Pear Diamond Solitaire Ring',
+    name: 'Toi Et Moi Emerald & Pear Solitaire Ring',
     category: 'Solitaire Rings',
     shape: 'emerald',
     carat: '1.45 Ct VVS2-E',
@@ -156,7 +175,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 47067,
     mrp: 56300,
     discountPercent: 16,
-    imageUrl: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=700&q=80',
     tag: 'Bestseller',
     description: 'Iconic dual solitaire celebration ring featuring an emerald step-cut paired seamlessly with a sparkling teardrop pear diamond.',
     specs: { cut: 'Ideal', color: 'E', clarity: 'VVS2', certification: 'IGI Certified (Laser Inscribed)' }
@@ -171,7 +190,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 38450,
     mrp: 45900,
     discountPercent: 16,
-    imageUrl: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=700&q=80',
     tag: 'Classic',
     description: 'Six-prong platinum claw setting embracing an exquisite D-color colorless round brilliant solitaire with micro-pave diamond band.',
     specs: { cut: 'Hearts & Arrows Ideal', color: 'D', clarity: 'VVS1', certification: 'IGI & GIA Certified' }
@@ -186,7 +205,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 60518,
     mrp: 69881,
     discountPercent: 13,
-    imageUrl: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=700&q=80',
     tag: 'Red Carpet',
     description: 'Continuous ribbon of hand-selected lab-grown diamonds set in four-prong flexible articulated links with double safety catch.',
     specs: { cut: 'Excellent', color: 'EF', clarity: 'VVS-VS', certification: 'SGL Certified & Hallmarked' }
@@ -201,7 +220,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 27408,
     mrp: 32507,
     discountPercent: 15,
-    imageUrl: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80',
     tag: 'Trending',
     description: 'An elongated oval brilliant diamond suspended from a delicate cable chain in warm 18Kt yellow gold with hidden diamond halo.',
     specs: { cut: 'Ideal', color: 'F', clarity: 'VVS2', certification: 'IGI Certified' }
@@ -216,7 +235,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 18533,
     mrp: 21920,
     discountPercent: 15,
-    imageUrl: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=700&q=80',
     tag: 'Daily Luxe',
     description: 'Featherweight threader earrings featuring graduated teardrop diamonds that dance with natural light and movement.',
     specs: { cut: 'Very Good', color: 'G', clarity: 'VS1', certification: 'BIS Hallmarked Gold' }
@@ -231,7 +250,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 68900,
     mrp: 82500,
     discountPercent: 16,
-    imageUrl: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=700&q=80',
     tag: 'Grand Solitaire',
     description: 'Spectacular 2-carat radiant solitaire with 70 brilliant facets mounted on a sleek 2mm comfort-fit solid gold shank.',
     specs: { cut: 'Ideal', color: 'E', clarity: 'VVS1', certification: 'IGI Certified' }
@@ -246,7 +265,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 25547,
     mrp: 32416,
     discountPercent: 21,
-    imageUrl: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=700&q=80',
     tag: 'Heritage',
     description: 'Contemporary tribute to classic South Indian Vanki chevron silhouette set with precision pavé diamonds.',
     specs: { cut: 'Ideal', color: 'EF', clarity: 'VVS', certification: 'BIS 916 Hallmarked' }
@@ -261,7 +280,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 40247,
     mrp: 48900,
     discountPercent: 17,
-    imageUrl: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=700&q=80',
     tag: 'Men\'s Bold',
     description: 'Satin-brushed 6mm architectonic band with flush tension-set princess cut lab diamond. Designed for rugged everyday wear.',
     specs: { cut: 'Princess Ideal', color: 'F', clarity: 'VS1', certification: 'IGI Certified' }
@@ -276,7 +295,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 21037,
     mrp: 25672,
     discountPercent: 18,
-    imageUrl: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=80',
     tag: 'Must Have',
     description: 'The definitive daily luxury stud. Secure screw-back posts with protective 4-claw baskets that sit flush against the earlobe.',
     specs: { cut: 'Excellent', color: 'E', clarity: 'VVS2', certification: 'IGI Certified' }
@@ -291,7 +310,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 27946,
     mrp: 35065,
     discountPercent: 20,
-    imageUrl: 'https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=700&q=80',
     tag: 'Modern Bride',
     description: 'Auspicious black onyx beads paired with a shimmering infinity diamond cluster in 18Kt gold. Sleek, symbolic, and stackable.',
     specs: { cut: 'Ideal', color: 'EF', clarity: 'VVS', certification: 'BIS Hallmarked Gold' }
@@ -306,7 +325,7 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 51416,
     mrp: 61613,
     discountPercent: 16,
-    imageUrl: 'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?auto=format&fit=crop&w=700&q=80',
     tag: 'Luxury Studs',
     description: 'Square princess cut solitaires nestled in polished warm rose gold four-prong bezels that reflect ambient candle light.',
     specs: { cut: 'Ideal', color: 'D', clarity: 'VVS1', certification: 'IGI Certified' }
@@ -321,56 +340,56 @@ const MOCK_JEWELLERY_PRODUCTS = [
     price: 39116,
     mrp: 47829,
     discountPercent: 18,
-    imageUrl: 'https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=700&q=80',
     tag: 'Statement',
     description: 'An elongated marquise solitaire gracefully suspended from a diamond bail, creating dramatic neckline symmetry.',
     specs: { cut: 'Ideal', color: 'D', clarity: 'VVS2', certification: 'IGI & GIA Certified' }
   }
 ];
 
-// Occasions data
+// Occasions data with humans wearing the jewellery
 const OCCASIONS_DATA = [
   {
     id: 'workwear',
     title: 'Workwear Chic',
     subtitle: 'Minimal 9-to-5 Brilliance',
     desc: 'Understated solitaires, huggies, and slender tennis bracelets curated for boardrooms and daily desk elegance.',
-    img: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80'
+    img: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=700&q=80'
   },
   {
     id: 'everyday',
     title: 'Everyday Luxury',
     subtitle: 'Lightweight & Effortless',
     desc: 'Designed for daily showers, workouts, and sleep with comfortable smooth bezels and low-profile settings.',
-    img: 'https://images.unsplash.com/photo-1598560917505-59a3ad559071?auto=format&fit=crop&w=600&q=80'
+    img: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=700&q=80'
   },
   {
     id: 'bridal',
     title: 'Bridal & Proposals',
     subtitle: 'Ethereal Solitaire Sets',
     desc: 'Grand proposal solitaires, eternity wedding bands, and magnificent heirloom diamond chokers for your big day.',
-    img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80'
+    img: 'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?auto=format&fit=crop&w=700&q=80'
   },
   {
     id: 'festive',
     title: 'Festive Celebrations',
     subtitle: 'Traditional Indian Radiance',
     desc: 'Modern interpretations of heritage vanki chevron rings, chandbalis, and layered diamond necklaces.',
-    img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80'
+    img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80'
   },
   {
     id: 'gifting',
     title: 'Gifts Under ₹30,000',
     subtitle: 'Tokens of Forever Love',
     desc: 'Thoughtfully priced IGI certified lab diamond jewelry in solid 14Kt gold, delivered in velvet presentation boxes.',
-    img: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=600&q=80'
+    img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=700&q=80'
   },
   {
     id: 'mens',
     title: 'Men\'s Diamond Atelier',
     subtitle: 'Bold, Architectural, Him',
     desc: 'Platinum & dual-tone gold bands, flush solitaire signets, diamond cufflinks, and heavy chain links.',
-    img: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=600&q=80'
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80'
   }
 ];
 
@@ -479,7 +498,6 @@ export default function JewelleryMiniWebsiteView({
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isAppointmentModalOpen, setIsAppointmentModalOpen] = useState(false);
-  const [appointmentType, setAppointmentType] = useState<'store' | 'video'>('store');
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -508,7 +526,60 @@ export default function JewelleryMiniWebsiteView({
   const atelierName = 'Lumière Diamonds & Fine Jewels';
   const rawPhone = profile.phone || '+91 98765 43210';
   const cleanPhone = rawPhone.replace(/\D/g, '');
+  const cleanCallNumber = rawPhone.replace(/[^0-9+]/g, '') || '+919876543210';
   const cleanWa = profile.whatsapp?.replace(/\D/g, '') || (cleanPhone.length === 10 ? `91${cleanPhone}` : cleanPhone || '919876543210');
+  const userCity = 'Mumbai, Delhi, Bengaluru & Hyderabad';
+
+  const instagramLink = useMemo(() => {
+    const raw = (profile as any).socialLinks?.instagram || (profile as any).instagram || 'https://instagram.com';
+    if (!raw) return 'https://instagram.com';
+    if (raw.startsWith('http')) return raw;
+    return `https://instagram.com/${raw.replace('@', '').trim()}`;
+  }, [profile]);
+
+  const facebookLink = useMemo(() => {
+    const raw = (profile as any).socialLinks?.facebook || (profile as any).facebook || 'https://facebook.com';
+    if (!raw) return 'https://facebook.com';
+    if (raw.startsWith('http')) return raw;
+    return `https://facebook.com/${raw.replace('@', '').trim()}`;
+  }, [profile]);
+
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Lumière Diamonds Atelier Linking Road Bandra West Mumbai')}`;
+  const emailUrl = `mailto:${profile.email || 'concierge@lumierediamonds.com'}?subject=${encodeURIComponent('Inquiry from Lumière Digital Boutique')}`;
+
+  // Smooth scroll helper ensuring mobile menu closes
+  const scrollToSection = (id: string) => {
+    setIsMobileMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // vCard download helper for SAVE CONTACT squircle
+  const handleDownloadVCard = () => {
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Lumière Diamonds & Fine Jewels
+ORG:Lumière Diamonds Atelier
+TITLE:Conscious Lab-Grown Diamonds & Fine Gold Jewellery
+TEL;TYPE=WORK,VOICE:+919876543210
+TEL;TYPE=CELL,VOICE:+919876543210
+EMAIL:concierge@lumierediamonds.com
+URL:https://lumierediamonds.com
+ADR;TYPE=WORK:;;Bandra West;Mumbai;Maharashtra;400050;India
+NOTE:IGI & GIA Certified Lab-Grown Diamonds • BIS Hallmarked 18Kt Gold • 80% Buyback
+END:VCARD`;
+
+    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'Lumiere_Fine_Jewels.vcf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   // Filtered Products
   const filteredProducts = useMemo(() => {
@@ -577,7 +648,7 @@ export default function JewelleryMiniWebsiteView({
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1A1D20] font-sans antialiased selection:bg-[#D4AF37]/30 selection:text-black">
+    <div className="w-full max-w-full overflow-x-hidden min-h-screen bg-[#FAF8F5] text-[#1A1D20] font-sans antialiased selection:bg-[#D4AF37]/30 selection:text-black">
       
       {/* 1. TOP LUXURY ANNOUNCEMENT TICKER */}
       <div className="bg-[#14171A] text-stone-200 text-[11px] sm:text-xs py-2 px-3 sm:px-6 border-b border-stone-800">
@@ -586,7 +657,7 @@ export default function JewelleryMiniWebsiteView({
             <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#D4AF37]/20 text-[#E6CA65] text-[10px] font-semibold tracking-wider uppercase border border-[#D4AF37]/30">
               <Sparkles className="w-3 h-3 text-[#D4AF37]" /> Conscious Luxury
             </span>
-            <span className="text-stone-300">
+            <span className="text-stone-300 text-[11px] sm:text-xs">
               IGI & GIA Certified Lab-Grown Diamonds • BIS 14K/18K Hallmarked • 80% Lifetime Buyback • 15-Day Free Returns
             </span>
           </div>
@@ -595,7 +666,9 @@ export default function JewelleryMiniWebsiteView({
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               Live Gold (18K): <strong className="text-amber-200">₹6,480/g</strong>
             </span>
-            <a href="#stores" className="hover:text-amber-200 transition-colors">Experience Lounges</a>
+            <button onClick={() => scrollToSection('stores')} className="hover:text-amber-200 transition-colors cursor-pointer">
+              Experience Lounges
+            </button>
             <span className="text-stone-700">|</span>
             <a 
               href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi Lumiere Concierge, I would like assistance with jewellery selection.')}`}
@@ -610,7 +683,7 @@ export default function JewelleryMiniWebsiteView({
       </div>
 
       {/* 2. MAIN LUXURY STICKY NAVBAR */}
-      <header className="sticky top-0 z-40 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-stone-200/80 transition-all">
+      <header className="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-stone-200/80 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18 sm:h-20">
             
@@ -618,13 +691,13 @@ export default function JewelleryMiniWebsiteView({
             <div className="flex items-center gap-3 sm:gap-6">
               <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-                className="lg:hidden p-2 rounded-lg text-stone-700 hover:bg-stone-200/50"
+                className="lg:hidden p-2 rounded-lg text-stone-700 hover:bg-stone-200/50 cursor-pointer"
                 aria-label="Toggle Menu"
               >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 text-stone-800" />}
               </button>
 
-              <a href="#" className="flex items-center gap-3 group">
+              <button onClick={() => scrollToSection('home')} className="flex items-center gap-3 group text-left cursor-pointer">
                 <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-tr from-[#9B7824] via-[#D4AF37] to-[#F3E8D0] p-[1.5px] shadow-md shadow-[#D4AF37]/20 group-hover:scale-105 transition-transform">
                   <div className="w-full h-full rounded-full bg-[#14171A] flex items-center justify-center">
                     <span className="font-serif text-lg font-bold text-[#F3E8D0] tracking-widest">L</span>
@@ -638,18 +711,19 @@ export default function JewelleryMiniWebsiteView({
                     Lab Diamonds & Fine Jewels
                   </div>
                 </div>
-              </a>
+              </button>
             </div>
 
             {/* Center: Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-7 text-[13px] tracking-wider uppercase font-medium text-stone-700">
-              <a href="#bestsellers" className="hover:text-[#9B7824] transition-colors py-1 relative hover:after:w-full after:w-0 after:h-[2px] after:bg-[#D4AF37] after:absolute after:bottom-0 after:left-0 after:transition-all">Bestsellers</a>
-              <a href="#shapes" className="hover:text-[#9B7824] transition-colors py-1 relative hover:after:w-full after:w-0 after:h-[2px] after:bg-[#D4AF37] after:absolute after:bottom-0 after:left-0 after:transition-all">Shop By Shape</a>
-              <a href="#custom-studio" className="hover:text-[#9B7824] transition-colors py-1 relative hover:after:w-full after:w-0 after:h-[2px] after:bg-[#D4AF37] after:absolute after:bottom-0 after:left-0 after:transition-all">Bespoke 3D CAD</a>
-              <a href="#occasions" className="hover:text-[#9B7824] transition-colors py-1 relative hover:after:w-full after:w-0 after:h-[2px] after:bg-[#D4AF37] after:absolute after:bottom-0 after:left-0 after:transition-all">Occasions</a>
-              <a href="#why-lab" className="hover:text-[#9B7824] transition-colors py-1 relative hover:after:w-full after:w-0 after:h-[2px] after:bg-[#D4AF37] after:absolute after:bottom-0 after:left-0 after:transition-all">Why Lab Diamonds</a>
-              <a href="#stores" className="hover:text-[#9B7824] transition-colors py-1 relative hover:after:w-full after:w-0 after:h-[2px] after:bg-[#D4AF37] after:absolute after:bottom-0 after:left-0 after:transition-all">Lounges</a>
-              <a href="#reviews" className="hover:text-[#9B7824] transition-colors py-1 relative hover:after:w-full after:w-0 after:h-[2px] after:bg-[#D4AF37] after:absolute after:bottom-0 after:left-0 after:transition-all">Reviews</a>
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-7 text-[12px] xl:text-[13px] tracking-wider uppercase font-medium text-stone-700">
+              <button onClick={() => scrollToSection('bestsellers')} className="hover:text-[#9B7824] transition-colors py-1 cursor-pointer">Bestsellers</button>
+              <button onClick={() => scrollToSection('shapes')} className="hover:text-[#9B7824] transition-colors py-1 cursor-pointer">Shop By Shape</button>
+              <button onClick={() => scrollToSection('custom-studio')} className="hover:text-[#9B7824] transition-colors py-1 cursor-pointer">Bespoke 3D CAD</button>
+              <button onClick={() => scrollToSection('occasions')} className="hover:text-[#9B7824] transition-colors py-1 cursor-pointer">Occasions</button>
+              <button onClick={() => scrollToSection('social')} className="hover:text-[#9B7824] transition-colors py-1 text-[#C5A059] font-bold cursor-pointer">Lookbook Reels</button>
+              <button onClick={() => scrollToSection('why-lab')} className="hover:text-[#9B7824] transition-colors py-1 cursor-pointer">Why Lab Diamonds</button>
+              <button onClick={() => scrollToSection('stores')} className="hover:text-[#9B7824] transition-colors py-1 cursor-pointer">Lounges</button>
+              <button onClick={() => scrollToSection('reviews')} className="hover:text-[#9B7824] transition-colors py-1 cursor-pointer">Reviews</button>
             </nav>
 
             {/* Right: Quick Action Icons */}
@@ -658,7 +732,7 @@ export default function JewelleryMiniWebsiteView({
               {/* Wishlist */}
               <button 
                 onClick={() => setIsWishlistOpen(true)}
-                className="relative p-2 rounded-full hover:bg-stone-200/50 text-stone-700 transition-colors"
+                className="relative p-2 rounded-full hover:bg-stone-200/50 text-stone-700 transition-colors cursor-pointer"
                 aria-label="Wishlist"
               >
                 <Heart className="w-5 h-5 text-stone-700" />
@@ -672,7 +746,7 @@ export default function JewelleryMiniWebsiteView({
               {/* Shopping Bag */}
               <button 
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 rounded-full hover:bg-stone-200/50 text-stone-700 transition-colors"
+                className="relative p-2 rounded-full hover:bg-stone-200/50 text-stone-700 transition-colors cursor-pointer"
                 aria-label="Cart"
               >
                 <ShoppingBag className="w-5 h-5 text-stone-700" />
@@ -686,7 +760,7 @@ export default function JewelleryMiniWebsiteView({
               {/* Book Appointment CTA */}
               <button 
                 onClick={() => setIsAppointmentModalOpen(true)}
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#14171A] hover:bg-[#252a30] text-[#F3E8D0] text-xs font-medium tracking-wider uppercase shadow-md shadow-black/10 hover:shadow-black/20 transition-all border border-[#D4AF37]/40"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#14171A] hover:bg-[#252a30] text-[#F3E8D0] text-xs font-medium tracking-wider uppercase shadow-md shadow-black/10 hover:shadow-black/20 transition-all border border-[#D4AF37]/40 cursor-pointer"
               >
                 <Calendar className="w-3.5 h-3.5 text-[#D4AF37]" />
                 <span>Book Lounge Visit</span>
@@ -695,7 +769,7 @@ export default function JewelleryMiniWebsiteView({
               {/* Share */}
               <button 
                 onClick={() => setIsShareModalOpen(true)}
-                className="p-2 rounded-full hover:bg-stone-200/50 text-stone-700 transition-colors"
+                className="p-2 rounded-full hover:bg-stone-200/50 text-stone-700 transition-colors cursor-pointer"
                 title="Share Boutique"
               >
                 <Share2 className="w-5 h-5" />
@@ -708,19 +782,20 @@ export default function JewelleryMiniWebsiteView({
         {isMobileMenuOpen && (
           <div className="lg:hidden bg-[#FAF8F5] border-b border-stone-300 px-6 py-6 space-y-4 shadow-xl">
             <nav className="flex flex-col space-y-3 text-sm tracking-wider uppercase font-medium text-stone-800">
-              <a href="#bestsellers" onClick={() => setIsMobileMenuOpen(false)} className="py-1">Bestsellers</a>
-              <a href="#shapes" onClick={() => setIsMobileMenuOpen(false)} className="py-1">Shop By Diamond Shape</a>
-              <a href="#custom-studio" onClick={() => setIsMobileMenuOpen(false)} className="py-1">Custom 3D CAD Studio</a>
-              <a href="#occasions" onClick={() => setIsMobileMenuOpen(false)} className="py-1">Shop By Occasion</a>
-              <a href="#why-lab" onClick={() => setIsMobileMenuOpen(false)} className="py-1">Why Lab-Grown Diamonds</a>
-              <a href="#stores" onClick={() => setIsMobileMenuOpen(false)} className="py-1">Experience Lounges</a>
-              <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="py-1">Customer Reviews</a>
-              <a href="#faqs" onClick={() => setIsMobileMenuOpen(false)} className="py-1">Certifications & FAQs</a>
+              <button onClick={() => scrollToSection('bestsellers')} className="py-1 text-left">Bestsellers</button>
+              <button onClick={() => scrollToSection('shapes')} className="py-1 text-left">Shop By Diamond Shape</button>
+              <button onClick={() => scrollToSection('custom-studio')} className="py-1 text-left">Custom 3D CAD Studio</button>
+              <button onClick={() => scrollToSection('occasions')} className="py-1 text-left">Shop By Occasion</button>
+              <button onClick={() => scrollToSection('social')} className="py-1 text-left text-[#9B7824] font-bold">Social Lookbook Reels</button>
+              <button onClick={() => scrollToSection('why-lab')} className="py-1 text-left">Why Lab-Grown Diamonds</button>
+              <button onClick={() => scrollToSection('stores')} className="py-1 text-left">Experience Lounges</button>
+              <button onClick={() => scrollToSection('reviews')} className="py-1 text-left">Customer Reviews</button>
+              <button onClick={() => scrollToSection('faqs')} className="py-1 text-left">Certifications & FAQs</button>
             </nav>
             <div className="pt-4 border-t border-stone-200 flex flex-col gap-2.5">
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); setIsAppointmentModalOpen(true); }}
-                className="w-full py-3 rounded-full bg-[#14171A] text-amber-200 text-xs font-semibold tracking-wider uppercase text-center"
+                className="w-full py-3 rounded-full bg-[#14171A] text-amber-200 text-xs font-semibold tracking-wider uppercase text-center cursor-pointer"
               >
                 Book Private Lounge Viewing
               </button>
@@ -737,112 +812,189 @@ export default function JewelleryMiniWebsiteView({
         )}
       </header>
 
-      {/* 3. HERO SECTION - CINEMATIC LUXURY SOLITAIRE BANNER */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFEA] to-[#FAF8F5] pt-8 sm:pt-14 pb-16 sm:pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      {/* 3. HERO SECTION - WITH EXACT 9 APP-STYLE CONTACT SQUIRCLES */}
+      <section id="home" className="relative overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFEA] to-[#FAF8F5] pt-6 sm:pt-12 pb-12 sm:pb-20">
+        
+        {/* Ambient Glows */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full overflow-hidden pointer-events-none opacity-40">
+          <div className="absolute -top-24 right-10 w-[550px] h-[550px] bg-[#C5A880]/15 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-10 w-[500px] h-[400px] bg-amber-500/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-5xl mx-auto space-y-3 sm:space-y-4">
             
-            {/* Left Column: Headline & Value Proposition */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-900 text-stone-200 text-xs font-medium tracking-widest uppercase shadow-sm">
-                <Gem className="w-3.5 h-3.5 text-[#D4AF37]" />
-                <span>India's Conscious Solitaire Atelier</span>
-              </div>
-
-              <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#14171A] font-normal tracking-tight leading-[1.12]">
-                Where Timeless Brilliance Meets <span className="italic font-serif text-[#9B7824]">Conscious Luxury.</span>
-              </h1>
-
-              <p className="text-stone-600 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-                Discover 100% genuine lab-grown diamonds crafted in solid 14Kt and 18Kt BIS Hallmarked gold. Certified by 
-                <strong className="text-stone-900 font-medium"> IGI & GIA</strong> with identical physical, optical, and chemical brilliance — at up to <strong className="text-[#9B7824] font-medium">70% lower price</strong> than earth-mined diamonds.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
-                <a 
-                  href="#bestsellers" 
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#14171A] hover:bg-[#252a30] text-[#F3E8D0] text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-lg shadow-black/15 transition-all text-center flex items-center justify-center gap-2 group border border-[#D4AF37]/40"
-                >
-                  <span>Explore Bestsellers</span>
-                  <ArrowRight className="w-4 h-4 text-[#D4AF37] group-hover:translate-x-1 transition-transform" />
-                </a>
-
-                <a 
-                  href="#custom-studio" 
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-stone-100 text-stone-800 text-xs sm:text-sm font-semibold tracking-wider uppercase border border-stone-300 shadow-sm transition-all text-center flex items-center justify-center gap-2"
-                >
-                  <Sparkles className="w-4 h-4 text-[#9B7824]" />
-                  <span>Custom 3D CAD Quote</span>
-                </a>
-              </div>
-
-              {/* Micro-metrics Row */}
-              <div className="pt-6 border-t border-stone-200/80 grid grid-cols-3 gap-4 text-center lg:text-left">
-                <div>
-                  <div className="font-serif text-2xl sm:text-3xl font-bold text-[#14171A]">6,000+</div>
-                  <div className="text-[11px] sm:text-xs text-stone-500 uppercase tracking-wider">Certified Designs</div>
-                </div>
-                <div>
-                  <div className="font-serif text-2xl sm:text-3xl font-bold text-[#14171A]">100%</div>
-                  <div className="text-[11px] sm:text-xs text-stone-500 uppercase tracking-wider">Conflict-Free Carbon</div>
-                </div>
-                <div>
-                  <div className="font-serif text-2xl sm:text-3xl font-bold text-[#9B7824]">80%</div>
-                  <div className="text-[11px] sm:text-xs text-stone-500 uppercase tracking-wider">Lifetime Buyback</div>
-                </div>
+            {/* Atelier Avatar / Logo - Wearing Diamond Jewellery */}
+            <div className="flex justify-center pt-1">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-white shadow-xl overflow-hidden bg-white flex items-center justify-center p-0.5">
+                <img 
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" 
+                  alt="Lumière Fine Jewellery Atelier" 
+                  className="w-full h-full object-cover rounded-full"
+                />
               </div>
             </div>
 
-            {/* Right Column: Hero Visual Solitaire Showcase */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
+            {/* Top Verification Pill */}
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-[#C5A880]/40 text-[#8C6D46] text-[11px] sm:text-xs font-bold shadow-xs max-w-[94vw]">
+              <Award className="w-3.5 h-3.5 text-[#8C6D46] shrink-0" />
+              <span className="truncate">IGI & GIA Certified Lab Diamonds • BIS 14K & 18K Hallmarked</span>
+            </div>
+
+            {/* Main Architectural Headline */}
+            <h1 className="font-serif text-2xl xs:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-stone-900 tracking-tight leading-[1.18]">
+              Where Timeless Brilliance Meets{' '}
+              <span className="text-[#8C6D46] block sm:inline font-bold">
+                Conscious Luxury.
+              </span>
+            </h1>
+
+            {/* Sub-headline */}
+            <p className="font-sans text-xs xs:text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed px-2">
+              Lumière crafts IGI & GIA certified lab-grown diamond solitaires, bridal jewels, and everyday gold essentials in Mumbai, Delhi, Bengaluru &amp; Hyderabad with 100% optical brilliance, flat 80% lifetime buyback, and zero environmental mining footprint.
+            </p>
+
+            {/* Studio Location Strip */}
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-700 text-xs sm:text-sm font-semibold shadow-xs max-w-[94vw]">
+                <MapPin className="w-3.5 h-3.5 text-[#8C6D46] shrink-0" />
+                <span className="truncate">Bandra, Mumbai • South Ex, Delhi • Indiranagar, Bengaluru • Jubilee Hills, Hyderabad</span>
+              </div>
+            </div>
+
+            {/* ─────────────────────────────────────────────────────────────
+                HERO APP-STYLE CONTACT SQUIRCLES (Exact 9 Squircles Like Interior)
+            ───────────────────────────────────────────────────────────── */}
+            <div className="pt-3 sm:pt-5 pb-3 w-full max-w-full overflow-x-auto no-scrollbar scroll-smooth">
+              <div className="flex flex-nowrap items-center justify-start lg:justify-center gap-3 sm:gap-4 w-max lg:w-auto px-4 lg:px-0 lg:mx-auto">
                 
-                {/* Glow Backdrop */}
-                <div className="absolute -inset-4 bg-gradient-to-tr from-[#D4AF37]/20 via-[#F3E8D0]/40 to-transparent rounded-3xl blur-2xl -z-10" />
+                {/* 1. CALL */}
+                <a
+                  href={`tel:${cleanCallNumber}`}
+                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                >
+                  <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#059669] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <Phone className="w-6 h-6 sm:w-7 sm:h-7 fill-white text-white" />
+                  </div>
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-700 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
+                    CALL
+                  </span>
+                </a>
 
-                {/* Main Visual Card */}
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-stone-200/60 bg-white group">
-                  <div className="aspect-[4/5] sm:aspect-[4/4.5] overflow-hidden bg-stone-100">
-                    <img 
-                      src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=85" 
-                      alt="Solitaire Diamond Ring"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
+                {/* 2. WHATSAPP */}
+                <a
+                  href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi Lumière Diamonds Atelier, I would like to inquire about IGI certified lab diamond jewellery.')}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                >
+                  <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#25D366] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 fill-white text-white" />
                   </div>
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-700 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
+                    WHATSAPP
+                  </span>
+                </a>
 
-                  {/* Floating Certificate Trust Pill */}
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-stone-200/80 shadow-md flex items-center gap-2 text-xs font-medium text-stone-800">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                    <span>IGI Certified • Laser Inscribed</span>
+                {/* 3. INSTAGRAM */}
+                <a
+                  href={instagramLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                >
+                  <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <InstagramIcon className="w-6 h-6 sm:w-7 sm:h-7 fill-white text-white" />
                   </div>
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-700 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
+                    INSTAGRAM
+                  </span>
+                </a>
 
-                  {/* Floating Product Highlight Banner */}
-                  <div className="absolute bottom-4 inset-x-4 p-4 rounded-xl bg-black/75 backdrop-blur-md text-white border border-white/10 shadow-lg">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-[10px] uppercase tracking-widest text-[#E6CA65] font-semibold">Featured Masterpiece</div>
-                        <h4 className="font-serif text-sm sm:text-base font-medium text-stone-100">Toi Et Moi Emerald & Pear Diamond Solitaire</h4>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-xs text-stone-400 line-through">₹56,300</div>
-                        <div className="text-sm sm:text-base font-bold text-amber-300">₹47,067</div>
-                      </div>
-                    </div>
+                {/* 4. FACEBOOK */}
+                <a
+                  href={facebookLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                >
+                  <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#1877F2] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <FacebookIcon className="w-6 h-6 sm:w-7 sm:h-7 fill-white text-white" />
                   </div>
-                </div>
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-700 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
+                    FACEBOOK
+                  </span>
+                </a>
 
-                {/* Secondary Floating Floating Accent Card */}
-                <div className="hidden sm:flex absolute -bottom-6 -left-6 bg-white p-3.5 rounded-xl shadow-xl border border-stone-200/80 items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center">
-                    <Award className="w-5 h-5 text-[#9B7824]" />
+                {/* 5. LOOKBOOK */}
+                <a
+                  href="#bestsellers"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('bestsellers'); }}
+                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                >
+                  <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#8B5CF6] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <Eye className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                   </div>
-                  <div>
-                    <div className="text-xs font-bold text-stone-900">BIS 916 Hallmark</div>
-                    <div className="text-[10px] text-stone-500">Government HUID Stamped</div>
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-700 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
+                    LOOKBOOK
+                  </span>
+                </a>
+
+                {/* 6. DIRECTIONS */}
+                <a
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                >
+                  <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#2563EB] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <MapPin className="w-6 h-6 sm:w-7 sm:h-7 fill-white text-white" />
                   </div>
-                </div>
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-700 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
+                    DIRECTIONS
+                  </span>
+                </a>
+
+                {/* 7. EMAIL */}
+                <a
+                  href={emailUrl}
+                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                >
+                  <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#EF4444] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <Mail className="w-6 h-6 sm:w-7 sm:h-7 fill-white text-white" />
+                  </div>
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-700 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
+                    EMAIL
+                  </span>
+                </a>
+
+                {/* 8. SAVE VCARD */}
+                <button
+                  type="button"
+                  onClick={handleDownloadVCard}
+                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                >
+                  <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#F59E0B] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <Download className="w-6 h-6 sm:w-7 sm:h-7 text-white stroke-[2.2]" />
+                  </div>
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-700 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
+                    SAVE VCARD
+                  </span>
+                </button>
+
+                {/* 9. SHARE */}
+                <button
+                  type="button"
+                  onClick={() => setIsShareModalOpen(true)}
+                  className="flex flex-col items-center gap-1.5 shrink-0 group transition-transform active:scale-95 cursor-pointer"
+                >
+                  <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#111111] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <Share2 className="w-6 h-6 sm:w-7 sm:h-7 text-white stroke-[2.2]" />
+                  </div>
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-stone-700 group-hover:text-[#8C6D46] transition-colors whitespace-nowrap">
+                    SHARE
+                  </span>
+                </button>
 
               </div>
             </div>
@@ -851,7 +1003,7 @@ export default function JewelleryMiniWebsiteView({
         </div>
 
         {/* 4 Trust Strip */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 bg-white p-4 sm:p-6 rounded-2xl border border-stone-200/70 shadow-sm">
             <div className="flex items-start gap-3 p-2">
               <div className="p-2 rounded-lg bg-amber-50 text-[#9B7824] shrink-0">
@@ -859,7 +1011,7 @@ export default function JewelleryMiniWebsiteView({
               </div>
               <div>
                 <h4 className="text-xs sm:text-sm font-bold text-stone-900">100% Real Lab Diamonds</h4>
-                <p className="text-[11px] text-stone-500">Optically, physically & chemically identical</p>
+                <p className="text-[11px] text-stone-500">Optically, physically &amp; chemically identical</p>
               </div>
             </div>
 
@@ -868,7 +1020,7 @@ export default function JewelleryMiniWebsiteView({
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs sm:text-sm font-bold text-stone-900">IGI & GIA Certified</h4>
+                <h4 className="text-xs sm:text-sm font-bold text-stone-900">IGI &amp; GIA Certified</h4>
                 <p className="text-[11px] text-stone-500">Laser inscribed report on diamond girdle</p>
               </div>
             </div>
@@ -878,7 +1030,7 @@ export default function JewelleryMiniWebsiteView({
                 <RotateCcw className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs sm:text-sm font-bold text-stone-900">80% Buyback & 100% Exchange</h4>
+                <h4 className="text-xs sm:text-sm font-bold text-stone-900">80% Buyback &amp; 100% Exchange</h4>
                 <p className="text-[11px] text-stone-500">Guaranteed lifetime value protection</p>
               </div>
             </div>
@@ -896,32 +1048,31 @@ export default function JewelleryMiniWebsiteView({
         </div>
       </section>
 
-      {/* 4. SHOP BY CATEGORY PILLS / ROUNDELS */}
+      {/* 4. SHOP BY CATEGORY PILLS / ROUNDELS - WITH HUMANS WEARING JEWELLERY */}
       <section className="py-12 bg-white border-y border-stone-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-8">
             <span className="text-[11px] tracking-widest uppercase font-semibold text-[#9B7824]">Boutique Categories</span>
             <h2 className="font-serif text-2xl sm:text-3xl text-stone-900 font-normal mt-1">Discover Handcrafted Fine Jewellery</h2>
-            <p className="text-xs sm:text-sm text-stone-500 mt-1">Curated lab diamond silhouettes designed for daily wear and milestone proposals.</p>
+            <p className="text-xs sm:text-sm text-stone-500 mt-1">Curated lab diamond silhouettes styled and worn on hands, wrists, and necklines.</p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
             {[
-              { id: 'rings', name: 'Solitaire Rings', count: '1,420+ Designs', img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=400&q=80' },
-              { id: 'earrings', name: 'Diamond Earrings', count: '890+ Designs', img: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=400&q=80' },
-              { id: 'pendants', name: 'Solitaire Pendants', count: '650+ Designs', img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=400&q=80' },
-              { id: 'bracelets', name: 'Tennis Bracelets', count: '320+ Designs', img: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=400&q=80' },
-              { id: 'all', name: 'Modern Mangalsutras', count: '240+ Designs', img: 'https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=400&q=80' },
-              { id: 'mens', name: 'Men\'s Diamond Bands', count: '180+ Designs', img: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=400&q=80' },
+              { id: 'rings', name: 'Solitaire Rings', count: '1,420+ Designs', img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=500&q=80' },
+              { id: 'earrings', name: 'Diamond Earrings', count: '890+ Designs', img: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=500&q=80' },
+              { id: 'pendants', name: 'Solitaire Pendants', count: '650+ Designs', img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=500&q=80' },
+              { id: 'bracelets', name: 'Tennis Bracelets', count: '320+ Designs', img: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=500&q=80' },
+              { id: 'all', name: 'Modern Mangalsutras', count: '240+ Designs', img: 'https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=500&q=80' },
+              { id: 'mens', name: 'Men\'s Diamond Bands', count: '180+ Designs', img: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=500&q=80' },
             ].map(cat => (
               <button
                 key={cat.id}
                 onClick={() => {
                   setActiveCategory(cat.id);
-                  const el = document.getElementById('bestsellers');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  scrollToSection('bestsellers');
                 }}
-                className={`group p-3 rounded-xl border text-left transition-all ${
+                className={`group p-3 rounded-xl border text-left transition-all cursor-pointer ${
                   activeCategory === cat.id 
                     ? 'border-[#9B7824] bg-amber-50/50 shadow-md ring-1 ring-[#D4AF37]/50' 
                     : 'border-stone-200 bg-[#FAF8F5] hover:border-stone-300 hover:shadow-sm'
@@ -942,16 +1093,16 @@ export default function JewelleryMiniWebsiteView({
         </div>
       </section>
 
-      {/* 5. SHOP BY DIAMOND SHAPE (SIGNATURE JEWELBOX FEATURE) */}
+      {/* 5. SHOP BY DIAMOND SHAPE */}
       <section id="shapes" className="py-16 sm:py-20 bg-[#FAF8F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
-              <span className="text-[11px] tracking-widest uppercase font-semibold text-[#9B7824]">Cut & Silhouette</span>
+              <span className="text-[11px] tracking-widest uppercase font-semibold text-[#9B7824]">Cut &amp; Silhouette</span>
               <h2 className="font-serif text-3xl sm:text-4xl text-stone-900 font-normal mt-1">Shop By Diamond Shape</h2>
               <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-xl">
-                Every diamond shape tells a different love story. Select a cut to inspect its proportions, facet architecture, and optical fire.
+                Every diamond shape tells a different love story. Select a cut to inspect its proportions, facet architecture, and optical fire on hands.
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -970,7 +1121,7 @@ export default function JewelleryMiniWebsiteView({
                 <button
                   key={shape.id}
                   onClick={() => setSelectedShape(shape.id)}
-                  className={`flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all ${
+                  className={`flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all cursor-pointer ${
                     isSelected 
                       ? 'bg-[#14171A] text-white border-[#14171A] shadow-lg shadow-black/10 scale-102' 
                       : 'bg-white text-stone-700 border-stone-200 hover:border-amber-400 hover:bg-amber-50/30'
@@ -988,7 +1139,7 @@ export default function JewelleryMiniWebsiteView({
             })}
           </div>
 
-          {/* Detailed Spotlight of Selected Shape */}
+          {/* Detailed Spotlight of Selected Shape - With Human Wearing Photo */}
           {(() => {
             const current = DIAMOND_SHAPES.find(s => s.id === selectedShape) || DIAMOND_SHAPES[0];
             return (
@@ -1032,10 +1183,9 @@ export default function JewelleryMiniWebsiteView({
                     <button
                       onClick={() => {
                         setCustomStudio(prev => ({ ...prev, shape: current.name }));
-                        const el = document.getElementById('custom-studio');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        scrollToSection('custom-studio');
                       }}
-                      className="px-5 py-2.5 rounded-full bg-[#14171A] text-amber-200 text-xs font-semibold tracking-wider uppercase flex items-center gap-2 hover:bg-stone-800 transition-colors"
+                      className="px-5 py-2.5 rounded-full bg-[#14171A] text-amber-200 text-xs font-semibold tracking-wider uppercase flex items-center gap-2 hover:bg-stone-800 transition-colors cursor-pointer"
                     >
                       <span>Customize in {current.name}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -1067,7 +1217,7 @@ export default function JewelleryMiniWebsiteView({
             <div>
               <span className="text-[11px] tracking-widest uppercase font-semibold text-[#9B7824]">Most Cherished</span>
               <h2 className="font-serif text-3xl sm:text-4xl text-stone-900 font-normal mt-1">Our Bestsellers</h2>
-              <p className="text-xs sm:text-sm text-stone-500 mt-1">Hand-selected lab diamond creations loved for immaculate cut quality and everyday wearability.</p>
+              <p className="text-xs sm:text-sm text-stone-500 mt-1">Real jewellery worn by patrons, loved for immaculate cut quality and everyday wearability.</p>
             </div>
 
             {/* Category Filter Pills */}
@@ -1083,7 +1233,7 @@ export default function JewelleryMiniWebsiteView({
                 <button
                   key={tab.id}
                   onClick={() => setActiveCategory(tab.id)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide uppercase transition-all whitespace-nowrap ${
+                  className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide uppercase transition-all whitespace-nowrap cursor-pointer ${
                     activeCategory === tab.id
                       ? 'bg-[#14171A] text-amber-200 shadow-sm'
                       : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
@@ -1104,7 +1254,7 @@ export default function JewelleryMiniWebsiteView({
                   key={product.id}
                   className="group bg-[#FAF8F5] rounded-xl sm:rounded-2xl border border-stone-200/80 overflow-hidden flex flex-col justify-between hover:shadow-xl hover:border-amber-300/80 transition-all duration-300"
                 >
-                  {/* Top Image Container */}
+                  {/* Top Image Container - Human Wearing */}
                   <div className="relative aspect-square overflow-hidden bg-stone-100">
                     <img 
                       src={product.imageUrl} 
@@ -1122,7 +1272,7 @@ export default function JewelleryMiniWebsiteView({
                     {/* Wishlist Button */}
                     <button
                       onClick={() => toggleWishlist(product.id)}
-                      className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-stone-700 hover:text-red-500 shadow-sm transition-colors"
+                      className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-stone-700 hover:text-red-500 shadow-sm transition-colors cursor-pointer"
                       aria-label="Save to Wishlist"
                     >
                       <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : ''}`} />
@@ -1131,10 +1281,10 @@ export default function JewelleryMiniWebsiteView({
                     {/* Quick View Button on Desktop Hover */}
                     <button
                       onClick={() => setQuickViewProduct(product)}
-                      className="hidden md:flex absolute bottom-3 inset-x-3 py-2 rounded-lg bg-black/80 backdrop-blur-md text-white text-xs font-medium items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="hidden md:flex absolute bottom-3 inset-x-3 py-2 rounded-lg bg-black/80 backdrop-blur-md text-white text-xs font-medium items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5 text-[#D4AF37]" />
-                      <span>Quick View & Specs</span>
+                      <span>Quick View &amp; Specs</span>
                     </button>
                   </div>
 
@@ -1174,7 +1324,7 @@ export default function JewelleryMiniWebsiteView({
                       <div className="grid grid-cols-2 gap-2 mt-3">
                         <button
                           onClick={() => addToCart(product, product.metal)}
-                          className="w-full py-2 rounded-lg bg-[#14171A] text-amber-200 hover:bg-stone-800 text-[11px] font-semibold tracking-wider uppercase transition-colors flex items-center justify-center gap-1"
+                          className="w-full py-2 rounded-lg bg-[#14171A] text-amber-200 hover:bg-stone-800 text-[11px] font-semibold tracking-wider uppercase transition-colors flex items-center justify-center gap-1 cursor-pointer"
                         >
                           <ShoppingBag className="w-3 h-3" />
                           <span>Add</span>
@@ -1201,7 +1351,7 @@ export default function JewelleryMiniWebsiteView({
         </div>
       </section>
 
-      {/* 7. BESPOKE 3D CAD CUSTOM STUDIO ("SHARE YOUR DESIGN & GET A QUOTE") */}
+      {/* 7. BESPOKE 3D CAD CUSTOM STUDIO */}
       <section id="custom-studio" className="py-16 sm:py-24 bg-gradient-to-br from-[#14171A] via-[#1E2328] to-[#14171A] text-stone-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -1238,7 +1388,7 @@ export default function JewelleryMiniWebsiteView({
                         key={type}
                         type="button"
                         onClick={() => setCustomStudio(prev => ({ ...prev, type }))}
-                        className={`px-3 py-2 rounded-lg text-xs font-medium text-left transition-all ${
+                        className={`px-3 py-2 rounded-lg text-xs font-medium text-left transition-all cursor-pointer ${
                           customStudio.type === type 
                             ? 'bg-[#D4AF37] text-stone-900 font-bold shadow-md' 
                             : 'bg-white/10 text-stone-300 hover:bg-white/15'
@@ -1253,7 +1403,7 @@ export default function JewelleryMiniWebsiteView({
                 {/* Step 2: Solitaire Diamond Shape */}
                 <div>
                   <label className="text-[11px] uppercase tracking-wider text-stone-400 block mb-2 font-medium">
-                    2. Diamond Cut & Silhouette
+                    2. Diamond Cut &amp; Silhouette
                   </label>
                   <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                     {['Round Brilliant', 'Oval Cut', 'Emerald Cut', 'Pear Cut', 'Radiant Cut', 'Princess Cut'].map(shape => (
@@ -1261,7 +1411,7 @@ export default function JewelleryMiniWebsiteView({
                         key={shape}
                         type="button"
                         onClick={() => setCustomStudio(prev => ({ ...prev, shape }))}
-                        className={`px-2 py-2 rounded-lg text-[11px] font-medium text-center transition-all ${
+                        className={`px-2 py-2 rounded-lg text-[11px] font-medium text-center transition-all cursor-pointer ${
                           customStudio.shape === shape 
                             ? 'bg-[#D4AF37] text-stone-900 font-bold' 
                             : 'bg-white/10 text-stone-300 hover:bg-white/15'
@@ -1302,7 +1452,7 @@ export default function JewelleryMiniWebsiteView({
                 {/* Step 4: Gold Karat & Tone */}
                 <div>
                   <label className="text-[11px] uppercase tracking-wider text-stone-400 block mb-2 font-medium">
-                    4. Solid Gold Karat & Tone
+                    4. Solid Gold Karat &amp; Tone
                   </label>
                   <div className="grid grid-cols-3 gap-2">
                     {['18Kt Yellow Gold', '18Kt Rose Gold', '18Kt White Gold'].map(metal => (
@@ -1310,7 +1460,7 @@ export default function JewelleryMiniWebsiteView({
                         key={metal}
                         type="button"
                         onClick={() => setCustomStudio(prev => ({ ...prev, metal }))}
-                        className={`px-3 py-2 rounded-lg text-xs font-medium text-center transition-all ${
+                        className={`px-3 py-2 rounded-lg text-xs font-medium text-center transition-all cursor-pointer ${
                           customStudio.metal === metal 
                             ? 'bg-[#D4AF37] text-stone-900 font-bold' 
                             : 'bg-white/10 text-stone-300 hover:bg-white/15'
@@ -1358,14 +1508,14 @@ export default function JewelleryMiniWebsiteView({
                       <div className="text-2xl font-bold text-[#E6CA65]">
                         ₹{estimatedCustomPrice.toLocaleString('en-IN')}*
                       </div>
-                      <div className="text-[10px] text-stone-400">Includes taxes, making & IGI certification</div>
+                      <div className="text-[10px] text-stone-400">Includes taxes, making &amp; IGI certification</div>
                     </div>
                   </div>
                 </div>
 
                 <button
                   onClick={handleCustomWhatsAppRequest}
-                  className="w-full mt-6 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E8D0] to-[#AA771C] text-stone-950 font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-amber-500/20 transition-all flex items-center justify-center gap-2"
+                  className="w-full mt-6 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E8D0] to-[#AA771C] text-stone-950 font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-amber-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <WhatsAppIcon className="w-4 h-4 text-stone-950" />
                   <span>Request Free 3D CAD on WhatsApp</span>
@@ -1382,7 +1532,7 @@ export default function JewelleryMiniWebsiteView({
         </div>
       </section>
 
-      {/* 8. SHOP BY OCCASION CAROUSEL */}
+      {/* 8. SHOP BY OCCASION CAROUSEL - WITH HUMANS WEARING */}
       <section id="occasions" className="py-16 sm:py-24 bg-[#FAF8F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -1412,10 +1562,13 @@ export default function JewelleryMiniWebsiteView({
                   <h3 className="font-serif text-xl font-medium mt-0.5">{occ.title}</h3>
                   <p className="text-xs text-stone-300 mt-1 line-clamp-2 font-light">{occ.desc}</p>
                   
-                  <div className="mt-3 flex items-center gap-1.5 text-xs text-amber-200 font-medium group-hover:underline">
+                  <button 
+                    onClick={() => scrollToSection('bestsellers')}
+                    className="mt-3 flex items-center gap-1.5 text-xs text-amber-200 font-medium group-hover:underline cursor-pointer"
+                  >
                     <span>Explore Collection</span>
                     <ChevronRight className="w-3.5 h-3.5" />
-                  </div>
+                  </button>
                 </div>
               </div>
             ))}
@@ -1424,8 +1577,179 @@ export default function JewelleryMiniWebsiteView({
         </div>
       </section>
 
-      {/* 9. WHY LAB-GROWN DIAMONDS? SCIENTIFIC COMPARISON MATRIX */}
-      <section id="why-lab" className="py-16 sm:py-24 bg-white border-y border-stone-200">
+      {/* 9. SOCIAL MEDIA SHOWCASE - YOUTUBE TOUR & INSTAGRAM REELS (NEW FEATURE) */}
+      <section id="social" className="py-16 sm:py-24 bg-white border-t border-stone-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-pink-50 border border-pink-200 text-pink-700 text-xs font-semibold uppercase tracking-wider mb-2">
+                <InstagramIcon className="w-3.5 h-3.5" />
+                <span>The Atelier On Social Media</span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl text-stone-900 font-normal">
+                Live Diamond Sparkle &amp; Real Patron Reels
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-2xl">
+                Experience the optical fire, sunlight scintillation, and wrist stacks in motion. Join 185,000+ conscious diamond lovers across YouTube and Instagram.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-full bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:opacity-95 flex items-center gap-1.5"
+              >
+                <InstagramIcon className="w-4 h-4" />
+                <span>Follow @lumiere</span>
+              </a>
+              <a 
+                href="https://youtube.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-full bg-[#FF0000] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:opacity-95 flex items-center gap-1.5"
+              >
+                <YoutubeIcon className="w-4 h-4" />
+                <span>YouTube 4K</span>
+              </a>
+            </div>
+          </div>
+
+          {/* YouTube Video Feature Card */}
+          <div className="rounded-3xl overflow-hidden bg-[#14171A] text-white border border-stone-800 shadow-xl mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-10">
+              
+              <div className="lg:col-span-7 relative aspect-video rounded-2xl overflow-hidden bg-stone-900 shadow-2xl group border border-white/10">
+                <img 
+                  src="https://images.unsplash.com/photo-1598560917505-59a3ad559071?auto=format&fit=crop&w=1200&q=85" 
+                  alt="4K Diamond Atelier Craftsmanship Film"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <a 
+                    href="https://www.youtube.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center shadow-2xl transition-transform group-hover:scale-110 cursor-pointer"
+                  >
+                    <Play className="w-8 h-8 fill-white ml-1" />
+                  </a>
+                </div>
+                <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-xs text-amber-300 font-bold flex items-center gap-1.5">
+                  <YoutubeIcon className="w-4 h-4 text-red-500" />
+                  <span>4K HDR Atelier Film</span>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 space-y-4">
+                <span className="text-[10px] uppercase tracking-widest text-[#D4AF37] font-semibold">Behind The Sparkle</span>
+                <h3 className="font-serif text-2xl sm:text-3xl font-medium text-stone-100 leading-snug">
+                  From Plasma Reactor to 2.0 Carat Solitaire Masterpiece
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-400 leading-relaxed font-light">
+                  Watch our master lapidary gemologists cut 57 mathematical facets, inspect laser inscriptions under microscope, and hand-set solid 18Kt gold prongs in our state-of-the-art studio.
+                </p>
+
+                <div className="pt-2 flex items-center gap-6 text-xs text-stone-300">
+                  <div>
+                    <strong className="block text-white text-base font-bold">142,500+</strong>
+                    <span className="text-stone-500">Video Views</span>
+                  </div>
+                  <div>
+                    <strong className="block text-white text-base font-bold">4.9 / 5.0</strong>
+                    <span className="text-stone-500">Patron Rating</span>
+                  </div>
+                </div>
+
+                <a 
+                  href="https://youtube.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-[#E6CA65] hover:underline pt-2"
+                >
+                  <span>Watch Full 12-Minute Documentary on YouTube</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          {/* 4 Vertical Instagram Reels Grid (9:16 Aspect) */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            {[
+              {
+                id: 'reel-1',
+                title: 'Toi Et Moi Solitaire under Direct Sunlight ☀️',
+                views: '124K Views',
+                model: 'Aditi on Bandra Beach',
+                img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80'
+              },
+              {
+                id: 'reel-2',
+                title: 'Bridal Diamond Choker & Jhumka Styling ✨',
+                views: '280K Views',
+                model: 'Rhea S. Wedding Look',
+                img: 'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?auto=format&fit=crop&w=600&q=80'
+              },
+              {
+                id: 'reel-3',
+                title: 'Triple Tennis Bracelet Stack on Wrist 💎',
+                views: '95K Views',
+                model: 'Everyday Wrist Stack',
+                img: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=600&q=80'
+              },
+              {
+                id: 'reel-4',
+                title: 'Men’s 6mm Platinum & Solitaire Band Unboxing 🎁',
+                views: '62K Views',
+                model: 'Titan Collection',
+                img: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=600&q=80'
+              }
+            ].map(reel => (
+              <a
+                key={reel.id}
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative rounded-2xl overflow-hidden aspect-[9/16] bg-stone-900 border border-stone-200/60 shadow-md hover:shadow-2xl transition-all cursor-pointer"
+              >
+                <img 
+                  src={reel.img} 
+                  alt={reel.title}
+                  className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-700" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+
+                {/* Top Badge */}
+                <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] text-white flex items-center gap-1 font-medium">
+                  <InstagramIcon className="w-3 h-3 text-pink-400" />
+                  <span>{reel.views}</span>
+                </div>
+
+                {/* Center Play Icon */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="w-12 h-12 rounded-full bg-white/90 text-stone-900 flex items-center justify-center shadow-lg">
+                    <Play className="w-5 h-5 fill-current ml-0.5" />
+                  </div>
+                </div>
+
+                {/* Bottom Caption */}
+                <div className="absolute bottom-3 inset-x-3 text-white">
+                  <div className="text-[10px] text-[#E6CA65] font-semibold">{reel.model}</div>
+                  <h4 className="text-xs font-medium line-clamp-2 mt-0.5 leading-snug">{reel.title}</h4>
+                </div>
+              </a>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* 10. WHY LAB-GROWN DIAMONDS? SCIENTIFIC COMPARISON MATRIX */}
+      <section id="why-lab" className="py-16 sm:py-24 bg-[#FAF8F5] border-t border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="max-w-3xl mx-auto text-center mb-12">
@@ -1441,78 +1765,80 @@ export default function JewelleryMiniWebsiteView({
           </div>
 
           {/* Comparison Table */}
-          <div className="max-w-4xl mx-auto overflow-hidden rounded-2xl border border-stone-200 shadow-lg bg-[#FAF8F5]">
-            <table className="w-full text-left text-xs sm:text-sm border-collapse">
-              <thead>
-                <tr className="bg-[#14171A] text-white">
-                  <th className="p-4 sm:p-5 font-medium uppercase tracking-wider text-[11px] text-stone-400">Parameter</th>
-                  <th className="p-4 sm:p-5 font-bold uppercase tracking-wider text-[11px] text-[#D4AF37] bg-white/5 border-x border-white/10">
-                    Lumière Lab-Grown Diamonds
-                  </th>
-                  <th className="p-4 sm:p-5 font-medium uppercase tracking-wider text-[11px] text-stone-400">
-                    Earth-Mined Diamonds
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-stone-200/80">
-                <tr>
-                  <td className="p-4 font-semibold text-stone-900">Chemical Composition</td>
-                  <td className="p-4 font-medium text-stone-800 bg-amber-50/30 border-x border-stone-200/60">
-                    100% Carbon Crystal (C)
-                  </td>
-                  <td className="p-4 text-stone-600">100% Carbon Crystal (C)</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-stone-900">Mohs Hardness</td>
-                  <td className="p-4 font-medium text-stone-800 bg-amber-50/30 border-x border-stone-200/60">
-                    10 / 10 (Highest in Nature)
-                  </td>
-                  <td className="p-4 text-stone-600">10 / 10 (Highest in Nature)</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-stone-900">Refractive Index (Fire)</td>
-                  <td className="p-4 font-medium text-stone-800 bg-amber-50/30 border-x border-stone-200/60">
-                    2.42 (Identical Sparkle)
-                  </td>
-                  <td className="p-4 text-stone-600">2.42 (Identical Sparkle)</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-stone-900">Diamond Tester Reaction</td>
-                  <td className="p-4 font-medium text-emerald-800 bg-amber-50/30 border-x border-stone-200/60">
-                    Tests 100% Positive as Diamond
-                  </td>
-                  <td className="p-4 text-stone-600">Tests 100% Positive as Diamond</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-stone-900">Certification Labs</td>
-                  <td className="p-4 font-medium text-stone-800 bg-amber-50/30 border-x border-stone-200/60">
-                    IGI, GIA, SGL Laser-Inscribed
-                  </td>
-                  <td className="p-4 text-stone-600">IGI, GIA, SGL Laser-Inscribed</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-stone-900">Environmental & Mining Impact</td>
-                  <td className="p-4 font-medium text-emerald-800 bg-amber-50/30 border-x border-stone-200/60">
-                    Zero Earth Excavation • Conflict-Free
-                  </td>
-                  <td className="p-4 text-stone-600">Massive Earth Displacement & Heavy Mining</td>
-                </tr>
-                <tr className="bg-amber-100/30">
-                  <td className="p-4 font-bold text-stone-950">Pricing Advantage</td>
-                  <td className="p-4 font-bold text-[#9B7824] bg-amber-100/50 border-x border-amber-300">
-                    60% – 80% More Accessible
-                  </td>
-                  <td className="p-4 text-stone-500 line-through">Expensive Middlemen & Mining Markups</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="max-w-4xl mx-auto overflow-hidden rounded-2xl border border-stone-200 shadow-lg bg-white">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[550px]">
+                <thead>
+                  <tr className="bg-[#14171A] text-white">
+                    <th className="p-4 sm:p-5 font-medium uppercase tracking-wider text-[11px] text-stone-400">Parameter</th>
+                    <th className="p-4 sm:p-5 font-bold uppercase tracking-wider text-[11px] text-[#D4AF37] bg-white/5 border-x border-white/10">
+                      Lumière Lab-Grown Diamonds
+                    </th>
+                    <th className="p-4 sm:p-5 font-medium uppercase tracking-wider text-[11px] text-stone-400">
+                      Earth-Mined Diamonds
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-stone-200/80">
+                  <tr>
+                    <td className="p-4 font-semibold text-stone-900">Chemical Composition</td>
+                    <td className="p-4 font-medium text-stone-800 bg-amber-50/30 border-x border-stone-200/60">
+                      100% Carbon Crystal (C)
+                    </td>
+                    <td className="p-4 text-stone-600">100% Carbon Crystal (C)</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 font-semibold text-stone-900">Mohs Hardness</td>
+                    <td className="p-4 font-medium text-stone-800 bg-amber-50/30 border-x border-stone-200/60">
+                      10 / 10 (Highest in Nature)
+                    </td>
+                    <td className="p-4 text-stone-600">10 / 10 (Highest in Nature)</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 font-semibold text-stone-900">Refractive Index (Fire)</td>
+                    <td className="p-4 font-medium text-stone-800 bg-amber-50/30 border-x border-stone-200/60">
+                      2.42 (Identical Sparkle)
+                    </td>
+                    <td className="p-4 text-stone-600">2.42 (Identical Sparkle)</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 font-semibold text-stone-900">Diamond Tester Reaction</td>
+                    <td className="p-4 font-medium text-emerald-800 bg-amber-50/30 border-x border-stone-200/60">
+                      Tests 100% Positive as Diamond
+                    </td>
+                    <td className="p-4 text-stone-600">Tests 100% Positive as Diamond</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 font-semibold text-stone-900">Certification Labs</td>
+                    <td className="p-4 font-medium text-stone-800 bg-amber-50/30 border-x border-stone-200/60">
+                      IGI, GIA, SGL Laser-Inscribed
+                    </td>
+                    <td className="p-4 text-stone-600">IGI, GIA, SGL Laser-Inscribed</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 font-semibold text-stone-900">Environmental &amp; Mining Impact</td>
+                    <td className="p-4 font-medium text-emerald-800 bg-amber-50/30 border-x border-stone-200/60">
+                      Zero Earth Excavation • Conflict-Free
+                    </td>
+                    <td className="p-4 text-stone-600">Massive Earth Displacement &amp; Heavy Mining</td>
+                  </tr>
+                  <tr className="bg-amber-100/30">
+                    <td className="p-4 font-bold text-stone-950">Pricing Advantage</td>
+                    <td className="p-4 font-bold text-[#9B7824] bg-amber-100/50 border-x border-amber-300">
+                      60% – 80% More Accessible
+                    </td>
+                    <td className="p-4 text-stone-500 line-through">Expensive Middlemen &amp; Mining Markups</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
         </div>
       </section>
 
-      {/* 10. REAL CUSTOMER STORIES & SPARKLE (REVIEWS SLIDER) */}
-      <section id="reviews" className="py-16 sm:py-24 bg-[#FAF8F5]">
+      {/* 11. REAL CUSTOMER STORIES & SPARKLE */}
+      <section id="reviews" className="py-16 sm:py-24 bg-white border-t border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
@@ -1538,7 +1864,6 @@ export default function JewelleryMiniWebsiteView({
                 city: 'Bandra, Mumbai',
                 item: '1.50 Ct Oval Solitaire Engagement Ring',
                 avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-                date: 'October 2026',
                 text: 'I compared the diamond under a 20x loupe with my mother\'s mined solitaire. The brilliance, fire, and crisp facets on the Lumière ring were even superior! She cried happy tears when I proposed.'
               },
               {
@@ -1547,7 +1872,6 @@ export default function JewelleryMiniWebsiteView({
                 city: 'South Extension, Delhi',
                 item: 'Double-Row Diamond Tennis Bracelet in 18K',
                 avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-                date: 'September 2026',
                 text: 'Visited the South Ex lounge. The team explained the 4Cs with a microscope and verified the IGI laser inscription on the girdle before packing. Transparent BOQ billing with zero hidden charges.'
               },
               {
@@ -1556,18 +1880,17 @@ export default function JewelleryMiniWebsiteView({
                 city: 'Jubilee Hills, Hyderabad',
                 item: 'Toi Et Moi Emerald & Pear Solitaire Ring',
                 avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
-                date: 'August 2026',
                 text: 'Delivered in 48 hours to Hyderabad with tamper-evident insured security. The sparkle under natural sunlight is breathtaking. 100% recommend over mined diamonds!'
               }
             ].map(review => (
-              <div key={review.id} className="bg-white p-6 rounded-2xl border border-stone-200/80 shadow-sm flex flex-col justify-between">
+              <div key={review.id} className="bg-[#FAF8F5] p-6 rounded-2xl border border-stone-200/80 shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="flex text-amber-400 mb-3">
                     {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />)}
                   </div>
                   <p className="text-stone-700 text-xs sm:text-sm leading-relaxed italic mb-4">"{review.text}"</p>
                 </div>
-                <div className="pt-4 border-t border-stone-100 flex items-center gap-3">
+                <div className="pt-4 border-t border-stone-200 flex items-center gap-3">
                   <img src={review.avatar} alt={review.name} className="w-10 h-10 rounded-full object-cover border border-amber-200" />
                   <div>
                     <h4 className="text-xs font-bold text-stone-900">{review.name}</h4>
@@ -1582,19 +1905,19 @@ export default function JewelleryMiniWebsiteView({
         </div>
       </section>
 
-      {/* 11. EXPERIENCE LOUNGES & WALK-IN BOOKINGS */}
-      <section id="stores" className="py-16 sm:py-24 bg-white border-t border-stone-200">
+      {/* 12. EXPERIENCE LOUNGES & WALK-IN BOOKINGS */}
+      <section id="stores" className="py-16 sm:py-24 bg-[#FAF8F5] border-t border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-[11px] tracking-widest uppercase font-semibold text-[#9B7824]">Touch & Try On</span>
+            <span className="text-[11px] tracking-widest uppercase font-semibold text-[#9B7824]">Touch &amp; Try On</span>
             <h2 className="font-serif text-3xl sm:text-4xl text-stone-900 font-normal mt-1">Visit Our Experience Lounges</h2>
             <p className="text-xs sm:text-sm text-stone-500 mt-1">Experience 6,000+ designs in person with complimentary private gemologist consultations.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {STORE_LOUNGES.map(lounge => (
-              <div key={lounge.city} className="bg-[#FAF8F5] p-6 rounded-2xl border border-stone-200 flex flex-col justify-between">
+              <div key={lounge.city} className="bg-white p-6 rounded-2xl border border-stone-200 flex flex-col justify-between shadow-sm">
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-bold text-[#9B7824] uppercase tracking-wider">{lounge.city}</span>
@@ -1623,7 +1946,7 @@ export default function JewelleryMiniWebsiteView({
                       setAppointmentForm(prev => ({ ...prev, city: lounge.city }));
                       setIsAppointmentModalOpen(true);
                     }}
-                    className="w-full py-2.5 rounded-lg bg-[#14171A] text-amber-200 text-xs font-semibold tracking-wider uppercase hover:bg-stone-800 transition-colors"
+                    className="w-full py-2.5 rounded-lg bg-[#14171A] text-amber-200 text-xs font-semibold tracking-wider uppercase hover:bg-stone-800 transition-colors cursor-pointer"
                   >
                     Book VIP Visit
                   </button>
@@ -1645,8 +1968,8 @@ export default function JewelleryMiniWebsiteView({
         </div>
       </section>
 
-      {/* 12. CERTIFICATIONS, BUYBACK & FAQS ACCORDION */}
-      <section id="faqs" className="py-16 sm:py-24 bg-[#FAF8F5] border-t border-stone-200">
+      {/* 13. CERTIFICATIONS, BUYBACK & FAQS ACCORDION */}
+      <section id="faqs" className="py-16 sm:py-24 bg-white border-t border-stone-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center mb-12">
@@ -1661,19 +1984,19 @@ export default function JewelleryMiniWebsiteView({
               return (
                 <div 
                   key={faq.id} 
-                  className="bg-white rounded-xl border border-stone-200 overflow-hidden shadow-sm transition-all"
+                  className="bg-[#FAF8F5] rounded-xl border border-stone-200 overflow-hidden shadow-sm transition-all"
                 >
                   <button
                     onClick={() => setOpenFaqId(isOpen ? null : faq.id)}
-                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-serif text-sm sm:text-base font-medium text-stone-900 hover:text-[#9B7824] transition-colors"
+                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-serif text-sm sm:text-base font-medium text-stone-900 hover:text-[#9B7824] transition-colors cursor-pointer"
                   >
                     <span>{faq.q}</span>
-                    <span className="shrink-0 p-1 rounded-full bg-stone-100 text-stone-600">
+                    <span className="shrink-0 p-1 rounded-full bg-stone-200/70 text-stone-600">
                       {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </span>
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 text-xs sm:text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
+                    <div className="px-5 pb-5 text-xs sm:text-sm text-stone-600 leading-relaxed border-t border-stone-200/60 pt-3">
                       {faq.a}
                     </div>
                   )}
@@ -1685,7 +2008,7 @@ export default function JewelleryMiniWebsiteView({
         </div>
       </section>
 
-      {/* 13. LUXURY FOOTER */}
+      {/* 14. LUXURY FOOTER */}
       <footer className="bg-[#14171A] text-stone-300 pt-16 pb-24 sm:pb-16 border-t border-stone-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-stone-800">
@@ -1700,7 +2023,7 @@ export default function JewelleryMiniWebsiteView({
                 </div>
                 <div>
                   <div className="font-serif text-xl tracking-widest text-white uppercase font-bold">LUMIÈRE</div>
-                  <div className="text-[9px] tracking-widest text-[#D4AF37] uppercase">Lab Diamonds & Fine Jewels</div>
+                  <div className="text-[9px] tracking-widest text-[#D4AF37] uppercase">Lab Diamonds &amp; Fine Jewels</div>
                 </div>
               </div>
 
@@ -1726,6 +2049,14 @@ export default function JewelleryMiniWebsiteView({
                   <InstagramIcon className="w-4 h-4" />
                 </a>
                 <a 
+                  href="https://youtube.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-stone-800 hover:bg-red-950 flex items-center justify-center text-red-500 transition-colors"
+                >
+                  <YoutubeIcon className="w-4 h-4" />
+                </a>
+                <a 
                   href={`tel:${cleanPhone}`} 
                   className="w-9 h-9 rounded-full bg-stone-800 hover:bg-amber-950 flex items-center justify-center text-amber-300 transition-colors"
                 >
@@ -1738,12 +2069,12 @@ export default function JewelleryMiniWebsiteView({
             <div>
               <h4 className="font-serif text-xs font-bold uppercase tracking-widest text-amber-200 mb-4">Fine Categories</h4>
               <ul className="space-y-2.5 text-xs text-stone-400">
-                <li><a href="#bestsellers" className="hover:text-white transition-colors">Solitaire Engagement Rings</a></li>
-                <li><a href="#bestsellers" className="hover:text-white transition-colors">Diamond Tennis Bracelets</a></li>
-                <li><a href="#bestsellers" className="hover:text-white transition-colors">Sui Dhaga & Stud Earrings</a></li>
-                <li><a href="#bestsellers" className="hover:text-white transition-colors">Teardrop Diamond Pendants</a></li>
-                <li><a href="#bestsellers" className="hover:text-white transition-colors">Men's Architectural Bands</a></li>
-                <li><a href="#custom-studio" className="hover:text-white transition-colors">Custom 3D CAD Creations</a></li>
+                <li><button onClick={() => scrollToSection('bestsellers')} className="hover:text-white transition-colors cursor-pointer text-left">Solitaire Engagement Rings</button></li>
+                <li><button onClick={() => scrollToSection('bestsellers')} className="hover:text-white transition-colors cursor-pointer text-left">Diamond Tennis Bracelets</button></li>
+                <li><button onClick={() => scrollToSection('bestsellers')} className="hover:text-white transition-colors cursor-pointer text-left">Sui Dhaga &amp; Stud Earrings</button></li>
+                <li><button onClick={() => scrollToSection('bestsellers')} className="hover:text-white transition-colors cursor-pointer text-left">Teardrop Diamond Pendants</button></li>
+                <li><button onClick={() => scrollToSection('bestsellers')} className="hover:text-white transition-colors cursor-pointer text-left">Men's Architectural Bands</button></li>
+                <li><button onClick={() => scrollToSection('custom-studio')} className="hover:text-white transition-colors cursor-pointer text-left">Custom 3D CAD Creations</button></li>
               </ul>
             </div>
 
@@ -1751,12 +2082,12 @@ export default function JewelleryMiniWebsiteView({
             <div>
               <h4 className="font-serif text-xs font-bold uppercase tracking-widest text-amber-200 mb-4">Patron Care</h4>
               <ul className="space-y-2.5 text-xs text-stone-400">
-                <li><a href="#why-lab" className="hover:text-white transition-colors">80% Lifetime Buyback</a></li>
-                <li><a href="#why-lab" className="hover:text-white transition-colors">15-Day Free Returns</a></li>
-                <li><a href="#stores" className="hover:text-white transition-colors">Book Private Lounge Visit</a></li>
-                <li><a href="#faqs" className="hover:text-white transition-colors">IGI Certificate Verification</a></li>
-                <li><a href="#why-lab" className="hover:text-white transition-colors">The 4Cs Diamond Guide</a></li>
-                <li><a href="#stores" className="hover:text-white transition-colors">Store Experience Locator</a></li>
+                <li><button onClick={() => scrollToSection('why-lab')} className="hover:text-white transition-colors cursor-pointer text-left">80% Lifetime Buyback</button></li>
+                <li><button onClick={() => scrollToSection('why-lab')} className="hover:text-white transition-colors cursor-pointer text-left">15-Day Free Returns</button></li>
+                <li><button onClick={() => scrollToSection('stores')} className="hover:text-white transition-colors cursor-pointer text-left">Book Private Lounge Visit</button></li>
+                <li><button onClick={() => scrollToSection('faqs')} className="hover:text-white transition-colors cursor-pointer text-left">IGI Certificate Verification</button></li>
+                <li><button onClick={() => scrollToSection('why-lab')} className="hover:text-white transition-colors cursor-pointer text-left">The 4Cs Diamond Guide</button></li>
+                <li><button onClick={() => scrollToSection('stores')} className="hover:text-white transition-colors cursor-pointer text-left">Store Experience Locator</button></li>
               </ul>
             </div>
 
@@ -1768,9 +2099,9 @@ export default function JewelleryMiniWebsiteView({
                 <input 
                   type="email" 
                   placeholder="Enter your email" 
-                  className="bg-stone-800 text-xs px-3 py-2 rounded-lg w-full text-white placeholder-stone-500 focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
+                  className="bg-stone-800 text-[16px] sm:text-xs px-3 py-2 rounded-lg w-full text-white placeholder-stone-500 focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
                 />
-                <button className="px-3 py-2 rounded-lg bg-[#D4AF37] text-stone-950 font-bold text-xs uppercase tracking-wider hover:bg-amber-300">
+                <button className="px-3 py-2 rounded-lg bg-[#D4AF37] text-stone-950 font-bold text-xs uppercase tracking-wider hover:bg-amber-300 cursor-pointer">
                   Join
                 </button>
               </div>
@@ -1786,7 +2117,7 @@ export default function JewelleryMiniWebsiteView({
 
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
             <div>
-              © 2026 Lumière Diamonds & Fine Jewels Atelier. All rights reserved. Pure mock demonstration.
+              © 2026 Lumière Diamonds &amp; Fine Jewels Atelier. All rights reserved. Pure mock demonstration.
             </div>
             <div className="flex items-center gap-4">
               <span>Secure 256-Bit SSL Encrypted Checkout</span>
@@ -1797,7 +2128,7 @@ export default function JewelleryMiniWebsiteView({
         </div>
       </footer>
 
-      {/* 14. STICKY MOBILE ACTION DOCK */}
+      {/* 15. STICKY MOBILE ACTION DOCK */}
       <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-[#14171A]/95 backdrop-blur-md border-t border-stone-800 px-4 py-2.5 flex items-center justify-around text-stone-200">
         
         <a 
@@ -1820,7 +2151,7 @@ export default function JewelleryMiniWebsiteView({
 
         <button 
           onClick={() => setIsAppointmentModalOpen(true)}
-          className="flex flex-col items-center gap-1 text-[10px] uppercase tracking-wider hover:text-amber-300"
+          className="flex flex-col items-center gap-1 text-[10px] uppercase tracking-wider hover:text-amber-300 cursor-pointer"
         >
           <Calendar className="w-4 h-4 text-[#D4AF37]" />
           <span>Book Visit</span>
@@ -1828,7 +2159,7 @@ export default function JewelleryMiniWebsiteView({
 
         <button 
           onClick={() => setIsCartOpen(true)}
-          className="flex flex-col items-center gap-1 text-[10px] uppercase tracking-wider relative hover:text-amber-300"
+          className="flex flex-col items-center gap-1 text-[10px] uppercase tracking-wider relative hover:text-amber-300 cursor-pointer"
         >
           <ShoppingBag className="w-4 h-4 text-[#D4AF37]" />
           {cart.length > 0 && (
@@ -1841,13 +2172,13 @@ export default function JewelleryMiniWebsiteView({
 
       </div>
 
-      {/* 15. QUICK VIEW PRODUCT MODAL */}
+      {/* 16. QUICK VIEW PRODUCT MODAL */}
       {quickViewProduct && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative shadow-2xl border border-stone-200">
             <button 
               onClick={() => setQuickViewProduct(null)}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-100 text-stone-500"
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-100 text-stone-500 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -1869,7 +2200,7 @@ export default function JewelleryMiniWebsiteView({
 
                   <div className="mt-4 p-3 rounded-xl bg-stone-50 border border-stone-200/80 space-y-1.5 text-xs">
                     <div className="flex justify-between">
-                      <span className="text-stone-500">Diamond Carat & Color:</span>
+                      <span className="text-stone-500">Diamond Carat &amp; Color:</span>
                       <strong className="text-stone-800">{quickViewProduct.carat}</strong>
                     </div>
                     <div className="flex justify-between">
@@ -1900,7 +2231,7 @@ export default function JewelleryMiniWebsiteView({
                         addToCart(quickViewProduct, quickViewProduct.metal);
                         setQuickViewProduct(null);
                       }}
-                      className="w-full py-3 rounded-full bg-[#14171A] text-amber-200 text-xs font-bold uppercase tracking-wider hover:bg-stone-800 flex items-center justify-center gap-1.5"
+                      className="w-full py-3 rounded-full bg-[#14171A] text-amber-200 text-xs font-bold uppercase tracking-wider hover:bg-stone-800 flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                       <ShoppingBag className="w-4 h-4" />
                       <span>Add to Bag</span>
@@ -1924,7 +2255,7 @@ export default function JewelleryMiniWebsiteView({
         </div>
       )}
 
-      {/* 16. CART DRAWER */}
+      {/* 17. CART DRAWER */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end">
           <div className="bg-white w-full max-w-md h-full flex flex-col justify-between shadow-2xl p-6 overflow-y-auto animate-in slide-in-from-right duration-300">
@@ -1934,7 +2265,7 @@ export default function JewelleryMiniWebsiteView({
                   <ShoppingBag className="w-5 h-5 text-[#9B7824]" />
                   <h3 className="font-serif text-lg font-bold text-stone-900">Your Jewellery Bag ({cart.length})</h3>
                 </div>
-                <button onClick={() => setIsCartOpen(false)} className="p-1 rounded-full hover:bg-stone-100">
+                <button onClick={() => setIsCartOpen(false)} className="p-1 rounded-full hover:bg-stone-100 cursor-pointer">
                   <X className="w-5 h-5 text-stone-500" />
                 </button>
               </div>
@@ -1946,7 +2277,7 @@ export default function JewelleryMiniWebsiteView({
                   <p className="text-xs text-stone-400 mt-1">Explore our IGI certified solitaires and diamond essentials.</p>
                   <button 
                     onClick={() => setIsCartOpen(false)} 
-                    className="mt-6 px-6 py-2.5 rounded-full bg-[#14171A] text-amber-200 text-xs uppercase tracking-wider font-semibold"
+                    className="mt-6 px-6 py-2.5 rounded-full bg-[#14171A] text-amber-200 text-xs uppercase tracking-wider font-semibold cursor-pointer"
                   >
                     Continue Shopping
                   </button>
@@ -1973,20 +2304,20 @@ export default function JewelleryMiniWebsiteView({
                                   setCart(cart.filter(c => c.product.id !== item.product.id));
                                 }
                               }}
-                              className="px-2 py-0.5 text-xs text-stone-600 hover:bg-stone-100"
+                              className="px-2 py-0.5 text-xs text-stone-600 hover:bg-stone-100 cursor-pointer"
                             >-</button>
                             <span className="px-2 text-xs font-semibold">{item.qty}</span>
                             <button 
                               onClick={() => {
                                 setCart(cart.map(c => c.product.id === item.product.id ? { ...c, qty: c.qty + 1 } : c));
                               }}
-                              className="px-2 py-0.5 text-xs text-stone-600 hover:bg-stone-100"
+                              className="px-2 py-0.5 text-xs text-stone-600 hover:bg-stone-100 cursor-pointer"
                             >+</button>
                           </div>
 
                           <button 
                             onClick={() => setCart(cart.filter(c => c.product.id !== item.product.id))}
-                            className="text-[10px] text-red-500 hover:underline"
+                            className="text-[10px] text-red-500 hover:underline cursor-pointer"
                           >
                             Remove
                           </button>
@@ -1998,7 +2329,7 @@ export default function JewelleryMiniWebsiteView({
               )}
             </div>
 
-              {cart.length > 0 && (
+            {cart.length > 0 && (
               <div className="pt-4 border-t border-stone-200 space-y-3">
                 {/* Promo Code Input */}
                 <div className="flex gap-2">
@@ -2007,7 +2338,7 @@ export default function JewelleryMiniWebsiteView({
                     placeholder="Enter Coupon (e.g. SPARKLE10)"
                     value={couponCode}
                     onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                    className="flex-1 px-3 py-2 text-xs border border-stone-300 rounded-lg uppercase tracking-wider focus:outline-none focus:border-[#D4AF37]"
+                    className="flex-1 px-3 py-2 text-[16px] sm:text-xs border border-stone-300 rounded-lg uppercase tracking-wider focus:outline-none focus:border-[#D4AF37]"
                   />
                   <button 
                     onClick={() => {
@@ -2017,7 +2348,7 @@ export default function JewelleryMiniWebsiteView({
                         alert('Please enter valid coupon SPARKLE10 for 10% discount.');
                       }
                     }}
-                    className="px-4 py-2 bg-stone-900 text-amber-200 text-xs font-semibold uppercase tracking-wider rounded-lg"
+                    className="px-4 py-2 bg-stone-900 text-amber-200 text-xs font-semibold uppercase tracking-wider rounded-lg cursor-pointer"
                   >
                     Apply
                   </button>
@@ -2047,7 +2378,7 @@ export default function JewelleryMiniWebsiteView({
 
                 <button
                   onClick={handleWhatsAppCheckout}
-                  className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E8D0] to-[#AA771C] text-stone-950 font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
+                  className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E8D0] to-[#AA771C] text-stone-950 font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <WhatsAppIcon className="w-4 h-4 text-stone-950" />
                   <span>Instant 1-Click WhatsApp Checkout</span>
@@ -2063,7 +2394,7 @@ export default function JewelleryMiniWebsiteView({
         </div>
       )}
 
-      {/* 17. WISHLIST MODAL */}
+      {/* 18. WISHLIST MODAL */}
       {isWishlistOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-6 relative shadow-2xl">
@@ -2072,7 +2403,7 @@ export default function JewelleryMiniWebsiteView({
                 <Heart className="w-5 h-5 text-red-500 fill-red-500" />
                 <h3 className="font-serif text-lg font-bold text-stone-900">Your Saved Favourites ({wishlist.size})</h3>
               </div>
-              <button onClick={() => setIsWishlistOpen(false)} className="p-1 rounded-full hover:bg-stone-100">
+              <button onClick={() => setIsWishlistOpen(false)} className="p-1 rounded-full hover:bg-stone-100 cursor-pointer">
                 <X className="w-5 h-5 text-stone-500" />
               </button>
             </div>
@@ -2098,13 +2429,13 @@ export default function JewelleryMiniWebsiteView({
                           addToCart(item, item.metal);
                           toggleWishlist(item.id);
                         }}
-                        className="px-3 py-1 rounded bg-[#14171A] text-amber-200 text-[10px] font-bold uppercase tracking-wider"
+                        className="px-3 py-1 rounded bg-[#14171A] text-amber-200 text-[10px] font-bold uppercase tracking-wider cursor-pointer"
                       >
                         Move To Bag
                       </button>
                       <button
                         onClick={() => toggleWishlist(item.id)}
-                        className="text-[10px] text-red-500 hover:underline text-center"
+                        className="text-[10px] text-red-500 hover:underline text-center cursor-pointer"
                       >
                         Remove
                       </button>
@@ -2117,13 +2448,13 @@ export default function JewelleryMiniWebsiteView({
         </div>
       )}
 
-      {/* 18. BOOK APPOINTMENT MODAL */}
+      {/* 19. BOOK APPOINTMENT MODAL */}
       {isAppointmentModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 relative shadow-2xl border border-stone-200">
             <button 
               onClick={() => setIsAppointmentModalOpen(false)}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-100 text-stone-500"
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-100 text-stone-500 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -2133,7 +2464,7 @@ export default function JewelleryMiniWebsiteView({
                 <Calendar className="w-5 h-5" />
               </div>
               <h3 className="font-serif text-xl font-bold text-stone-900">Book Private Diamond Consultation</h3>
-              <p className="text-xs text-stone-500 mt-1">Enjoy complimentary Champagne viewing, diamond loupe inspection & personalized sizing.</p>
+              <p className="text-xs text-stone-500 mt-1">Enjoy complimentary Champagne viewing, diamond loupe inspection &amp; personalized sizing.</p>
             </div>
 
             {appointmentSubmitted ? (
@@ -2150,7 +2481,7 @@ export default function JewelleryMiniWebsiteView({
                     setIsAppointmentModalOpen(false);
                     setAppointmentSubmitted(false);
                   }}
-                  className="px-6 py-2.5 rounded-full bg-[#14171A] text-amber-200 text-xs font-semibold uppercase tracking-wider"
+                  className="px-6 py-2.5 rounded-full bg-[#14171A] text-amber-200 text-xs font-semibold uppercase tracking-wider cursor-pointer"
                 >
                   Close
                 </button>
@@ -2171,7 +2502,7 @@ export default function JewelleryMiniWebsiteView({
                     placeholder="e.g. Radhika Verma"
                     value={appointmentForm.name}
                     onChange={(e) => setAppointmentForm({ ...appointmentForm, name: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-stone-300 focus:outline-none focus:border-[#D4AF37]"
+                    className="w-full px-3 py-2 rounded-lg border border-stone-300 text-[16px] sm:text-xs focus:outline-none focus:border-[#D4AF37]"
                   />
                 </div>
 
@@ -2183,7 +2514,7 @@ export default function JewelleryMiniWebsiteView({
                     placeholder="+91 98765 43210"
                     value={appointmentForm.phone}
                     onChange={(e) => setAppointmentForm({ ...appointmentForm, phone: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-stone-300 focus:outline-none focus:border-[#D4AF37]"
+                    className="w-full px-3 py-2 rounded-lg border border-stone-300 text-[16px] sm:text-xs focus:outline-none focus:border-[#D4AF37]"
                   />
                 </div>
 
@@ -2193,7 +2524,7 @@ export default function JewelleryMiniWebsiteView({
                     <select 
                       value={appointmentForm.city}
                       onChange={(e) => setAppointmentForm({ ...appointmentForm, city: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-stone-300 focus:outline-none focus:border-[#D4AF37] bg-white"
+                      className="w-full px-3 py-2 rounded-lg border border-stone-300 text-[16px] sm:text-xs focus:outline-none focus:border-[#D4AF37] bg-white"
                     >
                       <option value="Mumbai">Mumbai (Bandra West)</option>
                       <option value="Delhi NCR">Delhi NCR (South Ex)</option>
@@ -2209,7 +2540,7 @@ export default function JewelleryMiniWebsiteView({
                       type="date" 
                       value={appointmentForm.date}
                       onChange={(e) => setAppointmentForm({ ...appointmentForm, date: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-stone-300 focus:outline-none focus:border-[#D4AF37] bg-white"
+                      className="w-full px-3 py-2 rounded-lg border border-stone-300 text-[16px] sm:text-xs focus:outline-none focus:border-[#D4AF37] bg-white"
                     />
                   </div>
                 </div>
@@ -2221,13 +2552,13 @@ export default function JewelleryMiniWebsiteView({
                     placeholder="e.g. 2 Ct Solitaire Engagement Ring, Tennis Bracelet"
                     value={appointmentForm.notes}
                     onChange={(e) => setAppointmentForm({ ...appointmentForm, notes: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-stone-300 focus:outline-none focus:border-[#D4AF37]"
+                    className="w-full px-3 py-2 rounded-lg border border-stone-300 text-[16px] sm:text-xs focus:outline-none focus:border-[#D4AF37]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full mt-2 py-3 rounded-full bg-[#14171A] text-amber-200 text-xs font-bold uppercase tracking-wider hover:bg-stone-800 transition-colors"
+                  className="w-full mt-2 py-3 rounded-full bg-[#14171A] text-amber-200 text-xs font-bold uppercase tracking-wider hover:bg-stone-800 transition-colors cursor-pointer"
                 >
                   Confirm Lounge Appointment
                 </button>
@@ -2237,7 +2568,7 @@ export default function JewelleryMiniWebsiteView({
         </div>
       )}
 
-      {/* 19. SHARE CARD MODAL */}
+      {/* 20. SHARE CARD MODAL */}
       <ShareCardModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
