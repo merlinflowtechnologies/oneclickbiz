@@ -273,12 +273,13 @@ function LoginForm() {
                 <span>All-in-One Business Platform</span>
               </span>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-black text-[#10183F] tracking-tight leading-tight">
+              <p className="lg:hidden text-xs font-bold text-slate-500 mt-1 mb-0.5">Welcome Back 👋</p>
+              <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-black text-[#10183F] tracking-tight leading-tight">
                 Sign in to <span className="text-[#174BFF]">OneClickBiz</span>
               </h1>
               
-              <p className="mt-2 text-xs sm:text-sm text-slate-600 max-w-xl font-normal leading-relaxed">
-                Access your business dashboard, manage your websites, online store, bookings, leads and more.
+              <p className="mt-1 text-xs sm:text-sm text-slate-600 max-w-xl font-normal leading-relaxed">
+                Access your dashboard, manage your websites, online store, bookings, leads and more.
               </p>
             </div>
 

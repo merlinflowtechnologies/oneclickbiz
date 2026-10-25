@@ -584,8 +584,8 @@ function SignupForm() {
         {step === 1 && (
           <div className="space-y-8">
             
-            {/* Top Headline */}
-            <div className="text-center sm:text-left space-y-2">
+            {/* Top Headline - shown on desktop */}
+            <div className="hidden lg:block text-left space-y-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EDF3FF] border border-[#C7D7FE] text-[#174BFF] text-[11px] sm:text-xs font-bold uppercase tracking-wider shadow-2xs">
                 <Sparkles className="w-3.5 h-3.5 text-[#174BFF]" />
                 <span>Create Your Business Account</span>
