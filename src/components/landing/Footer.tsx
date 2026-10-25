@@ -30,11 +30,11 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-white border-t border-[#E2E9FA] text-[#64718F] pt-12 sm:pt-16 pb-8 relative">
+    <footer className="bg-[#F8FAFD] border-t border-[#C7D7FE] text-[#64718F] pt-12 sm:pt-16 pb-8 relative">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top 5-Column Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-8 lg:gap-8 pb-12 border-b border-[#E2E9FA]/80">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-8 lg:gap-8 pb-12 border-b border-[#D8E2F8]">
           
           {/* Column 1: Brand & Socials (3 cols on desktop) */}
           <div className="col-span-2 md:col-span-4 lg:col-span-3 space-y-4">

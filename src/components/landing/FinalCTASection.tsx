@@ -19,7 +19,7 @@ export default function FinalCTASection({ onWatchHowItWorks }: FinalCTASectionPr
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white relative overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-[#EEF4FF] via-[#F5F8FE] to-[#EEF4FF] border-b border-[#C7D7FE] relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Curved Gradient Hero Card matching reference image */}

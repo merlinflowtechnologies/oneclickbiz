@@ -36,7 +36,7 @@ export default function HeroSection({ onWatchDemo }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative pt-8 pb-10 sm:pt-12 sm:pb-14 lg:pt-14 lg:pb-16 bg-gradient-to-b from-[#F8FAFF] via-white to-white overflow-hidden border-b border-[#E2E9FA]/60">
+    <section className="relative pt-8 pb-10 sm:pt-12 sm:pb-14 lg:pt-14 lg:pb-16 bg-gradient-to-b from-[#EDF4FF] via-[#F8FAFF] to-white overflow-hidden border-b border-[#C7D7FE]">
       
       {/* Background Soft Ambient Light Blurs */}
       <div className="absolute top-0 left-1/4 -translate-x-1/2 w-[500px] h-[350px] bg-blue-100/40 rounded-full blur-[100px] pointer-events-none -z-10" />

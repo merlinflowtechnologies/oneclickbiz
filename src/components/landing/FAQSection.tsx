@@ -67,7 +67,7 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-[#F8FAFF] border-b border-[#E2E9FA]/60 relative">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white border-b border-[#C7D7FE] relative">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
