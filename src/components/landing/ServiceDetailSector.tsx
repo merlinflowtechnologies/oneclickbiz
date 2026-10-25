@@ -286,8 +286,8 @@ export default function ServiceDetailSector({
         </div>
 
         {/* RIGHT COLUMN (5 cols): Visual Reference Mockup Showcase ("Reference Images") */}
-        <div className="lg:col-span-5 flex flex-col">
-          <div className="bg-white rounded-3xl border-2 border-[#C7D7FE] p-4 sm:p-5 shadow-[0_12px_32px_rgba(0,0,0,0.06)] flex flex-col h-full">
+        <div className="lg:col-span-5 flex flex-col justify-start">
+          <div className="bg-white rounded-3xl border-2 border-[#C7D7FE] p-4 sm:p-5 shadow-[0_12px_32px_rgba(0,0,0,0.06)] flex flex-col">
             
             {/* Mockup Header */}
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#E2E9FA]">
@@ -298,29 +298,31 @@ export default function ServiceDetailSector({
                   Visual Reference Showcase
                 </span>
               </div>
-              <span className="text-[11px] font-semibold text-[#174BFF] bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
-                Live Preview
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[11px] font-semibold text-[#174BFF] bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+                  Live Preview
+                </span>
+              </div>
             </div>
 
-            {/* Reference Image Container with Zoom & Hover Effects */}
-            <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-inner group flex-1 min-h-[280px] sm:min-h-[340px] flex items-center justify-center">
+            {/* Reference Image Container - Fixed 16:9 Aspect Ratio (Zero Side Cropping) */}
+            <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-inner group w-full aspect-video flex items-center justify-center">
               <img 
                 key={service.referenceImage}
                 src={service.referenceImage} 
                 alt={`${service.name} reference illustration`}
-                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105"
                 loading="eager"
               />
 
               {/* Floating Highlight Tag */}
-              <div className="absolute top-3 left-3 bg-[#10183F]/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/20 shadow-md flex items-center gap-1.5">
+              <div className="absolute top-3 left-3 bg-[#10183F]/90 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/20 shadow-md flex items-center gap-1.5 pointer-events-none">
                 <span className="w-2 h-2 rounded-full bg-emerald-400" />
                 {service.name} in Action
               </div>
 
               {/* Floating Service 3D Mini Icon Badge */}
-              <div className="absolute top-3 right-3 w-9 h-9 rounded-xl bg-white/90 backdrop-blur-md border border-white/40 shadow-md flex items-center justify-center p-1">
+              <div className="absolute top-3 right-3 w-9 h-9 rounded-xl bg-white/95 backdrop-blur-md border border-white/40 shadow-md flex items-center justify-center p-1 pointer-events-none">
                 <img 
                   src={service.iconImage} 
                   alt="" 
@@ -329,8 +331,8 @@ export default function ServiceDetailSector({
               </div>
 
               {/* Bottom Gradient Overlay with Caption */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3.5 sm:p-4 text-white">
-                <p className="text-xs font-medium text-white/95 leading-snug drop-shadow-sm">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-3 sm:p-3.5 text-white pointer-events-none">
+                <p className="text-xs font-medium text-white/95 leading-snug drop-shadow-sm line-clamp-2">
                   {service.referenceCaption}
                 </p>
               </div>
@@ -338,14 +340,29 @@ export default function ServiceDetailSector({
 
             {/* Interactive Feature Pills Under Reference Image */}
             <div className="mt-3.5 pt-3 border-t border-[#E2E9FA] grid grid-cols-2 gap-2">
-              <div className="bg-[#F8FAFF] rounded-xl p-2 text-center border border-[#E2E9FA]">
+              <div className="bg-[#F8FAFF] rounded-xl p-2.5 text-center border border-[#E2E9FA]">
                 <div className="text-[11px] font-bold text-[#10183F]">Mobile & Desktop</div>
-                <div className="text-[10px] text-[#64718F]">100% Responsive</div>
+                <div className="text-[10px] text-[#64718F]">100% Responsive Design</div>
               </div>
-              <div className="bg-[#F8FAFF] rounded-xl p-2 text-center border border-[#E2E9FA]">
+              <div className="bg-[#F8FAFF] rounded-xl p-2.5 text-center border border-[#E2E9FA]">
                 <div className="text-[11px] font-bold text-[#10183F]">Instant Cloud Sync</div>
-                <div className="text-[10px] text-[#64718F]">Zero Maintenance</div>
+                <div className="text-[10px] text-[#64718F]">Zero Maintenance Cost</div>
               </div>
+            </div>
+
+            {/* Live Template Feature Highlights */}
+            <div className="mt-2.5 p-3 rounded-xl bg-blue-50/70 border border-blue-200/70 text-xs text-[#174BFF] font-semibold flex items-center justify-between">
+              <span className="flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" />
+                Full interactive template ready to use
+              </span>
+              <Link 
+                href={service.demoUrl}
+                className="text-[11px] font-bold underline hover:text-[#10183F] flex items-center gap-1"
+              >
+                <span>Preview Demo</span>
+                <ExternalLink className="w-3 h-3" />
+              </Link>
             </div>
 
           </div>
