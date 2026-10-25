@@ -27,7 +27,7 @@ function parseJWTPayload(token: string): JWTPayload | null {
       return null;
     }
     return payload;
-  } catch (e) {
+  } catch {
     return null;
   }
 }

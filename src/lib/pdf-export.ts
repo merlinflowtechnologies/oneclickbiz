@@ -4,7 +4,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import QRCode from 'qrcode';
 import { BookingSlot, LeadItem, ProductItem, DigitalProfile } from '@/lib/types';
-import { downloadBlob, serverDownload } from '@/lib/download-utils';
+import { downloadBlob } from '@/lib/download-utils';
 
 // Helper to format date
 function getFormattedDateTime(): string {
@@ -608,7 +608,6 @@ export async function exportVisitingCardPDF(
   });
 
   const primaryColor = [15, 23, 42]; // slate-900
-  const accentHex = card.accentColor || '#6366f1';
 
   // --- PAGE 1: FRONT OF CARD ---
   // Background

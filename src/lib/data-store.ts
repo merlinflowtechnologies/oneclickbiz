@@ -1,7 +1,7 @@
-import { DigitalProfile, BookingSlot, LeadItem, StoreOrder, DynamicQrConfig, NfcCardItem, BlogPostItem, ThemeType } from './types';
+import { DigitalProfile, BookingSlot, LeadItem, DynamicQrConfig, NfcCardItem, BlogPostItem, ThemeType } from './types';
 import { SAMPLE_BLOG_POSTS } from './blog-data';
 import { getTemplateProfile } from '@/data/templatePresets';
-import { VCARD_TEMPLATES_CATALOG, ALL_VCARD_TEMPLATES } from '@/data/vcardTemplates';
+import { ALL_VCARD_TEMPLATES } from '@/data/vcardTemplates';
 
 export const INITIAL_BLOGS: BlogPostItem[] = SAMPLE_BLOG_POSTS;
 

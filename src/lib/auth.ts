@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from './prisma';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'oneclickbiz_super_secret_production_key_2026';
 const TOKEN_COOKIE_NAME = 'oneclickbiz_auth_token';
@@ -41,7 +40,7 @@ export function signToken(payload: TokenPayload, expiresIn: string = '7d'): stri
 export function verifyToken(token: string): TokenPayload | null {
   try {
     return jwt.verify(token, JWT_SECRET) as TokenPayload;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
