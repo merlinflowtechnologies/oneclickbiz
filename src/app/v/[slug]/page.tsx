@@ -21,7 +21,7 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
 
   // If slug matches any official catalog template or alias, return pure catalog preview immediately
   const isCatalogTemplate = ALL_VCARD_TEMPLATES.some(t => t.id.toLowerCase() === cleanSlug) ||
-    ['insurance', 'mediclaim', 'insurance-advisor', 'home-interior', 'interior'].includes(cleanSlug);
+    ['insurance', 'mediclaim', 'insurance-advisor', 'home-interior', 'interior', 'retail-jewellery', 'jewellery'].includes(cleanSlug);
   if (isCatalogTemplate) {
     return getProfileBySlug(cleanSlug);
   }

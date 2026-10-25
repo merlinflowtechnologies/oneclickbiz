@@ -62,6 +62,7 @@ import BusBookingTemplateView from './BusBookingTemplateView';
 import ProfessionalMiniWebsiteView from './ProfessionalMiniWebsiteView';
 import HomeServicesMiniWebsiteView from './HomeServicesMiniWebsiteView';
 import RetailMiniWebsiteView from './RetailMiniWebsiteView';
+import JewelleryMiniWebsiteView from './JewelleryMiniWebsiteView';
 import { VCARD_TEMPLATES_CATALOG, ALL_VCARD_TEMPLATES } from '@/data/vcardTemplates';
 
 type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED';
@@ -870,8 +871,22 @@ export default function ProfileCardView({
     Boolean(profile.sectionData?.homeServices)
   );
 
+  // 14.5 Jewellery & Luxury Diamonds
+  const isJewellery = !isKishore && Boolean(
+    slug === 'retail-jewellery' ||
+    slug.startsWith('retail-jewel') ||
+    slug === 'jewellery' ||
+    slug.startsWith('jewel') ||
+    templateId === 'retail-jewellery' ||
+    templateId.startsWith('retail-jewel') ||
+    templateId === 'jewellery' ||
+    category === 'Jewellery' ||
+    category === 'Fine Jewellery' ||
+    Boolean(profile.sectionData?.jewellery)
+  );
+
   // 15. Retail & Local Shops
-  const isRetail = Boolean(
+  const isRetail = !isJewellery && Boolean(
     category === 'Retail & Local Shops' ||
     slug.startsWith('retail-') ||
     templateId.startsWith('retail-') ||
@@ -1170,6 +1185,14 @@ export default function ProfileCardView({
           <HomeServicesMiniWebsiteView
             profile={profile}
             getEmbedUrl={getEmbedUrl}
+          />
+        ) : isJewellery ? (
+          <JewelleryMiniWebsiteView
+            profile={profile}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
           />
         ) : isRetail ? (
           <RetailMiniWebsiteView

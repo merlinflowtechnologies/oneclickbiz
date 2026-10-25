@@ -1897,6 +1897,49 @@ TEMPLATE_PRESETS_DATA['buses'] = TEMPLATE_PRESETS_DATA['bus-booking'];
 TEMPLATE_PRESETS_DATA['bus-ticket'] = TEMPLATE_PRESETS_DATA['bus-booking'];
 TEMPLATE_PRESETS_DATA['travel-tour'] = TEMPLATE_PRESETS_DATA['bus-booking'];
 
+TEMPLATE_PRESETS_DATA['retail-jewellery'] = {
+  name: 'Lumière Diamonds & Fine Jewels',
+  designation: 'Conscious Lab-Grown Diamonds & BIS 916 / 18Kt Gold Fine Jewellery',
+  company: 'Lumière Diamonds Atelier',
+  bio: 'Lumière crafts IGI & GIA certified lab-grown diamond solitaires, bridal jewels, and everyday gold essentials with 80% lifetime buyback and zero environmental mining impact.',
+  theme: 'sunset-gold',
+  avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+  coverUrl: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1200&q=80',
+  email: 'concierge@lumierediamonds.com',
+  phone: '+91 98765 43210',
+  whatsapp: '919876543210',
+  website: 'https://lumierediamonds.com',
+  address: 'Bandra West, Mumbai • South Ex Part II, Delhi • Indiranagar, Bengaluru • Jubilee Hills, Hyderabad',
+  services: [
+    { id: 'srv_jewel_1', title: 'Private Solitaire & Bridal Viewing Salon', description: 'Complimentary Champagne tasting, loupe diamond inspection, and custom sizing.', durationMinutes: 60, price: 0, currency: '₹' },
+    { id: 'srv_jewel_2', title: 'Bespoke 3D CAD Diamond Atelier', description: 'Share your sketch or Pinterest reference for photorealistic multi-angle 3D CAD renders.', durationMinutes: 45, price: 0, currency: '₹' },
+    { id: 'srv_jewel_3', title: 'Live 1-on-1 Video Call Shopping', description: 'Real-time try-on and 4Cs diamond inspection on high-definition video with a master gemologist.', durationMinutes: 30, price: 0, currency: '₹' }
+  ],
+  products: [
+    { id: 'p_jewel_1', name: 'Toi Et Moi Emerald & Pear Diamond Solitaire Ring', description: '1.45 Ct VVS2-E in 18Kt Solid Yellow Gold with IGI Certification.', price: 47067, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80', category: 'Solitaire Rings', isAvailable: true },
+    { id: 'p_jewel_2', name: 'The Sovereign Round Brilliant Solitaire Ring', description: '1.05 Ct VVS1-D in 18Kt White Gold Platinum Claw Setting.', price: 38450, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=800&q=80', category: 'Solitaire Rings', isAvailable: true },
+    { id: 'p_jewel_3', name: 'Seraphine Double-Row Diamond Tennis Bracelet', description: '3.60 Ct Total Weight in 18Kt Rose Gold with double safety catch.', price: 60518, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=800&q=80', category: 'Tennis Bracelets', isAvailable: true }
+  ],
+  gallery: [
+    { id: 'g_jewel_1', imageUrl: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80', title: 'Solitaire Rings Atelier', category: 'Rings' },
+    { id: 'g_jewel_2', imageUrl: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=800&q=80', title: 'Diamond Tennis Bracelets', category: 'Bracelets' },
+    { id: 'g_jewel_3', imageUrl: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=800&q=80', title: 'Sui Dhaga & Drop Earrings', category: 'Earrings' }
+  ],
+  testimonials: [
+    { id: 't_jewel_1', clientName: 'Aditya & Rhea Sen', clientRole: 'Bandra West, Mumbai', content: 'The brilliance and crisp facets on the Lumière 1.50 Ct oval ring were superior to mined diamonds. Transparent billing and verified IGI laser inscription.', rating: 5 },
+    { id: 't_jewel_2', clientName: 'Dr. Varun Mathur', clientRole: 'South Extension, Delhi', content: 'Visited the South Ex lounge. Exceptional service, high-tech microscope viewing, and delivered right on time.', rating: 5 }
+  ],
+  socials: [
+    { id: 'soc_jewel_wa', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'WhatsApp Concierge' },
+    { id: 'soc_jewel_ig', platform: 'instagram', url: 'https://instagram.com', label: 'Instagram Lookbook' },
+    { id: 'soc_jewel_ph', platform: 'phone', url: 'tel:+919876543210', label: 'Lounge Direct Line' }
+  ]
+};
+
+TEMPLATE_PRESETS_DATA['jewellery'] = TEMPLATE_PRESETS_DATA['retail-jewellery'];
+TEMPLATE_PRESETS_DATA['jewelry'] = TEMPLATE_PRESETS_DATA['retail-jewellery'];
+TEMPLATE_PRESETS_DATA['retail-jewel'] = TEMPLATE_PRESETS_DATA['retail-jewellery'];
+
 
 
 
@@ -2120,6 +2163,16 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
         courtOrJurisdiction: (templateId.includes('ca') || effectiveId.includes('ca')) ? 'ICAI & National Financial Reporting Authority (NFRA)' : 'Supreme Court of India, Delhi & Telangana High Courts',
         successRate: '98.4% Favorable Resolution Track Record',
         advisoryDeskHours: 'Mon - Sat: 10:00 AM - 7:30 PM'
+      } : undefined,
+      jewellery: ((meta.category as string) === 'Jewellery' || effectiveId.startsWith('retail-jewel') || effectiveId.startsWith('jewel') || templateId === 'retail-jewellery') ? {
+        certifications: 'IGI, GIA & SGL Certified Diamonds',
+        hallmark: 'BIS Hallmarked 14Kt & 18Kt Gold (HUID)',
+        buybackPolicy: '80% Lifetime Buyback & 100% Exchange',
+        returnPolicy: '15-Day Free Returns & Insured Delivery',
+        diamondType: '100% Real Lab-Grown Diamonds (Conflict-Free)',
+        experienceStores: 'Mumbai • Delhi NCR • Bengaluru • Hyderabad',
+        goldRate18K: 6480,
+        goldRate24K: 7920
       } : undefined,
       contact: {
         showEmail: true,
