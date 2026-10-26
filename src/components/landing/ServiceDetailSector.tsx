@@ -141,7 +141,7 @@ export default function ServiceDetailSector({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 pt-4 relative z-10">
         
         {/* LEFT COLUMN (7 cols): Matter & How It Can Be Used */}
-        <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
+        <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col justify-between space-y-6">
           
           {/* Section Tab Buttons: About Matter vs How To Use */}
           <div className="flex items-center gap-2 p-1 bg-[#E8EEFD] rounded-2xl w-fit">
@@ -286,7 +286,7 @@ export default function ServiceDetailSector({
         </div>
 
         {/* RIGHT COLUMN (5 cols): Visual Reference Mockup Showcase ("Reference Images") */}
-        <div className="lg:col-span-5 flex flex-col justify-start">
+        <div className="order-1 lg:order-2 lg:col-span-5 flex flex-col justify-start">
           <div className="bg-white rounded-3xl border-2 border-[#C7D7FE] p-4 sm:p-5 shadow-[0_12px_32px_rgba(0,0,0,0.06)] flex flex-col">
             
             {/* Mockup Header */}
