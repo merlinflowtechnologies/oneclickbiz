@@ -42,7 +42,7 @@ export default function PricingSection() {
       badge: 'SOLO PROFESSIONALS & SHOPS',
       price: '₹999/-',
       period: 'Per Year',
-      desc: 'Essential digital identity & WhatsApp storefront for solo practitioners, doctors, and boutique owners.',
+      desc: 'Complete commercial business mini-website with integrated WhatsApp store, catalog, and 1-tap customer connect.',
       icon: User,
       iconColor: 'text-[#174BFF] bg-blue-50',
       checkColor: 'text-[#174BFF]',
@@ -56,13 +56,13 @@ export default function PricingSection() {
         'Instagram Reels & YouTube Video Player Space',
       ],
       planFeatures: [
-        '1 Verified Digital vCard & Mini Website',
-        '1-Tap Save to iPhone & Android Contacts (.vcf)',
+        '1 Verified Commercial Business Mini-Website',
+        'Integrated 1-Tap Save Contacts (.vcf) for Visitors',
         'Dynamic Cloud QR Code (Editable 24x7 without reprint)',
         'High-Resolution Photo Gallery Space (15 Photos)',
-        'Direct PWA App (1-Tap Add to Home Screen)',
+        'Direct PWA Web App (1-Tap Add to Customer Home Screen)',
         'Inbound Customer Lead Inquiry Capture Form',
-        'Standard Profile Traffic & Views Analytics',
+        'Website Visitor Traffic & Real-Time Scan Analytics',
       ],
     },
     {
@@ -71,7 +71,7 @@ export default function PricingSection() {
       badge: 'MULTI-SERVICE & CLINICS',
       price: '₹1,599/-',
       period: 'Per Year',
-      desc: 'Complete customer appointment scheduling, UPI payments, and high-converting commercial growth suite.',
+      desc: 'High-converting business mini-website with integrated slot bookings, instant UPI payment gateways, custom domain, and CRM.',
       icon: Users2,
       iconColor: 'text-white bg-[#174BFF]',
       checkColor: 'text-[#16B981]',
@@ -87,13 +87,13 @@ export default function PricingSection() {
       ],
       planFeatures: [
         '1 Custom Domain Connection (Connect your own domain + Free SSL)',
-        'Online Appointment & Slot Booking Engine (Doctor/Salon)',
-        'Payment Gateways & Instant UPI (GPay, PhonePe, Cards)',
+        'Online Appointment & Slot Booking Engine (Doctor/Salon/Studio)',
+        'Integrated Payment Gateways & Instant UPI (GPay, PhonePe, Cards)',
         'Google 5-Star Reviews Booster & Feedback Engine',
         'Customer Leads CRM with 1-Click Excel / CSV Export',
         'Canva & Adobe Banner Creative Sync Studio',
         'Unlimited 4K Gallery Space with Lightbox Zoom',
-        'Up to 3 Digital Cards / Staff Team Profiles',
+        'Up to 3 Commercial Business Mini-Websites / Branch Portals',
         'Priority WhatsApp & Email Customer Support',
       ],
     },
@@ -103,7 +103,7 @@ export default function PricingSection() {
       badge: 'ENTERPRISES & MULTI-BRANCH',
       price: '₹2,199/-',
       period: 'Per Year',
-      desc: 'Full-scale white-label infrastructure, multi-branch scaling, and executive operations cockpit.',
+      desc: 'Multi-branch business mini-websites with white-label custom domains, blog studio, GST tax invoices, and operations cockpit.',
       icon: Building,
       iconColor: 'text-[#7547F5] bg-purple-50',
       checkColor: 'text-[#7547F5]',
@@ -118,13 +118,13 @@ export default function PricingSection() {
       ],
       planFeatures: [
         'Up to 5 Custom Domain Connections (Connect your domains + Free SSL)',
-        '100% White-Label Rights (Zero OneClickBiz Branding)',
+        '100% White-Label Rights (Zero OneClickBiz Branding on Website)',
         'Multi-Branch Growth Engine (Manage Multi-City Outlets)',
         'Articles & SEO Blog Studio (Rank #1 on Google Search)',
         'Report PDF Extract & GST Tax Invoicing Suite',
         'All-in-One Operations Cockpit (CRM, WhatsApp, Revenue)',
-        'Physical Smart NFC Metallic Card Included (+ Acrylic QR)',
-        'Up to 5 Digital Cards & Team Roles Management',
+        'Storefront Smart NFC & Acrylic QR Standee Included',
+        'Up to 5 Commercial Business Mini-Websites & Branch Management',
         'Dedicated VIP Account Manager & 24/7 Phone SLA',
       ],
     },
@@ -150,7 +150,7 @@ export default function PricingSection() {
             Simple & Transparent Pricing.
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-[#64718F] font-normal max-w-xl mx-auto">
-            Choose the plan that fits your business. Upgrade anytime. Every plan includes WhatsApp Store, Social Profiles, and Instagram & YouTube Video Spaces.
+            Choose the plan that fits your business. Every plan provides a complete commercial mini-website with all essential business services pre-integrated.
           </p>
         </div>
 
@@ -209,7 +209,7 @@ export default function PricingSection() {
                   <div className="mb-4 p-3 rounded-2xl bg-gradient-to-br from-[#F0F5FF] to-[#E8EEFD] border border-[#C7D7FE]">
                     <div className="flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-wider text-[#174BFF] mb-2">
                       <Sparkles className="w-3 h-3 text-[#174BFF]" />
-                      <span>Included in Every Plan</span>
+                      <span>Integrated in Every Mini-Website</span>
                     </div>
                     <ul className="space-y-1.5">
                       {plan.mandatoryFeatures.map((mFeat, mIdx) => (
@@ -223,7 +223,7 @@ export default function PricingSection() {
 
                   {/* TIER-SPECIFIC SERVICES LIST */}
                   <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#64718F] mb-2.5 px-1">
-                    {plan.id === 'basic' ? 'Basic Tier Services' : plan.id === 'pro' ? 'Everything in Basic, Plus:' : 'Everything in Pro, Plus:'}
+                    {plan.id === 'basic' ? 'Basic Website Features' : plan.id === 'pro' ? 'Everything in Basic, Plus:' : 'Everything in Pro, Plus:'}
                   </div>
                   <ul className="space-y-2.5 mb-6">
                     {plan.planFeatures.map((feat, idx) => (
