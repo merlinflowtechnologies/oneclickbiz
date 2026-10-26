@@ -86,7 +86,7 @@ export default function PricingSection() {
         'Full 4K YouTube Video Hub & Embedded Instagram Feed',
       ],
       planFeatures: [
-        '1 Custom Domain Mapping & Free SSL (yourbrand.com)',
+        '1 Custom Domain Connection (Connect your own domain + Free SSL)',
         'Online Appointment & Slot Booking Engine (Doctor/Salon)',
         'Payment Gateways & Instant UPI (GPay, PhonePe, Cards)',
         'Google 5-Star Reviews Booster & Feedback Engine',
@@ -117,7 +117,7 @@ export default function PricingSection() {
         'Unlimited High-Bitrate YouTube & Instagram Video Galleries',
       ],
       planFeatures: [
-        'Up to 5 White-Label Custom Domains & Multi-Portals',
+        'Up to 5 Custom Domain Connections (Connect your domains + Free SSL)',
         '100% White-Label Rights (Zero OneClickBiz Branding)',
         'Multi-Branch Growth Engine (Manage Multi-City Outlets)',
         'Articles & SEO Blog Studio (Rank #1 on Google Search)',
@@ -247,6 +247,11 @@ export default function PricingSection() {
             );
           })}
         </div>
+
+        {/* Custom Domain Note */}
+        <p className="text-center text-[11px] text-[#64718F] mt-6 max-w-2xl mx-auto leading-relaxed">
+          <span className="font-semibold text-slate-700">💡 Custom Domain Note:</span> Connect any domain you own (from GoDaddy, Hostinger, Namecheap, etc.) via simple CNAME DNS. OneClickBiz provides free high-speed cloud edge routing and automated 256-bit SSL certificates at zero extra charge.
+        </p>
 
         {/* 4 Trust Benefits */}
         <div className="mt-12 sm:mt-14 max-w-5xl mx-auto pt-8 border-t border-[#E2E9FA]/70">

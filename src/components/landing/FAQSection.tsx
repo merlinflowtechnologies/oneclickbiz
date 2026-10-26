@@ -19,7 +19,7 @@ const FAQS_LEFT: FAQItem[] = [
   {
     id: 'faq-2',
     q: 'Can I use my own domain name?',
-    a: 'Yes! Pro and Advance plans include custom domain CNAME mapping with free automated SSL certificates. You can easily connect your own branded domain (e.g., yourcompany.com) with complete white-label branding.'
+    a: 'Yes! Pro and Advance plans allow you to connect your existing custom domain (purchased from GoDaddy, Hostinger, Namecheap, etc.) via simple CNAME DNS mapping. OneClickBiz provides high-speed cloud edge hosting and automated 256-bit SSL certificates at zero extra charge.'
   },
   {
     id: 'faq-3',
