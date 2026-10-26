@@ -53,6 +53,7 @@ interface ServiceMatrixCategory {
 
 export default function PricingSection() {
   const [showComparison, setShowComparison] = useState(true);
+  const [mobileFilter, setMobileFilter] = useState<'all' | 'basic' | 'pro' | 'advance'>('all');
 
   const plans: PricingPlan[] = [
     {
@@ -559,37 +560,113 @@ export default function PricingSection() {
 
           {/* EXPANDABLE 24-SERVICES COMPARISON TABLE */}
           {showComparison && (
-            <div className="mt-4 bg-white rounded-3xl border border-[#C7D7FE] shadow-xl overflow-hidden transition-all duration-300 animate-fadeIn">
-              <div className="overflow-x-auto scrollbar-thin">
-                <table className="w-full text-left border-collapse min-w-[700px]">
+            <div className="mt-4 bg-white rounded-2xl sm:rounded-3xl border border-[#C7D7FE] shadow-lg overflow-hidden transition-all duration-300 animate-fadeIn">
+              
+              {/* Mobile Plan Tab Filter (visible only on small screens) */}
+              <div className="sm:hidden p-1.5 bg-slate-50 border-b border-[#E2E9FA] flex items-center justify-between gap-1">
+                <button
+                  type="button"
+                  onClick={() => setMobileFilter('all')}
+                  className={`flex-1 py-1.5 px-1 rounded-lg text-[10px] font-bold transition-all text-center ${
+                    mobileFilter === 'all'
+                      ? 'bg-white text-slate-900 shadow-xs border border-slate-200'
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  All 3 Plans
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMobileFilter('basic')}
+                  className={`flex-1 py-1.5 px-1 rounded-lg text-[10px] font-bold transition-all text-center ${
+                    mobileFilter === 'basic'
+                      ? 'bg-blue-600 text-white shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  Basic (₹999)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMobileFilter('pro')}
+                  className={`flex-1 py-1.5 px-1 rounded-lg text-[10px] font-bold transition-all text-center ${
+                    mobileFilter === 'pro'
+                      ? 'bg-emerald-600 text-white shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  Pro ⭐
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMobileFilter('advance')}
+                  className={`flex-1 py-1.5 px-1 rounded-lg text-[10px] font-bold transition-all text-center ${
+                    mobileFilter === 'advance'
+                      ? 'bg-purple-600 text-white shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  Advance
+                </button>
+              </div>
+
+              <div className="w-full overflow-x-auto scrollbar-none">
+                <table className="w-full text-left border-collapse table-fixed">
                   <thead>
                     <tr className="border-b border-[#E2E9FA] bg-gradient-to-r from-slate-50 to-blue-50/40">
-                      <th className="py-4 px-5 text-xs font-extrabold text-[#10183F] uppercase tracking-wider w-[40%]">
+                      <th className={`py-2 sm:py-3 px-2 sm:px-4 text-[10px] sm:text-xs font-extrabold text-[#10183F] uppercase tracking-wider ${
+                        mobileFilter === 'all' ? 'w-[37%] sm:w-[40%]' : 'w-[56%] sm:w-[40%]'
+                      }`}>
                         Services &amp; Capabilities
                       </th>
-                      <th className="py-4 px-4 text-center text-xs font-extrabold text-[#174BFF] uppercase tracking-wider w-[20%] bg-blue-50/50">
-                        <div>Basic Plan</div>
-                        <div className="text-[11px] font-bold text-slate-600 mt-0.5">₹999 / yr</div>
+
+                      {/* Basic Header */}
+                      <th className={`py-2 sm:py-3 px-1 sm:px-2 text-center text-[10px] sm:text-xs font-extrabold text-[#174BFF] uppercase tracking-wider bg-blue-50/50 ${
+                        mobileFilter === 'all'
+                          ? 'w-[21%] sm:w-[20%]'
+                          : mobileFilter === 'basic'
+                          ? 'w-[44%] sm:w-[20%]'
+                          : 'hidden sm:table-cell sm:w-[20%]'
+                      }`}>
+                        <div className="leading-tight">Basic</div>
+                        <div className="text-[8.5px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹999/yr</div>
                       </th>
-                      <th className="py-4 px-4 text-center text-xs font-extrabold text-emerald-700 uppercase tracking-wider w-[20%] bg-emerald-50/50">
-                        <div className="inline-flex items-center gap-1">
-                          <span>Pro Plan</span>
-                          <span className="text-[9px] bg-emerald-600 text-white px-1.5 py-0.2 rounded font-black">POPULAR</span>
+
+                      {/* Pro Header */}
+                      <th className={`py-2 sm:py-3 px-1 sm:px-2 text-center text-[10px] sm:text-xs font-extrabold text-emerald-700 uppercase tracking-wider bg-emerald-50/50 ${
+                        mobileFilter === 'all'
+                          ? 'w-[21%] sm:w-[20%]'
+                          : mobileFilter === 'pro'
+                          ? 'w-[44%] sm:w-[20%]'
+                          : 'hidden sm:table-cell sm:w-[20%]'
+                      }`}>
+                        <div className="inline-flex items-center justify-center gap-0.5 sm:gap-1 leading-tight">
+                          <span>Pro</span>
+                          <span className="text-[7px] sm:text-[9px] bg-emerald-600 text-white px-1 py-0.2 rounded font-black">TOP</span>
                         </div>
-                        <div className="text-[11px] font-bold text-slate-600 mt-0.5">₹1,599 / yr</div>
+                        <div className="text-[8.5px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹1,599/yr</div>
                       </th>
-                      <th className="py-4 px-4 text-center text-xs font-extrabold text-[#7547F5] uppercase tracking-wider w-[20%] bg-purple-50/50">
-                        <div>Advance Plan</div>
-                        <div className="text-[11px] font-bold text-slate-600 mt-0.5">₹2,199 / yr</div>
+
+                      {/* Advance Header */}
+                      <th className={`py-2 sm:py-3 px-1 sm:px-2 text-center text-[10px] sm:text-xs font-extrabold text-[#7547F5] uppercase tracking-wider bg-purple-50/50 ${
+                        mobileFilter === 'all'
+                          ? 'w-[21%] sm:w-[20%]'
+                          : mobileFilter === 'advance'
+                          ? 'w-[44%] sm:w-[20%]'
+                          : 'hidden sm:table-cell sm:w-[20%]'
+                      }`}>
+                        <div className="leading-tight">Advance</div>
+                        <div className="text-[8.5px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹2,199/yr</div>
                       </th>
                     </tr>
                   </thead>
+
                   <tbody className="divide-y divide-[#E2E9FA]/60">
                     {serviceMatrixCategories.map((group, gIdx) => (
                       <React.Fragment key={gIdx}>
                         {/* Category Row Header */}
-                        <tr className="bg-slate-100/70 border-t border-b border-[#E2E9FA]">
-                          <td colSpan={4} className="py-2.5 px-5 text-xs font-extrabold text-[#10183F] uppercase tracking-wider">
+                        <tr className="bg-slate-100/80 border-t border-b border-[#E2E9FA]">
+                          <td colSpan={4} className="py-1.5 px-2 sm:py-2 sm:px-4 text-[9.5px] sm:text-xs font-extrabold text-[#10183F] uppercase tracking-wider">
                             {group.category}
                           </td>
                         </tr>
@@ -597,67 +674,87 @@ export default function PricingSection() {
                         {/* Service Item Rows */}
                         {group.services.map((srv, sIdx) => (
                           <tr key={sIdx} className="hover:bg-slate-50/80 transition-colors">
-                            <td className="py-3.5 px-5">
-                              <div className="text-xs sm:text-sm font-bold text-[#10183F]">
+                            <td className="py-2 px-2 sm:py-2.5 sm:px-4 align-middle">
+                              <div className="text-[10.5px] sm:text-xs font-bold text-[#10183F] leading-tight">
                                 {srv.name}
                               </div>
-                              <div className="text-[11px] text-[#64718F] mt-0.5 leading-snug">
+                              <div className={`text-[9px] sm:text-[11px] text-[#64718F] mt-0.5 leading-snug ${
+                                mobileFilter === 'all' ? 'hidden sm:block' : 'block'
+                              }`}>
                                 {srv.description}
                               </div>
                             </td>
 
                             {/* Basic Column */}
-                            <td className="py-3.5 px-4 text-center text-xs font-medium bg-blue-50/20">
+                            <td className={`py-1.5 px-0.5 sm:py-2.5 sm:px-2 text-center text-xs font-medium bg-blue-50/20 align-middle ${
+                              mobileFilter === 'all'
+                                ? 'table-cell'
+                                : mobileFilter === 'basic'
+                                ? 'table-cell'
+                                : 'hidden sm:table-cell'
+                            }`}>
                               {typeof srv.basic === 'boolean' ? (
                                 srv.basic ? (
-                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-[#174BFF]">
-                                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                                  <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-blue-100 text-[#174BFF]">
+                                    <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[3]" />
                                   </span>
                                 ) : (
-                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-400">
-                                    <Minus className="w-3.5 h-3.5" />
+                                  <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-slate-100 text-slate-400">
+                                    <Minus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                                   </span>
                                 )
                               ) : (
-                                <span className="inline-block px-2.5 py-1 rounded-md bg-blue-50 text-[#174BFF] font-bold text-[11px] border border-blue-200/70">
+                                <span className="inline-block px-1 sm:px-2 py-0.5 rounded bg-blue-50 text-[#174BFF] font-bold text-[8px] sm:text-[10px] border border-blue-200/70 leading-tight break-words max-w-full">
                                   {srv.basic}
                                 </span>
                               )}
                             </td>
 
                             {/* Pro Column */}
-                            <td className="py-3.5 px-4 text-center text-xs font-medium bg-emerald-50/20">
+                            <td className={`py-1.5 px-0.5 sm:py-2.5 sm:px-2 text-center text-xs font-medium bg-emerald-50/20 align-middle ${
+                              mobileFilter === 'all'
+                                ? 'table-cell'
+                                : mobileFilter === 'pro'
+                                ? 'table-cell'
+                                : 'hidden sm:table-cell'
+                            }`}>
                               {typeof srv.pro === 'boolean' ? (
                                 srv.pro ? (
-                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700">
-                                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                                  <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-100 text-emerald-700">
+                                    <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[3]" />
                                   </span>
                                 ) : (
-                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-400">
-                                    <Minus className="w-3.5 h-3.5" />
+                                  <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-slate-100 text-slate-400">
+                                    <Minus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                                   </span>
                                 )
                               ) : (
-                                <span className="inline-block px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 font-bold text-[11px] border border-emerald-200/70">
+                                <span className="inline-block px-1 sm:px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold text-[8px] sm:text-[10px] border border-emerald-200/70 leading-tight break-words max-w-full">
                                   {srv.pro}
                                 </span>
                               )}
                             </td>
 
                             {/* Advance Column */}
-                            <td className="py-3.5 px-4 text-center text-xs font-medium bg-purple-50/20">
+                            <td className={`py-1.5 px-0.5 sm:py-2.5 sm:px-2 text-center text-xs font-medium bg-purple-50/20 align-middle ${
+                              mobileFilter === 'all'
+                                ? 'table-cell'
+                                : mobileFilter === 'advance'
+                                ? 'table-cell'
+                                : 'hidden sm:table-cell'
+                            }`}>
                               {typeof srv.advance === 'boolean' ? (
                                 srv.advance ? (
-                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-100 text-[#7547F5]">
-                                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                                  <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-purple-100 text-[#7547F5]">
+                                    <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[3]" />
                                   </span>
                                 ) : (
-                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-400">
-                                    <Minus className="w-3.5 h-3.5" />
+                                  <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-slate-100 text-slate-400">
+                                    <Minus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                                   </span>
                                 )
                               ) : (
-                                <span className="inline-block px-2.5 py-1 rounded-md bg-purple-50 text-[#7547F5] font-bold text-[11px] border border-purple-200/70">
+                                <span className="inline-block px-1 sm:px-2 py-0.5 rounded bg-purple-50 text-[#7547F5] font-bold text-[8px] sm:text-[10px] border border-purple-200/70 leading-tight break-words max-w-full">
                                   {srv.advance}
                                 </span>
                               )}
@@ -669,31 +766,57 @@ export default function PricingSection() {
 
                     {/* Quick Action Footer Row */}
                     <tr className="bg-slate-50 border-t-2 border-[#C7D7FE]">
-                      <td className="py-4 px-5 text-xs font-extrabold text-[#10183F] uppercase tracking-wider">
-                        Choose Your Plan
+                      <td className={`py-2.5 px-2 sm:py-3.5 sm:px-4 text-[9.5px] sm:text-xs font-extrabold text-[#10183F] uppercase tracking-wider ${
+                        mobileFilter === 'all' ? 'w-[37%] sm:w-[40%]' : 'w-[56%] sm:w-[40%]'
+                      }`}>
+                        Plan Choice
                       </td>
-                      <td className="py-4 px-4 text-center">
+
+                      {/* Basic CTA */}
+                      <td className={`py-2 px-0.5 sm:py-3 sm:px-2 text-center ${
+                        mobileFilter === 'all'
+                          ? 'table-cell'
+                          : mobileFilter === 'basic'
+                          ? 'table-cell'
+                          : 'hidden sm:table-cell'
+                      }`}>
                         <Link
                           href="/signup?plan=basic&intent=matrix"
-                          className="inline-flex items-center justify-center px-3.5 py-2 rounded-xl text-xs font-bold text-[#174BFF] bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-colors w-full"
+                          className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-xs font-bold text-[#174BFF] bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-colors w-full"
                         >
-                          Select Basic
+                          Basic
                         </Link>
                       </td>
-                      <td className="py-4 px-4 text-center">
+
+                      {/* Pro CTA */}
+                      <td className={`py-2 px-0.5 sm:py-3 sm:px-2 text-center ${
+                        mobileFilter === 'all'
+                          ? 'table-cell'
+                          : mobileFilter === 'pro'
+                          ? 'table-cell'
+                          : 'hidden sm:table-cell'
+                      }`}>
                         <Link
                           href="/signup?plan=pro&intent=matrix"
-                          className="inline-flex items-center justify-center px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-xs transition-colors w-full"
+                          className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-xs transition-colors w-full"
                         >
-                          Get Pro
+                          Pro
                         </Link>
                       </td>
-                      <td className="py-4 px-4 text-center">
+
+                      {/* Advance CTA */}
+                      <td className={`py-2 px-0.5 sm:py-3 sm:px-2 text-center ${
+                        mobileFilter === 'all'
+                          ? 'table-cell'
+                          : mobileFilter === 'advance'
+                          ? 'table-cell'
+                          : 'hidden sm:table-cell'
+                      }`}>
                         <Link
                           href="/signup?plan=advance&intent=matrix"
-                          className="inline-flex items-center justify-center px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-[#7547F5] hover:bg-[#6032E3] shadow-xs transition-colors w-full"
+                          className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-xs font-bold text-white bg-[#7547F5] hover:bg-[#6032E3] shadow-xs transition-colors w-full"
                         >
-                          Choose Advance
+                          Advance
                         </Link>
                       </td>
                     </tr>
