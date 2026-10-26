@@ -1,15 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { 
-  ArrowRight, 
   CheckCircle2, 
   Sparkles, 
   ChevronLeft, 
   ChevronRight, 
   X, 
-  ExternalLink,
   ShieldCheck,
   Zap,
   TrendingUp,
@@ -117,23 +114,6 @@ export default function ServiceDetailSector({
           <p className="mt-1.5 text-sm sm:text-base text-[#174BFF] font-semibold leading-relaxed">
             {service.tagline}
           </p>
-        </div>
-
-        {/* Key Stat Badges */}
-        <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap lg:justify-end">
-          {service.metrics.map((metric, idx) => (
-            <div 
-              key={idx}
-              className="bg-white/90 backdrop-blur-sm border border-[#C7D7FE] rounded-2xl px-3.5 py-2 text-center shadow-2xs min-w-[90px]"
-            >
-              <div className="text-base sm:text-lg font-black text-[#174BFF] tracking-tight">
-                {metric.value}
-              </div>
-              <div className="text-[10px] sm:text-[11px] font-medium text-[#64718F] uppercase tracking-wider">
-                {metric.label}
-              </div>
-            </div>
-          ))}
         </div>
       </div>
 
@@ -264,25 +244,6 @@ export default function ServiceDetailSector({
             </div>
           )}
 
-          {/* ACTION BUTTONS (CTA ROW) */}
-          <div className="pt-4 border-t border-[#E2E9FA] flex flex-wrap items-center gap-3">
-            <Link
-              href={service.ctaUrl}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-[#174BFF] via-[#2F61FF] to-[#5932EA] hover:opacity-95 shadow-[0_8px_20px_rgba(23,75,255,0.28)] hover:shadow-[0_12px_28px_rgba(23,75,255,0.38)] transition-all cursor-pointer"
-            >
-              <span>{service.ctaText}</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-
-            <Link
-              href={service.demoUrl}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-[#174BFF] bg-white hover:bg-blue-50/80 border border-[#C7D7FE] hover:border-[#174BFF] transition-all cursor-pointer shadow-2xs"
-            >
-              <span>Explore Live Working Demos</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
         </div>
 
         {/* RIGHT COLUMN (5 cols): Visual Reference Mockup Showcase ("Reference Images") */}
@@ -350,20 +311,7 @@ export default function ServiceDetailSector({
               </div>
             </div>
 
-            {/* Live Template Feature Highlights */}
-            <div className="mt-2.5 p-3 rounded-xl bg-blue-50/70 border border-blue-200/70 text-xs text-[#174BFF] font-semibold flex items-center justify-between">
-              <span className="flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
-                Full interactive template ready to use
-              </span>
-              <Link 
-                href={service.demoUrl}
-                className="text-[11px] font-bold underline hover:text-[#10183F] flex items-center gap-1"
-              >
-                <span>Preview Demo</span>
-                <ExternalLink className="w-3 h-3" />
-              </Link>
-            </div>
+
 
           </div>
         </div>
