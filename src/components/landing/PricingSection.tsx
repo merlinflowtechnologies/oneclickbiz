@@ -650,8 +650,8 @@ export default function PricingSection() {
                 </button>
               </div>
 
-              <div className="w-full overflow-x-hidden touch-pan-y overscroll-none">
-                <table className="w-full text-left border-collapse table-fixed select-none">
+              <div className="w-full">
+                <table className="w-full text-left border-collapse table-fixed">
                   <thead>
                     <tr className="border-b border-[#E2E9FA] bg-gradient-to-r from-slate-50 to-blue-50/40">
                       <th className={`py-2 sm:py-3 px-1.5 sm:px-4 text-[9.5px] sm:text-xs font-extrabold text-[#10183F] uppercase tracking-wider ${
