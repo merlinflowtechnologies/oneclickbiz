@@ -27,7 +27,12 @@ import {
   ChevronRight,
   Shield,
   Tag,
-  Users
+  Users,
+  ChevronDown,
+  ChevronUp,
+  Camera,
+  Video,
+  Globe
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { initiateCashfreePayment } from '@/lib/cashfree-client';
@@ -65,47 +70,126 @@ const DEFAULT_PLANS_CONFIG = {
     name: 'Basic Plan',
     displayName: 'Basic',
     price: 999,
-    subtitle: 'Solo professionals, practitioners and consultants.',
+    serviceCount: '11 Services Included',
+    badge: 'Solo Professionals & Local Shops',
+    subtitle: 'Complete commercial business mini-website with integrated WhatsApp store & catalog.',
+    photoQuota: '15 HD Photos',
+    videoQuota: '1 Direct Local Video',
+    domainInfo: 'Free oneclickbiz.in/v/name URL + SSL',
+    mandatoryFeatures: [
+      'WhatsApp Store (0% Commission Direct Orders)',
+      'Social Profiles Hub (Instagram, FB, LinkedIn, Maps)',
+      'Instagram Reels & YouTube Embedded Video Player',
+      '1 Verified Commercial Business Mini-Website',
+    ],
     features: [
-      'Unlimited 24×7 Card Edits',
-      '1 Digital Card (/v/your-name)',
-      'QR Code & VCF Download',
-      'Lead Capture Form',
-      'Standard Visitor Analytics'
-    ]
+      '1 Verified Commercial Business Mini-Website',
+      'WhatsApp Store (0% Commission Direct Orders)',
+      '15 HD Photos & 1 Direct Local Video Upload',
+      'Personal Profile & Digital vCard (1-Tap Save Contacts)',
+      'Dynamic Cloud QR Code (Editable 24x7 without reprint)',
+      'Visiting Cards & Downloadable PDF Flyers',
+      'Direct PWA Web App (1-Tap Add to Home Screen)',
+      'Product Space (Showcase Products with Pricing & Deals)',
+      'Custom Templates & Brand Easy Designing Customizer',
+      'High-Speed Live Profile Cloud Hosting (SSL Secured)',
+      'Customer Lead Inquiry Capture Form & Traffic Analytics',
+    ],
+    servicesList: [
+      'Mini Website',
+      'WhatsApp Store',
+      'Personal Profile',
+      'Custom Templates',
+      'Easy Designing',
+      'Customized QR Code',
+      'Visiting Cards & Flyers',
+      'Direct App (PWA)',
+      'Product Space',
+      'Live Profile Hosting',
+      'Gallery Space (15 Photos/1 Video)',
+    ],
   },
   Pro: {
     id: 'PRO',
     name: 'Pro Plan',
     displayName: 'Pro',
     price: 1599,
-    subtitle: 'Multi-service professionals, agencies and growing businesses.',
+    serviceCount: '19 Services Total (11 Basic + 8 Growth)',
+    badge: 'Multi-Service Studios & Clinics',
+    subtitle: 'Commercial mini-website with online appointments, UPI payments, custom domain & CRM.',
+    photoQuota: '50 HD Photos',
+    videoQuota: '5 Direct Local Videos',
+    domainInfo: '1 Custom Domain Connection + Free Cloud SSL',
+    mandatoryFeatures: [
+      'Advanced WhatsApp Store (Unlimited SKUs, Variants & Cart)',
+      'Social Profiles Hub + Clickable HTML Email Signature',
+      'Full 4K YouTube Video Hub & Embedded Instagram Feed',
+      '1 Verified Commercial Business Mini-Website',
+    ],
     features: [
-      'Unlimited 24×7 Card Edits',
-      'Up to 3 Digital Cards',
-      'Custom Domain (CNAME)',
-      'WhatsApp Store + Booking',
-      'CRM Inbox with Exports',
-      'PDF Reporting Suite',
-      'Priority WhatsApp & Email Support'
-    ]
+      'Everything in Basic Plan (All 11 Core Services)',
+      '1 Custom Domain Connection (Connect your own domain + Free SSL)',
+      '50 HD Photos & 5 Direct Local Video Uploads',
+      'Online Slot & Appointment Booking Engine (Doctors, Salons, Studios)',
+      'Integrated Payment Gateways & Instant UPI QR (GPay, PhonePe, Cards)',
+      'Google 5-Star Reviews Booster & Feedback Engine',
+      'Customer Leads CRM with 1-Click Excel / CSV Export',
+      'Canva & Adobe Banner Creative Sync Studio',
+      'Clickable HTML Email Signature Generator',
+      'Advanced E-Commerce Cart & SKU Variants (Sizes, Colors, Weights)',
+      'Multi-Staff Team Directory & Priority WhatsApp Support',
+    ],
+    servicesList: [
+      'All 11 Basic Services',
+      'Custom Domain & SSL',
+      'Slot & Appointment Booking',
+      'Payment Gateways & UPI',
+      'Google 5-Star Reviews',
+      'Lead CRM & Excel Export',
+      'Canva & Adobe Studio',
+      'HTML Email Signature',
+      'E-Commerce Cart & SKUs',
+    ],
   },
   Advance: {
     id: 'ADVANCED',
     name: 'Advance Plan',
     displayName: 'Advance',
     price: 2199,
-    subtitle: 'Enterprises, executives and teams.',
+    serviceCount: 'All 24 Services Included',
+    badge: 'Enterprises & Multi-Branch Outlets',
+    subtitle: 'Full enterprise commercial mini-website with 100% white-label, multi-branch scaling & cockpit CRM.',
+    photoQuota: 'Unlimited HD Photos',
+    videoQuota: '15 Direct Local 4K Videos',
+    domainInfo: 'Up to 5 Custom Domains + 100% White-Label',
+    mandatoryFeatures: [
+      'Enterprise Multi-Category WhatsApp E-Commerce Store',
+      'Omnichannel Social Media Command Hub (All Staff Profiles)',
+      'Unlimited High-Bitrate YouTube & Instagram Video Galleries',
+      '1 Verified Commercial Business Mini-Website',
+    ],
     features: [
-      'Unlimited 24×7 Card Edits',
-      'Up to 5 Digital Cards',
-      '5 White-Label Domains',
-      '4K Video Uploads & CDN',
-      'Blog Studio & Articles',
-      '50+ Case Studies with Zoom',
-      'Dedicated Account Manager'
-    ]
-  }
+      'Everything in Pro Plan (All 19 Services)',
+      '100% White-Label Rights (Zero OneClickBiz Branding on Website)',
+      'Unlimited HD Photos & 15 Direct Local 4K Video Uploads',
+      'Multi-Branch & Locations Scaling Engine (Manage Multi-City Outlets)',
+      'Articles & SEO Blog Studio (Rank #1 on Google Search)',
+      'Report PDF Extract & Automated GST Tax Invoicing Suite',
+      'All-in-One Operations Cockpit (CRM, WhatsApp, Revenue)',
+      'Storefront Smart NFC & Acrylic QR Standee Delivered Free',
+      'Up to 5 Custom Domains Management Support',
+      'Dedicated VIP Account Manager & 24/7 Phone SLA',
+    ],
+    servicesList: [
+      'All 19 Pro Services',
+      '100% White-Label Rights',
+      'Multi-Branch Scaling',
+      'SEO Blog & Articles Studio',
+      'Report PDF & GST Invoicing',
+      'Operations Cockpit CRM',
+      'Smart NFC Acrylic Standee',
+    ],
+  },
 };
 
 const ALL_20_CATEGORIES = [
@@ -150,9 +234,14 @@ function SignupForm() {
   const [mobileSubStep, setMobileSubStep] = useState<number>(1);
 
   // Selected plan
-  const [selectedPlanKey, setSelectedPlanKey] = useState<'Basic' | 'Pro' | 'Advance'>(
-    paramPlan === 'BASIC' ? 'Basic' : (paramPlan === 'ADVANCED' || paramPlan === 'Advance' ? 'Advance' : 'Pro')
-  );
+  const [selectedPlanKey, setSelectedPlanKey] = useState<'Basic' | 'Pro' | 'Advance'>(() => {
+    const p = paramPlan?.toLowerCase();
+    if (p === 'basic') return 'Basic';
+    if (p === 'advanced' || p === 'advance') return 'Advance';
+    return 'Pro';
+  });
+
+  const [showCheckoutDetails, setShowCheckoutDetails] = useState<boolean>(false);
 
   const activePlan = DEFAULT_PLANS_CONFIG[selectedPlanKey];
 
@@ -703,7 +792,7 @@ function SignupForm() {
                         : 'border-slate-200 bg-white/70 hover:border-slate-300 hover:bg-white'
                     }`}
                   >
-                    <div className="space-y-4">
+                    <div className="space-y-3.5">
                       <div className="flex items-center justify-between">
                         <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg">
                           <User className="w-5 h-5" />
@@ -718,16 +807,34 @@ function SignupForm() {
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-black text-[#10183F]">Basic</h3>
-                        <p className="text-xs text-slate-500 mt-1">{DEFAULT_PLANS_CONFIG.Basic.subtitle}</p>
+                        <div className="flex items-center gap-1.5 flex-wrap mb-1">
+                          <h3 className="text-lg font-black text-[#10183F]">Basic</h3>
+                          <span className="px-2 py-0.5 rounded-md bg-blue-50 text-[#174BFF] border border-blue-200 text-[10px] font-black uppercase">
+                            11 Services
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500">{DEFAULT_PLANS_CONFIG.Basic.subtitle}</p>
                       </div>
 
                       <div className="text-2xl font-black text-[#10183F]">
                         ₹999 <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
-                      <ul className="space-y-2 text-xs text-slate-600 pt-3 border-t border-slate-100">
-                        {DEFAULT_PLANS_CONFIG.Basic.features.map((feat, i) => (
+                      {/* Quotas & Mandatory Inclusions */}
+                      <div className="p-2.5 rounded-xl bg-blue-50/70 border border-blue-200/80 text-[11px] space-y-1">
+                        <div className="font-bold text-[#174BFF] flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-[#174BFF]" />
+                          <span>Includes WhatsApp Store &amp; 1 Mini-Website</span>
+                        </div>
+                        <div className="text-slate-600 flex items-center gap-2">
+                          <span>📸 15 HD Photos</span>
+                          <span>•</span>
+                          <span>🎥 1 Local Video</span>
+                        </div>
+                      </div>
+
+                      <ul className="space-y-1.5 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                        {DEFAULT_PLANS_CONFIG.Basic.features.slice(0, 6).map((feat, i) => (
                           <li key={i} className="flex items-center gap-2">
                             <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                             <span>{feat}</span>
@@ -762,7 +869,7 @@ function SignupForm() {
                       ⭐ MOST POPULAR
                     </span>
 
-                    <div className="space-y-4">
+                    <div className="space-y-3.5">
                       <div className="flex items-center justify-between">
                         <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">
                           <Users className="w-5 h-5" />
@@ -777,16 +884,34 @@ function SignupForm() {
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-black text-[#10183F]">Pro</h3>
-                        <p className="text-xs text-slate-500 mt-1">{DEFAULT_PLANS_CONFIG.Pro.subtitle}</p>
+                        <div className="flex items-center gap-1.5 flex-wrap mb-1">
+                          <h3 className="text-lg font-black text-[#10183F]">Pro</h3>
+                          <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black uppercase">
+                            19 Services Total
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500">{DEFAULT_PLANS_CONFIG.Pro.subtitle}</p>
                       </div>
 
                       <div className="text-2xl font-black text-[#10183F]">
                         ₹1,599 <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
-                      <ul className="space-y-2 text-xs text-slate-600 pt-3 border-t border-slate-100">
-                        {DEFAULT_PLANS_CONFIG.Pro.features.map((feat, i) => (
+                      {/* Quotas & Mandatory Inclusions */}
+                      <div className="p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-200/80 text-[11px] space-y-1">
+                        <div className="font-bold text-emerald-800 flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-emerald-600" />
+                          <span>Custom Domain (Free SSL) + UPI Gateways</span>
+                        </div>
+                        <div className="text-slate-600 flex items-center gap-2">
+                          <span>📸 50 HD Photos</span>
+                          <span>•</span>
+                          <span>🎥 5 Local Videos</span>
+                        </div>
+                      </div>
+
+                      <ul className="space-y-1.5 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                        {DEFAULT_PLANS_CONFIG.Pro.features.slice(0, 6).map((feat, i) => (
                           <li key={i} className="flex items-center gap-2">
                             <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 font-bold" />
                             <span className="font-medium text-slate-800">{feat}</span>
@@ -813,13 +938,13 @@ function SignupForm() {
                     onClick={() => setSelectedPlanKey('Advance')}
                     className={`rounded-3xl p-6 border-2 transition-all cursor-pointer flex flex-col justify-between relative ${
                       selectedPlanKey === 'Advance'
-                        ? 'border-[#174BFF] bg-white shadow-xl shadow-blue-500/10'
+                        ? 'border-[#7547F5] bg-white shadow-xl shadow-purple-500/10'
                         : 'border-slate-200 bg-white/70 hover:border-slate-300 hover:bg-white'
                     }`}
                   >
-                    <div className="space-y-4">
+                    <div className="space-y-3.5">
                       <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg">
+                        <div className="w-10 h-10 rounded-2xl bg-purple-50 text-[#7547F5] flex items-center justify-center font-bold text-lg">
                           <Crown className="w-5 h-5" />
                         </div>
                         <input 
@@ -827,23 +952,41 @@ function SignupForm() {
                           name="plan_desktop" 
                           checked={selectedPlanKey === 'Advance'} 
                           onChange={() => setSelectedPlanKey('Advance')}
-                          className="w-5 h-5 text-[#174BFF] cursor-pointer"
+                          className="w-5 h-5 text-[#7547F5] cursor-pointer"
                         />
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-black text-[#10183F]">Advance</h3>
-                        <p className="text-xs text-slate-500 mt-1">{DEFAULT_PLANS_CONFIG.Advance.subtitle}</p>
+                        <div className="flex items-center gap-1.5 flex-wrap mb-1">
+                          <h3 className="text-lg font-black text-[#10183F]">Advance</h3>
+                          <span className="px-2 py-0.5 rounded-md bg-purple-50 text-[#7547F5] border border-purple-200 text-[10px] font-black uppercase">
+                            All 24 Services
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500">{DEFAULT_PLANS_CONFIG.Advance.subtitle}</p>
                       </div>
 
                       <div className="text-2xl font-black text-[#10183F]">
                         ₹2,199 <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
-                      <ul className="space-y-2 text-xs text-slate-600 pt-3 border-t border-slate-100">
-                        {DEFAULT_PLANS_CONFIG.Advance.features.map((feat, i) => (
+                      {/* Quotas & Mandatory Inclusions */}
+                      <div className="p-2.5 rounded-xl bg-purple-50/70 border border-purple-200/80 text-[11px] space-y-1">
+                        <div className="font-bold text-[#7547F5] flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-[#7547F5]" />
+                          <span>100% White-Label + Multi-Branch Outlets</span>
+                        </div>
+                        <div className="text-slate-600 flex items-center gap-2">
+                          <span>📸 Unlimited Photos</span>
+                          <span>•</span>
+                          <span>🎥 15 4K Videos</span>
+                        </div>
+                      </div>
+
+                      <ul className="space-y-1.5 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                        {DEFAULT_PLANS_CONFIG.Advance.features.slice(0, 6).map((feat, i) => (
                           <li key={i} className="flex items-center gap-2">
-                            <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            <Check className="w-3.5 h-3.5 text-purple-600 shrink-0 font-bold" />
                             <span>{feat}</span>
                           </li>
                         ))}
@@ -855,7 +998,7 @@ function SignupForm() {
                       onClick={() => setSelectedPlanKey('Advance')}
                       className={`w-full mt-6 py-2.5 rounded-xl font-bold text-xs transition-all ${
                         selectedPlanKey === 'Advance'
-                          ? 'bg-[#174BFF] text-white shadow-sm'
+                          ? 'bg-[#7547F5] text-white shadow-sm'
                           : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                       }`}
                     >
@@ -1038,10 +1181,10 @@ function SignupForm() {
                       </div>
                     </div>
 
-                    {/* Your Digital Card Handle */}
+                    {/* Your Business Mini-Website Handle */}
                     <div className="space-y-1.5">
                       <label className="block text-xs font-bold text-slate-700">
-                        Your Digital Card Handle
+                        Your Mini-Website &amp; Store URL
                       </label>
                       <div className="relative flex">
                         <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-slate-200 bg-slate-100 text-slate-500 text-xs font-mono">
@@ -1057,6 +1200,65 @@ function SignupForm() {
                       </div>
                     </div>
 
+                  </div>
+
+                  {/* Selected Plan Inclusions Summary Card (Desktop) */}
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50/70 via-indigo-50/50 to-purple-50/70 border border-blue-200/80 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-[#174BFF] text-white flex items-center justify-center font-bold">
+                          <Crown className="w-4 h-4 text-amber-300" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-black text-[#10183F]">
+                              {activePlan.displayName} Plan Subscription
+                            </span>
+                            <span className="px-2 py-0.5 rounded-full bg-[#174BFF] text-white text-[10px] font-black uppercase">
+                              {activePlan.serviceCount}
+                            </span>
+                          </div>
+                          <p className="text-xs text-slate-600 font-medium">{activePlan.subtitle}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-lg font-black text-[#10183F]">₹{activePlan.price.toLocaleString()}</span>
+                        <span className="text-xs text-slate-500"> / year</span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2.5 pt-2 border-t border-blue-200/60 text-xs">
+                      <div className="flex items-center gap-2 p-2 rounded-xl bg-white/80 border border-slate-200/70 text-slate-700">
+                        <Camera className="w-4 h-4 text-[#174BFF] shrink-0" />
+                        <div>
+                          <span className="block text-[10px] text-slate-400 font-semibold uppercase">Photo Gallery</span>
+                          <span className="font-bold text-slate-800 text-xs">{activePlan.photoQuota}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 p-2 rounded-xl bg-white/80 border border-slate-200/70 text-slate-700">
+                        <Video className="w-4 h-4 text-[#7547F5] shrink-0" />
+                        <div>
+                          <span className="block text-[10px] text-slate-400 font-semibold uppercase">Local Video Upload</span>
+                          <span className="font-bold text-slate-800 text-xs">{activePlan.videoQuota}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 p-2 rounded-xl bg-white/80 border border-slate-200/70 text-slate-700">
+                        <Globe className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <div>
+                          <span className="block text-[10px] text-slate-400 font-semibold uppercase">Domain &amp; Web</span>
+                          <span className="font-bold text-slate-800 text-xs truncate">
+                            {activePlan.displayName === 'Basic' ? 'oneclickbiz.in/v/ URL' : (activePlan.displayName === 'Pro' ? '1 Custom Domain' : '5 Custom Domains')}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-[11px] text-slate-600 font-medium pt-1">
+                      <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> 1 Commercial Mini-Website</span>
+                      <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> WhatsApp Store (0% Commission)</span>
+                      <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Dynamic Cloud QR Code (Editable 24x7)</span>
+                      <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Leads CRM &amp; Inquiries</span>
+                    </div>
                   </div>
 
                   {/* Terms Checkbox */}
@@ -1139,7 +1341,7 @@ function SignupForm() {
                       onClick={() => setSelectedPlanKey('Basic')}
                       className={`p-4 rounded-2xl border-2 transition-all cursor-pointer relative ${
                         selectedPlanKey === 'Basic'
-                          ? 'border-[#174BFF] bg-blue-50/40 shadow-md'
+                          ? 'border-[#174BFF] bg-blue-50/40 shadow-md ring-1 ring-[#174BFF]/20'
                           : 'border-slate-200 bg-white'
                       }`}
                     >
@@ -1149,8 +1351,13 @@ function SignupForm() {
                             <User className="w-4 h-4" />
                           </div>
                           <div>
-                            <h3 className="text-base font-black text-[#10183F]">Basic</h3>
-                            <p className="text-[11px] text-slate-500">{DEFAULT_PLANS_CONFIG.Basic.subtitle}</p>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <h3 className="text-base font-black text-[#10183F]">Basic</h3>
+                              <span className="px-2 py-0.2 rounded-md bg-blue-50 text-[#174BFF] border border-blue-200 text-[9px] font-black uppercase">
+                                11 Services
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{DEFAULT_PLANS_CONFIG.Basic.subtitle}</p>
                           </div>
                         </div>
                         <input
@@ -1158,7 +1365,7 @@ function SignupForm() {
                           name="mobile_plan"
                           checked={selectedPlanKey === 'Basic'}
                           onChange={() => setSelectedPlanKey('Basic')}
-                          className="w-5 h-5 text-[#174BFF] mt-1"
+                          className="w-5 h-5 text-[#174BFF] mt-1 shrink-0"
                         />
                       </div>
 
@@ -1166,10 +1373,22 @@ function SignupForm() {
                         ₹999 <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
+                      {/* Quotas & Inclusions Pill */}
+                      <div className="mt-2 p-2 rounded-xl bg-blue-50/80 border border-blue-200 text-[11px] text-slate-700 space-y-0.5">
+                        <div className="font-bold text-[#174BFF] flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-[#174BFF]" />
+                          <span>Includes WhatsApp Store &amp; 1 Mini-Website</span>
+                        </div>
+                        <div className="text-slate-600 font-medium">
+                          📸 15 HD Photos • 🎥 1 Direct Local Video
+                        </div>
+                      </div>
+
                       <ul className="mt-2 pt-2 border-t border-slate-100 space-y-1 text-xs text-slate-600">
-                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> 1 Digital Card</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Standard QR Code</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Direct VCF Download</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> 1 Commercial Mini-Website</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> WhatsApp Store (0% Commission)</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Dynamic Cloud QR Code (24x7 Editable)</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Direct PWA App &amp; Digital vCard</li>
                       </ul>
                     </div>
 
@@ -1183,7 +1402,7 @@ function SignupForm() {
                       }`}
                     >
                       <span className="absolute -top-2.5 left-6 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#174BFF] to-[#7547F5] text-white text-[9px] font-black uppercase tracking-wider">
-                        MOST POPULAR
+                        ⭐ MOST POPULAR
                       </span>
 
                       <div className="flex items-start justify-between pt-1">
@@ -1192,8 +1411,13 @@ function SignupForm() {
                             <Users className="w-4 h-4" />
                           </div>
                           <div>
-                            <h3 className="text-base font-black text-[#10183F]">Pro</h3>
-                            <p className="text-[11px] text-slate-500">{DEFAULT_PLANS_CONFIG.Pro.subtitle}</p>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <h3 className="text-base font-black text-[#10183F]">Pro</h3>
+                              <span className="px-2 py-0.2 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-black uppercase">
+                                19 Services Total
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{DEFAULT_PLANS_CONFIG.Pro.subtitle}</p>
                           </div>
                         </div>
                         <input
@@ -1201,7 +1425,7 @@ function SignupForm() {
                           name="mobile_plan"
                           checked={selectedPlanKey === 'Pro'}
                           onChange={() => setSelectedPlanKey('Pro')}
-                          className="w-5 h-5 text-[#174BFF] mt-1"
+                          className="w-5 h-5 text-[#174BFF] mt-1 shrink-0"
                         />
                       </div>
 
@@ -1209,10 +1433,23 @@ function SignupForm() {
                         ₹1,599 <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
+                      {/* Quotas & Inclusions Pill */}
+                      <div className="mt-2 p-2 rounded-xl bg-emerald-50/80 border border-emerald-200 text-[11px] text-slate-700 space-y-0.5">
+                        <div className="font-bold text-emerald-800 flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-emerald-600" />
+                          <span>Custom Domain (Free SSL) + UPI Gateways</span>
+                        </div>
+                        <div className="text-slate-600 font-medium">
+                          📸 50 HD Photos • 🎥 5 Direct Local Videos
+                        </div>
+                      </div>
+
                       <ul className="mt-2 pt-2 border-t border-slate-100 space-y-1 text-xs text-slate-700 font-medium">
-                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 font-bold" /> Up to 3 Digital Cards</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 font-bold" /> Custom Domain (CNAME)</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 font-bold" /> WhatsApp Store + Booking</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 font-bold" /> All 11 Basic Services Included</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 font-bold" /> 1 Custom Domain Connection (Free SSL)</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 font-bold" /> Slot &amp; Appointment Booking Engine</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 font-bold" /> Payment Gateways &amp; Instant UPI QR</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 font-bold" /> Leads CRM &amp; 1-Click Excel Export</li>
                       </ul>
                     </div>
 
@@ -1221,18 +1458,23 @@ function SignupForm() {
                       onClick={() => setSelectedPlanKey('Advance')}
                       className={`p-4 rounded-2xl border-2 transition-all cursor-pointer relative ${
                         selectedPlanKey === 'Advance'
-                          ? 'border-[#174BFF] bg-blue-50/40 shadow-md'
+                          ? 'border-[#7547F5] bg-purple-50/40 shadow-md ring-1 ring-purple-500/20'
                           : 'border-slate-200 bg-white'
                       }`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                          <div className="w-9 h-9 rounded-xl bg-purple-50 text-[#7547F5] flex items-center justify-center font-bold">
                             <Crown className="w-4 h-4" />
                           </div>
                           <div>
-                            <h3 className="text-base font-black text-[#10183F]">Advance</h3>
-                            <p className="text-[11px] text-slate-500">{DEFAULT_PLANS_CONFIG.Advance.subtitle}</p>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <h3 className="text-base font-black text-[#10183F]">Advance</h3>
+                              <span className="px-2 py-0.2 rounded-md bg-purple-50 text-[#7547F5] border border-purple-200 text-[9px] font-black uppercase">
+                                All 24 Services
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{DEFAULT_PLANS_CONFIG.Advance.subtitle}</p>
                           </div>
                         </div>
                         <input
@@ -1240,7 +1482,7 @@ function SignupForm() {
                           name="mobile_plan"
                           checked={selectedPlanKey === 'Advance'}
                           onChange={() => setSelectedPlanKey('Advance')}
-                          className="w-5 h-5 text-[#174BFF] mt-1"
+                          className="w-5 h-5 text-[#7547F5] mt-1 shrink-0"
                         />
                       </div>
 
@@ -1248,10 +1490,23 @@ function SignupForm() {
                         ₹2,199 <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
+                      {/* Quotas & Inclusions Pill */}
+                      <div className="mt-2 p-2 rounded-xl bg-purple-50/80 border border-purple-200 text-[11px] text-slate-700 space-y-0.5">
+                        <div className="font-bold text-[#7547F5] flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-[#7547F5]" />
+                          <span>100% White-Label + Multi-Branch Outlets</span>
+                        </div>
+                        <div className="text-slate-600 font-medium">
+                          📸 Unlimited Photos • 🎥 15 Local 4K Videos
+                        </div>
+                      </div>
+
                       <ul className="mt-2 pt-2 border-t border-slate-100 space-y-1 text-xs text-slate-600">
-                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Up to 5 Digital Cards</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> 5 White-Label Domains</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600" /> Video CDN & Blog Studio</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-600 shrink-0 font-bold" /> All 19 Pro Services Included</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-600 shrink-0 font-bold" /> 100% White-Label (Zero Branding)</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-600 shrink-0 font-bold" /> Multi-Branch Scaling Engine</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-600 shrink-0 font-bold" /> SEO Blog Studio &amp; GST Invoicing</li>
+                        <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-purple-600 shrink-0 font-bold" /> Smart NFC Standee Delivered Free</li>
                       </ul>
                     </div>
 
@@ -1477,27 +1732,52 @@ function SignupForm() {
                       </span>
                     </label>
 
-                    {/* Plan Summary Box Matching Mockup Phone 4 */}
-                    <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200/80 space-y-2">
+                    {/* Plan Summary Box with Quotas & Inclusions */}
+                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-amber-50/90 via-orange-50/40 to-amber-50/80 border border-amber-200/90 space-y-2.5">
                       <div className="flex items-start gap-2.5">
-                        <div className="w-7 h-7 rounded-lg bg-amber-100/90 text-amber-700 flex items-center justify-center shrink-0">
+                        <div className="w-8 h-8 rounded-xl bg-amber-100/90 text-amber-700 flex items-center justify-center shrink-0">
                           <Crown className="w-4 h-4 text-amber-600" />
                         </div>
-                        <div>
-                          <p className="text-[10px] text-amber-800 font-medium">You have selected</p>
-                          <h4 className="text-xs font-black text-amber-950">
-                            {activePlan.displayName} Plan (₹{activePlan.price.toLocaleString()}/year)
-                          </h4>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <h4 className="text-xs font-black text-amber-950">
+                              {activePlan.displayName} Plan
+                            </h4>
+                            <span className="px-1.5 py-0.2 rounded bg-amber-200/80 text-amber-900 text-[9px] font-black uppercase">
+                              {activePlan.serviceCount}
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-amber-800 font-semibold">
+                            ₹{activePlan.price.toLocaleString()}/year • Commercial Subscription
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Quotas grid */}
+                      <div className="grid grid-cols-2 gap-1.5 text-[10px] bg-white/80 p-2 rounded-xl border border-amber-200/60 font-semibold text-slate-700">
+                        <div className="flex items-center gap-1.5">
+                          <Camera className="w-3.5 h-3.5 text-[#174BFF] shrink-0" />
+                          <span>📸 {activePlan.photoQuota}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Video className="w-3.5 h-3.5 text-[#7547F5] shrink-0" />
+                          <span>🎬 {activePlan.videoQuota}</span>
                         </div>
                       </div>
                       
                       <ul className="space-y-1 pt-1 text-[11px] text-slate-700 font-medium border-t border-amber-200/50">
-                        {activePlan.features.slice(1, 4).map((feat, idx) => (
-                          <li key={idx} className="flex items-center gap-1.5">
-                            <Check className="w-3.5 h-3.5 text-emerald-600 font-bold shrink-0" />
-                            <span>{feat}</span>
-                          </li>
-                        ))}
+                        <li className="flex items-center gap-1.5">
+                          <Check className="w-3.5 h-3.5 text-emerald-600 font-bold shrink-0" />
+                          <span>1 Commercial Mini-Website &amp; WhatsApp Store</span>
+                        </li>
+                        <li className="flex items-center gap-1.5">
+                          <Check className="w-3.5 h-3.5 text-emerald-600 font-bold shrink-0" />
+                          <span>{activePlan.domainInfo}</span>
+                        </li>
+                        <li className="flex items-center gap-1.5">
+                          <Check className="w-3.5 h-3.5 text-emerald-600 font-bold shrink-0" />
+                          <span>Dynamic 24x7 Editable Cloud QR &amp; Leads CRM</span>
+                        </li>
                       </ul>
                     </div>
 
@@ -1566,7 +1846,7 @@ function SignupForm() {
             <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-md space-y-6">
               
               {/* Plan Switcher */}
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
                 {(['Basic', 'Pro', 'Advance'] as const).map((key) => {
                   const p = DEFAULT_PLANS_CONFIG[key];
                   const isSel = selectedPlanKey === key;
@@ -1574,16 +1854,185 @@ function SignupForm() {
                     <div
                       key={key}
                       onClick={() => setSelectedPlanKey(key)}
-                      className={`p-3 rounded-2xl border-2 transition-all cursor-pointer text-center ${
-                        isSel ? 'border-[#174BFF] bg-blue-50/70 shadow-xs' : 'border-slate-200 bg-white hover:border-slate-300'
+                      className={`p-3 rounded-2xl border-2 transition-all cursor-pointer text-center relative ${
+                        isSel 
+                          ? 'border-[#174BFF] bg-blue-50/70 shadow-sm ring-1 ring-blue-500/20' 
+                          : 'border-slate-200 bg-white hover:border-slate-300'
                       }`}
                     >
+                      {key === 'Pro' && (
+                        <span className="hidden sm:inline-block absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.2 rounded-full bg-[#174BFF] text-white text-[8px] font-black uppercase tracking-wider">
+                          POPULAR
+                        </span>
+                      )}
                       <p className="text-xs font-bold text-slate-800">{p.displayName}</p>
                       <p className="text-base font-black text-[#10183F] mt-0.5">₹{p.price.toLocaleString()}</p>
-                      <p className="text-[10px] text-slate-500">/year</p>
+                      <span className="inline-block mt-0.5 px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 text-[9px] font-bold">
+                        {key === 'Basic' ? '11 Services' : (key === 'Pro' ? '19 Services' : 'All 24 Services')}
+                      </span>
                     </div>
                   );
                 })}
+              </div>
+
+              {/* SELECTED PLAN INCLUSIONS & QUOTAS WHILE BUYING (Visible on Mobile & Desktop) */}
+              <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-br from-[#F8FAFF] via-white to-blue-50/40 border-2 border-blue-200/90 shadow-sm space-y-4">
+                
+                {/* Header with Title and Dynamic Badge */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-100 pb-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-[#174BFF] to-[#7547F5] text-white flex items-center justify-center font-black shadow-xs shrink-0">
+                      <Sparkles className="w-4 h-4 text-amber-300" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="text-sm sm:text-base font-black text-[#10183F]">
+                          {activePlan.displayName} Plan Inclusions
+                        </h3>
+                        <span className="px-2.5 py-0.5 rounded-full bg-[#174BFF] text-white text-[10px] font-black uppercase tracking-wide">
+                          {activePlan.serviceCount}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-500">{activePlan.subtitle}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs text-slate-700 bg-white px-3 py-1.5 rounded-xl border border-slate-200 self-start sm:self-auto font-bold shadow-2xs">
+                    <span>Yearly Billing:</span>
+                    <span className="text-sm font-black text-[#174BFF]">₹{activePlan.price.toLocaleString()}</span>
+                  </div>
+                </div>
+
+                {/* Quota Highlights Bar (Mobile & Desktop Responsive Grid) */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  {/* Photo Quota */}
+                  <div className="p-2.5 sm:p-3 rounded-2xl bg-white border border-slate-200/80 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#174BFF] flex items-center justify-center shrink-0">
+                      <Camera className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Photo Gallery</p>
+                      <p className="text-xs font-black text-slate-900">{activePlan.photoQuota}</p>
+                      <p className="text-[10px] text-slate-500">Upload from local device</p>
+                    </div>
+                  </div>
+
+                  {/* Video Quota */}
+                  <div className="p-2.5 sm:p-3 rounded-2xl bg-white border border-slate-200/80 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-purple-50 text-[#7547F5] flex items-center justify-center shrink-0">
+                      <Video className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Local Video Upload</p>
+                      <p className="text-xs font-black text-slate-900">{activePlan.videoQuota}</p>
+                      <p className="text-[10px] text-slate-500">Upload directly from device</p>
+                    </div>
+                  </div>
+
+                  {/* Domain Spec */}
+                  <div className="p-2.5 sm:p-3 rounded-2xl bg-white border border-slate-200/80 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                      <Globe className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Domain &amp; Web</p>
+                      <p className="text-xs font-black text-slate-900 truncate">
+                        {activePlan.displayName === 'Basic' ? 'oneclickbiz.in/v/ URL' : (activePlan.displayName === 'Pro' ? '1 Custom Domain' : '5 Custom Domains')}
+                      </p>
+                      <p className="text-[10px] text-slate-500">{activePlan.displayName === 'Advance' ? '100% White-Label' : 'Free SSL Included'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Core Commercial Mini-Website Features */}
+                <div className="p-3 sm:p-3.5 rounded-2xl bg-blue-50/60 border border-blue-200/70 space-y-1.5 text-xs text-slate-700">
+                  <div className="font-bold text-[#174BFF] flex items-center gap-1.5 text-xs">
+                    <CheckCircle2 className="w-4 h-4 text-[#174BFF] shrink-0" />
+                    <span>Included With Every Subscription:</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-slate-600 font-medium text-[11px] sm:text-xs">
+                    <div className="flex items-center gap-1.5">
+                      <Check className="w-3.5 h-3.5 text-emerald-600 font-bold shrink-0" />
+                      <span>1 Commercial Business Mini-Website</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Check className="w-3.5 h-3.5 text-emerald-600 font-bold shrink-0" />
+                      <span>WhatsApp Store (0% Commission)</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Check className="w-3.5 h-3.5 text-emerald-600 font-bold shrink-0" />
+                      <span>Dynamic Cloud QR Code (Editable 24x7)</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Check className="w-3.5 h-3.5 text-emerald-600 font-bold shrink-0" />
+                      <span>Direct PWA Mobile App &amp; Leads CRM</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expandable All Services Breakdown */}
+                <div className="pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setShowCheckoutDetails(!showCheckoutDetails)}
+                    className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 transition text-xs font-bold text-slate-800 cursor-pointer"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>{showCheckoutDetails ? 'Hide' : 'View'} All {activePlan.servicesList.length} Included Business Services for {activePlan.displayName}</span>
+                      <span className="text-[10px] text-slate-500 font-normal">({activePlan.serviceCount})</span>
+                    </span>
+                    {showCheckoutDetails ? (
+                      <ChevronUp className="w-4 h-4 text-slate-600" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-slate-600" />
+                    )}
+                  </button>
+
+                  {showCheckoutDetails && (
+                    <div className="mt-2.5 p-3.5 rounded-2xl bg-white border border-slate-200 space-y-3 animate-in fade-in duration-200">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        {activePlan.servicesList.map((srv, idx) => (
+                          <div key={idx} className="flex items-center gap-2 p-1.5 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 font-medium">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 font-bold shrink-0" />
+                            <span className="truncate">{srv}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Tier Upgrade Tip */}
+                      {selectedPlanKey === 'Basic' && (
+                        <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] text-emerald-900 flex items-center justify-between">
+                          <span>Need 50 photos, 5 videos, custom domain &amp; appointment booking?</span>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedPlanKey('Pro')}
+                            className="font-bold text-[#174BFF] underline hover:text-blue-800 ml-2 shrink-0 cursor-pointer"
+                          >
+                            Switch to Pro (₹1,599)
+                          </button>
+                        </div>
+                      )}
+                      {selectedPlanKey === 'Pro' && (
+                        <div className="p-2.5 rounded-xl bg-purple-50 border border-purple-200 text-[11px] text-purple-900 flex items-center justify-between">
+                          <span>Need Unlimited photos, 15 videos, multi-branch &amp; 100% white-label?</span>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedPlanKey('Advance')}
+                            className="font-bold text-[#7547F5] underline hover:text-purple-800 ml-2 shrink-0 cursor-pointer"
+                          >
+                            Switch to Advance (₹2,199)
+                          </button>
+                        </div>
+                      )}
+                      {selectedPlanKey === 'Advance' && (
+                        <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 font-medium">
+                          ⭐ You have chosen the maximum tier with all 24 services, 100% white-label and free Smart NFC Acrylic Standee!
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
               </div>
 
               {/* Promo Coupon Box */}
@@ -1646,8 +2095,15 @@ function SignupForm() {
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
                 <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                   <div>
-                    <h4 className="text-xs font-bold text-slate-900">{activePlan.name} (Annual Subscription)</h4>
-                    <p className="text-[10px] text-slate-500">Account: {email || fullName}</p>
+                    <div className="flex items-center gap-1.5">
+                      <h4 className="text-xs font-bold text-slate-900">{activePlan.name}</h4>
+                      <span className="px-1.5 py-0.2 rounded bg-blue-100 text-[#174BFF] text-[9px] font-bold">
+                        {activePlan.serviceCount}
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-slate-500">
+                      📸 {activePlan.photoQuota} • 🎬 {activePlan.videoQuota} • Account: {email || fullName || 'Business Account'}
+                    </p>
                   </div>
                   <div className="text-right">
                     {appliedCoupon?.valid ? (
