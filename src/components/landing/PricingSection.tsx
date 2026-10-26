@@ -158,6 +158,46 @@ export default function PricingSection() {
     },
   ];
 
+  // Compact label mapper for 100% mobile fit on small screens
+  const getCompactMatrixLabel = (val: string): string => {
+    const map: Record<string, string> = {
+      '1 Mini-Website': '1 Site',
+      'Essential Themes': 'Essential',
+      'All Premium Themes': 'All Premium',
+      'All VIP Custom Themes': 'VIP Themes',
+      'Standard Cloud CDN': 'Standard',
+      'High-Speed Edge CDN': 'High-Speed',
+      'Ultra-Fast Global Edge': 'Ultra-Fast',
+      'Basic Store Catalog': 'Basic Store',
+      'Advanced Cart & Variants': 'Cart & SKUs',
+      'Multi-Category Store': 'Multi-Store',
+      '15 Products Showcase': '15 Items',
+      '50 Products Showcase': '50 Items',
+      'Unlimited Products': 'Unlimited',
+      '15 HD Photos': '15 Photos',
+      '50 HD Photos': '50 Photos',
+      'Unlimited HD Photos': 'Unlimited',
+      '1 Local Video': '1 Video',
+      '5 Local Videos': '5 Videos',
+      '15 Local 4K Videos': '15 4K Videos',
+      'Inbound Form Only': 'Form Only',
+      '1-Click Excel / CSV Export': 'Excel Export',
+      'Automated CRM & Analytics': 'Full CRM',
+      '1 Custom Domain': '1 Domain',
+      'Up to 5 Custom Domains': '5 Domains',
+      'Standard Email & Chat': 'Standard',
+      'Priority WhatsApp & Email': 'Priority',
+      '24/7 Dedicated Phone SLA': '24/7 Phone',
+      '✓ 100% Zero Branding': 'White-Label',
+      '✓ Multi-City Outlets': 'Multi-Branch',
+      '✓ Rank #1 on Google': 'SEO Studio',
+      '✓ GST Invoices & Reports': 'GST Reports',
+      '✓ Unified Operations Hub': 'Full CRM',
+      '✓ Included & Delivered Free': 'Standee Free',
+    };
+    return map[val] || val;
+  };
+
   // Complete 24 Services Matrix Data divided cleanly across plans
   const serviceMatrixCategories: ServiceMatrixCategory[] = [
     {
@@ -172,7 +212,7 @@ export default function PricingSection() {
         },
         {
           name: 'Personal Profile (Business Contact & Social Hub)',
-          description: 'Digital persona with 1-tap save to smartphone contacts address book (.vcf).',
+          description: 'Commercial digital presence with 1-tap save to smartphone contacts address book.',
           basic: true,
           pro: true,
           advance: true,
@@ -610,53 +650,53 @@ export default function PricingSection() {
                 </button>
               </div>
 
-              <div className="w-full overflow-x-auto scrollbar-none">
-                <table className="w-full text-left border-collapse table-fixed">
+              <div className="w-full overflow-x-hidden touch-pan-y overscroll-none">
+                <table className="w-full text-left border-collapse table-fixed select-none">
                   <thead>
                     <tr className="border-b border-[#E2E9FA] bg-gradient-to-r from-slate-50 to-blue-50/40">
-                      <th className={`py-2 sm:py-3 px-2 sm:px-4 text-[10px] sm:text-xs font-extrabold text-[#10183F] uppercase tracking-wider ${
-                        mobileFilter === 'all' ? 'w-[37%] sm:w-[40%]' : 'w-[56%] sm:w-[40%]'
+                      <th className={`py-2 sm:py-3 px-1.5 sm:px-4 text-[9.5px] sm:text-xs font-extrabold text-[#10183F] uppercase tracking-wider ${
+                        mobileFilter === 'all' ? 'w-[37%] sm:w-[40%]' : 'w-[60%] sm:w-[40%]'
                       }`}>
                         Services &amp; Capabilities
                       </th>
 
                       {/* Basic Header */}
-                      <th className={`py-2 sm:py-3 px-1 sm:px-2 text-center text-[10px] sm:text-xs font-extrabold text-[#174BFF] uppercase tracking-wider bg-blue-50/50 ${
+                      <th className={`py-2 sm:py-3 px-0.5 sm:px-2 text-center text-[9.5px] sm:text-xs font-extrabold text-[#174BFF] uppercase tracking-wider bg-blue-50/50 ${
                         mobileFilter === 'all'
                           ? 'w-[21%] sm:w-[20%]'
                           : mobileFilter === 'basic'
-                          ? 'w-[44%] sm:w-[20%]'
+                          ? 'w-[40%] sm:w-[20%]'
                           : 'hidden sm:table-cell sm:w-[20%]'
                       }`}>
                         <div className="leading-tight">Basic</div>
-                        <div className="text-[8.5px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹999/yr</div>
+                        <div className="text-[8px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹999/yr</div>
                       </th>
 
                       {/* Pro Header */}
-                      <th className={`py-2 sm:py-3 px-1 sm:px-2 text-center text-[10px] sm:text-xs font-extrabold text-emerald-700 uppercase tracking-wider bg-emerald-50/50 ${
+                      <th className={`py-2 sm:py-3 px-0.5 sm:px-2 text-center text-[9.5px] sm:text-xs font-extrabold text-emerald-700 uppercase tracking-wider bg-emerald-50/50 ${
                         mobileFilter === 'all'
                           ? 'w-[21%] sm:w-[20%]'
                           : mobileFilter === 'pro'
-                          ? 'w-[44%] sm:w-[20%]'
+                          ? 'w-[40%] sm:w-[20%]'
                           : 'hidden sm:table-cell sm:w-[20%]'
                       }`}>
                         <div className="inline-flex items-center justify-center gap-0.5 sm:gap-1 leading-tight">
                           <span>Pro</span>
-                          <span className="text-[7px] sm:text-[9px] bg-emerald-600 text-white px-1 py-0.2 rounded font-black">TOP</span>
+                          <span className="text-[6.5px] sm:text-[9px] bg-emerald-600 text-white px-0.5 sm:px-1 py-0.2 rounded font-black">TOP</span>
                         </div>
-                        <div className="text-[8.5px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹1,599/yr</div>
+                        <div className="text-[8px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹1,599/yr</div>
                       </th>
 
                       {/* Advance Header */}
-                      <th className={`py-2 sm:py-3 px-1 sm:px-2 text-center text-[10px] sm:text-xs font-extrabold text-[#7547F5] uppercase tracking-wider bg-purple-50/50 ${
+                      <th className={`py-2 sm:py-3 px-0.5 sm:px-2 text-center text-[9.5px] sm:text-xs font-extrabold text-[#7547F5] uppercase tracking-wider bg-purple-50/50 ${
                         mobileFilter === 'all'
                           ? 'w-[21%] sm:w-[20%]'
                           : mobileFilter === 'advance'
-                          ? 'w-[44%] sm:w-[20%]'
+                          ? 'w-[40%] sm:w-[20%]'
                           : 'hidden sm:table-cell sm:w-[20%]'
                       }`}>
                         <div className="leading-tight">Advance</div>
-                        <div className="text-[8.5px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹2,199/yr</div>
+                        <div className="text-[8px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹2,199/yr</div>
                       </th>
                     </tr>
                   </thead>
@@ -665,8 +705,8 @@ export default function PricingSection() {
                     {serviceMatrixCategories.map((group, gIdx) => (
                       <React.Fragment key={gIdx}>
                         {/* Category Row Header */}
-                        <tr className="bg-slate-100/80 border-t border-b border-[#E2E9FA]">
-                          <td colSpan={4} className="py-1.5 px-2 sm:py-2 sm:px-4 text-[9.5px] sm:text-xs font-extrabold text-[#10183F] uppercase tracking-wider">
+                        <tr className="bg-slate-100/90 border-t border-b border-[#E2E9FA]">
+                          <td colSpan={4} className="py-1.5 px-2 sm:py-2 sm:px-4 text-[9px] sm:text-xs font-extrabold text-[#10183F] uppercase tracking-wider truncate">
                             {group.category}
                           </td>
                         </tr>
@@ -674,11 +714,11 @@ export default function PricingSection() {
                         {/* Service Item Rows */}
                         {group.services.map((srv, sIdx) => (
                           <tr key={sIdx} className="hover:bg-slate-50/80 transition-colors">
-                            <td className="py-2 px-2 sm:py-2.5 sm:px-4 align-middle">
-                              <div className="text-[10.5px] sm:text-xs font-bold text-[#10183F] leading-tight">
+                            <td className="py-2 px-1.5 sm:py-2.5 sm:px-4 align-middle overflow-hidden">
+                              <div className="text-[10px] sm:text-xs font-bold text-[#10183F] leading-snug break-words">
                                 {srv.name}
                               </div>
-                              <div className={`text-[9px] sm:text-[11px] text-[#64718F] mt-0.5 leading-snug ${
+                              <div className={`text-[8.5px] sm:text-[11px] text-[#64718F] mt-0.5 leading-snug break-words ${
                                 mobileFilter === 'all' ? 'hidden sm:block' : 'block'
                               }`}>
                                 {srv.description}
@@ -704,8 +744,9 @@ export default function PricingSection() {
                                   </span>
                                 )
                               ) : (
-                                <span className="inline-block px-1 sm:px-2 py-0.5 rounded bg-blue-50 text-[#174BFF] font-bold text-[8px] sm:text-[10px] border border-blue-200/70 leading-tight break-words max-w-full">
-                                  {srv.basic}
+                                <span className="inline-block px-1 sm:px-2 py-0.5 rounded bg-blue-50 text-[#174BFF] font-bold text-[7.5px] sm:text-[10px] border border-blue-200/70 leading-tight break-words max-w-full">
+                                  <span className="sm:hidden">{mobileFilter === 'all' ? getCompactMatrixLabel(srv.basic) : srv.basic}</span>
+                                  <span className="hidden sm:inline">{srv.basic}</span>
                                 </span>
                               )}
                             </td>
@@ -729,8 +770,9 @@ export default function PricingSection() {
                                   </span>
                                 )
                               ) : (
-                                <span className="inline-block px-1 sm:px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold text-[8px] sm:text-[10px] border border-emerald-200/70 leading-tight break-words max-w-full">
-                                  {srv.pro}
+                                <span className="inline-block px-1 sm:px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold text-[7.5px] sm:text-[10px] border border-emerald-200/70 leading-tight break-words max-w-full">
+                                  <span className="sm:hidden">{mobileFilter === 'all' ? getCompactMatrixLabel(srv.pro) : srv.pro}</span>
+                                  <span className="hidden sm:inline">{srv.pro}</span>
                                 </span>
                               )}
                             </td>
@@ -754,8 +796,9 @@ export default function PricingSection() {
                                   </span>
                                 )
                               ) : (
-                                <span className="inline-block px-1 sm:px-2 py-0.5 rounded bg-purple-50 text-[#7547F5] font-bold text-[8px] sm:text-[10px] border border-purple-200/70 leading-tight break-words max-w-full">
-                                  {srv.advance}
+                                <span className="inline-block px-1 sm:px-2 py-0.5 rounded bg-purple-50 text-[#7547F5] font-bold text-[7.5px] sm:text-[10px] border border-purple-200/70 leading-tight break-words max-w-full">
+                                  <span className="sm:hidden">{mobileFilter === 'all' ? getCompactMatrixLabel(srv.advance) : srv.advance}</span>
+                                  <span className="hidden sm:inline">{srv.advance}</span>
                                 </span>
                               )}
                             </td>
@@ -766,8 +809,8 @@ export default function PricingSection() {
 
                     {/* Quick Action Footer Row */}
                     <tr className="bg-slate-50 border-t-2 border-[#C7D7FE]">
-                      <td className={`py-2.5 px-2 sm:py-3.5 sm:px-4 text-[9.5px] sm:text-xs font-extrabold text-[#10183F] uppercase tracking-wider ${
-                        mobileFilter === 'all' ? 'w-[37%] sm:w-[40%]' : 'w-[56%] sm:w-[40%]'
+                      <td className={`py-2 sm:py-3.5 px-1.5 sm:px-4 text-[9px] sm:text-xs font-extrabold text-[#10183F] uppercase tracking-wider ${
+                        mobileFilter === 'all' ? 'w-[37%] sm:w-[40%]' : 'w-[60%] sm:w-[40%]'
                       }`}>
                         Plan Choice
                       </td>
@@ -782,9 +825,9 @@ export default function PricingSection() {
                       }`}>
                         <Link
                           href="/signup?plan=basic&intent=matrix"
-                          className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-xs font-bold text-[#174BFF] bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-colors w-full"
+                          className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[8.5px] sm:text-xs font-bold text-[#174BFF] bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-colors w-full"
                         >
-                          Basic
+                          {mobileFilter === 'basic' ? 'Choose Basic (₹999)' : 'Basic'}
                         </Link>
                       </td>
 
@@ -798,9 +841,9 @@ export default function PricingSection() {
                       }`}>
                         <Link
                           href="/signup?plan=pro&intent=matrix"
-                          className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-xs transition-colors w-full"
+                          className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[8.5px] sm:text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-xs transition-colors w-full"
                         >
-                          Pro
+                          {mobileFilter === 'pro' ? 'Choose Pro (₹1,599)' : 'Pro'}
                         </Link>
                       </td>
 
@@ -814,9 +857,9 @@ export default function PricingSection() {
                       }`}>
                         <Link
                           href="/signup?plan=advance&intent=matrix"
-                          className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-xs font-bold text-white bg-[#7547F5] hover:bg-[#6032E3] shadow-xs transition-colors w-full"
+                          className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[8.5px] sm:text-xs font-bold text-white bg-[#7547F5] hover:bg-[#6032E3] shadow-xs transition-colors w-full"
                         >
-                          Advance
+                          {mobileFilter === 'advance' ? 'Choose Advance (₹2,199)' : 'Advance'}
                         </Link>
                       </td>
                     </tr>
