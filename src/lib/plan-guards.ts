@@ -29,9 +29,9 @@ export const PLAN_LIMITS: Record<PlanTierType, PlanLimits> = {
     maxVideos: 3,
     maxDirectVideoUploads: 1,
     maxPortfolioItems: 15,
-    canAccessStore: false,
+    canAccessStore: true, // WhatsApp Store is mandatory in all plans
     canAccessBookings: false,
-    canAccessBrochures: false,
+    canAccessBrochures: true,
     canAccessLeadsExport: false,
     canAccessCustomDomain: false,
     canAccessBlogs: false,
@@ -42,7 +42,7 @@ export const PLAN_LIMITS: Record<PlanTierType, PlanLimits> = {
     tier: 'PRO',
     name: 'Pro Plan',
     price: 1599,
-    maxCards: 3,
+    maxCards: 1, // 1 Commercial Business Mini-Website per plan
     maxCustomDomains: 1,
     maxVideos: 10,
     maxDirectVideoUploads: 5,
@@ -60,7 +60,7 @@ export const PLAN_LIMITS: Record<PlanTierType, PlanLimits> = {
     tier: 'ADVANCED',
     name: 'Advanced Plan',
     price: 2199,
-    maxCards: 5,
+    maxCards: 1, // 1 Commercial Business Mini-Website per plan
     maxCustomDomains: 5,
     maxVideos: 999,
     maxDirectVideoUploads: 15,

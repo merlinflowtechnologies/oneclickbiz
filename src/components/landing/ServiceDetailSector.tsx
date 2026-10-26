@@ -10,7 +10,8 @@ import {
   ShieldCheck,
   Zap,
   TrendingUp,
-  Image as ImageIcon
+  Image as ImageIcon,
+  ArrowRight
 } from 'lucide-react';
 import { ServiceDetailItem } from '@/data/servicesData';
 
@@ -54,6 +55,18 @@ export default function ServiceDetailSector({
           <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200/70">
             {service.badge}
           </span>
+          {service.planTier && (
+            <span className={`px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider border flex items-center gap-1.5 ${
+              service.planTier === 'basic'
+                ? 'bg-blue-50 text-blue-700 border-blue-200'
+                : service.planTier === 'pro'
+                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                : 'bg-purple-50 text-[#7547F5] border-purple-200'
+            }`}>
+              <span className="w-2 h-2 rounded-full bg-current" />
+              {service.planLabel || (service.planTier === 'basic' ? 'Basic Plan (₹999)' : service.planTier === 'pro' ? 'Pro Plan (₹1,599)' : 'Advance Plan (₹2,199)')}
+            </span>
+          )}
           <span className="text-xs text-[#64718F] font-medium hidden sm:inline">
             Tool {currentIndex + 1} of {allServiceIds.length}
           </span>
@@ -103,7 +116,7 @@ export default function ServiceDetailSector({
 
         {/* Title & Tagline */}
         <div className="flex-1">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#10183F] tracking-tight">
               {service.name}
             </h3>
@@ -114,6 +127,16 @@ export default function ServiceDetailSector({
           <p className="mt-1.5 text-sm sm:text-base text-[#174BFF] font-semibold leading-relaxed">
             {service.tagline}
           </p>
+
+          {/* Plan Availability Callout */}
+          {service.availability && (
+            <div className="mt-2.5 flex items-center gap-2 flex-wrap">
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">Plan Availability:</span>
+              <span className="inline-flex items-center px-2.5 py-1 rounded-lg bg-white border border-[#C7D7FE] text-xs font-bold text-[#10183F] shadow-2xs">
+                {service.availability}
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -309,6 +332,27 @@ export default function ServiceDetailSector({
                 <div className="text-[11px] font-bold text-[#10183F]">Instant Cloud Sync</div>
                 <div className="text-[10px] text-[#64718F]">Zero Maintenance Cost</div>
               </div>
+            </div>
+
+            {/* Plan Subscription CTA */}
+            <div className="mt-3.5 pt-3 border-t border-[#E2E9FA] flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="text-left w-full sm:w-auto">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 block">Tier Included In</span>
+                <span className="text-xs font-black text-[#10183F]">{service.planLabel || 'Basic Plan'} • {service.planPrice || '₹999/yr'}</span>
+              </div>
+              <a
+                href={`/signup?plan=${service.planTier || 'basic'}&intent=service_preview`}
+                className={`w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer text-white ${
+                  service.planTier === 'advance'
+                    ? 'bg-[#7547F5] hover:bg-[#6032E3]'
+                    : service.planTier === 'pro'
+                    ? 'bg-emerald-600 hover:bg-emerald-700'
+                    : 'bg-[#174BFF] hover:bg-[#133FDF]'
+                }`}
+              >
+                <span>Select {service.planLabel || 'Plan'}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
             </div>
 
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { 
   Check, 
@@ -12,7 +12,12 @@ import {
   User,
   Users2,
   Building,
-  CheckCircle2
+  CheckCircle2,
+  ChevronDown,
+  ChevronUp,
+  Minus,
+  Layers,
+  HelpCircle
 } from 'lucide-react';
 
 interface PricingPlan {
@@ -22,6 +27,7 @@ interface PricingPlan {
   price: string;
   period: string;
   desc: string;
+  serviceCount: string;
   icon: React.ElementType;
   iconColor: string;
   checkColor: string;
@@ -34,15 +40,29 @@ interface PricingPlan {
   planFeatures: string[];
 }
 
+interface ServiceMatrixCategory {
+  category: string;
+  services: {
+    name: string;
+    description: string;
+    basic: string | boolean;
+    pro: string | boolean;
+    advance: string | boolean;
+  }[];
+}
+
 export default function PricingSection() {
+  const [showComparison, setShowComparison] = useState(true);
+
   const plans: PricingPlan[] = [
     {
       id: 'basic',
-      name: 'Basic',
+      name: 'Basic Plan',
       badge: 'SOLO PROFESSIONALS & SHOPS',
       price: '₹999/-',
       period: 'Per Year',
-      desc: 'Complete commercial business mini-website with integrated WhatsApp store, catalog, and 1-tap customer connect.',
+      serviceCount: '11 Services Included',
+      desc: 'Complete commercial business mini-website with integrated WhatsApp store, catalog, dynamic QR, and 1-tap customer connect.',
       icon: User,
       iconColor: 'text-[#174BFF] bg-blue-50',
       checkColor: 'text-[#174BFF]',
@@ -51,27 +71,31 @@ export default function PricingSection() {
       btnStyle: 'bg-white hover:bg-slate-50 text-[#174BFF] border-2 border-blue-200 hover:border-[#174BFF]',
       link: '/signup?plan=basic&intent=pricing',
       mandatoryFeatures: [
-        'WhatsApp Store (Digital Catalog & 0% Commission Orders)',
+        'WhatsApp Store (Digital Catalog & 0% Commission Direct Orders)',
         'Complete Social Profiles Hub (Instagram, FB, LinkedIn, Maps)',
-        'Instagram Reels & YouTube Video Player Space',
+        'Instagram Reels & YouTube Embedded Video Player Space',
       ],
       planFeatures: [
         '1 Verified Commercial Business Mini-Website',
         '15 HD Photos & 1 Direct Local Video Upload',
-        'Integrated 1-Tap Save Contacts (.vcf) for Visitors',
+        'Personal Profile & Digital vCard (1-Tap Save to Contacts)',
         'Dynamic Cloud QR Code (Editable 24x7 without reprint)',
+        'Visiting Cards & Downloadable PDF Flyers',
         'Direct PWA Web App (1-Tap Add to Customer Home Screen)',
-        'Inbound Customer Lead Inquiry Capture Form',
-        'Website Visitor Traffic & Real-Time Scan Analytics',
+        'Product Space (Showcase Products with Pricing & Deals)',
+        'Custom Templates & Brand Easy Designing Customizer',
+        'High-Speed Live Profile Cloud Hosting (SSL Secured)',
+        'Website Inbound Lead Inquiry Form & Scan Traffic Analytics',
       ],
     },
     {
       id: 'pro',
-      name: 'Pro',
+      name: 'Pro Plan',
       badge: 'MULTI-SERVICE & CLINICS',
       price: '₹1,599/-',
       period: 'Per Year',
-      desc: 'High-converting business mini-website with integrated slot bookings, instant UPI payment gateways, custom domain, and CRM.',
+      serviceCount: '19 Services Total (11 Basic + 8 Growth)',
+      desc: 'High-converting business mini-website with integrated slot bookings, instant UPI payment gateways, custom domain connection, and CRM.',
       icon: Users2,
       iconColor: 'text-white bg-[#174BFF]',
       checkColor: 'text-[#16B981]',
@@ -86,24 +110,26 @@ export default function PricingSection() {
         'Full 4K YouTube Video Hub & Embedded Instagram Feed',
       ],
       planFeatures: [
+        'Everything in Basic Plan (All 11 Core Services)',
         '1 Custom Domain Connection (Connect your own domain + Free SSL)',
         '50 HD Photos & 5 Direct Local Video Uploads',
-        'Online Appointment & Slot Booking Engine (Doctor/Salon/Studio)',
+        'Online Slot & Appointment Booking Engine (Doctors, Salons, Studios)',
         'Integrated Payment Gateways & Instant UPI (GPay, PhonePe, Cards)',
         'Google 5-Star Reviews Booster & Feedback Engine',
         'Customer Leads CRM with 1-Click Excel / CSV Export',
         'Canva & Adobe Banner Creative Sync Studio',
-        'Multi-Staff Team Directory (Display doctors, stylists, or agents)',
-        'Priority WhatsApp & Email Customer Support',
+        'E-Commerce Shopping Cart & SKU Variants (Sizes/Colors)',
+        'Multi-Staff Team Directory & Priority Customer Support',
       ],
     },
     {
       id: 'advance',
-      name: 'Advance',
+      name: 'Advance Plan',
       badge: 'ENTERPRISES & MULTI-BRANCH',
       price: '₹2,199/-',
       period: 'Per Year',
-      desc: 'Full-scale commercial mini-website with 100% white-label branding, multi-branch scaling, blog studio, and operations cockpit.',
+      serviceCount: 'All 24 Services Included',
+      desc: 'Full-scale commercial mini-website with 100% white-label branding, multi-branch scaling, blog studio, GST invoicing, and operations cockpit.',
       icon: Building,
       iconColor: 'text-[#7547F5] bg-purple-50',
       checkColor: 'text-[#7547F5]',
@@ -117,14 +143,253 @@ export default function PricingSection() {
         'Unlimited High-Bitrate YouTube & Instagram Video Galleries',
       ],
       planFeatures: [
+        'Everything in Pro Plan (All 19 Services)',
         '100% White-Label Rights (Zero OneClickBiz Branding on Website)',
         'Unlimited HD Photos & 15 Direct Local 4K Video Uploads',
-        'Multi-Branch & Locations Engine (Manage Multi-City Outlets)',
+        'Multi-Branch & Locations Scaling Engine (Multi-City Outlets)',
         'Articles & SEO Blog Studio (Rank #1 on Google Search)',
-        'Report PDF Extract & GST Tax Invoicing Suite',
+        'Report PDF Extract & Automated GST Tax Invoicing Suite',
         'All-in-One Operations Cockpit (CRM, WhatsApp, Revenue)',
-        'Storefront Smart NFC & Acrylic QR Standee Included',
+        'Storefront Smart NFC & Acrylic QR Standee Delivered Free',
+        'Up to 5 Custom Domains Management Support',
         'Dedicated VIP Account Manager & 24/7 Phone SLA',
+      ],
+    },
+  ];
+
+  // Complete 24 Services Matrix Data divided cleanly across plans
+  const serviceMatrixCategories: ServiceMatrixCategory[] = [
+    {
+      category: '1. Commercial Mini-Website & Core Presence (Included in All Plans)',
+      services: [
+        {
+          name: '1 Commercial Business Mini-Website',
+          description: 'Responsive, mobile-first commercial website built for your exact industry niche.',
+          basic: '1 Mini-Website',
+          pro: '1 Mini-Website',
+          advance: '1 Mini-Website',
+        },
+        {
+          name: 'Personal Profile & Executive vCard',
+          description: 'Digital persona with 1-tap save to smartphone contacts address book (.vcf).',
+          basic: true,
+          pro: true,
+          advance: true,
+        },
+        {
+          name: 'Custom Templates & Industry Themes',
+          description: 'Professionally crafted industry layouts tailored for doctors, shops, real estate & salons.',
+          basic: 'Essential Themes',
+          pro: 'All Premium Themes',
+          advance: 'All VIP Custom Themes',
+        },
+        {
+          name: 'Easy Designing & Brand Customizer',
+          description: 'Live editor for logo, typography, banner graphics, and brand theme colors.',
+          basic: true,
+          pro: true,
+          advance: true,
+        },
+        {
+          name: 'Live Profile High-Speed Cloud Hosting',
+          description: 'High-availability cloud edge hosting with 99.9% uptime and automated SSL encryption.',
+          basic: 'Standard Cloud CDN',
+          pro: 'High-Speed Edge CDN',
+          advance: 'Ultra-Fast Global Edge',
+        },
+      ],
+    },
+    {
+      category: '2. WhatsApp Store & E-Commerce Catalog',
+      services: [
+        {
+          name: 'WhatsApp Store (0% Commission)',
+          description: 'Direct WhatsApp checkout sending neat structured orders to your phone inbox.',
+          basic: 'Basic Store Catalog',
+          pro: 'Advanced Cart & Variants',
+          advance: 'Multi-Category Store',
+        },
+        {
+          name: 'Product Space & Catalog Showcase',
+          description: 'Display products with high-res photos, MRP, offer prices, and item descriptions.',
+          basic: '15 Products Showcase',
+          pro: '50 Products Showcase',
+          advance: 'Unlimited Products',
+        },
+        {
+          name: 'E-Commerce Cart & SKU Variants',
+          description: 'Multi-item shopping cart with sizes, colors, weights, and live stock tracking.',
+          basic: false,
+          pro: true,
+          advance: true,
+        },
+      ],
+    },
+    {
+      category: '3. Media Gallery & Local Device Upload Quotas',
+      services: [
+        {
+          name: 'Local Device HD Photo Uploads',
+          description: 'Upload high-resolution images of your work, portfolio, and clinic/store from your phone or PC.',
+          basic: '15 HD Photos',
+          pro: '50 HD Photos',
+          advance: 'Unlimited HD Photos',
+        },
+        {
+          name: 'Direct Local Video Uploads',
+          description: 'Upload video files directly from local storage with smooth native video player.',
+          basic: '1 Local Video',
+          pro: '5 Local Videos',
+          advance: '15 Local 4K Videos',
+        },
+        {
+          name: 'Instagram Reels & YouTube Embedded Hub',
+          description: 'Embed unlimited YouTube videos and Instagram reels with seamless in-app playback.',
+          basic: 'Unlimited Embeds',
+          pro: 'Unlimited Embeds',
+          advance: 'Unlimited Embeds',
+        },
+        {
+          name: 'Social Profiles Hub',
+          description: 'Consolidated one-tap links to Instagram, Facebook, LinkedIn, Twitter & Google Maps.',
+          basic: true,
+          pro: true,
+          advance: true,
+        },
+      ],
+    },
+    {
+      category: '4. Contact, Sharing & App Integration',
+      services: [
+        {
+          name: 'Customized Dynamic Cloud QR Code',
+          description: 'Cloud QR code that can be updated 24x7 without reprinting paper posters.',
+          basic: true,
+          pro: true,
+          advance: true,
+        },
+        {
+          name: 'Visiting Cards & Downloadable Flyers',
+          description: 'Digital shareable card + printable PDF visiting card and promotional flyer.',
+          basic: true,
+          pro: true,
+          advance: true,
+        },
+        {
+          name: 'Direct App (PWA - 1-Tap Install)',
+          description: 'Allows clients to install your mini-website as an app icon directly on their home screen.',
+          basic: true,
+          pro: true,
+          advance: true,
+        },
+        {
+          name: 'Clickable HTML Email Signature',
+          description: 'Branded corporate signature for Gmail, Outlook, and Apple Mail with social icons.',
+          basic: false,
+          pro: true,
+          advance: true,
+        },
+      ],
+    },
+    {
+      category: '5. Bookings, Payments, Reviews & Lead CRM',
+      services: [
+        {
+          name: 'Slot & Appointment Booking Engine',
+          description: 'Calendar scheduling for doctor clinics, salons, fitness studios, and consulting.',
+          basic: false,
+          pro: true,
+          advance: true,
+        },
+        {
+          name: 'Payment Gateways & Instant UPI QR',
+          description: 'Collect payments directly via GPay, PhonePe, Paytm, Credit/Debit Cards, and Netbanking.',
+          basic: false,
+          pro: true,
+          advance: true,
+        },
+        {
+          name: 'Google 5-Star Reviews Booster',
+          description: 'Interactive feedback collector directing happy customers to post 5-star Google reviews.',
+          basic: false,
+          pro: true,
+          advance: true,
+        },
+        {
+          name: 'Customer Leads CRM & Excel Export',
+          description: 'Captures inquiries and allows 1-click download of all customer contacts in Excel/CSV.',
+          basic: 'Inbound Form Only',
+          pro: '1-Click Excel / CSV Export',
+          advance: 'Automated CRM & Analytics',
+        },
+        {
+          name: 'Canva & Adobe Marketing Studio',
+          description: 'Sync and display custom designed promotional banners, discount offers & festival graphics.',
+          basic: false,
+          pro: true,
+          advance: true,
+        },
+      ],
+    },
+    {
+      category: '6. Custom Domain & Enterprise Scaling Suite',
+      services: [
+        {
+          name: 'Custom Domain Connection (BYOD)',
+          description: 'Point your own custom domain (e.g., yourname.com) via CNAME with free automated SSL.',
+          basic: false,
+          pro: '1 Custom Domain',
+          advance: 'Up to 5 Custom Domains',
+        },
+        {
+          name: '100% White-Label Rights',
+          description: 'Zero OneClickBiz branding on your website — 100% pure private label business website.',
+          basic: false,
+          pro: false,
+          advance: '✓ 100% Zero Branding',
+        },
+        {
+          name: 'Multi-Branch & Locations Scaling',
+          description: 'Manage multiple branches, franchise outlets, or clinic locations under one main brand.',
+          basic: false,
+          pro: false,
+          advance: '✓ Multi-City Outlets',
+        },
+        {
+          name: 'Articles & SEO Blog Studio',
+          description: 'Publish high-ranking articles, business insights, and news updates to rank on Google.',
+          basic: false,
+          pro: false,
+          advance: '✓ Rank #1 on Google',
+        },
+        {
+          name: 'Report PDF & Automated GST Invoicing',
+          description: 'Generate tax-compliant GST invoices, customer order receipts, and financial export reports.',
+          basic: false,
+          pro: false,
+          advance: '✓ GST Invoices & Reports',
+        },
+        {
+          name: 'Operations Cockpit CRM Hub',
+          description: 'Unified command center for staff assignments, WhatsApp follow-ups, and sales tracking.',
+          basic: false,
+          pro: false,
+          advance: '✓ Unified Operations Hub',
+        },
+        {
+          name: 'Smart NFC Acrylic Counter Standee',
+          description: 'Physical contactless NFC + QR acrylic standee delivered directly to your shop counter.',
+          basic: false,
+          pro: false,
+          advance: '✓ Included & Delivered Free',
+        },
+        {
+          name: 'Dedicated Customer Support SLA',
+          description: 'Assistance channel and response turnaround time guarantee.',
+          basic: 'Standard Email & Chat',
+          pro: 'Priority WhatsApp & Email',
+          advance: '24/7 Dedicated Phone SLA',
+        },
       ],
     },
   ];
@@ -143,13 +408,13 @@ export default function PricingSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <span className="inline-block px-3.5 py-1 rounded-full bg-[#EDF3FF] text-[#174BFF] border border-[#C7D7FE] text-[11px] font-bold uppercase tracking-wider mb-2.5">
-            PRICING PLANS
+            PRICING PLANS &amp; SERVICE TIERS
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#10183F] tracking-tight leading-tight">
-            Simple & Transparent Pricing.
+            Transparent Pricing Divided by Growth Tier.
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-[#64718F] font-normal max-w-xl mx-auto">
-            Choose the plan that fits your business. Every plan provides a complete commercial mini-website with all essential business services pre-integrated.
+            Every plan powers <span className="font-bold text-slate-800">1 Verified Commercial Business Mini-Website</span>. Explore the clean service division below: Basic (11 Services), Pro (19 Services), and Advance (All 24 Services).
           </p>
         </div>
 
@@ -189,6 +454,19 @@ export default function PricingSection() {
                     </div>
                   </div>
 
+                  {/* Service Count Badge */}
+                  <div className="mb-2">
+                    <span className={`inline-block px-2.5 py-0.5 rounded-md text-[11px] font-bold ${
+                      plan.id === 'basic'
+                        ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                        : plan.id === 'pro'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        : 'bg-purple-50 text-[#7547F5] border border-purple-200'
+                    }`}>
+                      {plan.serviceCount}
+                    </span>
+                  </div>
+
                   {/* Description */}
                   <p className="text-xs text-[#64718F] leading-relaxed mb-4 min-h-[36px]">
                     {plan.desc}
@@ -222,7 +500,7 @@ export default function PricingSection() {
 
                   {/* TIER-SPECIFIC SERVICES LIST */}
                   <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#64718F] mb-2.5 px-1">
-                    {plan.id === 'basic' ? 'Basic Website Features' : plan.id === 'pro' ? 'Everything in Basic, Plus:' : 'Everything in Pro, Plus:'}
+                    {plan.id === 'basic' ? 'Basic Website Features (11 Total)' : plan.id === 'pro' ? 'Everything in Basic, Plus (19 Total):' : 'Everything in Pro, Plus (All 24 Total):'}
                   </div>
                   <ul className="space-y-2.5 mb-6">
                     {plan.planFeatures.map((feat, idx) => (
@@ -251,6 +529,180 @@ export default function PricingSection() {
         <p className="text-center text-[11px] text-[#64718F] mt-6 max-w-2xl mx-auto leading-relaxed">
           <span className="font-semibold text-slate-700">💡 Custom Domain Note:</span> Connect any domain you own (from GoDaddy, Hostinger, Namecheap, etc.) via simple CNAME DNS. OneClickBiz provides free high-speed cloud edge routing and automated 256-bit SSL certificates at zero extra charge.
         </p>
+
+        {/* TOGGLE: FULL 24-SERVICES COMPARISON MATRIX */}
+        <div className="mt-10 sm:mt-12 max-w-6xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-white border border-[#C7D7FE] shadow-sm">
+            <div className="flex items-center gap-3 text-left">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#174BFF] flex items-center justify-center shrink-0">
+                <Layers className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-sm sm:text-base font-extrabold text-[#10183F]">
+                  Complete 24-Service Side-by-Side Breakdown
+                </h3>
+                <p className="text-xs text-[#64718F]">
+                  Inspect exact feature limits, upload quotas, and service capabilities for each plan.
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowComparison(!showComparison)}
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#10183F] text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+            >
+              <span>{showComparison ? 'Collapse Comparison Table' : 'Expand Comparison Table'}</span>
+              {showComparison ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            </button>
+          </div>
+
+          {/* EXPANDABLE 24-SERVICES COMPARISON TABLE */}
+          {showComparison && (
+            <div className="mt-4 bg-white rounded-3xl border border-[#C7D7FE] shadow-xl overflow-hidden transition-all duration-300 animate-fadeIn">
+              <div className="overflow-x-auto scrollbar-thin">
+                <table className="w-full text-left border-collapse min-w-[700px]">
+                  <thead>
+                    <tr className="border-b border-[#E2E9FA] bg-gradient-to-r from-slate-50 to-blue-50/40">
+                      <th className="py-4 px-5 text-xs font-extrabold text-[#10183F] uppercase tracking-wider w-[40%]">
+                        Services &amp; Capabilities
+                      </th>
+                      <th className="py-4 px-4 text-center text-xs font-extrabold text-[#174BFF] uppercase tracking-wider w-[20%] bg-blue-50/50">
+                        <div>Basic Plan</div>
+                        <div className="text-[11px] font-bold text-slate-600 mt-0.5">₹999 / yr</div>
+                      </th>
+                      <th className="py-4 px-4 text-center text-xs font-extrabold text-emerald-700 uppercase tracking-wider w-[20%] bg-emerald-50/50">
+                        <div className="inline-flex items-center gap-1">
+                          <span>Pro Plan</span>
+                          <span className="text-[9px] bg-emerald-600 text-white px-1.5 py-0.2 rounded font-black">POPULAR</span>
+                        </div>
+                        <div className="text-[11px] font-bold text-slate-600 mt-0.5">₹1,599 / yr</div>
+                      </th>
+                      <th className="py-4 px-4 text-center text-xs font-extrabold text-[#7547F5] uppercase tracking-wider w-[20%] bg-purple-50/50">
+                        <div>Advance Plan</div>
+                        <div className="text-[11px] font-bold text-slate-600 mt-0.5">₹2,199 / yr</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#E2E9FA]/60">
+                    {serviceMatrixCategories.map((group, gIdx) => (
+                      <React.Fragment key={gIdx}>
+                        {/* Category Row Header */}
+                        <tr className="bg-slate-100/70 border-t border-b border-[#E2E9FA]">
+                          <td colSpan={4} className="py-2.5 px-5 text-xs font-extrabold text-[#10183F] uppercase tracking-wider">
+                            {group.category}
+                          </td>
+                        </tr>
+
+                        {/* Service Item Rows */}
+                        {group.services.map((srv, sIdx) => (
+                          <tr key={sIdx} className="hover:bg-slate-50/80 transition-colors">
+                            <td className="py-3.5 px-5">
+                              <div className="text-xs sm:text-sm font-bold text-[#10183F]">
+                                {srv.name}
+                              </div>
+                              <div className="text-[11px] text-[#64718F] mt-0.5 leading-snug">
+                                {srv.description}
+                              </div>
+                            </td>
+
+                            {/* Basic Column */}
+                            <td className="py-3.5 px-4 text-center text-xs font-medium bg-blue-50/20">
+                              {typeof srv.basic === 'boolean' ? (
+                                srv.basic ? (
+                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-[#174BFF]">
+                                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-400">
+                                    <Minus className="w-3.5 h-3.5" />
+                                  </span>
+                                )
+                              ) : (
+                                <span className="inline-block px-2.5 py-1 rounded-md bg-blue-50 text-[#174BFF] font-bold text-[11px] border border-blue-200/70">
+                                  {srv.basic}
+                                </span>
+                              )}
+                            </td>
+
+                            {/* Pro Column */}
+                            <td className="py-3.5 px-4 text-center text-xs font-medium bg-emerald-50/20">
+                              {typeof srv.pro === 'boolean' ? (
+                                srv.pro ? (
+                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700">
+                                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-400">
+                                    <Minus className="w-3.5 h-3.5" />
+                                  </span>
+                                )
+                              ) : (
+                                <span className="inline-block px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 font-bold text-[11px] border border-emerald-200/70">
+                                  {srv.pro}
+                                </span>
+                              )}
+                            </td>
+
+                            {/* Advance Column */}
+                            <td className="py-3.5 px-4 text-center text-xs font-medium bg-purple-50/20">
+                              {typeof srv.advance === 'boolean' ? (
+                                srv.advance ? (
+                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-100 text-[#7547F5]">
+                                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-400">
+                                    <Minus className="w-3.5 h-3.5" />
+                                  </span>
+                                )
+                              ) : (
+                                <span className="inline-block px-2.5 py-1 rounded-md bg-purple-50 text-[#7547F5] font-bold text-[11px] border border-purple-200/70">
+                                  {srv.advance}
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </React.Fragment>
+                    ))}
+
+                    {/* Quick Action Footer Row */}
+                    <tr className="bg-slate-50 border-t-2 border-[#C7D7FE]">
+                      <td className="py-4 px-5 text-xs font-extrabold text-[#10183F] uppercase tracking-wider">
+                        Choose Your Plan
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <Link
+                          href="/signup?plan=basic&intent=matrix"
+                          className="inline-flex items-center justify-center px-3.5 py-2 rounded-xl text-xs font-bold text-[#174BFF] bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-colors w-full"
+                        >
+                          Select Basic
+                        </Link>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <Link
+                          href="/signup?plan=pro&intent=matrix"
+                          className="inline-flex items-center justify-center px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-xs transition-colors w-full"
+                        >
+                          Get Pro
+                        </Link>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <Link
+                          href="/signup?plan=advance&intent=matrix"
+                          className="inline-flex items-center justify-center px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-[#7547F5] hover:bg-[#6032E3] shadow-xs transition-colors w-full"
+                        >
+                          Choose Advance
+                        </Link>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* 4 Trust Benefits */}
         <div className="mt-12 sm:mt-14 max-w-5xl mx-auto pt-8 border-t border-[#E2E9FA]/70">

@@ -32,9 +32,52 @@ export interface ServiceDetailItem {
   demoUrl: string;
   ctaText: string;
   ctaUrl: string;
+  planTier?: 'basic' | 'pro' | 'advance';
+  planLabel?: string;
+  planPrice?: string;
+  availability?: string;
 }
 
-export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
+export interface ServicePlanInfo {
+  planTier: 'basic' | 'pro' | 'advance';
+  planLabel: string;
+  planPrice: string;
+  availability: string;
+}
+
+export const SERVICE_PLAN_MAPPING: Record<string, ServicePlanInfo> = {
+  // 11 Core Baseline Services (Included in Basic, Pro, Advance)
+  'mini-website': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Included in Basic, Pro, and Advance Plans' },
+  'whatsapp-store': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Included in Basic, Pro, and Advance Plans' },
+  'personal-profile': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Included in Basic, Pro, and Advance Plans' },
+  'custom-templates': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Included in Basic, Pro, and Advance Plans' },
+  'easy-designing': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Included in Basic, Pro, and Advance Plans' },
+  'customized-qr': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Included in Basic, Pro, and Advance Plans' },
+  'visiting-cards': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Included in Basic, Pro, and Advance Plans' },
+  'direct-app': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Included in Basic, Pro, and Advance Plans' },
+  'product-space': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Included in Basic, Pro, and Advance Plans' },
+  'live-profile': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Included in Basic, Pro, and Advance Plans' },
+  'gallery-space': { planTier: 'basic', planLabel: 'Basic Plan', planPrice: '₹999/yr', availability: 'Basic (15 Photos/1 Video) | Pro (50 Photos/5 Videos) | Advance (Unlimited/15 4K Videos)' },
+
+  // 8 Commercial Growth Services (Unlocked in Pro & Advance)
+  'custom-domain': { planTier: 'pro', planLabel: 'Pro Plan', planPrice: '₹1,599/yr', availability: 'Unlocked in Pro (₹1,599) and Advance (₹2,199)' },
+  'services-management': { planTier: 'pro', planLabel: 'Pro Plan', planPrice: '₹1,599/yr', availability: 'Unlocked in Pro (₹1,599) and Advance (₹2,199)' },
+  'payment-gateways': { planTier: 'pro', planLabel: 'Pro Plan', planPrice: '₹1,599/yr', availability: 'Unlocked in Pro (₹1,599) and Advance (₹2,199)' },
+  'reviews-ratings': { planTier: 'pro', planLabel: 'Pro Plan', planPrice: '₹1,599/yr', availability: 'Unlocked in Pro (₹1,599) and Advance (₹2,199)' },
+  'lead-extractions': { planTier: 'pro', planLabel: 'Pro Plan', planPrice: '₹1,599/yr', availability: 'Unlocked in Pro (₹1,599) and Advance (₹2,199)' },
+  'canva-adobe': { planTier: 'pro', planLabel: 'Pro Plan', planPrice: '₹1,599/yr', availability: 'Unlocked in Pro (₹1,599) and Advance (₹2,199)' },
+  'email-signature': { planTier: 'pro', planLabel: 'Pro Plan', planPrice: '₹1,599/yr', availability: 'Unlocked in Pro (₹1,599) and Advance (₹2,199)' },
+  'e-commerce': { planTier: 'pro', planLabel: 'Pro Plan', planPrice: '₹1,599/yr', availability: 'Unlocked in Pro (₹1,599) and Advance (₹2,199)' },
+
+  // 5 Enterprise & Multi-Branch Services (Exclusive to Advance)
+  'commercial-usage': { planTier: 'advance', planLabel: 'Advance Plan', planPrice: '₹2,199/yr', availability: 'Exclusive to Advance Plan (₹2,199)' },
+  'scaling-business': { planTier: 'advance', planLabel: 'Advance Plan', planPrice: '₹2,199/yr', availability: 'Exclusive to Advance Plan (₹2,199)' },
+  'articles-blogs': { planTier: 'advance', planLabel: 'Advance Plan', planPrice: '₹2,199/yr', availability: 'Exclusive to Advance Plan (₹2,199)' },
+  'report-pdf': { planTier: 'advance', planLabel: 'Advance Plan', planPrice: '₹2,199/yr', availability: 'Exclusive to Advance Plan (₹2,199)' },
+  'business-tools': { planTier: 'advance', planLabel: 'Advance Plan', planPrice: '₹2,199/yr', availability: 'Exclusive to Advance Plan (₹2,199)' },
+};
+
+const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
   'whatsapp-store': {
     id: 'whatsapp-store',
     name: 'WhatsApp Store',
@@ -1379,3 +1422,20 @@ export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = {
     ctaUrl: '/signup'
   }
 };
+
+// Merge plan information dynamically into each service
+export const SERVICES_CATALOG_24: Record<string, ServiceDetailItem> = Object.keys(RAW_SERVICES_CATALOG).reduce((acc, key) => {
+  const base = RAW_SERVICES_CATALOG[key];
+  const planInfo = SERVICE_PLAN_MAPPING[key];
+  acc[key] = {
+    ...base,
+    ...(planInfo || {
+      planTier: 'basic',
+      planLabel: 'Basic Plan',
+      planPrice: '₹999/yr',
+      availability: 'Included in Basic Plan'
+    })
+  };
+  return acc;
+}, {} as Record<string, ServiceDetailItem>);
+
