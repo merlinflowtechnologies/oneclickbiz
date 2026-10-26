@@ -1193,6 +1193,9 @@ export default function ProfileCardView({
           <HomeServicesMiniWebsiteView
             profile={profile}
             getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
           />
         ) : isJewellery ? (
           <JewelleryMiniWebsiteView
