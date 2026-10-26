@@ -147,7 +147,7 @@ export async function generateMetadata(props: CustomDomainPageProps): Promise<Me
   }
 
   const title = `${profile.name} | ${profile.company || profile.designation || 'Official Business Website'}`;
-  const description = profile.bio || `Welcome to ${profile.name}'s official digital card and store at ${cleanDomain}.`;
+  const description = profile.bio || `Welcome to ${profile.name}'s official commercial mini-website and store at ${cleanDomain}.`;
 
   return {
     title,
@@ -191,7 +191,7 @@ export default async function CustomDomainPage(props: CustomDomainPageProps) {
           <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-4 text-left space-y-2.5 text-xs text-slate-300">
             <p className="font-bold text-white flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Next Step: Link to Your Smart Card</span>
+              <span>Next Step: Link to Your Commercial Mini-Website</span>
             </p>
             <ol className="list-decimal list-inside space-y-1.5 text-slate-400 pl-1">
               <li>Log in to your OneClickBiz business dashboard.</li>

@@ -854,7 +854,7 @@ END:VCARD`;
                   <Download className="w-6 h-6 text-white stroke-[2.2]" />
                 </div>
                 <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-700 group-hover:text-blue-600 transition-colors whitespace-nowrap">
-                  SAVE VCARD
+                  SAVE CONTACT
                 </span>
               </button>
 

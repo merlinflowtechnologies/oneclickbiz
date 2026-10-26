@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!profile) {
-      return NextResponse.json({ error: 'Associated smart card profile not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Associated mini-website profile not found' }, { status: 404 });
     }
 
     const lead = await prisma.lead.create({

@@ -99,7 +99,7 @@ export default function BlogStudio() {
         requiredPlan="ADVANCED"
         currentPlan={userPlanTier}
         featureTitle="Custom Blog & Thought Leadership Studio"
-        featureDescription="Write, format, and publish SEO-optimized articles, multimedia case studies, industry insights, and client guides directly on your public digital card profile."
+        featureDescription="Write, format, and publish SEO-optimized articles, multimedia case studies, industry insights, and client guides directly on your commercial mini-website."
         benefits={[
           'Unlimited thought leadership article & guide publishing',
           'Rich markdown text editor with header photos & formatting',
@@ -236,7 +236,7 @@ export default function BlogStudio() {
             Blog & Article Publishing Studio
           </h1>
           <p className="text-xs text-slate-400">
-            Publish high-impact industry articles, customer case studies, and guides directly onto your digital card & profile.
+            Publish high-impact industry articles, customer case studies, and guides directly onto your commercial mini-website.
           </p>
         </div>
 
@@ -458,7 +458,7 @@ export default function BlogStudio() {
                   <h2 className="text-base font-bold text-white">
                     {editingBlog.id ? 'Edit Article' : 'Write New Article'}
                   </h2>
-                  <p className="text-xs text-slate-400">Publish thought leadership content for your digital card visitors</p>
+                  <p className="text-xs text-slate-400">Publish thought leadership content for your website visitors</p>
                 </div>
               </div>
 

@@ -78,7 +78,7 @@ export default function TestimonialSubmitModal({
             </div>
             <h3 className="text-lg font-bold text-white">Thank You for Your Review!</h3>
             <p className="text-xs text-slate-400 max-w-xs mx-auto">
-              Your 5-star feedback has been recorded and added to this digital card.
+              Your 5-star feedback has been recorded and added to this business website.
             </p>
           </div>
         ) : (

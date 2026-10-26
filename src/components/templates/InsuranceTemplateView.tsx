@@ -3754,7 +3754,7 @@ export default function InsuranceTemplateView({
               <span>Privacy Encrypted</span>
               <span>•</span>
               <a href="https://oneclickbiz.in" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                Build Your Own Smart Card on OneClickBiz
+                Build Your Own Mini-Website on OneClickBiz
               </a>
             </div>
           </div>
@@ -3978,7 +3978,7 @@ export default function InsuranceTemplateView({
             </button>
 
             <div>
-              <h3 className="text-lg font-bold text-slate-900 ocb-font-serif">Scan Smart Digital Card</h3>
+              <h3 className="text-lg font-bold text-slate-900 ocb-font-serif">Scan Business QR Code</h3>
               <p className="text-xs text-slate-600 mt-1 font-medium">Point smartphone camera to instantly save contacts &amp; quotes</p>
             </div>
 

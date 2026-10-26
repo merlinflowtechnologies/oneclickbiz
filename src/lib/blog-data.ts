@@ -30,7 +30,7 @@ Enter **smart digital business cards** — interactive, dynamic, and instantly s
    Prospects can save your name, designation, phone number, website, WhatsApp link, and social profiles straight to their phone's address book with **one tap**—no typing required.
 
 2. **Always Up-to-Date**  
-   Changed your phone number or updated your product catalog? With dynamic digital cards from **OneClickBiz**, any change you make updates instantly everywhere—your existing cards and QR codes never go obsolete.
+   Changed your phone number or updated your product catalog? With dynamic mini-websites from **OneClickBiz**, any change you make updates instantly everywhere—your existing websites and QR codes never go obsolete.
 
 3. **Built-in WhatsApp Commerce & Booking**  
    Unlike a flat piece of paper, a OneClickBiz profile lets clients browse your products, book meetings, view client video testimonials, and message your WhatsApp directly.

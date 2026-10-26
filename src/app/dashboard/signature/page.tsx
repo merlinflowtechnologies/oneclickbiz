@@ -41,7 +41,7 @@ export default function EmailSignaturePage() {
   const [showSocials, setShowSocials] = useState<boolean>(true);
   const [showDisclaimer, setShowDisclaimer] = useState<boolean>(true);
   const [showBannerCta, setShowBannerCta] = useState<boolean>(true);
-  const [bannerText, setBannerText] = useState<string>('✨ Book a Strategy Consultation on My Digital Card');
+  const [bannerText, setBannerText] = useState<string>('✨ Book a Strategy Consultation on My Mini-Website');
 
   const previewRef = useRef<HTMLDivElement>(null);
 
@@ -83,7 +83,7 @@ export default function EmailSignaturePage() {
     const qrImg = showQr 
       ? `<td style="vertical-align: top; padding-left: 16px; border-left: 1px solid #e2e8f0; text-align: center;">
           <a href="${cardUrl}" target="_blank" style="text-decoration: none;">
-            <img src="${qrUrl}" alt="Scan Card" width="70" height="70" style="display: block; border-radius: 8px; border: 1px solid #cbd5e1;" />
+            <img src="${qrUrl}" alt="Scan Website" width="70" height="70" style="display: block; border-radius: 8px; border: 1px solid #cbd5e1;" />
             <span style="font-size: 9px; color: ${accentColor}; font-weight: bold; display: block; margin-top: 4px;">TAP TO VIEW</span>
           </a>
         </td>` 
@@ -201,7 +201,7 @@ export default function EmailSignaturePage() {
               className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-850 border border-slate-800 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition flex items-center gap-1.5"
             >
               <ExternalLink className="w-3.5 h-3.5" />
-              <span>View Public Card</span>
+              <span>View Public Website</span>
             </Link>
           </div>
         </div>

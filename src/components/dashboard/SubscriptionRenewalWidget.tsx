@@ -44,7 +44,7 @@ const DEFAULT_RENEWAL_PLANS: Record<'Basic' | 'Pro' | 'Advanced', RenewalPlan> =
     name: 'Basic Plan',
     price: 999,
     regularPrice: 999,
-    cards: '1 Digital Smart Card',
+    cards: '1 Commercial Business Mini-Website',
     period: '1 Year Renewal'
   },
   Pro: {
@@ -52,7 +52,7 @@ const DEFAULT_RENEWAL_PLANS: Record<'Basic' | 'Pro' | 'Advanced', RenewalPlan> =
     name: 'Pro Plan',
     price: 1599,
     regularPrice: 1599,
-    cards: '3 Digital Smart Cards + WhatsApp Catalog',
+    cards: '1 Commercial Business Mini-Website + WhatsApp Store',
     period: '1 Year Renewal',
     recommended: true
   },
@@ -61,7 +61,7 @@ const DEFAULT_RENEWAL_PLANS: Record<'Basic' | 'Pro' | 'Advanced', RenewalPlan> =
     name: 'Advanced Plan',
     price: 2199,
     regularPrice: 2199,
-    cards: '5 Smart Cards + Team Portfolios',
+    cards: '1 Commercial Business Mini-Website + Enterprise Suite',
     period: '1 Year Renewal'
   }
 };
@@ -264,7 +264,7 @@ export default function SubscriptionRenewalWidget({
             1-Year Plan Renewal Center
           </h2>
           <p className="text-xs sm:text-sm text-slate-600">
-            Keep your digital business cards, smart QR links, and online WhatsApp store active 24/7.
+            Keep your commercial business mini-website, dynamic QR links, and online WhatsApp store active 24/7.
           </p>
         </div>
 

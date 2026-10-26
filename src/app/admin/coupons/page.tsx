@@ -740,7 +740,7 @@ export default function AdminCouponsPage() {
                     </div>
                     <div className="mt-1">
                       <span className="text-sm font-black text-slate-900">₹999<span className="text-[9px] font-normal text-slate-500">/yr</span></span>
-                      <p className="text-[9px] text-slate-500">1 Smart Digital Card</p>
+                      <p className="text-[9px] text-slate-500">1 Commercial Mini-Website</p>
                     </div>
                   </div>
 
@@ -1013,7 +1013,7 @@ export default function AdminCouponsPage() {
                 const directSignupUrl = `https://oneclickbiz.in/signup?coupon=${encodeURIComponent(shareCoupon.code)}${planQuery}`;
                 const greeting = shareCoupon.assignedName ? `Hi ${shareCoupon.assignedName}!` : `Hi!`;
 
-                const waMessage = `${greeting} Here is an exclusive special invitation from OneClickBiz 🚀\n\nUse promo coupon code *${shareCoupon.code}* to get an instant *${discountText}* on your ${planMention} (Digital Smart Card, WhatsApp Store & Lead Engine).\n\n👉 Click here to activate with discount pre-applied: ${directSignupUrl}\n\nLet me know if you need any assistance getting started!`;
+                const waMessage = `${greeting} Here is an exclusive special invitation from OneClickBiz 🚀\n\nUse promo coupon code *${shareCoupon.code}* to get an instant *${discountText}* on your ${planMention} (Commercial Business Mini-Website, WhatsApp Store & Lead Engine).\n\n👉 Click here to activate with discount pre-applied: ${directSignupUrl}\n\nLet me know if you need any assistance getting started!`;
 
                 const waShareUrl = `https://wa.me/${shareCoupon.assignedPhone ? shareCoupon.assignedPhone.replace(/\D/g, '') : ''}?text=${encodeURIComponent(waMessage)}`;
 

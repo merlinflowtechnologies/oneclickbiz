@@ -231,7 +231,7 @@ export default function QRScannerPage() {
           {/* Quick Demo QR Links (For Testing Without Physical Camera) */}
           <div className="pt-4 border-t border-slate-800/80 space-y-2.5 text-center">
             <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-              Quick Test Sample Cards
+              Quick Test Sample Mini-Websites
             </span>
             <div className="flex flex-wrap items-center justify-center gap-2">
               {[
@@ -260,8 +260,8 @@ export default function QRScannerPage() {
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-white">Smart Card Detected!</h3>
-                    <p className="text-[10px] text-emerald-400">Verified OneClickBiz Dynamic Card</p>
+                    <h3 className="text-xs font-bold text-white">Business Website Detected!</h3>
+                    <p className="text-[10px] text-emerald-400">Verified OneClickBiz Commercial Mini-Website</p>
                   </div>
                 </div>
 
@@ -289,7 +289,7 @@ export default function QRScannerPage() {
                   target="_blank"
                   className="py-3 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xl shadow-indigo-500/25 transition active:scale-95"
                 >
-                  <span>Open Live Smart Card</span>
+                  <span>Open Live Website</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 

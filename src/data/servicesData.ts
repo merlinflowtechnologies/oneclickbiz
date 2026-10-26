@@ -137,7 +137,7 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
   'personal-profile': {
     id: 'personal-profile',
     name: 'Personal Profile',
-    tagline: 'Your Modern Digital Identity & Executive vCard with 1-Tap Save to Contacts',
+    tagline: 'Your Modern Digital Identity & Executive Profile with 1-Tap Save to Contacts',
     category: 'Identity & Networking',
     badge: 'Essential',
     iconImage: '/services/personal-profile.png?v=7',
@@ -146,8 +146,8 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
     accentColor: '#174BFF',
     about: {
       overview: 'Replace outdated paper cards with an interactive, verified digital business identity. Personal Profile acts as your living digital persona, consolidating your photo, bio, company role, phone numbers, email, WhatsApp, and social profiles in a sleek, mobile-optimized format.',
-      description: 'When you meet clients, investors, or partners, they scan your QR code or tap your NFC card. In one click, your full contact card is saved into their phone address book without typing a single digit. Your profile remains live and editable 24/7.',
-      valueProposition: 'Never run out of business cards again. Always leave an unforgettable first impression and guarantee your contact details reach their phone address book.'
+      description: 'When you meet clients, investors, or partners, they scan your QR code or tap your NFC standee. In one click, your full business profile is saved into their phone address book without typing a single digit. Your profile remains live and editable 24/7.',
+      valueProposition: 'Never run out of promotional material again. Always leave an unforgettable first impression and guarantee your contact details reach their phone address book.'
     },
     howToUse: [
       {
@@ -167,15 +167,15 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
       },
       {
         step: 4,
-        title: 'Share Digitally or via NFC Card',
-        description: 'Share your vanity URL (oneclickbiz.in/v/yourname) or tap your physical NFC card onto any smartphone.'
+        title: 'Share Digitally or via Smart QR & NFC',
+        description: 'Share your vanity URL (oneclickbiz.in/v/yourname) or tap your physical NFC standee onto any smartphone.'
       }
     ],
     keyCapabilities: [
-      { title: '1-Tap "Add to Contacts"', desc: 'Clients download your full vCard directly into iOS & Android contacts.' },
+      { title: '1-Tap "Add to Contacts"', desc: 'Clients save your full business contact directly into iOS & Android contacts.' },
       { title: 'Dynamic Real-Time Edits', desc: 'Changed phone number or job? Update once, everywhere changes instantly.' },
       { title: 'Clickable Action Hub', desc: 'Direct WhatsApp chat, call, email, Google Maps directions, and UPI.' },
-      { title: 'Rich Analytics', desc: 'Track how many people viewed your card, tapped your links, and saved contacts.' }
+      { title: 'Rich Analytics', desc: 'Track how many people viewed your mini-website, tapped your links, and saved contacts.' }
     ],
     targetAudience: ['Founders & CEOs', 'Sales Executives', 'Real Estate Agents', 'Doctors & Lawyers', 'Consultants', 'Freelancers'],
     metrics: [
@@ -184,7 +184,7 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
       { label: 'Update Latency', value: 'Instant' }
     ],
     referenceImage: '/services/references/personal-profile.jpg?v=12',
-    referenceCaption: 'Executive digital business card mockup with 1-tap "Save Contact to Phone", verified credentials, and quick action hub.',
+    referenceCaption: 'Executive commercial business mini-website mockup with 1-tap "Save Contact to Phone", verified credentials, and quick action hub.',
     demoUrl: '/v/kishore',
     ctaText: 'Create Your Personal Profile',
     ctaUrl: '/signup'
@@ -352,9 +352,9 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
       { label: 'NFC Compatibility', value: '100%' }
     ],
     referenceImage: '/services/references/visiting-cards.jpg?v=12',
-    referenceCaption: 'Luxury matte black smart card with gold foil logo, NFC tap-to-phone contact transfer, and matching marketing flyers.',
+    referenceCaption: 'Luxury matte black visiting card with gold foil logo, NFC tap-to-phone contact transfer, and matching marketing flyers.',
     demoUrl: '#templates',
-    ctaText: 'Design Your Smart Cards & Flyers',
+    ctaText: 'Design Your Visiting Cards & Flyers',
     ctaUrl: '/signup'
   },
 
@@ -649,7 +649,7 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
     borderColor: 'border-orange-200/70',
     accentColor: '#F97316',
     about: {
-      overview: 'Full commercial rights and enterprise compliance for businesses, digital agencies, and marketing consultants who manage digital assets, client cards, or generate revenue at scale.',
+      overview: 'Full commercial rights and enterprise compliance for businesses, digital agencies, and marketing consultants who manage digital assets, client websites, or generate revenue at scale.',
       description: 'OneClickBiz provides complete commercial clearance: zero watermarks, 100% white-label options, multi-staff permissions, and legal certification to use all generated templates and assets for business monetization.',
       valueProposition: 'Operate with complete legal confidence, remove all platform branding, and scale your commercial operations with no restrictions.'
     },
@@ -672,7 +672,7 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
       {
         step: 4,
         title: 'Deploy for Clients or Multiple Outlets',
-        description: 'Generate commercial cards, stores, and landing pages for your branches or agency clients.'
+        description: 'Generate commercial mini-websites, stores, and landing pages for your branches or agency clients.'
       }
     ],
     keyCapabilities: [
@@ -873,7 +873,7 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
     borderColor: 'border-amber-200/70',
     accentColor: '#D97706',
     about: {
-      overview: 'Traditional digital cards restrict you to only 5 or 10 products. OneClickBiz Product Space provides enterprise-grade catalog capacity to showcase your full inventory without arbitrary limits.',
+      overview: 'Traditional website builders restrict you to only 5 or 10 products. OneClickBiz Product Space provides enterprise-grade catalog capacity to showcase your full inventory without arbitrary limits.',
       description: 'Organize thousands of products with custom categories, SKU numbers, original MRP vs selling price, out-of-stock indicators, and product specifications. Buyers can search, filter, and share specific product links directly with their friends on WhatsApp.',
       valueProposition: 'Showcase your complete showroom or inventory collection in your customer’s pocket 24/7.'
     },
@@ -1099,7 +1099,7 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
     about: {
       overview: 'Already designed your marketing banners, product flyers, or business logos in Canva, Adobe Photoshop, or Illustrator? OneClickBiz provides seamless asset integration.',
       description: 'Export or import your designs with native aspect-ratio preservation. Our intelligent image engine automatically crops, compresses, and generates responsive sizes for mobile, tablet, and desktop viewports without distortion.',
-      valueProposition: 'Use the creative tools you love and bring your professional branding straight into your live website and digital business card.'
+      valueProposition: 'Use the creative tools you love and bring your professional branding straight into your live commercial mini-website.'
     },
     howToUse: [
       {
@@ -1145,7 +1145,7 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
   'email-signature': {
     id: 'email-signature',
     name: 'Email Signature Generator',
-    tagline: 'Interactive, Clickable Email Footers with WhatsApp, vCard & Social Badges',
+    tagline: 'Interactive, Clickable Email Footers with WhatsApp, Contact & Social Badges',
     category: 'Corporate Utilities',
     badge: 'Pro Email',
     iconImage: '/services/email-signature.png?v=7',
@@ -1154,7 +1154,7 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
     accentColor: '#0D9488',
     about: {
       overview: 'Every email you and your team send is an opportunity to win a client. Plain text email signatures look amateur. OneClickBiz generates clickable HTML email signatures with your headshot, title, company branding, and action buttons.',
-      description: 'Recipients can click to chat on WhatsApp, book an appointment, view your portfolio, or download your vCard with 1-click directly from Gmail, Outlook, Apple Mail, or Thunderbird.',
+      description: 'Recipients can click to chat on WhatsApp, book an appointment, view your portfolio, or save your contact details with 1-click directly from Gmail, Outlook, Apple Mail, or Thunderbird.',
       valueProposition: 'Turn every routine business email into a branded marketing asset that generates passive leads and builds executive authority.'
     },
     howToUse: [
@@ -1176,7 +1176,7 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
       {
         step: 4,
         title: 'Paste into Gmail or Outlook',
-        description: 'Paste into your email client settings once. Every outgoing email now features your interactive card.'
+        description: 'Paste into your email client settings once. Every outgoing email now features your interactive signature & website.'
       }
     ],
     keyCapabilities: [
@@ -1192,7 +1192,7 @@ const RAW_SERVICES_CATALOG: Record<string, ServiceDetailItem> = {
       { label: 'Setup Time', value: '60 Seconds' }
     ],
     referenceImage: '/services/references/email-signature.jpg?v=12',
-    referenceCaption: 'Desktop email compose window featuring professional interactive HTML signature footer with clickable WhatsApp and vCard buttons.',
+    referenceCaption: 'Desktop email compose window featuring professional interactive HTML signature footer with clickable WhatsApp and contact buttons.',
     demoUrl: '/dashboard/signature',
     ctaText: 'Generate Your Email Signature',
     ctaUrl: '/signup'

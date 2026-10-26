@@ -99,8 +99,8 @@ export default function RefundPolicyPage() {
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-[#475569] text-xs">
               <li><strong>No Pro-Rata Refunds:</strong> Cancellation of an active subscription does not entitle the user to a full, partial, or pro-rata refund for unused days in the current billing cycle.</li>
-              <li><strong>Continued Access:</strong> Your digital card and premium features will remain fully active until the exact expiration date of your current paid billing period.</li>
-              <li><strong>Post-Expiry Handling:</strong> Upon expiration without renewal, premium features (such as white-label custom domains and extra cards) will pause, but basic contact accessibility may be preserved at our discretion.</li>
+              <li><strong>Continued Access:</strong> Your commercial mini-website and premium features will remain fully active until the exact expiration date of your current paid billing period.</li>
+              <li><strong>Post-Expiry Handling:</strong> Upon expiration without renewal, premium features (such as white-label custom domains and multi-branch scaling) will pause, but basic contact accessibility may be preserved at our discretion.</li>
             </ul>
           </section>
 
@@ -114,7 +114,7 @@ export default function RefundPolicyPage() {
               OneClickBiz operates exclusively as a digital Software-as-a-Service (SaaS) platform. We do not manufacture, sell, or ship physical plastic/metal cards or hardware goods.
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-[#475569] text-xs">
-              <li><strong>Zero Physical Shipments:</strong> All smart business cards, dynamic QR codes, and mini-store catalogs are cloud-hosted digital web applications rendered dynamically on smartphones, tablets, and desktop browsers.</li>
+              <li><strong>Zero Physical Shipments:</strong> All commercial business mini-websites, dynamic QR codes, and mini-store catalogs are cloud-hosted digital web applications rendered dynamically on smartphones, tablets, and desktop browsers.</li>
               <li><strong>Instantaneous Fulfillment:</strong> Because digital services and unique server URL aliases are automatically provisioned within seconds of transaction authorization, orders cannot be cancelled once digital delivery is executed.</li>
               <li><strong>Digital Access Verification:</strong> If you experience technical difficulty accessing your digital dashboard or configured profile link, our support team will resolve access within the SLA timeframe. Software delivery issues do not warrant a monetary refund.</li>
             </ul>
@@ -146,7 +146,7 @@ export default function RefundPolicyPage() {
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-[#475569] text-xs">
               <li>Initiating an unauthorized or fraudulent chargeback through a credit card issuer or bank without first contacting OneClickBiz support constitutes a breach of contract.</li>
-              <li>Such accounts will be <strong>immediately and permanently terminated</strong>, with all vanity handles, digital cards, and QR codes permanently revoked.</li>
+              <li>Such accounts will be <strong>immediately and permanently terminated</strong>, with all vanity handles, commercial mini-websites, and QR codes permanently revoked.</li>
               <li>We reserve the right to report fraudulent chargebacks and identity theft to appropriate cyber-crime authorities and financial fraud registries.</li>
             </ul>
           </section>

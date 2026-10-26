@@ -50,7 +50,7 @@ export default function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p className="text-sm text-[#64718F] max-w-3xl leading-relaxed">
-            OneClickBiz (“OneClickBiz”, “Company”, “we”, “us” or “our”) is operated by <strong>Merlinflow Technologies Private Limited</strong>. This Privacy Policy explains how we collect, use, store, disclose, retain and protect personal data across our website, subscription plans, digital business cards, smart profiles, QR codes, and business management services.
+            OneClickBiz (“OneClickBiz”, “Company”, “we”, “us” or “our”) is operated by <strong>Merlinflow Technologies Private Limited</strong>. This Privacy Policy explains how we collect, use, store, disclose, retain and protect personal data across our website, subscription plans, commercial business mini-websites, smart profiles, QR codes, and business management services.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-[#64718F] font-medium">
             <span className="flex items-center gap-1.5">
@@ -135,7 +135,7 @@ export default function PrivacyPolicyPage() {
               OneClickBiz (“OneClickBiz”, “Company”, “we”, “us” or “our”) is operated by <strong>Merlinflow Technologies Private Limited</strong>.
             </p>
             <p>
-              This Privacy Policy explains how we collect, use, store, disclose, retain and protect personal data when you visit <a href="https://www.oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">https://www.oneclickbiz.in</a>, create an account, purchase or manage a subscription, publish a digital business card, use business tools, purchase physical products or contact support.
+              This Privacy Policy explains how we collect, use, store, disclose, retain and protect personal data when you visit <a href="https://www.oneclickbiz.in" className="text-[#174BFF] hover:underline font-semibold">https://www.oneclickbiz.in</a>, create an account, purchase or manage a subscription, publish a commercial business mini-website, use business tools, purchase physical products or contact support.
             </p>
             <p>
               We aim to process personal data in accordance with applicable Indian data protection and information technology laws, including the <strong>Digital Personal Data Protection Act, 2023</strong>.
@@ -194,7 +194,7 @@ export default function PrivacyPolicyPage() {
               <li><strong>Subscription delivery:</strong> To activate plans and provide premium features.</li>
               <li><strong>Payment administration:</strong> To verify transactions, maintain billing records and process refunds.</li>
               <li><strong>Recurring payments:</strong> To administer separately authorised renewal arrangements.</li>
-              <li><strong>Service delivery:</strong> To host profiles, generate QR codes, provide digital cards and operate tools.</li>
+              <li><strong>Service delivery:</strong> To host profiles, generate QR codes, provide commercial mini-websites and operate tools.</li>
               <li><strong>Lead & booking management:</strong> To route customer inquiries and appointment slots.</li>
               <li><strong>Analytics:</strong> To provide engagement reports and understand platform usage.</li>
               <li><strong>Security:</strong> To detect fraud, prevent abuse and protect infrastructure.</li>
@@ -237,7 +237,7 @@ export default function PrivacyPolicyPage() {
               7. Public Profiles and User-Published Content
             </h2>
             <p>
-              OneClickBiz allows users to publish public digital business cards. Content you choose to display (phones, emails, catalogs, social links) will be accessible to anyone who visits your profile URL, scans your QR code, or taps your NFC card.
+              OneClickBiz allows users to publish public commercial business mini-websites. Content you choose to display (phones, emails, catalogs, social links) will be accessible to anyone who visits your website URL, scans your QR code, or taps your NFC standee.
             </p>
           </section>
 

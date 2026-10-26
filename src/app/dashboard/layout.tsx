@@ -313,7 +313,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               Business Entity Portal
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-              To access your dashboard, manage subscription plans, customize cards, or view live client leads, please sign in or register your business entity.
+              To access your dashboard, manage subscription plans, customize website, or view live client leads, please sign in or register your business entity.
             </p>
           </div>
 
@@ -394,10 +394,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Link 
               href="/dashboard/settings?checkout=true" 
               className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-xs font-semibold text-rose-700 flex items-center gap-1.5 border border-rose-200 transition-all shadow-xs shrink-0"
-              title="Card Inactive - Click to Activate via Cashfree"
+              title="Plan Inactive - Click to Activate via Cashfree"
             >
               <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" />
-              <span className="hidden sm:inline">Card Inactive (Activate Plan)</span>
+              <span className="hidden sm:inline">Plan Inactive (Activate Plan)</span>
               <span className="sm:hidden text-[11px]">Activate</span>
             </Link>
           ) : (
@@ -405,10 +405,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               href={`/v/${userSession.slug}`} 
               target="_blank"
               className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 flex items-center gap-1.5 border border-slate-200 transition-all hover:border-indigo-300 shadow-xs shrink-0"
-              title={`Live Card: /v/${userSession.slug}`}
+              title={`Live Website: /v/${userSession.slug}`}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-              <span className="sm:hidden font-bold text-emerald-600 text-[11px]">Live Card</span>
+              <span className="sm:hidden font-bold text-emerald-600 text-[11px]">Live Website</span>
               <span className="hidden sm:inline font-mono text-xs truncate max-w-[200px]">
                 /v/{userSession.slug}
               </span>
@@ -523,13 +523,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="bg-gradient-to-r from-amber-50 via-rose-50 to-purple-50 border-b border-amber-200 px-4 py-2.5 text-xs text-amber-900 flex flex-col sm:flex-row items-center justify-between gap-2 shrink-0">
               <div className="flex items-center gap-2 text-center sm:text-left">
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping shrink-0" />
-                <span><strong>Annual Plan Inactive:</strong> Your smart card is currently unpublished and offline. Complete your annual subscription payment via Cashfree to activate your card.</span>
+                <span><strong>Annual Plan Inactive:</strong> Your mini-website is currently unpublished and offline. Complete your annual subscription payment via Cashfree to activate your website.</span>
               </div>
               <Link 
                 href="/dashboard/settings?checkout=true"
                 className="px-3.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-rose-500 hover:opacity-95 text-white font-bold text-xs shrink-0 shadow transition active:scale-95"
               >
-                Pay & Activate Card
+                Pay & Activate Website
               </Link>
             </div>
           )}

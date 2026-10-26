@@ -2622,7 +2622,7 @@ export default function ProfileCardView({
                 <div className="pt-2 flex flex-col gap-2">
                   <a
                     href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=${encodeURIComponent(
-                      `Hello ${profile.name}! 👋\n\nI just scheduled an appointment via your digital card:\n\n• *Service:* ${confirmedBookingData.service.title}\n• *Date & Time:* ${confirmedBookingData.date} at ${confirmedBookingData.time}\n• *Name:* ${confirmedBookingData.name}\n• *Phone:* ${confirmedBookingData.phone}\n• *Email:* ${confirmedBookingData.email}\n\nPlease confirm availability. Thank you!`
+                      `Hello ${profile.name}! 👋\n\nI just scheduled an appointment via your website:\n\n• *Service:* ${confirmedBookingData.service.title}\n• *Date & Time:* ${confirmedBookingData.date} at ${confirmedBookingData.time}\n• *Name:* ${confirmedBookingData.name}\n• *Phone:* ${confirmedBookingData.phone}\n• *Email:* ${confirmedBookingData.email}\n\nPlease confirm availability. Thank you!`
                     )}`}
                     target="_blank"
                     rel="noreferrer"
@@ -2819,7 +2819,7 @@ export default function ProfileCardView({
               {(profile.whatsapp || profile.phone) && (
                 <div className="pt-2">
                   <a
-                    href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=${encodeURIComponent(`Hi ${profile.name}, I was viewing your portfolio project "${activeGalleryItem.title || 'Showcase'}" on your digital card. Could you please share photoshoot packages, pricing, and availability?`)}`}
+                    href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=${encodeURIComponent(`Hi ${profile.name}, I was viewing your portfolio project "${activeGalleryItem.title || 'Showcase'}" on your website. Could you please share photoshoot packages, pricing, and availability?`)}`}
                     target="_blank"
                     rel="noreferrer"
                     className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 transition"
@@ -2895,7 +2895,7 @@ export default function ProfileCardView({
                 <p className="text-slate-400">Message {profile.name} directly</p>
               </div>
               <a 
-                href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=${encodeURIComponent(`Hi ${profile.name}, I read your article "${activeBlogPost.title}" on your digital card.`)}`}
+                href={`https://wa.me/${getCleanWhatsAppNumber(profile)}?text=${encodeURIComponent(`Hi ${profile.name}, I read your article "${activeBlogPost.title}" on your website.`)}`}
                 target="_blank"
                 rel="noreferrer"
                 className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow"

@@ -162,7 +162,7 @@ export async function PUT(
           data: {
             organizationId: orgId,
             slug: cleanSlug,
-            name: body.name || 'Digital Card',
+            name: body.name || 'Commercial Mini-Website',
             designation: body.designation,
             company: body.company,
             bio: body.bio,

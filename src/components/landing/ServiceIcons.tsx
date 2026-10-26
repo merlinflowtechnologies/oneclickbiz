@@ -267,7 +267,7 @@ export function VisitingCardIcon({ className = DEFAULT_CLASS }: ServiceIconProps
       {/* Back Offset Card (Creating Depth) */}
       <rect x="10" y="8" width="32" height="22" rx="4" fill="url(#vc_back)" stroke="#475569" strokeWidth="0.8" opacity="0.6" transform="rotate(-6 26 19)" />
 
-      {/* Front Hero NFC Smart Card */}
+      {/* Front Hero NFC Visiting Card */}
       <g filter="url(#vc_shadow)">
         <rect x="6" y="14" width="36" height="24" rx="4.5" fill="url(#vc_front)" stroke="#38BDF8" strokeWidth="1" strokeOpacity="0.4" />
       </g>

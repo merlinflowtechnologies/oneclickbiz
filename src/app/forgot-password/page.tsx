@@ -381,7 +381,7 @@ export default function ForgotPasswordPage() {
               <div className="space-y-1.5">
                 <h3 className="text-lg font-bold text-slate-900">Password Updated!</h3>
                 <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
-                  Your new password has been saved. You can now use it to access your business smart cards, dashboard, and lead CRM.
+                  Your new password has been saved. You can now use it to access your commercial mini-websites, dashboard, and lead CRM.
                 </p>
               </div>
 

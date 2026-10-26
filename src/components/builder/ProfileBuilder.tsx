@@ -899,7 +899,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
   const handleDeleteCard = (slugToDelete: string, e: React.MouseEvent) => {
     e.stopPropagation();
     if (userCards.length <= 1) {
-      alert('You must have at least one active digital card.');
+      alert('You must have at least one active commercial mini-website.');
       return;
     }
     if (!confirm(`Are you sure you want to delete card "/v/${slugToDelete}"?`)) return;
@@ -1391,7 +1391,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   onClick={e => e.stopPropagation()}
                 >
                   <div className="px-3 py-2 border-b border-slate-800 flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Your Digital Cards ({userCards.length})</span>
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Your Mini-Websites ({userCards.length})</span>
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold">{userPlan} Plan</span>
                   </div>
 
@@ -1899,7 +1899,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
         {/* Tab Content Body with Smooth Custom Scrollbar & Bottom Padding */}
         <div className="flex-1 overflow-y-auto overscroll-y-contain p-4 sm:p-6 space-y-6 min-h-0 pb-40 sm:pb-52 custom-builder-scroll">
           
-          {/* TAB 0: MY DIGITAL CARDS (MULTI-CARD MANAGER) */}
+          {/* TAB 0: MY MINI-WEBSITES (MULTI-STORE MANAGER) */}
           {activeTab === 'cards' && (
             <div className="space-y-6 max-w-3xl">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
@@ -2033,10 +2033,10 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                     <Plus className="w-6 h-6" />
                   </div>
                   <h4 className="text-sm font-bold text-white group-hover:text-indigo-400 transition-colors">
-                    + Add New Digital Card ({userCards.length}/{MAX_CARDS})
+                    + Add New Mini-Website ({userCards.length}/{MAX_CARDS})
                   </h4>
                   <p className="text-xs text-slate-400 mt-1 max-w-xs">
-                    Choose from 28 industry presets to build a tailored digital card with custom services and store.
+                    Choose from 28 industry presets to build a tailored commercial mini-website with custom services and store.
                   </p>
                 </div>
               </div>
@@ -2105,7 +2105,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                           <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-semibold">Recommended</span>
                         </div>
                         <p className="text-[11px] text-slate-400 mt-0.5">
-                          Shown at top of your digital card, QR code & email signature.
+                          Shown at top of your mini-website, QR code & email signature.
                         </p>
                         <p className="text-[10px] text-slate-500 mt-1 font-mono">
                           PNG, JPG, WEBP • Max 10MB
@@ -8713,7 +8713,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <ul className="space-y-1.5 text-xs text-slate-200">
                     <li className="flex items-center gap-2">
                       <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                      <span><strong>Up to 3 Digital Cards</strong> (/v/your-slug)</span>
+                      <span><strong>Up to 3 Mini-Websites</strong> (/v/your-slug)</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
@@ -8737,7 +8737,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <ul className="space-y-1.5 text-xs text-slate-200">
                   <li className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span><strong>Up to 5 Digital Cards</strong> &amp; Team Profiles</span>
+                    <span><strong>Up to 5 Mini-Websites</strong> &amp; Team Outlets</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
@@ -8830,8 +8830,8 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   <CreditCard className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white">Create New Digital Card</h3>
-                  <p className="text-xs text-slate-400">Launch a new card profile with custom catalog &amp; slug</p>
+                  <h3 className="text-base font-bold text-white">Create New Mini-Website</h3>
+                  <p className="text-xs text-slate-400">Launch a new website profile with custom catalog &amp; slug</p>
                 </div>
               </div>
               <button 
@@ -9049,7 +9049,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 <p className="text-xs text-slate-400">{profile.name} • {profile.designation || 'Business Profile'}</p>
                 <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[10px] font-bold mt-1">
                   <CheckCircle2 className="w-3 h-3 text-indigo-400" />
-                  <span>Verified Live Digital Card</span>
+                  <span>Verified Live Mini-Website</span>
                 </div>
               </div>
             </div>
@@ -9075,7 +9075,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             </div>
 
             <p className="text-[11px] text-slate-400 leading-snug px-2">
-              Scan with any mobile camera or Google Lens to instantly open your published digital card / mini-website.
+              Scan with any mobile camera or Google Lens to instantly open your published commercial business mini-website.
             </p>
 
             {/* Quick URL Box & Copy */}

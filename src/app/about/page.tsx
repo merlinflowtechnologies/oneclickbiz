@@ -178,7 +178,7 @@ export default function AboutPage() {
                   </p>
 
                   <p>
-                    Under <strong>Merlinflow Technologies</strong>, our vision was simple: engineer an ultra-fast, intuitive SaaS platform where any professional—without writing a single line of code—can create a stunning digital business card, dynamic vector QR code, appointment booking portal, and WhatsApp mini-store in less than 2 minutes.
+                    Under <strong>Merlinflow Technologies</strong>, our vision was simple: engineer an ultra-fast, intuitive SaaS platform where any professional—without writing a single line of code—can create a stunning commercial business mini-website, dynamic vector QR code, appointment booking portal, and WhatsApp store in less than 2 minutes.
                   </p>
                 </div>
 
@@ -288,7 +288,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-base font-bold text-[#10183F]">Sub-Second Global Edge Speed</h3>
               <p className="text-xs text-[#64718F] leading-relaxed">
-                Hosted on enterprise edge cloud CDNs with automated 256-bit TLS/SSL encryption and white-label custom domain routing. Your smart card opens in under 0.8 seconds anywhere in the world.
+                Hosted on enterprise edge cloud CDNs with automated 256-bit TLS/SSL encryption and white-label custom domain routing. Your commercial mini-website opens in under 0.8 seconds anywhere in the world.
               </p>
             </div>
 
@@ -338,7 +338,7 @@ export default function AboutPage() {
               Ready to Modernize Your Business Identity?
             </h2>
             <p className="text-xs sm:text-sm text-blue-100 leading-relaxed">
-              Join thousands of doctors, realtors, consultants, and retail stores who have transformed how they network and sell. It takes less than 2 minutes to create your first smart card.
+              Join thousands of doctors, realtors, consultants, and retail stores who have transformed how they network and sell. It takes less than 2 minutes to create your commercial mini-website.
             </p>
           </div>
 
@@ -347,7 +347,7 @@ export default function AboutPage() {
               href="/signup?intent=get_started"
               className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white hover:bg-blue-50 text-[#174BFF] font-bold text-xs sm:text-sm transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Create Your Free Card Now</span>
+              <span>Create Your Mini-Website Now</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <a 

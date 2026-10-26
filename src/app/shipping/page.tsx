@@ -56,7 +56,7 @@ export default function ShippingPage() {
             <span>100% Paperless &amp; Pure Digital SaaS Operation</span>
           </div>
           <p className="text-xs sm:text-sm text-[#10183F] leading-relaxed">
-            OneClickBiz does <strong>NOT</strong> ship physical plastic, paper, or metal business cards. All identity cards, dynamic QR codes, portfolio showcases, and WhatsApp mini-stores are provisioned <strong>electronically and delivered instantaneously over the cloud</strong>.
+            OneClickBiz does <strong>NOT</strong> ship physical plastic, paper, or metal business cards. All commercial mini-websites, dynamic QR codes, portfolio showcases, and WhatsApp stores are provisioned <strong>electronically and delivered instantaneously over the cloud</strong>.
           </p>
         </div>
 
@@ -74,7 +74,7 @@ export default function ShippingPage() {
             <ul className="list-disc pl-5 space-y-1.5 text-[#475569] text-xs">
               <li><strong>Instant Activation:</strong> Your custom vanity handle (e.g. <code className="text-[#174BFF] font-mono">oneclickbiz.in/v/yourname</code>), dynamic QR code generator, and profile studio are unlocked within <strong>0 to 60 seconds</strong>.</li>
               <li><strong>Electronic Invoice & Access:</strong> GST-compliant tax invoices, order receipts, and admin dashboard access credentials are dispatched to your registered email address immediately.</li>
-              <li><strong>Cross-Platform Compatibility:</strong> Digital cards are instantly accessible via standard mobile browsers on iOS, Android, and Desktop without requiring third-party app installations.</li>
+              <li><strong>Cross-Platform Compatibility:</strong> Commercial mini-websites are instantly accessible via standard mobile browsers on iOS, Android, and Desktop without requiring third-party app installations.</li>
             </ul>
           </section>
 
@@ -85,7 +85,7 @@ export default function ShippingPage() {
               2. White-Label Custom Domain (CNAME) Activation Window
             </h2>
             <p className="text-[#475569] text-xs leading-relaxed">
-              For Pro and Advanced plan subscribers connecting their custom domain (e.g. <code className="text-[#174BFF] font-mono">card.yourcompany.com</code>):
+              For Pro and Advanced plan subscribers connecting their custom domain (e.g. <code className="text-[#174BFF] font-mono">store.yourcompany.com</code>):
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs">
               <div className="p-3.5 rounded-2xl bg-[#F8FAFD] border border-[#E2E9FA] space-y-1">
@@ -124,7 +124,7 @@ export default function ShippingPage() {
                 </thead>
                 <tbody className="divide-y divide-[#E2E9FA] text-[#64718F]">
                   <tr>
-                    <td className="p-3 font-bold text-[#10183F]">Smart Identity Card (`/v/username`)</td>
+                    <td className="p-3 font-bold text-[#10183F]">Commercial Mini-Website (`/v/username`)</td>
                     <td className="p-3">Global Edge CDN Web URL</td>
                     <td className="p-3 text-[#059669] font-semibold">Instant (0–60 Seconds)</td>
                   </tr>
@@ -163,7 +163,7 @@ export default function ShippingPage() {
               Customers are explicitly advised that OneClickBiz does not dispatch physical couriers, shipping boxes, or hardware. There are zero shipping fees, transit damages, or courier delays involved.
             </p>
             <p className="text-[#64718F] text-xs leading-relaxed">
-              Users can write their digital OneClickBiz card link to their own NFC tags or cards using standard third-party mobile apps (like NFC Tools) if they choose to use their own physical tags.
+              Users can write their OneClickBiz website link to their own NFC tags or standees using standard third-party mobile apps (like NFC Tools) if they choose to use their own physical tags.
             </p>
           </section>
 

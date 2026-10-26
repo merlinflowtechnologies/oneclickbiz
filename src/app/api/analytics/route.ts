@@ -4,7 +4,7 @@ import { getSessionUser } from '@/lib/auth';
 
 /**
  * GET /api/analytics
- * Returns real live analytics, leads, and bookings for the authenticated user's smart card
+ * Returns real live analytics, leads, and bookings for the authenticated user's mini-website
  */
 export async function GET(req: NextRequest) {
   try {

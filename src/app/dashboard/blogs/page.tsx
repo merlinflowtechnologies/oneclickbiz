@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Blog & Article Studio | OneClickBiz',
-  description: 'Write, manage, and publish thought leadership articles, case studies, and guides directly on your digital card profile.',
+  description: 'Write, manage, and publish thought leadership articles, case studies, and guides directly on your commercial mini-website.',
 };
 
 export default function BlogsDashboardPage() {

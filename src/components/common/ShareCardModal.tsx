@@ -36,10 +36,10 @@ export default function ShareCardModal({ profile, onClose, isOpen = true }: Shar
 
   if (!isOpen) return null;
 
-  const shareText = `Connect with ${profile.fullName} (${profile.designation} at ${profile.businessName}). View digital card & WhatsApp store: ${cardUrl}`;
+  const shareText = `Connect with ${profile.fullName} (${profile.designation} at ${profile.businessName}). View mini-website & WhatsApp store: ${cardUrl}`;
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(cardUrl)}&color=000000&bgcolor=ffffff`;
 
-  const embedCode = `<iframe src="${cardUrl}" width="380" height="680" style="border:none; border-radius:32px; box-shadow:0 20px 50px rgba(0,0,0,0.3);" title="${profile.fullName} Digital Business Card"></iframe>`;
+  const embedCode = `<iframe src="${cardUrl}" width="380" height="680" style="border:none; border-radius:32px; box-shadow:0 20px 50px rgba(0,0,0,0.3);" title="${profile.fullName} Mini-Website"></iframe>`;
 
   const handleCopyUrl = async () => {
     await navigator.clipboard.writeText(cardUrl);
@@ -57,7 +57,7 @@ export default function ShareCardModal({ profile, onClose, isOpen = true }: Shar
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `${profile.fullName} | OneClickBiz Smart Card`,
+          title: `${profile.fullName} | OneClickBiz Commercial Mini-Website`,
           text: shareText,
           url: cardUrl
         });

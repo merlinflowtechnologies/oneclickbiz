@@ -49,7 +49,7 @@ export default function TermsPage() {
             Terms &amp; Conditions
           </h1>
           <p className="text-sm text-[#475569] max-w-3xl leading-relaxed">
-            These Terms &amp; Conditions (“Terms”) govern your access to and use of OneClickBiz, available at https://www.oneclickbiz.in, including its website, digital business cards, smart profiles, QR codes, NFC products, subscription plans, business tools and related services (“Services”).
+            These Terms &amp; Conditions (“Terms”) govern your access to and use of OneClickBiz, available at https://www.oneclickbiz.in, including its website, commercial business mini-websites, smart profiles, QR codes, subscription plans, business tools and related services (“Services”).
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-[#64718F] font-medium">
             <span className="flex items-center gap-1.5">
@@ -115,7 +115,7 @@ export default function TermsPage() {
               1. Introduction and Acceptance
             </h2>
             <p>
-              These Terms &amp; Conditions (“Terms”) govern your access to and use of OneClickBiz, available at <a href="https://www.oneclickbiz.in" className="text-[#174BFF] hover:underline">https://www.oneclickbiz.in</a>, including its website, digital business cards, smart profiles, QR codes, NFC products, subscription plans, business tools and related services (“Services”).
+              These Terms &amp; Conditions (“Terms”) govern your access to and use of OneClickBiz, available at <a href="https://www.oneclickbiz.in" className="text-[#174BFF] hover:underline">https://www.oneclickbiz.in</a>, including its website, commercial business mini-websites, smart profiles, QR codes, subscription plans, business tools and related services (“Services”).
             </p>
             <p>
               OneClickBiz is operated by <strong>Merlinflow Technologies Private Limited</strong> (“OneClickBiz”, “Company”, “we”, “us” or “our”).
@@ -166,7 +166,7 @@ export default function TermsPage() {
               OneClickBiz provides digital business identity, networking and business-management features, which may include:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-xs">
-              <li>Digital business cards and downloadable contacts (.VCF).</li>
+              <li>Commercial business mini-websites and contact sharing.</li>
               <li>Public profiles, profile links and customisable layouts.</li>
               <li>QR codes and NFC-enabled physical products.</li>
               <li>WhatsApp Store, product catalogues and order-message generation.</li>
@@ -200,19 +200,19 @@ export default function TermsPage() {
                 <span className="text-[10px] font-bold text-[#64718F] uppercase tracking-wider">Starter Tier</span>
                 <p className="font-bold text-[#10183F] text-sm">Basic Plan</p>
                 <p className="text-[#059669] font-extrabold text-base">₹999 / year</p>
-                <p className="text-[#64718F] text-[11px]">1 Smart Digital Card (`/v/username`), contact downloading (.VCF), cloud QR code, and standard analytics.</p>
+                <p className="text-[#64718F] text-[11px]">1 Commercial Business Mini-Website (`/v/username`), 11 services, cloud QR code, and standard analytics.</p>
               </div>
               <div className="p-4 rounded-2xl bg-[#F8FAFD] border border-[#C7D7FE] space-y-1">
                 <span className="text-[10px] font-bold text-[#174BFF] uppercase tracking-wider">Most Popular</span>
                 <p className="font-bold text-[#103ED8] text-sm">Pro Plan</p>
                 <p className="text-[#059669] font-extrabold text-base">₹1,599 / year</p>
-                <p className="text-[#64718F] text-[11px]">Up to 3 Smart Cards, 1 White-Label Custom Domain, WhatsApp Store, and Appointment Booking Engine.</p>
+                <p className="text-[#64718F] text-[11px]">19 Services Total, 1 White-Label Custom Domain, WhatsApp Store, and Appointment Booking Engine.</p>
               </div>
               <div className="p-4 rounded-2xl bg-[#F8FAFD] border border-purple-200 space-y-1">
                 <span className="text-[10px] font-bold text-purple-600 uppercase tracking-wider">Enterprise &amp; Corporate</span>
                 <p className="font-bold text-purple-900 text-sm">Advanced Plan</p>
                 <p className="text-[#059669] font-extrabold text-base">₹2,199 / year</p>
-                <p className="text-[#64718F] text-[11px]">Up to 5 Smart Cards, 5 Custom Domains, 4K Video uploads, Blog Studio, and VIP SLA Support.</p>
+                <p className="text-[#64718F] text-[11px]">All 24 Services, Multi-Branch Scaling, 100% White-Label, 4K Video uploads, Blog Studio, and VIP SLA Support.</p>
               </div>
             </div>
             <p className="text-xs text-[#64718F]">
@@ -348,7 +348,7 @@ export default function TermsPage() {
             <ul className="list-disc pl-5 space-y-1 text-xs">
               <li>Premium features may become unavailable.</li>
               <li>Usage limits may revert to the applicable free plan.</li>
-              <li>Additional cards, custom-domain functionality, enhanced analytics and other premium features may be restricted.</li>
+              <li>Multi-branch outlets, custom-domain functionality, enhanced analytics and other premium features may be restricted.</li>
               <li>Team or white-label functionality may be disabled where not included in the remaining plan.</li>
               <li>Existing public profile and QR-code availability may be affected according to the applicable plan rules.</li>
             </ul>

@@ -673,7 +673,7 @@ export default function EducationMiniWebsiteView({
           {/* Action CTAs */}
           <div className="flex items-center gap-3">
 
-            {/* View Mode Toggle: Smart Card ↔ Website */}
+            {/* View Mode Toggle: Compact Profile ↔ Website */}
             {showViewToggle && setViewMode && (
               <div className="hidden sm:flex items-center p-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-bold">
                 <button

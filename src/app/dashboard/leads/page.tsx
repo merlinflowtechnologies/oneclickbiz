@@ -166,7 +166,7 @@ export default function LeadsCrmPage() {
           <div className="space-y-1">
             <h3 className="text-base font-bold text-white">No Inquiries Captured Yet</h3>
             <p className="text-xs text-slate-400">
-              When prospects view your digital card or scan your QR code and submit an inquiry, their contact details will appear here instantly.
+              When prospects view your mini-website or scan your QR code and submit an inquiry, their contact details will appear here instantly.
             </p>
           </div>
         </div>

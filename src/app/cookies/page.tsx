@@ -32,7 +32,7 @@ export default function CookiePolicyPage() {
             Cookie Policy
           </h1>
           <p className="mt-2 text-sm text-[#64718F] leading-relaxed">
-            This Cookie Policy explains how OneClickBiz (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) uses cookies and similar local storage technologies when you visit our website, dashboard, digital business cards, and mini stores.
+            This Cookie Policy explains how OneClickBiz (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) uses cookies and similar local storage technologies when you visit our website, dashboard, commercial business mini-websites, and stores.
           </p>
           <div className="mt-3 text-xs text-[#64718F] font-mono">
             Last Updated: September 12, 2026 • Compliant with Global Privacy Guidelines
@@ -94,7 +94,7 @@ export default function CookiePolicyPage() {
                   <span className="text-[10px] px-2 py-0.5 rounded bg-[#EEF4FF] text-[#174BFF] font-bold border border-[#C7D7FE]">Functional</span>
                 </div>
                 <p className="text-xs text-[#64718F]">
-                  Allows our smart card customizer to remember your selected theme (Modern, Dark, Glassmorphic, Sunset), draft card details, and dashboard tab preferences.
+                  Allows our mini-website customizer to remember your selected theme (Modern, Dark, Glassmorphic, Sunset), draft website details, and dashboard tab preferences.
                 </p>
               </div>
 
@@ -120,7 +120,7 @@ export default function CookiePolicyPage() {
                   <span className="text-[10px] px-2 py-0.5 rounded bg-blue-50 text-[#174BFF] border border-blue-200 font-bold">Anonymous</span>
                 </div>
                 <p className="text-xs text-[#64718F]">
-                  Collects de-identified metrics regarding total card views, QR code scans, and peak traffic hours so creators can monitor their digital networking growth.
+                  Collects de-identified metrics regarding total website views, QR code scans, and peak traffic hours so creators can monitor their business growth.
                 </p>
               </div>
             </div>

@@ -78,7 +78,7 @@ export default function PricingSection() {
       planFeatures: [
         '1 Verified Commercial Business Mini-Website',
         '15 HD Photos & 1 Direct Local Video Upload',
-        'Personal Profile & Digital vCard (1-Tap Save to Contacts)',
+        'Personal Profile & Business Contact (1-Tap Save to Phone)',
         'Dynamic Cloud QR Code (Editable 24x7 without reprint)',
         'Visiting Cards & Downloadable PDF Flyers',
         'Direct PWA Web App (1-Tap Add to Customer Home Screen)',
@@ -170,7 +170,7 @@ export default function PricingSection() {
           advance: '1 Mini-Website',
         },
         {
-          name: 'Personal Profile & Executive vCard',
+          name: 'Personal Profile (Business Contact & Social Hub)',
           description: 'Digital persona with 1-tap save to smartphone contacts address book (.vcf).',
           basic: true,
           pro: true,
@@ -270,7 +270,7 @@ export default function PricingSection() {
         },
         {
           name: 'Visiting Cards & Downloadable Flyers',
-          description: 'Digital shareable card + printable PDF visiting card and promotional flyer.',
+          description: 'Shareable mini-website link + printable PDF visiting card and promotional flyer.',
           basic: true,
           pro: true,
           advance: true,

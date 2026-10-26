@@ -987,7 +987,7 @@ export async function exportBrochurePDF(
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(148, 163, 184);
-  doc.text('Created & Published with OneClickBiz Digital Card & Brochure Suite | https://oneclickbiz.in', pageWidth / 2, pageHeight - 30, { align: 'center' });
+  doc.text('Created & Published with OneClickBiz Commercial Mini-Website & Brochure Suite | https://oneclickbiz.in', pageWidth / 2, pageHeight - 30, { align: 'center' });
 
   const formatPrefix = brochure.format ? `${brochure.format}-` : '';
   const filename = `oneclickbiz-brochure-${formatPrefix}${(brochure.slug || 'brochure').toLowerCase()}.pdf`;

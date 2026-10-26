@@ -3698,7 +3698,7 @@ export default function RealEstateMiniWebsiteView({
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-          QR CODE SCANNER & DIGITAL VCARD MODAL
+          QR CODE SCANNER & MINI-WEBSITE MODAL
       ───────────────────────────────────────────────────────────── */}
       {isQrModalOpen && (
         <div 

@@ -93,8 +93,8 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
           },
           {
             id: 'prod_2',
-            name: 'Smart Digital Card & Dynamic QR Suite for Sales Teams',
-            description: 'Luxury digital visiting cards with instant 1-tap contact saving, catalog browsing, and WhatsApp booking.',
+            name: 'Smart Business Mini-Website & Dynamic QR Suite for Sales Teams',
+            description: 'Luxury commercial mini-website with instant 1-tap contact saving, catalog browsing, and WhatsApp booking.',
             price: 1999,
             currency: '₹',
             imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80',
@@ -135,7 +135,7 @@ export const INITIAL_PROFILES: DigitalProfile[] = [
           },
           {
             id: 'vid_ig_1',
-            title: 'OneClickBiz Smart Digital Card in Action',
+            title: 'OneClickBiz Commercial Mini-Website in Action',
             url: 'https://www.instagram.com/reel/Dboeh4BTscY/',
             type: 'instagram',
             embedUrl: 'https://www.instagram.com/reel/Dboeh4BTscY/embed',
@@ -591,7 +591,7 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     name: formattedName,
     designation: 'Founder & CEO',
     company: `${formattedName} Solutions`,
-    bio: `Welcome to ${formattedName}'s official digital card and WhatsApp store. Explore our services, browse products, or book a consultation call directly.`,
+    bio: `Welcome to ${formattedName}'s official mini-website and WhatsApp store. Explore our services, browse products, or book a consultation call directly.`,
     email: `contact@${cleanSlug || 'business'}.com`,
     phone: '+91 63049 89071',
     whatsapp: '916304989071',
@@ -681,7 +681,7 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
           {
             id: 'prod_1',
             name: 'Smart Digital Profile Starter Pack',
-            description: 'Full profile studio configuration with dynamic QR and digital card management.',
+            description: 'Full profile studio configuration with dynamic QR and commercial website management.',
             price: 1499,
             currency: '₹',
             imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80',
@@ -735,7 +735,7 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
             clientRole: 'Managing Director',
             clientCompany: 'Apex Global',
             clientAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
-            content: 'Outstanding experience and swift communication. The digital card made networking effortless!',
+            content: 'Outstanding experience and swift communication. The mini-website made networking effortless!',
             rating: 5
           }
         ]
@@ -885,7 +885,7 @@ export const INITIAL_LEADS: LeadItem[] = [
     name: 'Meera Deshmukh',
     email: 'meera.d@techcorp.com',
     phone: '+91 98760 54321',
-    message: 'Requesting enterprise proposal for 25 Smart Digital Cards & dynamic QR code suites for our sales team.',
+    message: 'Requesting enterprise proposal for 25 Commercial Mini-Websites & dynamic QR code suites for our sales team.',
     status: 'NEW',
     notes: 'Corporate bulk inquiry sent to business development.',
     createdAt: '2026-10-16T10:10:00.000Z'

@@ -1,20 +1,20 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Instant QR Scanner & Smart Card Reader | OneClickBiz',
-  description: 'Scan digital business cards and dynamic QR codes instantly using your device camera without installing any third-party app.',
+  title: 'Instant QR Scanner & Website Reader | OneClickBiz',
+  description: 'Scan business QR codes and dynamic links instantly using your device camera without installing any third-party app.',
   keywords: [
-    'smart card qr scanner',
+    'business qr scanner',
     'qr code reader',
-    'scan digital business card',
-    'instant card scanner'
+    'scan business website',
+    'instant qr scanner'
   ],
   alternates: {
     canonical: 'https://oneclickbiz.in/scan',
   },
   openGraph: {
     title: 'Instant QR Scanner | OneClickBiz',
-    description: 'Scan and open digital smart cards with your mobile camera.',
+    description: 'Scan and open commercial business mini-websites with your mobile camera.',
     url: 'https://oneclickbiz.in/scan',
   },
 };

@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
       data: {
         organizationId: session.organizationId,
         slug: cleanSlug,
-        name: name || 'New Smart Card',
+        name: name || 'New Commercial Mini-Website',
         designation,
         company,
         bio,

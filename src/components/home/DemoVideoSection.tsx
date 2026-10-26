@@ -116,7 +116,7 @@ const TUTORIAL_MODES: TutorialMode[] = [
         time: '01:15',
         seconds: 75,
         title: '4. Publish Live & Dynamic QR',
-        action: 'Pushing card live globally & generating branded QR code',
+        action: 'Pushing mini-website live globally & generating branded QR code',
         narration: 'Hit publish to go live globally. Your dynamic QR code updates automatically whenever you edit.',
         dynamicIslandText: '🚀 Published: /v/kishore',
         mockupType: 'publish-qr'
@@ -248,11 +248,11 @@ const TUTORIAL_MODES: TutorialMode[] = [
     duration: '01:00',
     totalSeconds: 60,
     badge: '100% Pure Software',
-    description: 'Share your card across users using dynamic high-res QR codes, branded web links, and 1-click .VCF address book downloads.',
+    description: 'Share your mini-website across users using dynamic high-res QR codes, branded web links, and 1-click .VCF address book downloads.',
     keyHighlights: [
       'Universal compatibility with all iPhone & Android smartphones',
-      'Dynamic QR codes that update automatically when you edit your card',
-      '1-Click .VCF contact card download directly into smartphone contacts',
+      'Dynamic QR codes that update automatically when you edit your mini-website',
+      '1-Click .VCF contact save directly into smartphone contacts',
       'No companion mobile app required for receiver'
     ],
     chapters: [
@@ -579,7 +579,7 @@ export default function DemoVideoSection() {
 
                           <div className="relative">
                             <button className="w-full py-1.5 sm:py-2 rounded-xl bg-blue-600 text-white font-bold text-[11px] sm:text-xs shadow flex items-center justify-center gap-1.5">
-                              <span>Sign Up & Claim My Card Free</span>
+                              <span>Sign Up & Claim My Mini-Website</span>
                               <ArrowRight className="w-3 h-3" />
                             </button>
                             {/* Simulated Tap Ripple */}
@@ -949,14 +949,14 @@ export default function DemoVideoSection() {
                   className="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition"
                 >
                   <Eye className="w-3.5 h-3.5 text-indigo-600" />
-                  <span>Test Sample Card</span>
+                  <span>Test Sample Website</span>
                 </Link>
 
                 <Link
                   href="/signup?intent=build_card"
                   className="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700 text-white text-xs font-bold shadow-md shadow-indigo-500/20 flex items-center justify-center gap-1.5 transition active:scale-95"
                 >
-                  <span>Build Card Free</span>
+                  <span>Build Website Free</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -1046,7 +1046,7 @@ export default function DemoVideoSection() {
               Simple 3-Step Process
             </h3>
             <h4 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              From Signup to Live Card in 3 Easy Steps
+              From Signup to Live Mini-Website in 3 Easy Steps
             </h4>
           </div>
 
@@ -1087,7 +1087,7 @@ export default function DemoVideoSection() {
                 Share, Connect &amp; Close Leads
               </h5>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Share your dynamic card via QR code, WhatsApp, custom link, or email. Clients save your contact with 1-click .VCF and order instantly.
+                Share your dynamic mini-website via QR code, WhatsApp, custom link, or email. Clients save your contact with 1-click .VCF and order instantly.
               </p>
             </div>
 
@@ -1124,7 +1124,7 @@ export default function DemoVideoSection() {
                     href="/signup?intent=build_card"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-lg shadow-blue-500/30"
                   >
-                    <span>Create Your Smart Card Now</span>
+                    <span>Create Your Mini-Website Now</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
@@ -1132,7 +1132,7 @@ export default function DemoVideoSection() {
                     target="_blank"
                     className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-semibold"
                   >
-                    <span>Inspect Live Demo Card</span>
+                    <span>Inspect Live Demo Website</span>
                     <ExternalLink className="w-3.5 h-3.5 text-indigo-400" />
                   </Link>
                 </div>

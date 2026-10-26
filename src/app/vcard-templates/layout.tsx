@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Business Templates Gallery | 93+ Designer Templates',
-  description: 'Explore 93+ professional business card and mini-website templates designed for doctors, lawyers, agencies, real estate agents, tech founders, and freelancers.',
+  title: 'Commercial Business Mini-Website Gallery | 93+ Designer Templates',
+  description: 'Explore 93+ professional commercial business mini-website templates designed for doctors, lawyers, agencies, real estate agents, tech founders, and freelancers.',
   keywords: [
     'business templates',
-    'digital business card templates',
-    'smart card designs',
+    'commercial website templates',
+    'business mini-website designs',
     'modern visiting card templates',
     'oneclickbiz templates'
   ],

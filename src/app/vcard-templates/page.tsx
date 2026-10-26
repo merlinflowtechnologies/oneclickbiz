@@ -84,7 +84,7 @@ export default function VCardTemplatesPage() {
             </h1>
 
             <p className="max-w-3xl mx-auto text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
-              Explore {VCARD_TEMPLATES_CATALOG.length}+ industry-crafted digital business website &amp; smart card templates for Real Estate, Doctors, Boutiques, Restaurants, Salons, Institutes, Insurance Agents, and Modern Enterprises.
+              Explore {VCARD_TEMPLATES_CATALOG.length}+ industry-crafted commercial business mini-website templates for Real Estate, Doctors, Boutiques, Restaurants, Salons, Institutes, Insurance Agents, and Modern Enterprises.
             </p>
 
             {/* Search and Filters Bar */}
@@ -310,10 +310,10 @@ export default function VCardTemplatesPage() {
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
                 <Link
-                  href="/signup?intent=build_card"
+                  href="/signup"
                   className="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-xl shadow-blue-500/25 hover:scale-105 transition-all"
                 >
-                  Create Your Free Card Now
+                  Create Your Mini-Website Now
                 </Link>
                 <Link
                   href="/contact"

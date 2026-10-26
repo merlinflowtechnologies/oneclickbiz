@@ -112,7 +112,7 @@ export default function DashboardOverviewPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-[11px] font-bold shadow-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Digital Card Active
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Mini-Website Active
             </div>
             <h1 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight break-words">
               Welcome back, {profile.name}!
@@ -327,13 +327,13 @@ export default function DashboardOverviewPage() {
                 </div>
                 <p className="text-xs font-bold text-slate-900">No Inquiries Yet</p>
                 <p className="text-[11px] text-slate-500 max-w-xs mx-auto">
-                  When visitors submit inquiry forms on your digital card, they will appear here in real-time.
+                  When visitors submit inquiry forms on your mini-website, they will appear here in real-time.
                 </p>
                 <button 
                   onClick={handleCopy} 
                   className="text-[11px] text-indigo-600 hover:text-indigo-800 font-semibold inline-flex items-center gap-1 pt-1 cursor-pointer"
                 >
-                  <span>Share Card Link to Capture Leads</span>
+                  <span>Share Website Link to Capture Leads</span>
                   <ArrowUpRight className="w-3 h-3" />
                 </button>
               </div>
@@ -377,7 +377,7 @@ export default function DashboardOverviewPage() {
                 </div>
                 <p className="text-xs font-bold text-slate-900">No Appointments Scheduled</p>
                 <p className="text-[11px] text-slate-500 max-w-xs mx-auto">
-                  Clients can book meetings or consultation calls with you directly from your card&apos;s appointment section.
+                  Clients can book meetings or consultation calls with you directly from your website&apos;s appointment section.
                 </p>
                 <Link 
                   href="/dashboard/bookings" 

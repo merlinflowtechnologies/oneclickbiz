@@ -47,7 +47,7 @@ export default function ContactSupportPage() {
             How Can We Help You?
           </h1>
           <p className="text-sm text-[#64718F]">
-            Have questions about your business smart card, billing, or need help setting up custom domains? Our dedicated team is here for you.
+            Have questions about your commercial mini-website, billing, or need help setting up custom domains? Our dedicated team is here for you.
           </p>
         </div>
 
@@ -58,7 +58,7 @@ export default function ContactSupportPage() {
             
             {/* Primary Contact Person & WhatsApp */}
             <a 
-              href="https://wa.me/916304989071?text=Hi%20Adduri%20Sai%20Kishore%2C%20I%20need%20assistance%20with%20OneClickBiz%20smart%20business%20cards."
+              href="https://wa.me/916304989071?text=Hi%20Adduri%20Sai%20Kishore%2C%20I%20need%20assistance%20with%20OneClickBiz%20commercial%20business%20mini-websites."
               target="_blank" 
               rel="noreferrer" 
               className="p-6 rounded-3xl bg-white shadow-md border border-[#E2E9FA] hover:border-emerald-500/50 transition-all flex items-start gap-4 group shadow-xl"
