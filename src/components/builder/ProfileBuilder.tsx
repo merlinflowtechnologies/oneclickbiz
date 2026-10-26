@@ -664,12 +664,12 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
 
   const getCardLimitDesc = () => {
     if (userPlan === 'Basic') {
-      return `Your Basic Plan allows 1 digital business card (${userCards.length}/1 used). Upgrade to the Pro Plan (₹1,599/yr) for up to 3 cards, or the Advanced Plan (₹2,199/yr) for up to 5 cards with multi-staff & custom domain support.`;
+      return `Your Basic Plan allows 1 commercial mini-website (${userCards.length}/1 used). Upgrade to the Pro Plan (₹1,599/yr) for up to 3 websites, or the Advanced Plan (₹2,199/yr) for up to 5 websites with multi-branch & custom domain support.`;
     }
     if (userPlan === 'Pro') {
-      return `You have created all 3 digital business cards included in your Pro Plan (${userCards.length}/3 used). Upgrade to the Advanced Plan (₹2,199/yr) to add up to 5 cards, team profiles, and white-label custom domains.`;
+      return `You have created all 3 commercial mini-websites included in your Pro Plan (${userCards.length}/3 used). Upgrade to the Advanced Plan (₹2,199/yr) to add up to 5 websites, branch profiles, and white-label custom domains.`;
     }
-    return `You have reached the maximum quota of 5 digital business cards on your Advanced Plan (${userCards.length}/5 used). For custom enterprise team fleets or additional cards, please contact support or manage subscriptions in the Billing Desk.`;
+    return `You have reached the maximum quota of 5 commercial mini-websites on your Advanced Plan (${userCards.length}/5 used). For custom enterprise team fleets or additional websites, please contact support or manage subscriptions in the Billing Desk.`;
   };
 
   const handleOpenAddCardModal = () => {
@@ -1905,13 +1905,13 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-base font-bold text-white">My Digital Business Cards</h3>
+                    <h3 className="text-base font-bold text-white">My Commercial Mini-Websites</h3>
                     <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                      {userCards.length} / {MAX_CARDS} Cards Used ({userPlan} Plan)
+                      {userCards.length} / {MAX_CARDS} Websites Used ({userPlan} Plan)
                     </span>
                   </div>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Manage multiple digital identity profiles, niche marketing cards, or staff cards under your business entity.
+                    Manage multiple commercial business mini-websites, niche marketing stores, or staff profiles under your business entity.
                   </p>
                 </div>
 
@@ -1955,7 +1955,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                                 </span>
                               )}
                             </div>
-                            <p className="text-xs text-slate-400 mt-0.5">{card.designation || 'Business Card'} • {card.company || 'Enterprise'}</p>
+                            <p className="text-xs text-slate-400 mt-0.5">{card.designation || 'Business Profile'} • {card.company || 'Enterprise'}</p>
                           </div>
                         </div>
 
@@ -1963,7 +1963,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                           <button
                             onClick={(e) => handleDeleteCard(card.slug, e)}
                             className="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-slate-800 transition"
-                            title="Delete Card"
+                            title="Delete Website"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -1991,7 +1991,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                             target="_blank"
                             rel="noreferrer"
                             className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-indigo-400 hover:text-indigo-300 transition text-[11px] flex items-center gap-1 border border-slate-800"
-                            title="Open Live Card"
+                            title="Open Live Website"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />
                           </a>
@@ -2015,8 +2015,8 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                             }}
                             className="w-full py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 transition flex items-center justify-center gap-1.5"
                           >
-                            <CreditCard className="w-3.5 h-3.5 text-indigo-400" />
-                            <span>Switch &amp; Edit This Card</span>
+                            <Globe className="w-3.5 h-3.5 text-indigo-400" />
+                            <span>Switch &amp; Edit This Website</span>
                           </button>
                         )}
                       </div>
@@ -4841,7 +4841,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             </div>
           )}
 
-          {/* TAB: VCARD TEMPLATES LIBRARY */}
+          {/* TAB: BUSINESS TEMPLATES LIBRARY */}
           {activeTab === 'templates' && (
             <div className="space-y-5 max-w-2xl">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-800">

@@ -18,19 +18,19 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://oneclickbiz.in'),
   title: {
-    default: 'OneClickBiz | Digital Business Cards, WhatsApp Store & Blog Studio',
+    default: 'OneClickBiz | Commercial Business Mini-Websites, WhatsApp Store & Blog Studio',
     template: '%s | OneClickBiz'
   },
-  description: 'Create high-converting digital business cards with 1-click VCF contact saving, interactive WhatsApp mini-store, appointment scheduling, dynamic QR codes, brochure maker, and blog publishing studio.',
+  description: 'Create high-converting commercial business mini-websites with 1-click contact saving, interactive WhatsApp mini-store, appointment scheduling, dynamic QR codes, brochure maker, and blog publishing studio.',
   keywords: [
-    'digital business card',
-    'smart business card',
-    'digital profile',
-    'vcf contact saving',
+    'commercial mini-website',
+    'business mini-website',
+    'commercial website builder',
+    'contact saving',
     'whatsapp store',
     'whatsapp mini store',
     'appointment booking system',
-    'digital visiting card',
+    'visiting card maker',
     'brochure maker',
     'blog studio',
     'lead generation tool',
