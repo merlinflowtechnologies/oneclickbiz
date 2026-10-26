@@ -118,9 +118,17 @@ function SettingsContent() {
 
   const [tiers, setTiers] = useState<PlanTier[]>(DEFAULT_PLAN_TIERS);
   const [orgName, setOrgName] = useState('Himastech Digital Reality');
-  const [customDomain, setCustomDomain] = useState('cards.himastech.com');
+  const [customDomain, setCustomDomain] = useState('');
   const [isSaved, setIsSaved] = useState(false);
   const [currentPlan, setCurrentPlan] = useState<'BASIC' | 'PRO' | 'ADVANCED'>('PRO');
+
+  // Custom Domain Management State
+  const [domainProfiles, setDomainProfiles] = useState<Array<{ id: string; name: string; slug: string; customDomain?: string | null }>>([]);
+  const [selectedProfileId, setSelectedProfileId] = useState<string>('');
+  const [domainDnsStatus, setDomainDnsStatus] = useState<any>(null);
+  const [isVerifyingDomain, setIsVerifyingDomain] = useState(false);
+  const [domainFeedback, setDomainFeedback] = useState<{ type: 'success' | 'error' | 'info'; message: string } | null>(null);
+  const [hasCopiedRecord, setHasCopiedRecord] = useState(false);
   
   // Checkout & Billing Modal State
   const [checkoutPlan, setCheckoutPlan] = useState<{ id: 'BASIC' | 'PRO' | 'ADVANCED'; name: string; price: number } | null>(null);
@@ -290,7 +298,120 @@ function SettingsContent() {
         console.error(err);
       }
     }
+
+    // Fetch active custom domain configuration
+    fetchCustomDomainData();
   }, [searchParams]);
+
+  const fetchCustomDomainData = async () => {
+    try {
+      const res = await fetch('/api/custom-domain');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          if (data.profiles && Array.isArray(data.profiles) && data.profiles.length > 0) {
+            setDomainProfiles(data.profiles);
+            const activeProfile = data.profiles.find((p: any) => p.customDomain) || data.profiles[0];
+            setSelectedProfileId(activeProfile.id);
+            if (activeProfile.customDomain) {
+              setCustomDomain(activeProfile.customDomain);
+            }
+          }
+          if (data.domains && Array.isArray(data.domains) && data.domains.length > 0) {
+            const first = data.domains[0];
+            setCustomDomain(first.customDomain);
+            setSelectedProfileId(first.profileId);
+            setDomainDnsStatus(first.dnsStatus);
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Could not fetch custom domain status:', e);
+    }
+  };
+
+  const handleVerifyAndSaveDomain = async () => {
+    if (!customDomain.trim()) {
+      setDomainFeedback({ type: 'error', message: 'Please enter a valid domain name (e.g. cards.yourcompany.com).' });
+      return;
+    }
+    setIsVerifyingDomain(true);
+    setDomainFeedback(null);
+    try {
+      let targetProfileId = selectedProfileId;
+      if (!targetProfileId && domainProfiles.length > 0) {
+        targetProfileId = domainProfiles[0].id;
+      }
+
+      const res = await fetch('/api/custom-domain', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          profileId: targetProfileId || 'default-profile',
+          domain: customDomain.trim()
+        })
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setDomainDnsStatus(data.dnsStatus);
+        setCustomDomain(data.customDomain);
+        if (data.dnsStatus?.isConfigured) {
+          setDomainFeedback({
+            type: 'success',
+            message: `🎉 Domain "${data.customDomain}" verified & connected! SSL is active.`
+          });
+          confetti({ particleCount: 50, spread: 50, origin: { y: 0.6 } });
+        } else {
+          setDomainFeedback({
+            type: 'info',
+            message: `Domain saved! DNS records are propagating worldwide. Check back in 5–15 minutes.`
+          });
+        }
+        await fetchCustomDomainData();
+      } else {
+        setDomainFeedback({
+          type: 'error',
+          message: data.error || 'Failed to connect custom domain.'
+        });
+      }
+    } catch (err: any) {
+      setDomainFeedback({
+        type: 'error',
+        message: err.message || 'Network error verifying domain.'
+      });
+    } finally {
+      setIsVerifyingDomain(false);
+    }
+  };
+
+  const handleRemoveDomain = async () => {
+    if (!confirm(`Are you sure you want to disconnect ${customDomain}?`)) return;
+    setIsVerifyingDomain(true);
+    setDomainFeedback(null);
+    try {
+      let targetProfileId = selectedProfileId;
+      if (!targetProfileId && domainProfiles.length > 0) {
+        targetProfileId = domainProfiles[0].id;
+      }
+      const res = await fetch(`/api/custom-domain?profileId=${targetProfileId}`, {
+        method: 'DELETE'
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setCustomDomain('');
+        setDomainDnsStatus(null);
+        setDomainFeedback({ type: 'success', message: 'Custom domain removed successfully.' });
+        await fetchCustomDomainData();
+      } else {
+        setDomainFeedback({ type: 'error', message: data.error || 'Failed to remove domain.' });
+      }
+    } catch (e: any) {
+      setDomainFeedback({ type: 'error', message: e.message || 'Error removing domain.' });
+    } finally {
+      setIsVerifyingDomain(false);
+    }
+  };
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -827,26 +948,203 @@ function SettingsContent() {
               </button>
             </div>
           ) : (
-            <>
+            <div className="space-y-4">
+              {/* Feedback Alert Banner */}
+              {domainFeedback && (
+                <div className={`p-3 rounded-2xl text-xs flex items-start gap-2 ${
+                  domainFeedback.type === 'success' 
+                    ? 'bg-emerald-50 border border-emerald-200 text-emerald-800' 
+                    : domainFeedback.type === 'error'
+                    ? 'bg-rose-50 border border-rose-200 text-rose-800'
+                    : 'bg-blue-50 border border-blue-200 text-blue-800'
+                }`}>
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                  <span className="flex-1 font-medium">{domainFeedback.message}</span>
+                  <button 
+                    type="button" 
+                    onClick={() => setDomainFeedback(null)} 
+                    className="text-slate-400 hover:text-slate-600 p-0.5"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              )}
+
+              {/* Target Profile Selector (if user has multiple cards) */}
+              {domainProfiles.length > 1 && (
+                <div>
+                  <label className="text-xs font-semibold text-slate-700 block mb-1">
+                    Select Smart Card to Connect:
+                  </label>
+                  <select
+                    value={selectedProfileId}
+                    onChange={e => {
+                      setSelectedProfileId(e.target.value);
+                      const matched = domainProfiles.find(p => p.id === e.target.value);
+                      setCustomDomain(matched?.customDomain || '');
+                      setDomainDnsStatus(null);
+                    }}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 focus:bg-white"
+                  >
+                    {domainProfiles.map(p => (
+                      <option key={p.id} value={p.id}>
+                        {p.name} ({p.slug}) {p.customDomain ? `— Linked: ${p.customDomain}` : '— No domain linked'}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {/* Domain Input Field & Actions */}
               <div>
-                <label className="text-xs font-semibold text-slate-700">Custom Domain Name (CNAME to oneclickbiz.in)</label>
-                <input 
-                  type="text" 
-                  value={customDomain}
-                  onChange={e => setCustomDomain(e.target.value)}
-                  placeholder="e.g. cards.yourcompany.com"
-                  className="w-full mt-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono focus:outline-none focus:border-indigo-500 focus:bg-white"
-                />
+                <label className="text-xs font-semibold text-slate-700 flex items-center justify-between mb-1">
+                  <span>Custom Domain Name (e.g. subdomain or root domain)</span>
+                  {domainDnsStatus?.isConfigured && (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600">
+                      <ShieldCheck className="w-3.5 h-3.5" /> SSL Secured &amp; Live
+                    </span>
+                  )}
+                </label>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="relative flex-1">
+                    <input 
+                      type="text" 
+                      value={customDomain}
+                      onChange={e => setCustomDomain(e.target.value.toLowerCase().trim())}
+                      placeholder="e.g. cards.yourcompany.com or yourbrand.in"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+                    />
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      disabled={isVerifyingDomain}
+                      onClick={handleVerifyAndSaveDomain}
+                      className="px-4 py-2.5 rounded-xl bg-[#174BFF] hover:bg-[#133FDF] disabled:bg-blue-300 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition shrink-0"
+                    >
+                      {isVerifyingDomain ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          <span>Checking DNS...</span>
+                        </>
+                      ) : (
+                        <>
+                          <RefreshCw className="w-3.5 h-3.5" />
+                          <span>Verify &amp; Connect</span>
+                        </>
+                      )}
+                    </button>
+
+                    {customDomain && (
+                      <button
+                        type="button"
+                        disabled={isVerifyingDomain}
+                        onClick={handleRemoveDomain}
+                        className="px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 text-xs font-semibold transition shrink-0"
+                        title="Disconnect domain"
+                      >
+                        Disconnect
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-2">
-                <p className="font-semibold text-slate-700">DNS Configuration Instructions:</p>
-                <div className="font-mono text-[11px] bg-white p-2.5 rounded-xl border border-slate-200 text-indigo-700 shadow-sm">
-                  Type: CNAME &nbsp;|&nbsp; Host: cards &nbsp;|&nbsp; Target: cname.oneclickbiz.in
+              {/* Connected Domain Live Badge & Direct Link */}
+              {customDomain && domainDnsStatus?.isConfigured && (
+                <div className="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <div>
+                      <p className="text-xs font-bold text-emerald-950 flex items-center gap-1.5">
+                        <span>https://{customDomain}</span>
+                        <span className="text-[10px] px-1.5 py-0.2 bg-emerald-200 text-emerald-900 rounded font-bold uppercase">Active</span>
+                      </p>
+                      <p className="text-[11px] text-emerald-700">Edge CNAME routing verified with free 256-bit SSL.</p>
+                    </div>
+                  </div>
+                  <a
+                    href={`https://${customDomain}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1 shadow-sm transition"
+                  >
+                    <span>Visit Live</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
-                <p className="text-[10px] text-slate-500">SSL certificates are provisioned automatically within 10 minutes of DNS verification.</p>
+              )}
+
+              {/* DNS Status Indicator if Pending */}
+              {customDomain && domainDnsStatus && !domainDnsStatus.isConfigured && (
+                <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs space-y-1">
+                  <div className="flex items-center gap-1.5 font-bold text-amber-900">
+                    <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
+                    <span>DNS Status: {domainDnsStatus.status === 'PENDING_DNS' ? 'Pending Worldwide Propagation' : 'Configuration Mismatch'}</span>
+                  </div>
+                  <p className="text-amber-800 text-[11px] leading-relaxed">
+                    {domainDnsStatus.message}
+                  </p>
+                </div>
+              )}
+
+              {/* Step-by-Step DNS Instructions Table */}
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <p className="font-bold text-slate-800">DNS Configuration Records:</p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText('cname.oneclickbiz.in');
+                      setHasCopiedRecord(true);
+                      setTimeout(() => setHasCopiedRecord(false), 2000);
+                    }}
+                    className="text-[11px] font-semibold text-[#174BFF] hover:underline flex items-center gap-1"
+                  >
+                    <Copy className="w-3 h-3" />
+                    <span>{hasCopiedRecord ? 'Copied!' : 'Copy Target Host'}</span>
+                  </button>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-[11px] border-collapse bg-white rounded-xl border border-slate-200">
+                    <thead>
+                      <tr className="bg-slate-100/70 border-b border-slate-200 text-slate-700 font-bold">
+                        <th className="p-2.5">Domain Type</th>
+                        <th className="p-2.5">Record</th>
+                        <th className="p-2.5">Host / Name</th>
+                        <th className="p-2.5">Target Value</th>
+                        <th className="p-2.5">TTL</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 font-mono text-slate-800">
+                      <tr>
+                        <td className="p-2.5 font-sans font-semibold text-indigo-900">Subdomain (Recommended)</td>
+                        <td className="p-2.5 font-bold text-blue-600">CNAME</td>
+                        <td className="p-2.5">cards <span className="font-sans text-[10px] text-slate-400">(or your prefix)</span></td>
+                        <td className="p-2.5 font-bold text-indigo-700">cname.oneclickbiz.in</td>
+                        <td className="p-2.5 font-sans text-slate-500">Auto / 3600</td>
+                      </tr>
+                      <tr>
+                        <td className="p-2.5 font-sans font-semibold text-indigo-900">Apex / Root Domain</td>
+                        <td className="p-2.5 font-bold text-emerald-600">A Record</td>
+                        <td className="p-2.5">@ <span className="font-sans text-[10px] text-slate-400">(or blank)</span></td>
+                        <td className="p-2.5 font-bold text-indigo-700">82.112.226.104</td>
+                        <td className="p-2.5 font-sans text-slate-500">Auto / 3600</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="flex items-start gap-1.5 text-[11px] text-slate-500 pt-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span>
+                    Bank-grade 256-bit SSL certificates are provisioned automatically within 10 minutes of DNS verification at zero extra cost.
+                  </span>
+                </div>
               </div>
-            </>
+            </div>
           )}
         </div>
 

@@ -4,7 +4,7 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name oneclickbiz.in www.oneclickbiz.in;
+    server_name oneclickbiz.in www.oneclickbiz.in cname.oneclickbiz.in *.oneclickbiz.in;
 
     # Redirect all HTTP requests to HTTPS
     return 301 https://$host$request_uri;
@@ -13,7 +13,7 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name oneclickbiz.in www.oneclickbiz.in;
+    server_name oneclickbiz.in www.oneclickbiz.in cname.oneclickbiz.in *.oneclickbiz.in;
 
     # SSL Certificates (managed by Certbot)
     ssl_certificate /etc/letsencrypt/live/oneclickbiz.in/fullchain.pem;
