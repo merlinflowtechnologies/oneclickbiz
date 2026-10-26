@@ -1324,7 +1324,7 @@ export default function RestaurantTemplateView({
                 </span>
               </div>
               <p className="text-[11px] sm:text-xs font-bold text-[#C1621F] uppercase tracking-wider truncate flex items-center gap-1.5">
-                <span>By OneClickBiz</span>
+                <span>{cuisineType || 'Gourmet Dining'}</span>
                 <span>•</span>
                 <span>Fine Dining & Takeaway</span>
               </p>
@@ -1450,7 +1450,7 @@ export default function RestaurantTemplateView({
                     viewMode === 'mobile' ? 'bg-[#241208] text-white shadow-xs' : 'text-[#5C3A21] hover:text-[#241208]'
                   }`}
                 >
-                  <Smartphone className="w-3.5 h-3.5 inline mr-1" /> Card
+                  <Smartphone className="w-3.5 h-3.5 inline mr-1" /> Mobile
                 </button>
               </div>
             )}
@@ -1472,16 +1472,22 @@ export default function RestaurantTemplateView({
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFFFFF] border border-[#D8A63D]/50 shadow-xs">
               <Sparkles className="w-4 h-4 text-[#C1621F]" />
               <span className="text-xs sm:text-sm font-extrabold text-[#C1621F] tracking-wide uppercase">
-                ONECLICKBIZ GOURMET DINING & ORDERING
+                {restaurantName} • GOURMET DINING
               </span>
             </div>
 
             <h1 className="ocb-font-serif text-3xl sm:text-5xl lg:text-6xl font-black text-[#241208] leading-[1.15] tracking-tight">
-              Savor Royal Delicacies with <span className="italic text-[#C1621F]">Instant WhatsApp</span> Ordering
+              {profile.designation ? (
+                profile.designation
+              ) : (
+                <>
+                  Savor Royal Delicacies with <span className="italic text-[#C1621F]">Instant WhatsApp</span> Ordering
+                </>
+              )}
             </h1>
 
             <p className="text-base sm:text-lg text-[#5C3A21] leading-relaxed max-w-2xl">
-              Handcrafted gourmet delicacies cooked to perfection. Browse our complete menu with ingredients and spice levels, reserve dining tables, or order for home delivery.
+              {profile.bio || 'Handcrafted gourmet delicacies cooked to perfection. Browse our complete menu with ingredients and spice levels, reserve dining tables, or order for home delivery.'}
             </p>
 
             {/* Quick Hero CTAs */}

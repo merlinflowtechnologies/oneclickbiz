@@ -140,7 +140,24 @@ export default function ProfileCardView({
       ) || ['insurance', 'mediclaim', 'insurance-advisor'].includes(initialProfile.slug.toLowerCase());
 
       if (isOfficialCatalogTemplate) {
-        return;
+        // If the current user session is actively logged in for this exact slug, allow their edits to reflect
+        let isOwnerSession = false;
+        try {
+          const sess = localStorage.getItem('oneclickbiz_user_session');
+          if (sess) {
+            const p = JSON.parse(sess);
+            if (p.slug === initialProfile.slug) isOwnerSession = true;
+          }
+          const act = localStorage.getItem('oneclickbiz_active_profile');
+          if (act) {
+            const ap = JSON.parse(act);
+            if (ap.slug === initialProfile.slug) isOwnerSession = true;
+          }
+        } catch (_) {}
+
+        if (!isOwnerSession) {
+          return;
+        }
       }
 
       try {
