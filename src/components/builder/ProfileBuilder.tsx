@@ -9010,7 +9010,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
         />
       )}
 
-      {/* Studio Live QR Code & Digital vCard Modal */}
+      {/* Studio Live QR Code & Mini-Website Modal */}
       {isStudioQrModalOpen && (
         <div 
           onClick={() => setIsStudioQrModalOpen(false)}

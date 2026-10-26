@@ -908,7 +908,39 @@ export default function RestaurantTemplateView({
   const restaurantName = profile.company || profile.name || 'OneClickBiz Food & Fine Dining';
   const restaurantAddress = restaurantConfig?.landmark || profile.address || 'OneClickBiz Plaza, 100ft Road, Indiranagar, Bengaluru';
   const fssaiLicence = restaurantConfig?.fssaiNumber || '13623011000842';
-  const operatingHours = restaurantConfig?.operatingHours || '11:30 AM – 11:30 PM';
+  const operatingHours = restaurantConfig?.operatingHours || restaurantConfig?.diningTimings || '11:30 AM – 11:30 PM';
+  const cuisineType = restaurantConfig?.cuisineType || 'Awadhi & Mughlai Dum Biryani';
+  const avgPrepTime = restaurantConfig?.avgPrepTime || '15–20 Mins';
+  const seatingCapacity = restaurantConfig?.seatingCapacity || '120 Pax (AC & Rooftop)';
+  const deliveryRadius = restaurantConfig?.deliveryRadius || 'Up to 12 km Delivery';
+  const dietaryHighlights = restaurantConfig?.dietaryHighlights || 'Pure Desi Ghee • Halal Certified • Fresh Ingredients';
+  const reservationPolicy = restaurantConfig?.reservationPolicy || 'Table held for 15 mins. Prior booking advised.';
+
+  // Resolve dynamic combos and promo coupons (Studio editable)
+  const activeCombos: ComboDeal[] = useMemo(() => {
+    if (restaurantConfig?.comboDeals && restaurantConfig.comboDeals.length > 0) {
+      return restaurantConfig.comboDeals;
+    }
+    if (restaurantConfig?.combos && restaurantConfig.combos.length > 0) {
+      return restaurantConfig.combos;
+    }
+    return COMBO_DEALS;
+  }, [restaurantConfig?.comboDeals, restaurantConfig?.combos]);
+
+  const activeCoupons = useMemo(() => {
+    if (restaurantConfig?.coupons && restaurantConfig.coupons.length > 0) {
+      return restaurantConfig.coupons;
+    }
+    return PROMO_COUPONS;
+  }, [restaurantConfig?.coupons]);
+
+  const activeFaqs: RestaurantFaqItem[] = useMemo(() => {
+    if (restaurantConfig?.faqs && restaurantConfig.faqs.length > 0) {
+      return restaurantConfig.faqs;
+    }
+    return RESTAURANT_FAQS;
+  }, [restaurantConfig?.faqs]);
+
   const phoneDisplay = profile.phone || '+91 63049 89071';
   const cleanPhoneDigits = phoneDisplay.replace(/[^\d+]/g, '');
 
@@ -1514,7 +1546,7 @@ export default function RestaurantTemplateView({
                 <span className="text-xs font-black uppercase tracking-wider text-[#C1621F] flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5" /> Contact & Location Desk
                 </span>
-                <span className="text-[11px] font-bold text-[#7A5B43]">Indiranagar, Bengaluru</span>
+                <span className="text-[11px] font-bold text-[#7A5B43] truncate max-w-[220px]">{restaurantAddress}</span>
               </div>
 
               <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 sm:gap-2.5">
@@ -1633,7 +1665,7 @@ export default function RestaurantTemplateView({
               </div>
               <div className="p-3 rounded-xl bg-white/80 border border-[#D8A63D]/30 shadow-xs">
                 <p className="text-xs font-bold text-[#7A5B43]">Avg. Prep Time</p>
-                <p className="text-lg font-black text-[#C1621F]">15–20 Mins</p>
+                <p className="text-lg font-black text-[#C1621F]">{avgPrepTime}</p>
               </div>
             </div>
 
@@ -1844,7 +1876,7 @@ export default function RestaurantTemplateView({
             
             {/* Promo Voucher Pills */}
             <div className="flex flex-wrap items-center gap-2">
-              {PROMO_COUPONS.map(coupon => {
+              {activeCoupons.map(coupon => {
                 const isCopied = copiedCoupon === coupon.code;
                 return (
                   <button
@@ -1868,13 +1900,8 @@ export default function RestaurantTemplateView({
           </div>
 
           {/* Combos Grid */}
-          {(() => {
-            const activeCombos: ComboDeal[] = (restaurantConfig?.combos && restaurantConfig.combos.length > 0)
-              ? restaurantConfig.combos
-              : COMBO_DEALS;
-            return (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {activeCombos.map(deal => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {activeCombos.map(deal => (
               <div
                 key={deal.id}
                 className="bg-white/5 rounded-2xl border border-[#D8A63D]/30 p-5 flex flex-col justify-between space-y-4 hover:border-[#D8A63D] hover:bg-white/10 transition-all group"
@@ -1961,8 +1988,6 @@ export default function RestaurantTemplateView({
               </div>
             ))}
           </div>
-        );
-      })()}
 
         </div>
       </section>
@@ -2793,7 +2818,7 @@ export default function RestaurantTemplateView({
 
         {/* FAQ Accordion List */}
         <div className="space-y-3.5">
-          {RESTAURANT_FAQS.map((faq) => {
+          {activeFaqs.map((faq: RestaurantFaqItem) => {
             const isOpen = openFaqId === faq.id;
             return (
               <div

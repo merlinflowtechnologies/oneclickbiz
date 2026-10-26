@@ -249,6 +249,28 @@ export interface RetailTrustConfig {
   [key: string]: any;
 }
 
+export interface RestaurantComboDeal {
+  id: string;
+  name: string;
+  tag: string;
+  badgeColor?: string;
+  serves: string;
+  originalPrice: number;
+  dealPrice: number;
+  savings?: number;
+  imageUrl: string;
+  description: string;
+  itemsList: string[];
+  isVeg: boolean;
+}
+
+export interface RestaurantPromoCoupon {
+  code: string;
+  discount: string;
+  description: string;
+  minOrder: number;
+}
+
 export interface RestaurantConfig {
   fssaiNumber?: string;
   cuisineType?: string;
@@ -263,7 +285,10 @@ export interface RestaurantConfig {
   reservationPolicy?: string;
   deliveryRadius?: string;
   dietaryHighlights?: string;
-  combos?: any[];
+  comboDeals?: RestaurantComboDeal[];
+  coupons?: RestaurantPromoCoupon[];
+  reservationEnabled?: boolean;
+  reservationWhatsapp?: string;
   [key: string]: any;
 }
 
