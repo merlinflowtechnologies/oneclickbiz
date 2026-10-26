@@ -57,9 +57,9 @@ export default function PricingSection() {
       ],
       planFeatures: [
         '1 Verified Commercial Business Mini-Website',
+        '15 HD Photos & 1 Direct Local Video Upload',
         'Integrated 1-Tap Save Contacts (.vcf) for Visitors',
         'Dynamic Cloud QR Code (Editable 24x7 without reprint)',
-        'High-Resolution Photo Gallery Space (15 Photos)',
         'Direct PWA Web App (1-Tap Add to Customer Home Screen)',
         'Inbound Customer Lead Inquiry Capture Form',
         'Website Visitor Traffic & Real-Time Scan Analytics',
@@ -87,12 +87,12 @@ export default function PricingSection() {
       ],
       planFeatures: [
         '1 Custom Domain Connection (Connect your own domain + Free SSL)',
+        '50 HD Photos & 5 Direct Local Video Uploads',
         'Online Appointment & Slot Booking Engine (Doctor/Salon/Studio)',
         'Integrated Payment Gateways & Instant UPI (GPay, PhonePe, Cards)',
         'Google 5-Star Reviews Booster & Feedback Engine',
         'Customer Leads CRM with 1-Click Excel / CSV Export',
         'Canva & Adobe Banner Creative Sync Studio',
-        'Unlimited 4K Gallery Space with Lightbox Zoom',
         'Multi-Staff Team Directory (Display doctors, stylists, or agents)',
         'Priority WhatsApp & Email Customer Support',
       ],
@@ -118,6 +118,7 @@ export default function PricingSection() {
       ],
       planFeatures: [
         '100% White-Label Rights (Zero OneClickBiz Branding on Website)',
+        'Unlimited HD Photos & 15 Direct Local 4K Video Uploads',
         'Multi-Branch & Locations Engine (Manage Multi-City Outlets)',
         'Articles & SEO Blog Studio (Rank #1 on Google Search)',
         'Report PDF Extract & GST Tax Invoicing Suite',
