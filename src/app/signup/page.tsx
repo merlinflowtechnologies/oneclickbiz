@@ -235,7 +235,28 @@ function SignupForm() {
 
   const [showCheckoutDetails, setShowCheckoutDetails] = useState<boolean>(false);
 
-  const activePlan = DEFAULT_PLANS_CONFIG[selectedPlanKey];
+  const [plansConfig, setPlansConfig] = useState(DEFAULT_PLANS_CONFIG);
+
+  useEffect(() => {
+    fetch('/api/settings', { cache: 'no-store' })
+      .then(res => res.json())
+      .then(data => {
+        if (data?.config) {
+          const bPrice = Number(data.config.basicPrice) || 999;
+          const pPrice = Number(data.config.proPrice) || 1599;
+          const aPrice = Number(data.config.advancedPrice) || 2199;
+          setPlansConfig(prev => ({
+            ...prev,
+            Basic: { ...prev.Basic, price: bPrice },
+            Pro: { ...prev.Pro, price: pPrice },
+            Advance: { ...prev.Advance, price: aPrice }
+          }));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const activePlan = plansConfig[selectedPlanKey];
 
   // Industry / Category selection
   const [selectedCategoryName, setSelectedCategoryName] = useState<string>(paramCategory || 'Real Estate');
@@ -805,11 +826,11 @@ function SignupForm() {
                             11 Services
                           </span>
                         </div>
-                        <p className="text-xs text-slate-500">{DEFAULT_PLANS_CONFIG.Basic.subtitle}</p>
+                        <p className="text-xs text-slate-500">{plansConfig.Basic.subtitle}</p>
                       </div>
 
                       <div className="text-2xl font-black text-[#10183F]">
-                        ₹999 <span className="text-xs font-normal text-slate-500">/ year</span>
+                        ₹{plansConfig.Basic.price.toLocaleString('en-IN')} <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
                       {/* Quotas & Mandatory Inclusions */}
@@ -881,11 +902,11 @@ function SignupForm() {
                             19 Services Total
                           </span>
                         </div>
-                        <p className="text-xs text-slate-500">{DEFAULT_PLANS_CONFIG.Pro.subtitle}</p>
+                        <p className="text-xs text-slate-500">{plansConfig.Pro.subtitle}</p>
                       </div>
 
                       <div className="text-2xl font-black text-[#10183F]">
-                        ₹1,599 <span className="text-xs font-normal text-slate-500">/ year</span>
+                        ₹{plansConfig.Pro.price.toLocaleString('en-IN')} <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
                       {/* Quotas & Mandatory Inclusions */}
@@ -954,11 +975,11 @@ function SignupForm() {
                             All 24 Services
                           </span>
                         </div>
-                        <p className="text-xs text-slate-500">{DEFAULT_PLANS_CONFIG.Advance.subtitle}</p>
+                        <p className="text-xs text-slate-500">{plansConfig.Advance.subtitle}</p>
                       </div>
 
                       <div className="text-2xl font-black text-[#10183F]">
-                        ₹2,199 <span className="text-xs font-normal text-slate-500">/ year</span>
+                        ₹{plansConfig.Advance.price.toLocaleString('en-IN')} <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
                       {/* Quotas & Mandatory Inclusions */}
@@ -1348,7 +1369,7 @@ function SignupForm() {
                                 11 Services
                               </span>
                             </div>
-                            <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{DEFAULT_PLANS_CONFIG.Basic.subtitle}</p>
+                            <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{plansConfig.Basic.subtitle}</p>
                           </div>
                         </div>
                         <input
@@ -1361,7 +1382,7 @@ function SignupForm() {
                       </div>
 
                       <div className="mt-2 text-xl font-black text-[#10183F]">
-                        ₹999 <span className="text-xs font-normal text-slate-500">/ year</span>
+                        ₹{plansConfig.Basic.price.toLocaleString('en-IN')} <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
                       {/* Quotas & Inclusions Pill */}
@@ -1409,7 +1430,7 @@ function SignupForm() {
                                 19 Services Total
                               </span>
                             </div>
-                            <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{DEFAULT_PLANS_CONFIG.Pro.subtitle}</p>
+                            <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{plansConfig.Pro.subtitle}</p>
                           </div>
                         </div>
                         <input
@@ -1422,7 +1443,7 @@ function SignupForm() {
                       </div>
 
                       <div className="mt-2 text-xl font-black text-[#10183F]">
-                        ₹1,599 <span className="text-xs font-normal text-slate-500">/ year</span>
+                        ₹{plansConfig.Pro.price.toLocaleString('en-IN')} <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
                       {/* Quotas & Inclusions Pill */}
@@ -1467,7 +1488,7 @@ function SignupForm() {
                                 All 24 Services
                               </span>
                             </div>
-                            <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{DEFAULT_PLANS_CONFIG.Advance.subtitle}</p>
+                            <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{plansConfig.Advance.subtitle}</p>
                           </div>
                         </div>
                         <input
@@ -1480,7 +1501,7 @@ function SignupForm() {
                       </div>
 
                       <div className="mt-2 text-xl font-black text-[#10183F]">
-                        ₹2,199 <span className="text-xs font-normal text-slate-500">/ year</span>
+                        ₹{plansConfig.Advance.price.toLocaleString('en-IN')} <span className="text-xs font-normal text-slate-500">/ year</span>
                       </div>
 
                       {/* Quotas & Inclusions Pill */}
@@ -1842,7 +1863,7 @@ function SignupForm() {
               {/* Plan Switcher */}
               <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
                 {(['Basic', 'Pro', 'Advance'] as const).map((key) => {
-                  const p = DEFAULT_PLANS_CONFIG[key];
+                  const p = plansConfig[key];
                   const isSel = selectedPlanKey === key;
                   return (
                     <div

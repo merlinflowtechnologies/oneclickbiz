@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   Check, 
@@ -55,12 +55,35 @@ export default function PricingSection() {
   const [showComparison, setShowComparison] = useState(true);
   const [mobileFilter, setMobileFilter] = useState<'all' | 'basic' | 'pro' | 'advance'>('all');
 
+  const [pricingConfig, setPricingConfig] = useState({
+    basic: 999,
+    pro: 1599,
+    advance: 2199
+  });
+
+  useEffect(() => {
+    fetch('/api/settings', { cache: 'no-store' })
+      .then(res => res.json())
+      .then(data => {
+        if (data?.config) {
+          setPricingConfig({
+            basic: Number(data.config.basicPrice) || 999,
+            pro: Number(data.config.proPrice) || 1599,
+            advance: Number(data.config.advancedPrice) || 2199
+          });
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const formatInr = (n: number) => `₹${n.toLocaleString('en-IN')}`;
+
   const plans: PricingPlan[] = [
     {
       id: 'basic',
       name: 'Basic Plan',
       badge: 'SOLO PROFESSIONALS & SHOPS',
-      price: '₹999/-',
+      price: `${formatInr(pricingConfig.basic)}/-`,
       period: 'Per Year',
       serviceCount: '11 Services Included',
       desc: 'Complete commercial business mini-website with integrated WhatsApp store, catalog, dynamic QR, and 1-tap customer connect.',
@@ -68,7 +91,7 @@ export default function PricingSection() {
       iconColor: 'text-[#174BFF] bg-blue-50',
       checkColor: 'text-[#174BFF]',
       isPopular: false,
-      btnText: 'Select Basic Plan (₹999)',
+      btnText: `Select Basic Plan (${formatInr(pricingConfig.basic)})`,
       btnStyle: 'bg-white hover:bg-slate-50 text-[#174BFF] border-2 border-blue-200 hover:border-[#174BFF]',
       link: '/signup?plan=basic&intent=pricing',
       mandatoryFeatures: [
@@ -93,7 +116,7 @@ export default function PricingSection() {
       id: 'pro',
       name: 'Pro Plan',
       badge: 'MULTI-SERVICE & CLINICS',
-      price: '₹1,599/-',
+      price: `${formatInr(pricingConfig.pro)}/-`,
       period: 'Per Year',
       serviceCount: '19 Services Total (11 Basic + 8 Growth)',
       desc: 'High-converting business mini-website with integrated slot bookings, instant UPI payment gateways, custom domain connection, and CRM.',
@@ -102,7 +125,7 @@ export default function PricingSection() {
       checkColor: 'text-[#16B981]',
       isPopular: true,
       popularTag: 'MOST POPULAR',
-      btnText: 'Get Started with Pro (₹1,599)',
+      btnText: `Get Started with Pro (${formatInr(pricingConfig.pro)})`,
       btnStyle: 'bg-[#174BFF] hover:bg-[#133FDF] text-white shadow-md shadow-blue-500/25',
       link: '/signup?plan=pro&intent=pricing',
       mandatoryFeatures: [
@@ -127,7 +150,7 @@ export default function PricingSection() {
       id: 'advance',
       name: 'Advance Plan',
       badge: 'ENTERPRISES & MULTI-BRANCH',
-      price: '₹2,199/-',
+      price: `${formatInr(pricingConfig.advance)}/-`,
       period: 'Per Year',
       serviceCount: 'All 24 Services Included',
       desc: 'Full-scale commercial mini-website with 100% white-label branding, multi-branch scaling, blog studio, GST invoicing, and operations cockpit.',
@@ -135,7 +158,7 @@ export default function PricingSection() {
       iconColor: 'text-[#7547F5] bg-purple-50',
       checkColor: 'text-[#7547F5]',
       isPopular: false,
-      btnText: 'Choose Advance Plan (₹2,199)',
+      btnText: `Choose Advance Plan (${formatInr(pricingConfig.advance)})`,
       btnStyle: 'bg-white hover:bg-slate-50 text-[#7547F5] border-2 border-purple-200 hover:border-[#7547F5]',
       link: '/signup?plan=advance&intent=pricing',
       mandatoryFeatures: [
@@ -624,7 +647,7 @@ export default function PricingSection() {
                       : 'text-slate-500 hover:text-slate-800'
                   }`}
                 >
-                  Basic (₹999)
+                  Basic ({formatInr(pricingConfig.basic)})
                 </button>
                 <button
                   type="button"
@@ -669,7 +692,7 @@ export default function PricingSection() {
                           : 'hidden sm:table-cell sm:w-[20%]'
                       }`}>
                         <div className="leading-tight">Basic</div>
-                        <div className="text-[8px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹999/yr</div>
+                        <div className="text-[8px] sm:text-[11px] font-bold text-slate-600 mt-0.5">{formatInr(pricingConfig.basic)}/yr</div>
                       </th>
 
                       {/* Pro Header */}
@@ -684,7 +707,7 @@ export default function PricingSection() {
                           <span>Pro</span>
                           <span className="text-[6.5px] sm:text-[9px] bg-emerald-600 text-white px-0.5 sm:px-1 py-0.2 rounded font-black">TOP</span>
                         </div>
-                        <div className="text-[8px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹1,599/yr</div>
+                        <div className="text-[8px] sm:text-[11px] font-bold text-slate-600 mt-0.5">{formatInr(pricingConfig.pro)}/yr</div>
                       </th>
 
                       {/* Advance Header */}
@@ -696,7 +719,7 @@ export default function PricingSection() {
                           : 'hidden sm:table-cell sm:w-[20%]'
                       }`}>
                         <div className="leading-tight">Advance</div>
-                        <div className="text-[8px] sm:text-[11px] font-bold text-slate-600 mt-0.5">₹2,199/yr</div>
+                        <div className="text-[8px] sm:text-[11px] font-bold text-slate-600 mt-0.5">{formatInr(pricingConfig.advance)}/yr</div>
                       </th>
                     </tr>
                   </thead>
@@ -827,7 +850,7 @@ export default function PricingSection() {
                           href="/signup?plan=basic&intent=matrix"
                           className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[8.5px] sm:text-xs font-bold text-[#174BFF] bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-colors w-full"
                         >
-                          {mobileFilter === 'basic' ? 'Choose Basic (₹999)' : 'Basic'}
+                          {mobileFilter === 'basic' ? `Choose Basic (${formatInr(pricingConfig.basic)})` : 'Basic'}
                         </Link>
                       </td>
 
@@ -843,7 +866,7 @@ export default function PricingSection() {
                           href="/signup?plan=pro&intent=matrix"
                           className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[8.5px] sm:text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-xs transition-colors w-full"
                         >
-                          {mobileFilter === 'pro' ? 'Choose Pro (₹1,599)' : 'Pro'}
+                          {mobileFilter === 'pro' ? `Choose Pro (${formatInr(pricingConfig.pro)})` : 'Pro'}
                         </Link>
                       </td>
 
@@ -859,7 +882,7 @@ export default function PricingSection() {
                           href="/signup?plan=advance&intent=matrix"
                           className="inline-flex items-center justify-center px-1 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[8.5px] sm:text-xs font-bold text-white bg-[#7547F5] hover:bg-[#6032E3] shadow-xs transition-colors w-full"
                         >
-                          {mobileFilter === 'advance' ? 'Choose Advance (₹2,199)' : 'Advance'}
+                          {mobileFilter === 'advance' ? `Choose Advance (${formatInr(pricingConfig.advance)})` : 'Advance'}
                         </Link>
                       </td>
                     </tr>

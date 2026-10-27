@@ -246,6 +246,26 @@ function SettingsContent() {
     }
     loadDynamicPricing();
 
+    async function syncLiveUserPlan() {
+      try {
+        const meRes = await fetch('/api/auth/me', { cache: 'no-store' });
+        if (meRes.ok) {
+          const meData = await meRes.json();
+          if (meData.authenticated && meData.user?.planTier && meData.user.planTier !== 'UNPAID') {
+            const raw = String(meData.user.planTier).toUpperCase();
+            const livePlan = raw.includes('ADVANCED') ? 'ADVANCED' : raw.includes('BASIC') ? 'BASIC' : 'PRO';
+            setCurrentPlan(livePlan);
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('oneclickbiz_user_plan', livePlan);
+            }
+          }
+        }
+      } catch (e) {
+        console.error('Failed to sync live plan in settings:', e);
+      }
+    }
+    syncLiveUserPlan();
+
     if (typeof window !== 'undefined') {
       try {
         const savedPlan = localStorage.getItem('oneclickbiz_user_plan');

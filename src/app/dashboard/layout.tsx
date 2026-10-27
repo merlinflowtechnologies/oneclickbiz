@@ -28,7 +28,7 @@ import {
   UserPlus
 } from 'lucide-react';
 
-import { getCurrentUserPlan, getUserPlanLimits, PlanTierType } from '@/lib/plan-guards';
+import { getCurrentUserPlan, getUserPlanLimits, normalizePlanTier, PlanTierType } from '@/lib/plan-guards';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -125,11 +125,29 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 // Normal authenticated business user - set real profile details
                 if (isMounted) {
                   const isUserPaid = Boolean(meData.user?.hasActivePaidPlan);
+                  const effectivePlan = isUserPaid ? (meData.user.planTier || detectedPlan || 'PRO').toUpperCase() : 'UNPAID';
+                  const cleanPlanTier = normalizePlanTier(effectivePlan);
+
+                  // Live-sync plan from server so admin changes immediately reflect across the dashboard
+                  setUserPlanTier(cleanPlanTier);
+                  if (typeof window !== 'undefined' && isUserPaid) {
+                    localStorage.setItem('oneclickbiz_user_plan', cleanPlanTier);
+                    try {
+                      const cur = localStorage.getItem('oneclickbiz_user_session');
+                      const parsed = cur ? JSON.parse(cur) : {};
+                      localStorage.setItem('oneclickbiz_user_session', JSON.stringify({
+                        ...parsed,
+                        plan: cleanPlanTier,
+                        planTier: cleanPlanTier
+                      }));
+                    } catch (_) {}
+                  }
+
                   setUserSession({
                     slug: activeCtx?.slug || meData.user.slug || 'profile',
                     businessName: activeCtx?.businessName || meData.user.businessName || meData.user.name || 'My Business',
                     fullName: meData.user.name || 'User',
-                    plan: isUserPaid ? (meData.user.planTier || detectedPlan || 'PRO').toUpperCase() : 'UNPAID'
+                    plan: effectivePlan
                   });
                   setIsAuthenticated(true);
                 }

@@ -48,11 +48,11 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
           },
           orderBy: { createdAt: 'desc' }
         });
-        const hasActivePaidPlan = Boolean(
-          paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS)
-        );
         const orgStatus = dbProfile.organization?.subscriptionStatus;
         const isCancelled = orgStatus === 'CANCELLED' || orgStatus === 'SUSPENDED';
+        const isOrgActive = orgStatus === 'ACTIVE';
+        const hasActiveInvoice = Boolean(paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS));
+        const hasActivePaidPlan = !isCancelled && (hasActiveInvoice || isOrgActive);
         const subscriptionStatus: 'CANCELLED' | 'ACTIVE' | 'UNPAID' | 'EXPIRED' = isCancelled 
           ? 'CANCELLED' 
           : (hasActivePaidPlan ? 'ACTIVE' : 'UNPAID');

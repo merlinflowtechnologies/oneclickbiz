@@ -39,6 +39,7 @@ export async function GET(
             id: true,
             name: true,
             logoUrl: true,
+            planId: true,
             subscriptionStatus: true
           }
         }
@@ -58,8 +59,10 @@ export async function GET(
       orderBy: { createdAt: 'desc' }
     });
 
-    const isPaidActive = paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS);
-    const isCancelled = profile.organization?.subscriptionStatus === 'CANCELLED';
+    const isCancelled = profile.organization?.subscriptionStatus === 'CANCELLED' || profile.organization?.subscriptionStatus === 'SUSPENDED';
+    const isOrgActive = profile.organization?.subscriptionStatus === 'ACTIVE';
+    const hasActiveInvoice = Boolean(paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS));
+    const isPaidActive = !isCancelled && (hasActiveInvoice || isOrgActive);
     const subscriptionStatus = isCancelled ? 'CANCELLED' : (isPaidActive ? 'ACTIVE' : 'EXPIRED');
     const isExpired = subscriptionStatus !== 'ACTIVE';
 

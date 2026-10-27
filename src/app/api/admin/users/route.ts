@@ -363,11 +363,60 @@ export async function PATCH(req: NextRequest) {
       });
     }
 
+    let updatedTier: string | undefined = undefined;
+
     if (org?.id) {
       const updateData: any = {};
       if (businessName) updateData.name = businessName;
       if (resolvedStatus) {
         updateData.subscriptionStatus = resolvedStatus;
+      }
+
+      if (planTier) {
+        const rawUpper = String(planTier).toUpperCase();
+        const cleanTier = rawUpper.includes('ADVANCED') ? 'Advanced' : rawUpper.includes('PRO') ? 'Pro' : 'Basic';
+        updatedTier = cleanTier;
+        updateData.planId = cleanTier;
+
+        // If not explicitly cancelled, activating or changing plan makes the organization active
+        if (!resolvedStatus && org.subscriptionStatus !== 'CANCELLED') {
+          updateData.subscriptionStatus = 'ACTIVE';
+          resolvedStatus = 'ACTIVE';
+        }
+
+        // Synchronize / create active paid invoice for this updated tier so website & dashboard sync immediately
+        if (paidInvoice) {
+          await prisma.invoice.update({
+            where: { id: paidInvoice.id },
+            data: {
+              planTier: `${cleanTier} Plan (Admin Updated)`,
+              status: 'PAID'
+            }
+          });
+        } else {
+          await prisma.invoice.create({
+            data: {
+              invoiceNumber: `INV-ADMIN-${Date.now().toString().slice(-6)}`,
+              organizationId: org.id,
+              userId: user.id,
+              planTier: `${cleanTier} Plan (Admin Assigned)`,
+              amount: 0,
+              currency: 'INR',
+              status: 'PAID',
+              gateway: 'ADMIN_COMPLIMENTARY',
+              paymentId: `ADMIN_PLAN_UPDATE: ${cleanTier}`,
+              orderId: `ADMIN-UPDATE-${Date.now()}`,
+              taxAmount: 0,
+              paidAt: new Date()
+            }
+          });
+        }
+
+        // Ensure user's profiles are active & published
+        await prisma.profile.updateMany({
+          where: { organizationId: org.id },
+          data: { isPublished: true }
+        }).catch(() => {});
       }
 
       if (Object.keys(updateData).length > 0) {
@@ -385,11 +434,14 @@ export async function PATCH(req: NextRequest) {
       statusMsg = resolvedStatus === 'ACTIVE'
         ? 'Account unblocked and restored to ACTIVE.'
         : 'Account unblocked. Status remains UNPAID until online payment or promo grant.';
+    } else if (updatedTier) {
+      statusMsg = `Successfully updated plan to ${updatedTier} for ${user.name}.`;
     }
 
     return NextResponse.json({ 
       success: true, 
       status: resolvedStatus,
+      planTier: updatedTier,
       message: statusMsg
     });
   } catch (error: any) {

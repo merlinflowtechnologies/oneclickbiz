@@ -120,15 +120,18 @@ export async function GET(req: NextRequest) {
       orderBy: { createdAt: 'desc' }
     });
 
-    const hasActivePaidPlan = Boolean(
-      paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS)
-    );
-
     const isCancelled = defaultOrg?.subscriptionStatus === 'CANCELLED' || defaultOrg?.subscriptionStatus === 'SUSPENDED';
+    const isOrgActive = defaultOrg?.subscriptionStatus === 'ACTIVE';
+    const hasActiveInvoice = Boolean(paidInvoice && (Date.now() - paidInvoice.createdAt.getTime() < ONE_YEAR_MS));
+    const hasActivePaidPlan = !isCancelled && (hasActiveInvoice || isOrgActive);
+
+    // Organization planId takes top priority when set/updated by admin, falling back to invoice tier
+    const rawTier = (defaultOrg?.planId || paidInvoice?.planTier || 'PRO').toUpperCase();
+    const cleanTier = rawTier.includes('ADVANCED') ? 'ADVANCED' : rawTier.includes('BASIC') ? 'BASIC' : 'PRO';
+    const planTier = hasActivePaidPlan ? cleanTier : 'UNPAID';
     const subscriptionStatus = isCancelled 
       ? defaultOrg.subscriptionStatus 
       : (hasActivePaidPlan ? 'ACTIVE' : 'UNPAID');
-    const planTier = (paidInvoice?.planTier || defaultOrg?.planId || 'BASIC').toUpperCase();
 
     // STRICT: If unpaid or expired, ensure profile is unpublished in DB
     if (!hasActivePaidPlan && defaultProfile?.isPublished) {

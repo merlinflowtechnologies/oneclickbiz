@@ -277,6 +277,7 @@ export default function AdminUsersPage() {
         body: JSON.stringify({
           userId: editingUser.id,
           businessName: editingUser.businessName,
+          planTier: editingUser.planTier,
           status: editingUser.subscriptionStatus === 'CANCELLED' ? 'CANCELLED' : (editingUser.hasPaidInvoice ? 'ACTIVE' : 'UNBLOCK')
         })
       });
@@ -285,9 +286,11 @@ export default function AdminUsersPage() {
 
       if (res.ok && data.success) {
         const finalStatus = data.status || editingUser.subscriptionStatus;
-        setUsers(prev => prev.map(u => u.id === editingUser.id ? { ...editingUser, subscriptionStatus: finalStatus } : u));
-        setToastMessage(`Member ${editingUser.name} updated successfully!`);
+        const finalTier = data.planTier || editingUser.planTier;
+        setUsers(prev => prev.map(u => u.id === editingUser.id ? { ...editingUser, subscriptionStatus: finalStatus, planTier: finalTier } : u));
+        setToastMessage(`Member ${editingUser.name} updated successfully! (Plan: ${finalTier})`);
         setEditingUser(null);
+        loadLiveUsers();
       } else {
         setToastMessage(data.error || 'Strict Policy: Failed to update user.');
       }
@@ -954,6 +957,27 @@ export default function AdminUsersPage() {
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 focus:bg-white"
                   required
                 />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700">Subscription Plan Tier</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {(['Basic', 'Pro', 'Advanced'] as const).map((tier) => (
+                    <button
+                      key={tier}
+                      type="button"
+                      onClick={() => setEditingUser({ ...editingUser, planTier: tier })}
+                      className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all text-center ${
+                        editingUser.planTier === tier
+                          ? 'border-indigo-600 bg-indigo-50/80 text-indigo-700 shadow-sm'
+                          : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      {tier}
+                    </button>
+                  ))}
+                </div>
+                <span className="text-[10px] text-slate-500 block">Changing plan automatically updates limits and syncs live to their website and dashboard.</span>
               </div>
 
               {/* Moderation Block/Unblock Action */}
