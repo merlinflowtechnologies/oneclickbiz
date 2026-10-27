@@ -193,7 +193,7 @@ export default function ProfileCardView({
   }, [initialProfile?.slug]);
 
   const [viewMode, setViewMode] = useState<'mobile' | 'website'>(
-    initialViewMode || (isMockup ? 'mobile' : 'website')
+    initialViewMode || 'website'
   );
 
   useEffect(() => {
@@ -787,32 +787,7 @@ export default function ProfileCardView({
     Boolean(profile.sectionData?.restaurant)
   );
 
-  // 6. Real Estate
-  const isRealEstate = !isKishore && !isInterior && Boolean(
-    category === 'Real Estate' ||
-    slug.startsWith('re-') ||
-    slug === 'builders' ||
-    slug === 'villas' ||
-    slug === 'plots' ||
-    slug === 'skyline' ||
-    slug === 'venu' ||
-    templateId.startsWith('re-') ||
-    Boolean(profile.sectionData?.realEstate)
-  );
-
-  // 7. Fashion & Clothing (Guarded so interior/events never get swallowed)
-  const isFashionTemplate = !isInterior && !isEvents && !isInsuranceTemplate && Boolean(
-    category === 'Fashion & Clothing' ||
-    category === 'Fashion' ||
-    slug.startsWith('fash-') ||
-    slug.startsWith('fashion-') ||
-    templateId.startsWith('fash-') ||
-    templateId.startsWith('fashion-') ||
-    Boolean(profile.sectionData?.fashion)
-  );
-  const isFashion = isFashionTemplate;
-
-  // 8. Healthcare
+  // 5.5. Healthcare & Clinic
   const isHealthcare = Boolean(
     category === 'Healthcare' ||
     slug.startsWith('health-') ||
@@ -820,25 +795,8 @@ export default function ProfileCardView({
     Boolean(profile.sectionData?.healthcare)
   );
 
-  // 9. Automobile
-  const isAutomobile = Boolean(
-    category === 'Automobile' ||
-    slug.startsWith('auto-') ||
-    templateId.startsWith('auto-') ||
-    Boolean(profile.sectionData?.automobile)
-  );
-
-  // 10. Education (Guarded against CA / Insurance "Institutes")
-  const isEducation = !isInsuranceTemplate && Boolean(
-    category === 'Education' ||
-    slug.startsWith('edu-') ||
-    slug === 'apex' ||
-    templateId.startsWith('edu-') ||
-    Boolean(profile.sectionData?.education)
-  );
-
-  // 11. Beauty & Personal Care (Guarded against Fashion & Insurance)
-  const isBeauty = !isFashionTemplate && !isInsuranceTemplate && Boolean(
+  // 6. Beauty & Personal Care
+  const isBeauty = !isHealthcare && Boolean(
     category === 'Beauty & Personal Care' ||
     slug === 'beauty-salon' ||
     slug === 'beauty-bridal' ||
@@ -853,33 +811,43 @@ export default function ProfileCardView({
     Boolean(profile.sectionData?.beauty)
   );
 
-  // 12. Bus Booking & Transport
-  const isBusBooking = Boolean(
-    category === 'Bus Booking & Transport' ||
-    slug === 'abhibus' ||
-    slug === 'bus' ||
-    slug === 'buses' ||
-    slug === 'bus-booking' ||
-    slug === 'bus-ticket' ||
-    slug === 'travel-tour' ||
-    slug.startsWith('bus-') ||
-    templateId === 'bus-booking'
+  // 7. Fashion & Clothing (Guarded so interior/events/beauty never get swallowed)
+  const isFashionTemplate = !isInterior && !isEvents && !isInsuranceTemplate && !isHealthcare && !isBeauty && Boolean(
+    category === 'Fashion & Clothing' ||
+    category === 'Fashion' ||
+    slug.startsWith('fash-') ||
+    slug.startsWith('fashion-') ||
+    templateId.startsWith('fash-') ||
+    templateId.startsWith('fashion-') ||
+    Boolean(profile.sectionData?.fashion)
+  );
+  const isFashion = isFashionTemplate;
+
+  // 8. Education
+  const isEducation = !isInsuranceTemplate && !isHealthcare && !isBeauty && !isFashionTemplate && Boolean(
+    category === 'Education' ||
+    slug.startsWith('edu-') ||
+    slug === 'apex' ||
+    templateId.startsWith('edu-') ||
+    Boolean(profile.sectionData?.education)
   );
 
-  // 13. Professional Services (Tech Portfolio, CA, Legal - excluding Insurance)
-  const isProfessional = !isInsuranceTemplate && Boolean(
-    category === 'Professional Services' ||
-    slug === 'tech-portfolio' ||
-    slug === 'prof-ca' ||
-    slug.startsWith('prof-') ||
-    templateId === 'tech-portfolio' ||
-    templateId === 'prof-ca' ||
-    templateId.startsWith('prof-') ||
-    Boolean(profile.sectionData?.professional)
+  // 8.5 Jewellery & Luxury Diamonds
+  const isJewellery = !isKishore && Boolean(
+    slug === 'retail-jewellery' ||
+    slug.startsWith('retail-jewel') ||
+    slug === 'jewellery' ||
+    slug.startsWith('jewel') ||
+    templateId === 'retail-jewellery' ||
+    templateId.startsWith('retail-jewel') ||
+    templateId === 'jewellery' ||
+    category === 'Jewellery' ||
+    category === 'Fine Jewellery' ||
+    Boolean(profile.sectionData?.jewellery)
   );
 
-  // 14. Home & Professional Services
-  const isHomeServices = Boolean(
+  // 8.6 Home & Professional Services
+  const isHomeServices = !isInterior && Boolean(
     category === 'Home & Professional Services' ||
     slug === 'home-services' ||
     slug.startsWith('home-services') ||
@@ -896,18 +864,50 @@ export default function ProfileCardView({
     Boolean(profile.sectionData?.homeServices)
   );
 
-  // 14.5 Jewellery & Luxury Diamonds
-  const isJewellery = !isKishore && Boolean(
-    slug === 'retail-jewellery' ||
-    slug.startsWith('retail-jewel') ||
-    slug === 'jewellery' ||
-    slug.startsWith('jewel') ||
-    templateId === 'retail-jewellery' ||
-    templateId.startsWith('retail-jewel') ||
-    templateId === 'jewellery' ||
-    category === 'Jewellery' ||
-    category === 'Fine Jewellery' ||
-    Boolean(profile.sectionData?.jewellery)
+  // 9. Real Estate (Guarded against all specialized industries)
+  const isRealEstate = !isKishore && !isInterior && !isHealthcare && !isBeauty && !isFashionTemplate && !isInsuranceTemplate && !isEducation && !isEvents && !isTravel && !isRestaurantTemplate && !isJewellery && !isHomeServices && Boolean(
+    category === 'Real Estate' ||
+    slug.startsWith('re-') ||
+    slug === 'builders' ||
+    slug === 'villas' ||
+    slug === 'plots' ||
+    slug === 'skyline' ||
+    slug === 'venu' ||
+    templateId.startsWith('re-') ||
+    templateId === 're-builders' ||
+    (Boolean(profile.sectionData?.realEstate) && !profile.sectionData?.beauty && !profile.sectionData?.healthcare && !profile.sectionData?.interior && !profile.sectionData?.fashion && !profile.sectionData?.education && !profile.sectionData?.events && !profile.sectionData?.travel && !profile.sectionData?.jewellery && !profile.sectionData?.homeServices)
+  );
+
+  // 10. Automobile
+  const isAutomobile = !isRealEstate && Boolean(
+    category === 'Automobile' ||
+    slug.startsWith('auto-') ||
+    templateId.startsWith('auto-') ||
+    Boolean(profile.sectionData?.automobile)
+  );
+
+  // 12. Bus Booking & Transport
+  const isBusBooking = Boolean(
+    category === 'Bus Booking & Transport' ||
+    slug === 'abhibus' ||
+    slug === 'bus' ||
+    slug === 'buses' ||
+    slug === 'bus-booking' ||
+    slug === 'bus-ticket' ||
+    slug.startsWith('bus-') ||
+    templateId === 'bus-booking'
+  );
+
+  // 13. Professional Services (Tech Portfolio, CA, Legal - excluding Insurance)
+  const isProfessional = !isInsuranceTemplate && !isJewellery && !isHomeServices && Boolean(
+    category === 'Professional Services' ||
+    slug === 'tech-portfolio' ||
+    slug === 'prof-ca' ||
+    slug.startsWith('prof-') ||
+    templateId === 'tech-portfolio' ||
+    templateId === 'prof-ca' ||
+    templateId.startsWith('prof-') ||
+    Boolean(profile.sectionData?.professional)
   );
 
   // 15. Retail & Local Shops
@@ -1122,49 +1122,8 @@ export default function ProfileCardView({
           showViewToggle={showViewToggle}
         />
       ) : isWebsiteMode ? (
-        isRealEstate ? (
-          <RealEstateMiniWebsiteView
-            profile={profile}
-            trackAction={trackAction}
-            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-            getEmbedUrl={getEmbedUrl}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-            showViewToggle={showViewToggle}
-            isMockup={isMockup}
-          />
-        ) : isInterior ? (
-          <InteriorMiniWebsiteView
-            profile={profile}
-            trackAction={trackAction}
-            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-            getEmbedUrl={getEmbedUrl}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-            showViewToggle={showViewToggle}
-          />
-        ) : isHealthcare ? (
+        isHealthcare ? (
           <HealthcareMiniWebsiteView
-            profile={profile}
-            trackAction={trackAction}
-            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-            getEmbedUrl={getEmbedUrl}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-            showViewToggle={showViewToggle}
-          />
-        ) : isAutomobile ? (
-          <AutomobileMiniWebsiteView
-            profile={profile}
-            trackAction={trackAction}
-            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
-            getEmbedUrl={getEmbedUrl}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-            showViewToggle={showViewToggle}
-          />
-        ) : isEducation ? (
-          <EducationMiniWebsiteView
             profile={profile}
             trackAction={trackAction}
             getCleanWhatsAppNumber={getCleanWhatsAppNumber}
@@ -1183,28 +1142,43 @@ export default function ProfileCardView({
             setViewMode={setViewMode}
             showViewToggle={showViewToggle}
           />
-        ) : isEvents ? (
-          <EventsMiniWebsiteView
+        ) : isInterior ? (
+          <InteriorMiniWebsiteView
             profile={profile}
-            getEmbedUrl={getEmbedUrl}
-          />
-        ) : isBusBooking ? (
-          <BusBookingTemplateView
-            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
             getEmbedUrl={getEmbedUrl}
             viewMode={viewMode}
             setViewMode={setViewMode}
             showViewToggle={showViewToggle}
+          />
+        ) : isEducation ? (
+          <EducationMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : isEvents ? (
+          <EventsMiniWebsiteView
+            profile={profile}
+            getEmbedUrl={getEmbedUrl}
           />
         ) : isTravel ? (
           <TravelMiniWebsiteView
             profile={profile}
             getEmbedUrl={getEmbedUrl}
           />
-        ) : isProfessional ? (
-          <ProfessionalMiniWebsiteView
+        ) : isJewellery ? (
+          <JewelleryMiniWebsiteView
             profile={profile}
             getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
           />
         ) : isHomeServices ? (
           <HomeServicesMiniWebsiteView
@@ -1214,8 +1188,34 @@ export default function ProfileCardView({
             setViewMode={setViewMode}
             showViewToggle={showViewToggle}
           />
-        ) : isJewellery ? (
-          <JewelleryMiniWebsiteView
+        ) : isProfessional ? (
+          <ProfessionalMiniWebsiteView
+            profile={profile}
+            getEmbedUrl={getEmbedUrl}
+          />
+        ) : isAutomobile ? (
+          <AutomobileMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+          />
+        ) : isRealEstate ? (
+          <RealEstateMiniWebsiteView
+            profile={profile}
+            trackAction={trackAction}
+            getCleanWhatsAppNumber={getCleanWhatsAppNumber}
+            getEmbedUrl={getEmbedUrl}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
+            showViewToggle={showViewToggle}
+            isMockup={isMockup}
+          />
+        ) : isBusBooking ? (
+          <BusBookingTemplateView
             profile={profile}
             getEmbedUrl={getEmbedUrl}
             viewMode={viewMode}
@@ -3049,8 +3049,8 @@ export default function ProfileCardView({
         </div>
       )}
 
-      {/* PWA "Add to Home Screen" Install Banner for Mobile Visitors */}
-      {!isMockup && (
+      {/* PWA "Add to Home Screen" Install Banner for Mobile Visitors (only in card mode) */}
+      {!isMockup && !isWebsiteMode && (
         <PWAInstallPrompt cardName={profile.name} avatarUrl={profile.avatarUrl} />
       )}
     </div>

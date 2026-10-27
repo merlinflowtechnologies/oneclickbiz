@@ -67,8 +67,8 @@ export default function HealthcareMiniWebsiteView({
   const degrees = healthcareData.degrees || 'MBBS, MD, DNB (Internal Medicine)';
   const registrationNumber = healthcareData.regNumber || 'MCI / NMC Reg: 68492/AP';
   const experienceYears = healthcareData.experienceYears || '16+ Years';
-  const hospitalAffiliation = healthcareData.hospitalName || profile.company || 'Care Clinic & Superspeciality Hospital';
-  const consultationFee = healthcareData.fee || '₹600';
+  const hospitalAffiliation = healthcareData.hospitalAffiliation || healthcareData.hospitalName || profile.company || 'Care Clinic & Superspeciality Hospital';
+  const consultationFee = healthcareData.consultationFee || healthcareData.fee || '₹600';
   const opdTimings = healthcareData.opdTimings || 'Mon - Sat: 10:00 AM - 01:30 PM & 05:00 PM - 08:30 PM';
   const emergencyPhone = healthcareData.emergencyPhone || profile.phone || '+91 98765 43210';
 
@@ -110,8 +110,10 @@ export default function HealthcareMiniWebsiteView({
     }
   ];
 
-  const treatments = profile.sectionData?.products?.items?.length
-    ? profile.sectionData.products.items.map(item => ({
+  const treatments = healthcareData.treatments?.length
+    ? healthcareData.treatments
+    : profile.sectionData?.products?.items?.length
+    ? profile.sectionData.products.items.map((item: any) => ({
         id: item.id,
         title: item.name,
         category: item.category || 'Specialized Treatment',
@@ -152,11 +154,11 @@ export default function HealthcareMiniWebsiteView({
     <div className="w-full min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-teal-600 selection:text-white">
       
       {/* 1. TOP MEDICAL TRUST & REGISTRATION STRIP */}
-      <div className="bg-teal-950 text-white px-4 sm:px-8 py-2 text-xs border-b border-teal-900 shadow-xs">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-teal-950 text-white px-3 sm:px-8 py-2 text-xs border-b border-teal-900 shadow-xs overflow-x-auto scrollbar-none">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 min-w-max sm:min-w-0">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-            <span className="font-extrabold uppercase tracking-wider text-teal-300 text-[11px] sm:text-xs">
+            <span className="font-extrabold uppercase tracking-wider text-teal-300 text-[11px] sm:text-xs whitespace-nowrap">
               {registrationNumber}
             </span>
             <span className="hidden md:inline text-teal-100/70 text-[11px]">
@@ -164,12 +166,12 @@ export default function HealthcareMiniWebsiteView({
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-[11px]">
+          <div className="flex items-center gap-3 sm:gap-4 text-[11px] shrink-0">
             <a 
               href={`tel:${emergencyPhone}`}
-              className="inline-flex items-center gap-1.5 text-rose-300 hover:text-white font-bold transition"
+              className="inline-flex items-center gap-1.5 text-rose-300 hover:text-white font-bold transition whitespace-nowrap"
             >
-              <HeartPulse className="w-3.5 h-3.5 text-rose-400" />
+              <HeartPulse className="w-3.5 h-3.5 text-rose-400 shrink-0" />
               <span>Emergency: {emergencyPhone}</span>
             </a>
 
@@ -291,8 +293,8 @@ export default function HealthcareMiniWebsiteView({
           </div>
 
           {/* 9 SQUIRCLE QUICK-ACTION ROW */}
-          <div className="pt-4 overflow-x-auto no-scrollbar pb-2">
-            <div className="flex items-center justify-start sm:justify-center gap-3 sm:gap-4 w-max sm:w-auto mx-auto px-2">
+          <div className="pt-4 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto scrollbar-none pb-2">
+            <div className="flex items-center justify-start sm:justify-center gap-3 sm:gap-4 min-w-max sm:min-w-0 sm:w-auto mx-auto px-2 pr-6 sm:pr-2">
               
               {/* Call */}
               <a
@@ -398,7 +400,7 @@ export default function HealthcareMiniWebsiteView({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {treatments.map((t) => (
+          {treatments.map((t: any) => (
             <div
               key={t.id}
               className="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-teal-400 transition flex flex-col justify-between space-y-4 group"

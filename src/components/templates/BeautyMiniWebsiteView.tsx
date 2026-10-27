@@ -585,22 +585,16 @@ export default function BeautyMiniWebsiteView({
   const cleanWaDigits = (rawWa || '919876543210').replace(/\D/g, '');
   const cleanWa = cleanWaDigits.length === 10 ? `91${cleanWaDigits}` : (cleanWaDigits || '919876543210');
   
-  // Clean Mock Brand Details
-  const salonCompany = (profile.company && !profile.company.includes('Green Trends')) 
-    ? profile.company 
-    : 'AuraLuxe Luxury Unisex Salon & Spa';
-  const salonLocation = 'Road No. 36, Jubilee Hills, Hyderabad';
-  const salonPhone = (profile.phone && !profile.phone.includes('63033') && !profile.phone.includes('91549')) 
-    ? profile.phone 
-    : '+91 98765 43210';
-  const salonAddress = (profile.address && !profile.address.includes('Kothapet') && !profile.address.includes('Nagole'))
-    ? profile.address
-    : 'Plot No. 482, 2nd Floor, Luxury Square Building, Road No. 36, Jubilee Hills, Hyderabad, Telangana 500033';
+  // Clean Brand Details (with graceful fallbacks)
+  const salonCompany = profile.company || profile.name || 'AuraLuxe Luxury Unisex Salon & Spa';
+  const salonLocation = (beautyConfig as any).locality || (profile.address ? profile.address.split(',')[0].trim() : 'Road No. 36, Jubilee Hills, Hyderabad');
+  const salonPhone = profile.phone || '+91 98765 43210';
+  const salonAddress = profile.address || 'Plot No. 482, 2nd Floor, Luxury Square Building, Road No. 36, Jubilee Hills, Hyderabad, Telangana 500033';
 
   // Social Channels & Canonical URL
   const instagramUrl = profile.sectionData?.socials?.items?.find((s: any) => s.platform === 'instagram')?.url || 'https://instagram.com/auraluxesalon';
   const youtubeUrl = profile.sectionData?.socials?.items?.find((s: any) => s.platform === 'youtube')?.url || 'https://youtube.com/@auraluxesalon';
-  const websiteUrl = 'https://www.oneclickbiz.in/v/beauty-salon';
+  const websiteUrl = profile.website || `https://www.oneclickbiz.in/v/${profile.slug || 'beauty-salon'}`;
 
   // --- Cart Helpers ---
   const showToast = (msg: string) => {
@@ -760,10 +754,30 @@ export default function BeautyMiniWebsiteView({
   }, [allProducts, productCategory, productSearch]);
 
   // Filtered offers
+  const activeOffers = useMemo(() => {
+    const customPkgs = (beautyConfig as any).packages;
+    if (customPkgs && customPkgs.length > 0) {
+      return customPkgs.map((pkg: any) => ({
+        id: pkg.id,
+        category: pkg.category || 'Bridal & Groom',
+        title: pkg.title,
+        subtitle: pkg.subtitle || 'Salon signature service',
+        badge: pkg.badge || 'SPECIAL OFFER',
+        code: pkg.code || 'BEAUTYPRO',
+        price: `₹${pkg.price}`,
+        originalPrice: pkg.originalPrice ? `₹${pkg.originalPrice}` : undefined,
+        discount: pkg.originalPrice ? `SAVE ₹${pkg.originalPrice - pkg.price}` : 'SPECIAL RATE',
+        tagColor: 'from-[#ab2079] to-pink-600',
+        imageUrl: pkg.imageUrl || 'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80'
+      }));
+    }
+    return MOCK_SALON_OFFERS;
+  }, [beautyConfig]);
+
   const filteredOffers = useMemo(() => {
-    if (offerCategory === 'All') return MOCK_SALON_OFFERS;
-    return MOCK_SALON_OFFERS.filter(off => off.category === offerCategory);
-  }, [offerCategory]);
+    if (offerCategory === 'All') return activeOffers;
+    return activeOffers.filter((off: any) => off.category === offerCategory);
+  }, [offerCategory, activeOffers]);
 
   // Filtered gallery
   const filteredGallery = useMemo(() => {
@@ -1266,7 +1280,7 @@ export default function BeautyMiniWebsiteView({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredOffers.map(offer => (
+            {filteredOffers.map((offer: any) => (
               <div 
                 key={offer.id} 
                 className="rounded-3xl bg-zinc-950/80 backdrop-blur-md border border-white/15 hover:border-pink-500/50 transition-all flex flex-col justify-between group shadow-2xl overflow-hidden"
@@ -1687,7 +1701,7 @@ export default function BeautyMiniWebsiteView({
               <div className="p-5 space-y-2">
                 <h4 className="text-base font-black text-white">Certified Stylists</h4>
                 <p className="text-xs text-zinc-300 leading-relaxed">
-                  Every stylist undergoes 250+ hours of advanced training in precision haircutting and modern color blending.
+                  {beautyConfig.stylistCertification || 'Every stylist undergoes 250+ hours of advanced training in precision haircutting and modern color blending.'}
                 </p>
               </div>
             </div>
@@ -1709,7 +1723,7 @@ export default function BeautyMiniWebsiteView({
               <div className="p-5 space-y-2">
                 <h4 className="text-base font-black text-white">100% Genuine Brands</h4>
                 <p className="text-xs text-zinc-300 leading-relaxed">
-                  Zero compromises on quality. Only authentic formulas from L’Oréal Professionnel, Wella, O3+, and Schwarzkopf used on your hair and skin.
+                  {beautyConfig.productBrandsUsed ? `Zero compromises on quality. Only authentic formulas from ${beautyConfig.productBrandsUsed} used.` : 'Zero compromises on quality. Only authentic formulas from L’Oréal Professionnel, Wella, O3+, and Schwarzkopf used on your hair and skin.'}
                 </p>
               </div>
             </div>
@@ -1731,7 +1745,7 @@ export default function BeautyMiniWebsiteView({
               <div className="p-5 space-y-2">
                 <h4 className="text-base font-black text-white">Sanitised &amp; Single-Use</h4>
                 <p className="text-xs text-zinc-300 leading-relaxed">
-                  Strict 7-step hygiene protocol: single-use disposable aprons, sanitized scissors, autoclaved nail tools, and sterilized workstations.
+                  {beautyConfig.hygieneProtocol || 'Strict 7-step hygiene protocol: single-use disposable aprons, sanitized scissors, autoclaved nail tools, and sterilized workstations.'}
                 </p>
               </div>
             </div>
@@ -1751,9 +1765,9 @@ export default function BeautyMiniWebsiteView({
                 </div>
               </div>
               <div className="p-5 space-y-2">
-                <h4 className="text-base font-black text-white">Honest &amp; Transparent</h4>
+                <h4 className="text-base font-black text-white">Bridal &amp; Transparent</h4>
                 <p className="text-xs text-zinc-300 leading-relaxed">
-                  Complimentary stylist consultation before every service. Transparent pricing with zero hidden charges or surprise upsells.
+                  {beautyConfig.bridalSlotsNotice || 'Complimentary stylist consultation before every service. Transparent pricing with zero hidden charges or surprise upsells.'}
                 </p>
               </div>
             </div>

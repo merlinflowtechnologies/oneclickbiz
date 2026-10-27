@@ -121,118 +121,237 @@ function BuilderContent() {
           queryBiz?.toLowerCase().includes('food')
         );
 
-        const effectiveTemplateId = queryTemplate || serverUser?.template || parsedSession?.template || (
-          isRestaurantTarget ? 'food-restaurant' :
-          (parsedSession?.category === 'Real Estate' || targetSlug.startsWith('re-') ? 're-builders' : 
-          (parsedSession?.category === 'Interior Design' || targetSlug.startsWith('home-interior') || targetSlug.startsWith('interior') ? 'home-interior' : null))
+        const targetTemplateOrSlug = queryTemplate || targetSlug;
+
+        const isHealthcareTarget = Boolean(
+          targetTemplateOrSlug.startsWith('health-') ||
+          targetTemplateOrSlug.startsWith('med-') ||
+          serverUser?.category === 'Healthcare'
         );
 
-        const isReTarget = !isRestaurantTarget && Boolean(
-          effectiveTemplateId?.startsWith('re-') || 
-          parsedSession?.category === 'Real Estate' || 
-          targetSlug.startsWith('re-') ||
-          effectiveTemplateId === 're-builders' ||
-          serverUser?.category === 'Real Estate' ||
-          parsedSession?.businessName?.toLowerCase().includes('builder') ||
-          parsedSession?.businessName?.toLowerCase().includes('developer') ||
-          parsedSession?.businessName?.toLowerCase().includes('realty') ||
-          parsedSession?.businessName?.toLowerCase().includes('infra') ||
-          parsedSession?.businessName?.toLowerCase().includes('estate') ||
-          queryBiz?.toLowerCase().includes('builder') ||
-          queryBiz?.toLowerCase().includes('developer') ||
-          queryBiz?.toLowerCase().includes('realty') ||
-          queryBiz?.toLowerCase().includes('infra')
+        const isBeautyTarget = !isHealthcareTarget && Boolean(
+          targetTemplateOrSlug.startsWith('beauty-') ||
+          targetTemplateOrSlug.startsWith('salon-') ||
+          serverUser?.category === 'Beauty & Personal Care'
         );
-        const isInteriorTarget = !isRestaurantTarget && !isReTarget && Boolean(
-          effectiveTemplateId === 'home-interior' ||
-          effectiveTemplateId === 'interior' ||
-          parsedSession?.category === 'Interior Design' ||
-          serverUser?.category === 'Interior Design' ||
-          targetSlug.startsWith('interior') ||
-          targetSlug.startsWith('home-interior') ||
-          queryTemplate === 'home-interior'
+
+        const isFashionTarget = !isHealthcareTarget && !isBeautyTarget && Boolean(
+          targetTemplateOrSlug.startsWith('fash-') ||
+          targetTemplateOrSlug.startsWith('boutique-') ||
+          serverUser?.category === 'Fashion & Clothing'
+        );
+
+        const isEducationTarget = !isHealthcareTarget && !isBeautyTarget && !isFashionTarget && Boolean(
+          targetTemplateOrSlug.startsWith('edu-') ||
+          targetTemplateOrSlug.startsWith('school-') ||
+          serverUser?.category === 'Education'
+        );
+
+        const isEventsTarget = !isHealthcareTarget && !isBeautyTarget && !isFashionTarget && !isEducationTarget && Boolean(
+          targetTemplateOrSlug.startsWith('events-') ||
+          targetTemplateOrSlug.startsWith('event-') ||
+          serverUser?.category === 'Events & Creative'
+        );
+
+        const isTravelTarget = !isHealthcareTarget && !isBeautyTarget && !isFashionTarget && !isEducationTarget && !isEventsTarget && Boolean(
+          targetTemplateOrSlug.startsWith('travel-') ||
+          targetTemplateOrSlug.startsWith('tour-') ||
+          serverUser?.category === 'Travel & Hospitality'
+        );
+
+        const isJewelleryTarget = !isHealthcareTarget && !isBeautyTarget && !isFashionTarget && !isEducationTarget && !isEventsTarget && !isTravelTarget && Boolean(
+          targetTemplateOrSlug.startsWith('retail-jewel') ||
+          targetTemplateOrSlug.startsWith('jewel-') ||
+          serverUser?.category === 'Jewellery'
+        );
+
+        const isInsuranceTarget = !isHealthcareTarget && !isBeautyTarget && !isFashionTarget && !isEducationTarget && !isEventsTarget && !isTravelTarget && !isJewelleryTarget && Boolean(
+          targetTemplateOrSlug === 'prof-insurance' ||
+          targetTemplateOrSlug.startsWith('insur-') ||
+          serverUser?.category === 'Insurance'
+        );
+
+        const isHomeServicesTarget = !isHealthcareTarget && !isBeautyTarget && !isFashionTarget && !isEducationTarget && !isEventsTarget && !isTravelTarget && !isJewelleryTarget && !isInsuranceTarget && Boolean(
+          targetTemplateOrSlug.startsWith('home-electrician') ||
+          (targetTemplateOrSlug.startsWith('home-') && !targetTemplateOrSlug.startsWith('home-interior')) ||
+          serverUser?.category === 'Home & Professional Services'
+        );
+
+        const isInteriorTarget = !isRestaurantTarget && !isHealthcareTarget && !isBeautyTarget && !isFashionTarget && !isEducationTarget && !isEventsTarget && !isTravelTarget && !isJewelleryTarget && !isInsuranceTarget && !isHomeServicesTarget && Boolean(
+          targetTemplateOrSlug === 'home-interior' ||
+          targetTemplateOrSlug === 'interior' ||
+          targetTemplateOrSlug.startsWith('home-interior') ||
+          targetTemplateOrSlug.startsWith('interior') ||
+          serverUser?.category === 'Interior Design'
+        );
+
+        const isSpecificallyOtherIndustry = Boolean(
+          isRestaurantTarget ||
+          isHealthcareTarget ||
+          isBeautyTarget ||
+          isFashionTarget ||
+          isEducationTarget ||
+          isEventsTarget ||
+          isTravelTarget ||
+          isJewelleryTarget ||
+          isInsuranceTarget ||
+          isHomeServicesTarget ||
+          isInteriorTarget
+        );
+
+        const isReTarget = !isSpecificallyOtherIndustry && Boolean(
+          targetTemplateOrSlug.startsWith('re-') ||
+          targetTemplateOrSlug === 're-builders' ||
+          serverUser?.category === 'Real Estate' ||
+          (parsedSession?.category === 'Real Estate' && !queryTemplate && !targetSlug)
+        );
+
+        const effectiveTemplateId = queryTemplate || (
+          isRestaurantTarget ? 'food-restaurant' :
+          isHealthcareTarget ? 'health-doctor' :
+          isBeautyTarget ? 'beauty-salon' :
+          isFashionTarget ? 'fash-boutique' :
+          isEducationTarget ? 'edu-coaching' :
+          isEventsTarget ? 'events-planner' :
+          isTravelTarget ? 'travel-tour' :
+          isJewelleryTarget ? 'retail-jewellery' :
+          isInsuranceTarget ? 'prof-insurance' :
+          isHomeServicesTarget ? 'home-electrician' :
+          isInteriorTarget ? 'home-interior' :
+          isReTarget ? 're-builders' :
+          serverUser?.template || parsedSession?.template || null
         );
 
         // Build local fallback first
         let localFallback: DigitalProfile;
-          const customSaved = localStorage.getItem(`oneclickbiz_custom_profile_${targetSlug}`);
-          if (customSaved) {
-            try {
-              localFallback = JSON.parse(customSaved);
-              if (isRestaurantTarget) {
-                localFallback.templateId = 'food-restaurant';
-                localFallback.category = 'Food Business';
-                if (!localFallback.sectionData?.products?.items || localFallback.sectionData.products.items.length === 0) {
-                  localFallback.sectionData = {
-                    ...(localFallback.sectionData || {}),
-                    products: getTemplateProfile('food-restaurant').sectionData.products,
-                    services: getTemplateProfile('food-restaurant').sectionData.services
-                  };
-                }
-              } else if (isReTarget) {
-                const isExistingRe = localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35';
-                if (!isExistingRe) {
-                  localFallback.templateId = (effectiveTemplateId?.startsWith('re-') || effectiveTemplateId === 'vcard35') ? effectiveTemplateId : 're-builders';
-                }
-                localFallback.category = 'Real Estate';
-                if (!localFallback.sectionData?.realEstate) {
-                  localFallback.sectionData = {
-                    ...(localFallback.sectionData || {}),
-                    realEstate: getTemplateProfile(localFallback.templateId || 're-builders').sectionData.realEstate
-                  };
-                }
-              } else if (isInteriorTarget) {
-                localFallback.templateId = 'home-interior';
-                localFallback.category = 'Interior Design';
-                if (!localFallback.sectionData?.interior) {
-                  localFallback.sectionData = {
-                    ...(localFallback.sectionData || {}),
-                    interior: getTemplateProfile('home-interior').sectionData.interior
-                  };
-                }
-              }
-            } catch {
-              localFallback = effectiveTemplateId ? getTemplateProfile(effectiveTemplateId) : getProfileBySlug(targetSlug);
-            }
-          } else if (effectiveTemplateId || isRestaurantTarget || isReTarget || isInteriorTarget) {
-            localFallback = getTemplateProfile(effectiveTemplateId || (isRestaurantTarget ? 'food-restaurant' : isInteriorTarget ? 'home-interior' : 're-builders'));
-            if (targetSlug) localFallback.slug = targetSlug;
-          } else {
-            localFallback = getProfileBySlug(targetSlug);
+        const customSaved = localStorage.getItem(`oneclickbiz_custom_profile_${targetSlug}`);
+        if (customSaved) {
+          try {
+            localFallback = JSON.parse(customSaved);
+          } catch {
+            localFallback = effectiveTemplateId ? getTemplateProfile(effectiveTemplateId) : getProfileBySlug(targetSlug);
           }
+        } else if (effectiveTemplateId) {
+          localFallback = getTemplateProfile(effectiveTemplateId);
+          if (targetSlug) localFallback.slug = targetSlug;
+        } else {
+          localFallback = getProfileBySlug(targetSlug);
+        }
 
-          if (isRestaurantTarget) {
-            localFallback.templateId = 'food-restaurant';
-            localFallback.category = 'Food Business';
-            if (!localFallback.sectionData?.products?.items || localFallback.sectionData.products.items.length === 0) {
-              localFallback.sectionData = {
-                ...(localFallback.sectionData || {}),
-                products: getTemplateProfile('food-restaurant').sectionData.products,
-                services: getTemplateProfile('food-restaurant').sectionData.services
-              };
-            }
-          } else if (isReTarget) {
-            const isExistingRe = localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35';
-            if (!isExistingRe) {
-              localFallback.templateId = (effectiveTemplateId?.startsWith('re-') || effectiveTemplateId === 'vcard35') ? effectiveTemplateId : 're-builders';
-            }
-            localFallback.category = 'Real Estate';
-            if (!localFallback.sectionData?.realEstate) {
-              localFallback.sectionData = {
-                ...(localFallback.sectionData || {}),
-                realEstate: getTemplateProfile(localFallback.templateId || 're-builders').sectionData.realEstate
-              };
-            }
-          } else if (isInteriorTarget) {
-            localFallback.templateId = 'home-interior';
-            localFallback.category = 'Interior Design';
-            if (!localFallback.sectionData?.interior) {
-              localFallback.sectionData = {
-                ...(localFallback.sectionData || {}),
-                interior: getTemplateProfile('home-interior').sectionData.interior
-              };
-            }
+        // Apply dedicated industry template and preset data if targeted
+        if (isRestaurantTarget) {
+          localFallback.templateId = 'food-restaurant';
+          localFallback.category = 'Food Business';
+          if (!localFallback.sectionData?.products?.items || localFallback.sectionData.products.items.length === 0) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              products: getTemplateProfile('food-restaurant').sectionData.products,
+              services: getTemplateProfile('food-restaurant').sectionData.services
+            };
           }
+        } else if (isHealthcareTarget) {
+          localFallback.templateId = 'health-doctor';
+          localFallback.category = 'Healthcare';
+          if (!localFallback.sectionData?.healthcare) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              healthcare: getTemplateProfile('health-doctor').sectionData.healthcare
+            };
+          }
+        } else if (isBeautyTarget) {
+          localFallback.templateId = 'beauty-salon';
+          localFallback.category = 'Beauty & Personal Care';
+          if (!localFallback.sectionData?.beauty) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              beauty: getTemplateProfile('beauty-salon').sectionData.beauty
+            };
+          }
+        } else if (isFashionTarget) {
+          localFallback.templateId = 'fash-boutique';
+          localFallback.category = 'Fashion & Clothing';
+          if (!localFallback.sectionData?.fashion) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              fashion: getTemplateProfile('fash-boutique').sectionData.fashion
+            };
+          }
+        } else if (isEducationTarget) {
+          localFallback.templateId = 'edu-coaching';
+          localFallback.category = 'Education';
+          if (!localFallback.sectionData?.education) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              education: getTemplateProfile('edu-coaching').sectionData.education
+            };
+          }
+        } else if (isEventsTarget) {
+          localFallback.templateId = 'events-planner';
+          localFallback.category = 'Events & Creative';
+          if (!localFallback.sectionData?.events) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              events: getTemplateProfile('events-planner').sectionData.events
+            };
+          }
+        } else if (isTravelTarget) {
+          localFallback.templateId = 'travel-tour';
+          localFallback.category = 'Travel & Hospitality';
+          if (!localFallback.sectionData?.travel) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              travel: getTemplateProfile('travel-tour').sectionData.travel
+            };
+          }
+        } else if (isJewelleryTarget) {
+          localFallback.templateId = 'retail-jewellery';
+          localFallback.category = 'Jewellery';
+          if (!localFallback.sectionData?.jewellery) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              jewellery: getTemplateProfile('retail-jewellery').sectionData.jewellery
+            };
+          }
+        } else if (isInsuranceTarget) {
+          localFallback.templateId = 'prof-insurance';
+          localFallback.category = 'Insurance';
+          if (!localFallback.sectionData?.insurance) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              insurance: getTemplateProfile('prof-insurance').sectionData.insurance
+            };
+          }
+        } else if (isHomeServicesTarget) {
+          localFallback.templateId = 'home-electrician';
+          localFallback.category = 'Home & Professional Services';
+          if (!localFallback.sectionData?.homeServices) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              homeServices: getTemplateProfile('home-electrician').sectionData.homeServices
+            };
+          }
+        } else if (isInteriorTarget) {
+          localFallback.templateId = 'home-interior';
+          localFallback.category = 'Interior Design';
+          if (!localFallback.sectionData?.interior) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              interior: getTemplateProfile('home-interior').sectionData.interior
+            };
+          }
+        } else if (isReTarget) {
+          const isExistingRe = localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35';
+          if (!isExistingRe) {
+            localFallback.templateId = (effectiveTemplateId?.startsWith('re-') || effectiveTemplateId === 'vcard35') ? effectiveTemplateId : 're-builders';
+          }
+          localFallback.category = 'Real Estate';
+          if (!localFallback.sectionData?.realEstate) {
+            localFallback.sectionData = {
+              ...(localFallback.sectionData || {}),
+              realEstate: getTemplateProfile(localFallback.templateId || 're-builders').sectionData.realEstate
+            };
+          }
+        }
 
           if (queryName && !customSaved) localFallback.name = decodeURIComponent(queryName);
           if (queryBiz && !customSaved) localFallback.company = decodeURIComponent(queryBiz);
@@ -254,37 +373,46 @@ function BuilderContent() {
             .then(data => {
               if (data?.profile) {
                 const dbProfile = data.profile as DigitalProfile;
-                const dbIsRestaurant = Boolean(
-                  isRestaurantTarget ||
-                  dbProfile.category === 'Food Business' ||
-                  dbProfile.category === 'Restaurant' ||
-                  dbProfile.category === 'Food & Dining' ||
-                  dbProfile.templateId === 'food-restaurant' ||
-                  dbProfile.templateId === 'restaurant-menu' ||
-                  dbProfile.templateId === 'food-home' ||
-                  dbProfile.templateId?.startsWith('food-') ||
-                  dbProfile.company?.toLowerCase().includes('restaurant') ||
-                  dbProfile.company?.toLowerCase().includes('dining') ||
-                  dbProfile.company?.toLowerCase().includes('kitchen') ||
-                  dbProfile.company?.toLowerCase().includes('cafe') ||
-                  dbProfile.company?.toLowerCase().includes('food') ||
-                  dbProfile.designation?.toLowerCase().includes('chef') ||
-                  dbProfile.theme === 'brahmin-food'
+                const dbCategory = dbProfile.category || localFallback.category || '';
+                const dbTemplateId = dbProfile.templateId || localFallback.templateId || effectiveTemplateId || '';
+
+                const isSpecificallyOtherIndustry = Boolean(
+                  dbCategory === 'Healthcare' ||
+                  dbCategory === 'Beauty & Personal Care' ||
+                  dbCategory === 'Fashion & Clothing' ||
+                  dbCategory === 'Education' ||
+                  dbCategory === 'Events & Creative' ||
+                  dbCategory === 'Travel & Hospitality' ||
+                  dbCategory === 'Jewellery' ||
+                  dbCategory === 'Home & Professional Services' ||
+                  dbCategory === 'Interior Design' ||
+                  dbTemplateId.startsWith('health-') ||
+                  dbTemplateId.startsWith('beauty-') ||
+                  dbTemplateId.startsWith('fash-') ||
+                  dbTemplateId.startsWith('edu-') ||
+                  dbTemplateId.startsWith('events-') ||
+                  dbTemplateId.startsWith('travel-') ||
+                  dbTemplateId.startsWith('retail-jewel') ||
+                  dbTemplateId.startsWith('home-electrician') ||
+                  dbTemplateId.startsWith('home-interior') ||
+                  dbTemplateId === 'prof-insurance'
                 );
-                const dbIsRe = !dbIsRestaurant && Boolean(
-                  isReTarget ||
-                  dbProfile.category === 'Real Estate' ||
-                  dbProfile.templateId?.startsWith('re-') ||
-                  dbProfile.company?.toLowerCase().includes('builder') ||
-                  dbProfile.company?.toLowerCase().includes('developer') ||
-                  dbProfile.company?.toLowerCase().includes('realty') ||
-                  dbProfile.company?.toLowerCase().includes('infra') ||
-                  dbProfile.company?.toLowerCase().includes('properties') ||
-                  dbProfile.company?.toLowerCase().includes('estate') ||
-                  dbProfile.designation?.toLowerCase().includes('infrastructure') ||
-                  dbProfile.designation?.toLowerCase().includes('builder') ||
-                  dbProfile.sectionData?.realEstate
+
+                const dbIsRestaurant = !isSpecificallyOtherIndustry && Boolean(
+                  dbTemplateId.startsWith('food-') ||
+                  dbTemplateId === 'restaurant-menu' ||
+                  dbCategory === 'Food Business' ||
+                  dbCategory === 'Restaurant' ||
+                  dbCategory === 'Food & Dining'
                 );
+
+                const dbIsRe = !isSpecificallyOtherIndustry && !dbIsRestaurant && Boolean(
+                  dbCategory === 'Real Estate' ||
+                  dbTemplateId.startsWith('re-') ||
+                  dbTemplateId === 're-builders' ||
+                  isReTarget
+                );
+
                 // Source of truth: DB fields strictly take precedence
                 const merged: DigitalProfile = {
                   ...localFallback,
@@ -294,7 +422,7 @@ function BuilderContent() {
                     : dbIsRe 
                     ? ((dbProfile.templateId?.startsWith('re-') || dbProfile.templateId === 'vcard35') ? dbProfile.templateId : (localFallback.templateId?.startsWith('re-') || localFallback.templateId === 'vcard35') ? localFallback.templateId : 're-builders') 
                     : isInteriorTarget ? 'home-interior' : (dbProfile.templateId || localFallback.templateId || effectiveTemplateId || undefined),
-                  category: dbIsRestaurant ? 'Food Business' : dbIsRe ? 'Real Estate' : isInteriorTarget ? 'Interior Design' : (dbProfile.category || localFallback.category || parsedSession?.category || undefined),
+                  category: dbProfile.category || localFallback.category || (dbIsRestaurant ? 'Food Business' : dbIsRe ? 'Real Estate' : isInteriorTarget ? 'Interior Design' : parsedSession?.category || undefined),
                   name: dbProfile.name || localFallback.name,
                   company: dbProfile.company || localFallback.company,
                   designation: dbProfile.designation || localFallback.designation,
@@ -311,10 +439,19 @@ function BuilderContent() {
                       : dbProfile.sectionData?.restaurant,
                     realEstate: dbIsRe 
                       ? (dbProfile.sectionData?.realEstate || localFallback.sectionData?.realEstate || getTemplateProfile('re-builders').sectionData.realEstate)
-                      : dbProfile.sectionData?.realEstate,
+                      : (!isSpecificallyOtherIndustry ? dbProfile.sectionData?.realEstate : undefined),
                     interior: isInteriorTarget
                       ? (dbProfile.sectionData?.interior || localFallback.sectionData?.interior || getTemplateProfile('home-interior').sectionData.interior)
                       : dbProfile.sectionData?.interior,
+                    healthcare: dbProfile.sectionData?.healthcare || localFallback.sectionData?.healthcare || (dbCategory === 'Healthcare' || localFallback.category === 'Healthcare' ? getTemplateProfile('health-doctor').sectionData.healthcare : undefined),
+                    beauty: dbProfile.sectionData?.beauty || localFallback.sectionData?.beauty || (dbCategory === 'Beauty & Personal Care' || localFallback.category === 'Beauty & Personal Care' ? getTemplateProfile('beauty-salon').sectionData.beauty : undefined),
+                    fashion: dbProfile.sectionData?.fashion || localFallback.sectionData?.fashion || (dbCategory === 'Fashion & Clothing' || localFallback.category === 'Fashion & Clothing' ? getTemplateProfile('fash-boutique').sectionData.fashion : undefined),
+                    education: dbProfile.sectionData?.education || localFallback.sectionData?.education || (dbCategory === 'Education' || localFallback.category === 'Education' ? getTemplateProfile('edu-coaching').sectionData.education : undefined),
+                    events: dbProfile.sectionData?.events || localFallback.sectionData?.events || (dbCategory === 'Events & Creative' || localFallback.category === 'Events & Creative' ? getTemplateProfile('events-planner').sectionData.events : undefined),
+                    travel: dbProfile.sectionData?.travel || localFallback.sectionData?.travel || (dbCategory === 'Travel & Hospitality' || localFallback.category === 'Travel & Hospitality' ? getTemplateProfile('travel-tour').sectionData.travel : undefined),
+                    jewellery: dbProfile.sectionData?.jewellery || localFallback.sectionData?.jewellery || (dbCategory === 'Jewellery' || localFallback.category === 'Jewellery' ? getTemplateProfile('retail-jewellery').sectionData.jewellery : undefined),
+                    homeServices: dbProfile.sectionData?.homeServices || localFallback.sectionData?.homeServices || (dbCategory === 'Home & Professional Services' || localFallback.category === 'Home & Professional Services' ? getTemplateProfile('home-electrician').sectionData.homeServices : undefined),
+                    insurance: dbProfile.sectionData?.insurance || localFallback.sectionData?.insurance || (dbTemplateId === 'prof-insurance' || localFallback.templateId === 'prof-insurance' || localFallback.category === 'Insurance' ? getTemplateProfile('prof-insurance').sectionData.insurance : undefined),
                     about: {
                       ...(localFallback.sectionData?.about || {}),
                       ...(dbProfile.sectionData?.about || {}),

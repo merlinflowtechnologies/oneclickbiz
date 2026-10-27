@@ -38,6 +38,7 @@ import {
 } from 'lucide-react';
 import { DigitalProfile, VideoItem } from '@/lib/types';
 import ShareCardModal from '@/components/common/ShareCardModal';
+import { downloadVcfFile } from '@/lib/vcf';
 
 const InstagramIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -146,6 +147,17 @@ export default function InteriorMiniWebsiteView({
   const [leadProjectType, setLeadProjectType] = useState('Residential Interior');
   const [leadMessage, setLeadMessage] = useState('');
   const [leadSuccess, setLeadSuccess] = useState(false);
+
+  // Interior Studio Configuration
+  const interiorConfig = profile.sectionData?.interior || {};
+  const studioName = profile.company || profile.name || 'Aura Luxe Studios';
+  const iiidNumber = interiorConfig.iiidId ? `IIID: ${interiorConfig.iiidId}` : 'IIID REGISTERED STUDIO';
+  const warrantyYears = interiorConfig.warrantyYears || '10-Year Warranty Guarantee';
+  const turnkeyHandover = interiorConfig.turnkeyGuaranteeDays || '45-Day Handover';
+  const studioLocation = interiorConfig.experienceCenter || profile.address || 'Jubilee Hills, Hyderabad';
+  const completedHomes = interiorConfig.completedHomes || '450+ Luxury Homes';
+  const sqftTransformed = interiorConfig.sqftTransformed || '1.2M+ Sq.Ft.';
+  const happyClients = interiorConfig.happyClients || '98% On-Time Delivery';
 
   // Number Cleaners
   const cleanPhone = useMemo(() => {
@@ -702,25 +714,7 @@ Please connect with me at your earliest convenience.`;
 
   const handleVcfDownload = () => {
     trackAction('interior_vcard_download');
-    const vCardData = `BEGIN:VCARD
-VERSION:3.0
-FN:Aura Luxe Studios
-ORG:Aura Luxe Studios Architecture & Interiors
-TITLE:Principal Architect & Founder
-TEL;TYPE=CELL:${cleanCallNumber}
-EMAIL;TYPE=WORK:${profile.email || 'bdm@auraluxestudio.com'}
-ADR;TYPE=WORK:;;Road No. 36, Jubilee Hills, Hyderabad;;;;
-URL:${typeof window !== 'undefined' ? window.location.href : 'https://oneclickbiz.in'}
-NOTE:Premium Architecture & Interior Design Studio
-END:VCARD`;
-    const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `Aura_Luxe_Studios_Contact.vcf`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloadVcfFile(profile);
   };
 
   return (
@@ -734,10 +728,10 @@ END:VCARD`;
           <div className="flex items-center gap-2 truncate">
             <span className="w-2 h-2 rounded-full bg-[#B7977F] animate-pulse shrink-0" />
             <span className="font-bold uppercase tracking-wider text-[#B7977F] shrink-0">
-              IIID REGISTERED STUDIO
+              {iiidNumber}
             </span>
             <span className="hidden sm:inline text-stone-400 truncate">
-              • 10-Year Warranty Guarantee • 45-Day Handover • Jubilee Hills, Hyderabad
+              • {warrantyYears} • {turnkeyHandover} • {studioLocation}
             </span>
           </div>
 
@@ -757,7 +751,7 @@ END:VCARD`;
               <span>Save vCard</span>
             </button>
             <a
-              href={`https://wa.me/${cleanPhone}?text=Hi%20Aura%20Luxe%20Studios%2C%20I%20am%20inquiring%20about%20architectural%20interior%20design%20services.`}
+              href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi ${studioName}, I am inquiring about architectural interior design services.`)}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 text-stone-300 hover:text-emerald-400 transition cursor-pointer"
@@ -783,17 +777,17 @@ END:VCARD`;
         <div className="max-w-[1500px] mx-auto px-4 sm:px-8">
           <div className="flex items-center justify-between h-20 gap-4">
             
-            {/* Aura Luxe Studios Brand Logo */}
+            {/* Interior Studios Brand Logo */}
             <a href="#home" className="flex items-center gap-2.5 sm:gap-3 shrink-0 select-none min-w-0">
               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#111111] border border-[#B7977F]/40 flex items-center justify-center text-white font-serif font-black text-lg sm:text-xl shadow-md shrink-0">
-                A
+                {studioName.charAt(0) || 'A'}
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-sm sm:text-xl tracking-tight text-[#111111] uppercase font-sans truncate max-w-[130px] xs:max-w-[200px] sm:max-w-none">
-                  Aura Luxe Studios
+                  {studioName}
                 </span>
                 <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#B7977F] font-semibold -mt-0.5 sm:-mt-1 truncate">
-                  Architecture &amp; Interior Design
+                  {profile.designation || (profile as any).tagline || 'Architecture & Interior Design'}
                 </span>
               </div>
             </a>

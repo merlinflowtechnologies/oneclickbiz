@@ -34,6 +34,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import ShareCardModal from '@/components/common/ShareCardModal';
+import { downloadVcfFile } from '@/lib/vcf';
 
 interface ProfessionalMiniWebsiteViewProps {
   profile: DigitalProfile;
@@ -221,32 +222,14 @@ export default function ProfessionalMiniWebsiteView({ profile, getEmbedUrl }: Pr
   };
 
   const handleDownloadVCard = () => {
-    const vCardData = `BEGIN:VCARD
-VERSION:3.0
-FN:${profile.name || 'Professional Counsel'}
-ORG:${profile.company || 'Legal & Professional Advisory'}
-TITLE:${profile.designation || 'Managing Partner'}
-TEL:${profile.phone || ''}
-EMAIL:${profile.email || ''}
-URL:${typeof window !== 'undefined' ? window.location.href : ''}
-NOTE:${profile.bio || barCouncilOrIcaId}
-END:VCARD`;
-
-    const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `${(profile.name || 'counsel').replace(/\s+/g, '_')}_professional.vcf`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloadVcfFile(profile);
   };
 
   return (
     <div className="min-h-screen bg-[#060A12] text-slate-100 font-sans antialiased selection:bg-amber-500 selection:text-slate-950 pb-24">
       {/* 1. TOP EXECUTIVE TRUST STRIP */}
-      <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-amber-600/30 text-xs py-2 px-4">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3 text-slate-300">
+      <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-amber-600/30 text-xs py-2 px-3 sm:px-4 overflow-x-auto scrollbar-none">
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-3 text-slate-300 min-w-max sm:min-w-0">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
             <span className="font-semibold text-amber-200 tracking-wide">{barCouncilOrIcaId}</span>

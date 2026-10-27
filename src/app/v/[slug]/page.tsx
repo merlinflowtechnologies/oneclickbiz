@@ -300,7 +300,7 @@ export default async function PublicProfilePage({
   } : profile;
 
   return (
-    <main className="min-h-screen bg-[#F8F9FA] text-[#111111] font-sans relative w-full overflow-x-hidden">
+    <main className="min-h-screen bg-[#F8F9FA] text-[#111111] font-sans relative w-full overflow-x-hidden pb-28 sm:pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}

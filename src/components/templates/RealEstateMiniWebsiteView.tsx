@@ -959,9 +959,9 @@ export default function RealEstateMiniWebsiteView({
       {!isMockup && (
         <div 
           style={{ backgroundColor: '#0A192F', color: '#ffffff' }}
-          className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-2 text-[11px] font-semibold border-b border-[#1E293B] shadow-xs"
+          className="w-full px-3 sm:px-6 lg:px-8 xl:px-12 py-2 text-[11px] font-semibold border-b border-[#1E293B] shadow-xs overflow-x-auto scrollbar-none"
         >
-          <div className="max-w-[1600px] mx-auto w-full flex items-center justify-between gap-4">
+          <div className="max-w-[1600px] mx-auto w-full flex items-center justify-between gap-4 min-w-max sm:min-w-0">
             <div className="flex items-center gap-2 truncate">
               <span className="flex h-2 w-2 relative shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>

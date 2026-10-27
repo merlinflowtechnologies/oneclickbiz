@@ -53,11 +53,60 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   useEffect(() => {
     let isMounted = true;
 
+    const resolveActiveProfileContext = () => {
+      if (typeof window === 'undefined') return null;
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const urlSlug = params.get('slug');
+        const urlBiz = params.get('biz');
+
+        let storedSlug: string | undefined;
+        let storedBiz: string | undefined;
+
+        const activeStr = localStorage.getItem('oneclickbiz_active_profile');
+        if (activeStr) {
+          try {
+            const parsed = JSON.parse(activeStr);
+            storedSlug = parsed.slug;
+            storedBiz = parsed.company || parsed.name;
+          } catch (_) {}
+        }
+
+        const effectiveSlug = urlSlug || storedSlug;
+        const effectiveBiz = urlBiz || storedBiz;
+
+        if (effectiveSlug) {
+          return {
+            slug: effectiveSlug,
+            businessName: effectiveBiz
+          };
+        }
+      } catch (_) {}
+      return null;
+    };
+
+    const handleActiveProfileSync = (event?: any) => {
+      if (!isMounted) return;
+      const detail = event?.detail;
+      const activeCtx = resolveActiveProfileContext();
+      const nextSlug = detail?.slug || activeCtx?.slug;
+      const nextBiz = detail?.company || detail?.name || activeCtx?.businessName;
+
+      if (nextSlug) {
+        setUserSession(prev => ({
+          ...prev,
+          slug: nextSlug,
+          businessName: nextBiz || prev.businessName
+        }));
+      }
+    };
+
     async function checkAuthStatus() {
       if (typeof window !== 'undefined') {
         try {
           const detectedPlan = getCurrentUserPlan();
           setUserPlanTier(detectedPlan);
+          const activeCtx = resolveActiveProfileContext();
 
           // 1. Check authenticated user via server API
           try {
@@ -77,8 +126,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 if (isMounted) {
                   const isUserPaid = Boolean(meData.user?.hasActivePaidPlan);
                   setUserSession({
-                    slug: meData.user.slug || 'profile',
-                    businessName: meData.user.businessName || meData.user.name || 'My Business',
+                    slug: activeCtx?.slug || meData.user.slug || 'profile',
+                    businessName: activeCtx?.businessName || meData.user.businessName || meData.user.name || 'My Business',
                     fullName: meData.user.name || 'User',
                     plan: isUserPaid ? (meData.user.planTier || detectedPlan || 'PRO').toUpperCase() : 'UNPAID'
                   });
@@ -115,8 +164,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             if (parsed.loggedIn) {
               if (isMounted) {
                 setUserSession({
-                  slug: parsed.slug || 'kishore',
-                  businessName: parsed.businessName || 'Himastech Digital Reality',
+                  slug: activeCtx?.slug || parsed.slug || 'home-electrician',
+                  businessName: activeCtx?.businessName || parsed.businessName || 'Himastech Digital Reality',
                   fullName: parsed.fullName || 'Kishore Patel',
                   plan: detectedPlan
                 });
@@ -134,7 +183,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             return;
           }
 
-          if (isMounted) setIsAuthenticated(false);
+          if (isMounted) {
+            if (activeCtx?.slug) {
+              setUserSession(prev => ({
+                ...prev,
+                slug: activeCtx.slug,
+                businessName: activeCtx.businessName || prev.businessName
+              }));
+            }
+            setIsAuthenticated(false);
+          }
         } catch (e) {
           console.error(e);
           if (isMounted) setIsAuthenticated(false);
@@ -144,8 +202,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     checkAuthStatus();
 
+    if (typeof window !== 'undefined') {
+      window.addEventListener('oneclickbiz_profile_updated', handleActiveProfileSync);
+      window.addEventListener('storage', handleActiveProfileSync);
+    }
+
     return () => {
       isMounted = false;
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('oneclickbiz_profile_updated', handleActiveProfileSync);
+        window.removeEventListener('storage', handleActiveProfileSync);
+      }
     };
   }, [pathname]);
 

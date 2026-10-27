@@ -486,6 +486,17 @@ export default function EducationMiniWebsiteView({
   const schoolEmail = profile.email || 'admissions@apexschools.edu.in';
   const cleanWa = getCleanWhatsAppNumber ? getCleanWhatsAppNumber(profile) : '919876543210';
 
+  // Education Profile Studio Configuration
+  const educationConfig = (profile.sectionData as any)?.education || {};
+  const boardAffiliation = educationConfig.boardAffiliation || 'SSC, CBSE & ICSE Integrated Syllabus • IIT & NEET Foundation';
+  const accreditation = educationConfig.accreditation || 'ISO 9001:2015 Certified';
+  const establishedYear = educationConfig.establishedYear || 'Est. 1998';
+  const totalStudents = educationConfig.totalStudentsTrained || '15,000+ Alumni';
+  const placementRate = educationConfig.placementRate || '99.4% Board Distinction Rate';
+  const counselingTimings = educationConfig.demoTimings || 'Mon - Sat: 9:00 AM - 5:00 PM';
+  const admissionsHotline = (educationConfig as any)?.admissionsHotline || schoolPhone;
+  const customPrograms = (educationConfig as any)?.programs || [];
+
   // Auto-rotate Hero MetaSlider every 4.5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
@@ -561,8 +572,8 @@ export default function EducationMiniWebsiteView({
       {/* ============================================================== */}
       {/* 1. TOP MAROON CONTACT STRIP                                    */}
       {/* ============================================================== */}
-      <div className="w-full bg-[#a90707] text-white text-[13px] py-2 px-4 border-b border-red-900/30">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div className="w-full bg-[#a90707] text-white text-[13px] py-2 px-3 sm:px-4 border-b border-red-900/30 overflow-x-auto scrollbar-none">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 min-w-max sm:min-w-0">
 
           {/* Social links (Left on desktop) */}
           <div className="flex items-center gap-3">
@@ -580,7 +591,7 @@ export default function EducationMiniWebsiteView({
             </div>
             <span className="text-white/40 hidden md:inline">|</span>
             <span className="text-amber-200 font-semibold text-xs hidden lg:inline">
-              SSC, CBSE &amp; ICSE Integrated Syllabus • IIT &amp; NEET Foundation
+              {boardAffiliation}
             </span>
           </div>
 
@@ -591,9 +602,9 @@ export default function EducationMiniWebsiteView({
               <span className="hidden sm:inline">{schoolEmail}</span>
             </a>
             <span className="text-white/40">|</span>
-            <a href={`tel:${schoolPhone.replace(/[^\d+]/g, '')}`} className="flex items-center gap-1.5 hover:text-amber-300 transition font-bold">
+            <a href={`tel:${admissionsHotline.replace(/[^\d+]/g, '')}`} className="flex items-center gap-1.5 hover:text-amber-300 transition font-bold">
               <Phone className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-              <span>{schoolPhone}</span>
+              <span>{admissionsHotline}</span>
             </a>
           </div>
 
@@ -616,7 +627,7 @@ export default function EducationMiniWebsiteView({
                 {profile.name || profile.company || 'Apex Global Group of Schools'}
               </span>
               <span className="block text-[11px] text-slate-500 font-semibold tracking-wide">
-                Best Integrated Schools • SSC CBSE &amp; ICSE
+                {accreditation} • {boardAffiliation}
               </span>
             </div>
           </a>
@@ -844,6 +855,30 @@ export default function EducationMiniWebsiteView({
           </div>
         </div>
       </section>
+
+      {/* ============================================================== */}
+      {/* 3.5 EDUCATION TRUST STRIP (Credentials & Key Highlights)       */}
+      {/* ============================================================== */}
+      <div className="bg-[#0f2b5c] text-white py-6 border-y-2 border-amber-400">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+          <div className="border-r border-white/10 last:border-none px-3">
+            <span className="block text-xl md:text-2xl font-extrabold text-amber-300">{establishedYear}</span>
+            <span className="text-xs text-white/80 font-medium">Legacy &amp; Foundation</span>
+          </div>
+          <div className="border-r border-white/10 last:border-none px-3">
+            <span className="block text-xl md:text-2xl font-extrabold text-amber-300">{totalStudents}</span>
+            <span className="text-xs text-white/80 font-medium">Students &amp; Alumni</span>
+          </div>
+          <div className="border-r border-white/10 last:border-none px-3">
+            <span className="block text-xl md:text-2xl font-extrabold text-amber-300">{placementRate}</span>
+            <span className="text-xs text-white/80 font-medium">Academic Distinction</span>
+          </div>
+          <div className="px-3">
+            <span className="block text-xl md:text-2xl font-extrabold text-amber-300">{accreditation}</span>
+            <span className="text-xs text-white/80 font-medium">{counselingTimings}</span>
+          </div>
+        </div>
+      </div>
 
       {/* ============================================================== */}
       {/* 4. ABOUT APEX GLOBAL GROUP & CAMPUS VIDEO SECTION              */}

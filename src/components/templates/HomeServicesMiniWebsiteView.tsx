@@ -39,6 +39,7 @@ import {
   Tv
 } from 'lucide-react';
 import ShareCardModal from '@/components/common/ShareCardModal';
+import { downloadVcfFile } from '@/lib/vcf';
 
 // Clean SVG Brand Icons matching the design system
 function WhatsAppIcon({ className = "w-5 h-5" }: { className?: string }) {
@@ -394,9 +395,17 @@ export default function HomeServicesMiniWebsiteView({
   });
   const [bookingSuccess, setBookingSuccess] = useState(false);
 
+  // Home Services Studio Configuration
+  const homeServicesConfig = (profile.sectionData as any)?.homeServices || {};
+  const licenseNumber = homeServicesConfig.licenseNumber || 'Govt Lic: ELEC/TEL/2021/4891';
+  const serviceWarranty = homeServicesConfig.serviceWarrantyDays || '90 Days Service Warranty';
+  const verifiedTechs = homeServicesConfig.verifiedTechniciansCount || '45+ Background-Checked';
+  const responseTime = homeServicesConfig.responseTime || '60-Min Doorstep Arrival';
+  const customRateCard = homeServicesConfig.rateCard || [];
+
   // Contact details
   const companyName = (profile as any).businessName || profile.company || profile.name || 'OneClick Home Services';
-  const cleanPhone = (profile.phone || '+91 98765 43210').replace(/\s+/g, '');
+  const cleanPhone = (homeServicesConfig.emergencyPhone || profile.phone || '+91 98765 43210').replace(/\s+/g, '');
   const cleanCallNumber = cleanPhone.replace(/[^\d+]/g, '');
   const rawWa = profile.whatsapp || profile.phone || '919876543210';
   const cleanWaDigits = rawWa.replace(/\D/g, '');
@@ -404,31 +413,10 @@ export default function HomeServicesMiniWebsiteView({
   const instagramLink = profile.sectionData?.socials?.items?.find((s: any) => s.platform === 'instagram')?.url || 'https://www.instagram.com/oneclickbiz/';
   const facebookLink = profile.sectionData?.socials?.items?.find((s: any) => s.platform === 'facebook')?.url || 'https://www.facebook.com/oneclickbiz';
   const emailUrl = profile.email ? `mailto:${profile.email}` : 'mailto:support@oneclickhomeservices.com';
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('OneClick Home Services, Cyber Gateway, HITEC City, Hyderabad, Telangana')}`;
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(profile.address || 'OneClick Home Services, Cyber Gateway, HITEC City, Hyderabad, Telangana')}`;
 
   const handleDownloadVCard = () => {
-    const vcardContent = `BEGIN:VCARD
-VERSION:3.0
-FN:${companyName} (Hyderabad)
-ORG:OneClick Home Services India Pvt. Ltd.
-TITLE:Certified Doorstep Home Services & Electrician
-TEL;TYPE=CELL,VOICE:${cleanCallNumber}
-TEL;TYPE=WORK,VOICE:+919876543210
-EMAIL;TYPE=PREF,INTERNET:${profile.email || 'support@oneclickhomeservices.com'}
-URL:https://www.oneclickbiz.in/v/home-services
-ADR;TYPE=WORK:;;Level 4, Cyber Gateway, HITEC City;Hyderabad;Telangana;500081;India
-NOTE:Hyderabad's #1 Doorstep Home Services, Cleaning, Electrical, AC & Repairs.
-END:VCARD`;
-
-    const blob = new Blob([vcardContent], { type: 'text/vcard;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'OneClick_Home_Services_Hyderabad.vcf');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    downloadVcfFile(profile);
   };
 
   const openBookFor = (serviceName: string) => {
@@ -463,7 +451,7 @@ END:VCARD`;
             </div>
             <div>
               <div className="font-black text-sm sm:text-lg tracking-tight text-slate-900 uppercase flex items-center gap-1.5">
-                <span>{companyName}</span>
+                <span className="truncate max-w-[140px] xs:max-w-[200px] sm:max-w-none">{companyName}</span>
                 <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 normal-case">
                   <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                   Verified Hub
@@ -503,9 +491,10 @@ END:VCARD`;
 
             <button 
               onClick={() => openBookFor('Quick Login / Service Dispatch')}
-              className="px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-bold text-red-600 hover:text-red-700 hover:bg-red-50/80 rounded-lg transition cursor-pointer"
+              className="px-2.5 sm:px-4 py-1.5 text-xs sm:text-sm font-bold text-red-600 hover:text-red-700 hover:bg-red-50/80 rounded-lg transition cursor-pointer"
             >
-              Login / Signup
+              <span className="hidden xs:inline">Login / Signup</span>
+              <span className="xs:hidden">Login</span>
             </button>
 
             {/* Shopping Cart Icon */}
@@ -520,9 +509,33 @@ END:VCARD`;
               </span>
             </button>
           </div>
-
         </div>
       </header>
+
+      {/* Dynamic Studio Trust Strip */}
+      <div className="bg-slate-900 border-b border-slate-800 text-white text-[11px] font-semibold py-2 px-4 shadow-inner">
+        <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-3 text-slate-300 overflow-x-auto scrollbar-none whitespace-nowrap">
+          <span className="flex items-center gap-1.5 text-amber-300 shrink-0">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <span>{licenseNumber}</span>
+          </span>
+          <span className="hidden sm:inline-block text-slate-600">•</span>
+          <span className="flex items-center gap-1.5 shrink-0">
+            <Clock className="w-3.5 h-3.5 text-cyan-400" />
+            <span>{responseTime}</span>
+          </span>
+          <span className="hidden sm:inline-block text-slate-600">•</span>
+          <span className="flex items-center gap-1.5 shrink-0">
+            <Award className="w-3.5 h-3.5 text-yellow-400" />
+            <span>{serviceWarranty}</span>
+          </span>
+          <span className="hidden sm:inline-block text-slate-600">•</span>
+          <span className="flex items-center gap-1.5 text-emerald-400 shrink-0">
+            <CheckCircle2 className="w-3.5 h-3.5" />
+            <span>{verifiedTechs}</span>
+          </span>
+        </div>
+      </div>
 
       {/* ─────────────────────────────────────────────────────────────
           2. TOP ROTATING HERO BANNER CAROUSEL
@@ -942,6 +955,43 @@ END:VCARD`;
         </div>
 
       </section>
+
+      {/* Dynamic Fixed Price Rate Card (Studio Customized) */}
+      {customRateCard.length > 0 && (
+        <section className="py-8 max-w-[1440px] mx-auto px-4 sm:px-8 border-t border-slate-100">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+                Fixed Price Rate Card
+              </h2>
+              <span className="text-[11px] font-bold text-amber-900 bg-amber-100 px-3 py-1 rounded-full">
+                Zero Hidden Charges
+              </span>
+            </div>
+            <span className="text-xs text-slate-500 font-medium">Standard Doorstep Pricing</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {customRateCard.map((rc: any) => (
+              <div key={rc.id} className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition flex items-center justify-between gap-3">
+                <div>
+                  <h3 className="font-bold text-slate-900 text-sm">{rc.service}</h3>
+                  <p className="text-xs text-slate-500 mt-0.5">{rc.unit} • Est. {rc.turnaround}</p>
+                </div>
+                <div className="text-right shrink-0">
+                  <span className="text-base font-black text-emerald-600 block">{rc.price}</span>
+                  <button 
+                    onClick={() => openBookFor(rc.service)}
+                    className="mt-1 px-3 py-1 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold text-[11px] transition cursor-pointer"
+                  >
+                    Book
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ─────────────────────────────────────────────────────────────
           6. CLEANING SERVICES ROW (Badge: up to 50% off)

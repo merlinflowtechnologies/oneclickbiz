@@ -1361,12 +1361,11 @@ export default function RestaurantTemplateView({
             {/* Prominent Header "Leave Review" CTA Button */}
             <button
               onClick={() => setIsLeaveReviewModalOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#F5E9CC] hover:bg-[#eedaa8] text-[#C1621F] border border-[#D8A63D]/50 text-xs font-extrabold transition shadow-xs cursor-pointer"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#F5E9CC] hover:bg-[#eedaa8] text-[#C1621F] border border-[#D8A63D]/50 text-xs font-extrabold transition shadow-xs cursor-pointer"
               title="Leave a dining review"
             >
               <Star className="w-3.5 h-3.5 fill-[#C1621F]" />
-              <span className="hidden sm:inline">Write Review</span>
-              <span className="sm:hidden">Review</span>
+              <span>Write Review</span>
             </button>
             
             {/* Website QR Button */}
@@ -1375,11 +1374,11 @@ export default function RestaurantTemplateView({
                 trackAction('header_open_qr_modal');
                 setIsWebsiteQrModalOpen(true);
               }}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-[#F5E9CC]/60 text-[#241208] border border-[#D8A63D]/40 text-xs font-bold transition shadow-xs"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-[#F5E9CC]/60 text-[#241208] border border-[#D8A63D]/40 text-xs font-bold transition shadow-xs"
               title="Scan or download QR code for this digital menu"
             >
               <QrCode className="w-4 h-4 text-[#C1621F]" />
-              <span className="hidden sm:inline">Website QR</span>
+              <span>Website QR</span>
             </button>
 
             {/* Reserve Table Button */}

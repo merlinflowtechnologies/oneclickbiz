@@ -42,6 +42,7 @@ import {
   Tv
 } from 'lucide-react';
 import ShareCardModal from '@/components/common/ShareCardModal';
+import { downloadVcfFile } from '@/lib/vcf';
 
 interface TravelSocialMediaItem {
   id: string;
@@ -446,33 +447,15 @@ export default function TravelMiniWebsiteView({
       onSaveContact();
       return;
     }
-    const vCardData = `BEGIN:VCARD
-VERSION:3.0
-FN:${profile.name || 'Pankaj Malhotra'}
-ORG:${profile.company || 'Wanderlust International Travels'}
-TITLE:${profile.designation || 'Holiday Tour Operator'}
-TEL:${profile.phone || '+91 98765 44036'}
-EMAIL:${profile.email || 'concierge@wanderlust-international.com'}
-URL:${typeof window !== 'undefined' ? window.location.href : 'https://www.oneclickbiz.in/v/travel-tour'}
-NOTE:${profile.bio || registration}
-END:VCARD`;
-
-    const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `${(profile.name || 'travel').replace(/\s+/g, '_')}_holidays.vcf`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloadVcfFile(profile);
   };
 
   return (
     <div className="min-h-screen bg-[#050D18] text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-white pb-24">
       
       {/* 1. TOP AGENCY TRUST STRIP */}
-      <div className="bg-gradient-to-r from-cyan-950/90 via-sky-900/60 to-cyan-950/90 border-b border-cyan-800/30 text-xs py-2 px-4">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3 text-cyan-200">
+      <div className="bg-gradient-to-r from-cyan-950/90 via-sky-900/60 to-cyan-950/90 border-b border-cyan-800/30 text-xs py-2 px-3 sm:px-4 overflow-x-auto scrollbar-none">
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-3 text-cyan-200 min-w-max sm:min-w-0">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             <span className="font-semibold text-white tracking-wide">{registration}</span>

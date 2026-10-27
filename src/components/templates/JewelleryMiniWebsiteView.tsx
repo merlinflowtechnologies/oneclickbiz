@@ -45,6 +45,7 @@ import {
   MessageCircle
 } from 'lucide-react';
 import ShareCardModal from '@/components/common/ShareCardModal';
+import { downloadVcfFile } from '@/lib/vcf';
 
 // Clean SVG Brand Icons matching the interior design system
 function WhatsAppIcon({ className = "w-5 h-5" }: { className?: string }) {
@@ -522,13 +523,21 @@ export default function JewelleryMiniWebsiteView({
   });
   const [appointmentSubmitted, setAppointmentSubmitted] = useState(false);
 
+  // Jewellery Studio Configuration
+  const jewelleryConfig = (profile.sectionData as any)?.jewellery || {};
+  const goldRate22k = jewelleryConfig.goldRate22k ? String(jewelleryConfig.goldRate22k) : '₹7,450/g';
+  const goldRate24k = jewelleryConfig.goldRate24k ? String(jewelleryConfig.goldRate24k) : '₹8,125/g';
+  const silverRate = jewelleryConfig.silverRate10g ? String(jewelleryConfig.silverRate10g) : '₹980/10g';
+  const bisHallmark = jewelleryConfig.bisHallmarkId || 'BIS 916 Hallmarked';
+  const exchangeTerms = jewelleryConfig.exchangeGuarantee || '100% Lifetime Gold Exchange & Certified Buyback';
+
   // Brand Name & details
-  const atelierName = 'OneClick Jewellery & Fine Jewels';
-  const rawPhone = profile.phone || '+91 98765 43210';
+  const atelierName = profile.company || profile.name || 'OneClick Jewellery & Fine Jewels';
+  const rawPhone = jewelleryConfig.videoCallWhatsapp || profile.phone || '+91 98765 43210';
   const cleanPhone = rawPhone.replace(/\D/g, '');
   const cleanCallNumber = rawPhone.replace(/[^0-9+]/g, '') || '+919876543210';
-  const cleanWa = profile.whatsapp?.replace(/\D/g, '') || (cleanPhone.length === 10 ? `91${cleanPhone}` : cleanPhone || '919876543210');
-  const userCity = 'Mumbai, Delhi, Bengaluru & Hyderabad';
+  const cleanWa = (jewelleryConfig.videoCallWhatsapp || profile.whatsapp || profile.phone || '919876543210').replace(/\D/g, '');
+  const userCity = profile.address ? profile.address.split(',')[0].trim() : 'Mumbai, Delhi, Bengaluru & Hyderabad';
 
   const instagramLink = useMemo(() => {
     const raw = (profile as any).socialLinks?.instagram || (profile as any).instagram || 'https://instagram.com';
@@ -556,29 +565,9 @@ export default function JewelleryMiniWebsiteView({
     }
   };
 
-  // vCard download helper for SAVE CONTACT squircle
+  // Dynamic vCard download helper for SAVE CONTACT squircle
   const handleDownloadVCard = () => {
-    const vcard = `BEGIN:VCARD
-VERSION:3.0
-FN:OneClick Jewellery & Fine Jewels
-ORG:OneClick Jewellery Atelier
-TITLE:Conscious Lab-Grown Diamonds & Fine Gold Jewellery
-TEL;TYPE=WORK,VOICE:+919876543210
-TEL;TYPE=CELL,VOICE:+919876543210
-EMAIL:concierge@oneclick.jewellerydiamonds.com
-URL:https://oneclickjewellery.com
-ADR;TYPE=WORK:;;Bandra West;Mumbai;Maharashtra;400050;India
-NOTE:IGI & GIA Certified Lab-Grown Diamonds • BIS Hallmarked 18Kt Gold • 80% Buyback
-END:VCARD`;
-
-    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'OneClick_Jewellery.vcf');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloadVcfFile(profile);
   };
 
   // Filtered Products
@@ -658,20 +647,24 @@ END:VCARD`;
               <Sparkles className="w-3 h-3 text-[#D4AF37]" /> Conscious Luxury
             </span>
             <span className="text-stone-300 text-[11px] sm:text-xs">
-              IGI & GIA Certified Lab-Grown Diamonds • BIS 14K/18K Hallmarked • 80% Lifetime Buyback • 15-Day Free Returns
+              IGI &amp; GIA Certified • {bisHallmark} • {exchangeTerms}
             </span>
           </div>
           <div className="flex items-center gap-4 text-[11px] text-stone-400">
             <span className="hidden md:inline-flex items-center gap-1.5 text-stone-300">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-              Live Gold (18K): <strong className="text-amber-200">₹6,480/g</strong>
+              Live Gold (22K): <strong className="text-amber-200">{goldRate22k}</strong>
+              <span className="text-stone-600">|</span>
+              24K: <strong className="text-amber-200">{goldRate24k}</strong>
+              <span className="text-stone-600">|</span>
+              Silver: <strong className="text-slate-300">{silverRate}</strong>
             </span>
             <button onClick={() => scrollToSection('stores')} className="hover:text-amber-200 transition-colors cursor-pointer">
               Experience Lounges
             </button>
             <span className="text-stone-700">|</span>
             <a 
-              href={`https://wa.me/${cleanWa}?text=${encodeURIComponent('Hi OneClick Jewellery Concierge, I would like assistance with jewellery selection.')}`}
+              href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi ${atelierName} Concierge, I would like assistance with jewellery selection.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#D4AF37] hover:underline flex items-center gap-1 font-medium"
@@ -700,15 +693,17 @@ END:VCARD`;
               <button onClick={() => scrollToSection('home')} className="flex items-center gap-2.5 sm:gap-3 group text-left cursor-pointer min-w-0">
                 <div className="w-9 h-9 sm:w-11 sm:h-11 shrink-0 rounded-full bg-gradient-to-tr from-[#9B7824] via-[#D4AF37] to-[#F3E8D0] p-[1.5px] shadow-md shadow-[#D4AF37]/20 group-hover:scale-105 transition-transform">
                   <div className="w-full h-full rounded-full bg-[#14171A] flex items-center justify-center">
-                    <span className="font-serif text-xs sm:text-sm font-bold text-[#F3E8D0] tracking-wider">1C</span>
+                    <span className="font-serif text-xs sm:text-sm font-bold text-[#F3E8D0] tracking-wider">
+                      {profile.name ? profile.name.slice(0, 2).toUpperCase() : '1C'}
+                    </span>
                   </div>
                 </div>
                 <div className="min-w-0">
                   <div className="font-serif text-sm sm:text-2xl font-bold tracking-[0.08em] sm:tracking-[0.18em] text-[#14171A] uppercase truncate max-w-[130px] xs:max-w-[200px] sm:max-w-none">
-                    ONECLICK JEWELLERY
+                    {atelierName}
                   </div>
                   <div className="text-[8px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.25em] text-[#9B7824] uppercase font-medium truncate">
-                    Lab Diamonds & Fine Jewels
+                    {profile.designation || (profile as any).tagline || 'Fine Jewels & Solitaires'}
                   </div>
                 </div>
               </button>

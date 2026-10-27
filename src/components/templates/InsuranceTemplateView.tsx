@@ -1312,7 +1312,8 @@ export default function InsuranceTemplateView({
               className="px-2.5 sm:px-3 py-1 rounded-lg bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-xs shadow-xs flex items-center gap-1 transition active:scale-95 cursor-pointer whitespace-nowrap"
             >
               <PhoneCall className="w-3 h-3" />
-              <span>Emergency Claim</span>
+              <span className="hidden sm:inline">Emergency Claim</span>
+              <span className="sm:hidden">Claim</span>
             </button>
           </div>
         </div>

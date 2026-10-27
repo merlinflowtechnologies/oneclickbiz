@@ -249,6 +249,21 @@ export interface RetailTrustConfig {
   [key: string]: any;
 }
 
+export interface JewelleryTrustConfig {
+  bisHallmarkId?: string;
+  goldRate22k?: string | number;
+  goldRate24k?: string | number;
+  silverRate10g?: string | number;
+  rateDate?: string;
+  videoCallWhatsapp?: string;
+  makingChargesPolicy?: string;
+  exchangeGuarantee?: string;
+  customDesignAvailable?: boolean;
+  certificationsList?: string[];
+  [key: string]: any;
+}
+
+
 export interface RestaurantComboDeal {
   id: string;
   name: string;
@@ -334,6 +349,7 @@ export interface ProfileSectionConfig {
   professional?: ProfessionalTrustConfig;
   homeServices?: HomeServicesTrustConfig;
   retail?: RetailTrustConfig;
+  jewellery?: JewelleryTrustConfig;
   [key: string]: any;
   contact?: {
     showEmail: boolean;

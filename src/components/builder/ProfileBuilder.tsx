@@ -91,6 +91,20 @@ import { getCurrentUserPlan } from '@/lib/plan-guards';
 import { downloadVcfFile } from '@/lib/vcf';
 import { COMBO_DEALS, ComboDeal } from '@/components/templates/RestaurantTemplateView';
 
+// 12 Industry Profile Studios for Real-Time Customization
+import RestaurantProfileStudio from './RestaurantProfileStudio';
+import BeautyProfileStudio from './BeautyProfileStudio';
+import HealthcareProfileStudio from './HealthcareProfileStudio';
+import HomeServicesProfileStudio from './HomeServicesProfileStudio';
+import RealEstateProfileStudio from './RealEstateProfileStudio';
+import InteriorProfileStudio from './InteriorProfileStudio';
+import JewelleryProfileStudio from './JewelleryProfileStudio';
+import FashionProfileStudio from './FashionProfileStudio';
+import EducationProfileStudio from './EducationProfileStudio';
+import EventsProfileStudio from './EventsProfileStudio';
+import TravelProfileStudio from './TravelProfileStudio';
+import InsuranceProfileStudio from './InsuranceProfileStudio';
+
 // Helper to permanently convert and compress image files to lightweight base64 data URLs
 export const readFileAsDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -280,32 +294,6 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     profile.company?.toLowerCase().includes('bakery') ||
     Boolean(profile.sectionData?.restaurant)
   );
-  const isRealEstate = !isRestaurant && Boolean(
-    profile.templateId?.startsWith('re-') || 
-    profile.id?.startsWith('re-') || 
-    profile.slug?.startsWith('re-') ||
-    profile.category === 'Real Estate' ||
-    profile.templateId === 're-builders' ||
-    profile.templateId === 're-plots' ||
-    profile.templateId === 're-agents' ||
-    profile.templateId === 're-villas' ||
-    profile.templateId === 're-consultants' ||
-    profile.templateId === 'vcard35' ||
-    profile.designation?.toLowerCase().includes('realtor') ||
-    profile.designation?.toLowerCase().includes('builder') ||
-    profile.designation?.toLowerCase().includes('broker') ||
-    profile.designation?.toLowerCase().includes('infrastructure') ||
-    profile.company?.toLowerCase().includes('builder') ||
-    profile.company?.toLowerCase().includes('developer') ||
-    profile.company?.toLowerCase().includes('realty') ||
-    profile.company?.toLowerCase().includes('real estate') ||
-    profile.company?.toLowerCase().includes('infra') ||
-    profile.company?.toLowerCase().includes('properties') ||
-    profile.company?.toLowerCase().includes('constructions') ||
-    profile.company?.toLowerCase().includes('estates') ||
-    profile.bio?.toLowerCase().includes('real estate') ||
-    Boolean(profile.sectionData?.realEstate)
-  );
   const [showPreview, setShowPreview] = useState(true);
   const isInterior = !isRestaurant && Boolean(
     profile.templateId === 'home-interior' ||
@@ -469,14 +457,18 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     Boolean(profile.sectionData?.professional)
   );
 
-  const isHomeServices = Boolean(
-    profile.templateId?.startsWith('home-') ||
+  const isHomeServices = !isInterior && Boolean(
+    profile.templateId === 'home-electrician' ||
+    profile.templateId?.startsWith('home-electrician') ||
+    (profile.templateId?.startsWith('home-') && profile.templateId !== 'home-interior' && !profile.templateId?.startsWith('home-interior')) ||
     profile.templateId?.startsWith('repair-') ||
     profile.templateId?.startsWith('clean-') ||
     profile.templateId?.startsWith('plumb-') ||
     profile.templateId?.startsWith('electric-') ||
     profile.templateId?.startsWith('hvac-') ||
     profile.templateId?.startsWith('pest-') ||
+    profile.slug === 'home-electrician' ||
+    profile.slug?.startsWith('home-electrician') ||
     profile.category === 'Home & Professional Services' ||
     profile.designation?.toLowerCase().includes('technician') ||
     profile.designation?.toLowerCase().includes('plumber') ||
@@ -505,9 +497,61 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     Boolean(profile.sectionData?.retail)
   );
 
+  const isJewellery = Boolean(
+    profile.templateId === 'retail-jewellery' ||
+    profile.templateId?.startsWith('retail-jewel') ||
+    profile.templateId?.startsWith('jewel-') ||
+    profile.slug === 'retail-jewellery' ||
+    profile.slug?.startsWith('retail-jewel') ||
+    profile.slug === 'jewellery' ||
+    profile.category === 'Jewellery' ||
+    profile.designation?.toLowerCase().includes('jeweller') ||
+    profile.company?.toLowerCase().includes('jewel') ||
+    profile.company?.toLowerCase().includes('gold') ||
+    Boolean(profile.sectionData?.jewellery)
+  );
+
+  const isInsurance = !isHomeServices && !isJewellery && !isRestaurant && Boolean(
+    profile.templateId === 'prof-insurance' ||
+    profile.templateId?.startsWith('insur-') ||
+    profile.slug === 'prof-insurance' ||
+    profile.slug?.startsWith('prof-insur') ||
+    profile.category === 'Insurance' ||
+    profile.designation?.toLowerCase().includes('insurance') ||
+    profile.company?.toLowerCase().includes('insurance') ||
+    /\blic\b/i.test(profile.company || '') ||
+    Boolean(profile.sectionData?.insurance)
+  );
+
+  const isRealEstate = !isRestaurant && !isInterior && !isHealthcare && !isBeauty && !isFashion && !isEducation && !isEvents && !isTravel && !isJewellery && !isInsurance && !isHomeServices && Boolean(
+    profile.templateId?.startsWith('re-') || 
+    profile.id?.startsWith('re-') || 
+    profile.slug?.startsWith('re-') ||
+    profile.category === 'Real Estate' ||
+    profile.templateId === 're-builders' ||
+    profile.templateId === 're-plots' ||
+    profile.templateId === 're-agents' ||
+    profile.templateId === 're-villas' ||
+    profile.templateId === 're-consultants' ||
+    profile.templateId === 'vcard35' ||
+    profile.designation?.toLowerCase().includes('realtor') ||
+    profile.designation?.toLowerCase().includes('builder') ||
+    profile.designation?.toLowerCase().includes('broker') ||
+    profile.designation?.toLowerCase().includes('infrastructure') ||
+    profile.company?.toLowerCase().includes('builder') ||
+    profile.company?.toLowerCase().includes('developer') ||
+    profile.company?.toLowerCase().includes('realty') ||
+    profile.company?.toLowerCase().includes('real estate') ||
+    profile.company?.toLowerCase().includes('infra') ||
+    profile.company?.toLowerCase().includes('properties') ||
+    profile.company?.toLowerCase().includes('constructions') ||
+    profile.company?.toLowerCase().includes('estates') ||
+    profile.bio?.toLowerCase().includes('real estate') ||
+    Boolean(profile.sectionData?.realEstate)
+  );
+
   const activeCategory: VCardCategory = React.useMemo(() => {
     if (profile.category) return normalizeCategory(profile.category, profile.templateId);
-    if (isRealEstate) return 'Real Estate';
     if (isInterior) return 'Interior Design';
     if (isRestaurant) return 'Food Business';
     if (isHealthcare) return 'Healthcare';
@@ -517,11 +561,14 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     if (isBeauty) return 'Beauty & Personal Care';
     if (isEvents) return 'Events & Creative';
     if (isTravel) return 'Travel & Hospitality';
+    if (isJewellery) return 'Retail & Local Shops';
+    if (isInsurance) return 'Professional Services';
     if (isProfessional) return 'Professional Services';
     if (isHomeServices) return 'Home & Professional Services';
+    if (isRealEstate) return 'Real Estate';
     if (isRetail) return 'Retail & Local Shops';
     return normalizeCategory(null, profile.templateId);
-  }, [profile.category, profile.templateId, isRealEstate, isInterior, isRestaurant, isHealthcare, isAutomobile, isFashion, isEducation, isBeauty, isEvents, isTravel, isProfessional, isHomeServices, isRetail]);
+  }, [profile.category, profile.templateId, isRealEstate, isInterior, isRestaurant, isHealthcare, isAutomobile, isFashion, isEducation, isBeauty, isEvents, isTravel, isProfessional, isHomeServices, isRetail, isJewellery, isInsurance]);
 
   const lockConfig = CATEGORY_LOCK_CONFIG[activeCategory] || CATEGORY_LOCK_CONFIG['Professional Services'];
 
@@ -539,7 +586,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
     return list;
   }, [categoryTemplates]);
 
-  const [activeTab, setActiveTab] = useState<'cards' | 'info' | 'templates' | 'theme' | 'sections' | 'services' | 'products' | 'videos' | 'blogs' | 'gallery' | 'socials'>('info');
+  const [activeTab, setActiveTab] = useState<'cards' | 'info' | 'studio' | 'templates' | 'theme' | 'sections' | 'services' | 'products' | 'videos' | 'blogs' | 'gallery' | 'socials'>('info');
   const [isSaved, setIsSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState<string | null>(null);
@@ -561,7 +608,6 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
   const [cardCreateError, setCardCreateError] = useState('');
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [studioWebsitePreviewOpen, setStudioWebsitePreviewOpen] = useState(false);
-  const [studioPreviewDevice, setStudioPreviewDevice] = useState<'mobile' | 'website'>('mobile');
   const [isStudioQrModalOpen, setIsStudioQrModalOpen] = useState(false);
   const [studioQrCopied, setStudioQrCopied] = useState(false);
 
@@ -1479,30 +1525,30 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
               type="button"
               onClick={() => setShowPreview(!showPreview)}
               className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5 transition-all border border-slate-700 cursor-pointer shadow-xs shrink-0 whitespace-nowrap"
-              title={showPreview ? 'Hide phone preview to maximize editor space' : 'Show live phone mockup preview'}
+              title={showPreview ? 'Hide live preview to maximize editor space' : 'Show live mini-website preview'}
             >
               {showPreview ? (
                 <>
                   <PanelRightClose className="w-3.5 h-3.5 text-indigo-400" />
-                  <span className="hidden sm:inline">Hide Mockup</span>
+                  <span className="hidden sm:inline">Hide Preview</span>
                 </>
               ) : (
                 <>
                   <PanelRightOpen className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>Show Mockup</span>
+                  <span>Show Preview</span>
                 </>
               )}
             </button>
 
-            {/* Desktop Mini-Website Preview */}
+            {/* Desktop Mini-Website Fullscreen Modal */}
             <button 
               type="button"
               onClick={() => setStudioWebsitePreviewOpen(true)}
               className="px-2.5 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-xs font-semibold text-indigo-300 hover:text-white flex items-center gap-1.5 transition-all border border-indigo-500/40 shadow-sm active:scale-95 cursor-pointer shrink-0 whitespace-nowrap"
-              title="Preview full desktop website"
+              title="Fullscreen live mini-website preview"
             >
-              <Monitor className="w-3.5 h-3.5 text-indigo-400" />
-              <span className="hidden md:inline">Mini-Website</span>
+              <Maximize2 className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="hidden md:inline">Fullscreen</span>
             </button>
 
             {/* Add Card Button */}
@@ -1585,7 +1631,32 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 activeTab === 'info' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
-              <User className="w-3.5 h-3.5" /> {isRealEstate ? 'Developer Info' : isInterior ? 'Architect & Studio' : isRestaurant ? 'Restaurant & Dining Info' : isHealthcare ? 'Doctor & Clinic' : isAutomobile ? 'Dealership Info' : isFashion ? 'Boutique & Atelier' : isEducation ? 'Academy & Affiliation' : isBeauty ? 'Salon & Studio' : isEvents ? 'Studio & Production' : isTravel ? 'Agency & Gateways' : isProfessional ? 'Counsel & Firm Info' : isHomeServices ? 'Agency & Dispatch Info' : isRetail ? 'Storefront & Hub Info' : 'Basic Info'}
+              <User className="w-3.5 h-3.5" /> {isRestaurant ? 'Restaurant & Dining Info' : isHealthcare ? 'Doctor & Clinic' : isBeauty ? 'Salon & Studio' : isInterior ? 'Architect & Studio' : isJewellery ? 'Jewellery House Info' : isFashion ? 'Boutique & Atelier' : isEducation ? 'Academy & Affiliation' : isEvents ? 'Studio & Production' : isTravel ? 'Agency & Gateways' : isInsurance ? 'Advisory & Policy Desk' : isHomeServices ? 'Agency & Dispatch Info' : isRealEstate ? 'Developer Info' : isAutomobile ? 'Dealership Info' : isRetail ? 'Storefront & Hub Info' : 'Basic Info'}
+            </button>
+            <button 
+              onClick={() => setActiveTab('studio')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap cursor-pointer ${
+                activeTab === 'studio' 
+                  ? 'bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md font-bold' 
+                  : 'text-amber-400 hover:text-white hover:bg-slate-800 border border-amber-500/30'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span>
+                {isRestaurant ? 'Dining Studio' :
+                 isHealthcare ? 'Doctor Studio' :
+                 isBeauty ? 'Salon Studio' :
+                 isInterior ? 'Interior Studio' :
+                 isJewellery ? 'Jewellery Studio' :
+                 isFashion ? 'Couture Studio' :
+                 isEducation ? 'Academy Studio' :
+                 isEvents ? 'Events Studio' :
+                 isTravel ? 'Travel Studio' :
+                 isInsurance ? 'Insurance Studio' :
+                 isHomeServices ? 'Services Studio' :
+                 isRealEstate ? 'Developer Studio' :
+                 'Business Studio'}
+              </span>
             </button>
             <button 
               onClick={() => setActiveTab('products')}
@@ -4838,6 +4909,78 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                   </div>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* TAB: INDUSTRY PROFILE STUDIO */}
+          {activeTab === 'studio' && (
+            <div className="space-y-6 max-w-2xl">
+              <div className="pb-3 border-b border-slate-800">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    {isRestaurant ? 'Restaurant & Dining Profile Studio' :
+                     isBeauty ? 'Beauty Salon & Wellness Studio' :
+                     isHealthcare ? 'Doctor & Healthcare Clinic Studio' :
+                     isHomeServices ? 'Home Services & Technicians Studio' :
+                     isRealEstate ? 'Real Estate Developer & RERA Studio' :
+                     isInterior ? 'Interior Design & Architecture Studio' :
+                     isJewellery ? 'Jewellery & Bullion Rates Studio' :
+                     isFashion ? 'Fashion Boutique & Atelier Studio' :
+                     isEducation ? 'Education & Academy Studio' :
+                     isEvents ? 'Events & Wedding Photography Studio' :
+                     isTravel ? 'Tours & Travel Agency Studio' :
+                     isInsurance ? 'Insurance Advisor & IRDAI Studio' :
+                     'Custom Industry Studio'}
+                  </h3>
+                </div>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Configure regulatory certifications, live rates, accreditations, and custom packages that sync instantly with your live mini-website.
+                </p>
+              </div>
+
+              {/* Strictly Render the Single Active Industry Studio for this Business Entity */}
+              {isRestaurant ? (
+                <RestaurantProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isHealthcare ? (
+                <HealthcareProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isBeauty ? (
+                <BeautyProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isInterior ? (
+                <InteriorProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isJewellery ? (
+                <JewelleryProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isFashion ? (
+                <FashionProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isEducation ? (
+                <EducationProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isEvents ? (
+                <EventsProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isTravel ? (
+                <TravelProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isInsurance ? (
+                <InsuranceProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isHomeServices ? (
+                <HomeServicesProfileStudio profile={profile} setProfile={setProfile} />
+              ) : isRealEstate ? (
+                <RealEstateProfileStudio profile={profile} setProfile={setProfile} />
+              ) : (
+                <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 text-center space-y-3">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mx-auto">
+                    <Sparkles className="w-6 h-6" />
+                  </div>
+                  <h4 className="text-sm font-bold text-white">General Business Profile</h4>
+                  <p className="text-xs text-slate-400 max-w-md mx-auto">
+                    Your active template uses the universal digital card profile. To unlock specialized industry credentials (such as live gold rates, RERA verification, doctor consultation fees, salon packages, or tour itineraries), switch to any of our 12 commercial mini-website templates.
+                  </p>
+                  <button
+                    onClick={() => setActiveTab('templates')}
+                    className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-md cursor-pointer"
+                  >
+                    Browse 12 Commercial Mini-Websites
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
@@ -8517,38 +8660,18 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
         </div>
       </div>
 
-      {/* Right Real-Time Dual Device Mockup & Mini-Website Preview View */}
+      {/* Right Real-Time Mini-Website Preview View (No mobile phone mockup) */}
       {showPreview && (
-        <div className={`w-full ${studioPreviewDevice === 'website' ? 'lg:w-[500px] xl:w-[620px] 2xl:w-[720px]' : 'lg:w-[320px] xl:w-[350px] 2xl:w-[390px]'} p-2 sm:p-2.5 lg:p-3 bg-slate-950 flex flex-col items-center justify-start h-full min-h-0 overflow-y-auto scrollbar-none shrink-0 border-t lg:border-t-0 lg:border-l border-slate-800 transition-all duration-200 animate-in fade-in`}>
+        <div className="w-full lg:w-[480px] xl:w-[580px] 2xl:w-[700px] p-2 sm:p-2.5 lg:p-3 bg-slate-950 flex flex-col items-center justify-start h-full min-h-0 overflow-y-auto scrollbar-none shrink-0 border-t lg:border-t-0 lg:border-l border-slate-800 transition-all duration-200 animate-in fade-in">
           <div className="flex items-center justify-between w-full mb-2 px-1 shrink-0">
-            {/* Viewport Mode Switcher: Mobile Card vs Desktop Mini Website */}
-            <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-900 border border-slate-800">
-              <button
-                type="button"
-                onClick={() => setStudioPreviewDevice('mobile')}
-                className={`px-2 py-1 rounded-md text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                  studioPreviewDevice === 'mobile'
-                    ? 'bg-indigo-600 text-white shadow-xs'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-                title="Live Mobile Card View"
-              >
-                <Smartphone className="w-3.5 h-3.5" />
-                <span>Mobile View</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setStudioPreviewDevice('website')}
-                className={`px-2 py-1 rounded-md text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                  studioPreviewDevice === 'website'
-                    ? 'bg-indigo-600 text-white shadow-xs'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-                title="Live Mini Website Desktop View"
-              >
-                <Monitor className="w-3.5 h-3.5" />
-                <span>Mini Website</span>
-              </button>
+            {/* Live Mini-Website Title Badge */}
+            <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800">
+              <Monitor className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="text-xs font-bold text-white tracking-wide">Live Mini-Website</span>
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Live Sync
+              </span>
             </div>
 
             <div className="flex items-center gap-1.5">
@@ -8565,7 +8688,7 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
                 target="_blank"
                 rel="noreferrer"
                 className="p-1 rounded-lg text-cyan-400 hover:text-cyan-300 hover:bg-slate-800 transition"
-                title={`Open live card: /v/${profile.slug}`}
+                title={`Open live site: /v/${profile.slug}`}
               >
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
@@ -8580,50 +8703,31 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
             </div>
           </div>
 
-          {/* Conditional Preview Rendering: Mobile Frame vs Mini-Website Window */}
-          {studioPreviewDevice === 'mobile' ? (
-            <div className="w-full max-w-[280px] sm:max-w-[295px] lg:max-w-[315px] xl:max-w-[335px] rounded-[36px] p-2 bg-slate-900 border-4 border-slate-700 shadow-2xl ring-1 ring-white/10 relative shrink-0 transition-transform origin-top scale-[0.84] sm:scale-[0.88] md:scale-[0.90] lg:scale-[0.95] xl:scale-100 my-auto">
-              {/* Top Speaker / Camera Notch */}
-              <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-16 h-2.5 bg-slate-950 rounded-full z-30 flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-slate-900 mr-1.5" />
-                <div className="w-5 h-1 rounded-full bg-slate-900" />
+          {/* Pure Live Mini-Website Browser Window */}
+          <div className="w-full flex-1 flex flex-col rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl overflow-hidden min-h-[460px] h-[calc(100vh-170px)]">
+            {/* Browser Window Chrome Top Bar */}
+            <div className="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between gap-2 shrink-0">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
               </div>
-
-              {/* Screen Content */}
-              <div className="rounded-[28px] overflow-hidden bg-slate-950 h-[440px] sm:h-[480px] md:h-[calc(100vh-230px)] max-h-[550px] min-h-[350px] overflow-y-auto scrollbar-none border border-slate-800">
-                <ProfileCardView 
-                  profile={profile} 
-                  isMockup={true} 
-                  initialViewMode="mobile" 
-                />
+              <div className="flex-1 max-w-xs mx-auto px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-[10px] text-slate-400 font-mono text-center truncate">
+                🔒 oneclickbiz.in/v/{profile.slug}
               </div>
+              <div className="w-10" />
             </div>
-          ) : (
-            <div className="w-full flex-1 flex flex-col rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl overflow-hidden min-h-[460px] h-[calc(100vh-170px)]">
-              {/* Browser Window Chrome Top Bar */}
-              <div className="bg-slate-950 px-3 py-2 border-b border-slate-800 flex items-center justify-between gap-2 shrink-0">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
-                </div>
-                <div className="flex-1 max-w-xs mx-auto px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-[10px] text-slate-400 font-mono text-center truncate">
-                  🔒 oneclickbiz.in/v/{profile.slug}
-                </div>
-                <div className="w-10" />
-              </div>
 
-              {/* Live Mini-Website Frame */}
-              <div className="flex-1 overflow-y-auto bg-slate-100 dark:bg-slate-950 scrollbar-thin">
-                <ProfileCardView 
-                  profile={profile} 
-                  isMockup={true} 
-                  initialViewMode="website" 
-                  showViewToggle={true} 
-                />
-              </div>
+            {/* Live Mini-Website Frame */}
+            <div className="flex-1 overflow-y-auto bg-slate-100 dark:bg-slate-950 scrollbar-thin">
+              <ProfileCardView 
+                profile={profile} 
+                isMockup={true} 
+                initialViewMode="website" 
+                showViewToggle={false} 
+              />
             </div>
-          )}
+          </div>
         </div>
       )}
 

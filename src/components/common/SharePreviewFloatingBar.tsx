@@ -99,13 +99,13 @@ export default function SharePreviewFloatingBar({ profile }: SharePreviewFloatin
       {/* Floating Action Bar at Bottom of Viewport */}
       <aside 
         aria-label="Share and template actions"
-        className="fixed bottom-4 inset-x-3 sm:inset-x-auto sm:right-6 sm:left-auto z-40 flex flex-col items-end pointer-events-none"
+        className="fixed bottom-3 sm:bottom-4 inset-x-2 sm:inset-x-auto sm:right-6 sm:left-auto z-40 flex flex-col items-center sm:items-end pointer-events-none"
       >
-        <div className="pointer-events-auto">
+        <div className="pointer-events-auto max-w-full">
           {isMinimized ? (
             <button
               onClick={() => setIsMinimized(false)}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-900/95 hover:bg-slate-900 text-white text-xs font-bold shadow-2xl border border-indigo-500/40 backdrop-blur-xl hover:scale-105 active:scale-95 transition-all group"
+              className="flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-slate-900/95 hover:bg-slate-900 text-white text-xs font-bold shadow-2xl border border-indigo-500/40 backdrop-blur-xl hover:scale-105 active:scale-95 transition-all group"
               title="Expand Share Bar"
             >
               <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -114,10 +114,10 @@ export default function SharePreviewFloatingBar({ profile }: SharePreviewFloatin
               <ChevronUp className="w-3 h-3 text-slate-400" />
             </button>
           ) : (
-            <div className="bg-slate-900/95 border border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl sm:rounded-full p-2 sm:py-2 sm:px-3 text-white backdrop-blur-xl flex flex-wrap sm:flex-nowrap items-center gap-2 max-w-full animate-in fade-in slide-in-from-bottom-3 duration-200">
+            <div className="bg-slate-900/95 border border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-full py-1.5 px-2 sm:py-2 sm:px-3 text-white backdrop-blur-xl flex items-center gap-1 sm:gap-2 max-w-[calc(100vw-16px)] sm:max-w-none overflow-x-auto scrollbar-none animate-in fade-in slide-in-from-bottom-3 duration-200">
               
               {/* Badge info */}
-              <div className="hidden md:flex items-center gap-2 pr-2 border-r border-slate-800">
+              <div className="hidden lg:flex items-center gap-2 pr-2 border-r border-slate-800">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                 <span className="text-[11px] font-bold text-slate-300 whitespace-nowrap">
                   Shareable Mini-Website
@@ -125,13 +125,13 @@ export default function SharePreviewFloatingBar({ profile }: SharePreviewFloatin
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-1.5 w-full sm:w-auto justify-between sm:justify-start">
+              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
                 
                 {/* 1-Click Copy Link */}
                 <button
                   type="button"
                   onClick={handleCopyLink}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer ${
+                  className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer shrink-0 ${
                     copied 
                       ? 'bg-emerald-600 text-white ring-2 ring-emerald-400' 
                       : 'bg-white/10 hover:bg-white/20 text-white border border-white/15'
@@ -141,12 +141,12 @@ export default function SharePreviewFloatingBar({ profile }: SharePreviewFloatin
                   {copied ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-emerald-300 stroke-[3]" />
-                      <span className="text-emerald-200">Copied!</span>
+                      <span className="text-emerald-200 text-[11px] sm:text-xs">Copied!</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5 text-indigo-300" />
-                      <span>Copy Link</span>
+                      <span className="text-[11px] sm:text-xs">Copy</span>
                     </>
                   )}
                 </button>
@@ -155,31 +155,32 @@ export default function SharePreviewFloatingBar({ profile }: SharePreviewFloatin
                 <button
                   type="button"
                   onClick={handleWhatsAppShare}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-xs hover:scale-105 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+                  className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-bold bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-xs hover:scale-105 active:scale-95 transition-all cursor-pointer whitespace-nowrap shrink-0"
                   title="Share directly via WhatsApp"
                 >
                   <Share2 className="w-3.5 h-3.5" />
-                  <span className="hidden xs:inline">WhatsApp</span>
-                  <span className="xs:hidden">WA</span>
+                  <span className="text-[11px] sm:text-xs hidden xs:inline">WhatsApp</span>
+                  <span className="text-[11px] sm:text-xs xs:hidden">WA</span>
                 </button>
 
                 {/* QR Code */}
                 <button
                   type="button"
                   onClick={() => setIsQrModalOpen(true)}
-                  className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-full text-xs font-bold bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
+                  className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-full text-xs font-bold bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 transition-all active:scale-95 flex items-center gap-1 cursor-pointer shrink-0"
                   title="Scan QR Code to open on Mobile"
                 >
                   <QrCode className="w-3.5 h-3.5 text-purple-300" />
-                  <span className="hidden sm:inline">QR</span>
+                  <span className="hidden sm:inline text-[11px]">QR</span>
                 </button>
 
                 {/* Build with this template */}
                 <a
                   href={`/signup?intent=build_card&template=${profile.slug || profile.templateId || 're-builders'}`}
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 text-white shadow-md shadow-indigo-500/25 active:scale-95 transition-all whitespace-nowrap"
+                  className="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 text-white shadow-md shadow-indigo-500/25 active:scale-95 transition-all whitespace-nowrap shrink-0"
                 >
-                  <span>Use Template</span>
+                  <span className="hidden xs:inline">Use Template</span>
+                  <span className="xs:hidden">Template</span>
                   <ArrowRight className="w-3 h-3" />
                 </a>
 
@@ -188,7 +189,7 @@ export default function SharePreviewFloatingBar({ profile }: SharePreviewFloatin
                   type="button"
                   onClick={() => setIsMinimized(true)}
                   aria-label="Minimize share dock"
-                  className="p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors ml-0.5"
+                  className="p-1 sm:p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors ml-0.5 shrink-0"
                   title="Minimize"
                 >
                   <ChevronDown className="w-3.5 h-3.5" />

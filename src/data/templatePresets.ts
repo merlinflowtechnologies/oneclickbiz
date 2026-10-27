@@ -2232,6 +2232,50 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
         verifiedStaff: '100% Background-Checked Technicians',
         pricing: 'Transparent Upfront Rate Card, Zero Hidden Fees'
       } : undefined,
+      healthcare: ((meta.category as string) === 'Healthcare' || effectiveId.startsWith('health-') || effectiveId.includes('doctor') || templateId === 'health-doctor') ? {
+        regNumber: 'TSMC/DOC/2018/8892',
+        degrees: 'MBBS, MD (Cardiology), FACC (USA)',
+        specialization: 'Consultant Interventional Cardiologist & Physician',
+        hospitalAffiliation: 'Care Clinic & Superspeciality Hospital',
+        experienceYears: '16+ Years',
+        consultationFee: '₹600',
+        opdTimings: 'Mon - Sat: 10:00 AM - 01:30 PM & 05:00 PM - 08:30 PM',
+        emergencyPhone: '+91 98765 43210'
+      } : undefined,
+      beauty: ((meta.category as string) === 'Beauty & Personal Care' || effectiveId.startsWith('beauty-') || effectiveId.includes('salon') || templateId === 'beauty-salon') ? {
+        hygieneRating: 'ISO 9001:2015 & Sterilization Certified',
+        stylistsCount: '12+ Certified Master Stylists',
+        bridalTurnout: '450+ Bridal Transformations',
+        openingHours: 'Mon - Sun: 09:30 AM - 09:00 PM',
+        city: 'Hyderabad & Bangalore',
+        membershipPerk: 'Flat 20% Cashback on All Premium Hair & Skin Rituals',
+        productsBrand: 'L’Oréal Professionnel, Kérastase & Olaplex Partner'
+      } : undefined,
+      fashion: ((meta.category as string) === 'Fashion & Clothing' || effectiveId.startsWith('fash-') || effectiveId.includes('boutique') || templateId === 'fash-boutique') ? {
+        brandName: 'Aura Luxe Couture',
+        designerName: 'Priya & Rahul Varma',
+        craftsmanshipYears: '14+ Years',
+        couturePiecesSold: '5,000+ Bespoke Ensembles',
+        returnPolicy: '7-Day Hassle-Free Alterations & Exchanges',
+        storeCity: 'Banjara Hills, Hyderabad'
+      } : undefined,
+      events: ((meta.category as string) === 'Events & Creative' || effectiveId.startsWith('events-') || effectiveId.includes('planner') || templateId === 'events-planner') ? {
+        eventsManaged: '320+ Grand Weddings & Galas',
+        experienceYears: '12+ Years',
+        vendorsNetwork: '85+ Vetted Catering & Decor Vendors',
+        locationsCovered: 'Hyderabad, Goa, Udaipur & International',
+        avgRating: '4.95 / 5.0 (280+ Reviews)',
+        hotline: '+91 98765 43210'
+      } : undefined,
+      travel: ((meta.category as string) === 'Travel & Hospitality' || effectiveId.startsWith('travel-') || effectiveId.includes('tour') || templateId === 'travel-tour') ? {
+        agencyName: 'Travellio Holidays & Safaris',
+        licenseNumber: 'IATA & Ministry of Tourism Reg. 49201',
+        experienceYears: '15+ Years',
+        happyTravelers: '25,000+ Happy Guests',
+        customItinerariesCount: '1,800+ Tailored Tours',
+        emergencySupport: '24/7 Dedicated Concierge Helpline',
+        hotline: '+91 98765 43210'
+      } : undefined,
       contact: {
         showEmail: true,
         showPhone: true,

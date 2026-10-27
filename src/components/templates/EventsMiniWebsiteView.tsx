@@ -44,6 +44,7 @@ import {
   Info
 } from 'lucide-react';
 import ShareCardModal from '@/components/common/ShareCardModal';
+import { downloadVcfFile } from '@/lib/vcf';
 
 interface EventsMiniWebsiteViewProps {
   profile?: DigitalProfile;
@@ -566,6 +567,17 @@ export default function EventsMiniWebsiteView({
   setViewMode,
   showViewToggle = true
 }: EventsMiniWebsiteViewProps) {
+  // Profile & Events Studio Configuration
+  const brandName = profile?.company || profile?.name || 'SnapVibe';
+  const eventsConfig = (profile?.sectionData as any)?.events || {};
+  const eventSpecialization = eventsConfig.eventSpecialization || 'Verified Event Photographers';
+  const eventsExecuted = eventsConfig.eventsExecuted || '1,200+ Events';
+  const experienceYears = eventsConfig.experienceYears || '10+ Years Legacy';
+  const productionCapability = eventsConfig.productionCapability || 'Sony FX3 Cinema & 4K Drone';
+  const serviceLocations = eventsConfig.serviceLocations || 'Hyderabad, Bangalore, Goa';
+  const bookingHotline = (eventsConfig as any)?.bookingHotline || profile?.phone || '+91 98765 43210';
+  const customPackages = (eventsConfig as any)?.packages || [];
+
   // City State
   const [selectedCity, setSelectedCity] = useState('Hyderabad');
 
@@ -840,14 +852,14 @@ export default function EventsMiniWebsiteView({
                 <Camera className="w-5 h-5 stroke-[2.2]" />
               </div>
               <div>
-                <div className="text-2xl font-black tracking-tight text-slate-900 flex items-center">
-                  SnapVibe<span className="text-[#E94E77]">.</span>
+                <div className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 flex items-center">
+                  {brandName}<span className="text-[#E94E77]">.</span>
                   <span className="text-xs font-extrabold uppercase px-1.5 py-0.5 rounded-md bg-pink-50 text-[#E94E77] ml-1.5 tracking-wider border border-pink-200">
-                    Services
+                    Events
                   </span>
                 </div>
                 <span className="text-[9px] font-bold text-slate-400 block -mt-1 tracking-wider uppercase">
-                  Verified Event Photographers
+                  {eventSpecialization}
                 </span>
               </div>
             </div>
@@ -941,15 +953,27 @@ export default function EventsMiniWebsiteView({
           </nav>
 
           {/* Right Header CTAs */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             {profile && (
-              <button
-                onClick={() => setIsShareModalOpen(true)}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 transition cursor-pointer"
-              >
-                <Share2 className="w-3.5 h-3.5" />
-                <span>Share</span>
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={() => downloadVcfFile(profile)}
+                  className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-xs font-bold text-[#E94E77] border border-pink-200 transition cursor-pointer"
+                  title="Save contact card directly into phone address book"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Save Contact</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsShareModalOpen(true)}
+                  className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 transition cursor-pointer"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>Share</span>
+                </button>
+              </>
             )}
 
             <button
@@ -1271,8 +1295,8 @@ export default function EventsMiniWebsiteView({
                 <Clock className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-xs font-black text-slate-900 block">From 2 Hours</span>
-                <span className="text-[10px] text-slate-500 font-medium">No full-day trap</span>
+                <span className="text-xs font-black text-slate-900 block truncate">{experienceYears}</span>
+                <span className="text-[10px] text-slate-500 font-medium">Industry Legacy</span>
               </div>
             </div>
 
@@ -1281,28 +1305,28 @@ export default function EventsMiniWebsiteView({
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-xs font-black text-slate-900 block">1,000+ Verified</span>
-                <span className="text-[10px] text-slate-500 font-medium">Reviewed portfolios</span>
+                <span className="text-xs font-black text-slate-900 block truncate">{eventsExecuted}</span>
+                <span className="text-[10px] text-slate-500 font-medium">Celebrations Hosted</span>
               </div>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-white border border-pink-100 shadow-xs flex items-center gap-3 text-left">
               <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 font-bold">
-                <Tag className="w-5 h-5" />
+                <Camera className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-xs font-black text-slate-900 block">From ₹3,600/-</span>
-                <span className="text-[10px] text-slate-500 font-medium">Fixed transparent price</span>
+                <span className="text-xs font-black text-slate-900 block truncate">{productionCapability}</span>
+                <span className="text-[10px] text-slate-500 font-medium">Production Standards</span>
               </div>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-white border border-pink-100 shadow-xs flex items-center gap-3 text-left">
               <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 font-bold">
-                <Star className="w-5 h-5 fill-purple-600 text-purple-600" />
+                <MapPin className="w-5 h-5 text-purple-600" />
               </div>
               <div>
-                <span className="text-xs font-black text-slate-900 block">4.9★ Google</span>
-                <span className="text-[10px] text-slate-500 font-medium">2,500+ happy reviews</span>
+                <span className="text-xs font-black text-slate-900 block truncate">{serviceLocations}</span>
+                <span className="text-[10px] text-slate-500 font-medium">Cities &amp; Destinations</span>
               </div>
             </div>
           </div>

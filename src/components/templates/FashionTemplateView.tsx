@@ -34,10 +34,12 @@ import {
   Home,
   Grid,
   ArrowRight,
-  ExternalLink
+  ExternalLink,
+  Download
 } from 'lucide-react';
 import { DigitalProfile, ServiceItem, ProductItem, VideoItem } from '@/lib/types';
 import SocialIcon from '@/components/common/SocialIcon';
+import { downloadVcfFile } from '@/lib/vcf';
 
 interface FashionTemplateViewProps {
   profile: DigitalProfile;
@@ -255,6 +257,15 @@ export default function FashionTemplateView({
   const brandName = profile.company || profile.name || 'Your Fashion Store';
   const cleanPhone = getCleanWhatsAppNumber(profile) || '919876543210';
   const displayPhone = profile.phone || '+91 98765 43210';
+
+  // Fashion Studio Configuration
+  const fashionConfig = (profile.sectionData as any)?.fashion || {};
+  const coutureSpecialization = fashionConfig.coutureSpecialization || 'Bespoke Couture & Designer Wear';
+  const shippingGuarantee = fashionConfig.shippingCoverage || 'Worldwide Express Shipping (120+ Countries)';
+  const alterationGuarantee = fashionConfig.exchangePolicy || '7-Day Easy Alteration & Fit Guarantee';
+  const seasonalBanner = fashionConfig.seasonalBannerText || 'Grand Festive & Bridal Couture 2026 Collection';
+  const vipDiscount = fashionConfig.vipClubDiscount || 'Flat 15% OFF for VIP Members';
+  const coutureCert = fashionConfig.certification || 'FDCI Registered Designer Atelier';
 
   // Derive brand initials from profile name for monogram logo
   const brandInitials = useMemo(() => {
@@ -758,15 +769,15 @@ export default function FashionTemplateView({
       {/* ============================================================== */}
       {/* 1. TOP ANNOUNCEMENT BAR (HK Forest Green)                     */}
       {/* ============================================================== */}
-      <div className="w-full bg-[#1e3828] text-white py-2.5 px-4 text-xs sm:text-sm font-medium tracking-wide flex items-center justify-center gap-3 relative z-40 shadow-sm">
-        <span className="hk-font-sans font-medium text-white/95">
-          Ready for video shopping
+      <div className="w-full bg-[#1e3828] text-white py-2.5 px-4 text-xs sm:text-sm font-medium tracking-wide flex items-center justify-center gap-3 relative z-40 shadow-sm text-center">
+        <span className="hk-font-sans font-medium text-white/95 truncate">
+          ✨ {seasonalBanner}
         </span>
         <button
           onClick={() => setIsVideoShoppingOpen(true)}
-          className="bg-white text-[#191919] hover:bg-[#f0f0f0] transition px-3.5 py-1 rounded-full text-xs font-semibold shadow tracking-normal hover:scale-105 active:scale-95"
+          className="bg-white text-[#191919] hover:bg-[#f0f0f0] transition px-3.5 py-1 rounded-full text-xs font-semibold shadow tracking-normal hover:scale-105 active:scale-95 shrink-0"
         >
-          Book your Video Call
+          Book Video Shopping
         </button>
       </div>
 
@@ -1028,23 +1039,32 @@ export default function FashionTemplateView({
                 </div>
 
                 {/* Action CTA Buttons */}
-                <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                <div className="flex flex-wrap items-center gap-3 pt-2">
                   <button
                     onClick={() => {
                       const section = document.getElementById('products-section');
                       if (section) section.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="px-6 py-3 bg-white text-black hover:bg-[#f0f0f0] transition text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-lg hover:scale-105 active:scale-95"
+                    className="px-5 py-2.5 bg-white text-black hover:bg-[#f0f0f0] transition text-xs font-semibold tracking-wider uppercase shadow-lg hover:scale-105 active:scale-95 cursor-pointer"
                   >
                     EXPLORE COLLECTION
                   </button>
 
                   <button
                     onClick={() => setIsVideoShoppingOpen(true)}
-                    className="px-5 py-3 border border-white/70 hover:border-white text-white bg-black/40 backdrop-blur-sm hover:bg-black/60 transition text-xs sm:text-sm font-semibold tracking-wider uppercase flex items-center gap-2 hover:scale-105 active:scale-95"
+                    className="px-4 py-2.5 border border-white/70 hover:border-white text-white bg-black/40 backdrop-blur-sm hover:bg-black/60 transition text-xs font-semibold tracking-wider uppercase flex items-center gap-1.5 hover:scale-105 active:scale-95 cursor-pointer"
                   >
-                    <Video className="w-4 h-4 text-emerald-400" />
+                    <Video className="w-3.5 h-3.5 text-emerald-400" />
                     <span>BOOK VIDEO CALL</span>
+                  </button>
+
+                  <button
+                    onClick={() => downloadVcfFile(profile)}
+                    className="px-4 py-2.5 border border-[#c5a880] text-[#f5dfb8] bg-[#1a1815]/80 hover:bg-[#c5a880] hover:text-black transition text-xs font-semibold tracking-wider uppercase flex items-center gap-1.5 hover:scale-105 active:scale-95 cursor-pointer"
+                    title="Save contact card directly into phone address book"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>SAVE CONTACT (.VCF)</span>
                   </button>
                 </div>
 
@@ -2079,10 +2099,10 @@ export default function FashionTemplateView({
                 Customer Care
               </h4>
               <ul className="text-xs text-neutral-400 space-y-2">
-                <li><span className="hover:text-white cursor-pointer transition">Shipping & Delivery Info</span></li>
-                <li><span className="hover:text-white cursor-pointer transition">Returns & Exchanges (7 Days)</span></li>
-                <li><span className="hover:text-white cursor-pointer transition">Size Guide & Fit Chart</span></li>
-                <li><span className="hover:text-white cursor-pointer transition">Privacy Policy & Terms</span></li>
+                <li><span className="hover:text-white cursor-pointer transition">📦 {shippingGuarantee}</span></li>
+                <li><span className="hover:text-white cursor-pointer transition">✂️ {alterationGuarantee}</span></li>
+                <li><span className="hover:text-white cursor-pointer transition">🏷️ {coutureCert}</span></li>
+                <li><span className="hover:text-white cursor-pointer transition">💎 {vipDiscount}</span></li>
               </ul>
             </div>
 
@@ -2102,12 +2122,12 @@ export default function FashionTemplateView({
           {/* Copyright & Badges */}
           <div className="mt-12 pt-6 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-500 gap-3">
             <p>© {new Date().getFullYear()} {brandName}. All rights reserved.</p>
-            <div className="flex items-center gap-4 text-neutral-400">
-              <span>100% Genuine Fabrics</span>
+            <div className="flex flex-wrap items-center justify-center gap-3 text-neutral-400">
+              <span>{coutureSpecialization}</span>
               <span>•</span>
-              <span>Fast Pan-India Dispatch</span>
+              <span>{shippingGuarantee}</span>
               <span>•</span>
-              <span>Cash on Delivery</span>
+              <span>{alterationGuarantee}</span>
             </div>
           </div>
 
