@@ -57,7 +57,13 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
           ? 'CANCELLED' 
           : (hasActivePaidPlan ? 'ACTIVE' : 'UNPAID');
         const isExpired = !hasActivePaidPlan || subscriptionStatus !== 'ACTIVE';
-        const isPublished = Boolean(dbProfile.isPublished && hasActivePaidPlan);
+        if (hasActivePaidPlan && !dbProfile.isPublished) {
+          prisma.profile.update({
+            where: { id: dbProfile.id },
+            data: { isPublished: true }
+          }).catch(() => {});
+        }
+        const isPublished = hasActivePaidPlan;
 
         const fallback = getProfileBySlug(cleanSlug);
 

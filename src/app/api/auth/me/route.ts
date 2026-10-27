@@ -133,12 +133,18 @@ export async function GET(req: NextRequest) {
       ? defaultOrg.subscriptionStatus 
       : (hasActivePaidPlan ? 'ACTIVE' : 'UNPAID');
 
-    // STRICT: If unpaid or expired, ensure profile is unpublished in DB
+    // STRICT: Ensure profile publish state matches subscription status in DB
     if (!hasActivePaidPlan && defaultProfile?.isPublished) {
       await prisma.profile.update({
         where: { id: defaultProfile.id },
         data: { isPublished: false }
       }).catch(() => {});
+    } else if (hasActivePaidPlan && defaultProfile && !defaultProfile.isPublished) {
+      await prisma.profile.update({
+        where: { id: defaultProfile.id },
+        data: { isPublished: true }
+      }).catch(() => {});
+      defaultProfile.isPublished = true;
     }
 
     return NextResponse.json({

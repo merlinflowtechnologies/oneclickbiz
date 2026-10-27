@@ -199,6 +199,19 @@ export default function BrochureStudio() {
         const detectedPlan = getCurrentUserPlan();
         setUserPlanTier(detectedPlan);
 
+        // Live sync from server so admin plan updates reflect immediately
+        fetch('/api/auth/me', { cache: 'no-store' })
+          .then(res => res.json())
+          .then(data => {
+            if (data?.user?.planTier && data.user.planTier !== 'UNPAID') {
+              const raw = String(data.user.planTier).toUpperCase();
+              const tier: PlanTierType = raw.includes('ADVANCED') ? 'ADVANCED' : raw.includes('BASIC') ? 'BASIC' : 'PRO';
+              setUserPlanTier(tier);
+              localStorage.setItem('oneclickbiz_user_plan', tier);
+            }
+          })
+          .catch(() => {});
+
         const session = localStorage.getItem('oneclickbiz_user_session');
         if (session) {
           const parsed = JSON.parse(session);

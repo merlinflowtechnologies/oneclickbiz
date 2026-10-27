@@ -113,6 +113,7 @@ export async function GET(
         category: resolvedCategory || (cleanSlug.startsWith('re-') ? 'Real Estate' : (cleanSlug.startsWith('home-interior') || cleanSlug.startsWith('interior') ? 'Interior Design' : undefined)),
         sections: sections.length > 0 ? sections : undefined,
         sectionData: Object.keys(sectionData).length > 0 ? sectionData : undefined,
+        isPublished: isPaidActive ? true : profile.isPublished,
         subscriptionStatus,
         isExpired
       } 

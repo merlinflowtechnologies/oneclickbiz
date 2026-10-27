@@ -278,7 +278,7 @@ export default function AdminUsersPage() {
           userId: editingUser.id,
           businessName: editingUser.businessName,
           planTier: editingUser.planTier,
-          status: editingUser.subscriptionStatus === 'CANCELLED' ? 'CANCELLED' : (editingUser.hasPaidInvoice ? 'ACTIVE' : 'UNBLOCK')
+          status: editingUser.subscriptionStatus === 'CANCELLED' ? 'CANCELLED' : 'ACTIVE'
         })
       });
 

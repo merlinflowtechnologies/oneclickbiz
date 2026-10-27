@@ -325,13 +325,55 @@ export async function PATCH(req: NextRequest) {
       });
     }
 
+    // Resolve or create user's organization if missing
+    let targetOrg = org;
+    if (!targetOrg) {
+      const userProfile = await prisma.profile.findFirst({
+        where: {
+          OR: [
+            { email: user.email },
+            { id: user.id }
+          ]
+        },
+        include: { organization: true }
+      });
+      if (userProfile?.organization) {
+        targetOrg = userProfile.organization;
+        await prisma.organizationMember.create({
+          data: {
+            organizationId: targetOrg.id,
+            userId: user.id,
+            role: 'ORG_OWNER'
+          }
+        }).catch(() => {});
+      } else {
+        const slugBase = (user.name || user.email.split('@')[0]).toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 30);
+        const orgSlug = `${slugBase}-${Date.now().toString().slice(-4)}`;
+        targetOrg = await prisma.organization.create({
+          data: {
+            name: businessName || `${user.name}'s Business`,
+            slug: orgSlug,
+            planId: 'Pro',
+            subscriptionStatus: 'ACTIVE'
+          }
+        });
+        await prisma.organizationMember.create({
+          data: {
+            organizationId: targetOrg.id,
+            userId: user.id,
+            role: 'ORG_OWNER'
+          }
+        }).catch(() => {});
+      }
+    }
+
     // Check if user has a verified paid online invoice within 365 days
     const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
     const paidInvoice = await prisma.invoice.findFirst({
       where: {
         OR: [
           { userId: user.id },
-          ...(org ? [{ organizationId: org.id }] : [])
+          ...(targetOrg ? [{ organizationId: targetOrg.id }] : [])
         ],
         status: 'PAID'
       },
@@ -344,16 +386,13 @@ export async function PATCH(req: NextRequest) {
 
     if (status === 'CANCELLED' || status === 'SUSPENDED') {
       resolvedStatus = 'CANCELLED';
+    } else if (planTier) {
+      // Admin is assigning/updating plan tier: ensure user is ACTIVE unless explicitly cancelled
+      resolvedStatus = 'ACTIVE';
     } else if (status === 'UNBLOCK' || status === 'RESTORE') {
       resolvedStatus = isInvoiceActive ? 'ACTIVE' : 'EXPIRED';
     } else if (status === 'ACTIVE') {
-      if (isInvoiceActive) {
-        resolvedStatus = 'ACTIVE';
-      } else {
-        return NextResponse.json({ 
-          error: 'Cannot activate unpaid account directly. Please use "Grant Free VIP Promo" to explicitly grant complimentary access with audit logs.' 
-        }, { status: 400 });
-      }
+      resolvedStatus = 'ACTIVE';
     }
 
     if (role) {
@@ -365,7 +404,7 @@ export async function PATCH(req: NextRequest) {
 
     let updatedTier: string | undefined = undefined;
 
-    if (org?.id) {
+    if (targetOrg?.id) {
       const updateData: any = {};
       if (businessName) updateData.name = businessName;
       if (resolvedStatus) {
@@ -377,27 +416,24 @@ export async function PATCH(req: NextRequest) {
         const cleanTier = rawUpper.includes('ADVANCED') ? 'Advanced' : rawUpper.includes('PRO') ? 'Pro' : 'Basic';
         updatedTier = cleanTier;
         updateData.planId = cleanTier;
+        updateData.subscriptionStatus = resolvedStatus || 'ACTIVE';
 
-        // If not explicitly cancelled, activating or changing plan makes the organization active
-        if (!resolvedStatus && org.subscriptionStatus !== 'CANCELLED') {
-          updateData.subscriptionStatus = 'ACTIVE';
-          resolvedStatus = 'ACTIVE';
-        }
-
-        // Synchronize / create active paid invoice for this updated tier so website & dashboard sync immediately
+        // Synchronize / create active paid invoice for this updated tier with fresh 1-year validity
         if (paidInvoice) {
           await prisma.invoice.update({
             where: { id: paidInvoice.id },
             data: {
               planTier: `${cleanTier} Plan (Admin Updated)`,
-              status: 'PAID'
+              status: 'PAID',
+              createdAt: new Date(),
+              paidAt: new Date()
             }
           });
         } else {
           await prisma.invoice.create({
             data: {
               invoiceNumber: `INV-ADMIN-${Date.now().toString().slice(-6)}`,
-              organizationId: org.id,
+              organizationId: targetOrg.id,
               userId: user.id,
               planTier: `${cleanTier} Plan (Admin Assigned)`,
               amount: 0,
@@ -407,21 +443,27 @@ export async function PATCH(req: NextRequest) {
               paymentId: `ADMIN_PLAN_UPDATE: ${cleanTier}`,
               orderId: `ADMIN-UPDATE-${Date.now()}`,
               taxAmount: 0,
+              createdAt: new Date(),
               paidAt: new Date()
             }
           });
         }
 
-        // Ensure user's profiles are active & published
+        // Ensure all user's profiles are active & published
         await prisma.profile.updateMany({
-          where: { organizationId: org.id },
+          where: {
+            OR: [
+              { organizationId: targetOrg.id },
+              { email: user.email }
+            ]
+          },
           data: { isPublished: true }
         }).catch(() => {});
       }
 
       if (Object.keys(updateData).length > 0) {
         await prisma.organization.update({
-          where: { id: org.id },
+          where: { id: targetOrg.id },
           data: updateData
         });
       }

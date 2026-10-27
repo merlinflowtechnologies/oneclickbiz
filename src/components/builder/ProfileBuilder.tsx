@@ -665,6 +665,19 @@ export default function ProfileBuilder({ initialProfile, onSave }: ProfileBuilde
           }
         }
 
+        // Live-sync plan from server so admin changes immediately reflect in Profile Studio
+        fetch('/api/auth/me', { cache: 'no-store' })
+          .then(res => res.json())
+          .then(data => {
+            if (data?.user?.planTier && data.user.planTier !== 'UNPAID') {
+              const raw = String(data.user.planTier).toUpperCase();
+              const tier = raw.includes('ADVANCED') ? 'Advanced' : raw.includes('BASIC') ? 'Basic' : 'Pro';
+              setUserPlan(tier);
+              localStorage.setItem('oneclickbiz_user_plan', tier.toUpperCase());
+            }
+          })
+          .catch(() => {});
+
         // Initialize user cards
         const storedCards = localStorage.getItem('oneclickbiz_user_cards');
         if (storedCards) {
