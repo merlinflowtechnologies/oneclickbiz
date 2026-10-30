@@ -790,6 +790,10 @@ export default function ProfileCardView({
   // 5.5. Healthcare & Clinic
   const isHealthcare = Boolean(
     category === 'Healthcare' ||
+    slug === 'hospital' ||
+    slug === 'doctor' ||
+    slug === 'healthcare' ||
+    slug === 'clinic' ||
     slug.startsWith('health-') ||
     templateId.startsWith('health-') ||
     Boolean(profile.sectionData?.healthcare)

@@ -383,6 +383,28 @@ export function getProfileBySlug(rawSlug: string): DigitalProfile {
     cleanSlug.startsWith('insurance-') ||
     cleanSlug.includes('insurance');
 
+  // 3.65 Check if slug is healthcare / doctor / hospital related
+  const isHealthcarePattern = 
+    cleanSlug === 'health-doctor' ||
+    cleanSlug === 'hospital' ||
+    cleanSlug === 'doctor' ||
+    cleanSlug === 'healthcare' ||
+    cleanSlug === 'clinic' ||
+    cleanSlug.startsWith('health-');
+
+  if (isHealthcarePattern) {
+    const tProf = getTemplateProfile('health-doctor');
+    return {
+      ...tProf,
+      slug: cleanSlug,
+      templateId: 'health-doctor',
+      category: 'Healthcare',
+      isPublished: true,
+      isExpired: false,
+      subscriptionStatus: 'ACTIVE'
+    };
+  }
+
   if (isInsurancePattern) {
     const tProf = getTemplateProfile('prof-insurance');
     return {

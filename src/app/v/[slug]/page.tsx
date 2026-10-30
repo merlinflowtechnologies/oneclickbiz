@@ -21,7 +21,7 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
 
   // If slug matches any official catalog template or alias, return pure catalog preview immediately
   const isCatalogTemplate = ALL_VCARD_TEMPLATES.some(t => t.id.toLowerCase() === cleanSlug) ||
-    ['insurance', 'mediclaim', 'insurance-advisor', 'home-interior', 'interior', 'retail-jewellery', 'jewellery', 'home-services', 'home-electrician', 'home-plumber', 'services'].includes(cleanSlug);
+    ['insurance', 'mediclaim', 'insurance-advisor', 'home-interior', 'interior', 'retail-jewellery', 'jewellery', 'home-services', 'home-electrician', 'home-plumber', 'services', 'health-doctor', 'healthcare', 'hospital', 'doctor', 'clinic'].includes(cleanSlug);
   if (isCatalogTemplate) {
     return getProfileBySlug(cleanSlug);
   }
@@ -129,8 +129,9 @@ async function fetchProfileData(slug: string): Promise<DigitalProfile> {
         const isFashionSlug = cleanSlug.startsWith('fash-') || cleanSlug.startsWith('fashion-') || cleanSlug.includes('boutique') || cleanSlug.includes('couture') || cleanSlug.includes('tailor') || cleanSlug.includes('apparel');
         const isInsuranceSlug = cleanSlug === 'prof-insurance' || cleanSlug === 'insurance' || cleanSlug === 'mediclaim' || cleanSlug.startsWith('insurance-') || cleanSlug.includes('insurance');
         const isHomeServicesSlug = cleanSlug === 'home-services' || cleanSlug === 'home-electrician' || cleanSlug.startsWith('home-service') || cleanSlug.startsWith('home-electrician') || cleanSlug.startsWith('home-plumber') || cleanSlug === 'services';
-        const resolvedTemplateId = heroConfig.templateId || (dbProfile as any).templateId || fallback.templateId || (isHomeServicesSlug ? 'home-services' : isFoodSlug ? 'food-restaurant' : isFashionSlug ? 'fash-boutique' : isInsuranceSlug ? 'prof-insurance' : cleanSlug.startsWith('re-') ? 're-builders' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'home-interior' : undefined);
-        const resolvedCategory = heroConfig.category || (dbProfile as any).category || fallback.category || (isHomeServicesSlug ? 'Home & Professional Services' : isFoodSlug ? 'Food Business' : isFashionSlug ? 'Fashion & Clothing' : isInsuranceSlug ? 'Professional Services' : cleanSlug.startsWith('re-') ? 'Real Estate' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'Interior Design' : undefined);
+        const isHealthcareSlug = cleanSlug === 'health-doctor' || cleanSlug.startsWith('health-') || cleanSlug === 'hospital' || cleanSlug === 'doctor' || cleanSlug === 'healthcare' || cleanSlug === 'clinic';
+        const resolvedTemplateId = heroConfig.templateId || (dbProfile as any).templateId || fallback.templateId || (isHealthcareSlug ? 'health-doctor' : isHomeServicesSlug ? 'home-services' : isFoodSlug ? 'food-restaurant' : isFashionSlug ? 'fash-boutique' : isInsuranceSlug ? 'prof-insurance' : cleanSlug.startsWith('re-') ? 're-builders' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'home-interior' : undefined);
+        const resolvedCategory = heroConfig.category || (dbProfile as any).category || fallback.category || (isHealthcareSlug ? 'Healthcare' : isHomeServicesSlug ? 'Home & Professional Services' : isFoodSlug ? 'Food Business' : isFashionSlug ? 'Fashion & Clothing' : isInsuranceSlug ? 'Professional Services' : cleanSlug.startsWith('re-') ? 'Real Estate' : cleanSlug.startsWith('interior') || cleanSlug.startsWith('home-interior') ? 'Interior Design' : undefined);
 
         // Ensure all industry-specific configs are accessible
         const entityKeys = ['realEstate', 'interior', 'restaurant', 'healthcare', 'automobile', 'fashion', 'education', 'beauty', 'events', 'travel', 'professional', 'homeServices', 'retail', 'insurance'];

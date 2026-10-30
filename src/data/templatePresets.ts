@@ -414,6 +414,57 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
       { id: 't_pho_2', clientName: 'Natasha Verma', clientRole: 'Creative Director, Vibe Fashion', content: 'Consistently exceptional lighting and framing. Aarav delivered our campaign lookbook 3 days ahead of schedule!', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' }
     ]
   },
+  'health-doctor': {
+    name: 'Dr. Rajesh V. Sharma, MBBS, MD, DM',
+    designation: 'Chief Medical Director & Senior Interventional Cardiologist',
+    company: 'Apex Multi-Speciality Hospital & Heart Institute',
+    bio: 'Gold Medalist Cardiologist with 22+ years of clinical mastery in interventional cardiology, 24/7 primary angioplasty, heart failure management, and comprehensive clinical care. NABH & NABL accredited hospital providing compassionate, evidence-based healthcare with 100% cashless insurance claim processing.',
+    theme: 'emerald-pro',
+    avatarUrl: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80',
+    coverUrl: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80',
+    email: 'care@apexmultispeciality.in',
+    phone: '+91 98765 43210',
+    whatsapp: '919876543210',
+    website: 'https://oneclickbiz.in/v/health-doctor',
+    address: 'Plot 42, Road No. 36, Near Metro Station, Jubilee Hills, Hyderabad, Telangana 500033',
+    services: [
+      { id: 's_doc_1', title: 'Cardiology & Heart Care Consultation', description: 'Comprehensive heart evaluation, ECG interpretation, lipid management, and preventive cardiac roadmap.', durationMinutes: 30, price: 800, currency: '₹' },
+      { id: 's_doc_2', title: '2D Echocardiography & Color Doppler', description: 'High-definition digital ultrasound imaging of cardiac chambers, valves, and blood flow velocity.', durationMinutes: 45, price: 2500, currency: '₹' },
+      { id: 's_doc_3', title: 'TMT (Treadmill Stress Test)', description: 'Computerized cardiac stress test to detect inducible myocardial ischemia and exercise capacity.', durationMinutes: 45, price: 1800, currency: '₹' },
+      { id: 's_doc_4', title: '24-Hour Holter ECG Monitoring', description: 'Continuous ambulatory ECG recording for diagnosing unexplained palpitations, syncope, and arrhythmias.', durationMinutes: 30, price: 3500, currency: '₹' },
+      { id: 's_doc_5', title: 'Primary Angioplasty & Stenting (PTCA)', description: 'Emergency 24/7 Cath Lab radial angioplasty with advanced drug-eluting stents (DES) and IVUS guidance.', durationMinutes: 90, price: 120000, currency: '₹' },
+      { id: 's_doc_6', title: 'Executive Diabetic & Hypertension Clinic', description: 'Personalized metabolic protocol for tight HbA1c control, organ protection, and microalbuminuria screening.', durationMinutes: 30, price: 600, currency: '₹' }
+    ],
+    products: [
+      { id: 'p_doc_1', name: 'Basic Well-Being Health Screen (38 Tests)', description: 'Complete Blood Count (CBC), Fasting Blood Sugar, Urine Routine, Lipid Profile, Serum Creatinine & Physician Consultation.', price: 999, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80', category: 'Health Package', isAvailable: true },
+      { id: 'p_doc_2', name: 'Executive Cardiac & Diabetic Shield (65 Tests)', description: 'Everything in Basic + HbA1c, Liver LFT, Kidney KFT, TSH Thyroid, Resting ECG, 2D Echo or TMT, Chest X-Ray & Cardiologist Review.', price: 2499, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80', category: 'Health Package', isAvailable: true },
+      { id: 'p_doc_3', name: 'Master Senior Citizen Longevity Package (82 Tests)', description: 'Everything in Executive + Bone Mineral Density DEXA, Ultrasound Abdomen, Vitamin D3 & B12, Electrolytes & Geriatric Specialist Consultation.', price: 3999, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80', category: 'Health Package', isAvailable: true },
+      { id: 'p_doc_4', name: 'Well-Woman Comprehensive Preventive Shield (52 Tests)', description: 'Complete Hemogram, Thyroid Panel, Hormones (LH/FSH), Mammography/Breast USG, Pap Smear, Calcium & Senior Gynecologist Consultation.', price: 2999, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80', category: 'Health Package', isAvailable: true }
+    ],
+    gallery: [
+      { id: 'g_doc_1', imageUrl: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80', title: 'Hospital Main Entrance & Reception', category: 'Infrastructure' },
+      { id: 'g_doc_2', imageUrl: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80', title: 'Modular Laminar Operation Theatre (Class 100)', category: 'OT & ICU' },
+      { id: 'g_doc_3', imageUrl: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80', title: '24-Bed Multi-Disciplinary Intensive Care Unit (ICU)', category: 'OT & ICU' },
+      { id: 'g_doc_4', imageUrl: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80', title: 'NABL Certified Digital Diagnostic Pathology Lab', category: 'Diagnostics' },
+      { id: 'g_doc_5', imageUrl: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=800&q=80', title: 'Deluxe Patient Suite with Attendant Lounge', category: 'Rooms' },
+      { id: 'g_doc_6', imageUrl: 'https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=800&q=80', title: 'Mobile Cardiac ICU Ambulance Fleet with GPS', category: 'Emergency' }
+    ],
+    testimonials: [
+      { id: 't_doc_1', clientName: 'Suresh Narayana, 56', clientRole: 'Emergency Angioplasty Patient, Hyderabad', content: 'When I suffered acute chest pain at midnight, Dr. Rajesh Sharma and the Apex Emergency team rushed me directly to the Cath Lab. The angioplasty was completed in 40 minutes flat. His calm reassurance saved my life!', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_doc_2', clientName: 'Kavitha R. Reddy, 48', clientRole: 'Robotic Knee Replacement, Secunderabad', content: 'I had been suffering with crippling osteoarthritis for 6 years. Dr. Vikramaditya Reddy performed bilateral robotic knee replacement at Apex. I was walking without support on day two! The nursing care was world-class.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_doc_3', clientName: 'Deepak & Sneha Agarwal', clientRole: 'High-Risk Twin Delivery Parents', content: 'Our twin pregnancy had severe complications. Dr. Sneha Kulkarni monitored us every week and delivered both babies safely. The Level-III NICU care for our newborns gave us complete peace of mind.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { id: 't_doc_4', clientName: 'Venkat Rao Patrudu, 64', clientRole: 'Chronic Diabetes & Kidney Wellness Patient', content: 'My diabetes was out of control with rising creatinine. Under Dr. Rajesh Sharma’s holistic protocol and lifestyle guidance, my HbA1c dropped from 9.8% to 6.3% with zero insulin spikes. Highly ethical care.', rating: 5, clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' }
+    ],
+    socials: [
+      { id: 'soc_doc_wa', platform: 'whatsapp', url: 'https://wa.me/919876543210', label: 'Priority WhatsApp Desk' },
+      { id: 'soc_doc_ph', platform: 'phone', url: 'tel:+919876543210', label: 'Reception & Appointments' },
+      { id: 'soc_doc_emg', platform: 'phone', url: 'tel:+919876543210', label: '24/7 Emergency & ICU' },
+      { id: 'soc_doc_map', platform: 'maps', url: 'https://maps.google.com/?q=Jubilee+Hills+Road+No+36+Hyderabad', label: 'Hospital Location' },
+      { id: 'soc_doc_em', platform: 'email', url: 'mailto:care@apexmultispeciality.in', label: 'Official Medical Desk' },
+      { id: 'soc_doc_yt', platform: 'youtube', url: 'https://youtube.com/@apexhealthcare', label: 'Doctor Health Education' },
+      { id: 'soc_doc_li', platform: 'linkedin', url: 'https://linkedin.com/in/dr-rajesh-sharma-cardio', label: 'Medical Credentials' }
+    ]
+  },
   vcard13: {
     name: 'Dr. Alistair Chen, MD',
     designation: 'Senior Consultant Cardiologist & Specialist',
@@ -2000,7 +2051,11 @@ TEMPLATE_PRESETS_DATA['services'] = TEMPLATE_PRESETS_DATA['home-services'];
  */
 export function getTemplateProfile(templateId: string): DigitalProfile {
   // Fallback alias for real estate templates
-  const effectiveId = (templateId.startsWith('re-') || templateId === 'vcard35') ? 're-builders' : templateId;
+  const effectiveId = (templateId.startsWith('re-') || templateId === 'vcard35') 
+    ? 're-builders' 
+    : (templateId.startsWith('health-') || templateId === 'vcard13' || templateId === 'hospital' || templateId === 'doctor' || templateId === 'healthcare' || templateId === 'clinic')
+    ? 'health-doctor'
+    : templateId;
   const meta = ALL_VCARD_TEMPLATES.find((t) => t.id === templateId) || 
                ALL_VCARD_TEMPLATES.find((t) => t.id === effectiveId) || 
                VCARD_TEMPLATES_CATALOG[0];
@@ -2232,15 +2287,23 @@ export function getTemplateProfile(templateId: string): DigitalProfile {
         verifiedStaff: '100% Background-Checked Technicians',
         pricing: 'Transparent Upfront Rate Card, Zero Hidden Fees'
       } : undefined,
-      healthcare: ((meta.category as string) === 'Healthcare' || effectiveId.startsWith('health-') || effectiveId.includes('doctor') || templateId === 'health-doctor') ? {
-        regNumber: 'TSMC/DOC/2018/8892',
-        degrees: 'MBBS, MD (Cardiology), FACC (USA)',
-        specialization: 'Consultant Interventional Cardiologist & Physician',
-        hospitalAffiliation: 'Care Clinic & Superspeciality Hospital',
-        experienceYears: '16+ Years',
-        consultationFee: '₹600',
-        opdTimings: 'Mon - Sat: 10:00 AM - 01:30 PM & 05:00 PM - 08:30 PM',
-        emergencyPhone: '+91 98765 43210'
+      healthcare: ((meta.category as string) === 'Healthcare' || effectiveId === 'health-doctor' || effectiveId.startsWith('health-') || effectiveId.includes('doctor') || templateId === 'health-doctor') ? {
+        hospitalName: 'Apex Multi-Speciality Hospital & Heart Institute',
+        hospitalAffiliation: 'Apex Multi-Speciality Hospital & Heart Institute',
+        degrees: 'MBBS, MD (Medicine), DM (Cardiology), FACC (USA), FSCAI',
+        regNumber: 'NMC / MCI Reg. No. 48291/TS',
+        specialization: 'Chief Consultant Interventional Cardiologist & Medical Director',
+        experienceYears: '22+ Years Clinical Excellence',
+        fee: '₹800',
+        consultationFee: '₹800',
+        opdTimings: 'Mon - Sat: 09:30 AM - 01:30 PM & 05:00 PM - 08:30 PM',
+        emergencyPhone: '+91 98765 43210',
+        ambulancePhone: '+91 98765 43210',
+        accreditations: 'NABH Accredited Hospital • NABL Certified Diagnostics • ISO 9001:2015',
+        cashlessTpaCount: '45+ Cashless TPA & Insurance Tie-ups',
+        bedsCount: '150-Bed Multi-Speciality Facility',
+        icuBedsCount: '24 Advanced ICU / CCU Beds',
+        traumaLevel: '24/7 Level-1 Emergency & Golden Hour Trauma Unit'
       } : undefined,
       beauty: ((meta.category as string) === 'Beauty & Personal Care' || effectiveId.startsWith('beauty-') || effectiveId.includes('salon') || templateId === 'beauty-salon') ? {
         hygieneRating: 'ISO 9001:2015 & Sterilization Certified',
