@@ -138,6 +138,9 @@ export interface RealEstateTrustConfig {
   clearTitleRating?: string;
   primaryCorridor?: string;
   city?: string;
+  tagline?: string;
+  videoUrl?: string;
+  mapAddress?: string;
 }
 
 export interface InteriorTrustConfig {

@@ -23,7 +23,7 @@ interface RealEstateProfileStudioProps {
 }
 
 export default function RealEstateProfileStudio({ profile, setProfile }: RealEstateProfileStudioProps) {
-  const [activeSubTab, setActiveSubTab] = useState<'rera' | 'trackRecord' | 'projects'>('rera');
+  const [activeSubTab, setActiveSubTab] = useState<'rera' | 'trackRecord' | 'showcase'>('rera');
 
   const realEstateConfig: RealEstateTrustConfig = profile.sectionData?.realEstate || {};
 
@@ -96,6 +96,19 @@ export default function RealEstateProfileStudio({ profile, setProfile }: RealEst
         >
           <Award className="w-4 h-4" />
           <span>Track Record &amp; Acreage Metrics</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveSubTab('showcase')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shrink-0 ${
+            activeSubTab === 'showcase'
+              ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 font-black'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+          }`}
+        >
+          <Eye className="w-4 h-4" />
+          <span>Showcase Video &amp; Tagline</span>
         </button>
       </div>
 
@@ -234,6 +247,63 @@ export default function RealEstateProfileStudio({ profile, setProfile }: RealEst
                   placeholder="e.g. 12,500+"
                   onChange={e => updateRealEstateConfig({ happyFamilies: e.target.value })}
                   className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 font-bold focus:outline-none focus:border-amber-500"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* SUB-TAB 3: SHOWCASE VIDEO & TAGLINE                            */}
+      {/* ============================================================== */}
+      {activeSubTab === 'showcase' && (
+        <div className="space-y-5 animate-fadeIn">
+          <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Eye className="w-4 h-4 text-amber-400" />
+                <span>Project Showcase Video &amp; Tagline</span>
+              </h3>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="text-xs font-bold text-slate-300">
+                  Project Tagline / Headline
+                </label>
+                <input
+                  type="text"
+                  value={realEstateConfig.tagline ?? 'LIVE THE MILLENNIAL HIGH LIFE • LUXURIOUS COMMUNITY'}
+                  placeholder="e.g. LIVE THE MILLENNIAL HIGH LIFE • Greece Themed Architecture"
+                  onChange={e => updateRealEstateConfig({ tagline: e.target.value })}
+                  className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 focus:outline-none focus:border-amber-500 font-semibold"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300">
+                  Showcase Walkthrough Video URL (MP4 or YouTube)
+                </label>
+                <input
+                  type="text"
+                  value={realEstateConfig.videoUrl ?? ''}
+                  placeholder="e.g. https://example.com/walkthrough.mp4 or YouTube video link"
+                  onChange={e => updateRealEstateConfig({ videoUrl: e.target.value })}
+                  className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300">
+                  Experience Center / Google Map Location Address
+                </label>
+                <input
+                  type="text"
+                  value={realEstateConfig.mapAddress ?? profile.address ?? ''}
+                  placeholder="e.g. Sector 45, Near Metro Station, Financial District"
+                  onChange={e => updateRealEstateConfig({ mapAddress: e.target.value })}
+                  className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
                 />
               </div>
             </div>
