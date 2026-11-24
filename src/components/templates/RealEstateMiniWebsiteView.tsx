@@ -1862,6 +1862,77 @@ export default function RealEstateMiniWebsiteView({
             </div>
 
           </div>
+
+          {/* ========================================================== */}
+          {/* FLAGUP SIGNATURE STRIP: Everything Your Customer Needs    */}
+          {/* ========================================================== */}
+          <div className="mt-16 sm:mt-20 p-6 sm:p-10 rounded-3xl bg-gradient-to-r from-[#0B0F19] via-[#111827] to-[#1C2434] text-white border border-gray-800 shadow-2xl">
+            <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight">
+                Everything Your Customer Needs,{' '}
+                <span className="text-[#F8CD71]">In One Smart Link.</span>
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm text-gray-400">
+                With OneClickBiz Real Estate Smart Link, buyers get all this in one tap — no PDF downloads or slow websites required.
+              </p>
+            </div>
+
+            {/* 8 Feature Badges Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4 text-center">
+              {[
+                { icon: '🎬', label: 'Brand Video', desc: '4K Aerial Tour' },
+                { icon: '📐', label: 'Layout Plans', desc: '2D CAD & 3D' },
+                { icon: '🖼️', label: 'Photo Gallery', desc: 'Interior & Exterior' },
+                { icon: '📍', label: 'Location', desc: 'Google Maps' },
+                { icon: '💬', label: 'WhatsApp', desc: 'Instant Inquiries' },
+                { icon: '📞', label: 'Call Button', desc: 'One-Tap Dial' },
+                { icon: '🔗', label: 'Social Media', desc: 'FB, IG, YouTube' },
+                { icon: '🛣️', label: 'Connectivity', desc: 'Highway & Metro' },
+              ].map((item, idx) => (
+                <div 
+                  key={idx} 
+                  className="p-3 sm:p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-[#F8CD71]/50 hover:bg-white/10 transition-all duration-200 flex flex-col items-center justify-center group"
+                >
+                  <span className="text-2xl sm:text-3xl mb-1.5 transition-transform duration-200 group-hover:scale-110">
+                    {item.icon}
+                  </span>
+                  <span className="text-xs sm:text-sm font-bold text-white tracking-tight">
+                    {item.label}
+                  </span>
+                  <span className="text-[10px] text-gray-400 mt-0.5">
+                    {item.desc}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Instant CTAs inside strip */}
+            <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-2 text-xs text-amber-300/90 font-medium">
+                <ShieldCheck className="w-4 h-4 text-[#F8CD71]" />
+                <span>Verified RERA Compliant Digital Property Brochure</span>
+              </div>
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={() => handleWhatsAppChat('FeatureStrip_Booking')}
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#25d366] hover:bg-green-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4 fill-current" />
+                  <span>Book Site Visit on WhatsApp</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsEmiModalOpen(true)}
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer"
+                >
+                  <Calculator className="w-4 h-4 text-[#F8CD71]" />
+                  <span>Calculate EMI</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
