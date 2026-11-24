@@ -1485,22 +1485,13 @@ export default function RealEstateMiniWebsiteView({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#f97316] text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#f97316]" />
-              <span>LANDMARK DEVELOPMENTS</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#0B0F19] leading-[1.12]">
-              Made for <span className="text-[#f97316]">Every</span>{' '}
+          <div className="text-center max-w-4xl mx-auto mb-10 sm:mb-14">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-[#0B0F19] leading-tight">
+              Made for{' '}
               <span className="bg-gradient-to-r from-[#f97316] via-[#ec4899] to-[#db2777] bg-clip-text text-transparent">
-                Real Estate
+                Every Real Estate
               </span>
             </h2>
-
-            <p className="mt-3 text-sm sm:text-base text-gray-600 font-medium max-w-2xl mx-auto">
-              From high-rise sky apartments and Greek-style luxury villas to HMDA open plots and landmark commercial towers — explore our verified developments.
-            </p>
           </div>
 
           {/* 4 Category Phone Cards Grid */}
@@ -1508,27 +1499,27 @@ export default function RealEstateMiniWebsiteView({
             
             {/* 1. APARTMENT CARD */}
             <div className="flex flex-col items-center">
-              <div className="flex flex-col items-center mb-5 group cursor-default">
+              <div className="flex flex-col items-center mb-6 group cursor-default">
                 <div className="w-14 h-14 rounded-full bg-[#f97316] text-white flex items-center justify-center shadow-lg shadow-orange-500/25 transition-transform duration-300 group-hover:scale-110">
                   <Building2 className="w-7 h-7" />
                 </div>
-                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-800 uppercase">
+                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-900 uppercase">
                   APARTMENT
                 </span>
               </div>
 
               {/* Phone Mockup Frame */}
               <div className="relative w-full max-w-[280px] sm:max-w-[290px] mx-auto group">
-                <div className="relative rounded-[42px] border-[9px] border-[#c2410c] shadow-[0_20px_50px_rgba(194,65,12,0.22)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
+                <div className="relative rounded-[44px] border-[10px] border-[#c25e2e] shadow-[0_22px_50px_rgba(194,94,46,0.28)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
                   
                   {/* Side Buttons */}
-                  <div className="absolute top-16 -left-[12px] w-[3px] h-6 bg-slate-600 rounded-l" />
-                  <div className="absolute top-26 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
-                  <div className="absolute top-40 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
-                  <div className="absolute top-24 -right-[12px] w-[3px] h-12 bg-slate-600 rounded-r" />
+                  <div className="absolute top-16 -left-[13px] w-[3px] h-6 bg-slate-600 rounded-l" />
+                  <div className="absolute top-26 -left-[13px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-40 -left-[13px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-24 -right-[13px] w-[3px] h-12 bg-slate-600 rounded-r" />
 
                   {/* Inner Phone Screen */}
-                  <div className="relative rounded-[32px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[500px] shadow-inner select-none">
+                  <div className="relative rounded-[34px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[520px] shadow-inner select-none">
                     
                     {/* Dynamic Island */}
                     <div className="w-full pt-2.5 pb-1.5 px-4 flex items-center justify-between z-30 bg-[#0B0F19]">
@@ -1541,23 +1532,30 @@ export default function RealEstateMiniWebsiteView({
 
                     {/* Scrollable Screen Content */}
                     <div className="relative flex-1 overflow-y-auto overflow-x-hidden scrollbar-none text-left flex flex-col bg-[#0B0F19]">
-                      <div className="px-3 py-1.5 flex items-center justify-between border-b border-white/10 bg-[#111827]">
-                        <span className="text-[10px] font-black tracking-tight text-white">SKYLINE TOWERS</span>
-                        <div className="flex items-center gap-1 text-[8px] text-slate-400">
-                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">f</span>
-                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">ig</span>
-                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">▶</span>
+                      {/* Top Bar with Logo & Social Badges */}
+                      <div className="px-3 py-1.5 flex items-center justify-between bg-white text-slate-900 border-b border-gray-200">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-5 h-5 rounded bg-red-600 flex items-center justify-center text-white text-[8px] font-black">
+                            SSK
+                          </div>
+                          <span className="text-[9px] font-black tracking-tight text-slate-900">MILLENNIAL</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-[8px]">
+                          <span className="w-4 h-4 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">f</span>
+                          <span className="w-4 h-4 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">ig</span>
+                          <span className="w-4 h-4 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">▶</span>
                         </div>
                       </div>
 
-                      <div className="relative h-40 w-full overflow-hidden">
+                      {/* Hero Image */}
+                      <div className="relative h-44 w-full overflow-hidden shrink-0">
                         <img 
                           src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80" 
-                          alt="Skyline Towers" 
+                          alt="Millennial Towers" 
                           className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-black/40 to-transparent" />
-                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-orange-600/90 text-white text-[8px] font-bold uppercase">
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-black/35 to-transparent" />
+                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-orange-600/90 text-white text-[8px] font-bold uppercase tracking-wider">
                           RERA Approved
                         </span>
                         <div className="absolute bottom-2 left-2.5 right-2.5">
@@ -1570,34 +1568,46 @@ export default function RealEstateMiniWebsiteView({
                         </div>
                       </div>
 
-                      <div className="p-2 mx-2.5 my-2 rounded-xl bg-gradient-to-r from-slate-900 to-[#1C2434] border border-amber-500/30 flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center shrink-0 text-amber-400">
-                          <Play className="w-3.5 h-3.5 fill-amber-400" />
+                      {/* Walkthrough Video Card */}
+                      <div className="mx-2.5 my-2 p-2 rounded-xl bg-[#111827] border border-amber-500/30 flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center shrink-0 shadow-md">
+                            <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                          </div>
+                          <div>
+                            <div className="text-[9px] font-black text-white">SAHIBOLE REAL ESTATE</div>
+                            <div className="text-[7px] text-amber-400">Official Walkthrough Video</div>
+                          </div>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="text-[9px] font-bold text-white truncate">4K Architectural Film</div>
-                          <div className="text-[7px] text-slate-400">Official Walkthrough</div>
+                        <div className="text-right border-l border-white/10 pl-2">
+                          <div className="text-[8px] font-bold text-slate-200">Kaustubh</div>
+                          <div className="text-[7px] text-slate-400">9930279990</div>
                         </div>
                       </div>
 
-                      <div className="mx-2.5 p-2.5 rounded-xl bg-white text-slate-900 shadow-md">
+                      {/* White Floor Plans Card */}
+                      <div className="mx-2.5 mb-2.5 p-2.5 rounded-xl bg-white text-slate-900 shadow-md">
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-[11px] font-black text-slate-900">Floor Plans</span>
                           <span className="text-[8px] font-bold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded">
                             2 & 3 BHK
                           </span>
                         </div>
-                        <p className="text-[8px] text-slate-600 leading-tight mb-2">
-                          Seamless & transparent buying experience backed by high market expertise.
+                        <p className="text-[7.5px] text-slate-600 leading-tight mb-2">
+                          We provide a seamless and transparent property buying experience backed by years of market expertise.
                         </p>
-                        <div className="grid grid-cols-2 gap-1 text-[8px] font-semibold">
-                          <div className="p-1 rounded bg-slate-100 flex items-center justify-between">
-                            <span>2 BHK</span>
-                            <span className="font-bold">1,480 sqft</span>
+                        <div className="space-y-1 text-[7.5px]">
+                          <div className="flex items-center gap-1.5 text-slate-800">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-400 text-black text-[7px] font-bold flex items-center justify-center shrink-0">1</span>
+                            <span>Transparent Communication</span>
                           </div>
-                          <div className="p-1 rounded bg-slate-100 flex items-center justify-between">
-                            <span>3 BHK</span>
-                            <span className="font-bold">2,150 sqft</span>
+                          <div className="flex items-center gap-1.5 text-slate-800">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-400 text-black text-[7px] font-bold flex items-center justify-center shrink-0">2</span>
+                            <span>Market Knowledge & Trends</span>
+                          </div>
+                          <div className="flex items-center gap-1.5 text-slate-800">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-400 text-black text-[7px] font-bold flex items-center justify-center shrink-0">3</span>
+                            <span>Strong Negotiation for Buyers</span>
                           </div>
                         </div>
                       </div>
@@ -1612,8 +1622,8 @@ export default function RealEstateMiniWebsiteView({
 
               {/* Action Button */}
               <a
-                href="/v/re-builders"
-                className="mt-5 inline-flex items-center justify-center gap-2 px-7 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
+                href="/v/re-builders#plans"
+                className="mt-5 inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
               >
                 <span>VISIT NOW</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -1622,27 +1632,27 @@ export default function RealEstateMiniWebsiteView({
 
             {/* 2. VILLA CARD */}
             <div className="flex flex-col items-center">
-              <div className="flex flex-col items-center mb-5 group cursor-default">
+              <div className="flex flex-col items-center mb-6 group cursor-default">
                 <div className="w-14 h-14 rounded-full bg-[#16a34a] text-white flex items-center justify-center shadow-lg shadow-emerald-500/25 transition-transform duration-300 group-hover:scale-110">
                   <Home className="w-7 h-7" />
                 </div>
-                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-800 uppercase">
+                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-900 uppercase">
                   VILLA
                 </span>
               </div>
 
               {/* Phone Mockup Frame */}
               <div className="relative w-full max-w-[280px] sm:max-w-[290px] mx-auto group">
-                <div className="relative rounded-[42px] border-[9px] border-[#1e3a8a] shadow-[0_20px_50px_rgba(30,58,138,0.22)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
+                <div className="relative rounded-[44px] border-[10px] border-[#3b5998] shadow-[0_22px_50px_rgba(59,89,152,0.28)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
                   
                   {/* Side Buttons */}
-                  <div className="absolute top-16 -left-[12px] w-[3px] h-6 bg-slate-600 rounded-l" />
-                  <div className="absolute top-26 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
-                  <div className="absolute top-40 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
-                  <div className="absolute top-24 -right-[12px] w-[3px] h-12 bg-slate-600 rounded-r" />
+                  <div className="absolute top-16 -left-[13px] w-[3px] h-6 bg-slate-600 rounded-l" />
+                  <div className="absolute top-26 -left-[13px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-40 -left-[13px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-24 -right-[13px] w-[3px] h-12 bg-slate-600 rounded-r" />
 
                   {/* Inner Phone Screen */}
-                  <div className="relative rounded-[32px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[500px] shadow-inner select-none">
+                  <div className="relative rounded-[34px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[520px] shadow-inner select-none">
                     
                     {/* Dynamic Island */}
                     <div className="w-full pt-2.5 pb-1.5 px-4 flex items-center justify-between z-30 bg-[#0B0F19]">
@@ -1655,66 +1665,75 @@ export default function RealEstateMiniWebsiteView({
 
                     {/* Scrollable Screen Content */}
                     <div className="relative flex-1 overflow-y-auto overflow-x-hidden scrollbar-none text-left flex flex-col bg-[#0B0F19]">
-                      <div className="px-3 py-1.5 flex items-center justify-between border-b border-white/10 bg-[#111827]">
-                        <span className="text-[10px] font-black tracking-tight text-white">GREENVILLE ESTATES</span>
-                        <div className="flex items-center gap-1 text-[8px] text-slate-400">
-                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">f</span>
-                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">ig</span>
-                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">▶</span>
+                      {/* Top Bar */}
+                      <div className="px-3 py-1.5 flex items-center justify-between bg-[#0f172a] border-b border-white/10">
+                        <div className="text-[9px] font-black tracking-tight text-white flex items-center gap-1">
+                          <span className="text-emerald-400">GREENVILLE</span> AT PRARAMBH
+                        </div>
+                        <div className="flex items-center gap-1 text-[8px]">
+                          <span className="w-4 h-4 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">f</span>
+                          <span className="w-4 h-4 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">ig</span>
+                          <span className="w-4 h-4 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">▶</span>
                         </div>
                       </div>
 
-                      <div className="relative h-40 w-full overflow-hidden">
+                      {/* Hero Image (Greece-Themed White & Blue Architecture) */}
+                      <div className="relative h-44 w-full overflow-hidden shrink-0">
                         <img 
-                          src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80" 
+                          src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=600&q=80" 
                           alt="Greenville Villas" 
                           className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-black/40 to-transparent" />
-                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-emerald-600/90 text-white text-[8px] font-bold uppercase">
-                          Gated Triplex
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-black/35 to-transparent" />
+                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-blue-600/90 text-white text-[8px] font-bold uppercase tracking-wider">
+                          Greece-Themed
                         </span>
                         <div className="absolute bottom-2 left-2.5 right-2.5">
-                          <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-widest block">
-                            SIGNATURE VILLAS
+                          <span className="text-[9px] font-bold text-amber-400 uppercase tracking-widest block">
+                            GREENVILLE AT PRARAMBH
                           </span>
                           <p className="text-xs font-black text-white leading-tight">
-                            Greece-Themed White & Blue Living
+                            This is Greenville By Prarambh!
                           </p>
                         </div>
                       </div>
 
-                      <div className="mx-2.5 my-2 p-2.5 rounded-xl bg-[#111827] border border-emerald-500/20 text-slate-200">
-                        <span className="text-[10px] font-bold text-white block mb-0.5">
+                      {/* Luxurious Villa Community Details */}
+                      <div className="mx-2.5 my-2 p-2.5 rounded-xl bg-[#111827] border border-blue-500/20 text-slate-200">
+                        <span className="text-[10px] font-black text-white block mb-0.5">
                           Luxurious Villa Community
                         </span>
-                        <p className="text-[7px] text-slate-400 mb-1.5 leading-tight">
-                          A vacation lifestyle with Greece themed white & blue architecture.
+                        <p className="text-[7.5px] text-slate-400 mb-2 leading-tight">
+                          A Vacation Lifestyle With Greece Themed White & Blue Architecture
                         </p>
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">1</span>
-                            <span className="text-[8px] font-semibold text-slate-200">A Holiday Life Everyday</span>
+                        <div className="space-y-1.5">
+                          <div className="flex items-center gap-2">
+                            <span className="w-4 h-4 rounded-full bg-amber-400 text-black text-[8px] font-black flex items-center justify-center shrink-0">1</span>
+                            <span className="text-[8px] font-bold text-white">A Holiday Life</span>
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">2</span>
-                            <span className="text-[8px] font-semibold text-slate-200">Private Plunge Pool & Deck</span>
+                          <div className="flex items-center gap-2">
+                            <span className="w-4 h-4 rounded-full bg-amber-400 text-black text-[8px] font-black flex items-center justify-center shrink-0">2</span>
+                            <span className="text-[8px] font-bold text-white">A Vacation Lifestyle</span>
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">3</span>
-                            <span className="text-[8px] font-semibold text-slate-200">Greece Themed Clubhouse</span>
+                          <div className="flex items-center gap-2">
+                            <span className="w-4 h-4 rounded-full bg-amber-400 text-black text-[8px] font-black flex items-center justify-center shrink-0">3</span>
+                            <span className="text-[8px] font-bold text-white">Greece Themed</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mx-2.5 p-2 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-between text-[8px]">
-                        <div>
-                          <span className="font-bold text-white block">4 & 5 BHK Triplex</span>
-                          <span className="text-slate-400">4,200 - 5,800 sqft</span>
+                      {/* Villa Project Bottom Banner */}
+                      <div className="mx-2.5 mb-2.5 relative h-20 rounded-xl overflow-hidden border border-white/10">
+                        <img 
+                          src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80" 
+                          alt="Greenville Aerial" 
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                          <span className="text-[9px] font-bold text-white uppercase tracking-wider">
+                            GREENVILLE BY PRARAMBH
+                          </span>
                         </div>
-                        <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                          45 Units Only
-                        </span>
                       </div>
                     </div>
 
@@ -1728,7 +1747,7 @@ export default function RealEstateMiniWebsiteView({
               {/* Action Button */}
               <a
                 href="/v/re-villas"
-                className="mt-5 inline-flex items-center justify-center gap-2 px-7 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
+                className="mt-5 inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
               >
                 <span>VISIT NOW</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -1737,27 +1756,27 @@ export default function RealEstateMiniWebsiteView({
 
             {/* 3. PLOTTING CARD */}
             <div className="flex flex-col items-center">
-              <div className="flex flex-col items-center mb-5 group cursor-default">
+              <div className="flex flex-col items-center mb-6 group cursor-default">
                 <div className="w-14 h-14 rounded-full bg-[#2563eb] text-white flex items-center justify-center shadow-lg shadow-blue-500/25 transition-transform duration-300 group-hover:scale-110">
                   <MapPin className="w-7 h-7" />
                 </div>
-                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-800 uppercase">
+                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-900 uppercase">
                   PLOTTING
                 </span>
               </div>
 
               {/* Phone Mockup Frame */}
               <div className="relative w-full max-w-[280px] sm:max-w-[290px] mx-auto group">
-                <div className="relative rounded-[42px] border-[9px] border-[#831843] shadow-[0_20px_50px_rgba(131,24,67,0.22)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
+                <div className="relative rounded-[44px] border-[10px] border-[#701a35] shadow-[0_22px_50px_rgba(112,26,53,0.28)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
                   
                   {/* Side Buttons */}
-                  <div className="absolute top-16 -left-[12px] w-[3px] h-6 bg-slate-600 rounded-l" />
-                  <div className="absolute top-26 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
-                  <div className="absolute top-40 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
-                  <div className="absolute top-24 -right-[12px] w-[3px] h-12 bg-slate-600 rounded-r" />
+                  <div className="absolute top-16 -left-[13px] w-[3px] h-6 bg-slate-600 rounded-l" />
+                  <div className="absolute top-26 -left-[13px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-40 -left-[13px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-24 -right-[13px] w-[3px] h-12 bg-slate-600 rounded-r" />
 
                   {/* Inner Phone Screen */}
-                  <div className="relative rounded-[32px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[500px] shadow-inner select-none">
+                  <div className="relative rounded-[34px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[520px] shadow-inner select-none">
                     
                     {/* Dynamic Island */}
                     <div className="w-full pt-2.5 pb-1.5 px-4 flex items-center justify-between z-30 bg-[#0B0F19]">
@@ -1770,64 +1789,92 @@ export default function RealEstateMiniWebsiteView({
 
                     {/* Scrollable Screen Content */}
                     <div className="relative flex-1 overflow-y-auto overflow-x-hidden scrollbar-none text-left flex flex-col bg-[#0B0F19]">
-                      <div className="px-3 py-1.5 flex items-center justify-between border-b border-white/10 bg-[#111827]">
-                        <span className="text-[10px] font-black tracking-tight text-white">HK NATURE FARMS</span>
-                        <span className="px-1.5 py-0.5 rounded-full bg-emerald-500 text-black text-[7px] font-bold">
+                      {/* Top Bar with WhatsApp Badge */}
+                      <div className="px-3 py-1.5 flex items-center justify-between bg-[#111827] border-b border-white/10">
+                        <div className="flex items-center gap-1 text-[8px]">
+                          <span className="w-3.5 h-3.5 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">f</span>
+                          <span className="w-3.5 h-3.5 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">ig</span>
+                          <span className="w-3.5 h-3.5 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">▶</span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded-full bg-emerald-500 text-black text-[7.5px] font-black flex items-center gap-1">
+                          <MessageCircle className="w-2.5 h-2.5 fill-current" />
                           WhatsApp
                         </span>
                       </div>
 
-                      <div className="bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 px-2 py-0.5 text-center font-black text-[8px] uppercase tracking-wide">
-                        Invest Today, Enjoy Tomorrow!
+                      {/* HK FARMS Nature & Investment Strip */}
+                      <div className="bg-[#1e293b] text-slate-200 px-2.5 py-1 text-[7px] font-bold tracking-wider border-b border-white/10 flex items-center justify-between">
+                        <span>NATURE • PEACE • FUTURE</span>
+                        <span className="text-amber-400">30 FT ROADS</span>
                       </div>
 
+                      {/* Header Taglines */}
+                      <div className="bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 px-2 py-1 text-center font-black text-[8px] uppercase tracking-wide shadow-sm">
+                        INVEST TODAY, ENJOY TOMORROW!
+                      </div>
+                      <div className="bg-slate-900 text-center py-0.5 text-[7px] font-bold text-amber-300 uppercase tracking-widest border-b border-white/5">
+                        READY FOR REGISTRATION
+                      </div>
+
+                      {/* Master Layout Plan Visual */}
                       <div className="mx-2.5 my-2 p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30">
-                        <div className="flex items-center justify-between mb-1 text-[7px]">
-                          <span className="text-emerald-400 font-bold uppercase">Master Layout Map</span>
-                          <span className="text-amber-300 font-bold">30FT & 40FT ROADS</span>
+                        <div className="flex items-center justify-between mb-1.5 text-[7px]">
+                          <span className="text-emerald-400 font-bold uppercase tracking-wider">HK FARMS LAYOUT</span>
+                          <span className="text-amber-300 font-bold">11K FARES / 299</span>
                         </div>
 
-                        {/* Numbered Plot Grid */}
-                        <div className="grid grid-cols-4 gap-1 p-1 bg-slate-900/90 rounded-lg text-center">
-                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
+                        {/* Numbered Plot Map Grid */}
+                        <div className="grid grid-cols-4 gap-1 p-1 bg-slate-900/90 rounded-lg text-center border border-white/10">
+                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map((num) => (
                             <div 
                               key={num} 
-                              className={`py-0.5 rounded text-[7px] font-bold border ${
-                                [2, 5, 9].includes(num)
+                              className={`py-0.5 rounded text-[6.5px] font-black border ${
+                                [2, 5, 9, 14].includes(num)
                                   ? 'bg-rose-950/60 text-rose-300 border-rose-500/40'
                                   : 'bg-emerald-900/60 text-emerald-200 border-emerald-500/40'
                               }`}
                             >
                               #{num}
                               <span className="block text-[5px] font-normal opacity-80">
-                                {[2, 5, 9].includes(num) ? 'BOOKED' : '200 Yd'}
+                                {[2, 5, 9, 14].includes(num) ? 'BOOKED' : '200 Yd'}
                               </span>
                             </div>
                           ))}
                         </div>
-                      </div>
 
-                      <div className="mx-2.5 p-2 rounded-xl bg-[#111827] border border-white/5 space-y-1 text-[7px]">
-                        <div className="flex items-center gap-1.5 text-slate-300">
-                          <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
-                          <span>100% Vastu Compliant Plots</span>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-slate-300">
-                          <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
-                          <span>Spot Registration & Clear Title</span>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-slate-300">
-                          <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
-                          <span>Grand Entrance Arch & CCTV</span>
+                        {/* 30 FT Road Strip */}
+                        <div className="mt-1 py-0.5 bg-slate-800 text-slate-300 text-[6px] font-bold text-center uppercase tracking-widest rounded border border-dashed border-slate-600">
+                          --- 30 FT CENTRAL BLACKTOP ROAD ---
                         </div>
                       </div>
 
-                      <div className="mx-2.5 my-1.5 grid grid-cols-2 gap-1.5">
-                        <div className="py-1 rounded bg-amber-400 text-slate-950 font-black text-[7px] text-center">
-                          Brochure
+                      {/* Amenities Row */}
+                      <div className="mx-2.5 p-1.5 rounded-xl bg-[#111827] border border-white/5 flex items-center justify-around text-center text-[6.5px] text-slate-300">
+                        <div>
+                          <div className="w-5 h-5 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-0.5">🛡️</div>
+                          <span>24x7 Security</span>
                         </div>
-                        <div className="py-1 rounded bg-blue-600 text-white font-bold text-[7px] text-center">
-                          View Plots
+                        <div>
+                          <div className="w-5 h-5 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-0.5">💡</div>
+                          <span>Solar Street</span>
+                        </div>
+                        <div>
+                          <div className="w-5 h-5 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-0.5">💧</div>
+                          <span>Water Pipe</span>
+                        </div>
+                        <div>
+                          <div className="w-5 h-5 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-0.5">🌳</div>
+                          <span>Avenue Plant</span>
+                        </div>
+                      </div>
+
+                      {/* Download Brochure & View Plot Options CTA */}
+                      <div className="mx-2.5 my-2 grid grid-cols-2 gap-1.5">
+                        <div className="py-1.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[7.5px] text-center shadow-sm">
+                          Download Brochure
+                        </div>
+                        <div className="py-1.5 rounded-lg bg-blue-600 text-white font-bold text-[7.5px] text-center shadow-sm">
+                          View Plot Options
                         </div>
                       </div>
                     </div>
@@ -1842,7 +1889,7 @@ export default function RealEstateMiniWebsiteView({
               {/* Action Button */}
               <a
                 href="/v/re-plots"
-                className="mt-5 inline-flex items-center justify-center gap-2 px-7 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
+                className="mt-5 inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
               >
                 <span>VISIT NOW</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -1851,27 +1898,27 @@ export default function RealEstateMiniWebsiteView({
 
             {/* 4. BUILDING CARD */}
             <div className="flex flex-col items-center">
-              <div className="flex flex-col items-center mb-5 group cursor-default">
+              <div className="flex flex-col items-center mb-6 group cursor-default">
                 <div className="w-14 h-14 rounded-full bg-[#7c3aed] text-white flex items-center justify-center shadow-lg shadow-purple-500/25 transition-transform duration-300 group-hover:scale-110">
                   <Building className="w-7 h-7" />
                 </div>
-                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-800 uppercase">
+                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-900 uppercase">
                   BUILDING
                 </span>
               </div>
 
               {/* Phone Mockup Frame */}
               <div className="relative w-full max-w-[280px] sm:max-w-[290px] mx-auto group">
-                <div className="relative rounded-[42px] border-[9px] border-[#1e293b] shadow-[0_20px_50px_rgba(30,41,59,0.25)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
+                <div className="relative rounded-[44px] border-[10px] border-[#22252a] shadow-[0_22px_50px_rgba(0,0,0,0.35)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
                   
                   {/* Side Buttons */}
-                  <div className="absolute top-16 -left-[12px] w-[3px] h-6 bg-slate-600 rounded-l" />
-                  <div className="absolute top-26 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
-                  <div className="absolute top-40 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
-                  <div className="absolute top-24 -right-[12px] w-[3px] h-12 bg-slate-600 rounded-r" />
+                  <div className="absolute top-16 -left-[13px] w-[3px] h-6 bg-slate-600 rounded-l" />
+                  <div className="absolute top-26 -left-[13px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-40 -left-[13px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-24 -right-[13px] w-[3px] h-12 bg-slate-600 rounded-r" />
 
                   {/* Inner Phone Screen */}
-                  <div className="relative rounded-[32px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[500px] shadow-inner select-none">
+                  <div className="relative rounded-[34px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[520px] shadow-inner select-none">
                     
                     {/* Dynamic Island */}
                     <div className="w-full pt-2.5 pb-1.5 px-4 flex items-center justify-between z-30 bg-[#0B0F19]">
@@ -1884,66 +1931,84 @@ export default function RealEstateMiniWebsiteView({
 
                     {/* Scrollable Screen Content */}
                     <div className="relative flex-1 overflow-y-auto overflow-x-hidden scrollbar-none text-left flex flex-col bg-[#0B0F19]">
-                      <div className="px-3 py-1.5 flex items-center justify-between border-b border-white/10 bg-[#111827]">
-                        <span className="text-[10px] font-black tracking-tight text-white">KAUSTUBH TOWERS</span>
-                        <div className="flex items-center gap-1 text-[8px] text-slate-400">
-                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">f</span>
-                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">ig</span>
-                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">▶</span>
+                      {/* Top Bar with Kaustubh Logo */}
+                      <div className="px-3 py-1.5 flex items-center justify-between bg-[#111827] border-b border-white/10">
+                        <span className="px-1.5 py-0.5 rounded bg-white text-slate-950 font-black text-[8px] tracking-tight">
+                          Kaustubh
+                        </span>
+                        <div className="flex items-center gap-1 text-[8px]">
+                          <span className="w-4 h-4 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">f</span>
+                          <span className="w-4 h-4 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">ig</span>
+                          <span className="w-4 h-4 rounded bg-amber-400 text-slate-950 font-bold flex items-center justify-center">▶</span>
                         </div>
                       </div>
 
-                      <div className="relative h-40 w-full overflow-hidden">
+                      {/* Hero Image (Night Rendered Landmark Tower) */}
+                      <div className="relative h-44 w-full overflow-hidden shrink-0">
                         <img 
                           src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" 
-                          alt="Kaustubh Tower" 
+                          alt="Kaustubh Landmark Tower" 
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-black/40 to-transparent" />
-                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-purple-600/90 text-white text-[8px] font-bold uppercase">
-                          Grade-A Tower
+                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-purple-600/90 text-white text-[8px] font-bold uppercase tracking-wider">
+                          Grade-A Commercial Tower
                         </span>
                         <div className="absolute bottom-2 left-2.5 right-2.5">
-                          <span className="text-[9px] font-bold text-purple-400 uppercase tracking-widest block">
-                            LANDMARK TOWER
+                          <span className="text-[8px] font-bold text-amber-400 uppercase tracking-widest block">
+                            KAUSTUBH
                           </span>
                           <p className="text-xs font-black text-white leading-tight">
-                            Commercial & Corporate Suites
+                            The New Landmark Residential & Commercial Tower
                           </p>
                         </div>
                       </div>
 
-                      <div className="mx-2.5 my-2 p-2.5 rounded-xl bg-[#111827] border border-purple-500/20 text-slate-200">
-                        <span className="text-[10px] font-bold text-white block mb-0.5">
-                          Floor Plans & Commercial Hub
+                      {/* Floor Plans Card */}
+                      <div className="mx-2.5 my-2 p-2.5 rounded-xl bg-[#111827] border border-white/10 text-slate-200">
+                        <span className="text-[10px] font-black text-white block mb-0.5">
+                          Floor Plans
                         </span>
-                        <p className="text-[7px] text-slate-400 mb-1.5 leading-tight">
-                          Seamless property buying experience backed by years of market expertise.
+                        <p className="text-[7.5px] text-slate-400 mb-2 leading-tight">
+                          We provide a seamless and transparent property buying experience backed by years of market expertise.
                         </p>
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">1</span>
-                            <span className="text-[8px] font-semibold text-slate-200">Transparent Communication</span>
+                        <div className="space-y-1.5">
+                          <div className="flex items-start gap-1.5">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-400 text-black text-[7.5px] font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+                            <div>
+                              <span className="text-[8px] font-bold text-white block">Transparent Communication</span>
+                              <span className="text-[6.5px] text-slate-400">Clear guidelines and real-time updates at every step.</span>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">2</span>
-                            <span className="text-[8px] font-semibold text-slate-200">Market Knowledge & 8%+ Yield</span>
+                          <div className="flex items-start gap-1.5">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-400 text-black text-[7.5px] font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+                            <div>
+                              <span className="text-[8px] font-bold text-white block">Market Knowledge</span>
+                              <span className="text-[6.5px] text-slate-400">In-depth insights into local real estate trends.</span>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">3</span>
-                            <span className="text-[8px] font-semibold text-slate-200">Strong Legal Due Diligence</span>
+                          <div className="flex items-start gap-1.5">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-400 text-black text-[7.5px] font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+                            <div>
+                              <span className="text-[8px] font-bold text-white block">Strong Negotiation</span>
+                              <span className="text-[6.5px] text-slate-400">Dedicated agent expertise to secure the best value.</span>
+                            </div>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mx-2.5 p-2 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-between text-[8px]">
-                        <div>
-                          <span className="font-bold text-white block">Pre-Leased Offices</span>
-                          <span className="text-slate-400">9-Yr Lock-In</span>
+                      {/* Bottom Banner Preview */}
+                      <div className="mx-2.5 mb-2.5 relative h-16 rounded-xl overflow-hidden border border-white/10">
+                        <img 
+                          src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" 
+                          alt="Kaustubh View" 
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                          <span className="text-[8px] font-bold text-white uppercase tracking-wider">
+                            KAUSTUBH RESIDENCY
+                          </span>
                         </div>
-                        <span className="text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
-                          8.4% ROI
-                        </span>
                       </div>
                     </div>
 
@@ -1957,7 +2022,7 @@ export default function RealEstateMiniWebsiteView({
               {/* Action Button */}
               <a
                 href="/v/re-consultants"
-                className="mt-5 inline-flex items-center justify-center gap-2 px-7 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
+                className="mt-5 inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
               >
                 <span>VISIT NOW</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

@@ -125,22 +125,13 @@ export default function RealEstateShowcaseSection() {
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#f97316] text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#f97316]" />
-            <span>SPECIALIZED REAL ESTATE ENGINE</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-black tracking-tight text-[#0B0F19] leading-[1.12]">
-            Made for <span className="text-[#f97316]">Every</span>{' '}
+        <div className="text-center max-w-4xl mx-auto mb-10 sm:mb-14">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-[#0B0F19] leading-tight">
+            Made for{' '}
             <span className="bg-gradient-to-r from-[#f97316] via-[#ec4899] to-[#db2777] bg-clip-text text-transparent">
-              Real Estate
+              Every Real Estate
             </span>
           </h2>
-
-          <p className="mt-4 text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
-            From high-rise sky apartments and Greek-style luxury villas to HMDA open plots and landmark commercial towers — provide buyers with an ultra-luxury digital experience that generates verified WhatsApp site visits.
-          </p>
         </div>
 
         {/* 4 Cards Showcase Grid */}
