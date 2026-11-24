@@ -13,9 +13,12 @@ import {
   FileText,
   Phone,
   Eye,
-  KeyRound
+  KeyRound,
+  Film,
+  Play,
+  ExternalLink
 } from 'lucide-react';
-import { DigitalProfile, RealEstateTrustConfig } from '@/lib/types';
+import { DigitalProfile, RealEstateTrustConfig, VideoItem } from '@/lib/types';
 
 interface RealEstateProfileStudioProps {
   profile: DigitalProfile;
@@ -23,7 +26,60 @@ interface RealEstateProfileStudioProps {
 }
 
 export default function RealEstateProfileStudio({ profile, setProfile }: RealEstateProfileStudioProps) {
-  const [activeSubTab, setActiveSubTab] = useState<'rera' | 'trackRecord' | 'showcase'>('rera');
+  const [activeSubTab, setActiveSubTab] = useState<'rera' | 'trackRecord' | 'showcase' | 'videos'>('rera');
+
+  // Video Management State
+  const [newVideoTitle, setNewVideoTitle] = useState('');
+  const [newVideoUrl, setNewVideoUrl] = useState('');
+  const [newVideoType, setNewVideoType] = useState<'youtube' | 'instagram' | 'direct'>('youtube');
+  const [newVideoCaption, setNewVideoCaption] = useState('');
+
+  const currentVideos: VideoItem[] = profile.sectionData?.videos?.items || [];
+
+  const handleAddVideo = () => {
+    if (!newVideoTitle.trim() || !newVideoUrl.trim()) return;
+    
+    // Auto-detect type if user pasted an Instagram or YouTube link
+    let detectedType = newVideoType;
+    if (newVideoUrl.includes('instagram.com')) detectedType = 'instagram';
+    else if (newVideoUrl.includes('youtube.com') || newVideoUrl.includes('youtu.be')) detectedType = 'youtube';
+
+    const newVideo: VideoItem = {
+      id: `vid-${Date.now()}`,
+      title: newVideoTitle.trim(),
+      url: newVideoUrl.trim(),
+      type: detectedType,
+      caption: newVideoCaption.trim()
+    };
+
+    setProfile(prev => ({
+      ...prev,
+      sectionData: {
+        ...prev.sectionData,
+        videos: {
+          ...(prev.sectionData?.videos || {}),
+          items: [...(prev.sectionData?.videos?.items || []), newVideo]
+        }
+      }
+    }));
+
+    setNewVideoTitle('');
+    setNewVideoUrl('');
+    setNewVideoCaption('');
+  };
+
+  const handleRemoveVideo = (id: string) => {
+    setProfile(prev => ({
+      ...prev,
+      sectionData: {
+        ...prev.sectionData,
+        videos: {
+          ...(prev.sectionData?.videos || {}),
+          items: (prev.sectionData?.videos?.items || []).filter(v => v.id !== id)
+        }
+      }
+    }));
+  };
 
   const realEstateConfig: RealEstateTrustConfig = profile.sectionData?.realEstate || {};
 
@@ -109,6 +165,19 @@ export default function RealEstateProfileStudio({ profile, setProfile }: RealEst
         >
           <Eye className="w-4 h-4" />
           <span>Showcase Video &amp; Tagline</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveSubTab('videos')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shrink-0 ${
+            activeSubTab === 'videos'
+              ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 font-black'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+          }`}
+        >
+          <Film className="w-4 h-4" />
+          <span>YouTube &amp; Instagram Reels ({currentVideos.length})</span>
         </button>
       </div>
 
@@ -307,6 +376,163 @@ export default function RealEstateProfileStudio({ profile, setProfile }: RealEst
                 />
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* SUB-TAB 4: YOUTUBE VIDEOS & INSTAGRAM REELS (Play Inline)       */}
+      {/* ============================================================== */}
+      {activeSubTab === 'videos' && (
+        <div className="space-y-5 animate-fadeIn">
+          {/* Add New Video Form */}
+          <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Film className="w-4 h-4 text-amber-400" />
+                <span>Add YouTube Walkthrough or Instagram Reel</span>
+              </h3>
+              <span className="text-[10px] text-emerald-400 font-semibold bg-emerald-950/60 border border-emerald-500/40 px-2.5 py-1 rounded-full">
+                ✓ Plays Inline on Mini-Website (Zero Redirects)
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-slate-300">
+                  Video Platform
+                </label>
+                <select
+                  value={newVideoType}
+                  onChange={e => setNewVideoType(e.target.value as any)}
+                  className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500 cursor-pointer"
+                >
+                  <option value="youtube">▶ YouTube 4K Tour (16:9)</option>
+                  <option value="instagram">📸 Instagram Reel (9:16)</option>
+                  <option value="direct">🎬 Direct Video URL (MP4)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300">
+                  Video Title / Headline
+                </label>
+                <input
+                  type="text"
+                  value={newVideoTitle}
+                  placeholder="e.g. 4K Drone Tour of Skyline Imperia"
+                  onChange={e => setNewVideoTitle(e.target.value)}
+                  className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="text-xs font-bold text-slate-300">
+                  Video or Reel URL
+                </label>
+                <input
+                  type="text"
+                  value={newVideoUrl}
+                  placeholder="e.g. https://www.youtube.com/watch?v=... or https://www.instagram.com/reel/..."
+                  onChange={e => setNewVideoUrl(e.target.value)}
+                  className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-300 focus:outline-none focus:border-amber-500"
+                />
+                <p className="text-[10px] text-slate-400 mt-1">
+                  Supports any standard YouTube video, Shorts, or Instagram Reel. The video will play directly on your mini-website without sending visitors away.
+                </p>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="text-xs font-bold text-slate-300">
+                  Caption / Description (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={newVideoCaption}
+                  placeholder="e.g. Complete walkthrough of 3 BHK model flat, clubhouse, and swimming pool."
+                  onChange={e => setNewVideoCaption(e.target.value)}
+                  className="mt-1 w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500"
+                />
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleAddVideo}
+              disabled={!newVideoTitle.trim() || !newVideoUrl.trim()}
+              className="mt-2 w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-950 font-black text-xs transition flex items-center justify-center gap-1.5 shadow-md cursor-pointer"
+            >
+              <Plus className="w-4 h-4 stroke-[3]" />
+              <span>Add Video / Reel to Mini-Website</span>
+            </button>
+          </div>
+
+          {/* Current Videos List */}
+          <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Film className="w-4 h-4 text-amber-400" />
+                <span>Live Project Videos &amp; Reels ({currentVideos.length})</span>
+              </h3>
+            </div>
+
+            {currentVideos.length === 0 ? (
+              <p className="text-xs text-slate-400 italic text-center py-4">
+                No custom videos added yet. The mini-website is displaying default 4K architectural walkthroughs and Instagram reels.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {currentVideos.map((video, index) => {
+                  const isYt = video.type === 'youtube' || video.url.includes('youtube.com') || video.url.includes('youtu.be');
+                  const isIg = video.type === 'instagram' || video.url.includes('instagram.com');
+
+                  return (
+                    <div
+                      key={video.id || index}
+                      className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between gap-3 group hover:border-slate-700"
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className="w-6 h-6 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold flex items-center justify-center shrink-0">
+                          {index + 1}
+                        </span>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-white truncate max-w-sm">
+                              {video.title}
+                            </span>
+                            {isYt ? (
+                              <span className="px-2 py-0.5 rounded bg-red-600/20 border border-red-500/30 text-red-400 text-[9px] font-bold shrink-0">
+                                YouTube
+                              </span>
+                            ) : isIg ? (
+                              <span className="px-2 py-0.5 rounded bg-purple-600/20 border border-purple-500/30 text-purple-300 text-[9px] font-bold shrink-0">
+                                Instagram Reel
+                              </span>
+                            ) : (
+                              <span className="px-2 py-0.5 rounded bg-blue-600/20 border border-blue-500/30 text-blue-300 text-[9px] font-bold shrink-0">
+                                MP4 Video
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[10px] text-slate-400 truncate max-w-md mt-0.5">
+                            {video.url}
+                          </p>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveVideo(video.id)}
+                        className="w-8 h-8 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 flex items-center justify-center transition shrink-0 cursor-pointer"
+                        title="Delete Video"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       )}

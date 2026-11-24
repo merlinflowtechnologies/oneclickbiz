@@ -110,6 +110,80 @@ export interface RealEstateNearbyLandmark {
   category: string;
 }
 
+export function getYoutubeVideoId(url?: string): string {
+  if (!url) return '';
+  const match = url.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/);
+  return (match && match[2].length === 11) ? match[2] : '';
+}
+
+export function getYoutubeEmbedUrl(url?: string): string {
+  if (!url) return '';
+  if (url.includes('youtube.com/embed/')) return url;
+  const id = getYoutubeVideoId(url);
+  return id 
+    ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1` 
+    : url;
+}
+
+export function getInstagramEmbedUrl(url?: string): string {
+  if (!url) return '';
+  const match = url.match(/instagram\.com\/(?:reel|p|tv)\/([^/?#&]+)/i);
+  return match 
+    ? `https://www.instagram.com/reel/${match[1]}/embed` 
+    : url;
+}
+
+export const DEFAULT_REAL_ESTATE_VIDEOS = [
+  {
+    id: 'vid-yt-1',
+    title: 'Skyline Imperia — 4K Aerial Drone Layout Tour & Surroundings',
+    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    type: 'youtube' as const,
+    caption: '4K aerial drone flight showcasing 100ft arterial roads, upcoming metro line, and clubhouse elevation.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'vid-yt-2',
+    title: 'Model 4 BHK Sky Residence — Complete Architectural Walkthrough',
+    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    type: 'youtube' as const,
+    caption: 'Walkthrough of master suite, panoramic deck balcony, Italian marble foyer, and smart home automation.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'vid-ig-1',
+    title: 'Skyline Aeropolis — Rapid Site Progression & Blacktop Roads',
+    url: 'https://www.instagram.com/reel/C3M8W98oG12/',
+    type: 'instagram' as const,
+    caption: 'Latest on-site reel: Underground cabling, street illumination, and demarcated boundary stones.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'vid-ig-2',
+    title: 'Skyline Grandeur Triplex Villas — Clubhouse & Pool Reel Tour',
+    url: 'https://www.instagram.com/reel/C2X4Z81oH34/',
+    type: 'instagram' as const,
+    caption: 'Exclusive reel walkthrough of private plunge pool, double-height living room, and landscaped lawns.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'vid-yt-3',
+    title: 'Skyline Business Hub — Grade-A Corporate IT Park Overview',
+    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    type: 'youtube' as const,
+    caption: 'Grade-A LEED Platinum certified office campus, double glazed glass facade & 8.4% gross rental yield.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'vid-ig-3',
+    title: 'Key Handover Ceremony & Happy Homeowners Celebration',
+    url: 'https://www.instagram.com/reel/C1k8P98oY99/',
+    type: 'instagram' as const,
+    caption: 'Welcoming 45 happy families to their dream home with on-time registration and champagne handover.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80'
+  }
+];
+
 export default function RealEstateMiniWebsiteView({
   profile,
   trackAction = () => {},
@@ -144,6 +218,34 @@ export default function RealEstateMiniWebsiteView({
   // Video Section Player State
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Inline Video & Instagram Reels State (Plays right in place - no redirects)
+  const [activeVideoFilter, setActiveVideoFilter] = useState<'all' | 'youtube' | 'instagram'>('all');
+  const [activeInlineVideoId, setActiveInlineVideoId] = useState<string | null>(null);
+
+  const allProjectVideos: VideoItem[] = useMemo(() => {
+    const customVideos = profile.sectionData?.videos?.items || [];
+    if (customVideos.length > 0) return customVideos;
+    return DEFAULT_REAL_ESTATE_VIDEOS;
+  }, [profile.sectionData?.videos?.items]);
+
+  const filteredProjectVideos = useMemo(() => {
+    if (activeVideoFilter === 'youtube') {
+      return allProjectVideos.filter(v => v.type === 'youtube' || v.url.includes('youtube.com') || v.url.includes('youtu.be'));
+    }
+    if (activeVideoFilter === 'instagram') {
+      return allProjectVideos.filter(v => v.type === 'instagram' || v.url.includes('instagram.com'));
+    }
+    return allProjectVideos;
+  }, [allProjectVideos, activeVideoFilter]);
+
+  const youtubeVideosCount = useMemo(() => {
+    return allProjectVideos.filter(v => v.type === 'youtube' || v.url.includes('youtube.com') || v.url.includes('youtu.be')).length;
+  }, [allProjectVideos]);
+
+  const instagramVideosCount = useMemo(() => {
+    return allProjectVideos.filter(v => v.type === 'instagram' || v.url.includes('instagram.com')).length;
+  }, [allProjectVideos]);
 
   // Background Audio Control State
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -747,6 +849,7 @@ export default function RealEstateMiniWebsiteView({
             <a href="#video" className="hover:text-[#F8CD71] transition-colors">Video</a>
             <a href="#plans" className="hover:text-[#F8CD71] transition-colors">LayOut Plans</a>
             <a href="#portfolio" className="hover:text-[#F8CD71] transition-colors">Projects</a>
+            <a href="#videos" className="hover:text-[#F8CD71] transition-colors">Videos &amp; Reels</a>
             <a href="#amenities" className="hover:text-[#F8CD71] transition-colors">Amenities</a>
             <a href="#interior" className="hover:text-[#F8CD71] transition-colors">Interior</a>
             <a href="#location" className="hover:text-[#F8CD71] transition-colors">Google Location</a>
@@ -1937,6 +2040,181 @@ export default function RealEstateMiniWebsiteView({
       </section>
 
       {/* ============================================================== */}
+      {/* 4.8 PROJECT VIDEOS & INSTAGRAM REELS (Play Inline - No Escape) */}
+      {/* ============================================================== */}
+      <section id="videos" className="py-14 sm:py-20 bg-[#0B0F19] text-white border-b border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-[#F8CD71] text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
+              <Film className="w-3.5 h-3.5 text-[#F8CD71]" />
+              <span>CINEMATIC WALKTHROUGHS &amp; REELS</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+              Project Videos &amp; <span className="text-[#F8CD71]">Instagram Reels</span>
+            </h2>
+            <p className="mt-3 text-xs sm:text-sm text-gray-400 font-medium max-w-2xl mx-auto">
+              Watch 4K aerial drone tours, model flat walkthroughs, and verified construction reels right here — they play directly on this page without leaving the website.
+            </p>
+
+            {/* Filter Tabs */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
+              {[
+                { id: 'all', label: `All Videos (${allProjectVideos.length})` },
+                { id: 'youtube', label: `▶ YouTube 4K Tours (${youtubeVideosCount})` },
+                { id: 'instagram', label: `📸 Instagram Reels (${instagramVideosCount})` },
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveVideoFilter(tab.id as any)}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
+                    activeVideoFilter === tab.id
+                      ? 'bg-[#F8CD71] text-[#0B0F19] shadow-md shadow-amber-500/20'
+                      : 'bg-white/5 text-gray-300 hover:text-white hover:bg-white/10 border border-white/10'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Videos Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjectVideos.map((video) => {
+              const isPlaying = activeInlineVideoId === video.id;
+              const isYt = video.type === 'youtube' || video.url.includes('youtube.com') || video.url.includes('youtu.be');
+              const isIg = video.type === 'instagram' || video.url.includes('instagram.com');
+              const ytId = getYoutubeVideoId(video.url);
+
+              return (
+                <div 
+                  key={video.id}
+                  className="bg-[#111827] rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:border-amber-500/40 transition-all flex flex-col group"
+                >
+                  {/* Video Player or Thumbnail Container */}
+                  <div className={`relative w-full bg-black ${isIg ? 'aspect-[9/13]' : 'aspect-video'} overflow-hidden`}>
+                    {isPlaying ? (
+                      isYt ? (
+                        <iframe
+                          src={getYoutubeEmbedUrl(video.url)}
+                          title={video.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          className="w-full h-full border-0"
+                        />
+                      ) : isIg ? (
+                        <iframe
+                          src={getInstagramEmbedUrl(video.url)}
+                          title={video.title}
+                          allowFullScreen
+                          className="w-full h-full border-0"
+                        />
+                      ) : (
+                        <video
+                          src={video.url}
+                          controls
+                          autoPlay
+                          playsInline
+                          className="w-full h-full object-cover"
+                        />
+                      )
+                    ) : (
+                      /* Click to play inline thumbnail */
+                      <div 
+                        onClick={() => setActiveInlineVideoId(video.id)}
+                        className="relative w-full h-full cursor-pointer group/thumb select-none"
+                      >
+                        <img 
+                          src={video.thumbnailUrl || (isYt && ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80')} 
+                          alt={video.title}
+                          className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                        
+                        {/* Platform Badge */}
+                        <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                          {isYt ? (
+                            <span className="px-2.5 py-1 rounded-full bg-red-600 text-white font-extrabold text-[10px] flex items-center gap-1 shadow-md">
+                              <span>▶</span> YouTube 4K
+                            </span>
+                          ) : (
+                            <span className="px-2.5 py-1 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-extrabold text-[10px] flex items-center gap-1 shadow-md">
+                              <span>📸</span> Instagram Reel
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Circular Play Button */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-14 h-14 rounded-full bg-[#F8CD71] text-[#0B0F19] flex items-center justify-center shadow-2xl group-hover/thumb:scale-110 transition-transform">
+                            <Play className="w-6 h-6 fill-current ml-0.5" />
+                          </div>
+                        </div>
+
+                        <div className="absolute bottom-3 right-3 text-[10px] bg-black/70 px-2 py-0.5 rounded text-gray-300 font-semibold">
+                          ▶ Play Inline
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card Info & Actions */}
+                  <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h4 className="text-sm sm:text-base font-bold text-white leading-snug line-clamp-2">
+                        {video.title}
+                      </h4>
+                      {video.caption && (
+                        <p className="mt-1.5 text-xs text-gray-400 line-clamp-2">
+                          {video.caption}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-gray-800/80 flex items-center justify-between gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (isPlaying) {
+                            setActiveInlineVideoId(null);
+                          } else {
+                            setActiveInlineVideoId(video.id);
+                          }
+                        }}
+                        className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                      >
+                        {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-current" />}
+                        <span>{isPlaying ? 'Pause' : 'Play Here'}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setPreviewMedia({
+                          url: video.url,
+                          type: 'video',
+                          title: video.title,
+                          subtitle: video.caption
+                        })}
+                        className="px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                        title="Theater Mode (Full Screen on Page)"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5" />
+                        <span>Theater Mode</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ============================================================== */}
       {/* 5. PROJECT AMENITIES SECTION (`#amenities`)                     */}
       {/* ============================================================== */}
       <section id="amenities" className="relative overflow-hidden bg-[#F4F7FE] py-10 sm:py-16 border-b border-gray-200">
@@ -2500,13 +2778,30 @@ export default function RealEstateMiniWebsiteView({
             {/* Media Body */}
             <div className="flex-1 bg-black flex items-center justify-center overflow-hidden p-2 sm:p-4">
               {previewMedia.type === 'video' ? (
-                <video
-                  src={previewMedia.url}
-                  controls
-                  autoPlay
-                  playsInline
-                  className="max-h-[65vh] w-auto max-w-full rounded-lg object-contain"
-                />
+                previewMedia.url.includes('youtube.com') || previewMedia.url.includes('youtu.be') ? (
+                  <iframe
+                    src={getYoutubeEmbedUrl(previewMedia.url)}
+                    title={previewMedia.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="w-full aspect-video max-h-[70vh] rounded-xl border-0"
+                  />
+                ) : previewMedia.url.includes('instagram.com') ? (
+                  <iframe
+                    src={getInstagramEmbedUrl(previewMedia.url)}
+                    title={previewMedia.title}
+                    allowFullScreen
+                    className="w-full max-w-sm aspect-[9/15] max-h-[70vh] rounded-xl border-0 bg-black"
+                  />
+                ) : (
+                  <video
+                    src={previewMedia.url}
+                    controls
+                    autoPlay
+                    playsInline
+                    className="max-h-[65vh] w-auto max-w-full rounded-lg object-contain"
+                  />
+                )
               ) : (
                 <img
                   src={previewMedia.url}
