@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Navbar from '@/components/landing/Navbar';
 import HeroSection from '@/components/landing/HeroSection';
+import RealEstateShowcaseSection from '@/components/landing/RealEstateShowcaseSection';
 import ServicesSection from '@/components/landing/ServicesSection';
 import BusinessCategoriesSection from '@/components/landing/BusinessCategoriesSection';
 import TemplatesSection from '@/components/landing/TemplatesSection';
@@ -28,6 +29,9 @@ export default function LandingPage() {
       <main>
         {/* SECTION 2 — HERO SECTION */}
         <HeroSection onWatchDemo={() => setDemoModalOpen(true)} />
+
+        {/* SECTION 2.5 — MADE FOR EVERY REAL ESTATE SHOWCASE */}
+        <RealEstateShowcaseSection />
 
         {/* SECTION 3 — SERVICES OVERVIEW */}
         <ServicesSection />
