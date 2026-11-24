@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useRef } from 'react';
 import { 
   Building2, 
+  Building,
   MapPin, 
   Phone, 
   Mail, 
@@ -745,6 +746,7 @@ export default function RealEstateMiniWebsiteView({
             <a href="#home" className="hover:text-[#F8CD71] transition-colors">Home</a>
             <a href="#video" className="hover:text-[#F8CD71] transition-colors">Video</a>
             <a href="#plans" className="hover:text-[#F8CD71] transition-colors">LayOut Plans</a>
+            <a href="#portfolio" className="hover:text-[#F8CD71] transition-colors">Projects</a>
             <a href="#amenities" className="hover:text-[#F8CD71] transition-colors">Amenities</a>
             <a href="#interior" className="hover:text-[#F8CD71] transition-colors">Interior</a>
             <a href="#location" className="hover:text-[#F8CD71] transition-colors">Google Location</a>
@@ -1370,6 +1372,496 @@ export default function RealEstateMiniWebsiteView({
             </button>
           </div>
 
+        </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* 4.5 MADE FOR EVERY REAL ESTATE (Portfolio Showcase Section)      */}
+      {/* ============================================================== */}
+      <section id="portfolio" className="py-14 sm:py-20 bg-white border-b border-gray-200 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#f97316] text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#f97316]" />
+              <span>LANDMARK DEVELOPMENTS</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#0B0F19] leading-[1.12]">
+              Made for <span className="text-[#f97316]">Every</span>{' '}
+              <span className="bg-gradient-to-r from-[#f97316] via-[#ec4899] to-[#db2777] bg-clip-text text-transparent">
+                Real Estate
+              </span>
+            </h2>
+
+            <p className="mt-3 text-sm sm:text-base text-gray-600 font-medium max-w-2xl mx-auto">
+              From high-rise sky apartments and Greek-style luxury villas to HMDA open plots and landmark commercial towers — explore our verified developments.
+            </p>
+          </div>
+
+          {/* 4 Category Phone Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 xl:gap-8 items-start">
+            
+            {/* 1. APARTMENT CARD */}
+            <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center mb-5 group cursor-default">
+                <div className="w-14 h-14 rounded-full bg-[#f97316] text-white flex items-center justify-center shadow-lg shadow-orange-500/25 transition-transform duration-300 group-hover:scale-110">
+                  <Building2 className="w-7 h-7" />
+                </div>
+                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-800 uppercase">
+                  APARTMENT
+                </span>
+              </div>
+
+              {/* Phone Mockup Frame */}
+              <div className="relative w-full max-w-[280px] sm:max-w-[290px] mx-auto group">
+                <div className="relative rounded-[42px] border-[9px] border-[#c2410c] shadow-[0_20px_50px_rgba(194,65,12,0.22)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
+                  
+                  {/* Side Buttons */}
+                  <div className="absolute top-16 -left-[12px] w-[3px] h-6 bg-slate-600 rounded-l" />
+                  <div className="absolute top-26 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-40 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-24 -right-[12px] w-[3px] h-12 bg-slate-600 rounded-r" />
+
+                  {/* Inner Phone Screen */}
+                  <div className="relative rounded-[32px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[500px] shadow-inner select-none">
+                    
+                    {/* Dynamic Island */}
+                    <div className="w-full pt-2.5 pb-1.5 px-4 flex items-center justify-between z-30 bg-[#0B0F19]">
+                      <span className="text-[10px] font-semibold text-slate-400">9:41</span>
+                      <div className="w-20 h-4 bg-black rounded-full flex items-center justify-end px-2 border border-white/10 shadow-inner">
+                        <div className="w-2 h-2 rounded-full bg-slate-900 border border-slate-700/80" />
+                      </div>
+                      <span className="text-[9px] text-slate-400 font-semibold">5G</span>
+                    </div>
+
+                    {/* Scrollable Screen Content */}
+                    <div className="relative flex-1 overflow-y-auto overflow-x-hidden scrollbar-none text-left flex flex-col bg-[#0B0F19]">
+                      <div className="px-3 py-1.5 flex items-center justify-between border-b border-white/10 bg-[#111827]">
+                        <span className="text-[10px] font-black tracking-tight text-white">SKYLINE TOWERS</span>
+                        <div className="flex items-center gap-1 text-[8px] text-slate-400">
+                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">f</span>
+                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">ig</span>
+                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">▶</span>
+                        </div>
+                      </div>
+
+                      <div className="relative h-40 w-full overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80" 
+                          alt="Skyline Towers" 
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-black/40 to-transparent" />
+                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-orange-600/90 text-white text-[8px] font-bold uppercase">
+                          RERA Approved
+                        </span>
+                        <div className="absolute bottom-2 left-2.5 right-2.5">
+                          <span className="text-[9px] font-bold text-amber-400 uppercase tracking-widest block">
+                            MILLENNIAL TOWERS
+                          </span>
+                          <p className="text-xs font-black text-white leading-tight">
+                            Live The Millennial High Life
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="p-2 mx-2.5 my-2 rounded-xl bg-gradient-to-r from-slate-900 to-[#1C2434] border border-amber-500/30 flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center shrink-0 text-amber-400">
+                          <Play className="w-3.5 h-3.5 fill-amber-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-[9px] font-bold text-white truncate">4K Architectural Film</div>
+                          <div className="text-[7px] text-slate-400">Official Walkthrough</div>
+                        </div>
+                      </div>
+
+                      <div className="mx-2.5 p-2.5 rounded-xl bg-white text-slate-900 shadow-md">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-[11px] font-black text-slate-900">Floor Plans</span>
+                          <span className="text-[8px] font-bold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded">
+                            2 & 3 BHK
+                          </span>
+                        </div>
+                        <p className="text-[8px] text-slate-600 leading-tight mb-2">
+                          Seamless & transparent buying experience backed by high market expertise.
+                        </p>
+                        <div className="grid grid-cols-2 gap-1 text-[8px] font-semibold">
+                          <div className="p-1 rounded bg-slate-100 flex items-center justify-between">
+                            <span>2 BHK</span>
+                            <span className="font-bold">1,480 sqft</span>
+                          </div>
+                          <div className="p-1 rounded bg-slate-100 flex items-center justify-between">
+                            <span>3 BHK</span>
+                            <span className="font-bold">2,150 sqft</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="py-2 flex items-center justify-center bg-[#0B0F19]">
+                      <div className="w-20 h-1 bg-white/30 rounded-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <a
+                href="/v/re-builders"
+                className="mt-5 inline-flex items-center justify-center gap-2 px-7 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
+              >
+                <span>VISIT NOW</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+
+            {/* 2. VILLA CARD */}
+            <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center mb-5 group cursor-default">
+                <div className="w-14 h-14 rounded-full bg-[#16a34a] text-white flex items-center justify-center shadow-lg shadow-emerald-500/25 transition-transform duration-300 group-hover:scale-110">
+                  <Home className="w-7 h-7" />
+                </div>
+                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-800 uppercase">
+                  VILLA
+                </span>
+              </div>
+
+              {/* Phone Mockup Frame */}
+              <div className="relative w-full max-w-[280px] sm:max-w-[290px] mx-auto group">
+                <div className="relative rounded-[42px] border-[9px] border-[#1e3a8a] shadow-[0_20px_50px_rgba(30,58,138,0.22)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
+                  
+                  {/* Side Buttons */}
+                  <div className="absolute top-16 -left-[12px] w-[3px] h-6 bg-slate-600 rounded-l" />
+                  <div className="absolute top-26 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-40 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-24 -right-[12px] w-[3px] h-12 bg-slate-600 rounded-r" />
+
+                  {/* Inner Phone Screen */}
+                  <div className="relative rounded-[32px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[500px] shadow-inner select-none">
+                    
+                    {/* Dynamic Island */}
+                    <div className="w-full pt-2.5 pb-1.5 px-4 flex items-center justify-between z-30 bg-[#0B0F19]">
+                      <span className="text-[10px] font-semibold text-slate-400">9:41</span>
+                      <div className="w-20 h-4 bg-black rounded-full flex items-center justify-end px-2 border border-white/10 shadow-inner">
+                        <div className="w-2 h-2 rounded-full bg-slate-900 border border-slate-700/80" />
+                      </div>
+                      <span className="text-[9px] text-slate-400 font-semibold">5G</span>
+                    </div>
+
+                    {/* Scrollable Screen Content */}
+                    <div className="relative flex-1 overflow-y-auto overflow-x-hidden scrollbar-none text-left flex flex-col bg-[#0B0F19]">
+                      <div className="px-3 py-1.5 flex items-center justify-between border-b border-white/10 bg-[#111827]">
+                        <span className="text-[10px] font-black tracking-tight text-white">GREENVILLE ESTATES</span>
+                        <div className="flex items-center gap-1 text-[8px] text-slate-400">
+                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">f</span>
+                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">ig</span>
+                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">▶</span>
+                        </div>
+                      </div>
+
+                      <div className="relative h-40 w-full overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80" 
+                          alt="Greenville Villas" 
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-black/40 to-transparent" />
+                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-emerald-600/90 text-white text-[8px] font-bold uppercase">
+                          Gated Triplex
+                        </span>
+                        <div className="absolute bottom-2 left-2.5 right-2.5">
+                          <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-widest block">
+                            SIGNATURE VILLAS
+                          </span>
+                          <p className="text-xs font-black text-white leading-tight">
+                            Greece-Themed White & Blue Living
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mx-2.5 my-2 p-2.5 rounded-xl bg-[#111827] border border-emerald-500/20 text-slate-200">
+                        <span className="text-[10px] font-bold text-white block mb-0.5">
+                          Luxurious Villa Community
+                        </span>
+                        <p className="text-[7px] text-slate-400 mb-1.5 leading-tight">
+                          A vacation lifestyle with Greece themed white & blue architecture.
+                        </p>
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">1</span>
+                            <span className="text-[8px] font-semibold text-slate-200">A Holiday Life Everyday</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">2</span>
+                            <span className="text-[8px] font-semibold text-slate-200">Private Plunge Pool & Deck</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">3</span>
+                            <span className="text-[8px] font-semibold text-slate-200">Greece Themed Clubhouse</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mx-2.5 p-2 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-between text-[8px]">
+                        <div>
+                          <span className="font-bold text-white block">4 & 5 BHK Triplex</span>
+                          <span className="text-slate-400">4,200 - 5,800 sqft</span>
+                        </div>
+                        <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                          45 Units Only
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="py-2 flex items-center justify-center bg-[#0B0F19]">
+                      <div className="w-20 h-1 bg-white/30 rounded-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <a
+                href="/v/re-villas"
+                className="mt-5 inline-flex items-center justify-center gap-2 px-7 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
+              >
+                <span>VISIT NOW</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+
+            {/* 3. PLOTTING CARD */}
+            <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center mb-5 group cursor-default">
+                <div className="w-14 h-14 rounded-full bg-[#2563eb] text-white flex items-center justify-center shadow-lg shadow-blue-500/25 transition-transform duration-300 group-hover:scale-110">
+                  <MapPin className="w-7 h-7" />
+                </div>
+                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-800 uppercase">
+                  PLOTTING
+                </span>
+              </div>
+
+              {/* Phone Mockup Frame */}
+              <div className="relative w-full max-w-[280px] sm:max-w-[290px] mx-auto group">
+                <div className="relative rounded-[42px] border-[9px] border-[#831843] shadow-[0_20px_50px_rgba(131,24,67,0.22)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
+                  
+                  {/* Side Buttons */}
+                  <div className="absolute top-16 -left-[12px] w-[3px] h-6 bg-slate-600 rounded-l" />
+                  <div className="absolute top-26 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-40 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-24 -right-[12px] w-[3px] h-12 bg-slate-600 rounded-r" />
+
+                  {/* Inner Phone Screen */}
+                  <div className="relative rounded-[32px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[500px] shadow-inner select-none">
+                    
+                    {/* Dynamic Island */}
+                    <div className="w-full pt-2.5 pb-1.5 px-4 flex items-center justify-between z-30 bg-[#0B0F19]">
+                      <span className="text-[10px] font-semibold text-slate-400">9:41</span>
+                      <div className="w-20 h-4 bg-black rounded-full flex items-center justify-end px-2 border border-white/10 shadow-inner">
+                        <div className="w-2 h-2 rounded-full bg-slate-900 border border-slate-700/80" />
+                      </div>
+                      <span className="text-[9px] text-slate-400 font-semibold">5G</span>
+                    </div>
+
+                    {/* Scrollable Screen Content */}
+                    <div className="relative flex-1 overflow-y-auto overflow-x-hidden scrollbar-none text-left flex flex-col bg-[#0B0F19]">
+                      <div className="px-3 py-1.5 flex items-center justify-between border-b border-white/10 bg-[#111827]">
+                        <span className="text-[10px] font-black tracking-tight text-white">HK NATURE FARMS</span>
+                        <span className="px-1.5 py-0.5 rounded-full bg-emerald-500 text-black text-[7px] font-bold">
+                          WhatsApp
+                        </span>
+                      </div>
+
+                      <div className="bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 px-2 py-0.5 text-center font-black text-[8px] uppercase tracking-wide">
+                        Invest Today, Enjoy Tomorrow!
+                      </div>
+
+                      <div className="mx-2.5 my-2 p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30">
+                        <div className="flex items-center justify-between mb-1 text-[7px]">
+                          <span className="text-emerald-400 font-bold uppercase">Master Layout Map</span>
+                          <span className="text-amber-300 font-bold">30FT & 40FT ROADS</span>
+                        </div>
+
+                        {/* Numbered Plot Grid */}
+                        <div className="grid grid-cols-4 gap-1 p-1 bg-slate-900/90 rounded-lg text-center">
+                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
+                            <div 
+                              key={num} 
+                              className={`py-0.5 rounded text-[7px] font-bold border ${
+                                [2, 5, 9].includes(num)
+                                  ? 'bg-rose-950/60 text-rose-300 border-rose-500/40'
+                                  : 'bg-emerald-900/60 text-emerald-200 border-emerald-500/40'
+                              }`}
+                            >
+                              #{num}
+                              <span className="block text-[5px] font-normal opacity-80">
+                                {[2, 5, 9].includes(num) ? 'BOOKED' : '200 Yd'}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="mx-2.5 p-2 rounded-xl bg-[#111827] border border-white/5 space-y-1 text-[7px]">
+                        <div className="flex items-center gap-1.5 text-slate-300">
+                          <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
+                          <span>100% Vastu Compliant Plots</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-slate-300">
+                          <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
+                          <span>Spot Registration & Clear Title</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-slate-300">
+                          <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
+                          <span>Grand Entrance Arch & CCTV</span>
+                        </div>
+                      </div>
+
+                      <div className="mx-2.5 my-1.5 grid grid-cols-2 gap-1.5">
+                        <div className="py-1 rounded bg-amber-400 text-slate-950 font-black text-[7px] text-center">
+                          Brochure
+                        </div>
+                        <div className="py-1 rounded bg-blue-600 text-white font-bold text-[7px] text-center">
+                          View Plots
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="py-2 flex items-center justify-center bg-[#0B0F19]">
+                      <div className="w-20 h-1 bg-white/30 rounded-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <a
+                href="/v/re-plots"
+                className="mt-5 inline-flex items-center justify-center gap-2 px-7 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
+              >
+                <span>VISIT NOW</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+
+            {/* 4. BUILDING CARD */}
+            <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center mb-5 group cursor-default">
+                <div className="w-14 h-14 rounded-full bg-[#7c3aed] text-white flex items-center justify-center shadow-lg shadow-purple-500/25 transition-transform duration-300 group-hover:scale-110">
+                  <Building className="w-7 h-7" />
+                </div>
+                <span className="mt-3 text-xs sm:text-sm font-extrabold tracking-wider text-slate-800 uppercase">
+                  BUILDING
+                </span>
+              </div>
+
+              {/* Phone Mockup Frame */}
+              <div className="relative w-full max-w-[280px] sm:max-w-[290px] mx-auto group">
+                <div className="relative rounded-[42px] border-[9px] border-[#1e293b] shadow-[0_20px_50px_rgba(30,41,59,0.25)] bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5">
+                  
+                  {/* Side Buttons */}
+                  <div className="absolute top-16 -left-[12px] w-[3px] h-6 bg-slate-600 rounded-l" />
+                  <div className="absolute top-26 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-40 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                  <div className="absolute top-24 -right-[12px] w-[3px] h-12 bg-slate-600 rounded-r" />
+
+                  {/* Inner Phone Screen */}
+                  <div className="relative rounded-[32px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[500px] shadow-inner select-none">
+                    
+                    {/* Dynamic Island */}
+                    <div className="w-full pt-2.5 pb-1.5 px-4 flex items-center justify-between z-30 bg-[#0B0F19]">
+                      <span className="text-[10px] font-semibold text-slate-400">9:41</span>
+                      <div className="w-20 h-4 bg-black rounded-full flex items-center justify-end px-2 border border-white/10 shadow-inner">
+                        <div className="w-2 h-2 rounded-full bg-slate-900 border border-slate-700/80" />
+                      </div>
+                      <span className="text-[9px] text-slate-400 font-semibold">5G</span>
+                    </div>
+
+                    {/* Scrollable Screen Content */}
+                    <div className="relative flex-1 overflow-y-auto overflow-x-hidden scrollbar-none text-left flex flex-col bg-[#0B0F19]">
+                      <div className="px-3 py-1.5 flex items-center justify-between border-b border-white/10 bg-[#111827]">
+                        <span className="text-[10px] font-black tracking-tight text-white">KAUSTUBH TOWERS</span>
+                        <div className="flex items-center gap-1 text-[8px] text-slate-400">
+                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">f</span>
+                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">ig</span>
+                          <span className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">▶</span>
+                        </div>
+                      </div>
+
+                      <div className="relative h-40 w-full overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" 
+                          alt="Kaustubh Tower" 
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-black/40 to-transparent" />
+                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-purple-600/90 text-white text-[8px] font-bold uppercase">
+                          Grade-A Tower
+                        </span>
+                        <div className="absolute bottom-2 left-2.5 right-2.5">
+                          <span className="text-[9px] font-bold text-purple-400 uppercase tracking-widest block">
+                            LANDMARK TOWER
+                          </span>
+                          <p className="text-xs font-black text-white leading-tight">
+                            Commercial & Corporate Suites
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mx-2.5 my-2 p-2.5 rounded-xl bg-[#111827] border border-purple-500/20 text-slate-200">
+                        <span className="text-[10px] font-bold text-white block mb-0.5">
+                          Floor Plans & Commercial Hub
+                        </span>
+                        <p className="text-[7px] text-slate-400 mb-1.5 leading-tight">
+                          Seamless property buying experience backed by years of market expertise.
+                        </p>
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">1</span>
+                            <span className="text-[8px] font-semibold text-slate-200">Transparent Communication</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">2</span>
+                            <span className="text-[8px] font-semibold text-slate-200">Market Knowledge & 8%+ Yield</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 text-black text-[8px] font-bold flex items-center justify-center shrink-0">3</span>
+                            <span className="text-[8px] font-semibold text-slate-200">Strong Legal Due Diligence</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mx-2.5 p-2 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-between text-[8px]">
+                        <div>
+                          <span className="font-bold text-white block">Pre-Leased Offices</span>
+                          <span className="text-slate-400">9-Yr Lock-In</span>
+                        </div>
+                        <span className="text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                          8.4% ROI
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="py-2 flex items-center justify-center bg-[#0B0F19]">
+                      <div className="w-20 h-1 bg-white/30 rounded-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <a
+                href="/v/re-consultants"
+                className="mt-5 inline-flex items-center justify-center gap-2 px-7 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
+              >
+                <span>VISIT NOW</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+
+          </div>
         </div>
       </section>
 
