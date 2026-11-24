@@ -43,7 +43,11 @@ import {
   RotateCcw,
   IndianRupee,
   Compass,
-  ArrowUpRight
+  ArrowUpRight,
+  BedDouble,
+  Bath,
+  Eye,
+  FileDown
 } from 'lucide-react';
 import { DigitalProfile, VideoItem } from '@/lib/types';
 import ShareCardModal from '@/components/common/ShareCardModal';
@@ -64,11 +68,21 @@ export interface RealEstateFloorPlan {
   id: string;
   title: string;
   bhk: string;
+  category: 'Master Layout' | '1 BHK' | '2 BHK' | '3 BHK' | '4 BHK';
   superArea: string;
   carpetArea: string;
+  efficiency?: string;
+  balconyArea?: string;
+  bedrooms?: number | string;
+  bathrooms?: number | string;
   facing: string;
   price: string;
+  priceNum?: number;
+  estEmi?: string;
   imageUrl: string;
+  view3dUrl?: string;
+  tag?: string;
+  roomSpecs?: { name: string; size: string }[];
 }
 
 export interface RealEstateAmenity {
@@ -112,6 +126,11 @@ export default function RealEstateMiniWebsiteView({
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
   const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
   const [isEmiModalOpen, setIsEmiModalOpen] = useState(false);
+
+  // Advanced Floor Plan States (Filtering, 2D/3D Switcher, Specs Drawer)
+  const [activePlanTab, setActivePlanTab] = useState<string>('All');
+  const [cardViewModes, setCardViewModes] = useState<Record<string, '2d' | '3d'>>({});
+  const [selectedPlanDetails, setSelectedPlanDetails] = useState<RealEstateFloorPlan | null>(null);
   
   // Lightbox Media Preview Modal (Exact FlagUp feature)
   const [previewMedia, setPreviewMedia] = useState<{
@@ -235,64 +254,193 @@ export default function RealEstateMiniWebsiteView({
   const instagramUrl = getSocialLink('instagram', 'https://instagram.com/');
   const youtubeUrl = getSocialLink('youtube', 'https://youtube.com/');
 
-  // Floor plans (FlagUp Layout Plans)
+  // Advanced Floor plans (FlagUp Layout Plans upgraded with 2D/3D & Specs)
   const layoutPlans: RealEstateFloorPlan[] = useMemo(() => {
     const rawProducts = profile.sectionData?.products?.items || [];
     if (rawProducts.length > 0) {
-      return rawProducts.map((p, idx) => ({
-        id: p.id || `plan_${idx}`,
-        title: p.name || `Architecture Plan ${idx + 1}`,
-        bhk: p.name.includes('BHK') ? p.name : `${(idx % 3) + 1} BHK Premium`,
-        superArea: `${1150 + idx * 350} Sq.Ft`,
-        carpetArea: `${850 + idx * 280} Sq.Ft`,
-        facing: idx % 2 === 0 ? 'East Facing (100% Vastu)' : 'North Facing (100% Vastu)',
-        price: p.price ? `₹ ${p.price.toLocaleString('en-IN')}` : 'Price on Request',
-        imageUrl: p.imageUrl || `https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80`
-      }));
+      return rawProducts.map((p, idx) => {
+        const isBhk1 = p.name.includes('1') && p.name.includes('BHK');
+        const isBhk2 = p.name.includes('2') && p.name.includes('BHK');
+        const isBhk3 = p.name.includes('3') && p.name.includes('BHK');
+        const isBhk4 = (p.name.includes('4') || p.name.includes('5')) && p.name.includes('BHK');
+        let cat: 'Master Layout' | '1 BHK' | '2 BHK' | '3 BHK' | '4 BHK' = '3 BHK';
+        if (isBhk1) cat = '1 BHK';
+        else if (isBhk2) cat = '2 BHK';
+        else if (isBhk4) cat = '4 BHK';
+        else if (idx === 0 && !p.name.includes('BHK')) cat = 'Master Layout';
+
+        const priceVal = p.price || (4500000 + idx * 3500000);
+        return {
+          id: p.id || `plan_${idx}`,
+          title: p.name || `Architectural Unit #${idx + 1}`,
+          category: cat,
+          bhk: p.name.includes('BHK') ? p.name : `${(idx % 3) + 1} BHK Luxury Suite`,
+          superArea: `${1150 + idx * 350} Sq.Ft`,
+          carpetArea: `${850 + idx * 280} Sq.Ft`,
+          efficiency: '78% RERA Usable Ratio',
+          balconyArea: `${95 + idx * 25} Sq.Ft Deck`,
+          bedrooms: (idx % 3) + 1,
+          bathrooms: (idx % 3) + 1,
+          facing: idx % 2 === 0 ? 'East Facing (100% Vastu)' : 'North-East Corner Facing',
+          price: p.price ? `₹ ${p.price.toLocaleString('en-IN')}` : `₹ ${(priceVal / 100000).toFixed(1)} Lakhs*`,
+          priceNum: priceVal,
+          estEmi: `₹ ${Math.round((priceVal * 0.8 * 0.085 / 12) * 1.5).toLocaleString('en-IN')}/mo*`,
+          imageUrl: p.imageUrl || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+          view3dUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+          tag: idx === 0 ? 'Tower Floor Plate' : (idx === 2 ? 'High Demand' : 'Few Units Left'),
+          roomSpecs: [
+            { name: 'Living & Dining Foyer', size: `${18 + idx}'0" x ${12 + idx}'6"` },
+            { name: 'Master Suite Bedroom', size: `${14 + idx}'0" x ${12}'0"` },
+            { name: 'Designer Modular Kitchen', size: "11'0\" x 9'6\"" },
+            { name: 'Panoramic Balcony Deck', size: `${12 + idx}'0" x 5'6"` }
+          ]
+        };
+      });
     }
     return [
       {
-        id: 'plan_1',
-        title: 'Typical Floor Plan (G+22)',
-        bhk: 'Master Architectural Layout',
-        superArea: 'Tower Cluster Layout',
+        id: 'plan_master',
+        title: 'Master Tower Cluster Layout (G+22)',
+        category: 'Master Layout',
+        bhk: 'All Towers Core & Wing Plate',
+        superArea: 'Floor Plate: 9,850 Sq.Ft',
         carpetArea: 'Optimal Core & Lift Lobby',
-        facing: 'East / West Dual Facing',
+        efficiency: '84% Structural Usability',
+        balconyArea: 'Wrap-around Corner Terraces',
+        bedrooms: 'N/A',
+        bathrooms: 'Common Core',
+        facing: 'East / West Dual Core Orientation',
         price: 'All Units Approved',
-        imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
+        priceNum: 5500000,
+        estEmi: 'Varying by Unit',
+        imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+        view3dUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
+        tag: 'Master Blueprint',
+        roomSpecs: [
+          { name: 'High-Speed Lift Core', size: '4 Passenger Lifts + 1 Service Lift' },
+          { name: 'Fire Escape Staircases', size: 'Dual Pressurized Exits' },
+          { name: 'Corridor Width', size: '6 Feet Ventilated Lobby' },
+          { name: 'Refuge Terrace Areas', size: 'Located on 8th, 14th & 20th Floors' }
+        ]
       },
       {
-        id: 'plan_2',
-        title: '1 BHK Smart Residence',
-        bhk: '1 BHK Compact Luxury',
+        id: 'plan_1bhk',
+        title: '1 BHK Smart Executive Suite',
+        category: '1 BHK',
+        bhk: '1 BHK + 1 Bath + Private Balcony',
         superArea: '685 Sq.Ft',
         carpetArea: '520 Sq.Ft',
-        facing: 'East Facing Vastu',
+        efficiency: '76% Usable Carpet Ratio',
+        balconyArea: '65 Sq.Ft Sit-out',
+        bedrooms: 1,
+        bathrooms: 1,
+        facing: 'East Facing (100% Vastu)',
         price: '₹ 42.5 Lakhs*',
-        imageUrl: 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80'
+        priceNum: 4250000,
+        estEmi: '₹ 28,200/mo*',
+        imageUrl: 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80',
+        view3dUrl: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
+        tag: 'High Rental Yield',
+        roomSpecs: [
+          { name: 'Drawing & Dining Lounge', size: "15'6\" x 10'6\"" },
+          { name: 'Master Bedroom', size: "12'0\" x 11'0\"" },
+          { name: 'Modular Kitchen & Utility', size: "8'6\" x 7'0\"" },
+          { name: 'Balcony Deck', size: "10'6\" x 4'6\"" }
+        ]
       },
       {
-        id: 'plan_3',
-        title: '2 BHK Grand Suite',
-        bhk: '2 BHK Executive Suite',
+        id: 'plan_2bhk',
+        title: '2 BHK Grand Premium Residence',
+        category: '2 BHK',
+        bhk: '2 BHK + 2 Baths + Double Balcony',
         superArea: '1,180 Sq.Ft',
         carpetArea: '890 Sq.Ft',
+        efficiency: '78% Usable Carpet Ratio',
+        balconyArea: '110 Sq.Ft Double Balconies',
+        bedrooms: 2,
+        bathrooms: 2,
         facing: 'North-East Corner Facing',
         price: '₹ 78.9 Lakhs*',
-        imageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80'
+        priceNum: 7890000,
+        estEmi: '₹ 52,400/mo*',
+        imageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+        view3dUrl: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80',
+        tag: 'Most Popular',
+        roomSpecs: [
+          { name: 'Living Room Foyer', size: "17'6\" x 12'0\"" },
+          { name: 'Master Suite Bedroom', size: "14'0\" x 12'0\"" },
+          { name: 'Children / Guest Bed', size: "12'0\" x 11'0\"" },
+          { name: 'Modular European Kitchen', size: "10'0\" x 8'6\"" },
+          { name: 'Scenic Balcony', size: "12'0\" x 5'0\"" }
+        ]
       },
       {
-        id: 'plan_4',
+        id: 'plan_3bhk',
         title: '3 BHK Sky Palace Villa',
-        bhk: '3 BHK Sky Villa',
+        category: '3 BHK',
+        bhk: '3 BHK + 3 Baths + Wrap-around Balcony',
         superArea: '1,750 Sq.Ft',
         carpetArea: '1,380 Sq.Ft',
-        facing: 'East Facing with Balcony',
+        efficiency: '79% Usable Carpet Ratio',
+        balconyArea: '160 Sq.Ft Wrap-around Terrace',
+        bedrooms: 3,
+        bathrooms: 3,
+        facing: 'East Facing with Sunrise View',
         price: '₹ 1.25 Crore*',
-        imageUrl: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80'
+        priceNum: 12500000,
+        estEmi: '₹ 82,900/mo*',
+        imageUrl: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
+        view3dUrl: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80',
+        tag: 'Luxury Signature',
+        roomSpecs: [
+          { name: 'Grand Living & Dining Hall', size: "22'0\" x 14'6\"" },
+          { name: 'King Master Suite with Walk-in', size: "16'0\" x 13'6\"" },
+          { name: 'Bedroom 2 (Attached Bath)', size: "14'0\" x 12'0\"" },
+          { name: 'Bedroom 3 / Home Office', size: "12'6\" x 11'6\"" },
+          { name: 'Gourmet Kitchen + Dry Balcony', size: "12'0\" x 9'6\"" },
+          { name: 'Wrap-around Skyline Deck', size: "18'0\" x 6'0\"" }
+        ]
+      },
+      {
+        id: 'plan_4bhk',
+        title: '4 BHK Royal Duplex Penthouse',
+        category: '4 BHK',
+        bhk: '4 BHK Duplex + Private Plunge Pool & Deck',
+        superArea: '2,650 Sq.Ft',
+        carpetArea: '2,080 Sq.Ft',
+        efficiency: '78.5% Usable Carpet Ratio',
+        balconyArea: '320 Sq.Ft Rooftop Terrace Garden',
+        bedrooms: 4,
+        bathrooms: 5,
+        facing: '100% Vastu Compliant (North-East)',
+        price: '₹ 1.89 Crore*',
+        priceNum: 18900000,
+        estEmi: '₹ 1,25,000/mo*',
+        imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+        view3dUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80',
+        tag: 'Ultra HNW Penthouse',
+        roomSpecs: [
+          { name: 'Double-Height Living Salon', size: "26'0\" x 16'0\"" },
+          { name: 'Presidential Master Suite', size: "18'6\" x 15'0\"" },
+          { name: 'Private Plunge Pool & Sky Deck', size: "20'0\" x 12'0\"" },
+          { name: 'Family Lounge (Upper Tier)', size: "16'0\" x 13'0\"" },
+          { name: 'Chef Kitchen & Butler Pantry', size: "14'0\" x 10'0\"" }
+        ]
       }
     ];
   }, [profile.sectionData?.products?.items]);
+
+  // Plan Category Tabs
+  const planCategories = useMemo(() => {
+    const defaultTabs = ['All', 'Master Layout', '1 BHK', '2 BHK', '3 BHK', '4 BHK'];
+    return defaultTabs.filter(cat => cat === 'All' || layoutPlans.some(p => p.category === cat || p.bhk.includes(cat)));
+  }, [layoutPlans]);
+
+  // Filtered Plans based on active tab
+  const filteredPlans = useMemo(() => {
+    if (activePlanTab === 'All') return layoutPlans;
+    return layoutPlans.filter(p => p.category === activePlanTab || p.bhk.includes(activePlanTab));
+  }, [layoutPlans, activePlanTab]);
 
   // Project Amenities matching FlagUp's exact visual cards
   const projectAmenities: RealEstateAmenity[] = useMemo(() => {
@@ -995,90 +1143,230 @@ export default function RealEstateMiniWebsiteView({
       </section>
 
       {/* ============================================================== */}
-      {/* 4. LAYOUT PLANS SECTION (`#plans`)                              */}
+      {/* 4. ADVANCED LAYOUT PLANS SECTION (`#plans`)                    */}
+      {/* FlagUp UI Upgraded with BHK Filtering, 2D/3D & Specs           */}
       {/* ============================================================== */}
       <section id="plans" className="bg-[#F4F7FE] py-10 sm:py-16 border-b border-gray-200">
         
         {/* FlagUp Signature Forest Green Header Banner */}
-        <div className="mx-auto mb-8 sm:mb-12 w-full max-w-full bg-[#1f3b2f] px-3 py-4 text-center sm:px-5 sm:py-5 shadow-sm">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
-            LayOut Plans
-          </h2>
+        <div className="mx-auto mb-6 sm:mb-10 w-full max-w-full bg-[#1f3b2f] px-3 py-4 text-center sm:px-5 sm:py-5 shadow-sm">
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-[#F8CD71] mb-1">
+              Architectural CAD Blueprints &amp; 3D Furnished Layouts
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+              LayOut Plans
+            </h2>
+          </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch">
-            {layoutPlans.map((plan) => (
-              <div
-                key={plan.id}
-                onClick={() => setPreviewMedia({
-                  url: plan.imageUrl,
-                  type: 'image',
-                  title: plan.title,
-                  subtitle: `${plan.bhk} • Carpet Area: ${plan.carpetArea} • ${plan.facing}`
-                })}
-                className="floor-image-card group bg-white rounded-2xl border border-gray-200/90 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col"
+          
+          {/* Advanced Unit Configuration Filter Tabs */}
+          <div className="flex items-center justify-center gap-1.5 sm:gap-2.5 overflow-x-auto pb-4 pt-1 mb-8 scrollbar-none">
+            {planCategories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActivePlanTab(cat)}
+                className={`px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all shrink-0 cursor-pointer ${
+                  activePlanTab === cat
+                    ? 'bg-[#F8CD71] text-[#0B0F19] shadow-md shadow-yellow-500/20 scale-105 ring-2 ring-[#0B0F19]'
+                    : 'bg-white text-gray-700 hover:text-black border border-gray-200/90 hover:border-gray-300 shadow-2xs'
+                }`}
               >
-                {/* Blueprint Image Preview Container */}
-                <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden p-3 flex items-center justify-center">
-                  <img
-                    src={plan.imageUrl}
-                    alt={plan.title}
-                    loading="lazy"
-                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                    <Maximize2 className="w-2.5 h-2.5" />
-                    <span>Zoom</span>
-                  </div>
-                </div>
-
-                {/* Plan Meta Details */}
-                <div className="p-4 flex-1 flex flex-col justify-between border-t border-gray-100">
-                  <div>
-                    <h3 className="font-bold text-sm sm:text-base text-[#111827] group-hover:text-[#bd8a2d] transition-colors truncate">
-                      {plan.title}
-                    </h3>
-                    <div className="mt-1.5 space-y-1 text-xs text-gray-500">
-                      <p className="flex items-center justify-between">
-                        <span>Super Area:</span>
-                        <strong className="text-gray-800">{plan.superArea}</strong>
-                      </p>
-                      <p className="flex items-center justify-between">
-                        <span>Carpet Area:</span>
-                        <strong className="text-gray-800">{plan.carpetArea}</strong>
-                      </p>
-                      <p className="text-[11px] text-emerald-700 font-semibold truncate">
-                        {plan.facing}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleWhatsAppChat('FloorPlan_Inquiry', `Hello, I would like to inquire about the ${plan.title} (${plan.bhk}) for ${projectName}.`);
-                    }}
-                    className="mt-3.5 w-full py-2 rounded-xl bg-gray-50 group-hover:bg-[#F8CD71] text-[#111827] text-xs font-bold transition flex items-center justify-center gap-1.5 border border-gray-200"
-                  >
-                    <MessageCircle className="w-3.5 h-3.5 fill-current" />
-                    <span>Inquire on WhatsApp</span>
-                  </button>
-                </div>
-              </div>
+                {cat}
+                {cat === 'All' && ` (${layoutPlans.length})`}
+              </button>
             ))}
           </div>
 
-          {/* Download Master Brochure Button */}
-          <div className="mt-10 text-center">
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 items-stretch">
+            {filteredPlans.map((plan) => {
+              const currentMode = cardViewModes[plan.id] || '2d';
+              const activeImage = currentMode === '3d' && plan.view3dUrl ? plan.view3dUrl : plan.imageUrl;
+
+              return (
+                <div
+                  key={plan.id}
+                  className="floor-image-card group bg-white rounded-2xl border border-gray-200/90 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Top Card Bar: Tags & 2D/3D Switcher */}
+                    <div className="p-3 bg-gray-50 border-b border-gray-100 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1.5">
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider bg-[#1f3b2f] text-white">
+                          {plan.category}
+                        </span>
+                        {plan.tag && (
+                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#F8CD71]/25 text-[#bd8a2d] border border-[#F8CD71]/40">
+                            {plan.tag}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* 2D CAD vs 3D Furnished Pill Switcher */}
+                      {plan.view3dUrl && (
+                        <div className="flex items-center p-0.5 rounded-lg bg-white border border-gray-200 shadow-2xs">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setCardViewModes(prev => ({ ...prev, [plan.id]: '2d' }));
+                            }}
+                            className={`px-2 py-0.5 rounded text-[10px] font-extrabold transition cursor-pointer ${
+                              currentMode === '2d'
+                                ? 'bg-[#1f3b2f] text-white'
+                                : 'text-gray-500 hover:text-gray-900'
+                            }`}
+                          >
+                            2D
+                          </button>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setCardViewModes(prev => ({ ...prev, [plan.id]: '3d' }));
+                            }}
+                            className={`px-2 py-0.5 rounded text-[10px] font-extrabold transition cursor-pointer ${
+                              currentMode === '3d'
+                                ? 'bg-[#F8CD71] text-[#0B0F19]'
+                                : 'text-gray-500 hover:text-gray-900'
+                            }`}
+                          >
+                            3D
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Image Container with Zoom Lightbox Trigger */}
+                    <div
+                      onClick={() => setPreviewMedia({
+                        url: activeImage,
+                        type: 'image',
+                        title: plan.title,
+                        subtitle: `${plan.bhk} • Carpet Area: ${plan.carpetArea} • ${plan.facing}`
+                      })}
+                      className="relative aspect-[4/3] bg-gray-100 overflow-hidden p-3 flex items-center justify-center cursor-pointer group-hover:bg-gray-50 transition-colors"
+                    >
+                      <img
+                        src={activeImage}
+                        alt={plan.title}
+                        loading="lazy"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute bottom-2 right-2 bg-black/75 text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-md">
+                        <Maximize2 className="w-2.5 h-2.5 text-[#F8CD71]" />
+                        <span>Zoom</span>
+                      </div>
+                      <div className="absolute top-2 left-2 bg-black/60 text-white text-[9px] font-bold px-2 py-0.5 rounded">
+                        {currentMode === '3d' ? '3D Furnished Model' : 'Architectural CAD Blueprint'}
+                      </div>
+                    </div>
+
+                    {/* Unit Details & Specs */}
+                    <div className="p-4 space-y-3">
+                      <div>
+                        <h3 className="font-extrabold text-sm sm:text-base text-[#111827] group-hover:text-[#bd8a2d] transition-colors line-clamp-1">
+                          {plan.title}
+                        </h3>
+                        <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">
+                          {plan.bhk}
+                        </p>
+                      </div>
+
+                      {/* Area Specs Table Box */}
+                      <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-100 text-xs space-y-1.5">
+                        <div className="flex items-center justify-between text-gray-600">
+                          <span>Super Built-up:</span>
+                          <strong className="text-gray-900 font-bold">{plan.superArea}</strong>
+                        </div>
+                        <div className="flex items-center justify-between text-gray-600">
+                          <span>RERA Carpet Area:</span>
+                          <strong className="text-gray-900 font-bold">{plan.carpetArea}</strong>
+                        </div>
+                        {plan.efficiency && (
+                          <div className="flex items-center justify-between text-[11px] text-emerald-700 font-bold">
+                            <span>Usable Efficiency:</span>
+                            <span>{plan.efficiency}</span>
+                          </div>
+                        )}
+                        <div className="pt-1 border-t border-gray-200/80 flex items-center justify-between text-[11px] text-gray-500">
+                          <span>Orientation:</span>
+                          <span className="font-semibold text-gray-800 truncate max-w-[150px]">{plan.facing}</span>
+                        </div>
+                      </div>
+
+                      {/* Price & Estimated EMI */}
+                      <div className="flex items-baseline justify-between pt-1">
+                        <div>
+                          <span className="text-[10px] text-gray-400 font-semibold block uppercase">Starting Price</span>
+                          <span className="text-sm sm:text-base font-black text-[#111827]">
+                            {plan.price}
+                          </span>
+                        </div>
+                        {plan.estEmi && (
+                          <div className="text-right">
+                            <span className="text-[10px] text-gray-400 font-semibold block uppercase">Est. Monthly EMI</span>
+                            <span className="text-xs font-bold text-emerald-700 font-mono">
+                              {plan.estEmi}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dual Action Buttons */}
+                  <div className="p-4 pt-0 space-y-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPlanDetails(plan)}
+                      className="w-full py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold transition flex items-center justify-center gap-1.5 border border-gray-200 cursor-pointer"
+                    >
+                      <Eye className="w-3.5 h-3.5 text-[#1f3b2f]" />
+                      <span>View Room Dimensions &amp; Specs</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleWhatsAppChat(
+                          'FloorPlan_Inquiry',
+                          `Hello, I am interested in ${plan.title} (${plan.bhk}) with Carpet Area ${plan.carpetArea}. Please share the complete price sheet, payment schedule, and available floor units.`
+                        );
+                      }}
+                      className="w-full py-2.5 rounded-xl bg-[#F8CD71] hover:bg-yellow-500 text-[#0B0F19] text-xs font-black transition flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                      <span>Inquire Unit on WhatsApp</span>
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Bottom Dual Conversion Bar */}
+          <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
               type="button"
               onClick={() => setIsBrochureModalOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#1f3b2f] text-white hover:bg-[#162a22] font-bold text-sm shadow-md transition cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 rounded-xl bg-[#1f3b2f] text-white hover:bg-[#162a22] font-black text-xs sm:text-sm shadow-md transition cursor-pointer"
             >
               <Download className="w-4 h-4 text-[#F8CD71]" />
               <span>Download Master Layout Blueprint (PDF)</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setIsEmiModalOpen(true)}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 rounded-xl bg-white hover:bg-gray-50 text-[#0B0F19] border border-gray-300 font-black text-xs sm:text-sm shadow-xs transition cursor-pointer"
+            >
+              <Calculator className="w-4 h-4 text-emerald-600" />
+              <span>Calculate Home Loan EMI for Units</span>
             </button>
           </div>
 
@@ -1679,6 +1967,232 @@ export default function RealEstateMiniWebsiteView({
                 <span>Inquire on WhatsApp</span>
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* 12B. ADVANCED UNIT SPECIFICATIONS & DIMENSIONS MODAL           */}
+      {/* ============================================================== */}
+      {selectedPlanDetails && (
+        <div 
+          onClick={() => setSelectedPlanDetails(null)}
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-200"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-4xl w-full bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-2xl text-[#111827] flex flex-col max-h-[90vh]"
+          >
+            {/* Modal Header */}
+            <div className="p-4 sm:p-6 bg-[#0B0F19] text-white flex items-center justify-between border-b border-gray-800">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#F8CD71] text-[#0B0F19] flex items-center justify-center font-black text-sm shrink-0">
+                  {selectedPlanDetails.category.slice(0, 3)}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-base sm:text-xl font-extrabold text-white truncate">
+                      {selectedPlanDetails.title}
+                    </h3>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#1f3b2f] text-[#F8CD71] border border-[#bd8a2d]/40">
+                      100% Vastu
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    {selectedPlanDetails.bhk} • {selectedPlanDetails.superArea} Super Area ({selectedPlanDetails.carpetArea} RERA Carpet)
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setSelectedPlanDetails(null)}
+                className="w-9 h-9 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 flex items-center justify-center transition cursor-pointer"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body: Two Columns (Image Preview & Specs Breakdown) */}
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                {/* Left: Interactive Layout Visual with 2D/3D Switcher */}
+                <div className="lg:col-span-7 space-y-3">
+                  <div className="flex items-center justify-between bg-gray-100 p-1.5 rounded-xl">
+                    <span className="text-xs font-bold text-gray-600 px-2">
+                      Viewing: {cardViewModes[selectedPlanDetails.id] === '3d' ? '3D Furnished Model' : '2D Technical CAD Blueprint'}
+                    </span>
+                    {selectedPlanDetails.view3dUrl && (
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => setCardViewModes(prev => ({ ...prev, [selectedPlanDetails.id]: '2d' }))}
+                          className={`px-3 py-1 rounded-lg text-xs font-extrabold transition cursor-pointer ${
+                            (cardViewModes[selectedPlanDetails.id] || '2d') === '2d'
+                              ? 'bg-[#1f3b2f] text-white shadow-xs'
+                              : 'bg-white text-gray-600 hover:text-black'
+                          }`}
+                        >
+                          📐 2D CAD
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setCardViewModes(prev => ({ ...prev, [selectedPlanDetails.id]: '3d' }))}
+                          className={`px-3 py-1 rounded-lg text-xs font-extrabold transition cursor-pointer ${
+                            cardViewModes[selectedPlanDetails.id] === '3d'
+                              ? 'bg-[#F8CD71] text-[#0B0F19] shadow-xs'
+                              : 'bg-white text-gray-600 hover:text-black'
+                          }`}
+                        >
+                          🏠 3D Model
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Visual Container */}
+                  <div 
+                    onClick={() => setPreviewMedia({
+                      url: cardViewModes[selectedPlanDetails.id] === '3d' && selectedPlanDetails.view3dUrl ? selectedPlanDetails.view3dUrl : selectedPlanDetails.imageUrl,
+                      type: 'image',
+                      title: selectedPlanDetails.title,
+                      subtitle: `${selectedPlanDetails.bhk} • Carpet: ${selectedPlanDetails.carpetArea} • ${selectedPlanDetails.facing}`
+                    })}
+                    className="relative aspect-[4/3] bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden flex items-center justify-center p-3 cursor-zoom-in group"
+                  >
+                    <img
+                      src={cardViewModes[selectedPlanDetails.id] === '3d' && selectedPlanDetails.view3dUrl ? selectedPlanDetails.view3dUrl : selectedPlanDetails.imageUrl}
+                      alt={selectedPlanDetails.title}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                    />
+                    <div className="absolute bottom-3 right-3 bg-black/75 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                      <Maximize2 className="w-3.5 h-3.5 text-[#F8CD71]" />
+                      <span>Tap to Enlarge</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: Technical Room Dimensions & Specs Table */}
+                <div className="lg:col-span-5 space-y-4">
+                  <div>
+                    <h4 className="text-xs font-black uppercase tracking-wider text-gray-500 mb-2">
+                      Key Area Breakdown
+                    </h4>
+                    <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200/90 space-y-2 text-xs">
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-600">Super Built-up Area:</span>
+                        <strong className="text-gray-900 font-bold">{selectedPlanDetails.superArea}</strong>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-600">RERA Carpet Area:</span>
+                        <strong className="text-gray-900 font-bold">{selectedPlanDetails.carpetArea}</strong>
+                      </div>
+                      {selectedPlanDetails.efficiency && (
+                        <div className="flex items-center justify-between text-emerald-700 font-bold">
+                          <span>Efficiency Ratio:</span>
+                          <span>{selectedPlanDetails.efficiency}</span>
+                        </div>
+                      )}
+                      {selectedPlanDetails.balconyArea && (
+                        <div className="flex items-center justify-between text-gray-600">
+                          <span>Balcony / Sit-out:</span>
+                          <span className="font-semibold text-gray-800">{selectedPlanDetails.balconyArea}</span>
+                        </div>
+                      )}
+                      <div className="flex items-center justify-between text-gray-600">
+                        <span>Vastu Orientation:</span>
+                        <span className="font-semibold text-emerald-800">{selectedPlanDetails.facing}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Room Dimension Table */}
+                  {selectedPlanDetails.roomSpecs && selectedPlanDetails.roomSpecs.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-black uppercase tracking-wider text-gray-500 mb-2">
+                        Architectural Room Dimensions
+                      </h4>
+                      <div className="rounded-xl border border-gray-200 overflow-hidden divide-y divide-gray-100 text-xs">
+                        {selectedPlanDetails.roomSpecs.map((room, rIdx) => (
+                          <div key={rIdx} className="px-3.5 py-2 flex items-center justify-between bg-white hover:bg-gray-50">
+                            <span className="font-medium text-gray-700">{room.name}</span>
+                            <span className="font-mono font-bold text-gray-900">{room.size}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Price Box */}
+                  <div className="p-3.5 rounded-2xl bg-[#0B0F19] text-white flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-gray-400 uppercase font-semibold block">Starting Price</span>
+                      <span className="text-lg font-black text-[#F8CD71]">
+                        {selectedPlanDetails.price}
+                      </span>
+                    </div>
+                    {selectedPlanDetails.estEmi && (
+                      <div className="text-right">
+                        <span className="text-[10px] text-gray-400 uppercase font-semibold block">Estimated EMI</span>
+                        <span className="text-xs font-bold text-emerald-400 font-mono">
+                          {selectedPlanDetails.estEmi}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Modal Footer CTAs */}
+            <div className="p-4 sm:p-5 bg-gray-50 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  if (selectedPlanDetails.priceNum) {
+                    setEmiPropertyCost(selectedPlanDetails.priceNum);
+                  }
+                  setSelectedPlanDetails(null);
+                  setIsEmiModalOpen(true);
+                }}
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white hover:bg-gray-100 text-[#0B0F19] border border-gray-300 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+              >
+                <Calculator className="w-4 h-4 text-emerald-600" />
+                <span>Calculate EMI for this Unit</span>
+              </button>
+
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPlanDetails(null);
+                    setIsBrochureModalOpen(true);
+                  }}
+                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download Blueprint</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleWhatsAppChat(
+                      'Unit_Modal_Inquiry',
+                      `Hello, I reviewed the detailed room specifications for ${selectedPlanDetails.title} (${selectedPlanDetails.bhk}). Please send me the complete payment milestone sheet and book a site visit.`
+                    );
+                  }}
+                  className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-[#F8CD71] hover:bg-yellow-500 text-[#0B0F19] font-black text-xs flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4 fill-current" />
+                  <span>Lock Price on WhatsApp</span>
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       )}
