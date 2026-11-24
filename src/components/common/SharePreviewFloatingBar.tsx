@@ -99,7 +99,7 @@ export default function SharePreviewFloatingBar({ profile }: SharePreviewFloatin
       {/* Floating Action Bar at Bottom of Viewport */}
       <aside 
         aria-label="Share and template actions"
-        className="fixed bottom-3 sm:bottom-4 inset-x-2 sm:inset-x-auto sm:right-6 sm:left-auto z-40 flex flex-col items-center sm:items-end pointer-events-none"
+        className="fixed bottom-16 sm:bottom-16 inset-x-2 sm:inset-x-auto sm:right-6 sm:left-auto z-40 flex flex-col items-center sm:items-end pointer-events-none"
       >
         <div className="pointer-events-auto max-w-full">
           {isMinimized ? (
