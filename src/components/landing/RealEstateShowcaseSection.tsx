@@ -118,7 +118,7 @@ const SHOWCASE_CARDS: RealEstateCardItem[] = [
 
 export default function RealEstateShowcaseSection() {
   return (
-    <section className="relative py-16 sm:py-24 bg-white overflow-hidden border-b border-slate-100">
+    <section id="madeForBusiness" className="relative py-16 sm:py-24 bg-white overflow-hidden border-b border-slate-100 scroll-mt-14">
       {/* Background Soft Ambient Lights */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-gradient-to-r from-orange-100/40 via-pink-100/30 to-purple-100/40 rounded-full blur-[120px] pointer-events-none -z-10" />
 
@@ -170,6 +170,12 @@ export default function RealEstateShowcaseSection() {
                   {/* Outer Bezel Border Frame */}
                   <div className={`relative rounded-[42px] border-[9px] ${card.bezelBorder} ${card.bezelShadow} bg-[#0B0F19] p-0.5 transition-transform duration-300 group-hover:-translate-y-1.5`}>
                     
+                    {/* Realistic Physical Side Buttons */}
+                    <div className="absolute top-16 -left-[12px] w-[3px] h-6 bg-slate-600 rounded-l" />
+                    <div className="absolute top-26 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                    <div className="absolute top-40 -left-[12px] w-[3px] h-10 bg-slate-600 rounded-l" />
+                    <div className="absolute top-24 -right-[12px] w-[3px] h-12 bg-slate-600 rounded-r" />
+
                     {/* Metallic Glossy Ring inside border */}
                     <div className="relative rounded-[32px] overflow-hidden bg-[#0B0F19] text-white flex flex-col h-[520px] shadow-inner select-none">
                       

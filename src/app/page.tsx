@@ -27,11 +27,11 @@ export default function LandingPage() {
       <Navbar />
 
       <main>
-        {/* SECTION 2 — HERO SECTION */}
-        <HeroSection onWatchDemo={() => setDemoModalOpen(true)} />
-
-        {/* SECTION 2.5 — MADE FOR EVERY REAL ESTATE SHOWCASE */}
+        {/* SECTION 2 — MADE FOR EVERY REAL ESTATE (PRIMARY SHOWCASE) */}
         <RealEstateShowcaseSection />
+
+        {/* SECTION 3 — HERO OVERVIEW */}
+        <HeroSection onWatchDemo={() => setDemoModalOpen(true)} />
 
         {/* SECTION 3 — SERVICES OVERVIEW */}
         <ServicesSection />
