@@ -130,7 +130,7 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
       { id: 'p_bld_3', name: 'Skyline Grandeur 4 & 5 BHK Triplex Gated Villas', description: '22-acre gated villa community in Mokila with private temperature-controlled plunge pool, solar power & European fittings.', price: 27500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80', category: 'Luxury Villas', isAvailable: true },
       { id: 'p_bld_4', name: 'Skyline Aeropolis 150-350 Sq.Yds Plotted Township', description: 'HMDA & TS-RERA approved gated open plot community near Shamshabad Airport & ORR with 40ft blacktop roads & 24/7 security.', price: 3650000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80', category: 'Open Plots', isAvailable: true },
       { id: 'p_bld_5', name: 'Skyline Waterfront 4 BHK Lakeview Residences', description: 'Kokapet Lake promenade ultra-luxury residences with panoramic 270-degree water views, private elevator foyer & sky lounge.', price: 32500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80', category: 'Residential Towers', isAvailable: true },
-      { id: 'p_bld_6', name: 'Skyline Palm Meadows 1 & 2 Acre Farm Estates', description: 'Managed luxury gated farmland estates in Shankarpally - Chevella green corridor with drip irrigation, clubhouse & fruit orchard.', price: 7500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80', category: 'Farmlands', isAvailable: true }
+      { id: 'p_bld_6', name: 'Skyline Palm Meadows 1 & 2 Acre Farm Estates', description: 'Managed luxury gated farmland estates in Shankarpally - Chevella green corridor with drip irrigation, clubhouse & fruit orchard.', price: 7500000, currency: '₹', imageUrl: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80', category: 'Farmlands', isAvailable: true }
     ],
     gallery: [
       { id: 'g_bld_1', imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80', title: 'Skyline Imperia High-Rise Elevation', category: 'Residential Towers' },
@@ -148,31 +148,35 @@ export const TEMPLATE_PRESETS_DATA: Record<string, Partial<TemplatePresetConfig>
     videos: [
       {
         id: 'v_bld_1',
-        title: 'Skyline Imperia — 4K Aerial Drone Layout Tour & Surroundings',
-        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        title: 'Skyline Imperia — 4K Aerial Drone & Elevation Tour',
+        url: 'https://www.youtube.com/watch?v=y9j-BL5ocW8',
         type: 'youtube',
-        caption: '4K aerial drone flight showcasing 100ft arterial roads, upcoming metro line, and clubhouse elevation.'
+        thumbnailUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=900&q=80',
+        caption: '4K architectural showcase featuring Financial District connectivity, podium greens & sky towers.'
       },
       {
         id: 'v_bld_2',
-        title: 'Model 4 BHK Sky Residence — Complete Architectural Walkthrough',
-        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        title: 'Model 4 BHK Sky Residence — Luxury Interior Walkthrough',
+        url: 'https://www.youtube.com/watch?v=zumJJUL_ruM',
         type: 'youtube',
-        caption: 'Walkthrough of master suite, panoramic deck balcony, Italian marble foyer, and smart home automation.'
+        thumbnailUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80',
+        caption: 'Walkthrough of master suite, panoramic deck balcony, Italian marble foyer & modular kitchen.'
       },
       {
         id: 'v_bld_3',
-        title: 'Skyline Aeropolis — Rapid Site Progression & Blacktop Roads',
-        url: 'https://www.instagram.com/reel/C3M8W98oG12/',
-        type: 'instagram',
-        caption: 'Latest on-site reel: Underground cabling, street illumination, and demarcated boundary stones.'
+        title: 'Skyline Waterfront Penthouse & Sunset Sky Deck Tour',
+        url: 'https://www.youtube.com/watch?v=jPkBJY1KI_Q',
+        type: 'youtube',
+        thumbnailUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80',
+        caption: 'Floor-to-ceiling glass residences overlooking Kokapet Lake with infinity plunge pool.'
       },
       {
         id: 'v_bld_4',
-        title: 'Skyline Grandeur Triplex Villas — Clubhouse & Pool Reel Tour',
-        url: 'https://www.instagram.com/reel/C2X4Z81oH34/',
+        title: 'Skyline Grandeur Triplex Villas — Clubhouse & Pool Tour',
+        url: 'https://www.instagram.com/reel/Dboeh4BTscY/',
         type: 'instagram',
-        caption: 'Exclusive reel walkthrough of private plunge pool, double-height living room, and landscaped lawns.'
+        thumbnailUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80',
+        caption: 'Exclusive reel walkthrough of private plunge pool, double-height salon & landscaped lawns.'
       }
     ],
     socials: [

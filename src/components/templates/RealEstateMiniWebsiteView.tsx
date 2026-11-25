@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import { 
   Building2, 
   Building,
@@ -17,15 +18,10 @@ import {
   ArrowRight, 
   Maximize2, 
   Share2, 
-  ExternalLink, 
   Layers, 
-  Search, 
   Calculator, 
   Clock, 
-  Check, 
-  Award, 
   Home, 
-  FileText, 
   Menu,
   X, 
   Navigation,
@@ -33,26 +29,110 @@ import {
   Pause,
   Volume2,
   VolumeX,
-  BadgeCheck,
-  ChevronRight,
-  QrCode,
   Film,
-  Copy,
-  Globe,
-  SlidersHorizontal,
-  ChevronDown,
-  RotateCcw,
-  IndianRupee,
   Compass,
-  ArrowUpRight,
-  BedDouble,
-  Bath,
   Eye,
-  FileDown
+  TrendingUp,
+  Car,
+  Lock,
+  PhoneCall
 } from 'lucide-react';
 import { DigitalProfile, VideoItem } from '@/lib/types';
 import ShareCardModal from '@/components/common/ShareCardModal';
 import { downloadVcfFile } from '@/lib/vcf';
+
+function NativeModalDialog({
+  isOpen,
+  onClose,
+  labelledBy,
+  maxWidthClass = 'max-w-lg',
+  children
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  labelledBy?: string;
+  maxWidthClass?: string;
+  children: React.ReactNode;
+}) {
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const pressedOutsideRef = useRef(false);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (isOpen) {
+      if (!dialog.open) {
+        try {
+          dialog.showModal();
+        } catch {
+          // Fallback if dialog is detached mid-render
+        }
+      }
+    } else if (dialog.open) {
+      dialog.returnValue = '';
+      dialog.close();
+    }
+  }, [isOpen]);
+
+  const isOutsideDialog = (e: React.PointerEvent<HTMLDialogElement>) => {
+    const dialog = dialogRef.current;
+    if (!dialog) return false;
+    const rect = dialog.getBoundingClientRect();
+    return (
+      e.clientX < rect.left ||
+      e.clientX > rect.right ||
+      e.clientY < rect.top ||
+      e.clientY > rect.bottom
+    );
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <dialog
+      ref={dialogRef}
+      aria-labelledby={labelledBy}
+      {...({ closedby: 'any' } as any)}
+      onCancel={(e) => {
+        e.preventDefault();
+        onClose();
+      }}
+      onClose={() => {
+        if (dialogRef.current) dialogRef.current.returnValue = '';
+      }}
+      onPointerDown={(e) => {
+        pressedOutsideRef.current = isOutsideDialog(e);
+      }}
+      onPointerUp={(e) => {
+        if (pressedOutsideRef.current && isOutsideDialog(e)) {
+          onClose();
+        }
+        pressedOutsideRef.current = false;
+      }}
+      className={`w-[calc(100dvw-1.5rem)] ${maxWidthClass} rounded-2xl sm:rounded-3xl bg-transparent p-0 border-0 shadow-2xl overflow-visible backdrop:bg-black/85 backdrop:backdrop-blur-md`}
+    >
+      {children}
+    </dialog>
+  );
+}
+
+function formatINRCompact(amount: number): string {
+  if (amount >= 10000000) {
+    return `₹${(amount / 10000000).toFixed(2).replace(/\.00$/, '')} Cr*`;
+  }
+  if (amount >= 100000) {
+    return `₹${(amount / 100000).toFixed(1).replace(/\.0$/, '')} Lakhs*`;
+  }
+  return `₹${amount.toLocaleString('en-IN')}*`;
+}
+
+function calculateMonthlyEmi(loanAmount: number, annualRatePct = 8.4, tenureYears = 20): number {
+  const monthlyRate = annualRatePct / 12 / 100;
+  const months = tenureYears * 12;
+  if (monthlyRate === 0) return Math.round(loanAmount / months);
+  const factor = Math.pow(1 + monthlyRate, months);
+  return Math.round((loanAmount * monthlyRate * factor) / (factor - 1));
+}
 
 interface RealEstateMiniWebsiteViewProps {
   profile: DigitalProfile;
@@ -69,9 +149,10 @@ export interface RealEstateFloorPlan {
   id: string;
   title: string;
   bhk: string;
-  category: 'Master Layout' | '1 BHK' | '2 BHK' | '3 BHK' | '4 BHK';
+  category: 'Master Layout' | 'Apartments' | 'Villas' | 'Commercial' | 'Plots & Estates' | '1 BHK' | '2 BHK' | '3 BHK' | '4 BHK';
   superArea: string;
   carpetArea: string;
+  areaMetricLabel?: string;
   efficiency?: string;
   balconyArea?: string;
   bedrooms?: number | string;
@@ -83,6 +164,7 @@ export interface RealEstateFloorPlan {
   imageUrl: string;
   view3dUrl?: string;
   tag?: string;
+  availabilityTag?: string;
   roomSpecs?: { name: string; size: string }[];
 }
 
@@ -136,51 +218,51 @@ export function getInstagramEmbedUrl(url?: string): string {
 export const DEFAULT_REAL_ESTATE_VIDEOS = [
   {
     id: 'vid-yt-1',
-    title: 'Skyline Imperia — 4K Aerial Drone Layout Tour & Surroundings',
-    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    title: 'Skyline Imperia — 4K Aerial Drone & Elevation Tour',
+    url: 'https://www.youtube.com/watch?v=y9j-BL5ocW8',
     type: 'youtube' as const,
-    caption: '4K aerial drone flight showcasing 100ft arterial roads, upcoming metro line, and clubhouse elevation.',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'
+    caption: '4K aerial architectural tour showcasing tower facades, podium greens & clubhouse.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=900&q=80'
   },
   {
     id: 'vid-yt-2',
-    title: 'Model 4 BHK Sky Residence — Complete Architectural Walkthrough',
-    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    title: 'Model 4 BHK Sky Residence — Luxury Interior Walkthrough',
+    url: 'https://www.youtube.com/watch?v=zumJJUL_ruM',
     type: 'youtube' as const,
-    caption: 'Walkthrough of master suite, panoramic deck balcony, Italian marble foyer, and smart home automation.',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 'vid-ig-1',
-    title: 'Skyline Aeropolis — Rapid Site Progression & Blacktop Roads',
-    url: 'https://www.instagram.com/reel/C3M8W98oG12/',
-    type: 'instagram' as const,
-    caption: 'Latest on-site reel: Underground cabling, street illumination, and demarcated boundary stones.',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 'vid-ig-2',
-    title: 'Skyline Grandeur Triplex Villas — Clubhouse & Pool Reel Tour',
-    url: 'https://www.instagram.com/reel/C2X4Z81oH34/',
-    type: 'instagram' as const,
-    caption: 'Exclusive reel walkthrough of private plunge pool, double-height living room, and landscaped lawns.',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80'
+    caption: 'Walkthrough of double-height foyer, Italian marble flooring & smart modular kitchen.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80'
   },
   {
     id: 'vid-yt-3',
-    title: 'Skyline Business Hub — Grade-A Corporate IT Park Overview',
-    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    title: 'Skyline Waterfront Penthouse & Sunset Sky Deck Tour',
+    url: 'https://www.youtube.com/watch?v=jPkBJY1KI_Q',
     type: 'youtube' as const,
-    caption: 'Grade-A LEED Platinum certified office campus, double glazed glass facade & 8.4% gross rental yield.',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'
+    caption: 'Panoramic 270-degree views, plunge pool terrace & 5-star sky lounge deck.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80'
   },
   {
-    id: 'vid-ig-3',
-    title: 'Key Handover Ceremony & Happy Homeowners Celebration',
-    url: 'https://www.instagram.com/reel/C1k8P98oY99/',
+    id: 'vid-ig-1',
+    title: 'Skyline Grandeur Triplex Villas — Poolside & Clubhouse Reel',
+    url: 'https://www.instagram.com/reel/Dboeh4BTscY/',
     type: 'instagram' as const,
-    caption: 'Welcoming 45 happy families to their dream home with on-time registration and champagne handover.',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80'
+    caption: 'Exclusive on-site reel: temperature-controlled pool, manicured lawns & private villas.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80'
+  },
+  {
+    id: 'vid-yt-4',
+    title: 'Skyline Business Hub — Grade-A Commercial Campus Tour',
+    url: 'https://www.youtube.com/watch?v=y9j-BL5ocW8',
+    type: 'youtube' as const,
+    caption: 'LEED-certified office suites with double-glazed facade & 8.4% lease yield potential.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80'
+  },
+  {
+    id: 'vid-ig-2',
+    title: 'Key Handover & Homeowner Celebration Ceremony Reel',
+    url: 'https://www.instagram.com/reel/DbNGzEmRwlb/',
+    type: 'instagram' as const,
+    caption: 'Welcoming families to completed towers with spot RERA documentation & celebration.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=900&q=80'
   }
 ];
 
@@ -217,7 +299,16 @@ export default function RealEstateMiniWebsiteView({
 
   // Video Section Player State
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [hasStartedShowcaseVideo, setHasStartedShowcaseVideo] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Cost Sheet Configurator inside Unit Modal
+  const [selectedFloorTier, setSelectedFloorTier] = useState<'podium' | 'sky' | 'penthouse'>('sky');
+  const [selectedPaymentPlan, setSelectedPaymentPlan] = useState<'subvention' | 'clp' | 'outright'>('subvention');
+
+  // Inline Quick Priority Callback Form State
+  const [callbackForm, setCallbackForm] = useState({ name: '', phone: '', unitInterest: '3 & 4 BHK Sky Residences' });
+  const [callbackSubmitted, setCallbackSubmitted] = useState(false);
 
   // Inline Video & Instagram Reels State (Plays right in place - no redirects)
   const [activeVideoFilter, setActiveVideoFilter] = useState<'all' | 'youtube' | 'instagram'>('all');
@@ -270,23 +361,16 @@ export default function RealEstateMiniWebsiteView({
   });
   const [brochureSuccess, setBrochureSuccess] = useState(false);
 
-  // EMI Calculator State
-  const [emiPropertyCost, setEmiPropertyCost] = useState<number>(8500000);
+  // EMI Calculator State (Default ₹1.85 Cr flagship unit @ 8.40% pre-approved APF rate)
+  const [emiPropertyCost, setEmiPropertyCost] = useState<number>(18500000);
   const [emiDownPaymentPct, setEmiDownPaymentPct] = useState<number>(20);
-  const [emiInterestRate, setEmiInterestRate] = useState<number>(8.5);
+  const [emiInterestRate, setEmiInterestRate] = useState<number>(8.4);
   const [emiTenureYears, setEmiTenureYears] = useState<number>(20);
 
   // User details & fallback resolution
   const projectName = useMemo(() => {
     return profile.company || profile.name || 'THE MILLENNIAL TOWERS';
   }, [profile.company, profile.name]);
-
-  const projectTagline = useMemo(() => {
-    return (profile.sectionData?.realEstate as any)?.tagline || 
-      (profile as any).tagline || 
-      profile.designation ||
-      'LIVE THE MILLENNIAL HIGH LIFE • LUXURIOUS COMMUNITY';
-  }, [profile.sectionData?.realEstate, (profile as any).tagline, profile.designation]);
 
   const userCity = useMemo(() => {
     if (profile.sectionData?.realEstate?.city) {
@@ -295,7 +379,18 @@ export default function RealEstateMiniWebsiteView({
     if (!profile.address) return 'Financial District';
     const parts = profile.address.split(',').map(s => s.trim());
     return parts[parts.length - 2] || parts[parts.length - 1] || parts[0] || 'Financial District';
-  }, [profile.address, profile.sectionData?.realEstate?.city]);
+  }, [profile.address, profile.sectionData]);
+
+  // Never show an executive job title (e.g. "Managing Director") as the property buyer hero subtitle
+  const rawProfileTagline = (profile as { tagline?: string }).tagline;
+  const projectTagline = useMemo(() => {
+    const explicitTagline = (profile.sectionData?.realEstate as { tagline?: string } | undefined)?.tagline || rawProfileTagline;
+    if (explicitTagline) return explicitTagline;
+    const desig = profile.designation || '';
+    const looksLikeJobTitle = /(director|founder|partner|ceo|officer|manager|advisor|consultant)/i.test(desig);
+    if (!looksLikeJobTitle && desig.trim().length > 0) return desig;
+    return `RERA-Verified Luxury Sky Residences, Triplex Villas & High-Appreciation Enclaves in ${userCity}`;
+  }, [profile.sectionData, rawProfileTagline, profile.designation, userCity]);
 
   const displayRera = useMemo(() => {
     return profile.sectionData?.realEstate?.reraId || 'TS-RERA/P02400008921';
@@ -321,16 +416,18 @@ export default function RealEstateMiniWebsiteView({
       `Sector 45, Near Metro Station, ${userCity}`;
   }, [profile.sectionData?.realEstate?.mapAddress, profile.address, userCity]);
 
-  // Showcase Video Source resolution (supports custom MP4 or YouTube)
+  // Showcase Video Source resolution (verified 4K luxury walkthrough or custom MP4/YouTube)
   const showcaseVideoSrc = useMemo(() => {
     if (profile.sectionData?.realEstate?.videoUrl) {
       return profile.sectionData.realEstate.videoUrl;
     }
-    const firstCustomVideo = (profile.sectionData?.videos?.items || [])[0];
+    const firstCustomVideo = (profile.sectionData?.videos?.items || []).find(
+      v => v.type === 'youtube' || v.url.includes('youtube.com') || v.url.includes('youtu.be') || v.url.endsWith('.mp4')
+    );
     if (firstCustomVideo?.url) {
       return firstCustomVideo.url;
     }
-    return 'https://assets.mixkit.co/videos/preview/mixkit-modern-apartment-architecture-walkthrough-40995-large.mp4';
+    return 'https://www.youtube.com/watch?v=y9j-BL5ocW8';
   }, [profile.sectionData?.realEstate?.videoUrl, profile.sectionData?.videos?.items]);
 
   const isYouTubeVideo = useMemo(() => {
@@ -340,7 +437,7 @@ export default function RealEstateMiniWebsiteView({
   const youTubeEmbedUrl = useMemo(() => {
     if (!isYouTubeVideo) return '';
     const match = showcaseVideoSrc.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts|live)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
-    return match && match[1] ? `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0` : '';
+    return match && match[1] ? `https://www.youtube-nocookie.com/embed/${match[1]}?autoplay=1&rel=0&modestbranding=1` : '';
   }, [showcaseVideoSrc, isYouTubeVideo]);
 
   // Social Links
@@ -357,53 +454,117 @@ export default function RealEstateMiniWebsiteView({
   const instagramUrl = getSocialLink('instagram', 'https://instagram.com/');
   const youtubeUrl = getSocialLink('youtube', 'https://youtube.com/');
 
-  // Advanced Floor plans (FlagUp Layout Plans upgraded with 2D/3D & Specs)
+  // Advanced Floor & Portfolio Plans (Accurate multi-asset types + real compounding EMI math)
   const layoutPlans: RealEstateFloorPlan[] = useMemo(() => {
     const rawProducts = profile.sectionData?.products?.items || [];
     if (rawProducts.length > 0) {
+      const altImages = [
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1513584684374-8bab748fbf90?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80',
+      ];
       return rawProducts.map((p, idx) => {
-        const isBhk1 = p.name.includes('1') && p.name.includes('BHK');
-        const isBhk2 = p.name.includes('2') && p.name.includes('BHK');
-        const isBhk3 = p.name.includes('3') && p.name.includes('BHK');
-        const isBhk4 = (p.name.includes('4') || p.name.includes('5')) && p.name.includes('BHK');
-        let cat: 'Master Layout' | '1 BHK' | '2 BHK' | '3 BHK' | '4 BHK' = '3 BHK';
-        if (isBhk1) cat = '1 BHK';
-        else if (isBhk2) cat = '2 BHK';
-        else if (isBhk4) cat = '4 BHK';
-        else if (idx === 0 && !p.name.includes('BHK')) cat = 'Master Layout';
+        const lower = `${p.name} ${p.category || ''} ${p.description || ''}`.toLowerCase();
+        const isPlotOrFarm = lower.includes('plot') || lower.includes('farm') || lower.includes('acre') || lower.includes('sq.yd');
+        const isFarm = lower.includes('farm') || lower.includes('acre');
+        const isCommercial = lower.includes('commercial') || lower.includes('business') || lower.includes('office') || lower.includes('retail') || lower.includes('it park');
+        const isVilla = lower.includes('villa') || lower.includes('triplex') || lower.includes('mansion');
 
-        const priceVal = p.price || (4500000 + idx * 3500000);
+        let cat: RealEstateFloorPlan['category'] = 'Apartments';
+        if (isPlotOrFarm) cat = 'Plots & Estates';
+        else if (isCommercial) cat = 'Commercial';
+        else if (isVilla) cat = 'Villas';
+        else if (p.name.includes('1 BHK')) cat = '1 BHK';
+        else if (p.name.includes('2 BHK')) cat = '2 BHK';
+        else if (p.name.includes('3 BHK')) cat = '3 BHK';
+        else if (p.name.includes('4 BHK')) cat = '4 BHK';
+
+        const priceVal = p.price || (9500000 + idx * 3500000);
+        const monthlyEmiNum = calculateMonthlyEmi(priceVal * 0.8, 8.4, 20);
+        const subtitle = isFarm
+          ? '1 & 2 Acre Managed Farm Estates • Ready Registry'
+          : isPlotOrFarm
+          ? '150–350 Sq.Yds • 40ft BT Roads • HMDA & RERA'
+          : isCommercial
+          ? 'Grade-A Tech Suites • 8.4% Lease Yield Potential'
+          : isVilla
+          ? '4 & 5 BHK Triplex Villa + Private Plunge Pool'
+          : p.name.includes('BHK')
+          ? `${p.name.match(/[1-5](\s*&\s*[1-5])?\s*BHK/i)?.[0] || '3 & 4 BHK'} Luxury Residence • Sky Deck`
+          : 'Ultra-Luxury Sky Residence • 100% Vastu';
+
+        const superAreaVal = isFarm
+          ? '1 – 2 Acres'
+          : isPlotOrFarm
+          ? '150 – 350 Sq.Yds'
+          : isCommercial
+          ? '1,250 – 4,500 Sq.Ft'
+          : isVilla
+          ? '3,850 Sq.Ft'
+          : `${1850 + idx * 320} Sq.Ft`;
+
+        const carpetAreaVal = isFarm
+          ? '100% Fenced Free-Hold'
+          : isPlotOrFarm
+          ? 'Spot Registration Ready'
+          : isCommercial
+          ? '82% Net Leasable Area'
+          : isVilla
+          ? '3,120 Sq.Ft + Lawn'
+          : `${1440 + idx * 240} Sq.Ft`;
+
+        const roomSpecsList = isPlotOrFarm
+          ? [
+              { name: 'Plot Dimensions / Extent', size: isFarm ? '1 Acre & 2 Acre Gated' : '150 – 350 Sq.Yds' },
+              { name: 'Internal Road Infrastructure', size: '40ft & 60ft CC Blacktop' },
+              { name: 'Utilities & Boundary', size: 'Underground Power & Water' },
+              { name: 'Approval & Registration', size: 'RERA / HMDA • Spot Registry' }
+            ]
+          : isCommercial
+          ? [
+              { name: 'Configurable Workfloor', size: '1,250 – 4,500 Sq.Ft' },
+              { name: 'Floor-to-Ceiling Height', size: '12.5 Feet Double Glazed' },
+              { name: 'Power & Lift Core', size: '100% DG + 6 High-Speed Lifts' },
+              { name: 'Leasing & Rental Yield', size: 'Est. 8.4% Gross Annual Yield' }
+            ]
+          : [
+              { name: 'Grand Living & Dining Foyer', size: `${19 + (idx % 4)}'0" x ${13 + (idx % 3)}'6"` },
+              { name: 'Presidential Master Suite', size: `${15 + (idx % 3)}'6" x 13'0"` },
+              { name: 'European Modular Kitchen', size: "12'0\" x 9'6\"" },
+              { name: 'Panoramic Balcony / Deck', size: `${14 + (idx % 4)}'0" x 6'0"` }
+            ];
+
         return {
           id: p.id || `plan_${idx}`,
-          title: p.name || `Architectural Unit #${idx + 1}`,
+          title: p.name || `Signature Unit #${idx + 1}`,
           category: cat,
-          bhk: p.name.includes('BHK') ? p.name : `${(idx % 3) + 1} BHK Luxury Suite`,
-          superArea: `${1150 + idx * 350} Sq.Ft`,
-          carpetArea: `${850 + idx * 280} Sq.Ft`,
-          efficiency: '78% RERA Usable Ratio',
-          balconyArea: `${95 + idx * 25} Sq.Ft Deck`,
-          bedrooms: (idx % 3) + 1,
-          bathrooms: (idx % 3) + 1,
-          facing: idx % 2 === 0 ? 'East Facing (100% Vastu)' : 'North-East Corner Facing',
-          price: p.price ? `₹ ${p.price.toLocaleString('en-IN')}` : `₹ ${(priceVal / 100000).toFixed(1)} Lakhs*`,
+          bhk: subtitle,
+          superArea: superAreaVal,
+          carpetArea: carpetAreaVal,
+          areaMetricLabel: isPlotOrFarm ? 'Development Status' : isCommercial ? 'Leasable Efficiency' : 'RERA Carpet Area',
+          efficiency: isPlotOrFarm ? '100% Clear Link Title' : isCommercial ? '82% Office Floorplate' : '78% Usable Carpet Ratio',
+          balconyArea: isPlotOrFarm ? 'Clubhouse & Avenue Trees' : `${110 + idx * 25} Sq.Ft Sky Deck`,
+          bedrooms: isPlotOrFarm || isCommercial ? 'N/A' : isVilla ? 4 : 3,
+          bathrooms: isPlotOrFarm || isCommercial ? 'Custom' : 3,
+          facing: isPlotOrFarm ? 'East / North-East Corner Plots' : idx % 2 === 0 ? 'East Facing (100% Vastu)' : 'North-East Corner Panoramic',
+          price: formatINRCompact(priceVal),
           priceNum: priceVal,
-          estEmi: `₹ ${Math.round((priceVal * 0.8 * 0.085 / 12) * 1.5).toLocaleString('en-IN')}/mo*`,
-          imageUrl: p.imageUrl || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-          view3dUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
-          tag: idx === 0 ? 'Tower Floor Plate' : (idx === 2 ? 'High Demand' : 'Few Units Left'),
-          roomSpecs: [
-            { name: 'Living & Dining Foyer', size: `${18 + idx}'0" x ${12 + idx}'6"` },
-            { name: 'Master Suite Bedroom', size: `${14 + idx}'0" x ${12}'0"` },
-            { name: 'Designer Modular Kitchen', size: "11'0\" x 9'6\"" },
-            { name: 'Panoramic Balcony Deck', size: `${12 + idx}'0" x 5'6"` }
-          ]
+          estEmi: `₹ ${monthlyEmiNum.toLocaleString('en-IN')}/mo*`,
+          imageUrl: p.imageUrl || altImages[idx % altImages.length],
+          view3dUrl: altImages[(idx + 2) % altImages.length],
+          tag: idx === 0 ? 'Flagship Tower' : idx === 2 ? 'Few Left' : isPlotOrFarm ? 'Spot Registry' : 'High Yield',
+          availabilityTag: idx === 0 ? '8 Corner Units Left' : idx === 2 ? 'Phase-1 Selling Fast' : 'Available Now',
+          roomSpecs: roomSpecsList
         };
       });
     }
     return [
       {
         id: 'plan_master',
-        title: 'Master Tower Cluster Layout (G+22)',
+        title: 'Master Tower Cluster Layout (G+28)',
         category: 'Master Layout',
         bhk: 'All Towers Core & Wing Plate',
         superArea: 'Floor Plate: 9,850 Sq.Ft',
@@ -438,9 +599,9 @@ export default function RealEstateMiniWebsiteView({
         bedrooms: 1,
         bathrooms: 1,
         facing: 'East Facing (100% Vastu)',
-        price: '₹ 42.5 Lakhs*',
+        price: '₹42.5 Lakhs*',
         priceNum: 4250000,
-        estEmi: '₹ 28,200/mo*',
+        estEmi: `₹ ${calculateMonthlyEmi(4250000 * 0.8, 8.4, 20).toLocaleString('en-IN')}/mo*`,
         imageUrl: 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80',
         view3dUrl: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
         tag: 'High Rental Yield',
@@ -463,9 +624,9 @@ export default function RealEstateMiniWebsiteView({
         bedrooms: 2,
         bathrooms: 2,
         facing: 'North-East Corner Facing',
-        price: '₹ 78.9 Lakhs*',
+        price: '₹78.9 Lakhs*',
         priceNum: 7890000,
-        estEmi: '₹ 52,400/mo*',
+        estEmi: `₹ ${calculateMonthlyEmi(7890000 * 0.8, 8.4, 20).toLocaleString('en-IN')}/mo*`,
         imageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
         view3dUrl: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80',
         tag: 'Most Popular',
@@ -489,9 +650,9 @@ export default function RealEstateMiniWebsiteView({
         bedrooms: 3,
         bathrooms: 3,
         facing: 'East Facing with Sunrise View',
-        price: '₹ 1.25 Crore*',
+        price: '₹1.25 Cr*',
         priceNum: 12500000,
-        estEmi: '₹ 82,900/mo*',
+        estEmi: `₹ ${calculateMonthlyEmi(12500000 * 0.8, 8.4, 20).toLocaleString('en-IN')}/mo*`,
         imageUrl: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
         view3dUrl: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80',
         tag: 'Luxury Signature',
@@ -516,9 +677,9 @@ export default function RealEstateMiniWebsiteView({
         bedrooms: 4,
         bathrooms: 5,
         facing: '100% Vastu Compliant (North-East)',
-        price: '₹ 1.89 Crore*',
+        price: '₹1.89 Cr*',
         priceNum: 18900000,
-        estEmi: '₹ 1,25,000/mo*',
+        estEmi: `₹ ${calculateMonthlyEmi(18900000 * 0.8, 8.4, 20).toLocaleString('en-IN')}/mo*`,
         imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
         view3dUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80',
         tag: 'Ultra HNW Penthouse',
@@ -533,10 +694,24 @@ export default function RealEstateMiniWebsiteView({
     ];
   }, [profile.sectionData?.products?.items]);
 
-  // Plan Category Tabs
+  // Dynamic Plan Category Tabs built cleanly from actual portfolio items
   const planCategories = useMemo(() => {
-    const defaultTabs = ['All', 'Master Layout', '1 BHK', '2 BHK', '3 BHK', '4 BHK'];
-    return defaultTabs.filter(cat => cat === 'All' || layoutPlans.some(p => p.category === cat || p.bhk.includes(cat)));
+    const uniqueCats = Array.from(new Set(layoutPlans.map(p => p.category)));
+    return ['All', ...uniqueCats];
+  }, [layoutPlans]);
+
+  // Consistent summary metrics used across Hero, Sticky Bar & Calculator presets
+  const startingPortfolioStats = useMemo(() => {
+    const priced = layoutPlans.filter(p => (p.priceNum || 0) > 0);
+    const minUnit = priced.reduce((min, cur) => ((cur.priceNum || 0) < (min.priceNum || 0) ? cur : min), priced[0] || { priceNum: 9500000 });
+    const minBuilt = priced.filter(p => p.category !== 'Plots & Estates').reduce((min, cur) => ((cur.priceNum || 0) < (min.priceNum || 0) ? cur : min), priced[0] || { priceNum: 9500000 });
+    const minPriceNum = minBuilt?.priceNum || minUnit?.priceNum || 9500000;
+    const minPlotPrice = priced.find(p => p.category === 'Plots & Estates')?.priceNum;
+    return {
+      startingPriceLabel: formatINRCompact(minPriceNum),
+      minPlotLabel: minPlotPrice ? formatINRCompact(minPlotPrice) : null,
+      startingEmi: `₹${calculateMonthlyEmi(minPriceNum * 0.8, 8.4, 20).toLocaleString('en-IN')}/Mo*`
+    };
   }, [layoutPlans]);
 
   // Filtered Plans based on active tab
@@ -545,7 +720,39 @@ export default function RealEstateMiniWebsiteView({
     return layoutPlans.filter(p => p.category === activePlanTab || p.bhk.includes(activePlanTab));
   }, [layoutPlans, activePlanTab]);
 
-  // Project Amenities matching FlagUp's exact visual cards
+  // Verified Testimonials (uses profile data cleanly with luxury defaults)
+  const verifiedTestimonials = useMemo(() => {
+    const custom = profile.sectionData?.testimonials?.items || [];
+    if (custom.length >= 2) return custom.slice(0, 3);
+    return [
+      {
+        id: 'rev_1',
+        clientName: 'Rajesh & Sunita K.',
+        clientRole: 'Director, Deloitte • 3 BHK Sky Residence',
+        content: 'We visited 8 high-rise developments across the Financial District, but the floor plan layout, 82% open space, and private sky deck made it an instant decision for our family.',
+        rating: 5,
+        clientAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80'
+      },
+      {
+        id: 'rev_2',
+        clientName: 'Anand Verma',
+        clientRole: 'VP Engineering, Amazon • 4 BHK Penthouse',
+        content: 'The transparent RERA milestone tracking, zero pre-EMI offer, and penalty-backed handover agreement gave me 100% peace of mind. Exceptional appreciation value.',
+        rating: 5,
+        clientAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80'
+      },
+      {
+        id: 'rev_3',
+        clientName: 'Dr. Meenakshi & Sridhar',
+        clientRole: 'Senior Consultants • 3 BHK Luxury Suite',
+        content: 'Being 5 minutes from top international schools and leading hospitals makes daily life effortless. The 50,000 sq.ft clubhouse truly feels like a 5-star resort.',
+        rating: 5,
+        clientAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
+      }
+    ];
+  }, [profile.sectionData?.testimonials?.items]);
+
+  // Project Amenities matching FlagUp's exact visual cards (100% verified 200 OK photos)
   const projectAmenities: RealEstateAmenity[] = useMemo(() => {
     return [
       {
@@ -580,7 +787,7 @@ export default function RealEstateMiniWebsiteView({
         id: 'am_5',
         title: 'Kids Adventure Play Arena',
         description: 'Safe rubberized flooring, swings, slides & interactive play zones',
-        imageUrl: 'https://images.unsplash.com/photo-1596464716127-f2a829822301?auto=format&fit=crop&w=800&q=80',
+        imageUrl: 'https://images.unsplash.com/photo-1566454825481-4e48f80aa4d7?auto=format&fit=crop&w=800&q=80',
         tag: 'Kids'
       },
       {
@@ -750,17 +957,35 @@ export default function RealEstateMiniWebsiteView({
     window.open(`https://wa.me/${cleanPhone}?text=${encoded}`, '_blank');
   };
 
+  // Non-blocking CRM lead save
+  const submitLeadRecord = (payload: { name: string; phone: string; email?: string; message: string }) => {
+    if (!profile.slug) return;
+    fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        profileSlug: profile.slug,
+        name: payload.name,
+        phone: payload.phone,
+        email: payload.email || displayEmail || `${payload.phone}@whatsapp.lead`,
+        message: payload.message
+      })
+    }).catch(() => {});
+  };
+
   // Site Visit Form Submit
   const handleSiteVisitSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     trackAction('site_visit_booked');
     setSiteVisitSuccess(true);
-    const msg = `*New Site Visit Scheduled!*%0A%0A*Name:* ${siteVisitForm.name}%0A*Phone:* ${siteVisitForm.phone}%0A*Date:* ${siteVisitForm.date}%0A*Slot:* ${siteVisitForm.timeSlot}%0A*Unit:* ${siteVisitForm.bhkPreference}%0A*Chauffeur Required:* ${siteVisitForm.pickupRequired ? 'YES' : 'NO'}`;
+    const msgText = `VIP Cab Site Visit | Unit: ${siteVisitForm.bhkPreference} | Date: ${siteVisitForm.date} (${siteVisitForm.timeSlot}) | Chauffeur: ${siteVisitForm.pickupRequired ? 'Yes' : 'No'}`;
+    submitLeadRecord({ name: siteVisitForm.name, phone: siteVisitForm.phone, message: msgText });
+    const msg = `*New VIP Site Visit Scheduled!*%0A%0A*Name:* ${siteVisitForm.name}%0A*Phone:* ${siteVisitForm.phone}%0A*Date:* ${siteVisitForm.date}%0A*Slot:* ${siteVisitForm.timeSlot}%0A*Unit:* ${siteVisitForm.bhkPreference}%0A*Chauffeur Pickup:* ${siteVisitForm.pickupRequired ? 'YES (Free AC Cab)' : 'NO'}`;
     setTimeout(() => {
       window.open(`https://wa.me/${cleanPhone}?text=${msg}`, '_blank');
       setIsSiteVisitModalOpen(false);
       setSiteVisitSuccess(false);
-    }, 1200);
+    }, 1000);
   };
 
   // Brochure Download Submit
@@ -768,12 +993,33 @@ export default function RealEstateMiniWebsiteView({
     e.preventDefault();
     trackAction('brochure_downloaded');
     setBrochureSuccess(true);
-    const msg = `*Brochure Request for ${projectName}*%0A%0A*Name:* ${brochureForm.name}%0A*Phone:* ${brochureForm.phone}%0A*Email:* ${brochureForm.email}`;
+    submitLeadRecord({
+      name: brochureForm.name,
+      phone: brochureForm.phone,
+      email: brochureForm.email,
+      message: `4K Brochure & Floor Price Sheet requested for ${projectName}`
+    });
+    const msg = `*VIP Brochure & Cost Sheet Request (${projectName})*%0A%0A*Name:* ${brochureForm.name}%0A*Phone:* ${brochureForm.phone}%0A*Email:* ${brochureForm.email}`;
     setTimeout(() => {
       window.open(`https://wa.me/${cleanPhone}?text=${msg}`, '_blank');
       setIsBrochureModalOpen(false);
       setBrochureSuccess(false);
-    }, 1200);
+    }, 1000);
+  };
+
+  // Instant 15-Min VIP Priority Callback Submit
+  const handleCallbackSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    trackAction('vip_callback_requested');
+    submitLeadRecord({
+      name: callbackForm.name,
+      phone: callbackForm.phone,
+      message: `Instant 15-Min Priority Callback for ${callbackForm.unitInterest}`
+    });
+    setCallbackSubmitted(true);
+    const msg = `*VIP Priority Callback Request (${projectName})*%0A%0A*Name:* ${callbackForm.name}%0A*Phone:* ${callbackForm.phone}%0A*Looking For:* ${callbackForm.unitInterest}%0APlease share floor availability & cost sheet.`;
+    window.open(`https://wa.me/${cleanPhone}?text=${msg}`, '_blank');
+    setTimeout(() => setCallbackSubmitted(false), 4500);
   };
 
   // Save VCF Contact
@@ -784,24 +1030,13 @@ export default function RealEstateMiniWebsiteView({
 
   // EMI Calculator Calculation
   const emiCalculation = useMemo(() => {
-    const loanAmount = emiPropertyCost * (1 - emiDownPaymentPct / 100);
-    const monthlyRate = emiInterestRate / 12 / 100;
-    const months = emiTenureYears * 12;
-    if (monthlyRate === 0) {
-      return {
-        loanAmount,
-        monthlyEmi: loanAmount / months,
-        totalInterest: 0,
-        totalPayment: loanAmount
-      };
-    }
-    const factor = Math.pow(1 + monthlyRate, months);
-    const monthlyEmi = (loanAmount * monthlyRate * factor) / (factor - 1);
-    const totalPayment = monthlyEmi * months;
-    const totalInterest = totalPayment - loanAmount;
+    const loanAmount = Math.round(emiPropertyCost * (1 - emiDownPaymentPct / 100));
+    const monthlyEmi = calculateMonthlyEmi(loanAmount, emiInterestRate, emiTenureYears);
+    const totalPayment = monthlyEmi * emiTenureYears * 12;
+    const totalInterest = Math.max(0, totalPayment - loanAmount);
     return {
-      loanAmount: Math.round(loanAmount),
-      monthlyEmi: Math.round(monthlyEmi),
+      loanAmount,
+      monthlyEmi,
       totalInterest: Math.round(totalInterest),
       totalPayment: Math.round(totalPayment)
     };
@@ -820,49 +1055,54 @@ export default function RealEstateMiniWebsiteView({
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#111827] font-sans selection:bg-[#F8CD71]/30 selection:text-[#0B0F19] relative overflow-x-hidden antialiased">
+    <div className="min-h-screen bg-white text-[#111827] font-sans selection:bg-[#F8CD71]/30 selection:text-[#0B0F19] relative overflow-x-clip antialiased">
 
       {/* ============================================================== */}
-      {/* 1. TOP NAVBAR (FlagUp Exact Signature Dark Header)              */}
+      {/* 1. TOP NAVBAR (FlagUp Signature Dark Header + Brand Wordmark)  */}
       {/* ============================================================== */}
-      <nav className="bg-[#0B0F19] sticky top-0 z-50 py-3 sm:py-4 shadow-md border-b border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <nav aria-label="Primary navigation" className="bg-[#0B0F19]/95 backdrop-blur-md sticky top-0 z-50 py-3 sm:py-3.5 shadow-lg border-b border-gray-800/90">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center gap-3">
           
-          {/* Logo / Project Name (Uppercase with Sleek Border) */}
-          <a href="#home" className="flex items-center gap-3 group select-none">
+          {/* Logo / Developer Lockup */}
+          <a href="#home" className="flex items-center gap-2.5 group select-none min-w-0">
             {profile.avatarUrl ? (
               <img
                 src={profile.avatarUrl}
-                alt={projectName}
-                className="h-9 sm:h-11 w-auto max-w-[160px] sm:max-w-[200px] object-contain rounded"
+                alt={profile.name || projectName}
+                className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover border-2 border-[#F8CD71] shrink-0 shadow-md"
               />
             ) : (
-              <div className="border border-white/20 rounded-lg px-3 py-1.5 sm:px-4 sm:py-2 text-base sm:text-xl font-extrabold text-white tracking-widest uppercase hover:border-[#F8CD71] transition-colors">
-                {projectName}
+              <div className="h-9 w-9 rounded-full bg-[#F8CD71] text-[#0B0F19] font-black text-sm flex items-center justify-center shrink-0">
+                {projectName.slice(0, 2).toUpperCase()}
               </div>
             )}
+            <div className="min-w-0 text-left">
+              <div className="text-xs sm:text-sm font-black text-white tracking-wider uppercase truncate max-w-[155px] sm:max-w-[220px] group-hover:text-[#F8CD71] transition-colors">
+                {projectName}
+              </div>
+              <div className="hidden xs:flex items-center gap-1.5 text-[10px] font-bold text-emerald-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                <span className="truncate">{displayRera}</span>
+              </div>
+            </div>
           </a>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-6 text-sm font-semibold text-gray-300">
-            <a href="#home" className="hover:text-[#F8CD71] transition-colors">Home</a>
-            <a href="#video" className="hover:text-[#F8CD71] transition-colors">Video</a>
-            <a href="#plans" className="hover:text-[#F8CD71] transition-colors">LayOut Plans</a>
-            <a href="#portfolio" className="hover:text-[#F8CD71] transition-colors">Projects</a>
-            <a href="#videos" className="hover:text-[#F8CD71] transition-colors">Videos &amp; Reels</a>
-            <a href="#amenities" className="hover:text-[#F8CD71] transition-colors">Amenities</a>
-            <a href="#interior" className="hover:text-[#F8CD71] transition-colors">Interior</a>
-            <a href="#location" className="hover:text-[#F8CD71] transition-colors">Google Location</a>
-            <a href="#nearby" className="hover:text-[#F8CD71] transition-colors">Near By</a>
-            <a href="#gallery" className="hover:text-[#F8CD71] transition-colors">Gallery</a>
-            <a href="#contact" className="hover:text-[#F8CD71] transition-colors">Contact</a>
+          <div className="hidden lg:flex items-center gap-5 text-xs xl:text-sm font-semibold text-gray-300">
+            <a href="#home" className="hover:text-[#F8CD71] transition-colors whitespace-nowrap">Overview</a>
+            <a href="#video" className="hover:text-[#F8CD71] transition-colors whitespace-nowrap">Walkthrough</a>
+            <a href="#plans" className="hover:text-[#F8CD71] transition-colors whitespace-nowrap">Floor Plans</a>
+            <a href="#calculator" className="hover:text-[#F8CD71] transition-colors whitespace-nowrap">EMI &amp; ROI</a>
+            <a href="#amenities" className="hover:text-[#F8CD71] transition-colors whitespace-nowrap">Amenities</a>
+            <a href="#gallery" className="hover:text-[#F8CD71] transition-colors whitespace-nowrap">Gallery</a>
+            <a href="#contact" className="hover:text-[#F8CD71] transition-colors whitespace-nowrap">VIP Desk</a>
           </div>
 
-          {/* Right Action Icons: FlagUp Signature Yellow Squares & Actions */}
-          <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* Right Action Icons */}
+          <div className="flex items-center gap-2 shrink-0">
             {/* View Mode Toggle (If in preview/studio) */}
             {showViewToggle && setViewMode && (
-              <div className="hidden md:flex items-center gap-1 p-0.5 rounded-lg bg-gray-900 border border-gray-800 mr-2">
+              <div className="hidden xl:flex items-center gap-1 p-0.5 rounded-lg bg-gray-900 border border-gray-800 mr-1">
                 <button
                   type="button"
                   onClick={() => setViewMode('website')}
@@ -888,21 +1128,21 @@ export default function RealEstateMiniWebsiteView({
             <a
               href={`tel:${cleanCallNumber}`}
               aria-label="Call Developer"
-              className="bg-[#F8CD71] text-[#0B0F19] w-9 h-9 sm:w-10 sm:h-10 rounded-md flex items-center justify-center hover:bg-yellow-500 transition shadow-lg shrink-0 cursor-pointer"
-              title="Call Now"
+              className="bg-[#F8CD71] text-[#0B0F19] w-10 h-10 rounded-lg flex items-center justify-center hover:bg-yellow-500 transition shadow-lg shrink-0 cursor-pointer"
+              title="Call Sales Desk"
             >
-              <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-[#0B0F19] fill-current" />
+              <Phone className="w-4 h-4 text-[#0B0F19] fill-current" />
             </a>
 
             {/* WhatsApp (Yellow Square) */}
             <button
               type="button"
               onClick={() => handleWhatsAppChat('Navbar_WhatsApp')}
-              aria-label="WhatsApp"
-              className="bg-[#F8CD71] text-[#0B0F19] w-9 h-9 sm:w-10 sm:h-10 rounded-md flex items-center justify-center hover:bg-yellow-500 transition shadow-lg shrink-0 cursor-pointer"
-              title="WhatsApp Chat"
+              aria-label="WhatsApp Concierge"
+              className="bg-[#F8CD71] text-[#0B0F19] w-10 h-10 rounded-lg flex items-center justify-center hover:bg-yellow-500 transition shadow-lg shrink-0 cursor-pointer"
+              title="Instant WhatsApp Floor Plans"
             >
-              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#0B0F19] fill-current" />
+              <MessageCircle className="w-4 h-4 text-[#0B0F19] fill-current" />
             </button>
 
             {/* Instagram (Yellow Square) */}
@@ -911,7 +1151,7 @@ export default function RealEstateMiniWebsiteView({
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="hidden sm:flex bg-[#F8CD71] text-[#0B0F19] w-9 h-9 sm:w-10 sm:h-10 rounded-md items-center justify-center hover:bg-yellow-500 transition shadow-lg shrink-0 cursor-pointer"
+              className="hidden sm:flex bg-[#F8CD71] text-[#0B0F19] w-10 h-10 rounded-lg items-center justify-center hover:bg-yellow-500 transition shadow-lg shrink-0 cursor-pointer"
             >
               <span className="font-black text-xs">IG</span>
             </a>
@@ -922,7 +1162,7 @@ export default function RealEstateMiniWebsiteView({
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
-              className="hidden sm:flex bg-[#F8CD71] text-[#0B0F19] w-9 h-9 sm:w-10 sm:h-10 rounded-md items-center justify-center hover:bg-yellow-500 transition shadow-lg shrink-0 cursor-pointer"
+              className="hidden sm:flex bg-[#F8CD71] text-[#0B0F19] w-10 h-10 rounded-lg items-center justify-center hover:bg-yellow-500 transition shadow-lg shrink-0 cursor-pointer"
             >
               <Play className="w-4 h-4 text-[#0B0F19] fill-current" />
             </a>
@@ -932,8 +1172,8 @@ export default function RealEstateMiniWebsiteView({
               type="button"
               onClick={() => setIsShareModalOpen(true)}
               aria-label="Share"
-              className="hidden md:flex bg-[#1C2434] text-white border border-gray-700 w-9 h-9 sm:w-10 sm:h-10 rounded-md items-center justify-center hover:bg-gray-800 transition shrink-0 cursor-pointer"
-              title="Share Page"
+              className="hidden md:flex bg-[#1C2434] text-white border border-gray-700 w-10 h-10 rounded-lg items-center justify-center hover:bg-gray-800 transition shrink-0 cursor-pointer"
+              title="Share Project Link"
             >
               <Share2 className="w-4 h-4" />
             </button>
@@ -942,8 +1182,9 @@ export default function RealEstateMiniWebsiteView({
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden bg-[#1C2434] text-white border border-gray-700 w-9 h-9 sm:w-10 sm:h-10 rounded-md flex items-center justify-center hover:bg-gray-800 transition shrink-0 cursor-pointer"
+              className="lg:hidden bg-[#1C2434] text-white border border-gray-700 w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-800 transition shrink-0 cursor-pointer"
               aria-label="Toggle menu"
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -958,58 +1199,58 @@ export default function RealEstateMiniWebsiteView({
               <a
                 href="#home"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition"
+                className="p-3 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition min-h-[44px] flex items-center"
               >
-                Home
+                Overview
               </a>
               <a
                 href="#video"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition"
+                className="p-3 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition min-h-[44px] flex items-center"
               >
-                Video Tour
+                4K Walkthrough
               </a>
               <a
                 href="#plans"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition"
+                className="p-3 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition min-h-[44px] flex items-center"
               >
-                LayOut Plans
+                Floor Plans &amp; Price
+              </a>
+              <a
+                href="#calculator"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-3 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition min-h-[44px] flex items-center"
+              >
+                EMI &amp; ROI Calc
               </a>
               <a
                 href="#amenities"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition"
+                className="p-3 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition min-h-[44px] flex items-center"
               >
                 Amenities
               </a>
               <a
                 href="#interior"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition"
+                className="p-3 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition min-h-[44px] flex items-center"
               >
-                Interior
+                Show Flat Interiors
               </a>
               <a
                 href="#location"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition"
+                className="p-3 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition min-h-[44px] flex items-center"
               >
                 Google Location
               </a>
               <a
-                href="#nearby"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition"
-              >
-                Near By
-              </a>
-              <a
                 href="#gallery"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2.5 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition"
+                className="p-3 rounded-lg bg-gray-900 hover:text-[#F8CD71] hover:bg-gray-800 transition min-h-[44px] flex items-center"
               >
-                Gallery
+                Photo Gallery
               </a>
             </div>
 
@@ -1020,9 +1261,9 @@ export default function RealEstateMiniWebsiteView({
                   setIsMobileMenuOpen(false);
                   setIsSiteVisitModalOpen(true);
                 }}
-                className="w-full py-2.5 rounded-lg bg-[#F8CD71] text-[#0B0F19] font-black text-sm text-center shadow-md"
+                className="w-full py-3 rounded-xl bg-[#F8CD71] text-[#0B0F19] font-black text-sm text-center shadow-md min-h-[44px]"
               >
-                Book Guided Site Visit
+                Book Free VIP Cab Site Visit
               </button>
               <button
                 type="button"
@@ -1030,9 +1271,9 @@ export default function RealEstateMiniWebsiteView({
                   setIsMobileMenuOpen(false);
                   setIsBrochureModalOpen(true);
                 }}
-                className="w-full py-2.5 rounded-lg bg-gray-800 text-white font-bold text-sm text-center border border-gray-700"
+                className="w-full py-3 rounded-xl bg-gray-800 text-white font-bold text-sm text-center border border-gray-700 min-h-[44px]"
               >
-                Download PDF Brochure
+                Download 4K Brochure &amp; Cost Sheet
               </button>
             </div>
           </div>
@@ -1040,109 +1281,142 @@ export default function RealEstateMiniWebsiteView({
       </nav>
 
       {/* ============================================================== */}
-      {/* 2. HERO SECTION (Aspect-Video Full-Width Luxury Showcase)       */}
+      {/* 2. ULTRA-LUXURY HIGH-CONVERTING HERO SHOWCASE (`#home`)        */}
       {/* ============================================================== */}
       <section 
         id="home" 
-        className="aspect-video min-h-[420px] sm:min-h-[540px] md:min-h-[640px] w-full bg-cover bg-center relative overflow-hidden flex items-center justify-center"
+        className="min-h-[82dvh] sm:min-h-[680px] w-full bg-cover bg-center relative overflow-hidden flex items-center justify-center"
         style={{
           backgroundImage: `url('${galleryImages[0] || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1800&q=85'}')`
         }}
       >
-        {/* Subtle Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/55 to-[#0B0F19]/40" />
+        {/* Multi-layer Cinematic Contrast Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/65 to-[#0B0F19]/50" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center py-12 sm:py-20">
-          <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center py-10 sm:py-16">
+          <div className="max-w-5xl mx-auto space-y-5 sm:space-y-6">
             
-            {/* RERA & Title Trust Pill */}
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#0B0F19]/85 backdrop-blur-md border border-[#F8CD71]/40 text-[#F8CD71] text-xs sm:text-sm font-extrabold shadow-lg">
-                <ShieldCheck className="w-4 h-4 text-[#F8CD71]" />
+            {/* RERA + Zero Pre-EMI Urgency Strip */}
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#0B0F19]/90 backdrop-blur-md border border-[#F8CD71]/45 text-[#F8CD71] text-xs font-extrabold shadow-lg">
+                <ShieldCheck className="w-4 h-4 text-[#F8CD71] shrink-0" />
                 <span className="uppercase tracking-wider">{displayRera}</span>
-                <span className="text-gray-400">•</span>
+                <span className="text-gray-500">•</span>
                 <span className="text-emerald-400 font-bold">100% Clear Title</span>
               </div>
 
-              {/* Pre-Launch Urgency Privilege Pill */}
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-400/50 text-amber-300 text-xs font-black shadow-lg">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin" />
-                <span>PRE-LAUNCH PRIVILEGE: ZERO PRE-EMI TILL DEC 2026</span>
+              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/50 text-emerald-200 text-xs font-black shadow-lg">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 motion-safe:animate-pulse shrink-0" />
+                <span>PAY JUST 10% NOW • ZERO PRE-EMI TILL DEC 2026</span>
               </div>
             </div>
 
-            {/* Big Headline */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-widest uppercase drop-shadow-2xl">
-              {projectName}
-            </h1>
+            {/* Aspirational Headline */}
+            <div className="space-y-2.5 sm:space-y-3">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-wide uppercase drop-shadow-2xl text-balance leading-[1.08]">
+                {projectName}
+              </h1>
+              <p className="text-sm sm:text-lg md:text-xl font-medium text-gray-100 max-w-3xl mx-auto leading-relaxed drop-shadow-md text-pretty">
+                {projectTagline}
+              </p>
+              <p className="text-xs sm:text-sm font-semibold text-amber-300/95 tracking-wide">
+                Presented by <span className="font-extrabold text-white">{profile.name}</span> • 2.5M+ Sq.Ft Delivered • 1,400+ Happy Families
+              </p>
+            </div>
 
-            {/* Tagline */}
-            <p className="text-base sm:text-xl md:text-2xl font-medium text-gray-200 tracking-wide max-w-2xl mx-auto leading-relaxed drop-shadow-md">
-              {projectTagline}
-            </p>
+            {/* High-Impact Luxury Financial & Handover Command Bar (Single Clean Grid, No Wrapping) */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 p-4 sm:p-5 rounded-2xl bg-[#0B0F19]/80 backdrop-blur-xl border border-white/15 max-w-4xl mx-auto shadow-2xl text-left">
+              <div className="space-y-0.5">
+                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Residences &amp; Suites</span>
+                <span className="text-base sm:text-xl font-black text-[#F8CD71] whitespace-nowrap block">
+                  From {startingPortfolioStats.startingPriceLabel}
+                </span>
+                {startingPortfolioStats.minPlotLabel && (
+                  <span className="text-[11px] text-emerald-300 font-semibold block">Plots from {startingPortfolioStats.minPlotLabel}</span>
+                )}
+              </div>
 
-            {/* High-Impact Luxury Pricing & Possession Strip */}
-            <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 p-3 sm:p-4 rounded-2xl bg-black/65 backdrop-blur-md border border-white/15 max-w-2xl mx-auto shadow-2xl">
-              <div className="text-center sm:text-left">
-                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Exclusive Launch Price</span>
-                <span className="text-xl sm:text-2xl font-black text-[#F8CD71]">Starting ₹1.25 Cr*</span>
+              <div className="space-y-0.5 lg:border-l lg:border-white/15 lg:pl-4">
+                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Easy Bank Ownership</span>
+                <span className="text-base sm:text-xl font-black text-white whitespace-nowrap block">
+                  {startingPortfolioStats.startingEmi}
+                </span>
+                <span className="text-[11px] text-gray-400 font-medium block">8.40% Pre-Approved Loan</span>
               </div>
-              <div className="hidden sm:block w-px h-8 bg-white/20" />
-              <div className="text-center sm:text-left">
-                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Easy Ownership</span>
-                <span className="text-base sm:text-lg font-black text-white">EMI ₹48,990/Mo*</span>
+
+              <div className="space-y-0.5 lg:border-l lg:border-white/15 lg:pl-4">
+                <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider block">RERA Delivery Pledge</span>
+                <span className="text-base sm:text-xl font-black text-emerald-300 whitespace-nowrap block">
+                  Dec 2026
+                </span>
+                <span className="text-[11px] text-gray-300 font-medium block">Penalty-Backed Schedule</span>
               </div>
-              <div className="hidden sm:block w-px h-8 bg-white/20" />
-              <div className="text-center sm:text-left">
-                <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider block">Possession Guarantee</span>
-                <span className="text-base sm:text-lg font-black text-emerald-300">Dec 2026 (On Schedule)</span>
+
+              <div className="space-y-1 lg:border-l lg:border-white/15 lg:pl-4">
+                <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-amber-300">
+                  <span>Phase 1 Demand</span>
+                  <span>86% Sold</span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-white/15 overflow-hidden">
+                  <div className="h-full w-[86%] bg-gradient-to-r from-amber-400 to-emerald-400 rounded-full" />
+                </div>
+                <span className="text-[11px] text-white font-bold block">Only 14 Corner Units Left</span>
               </div>
             </div>
 
-            {/* Key Specs Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 pt-1 text-xs sm:text-sm font-semibold text-gray-200">
-              <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+            {/* Key Project Highlights */}
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 text-xs font-semibold text-gray-100">
+              <span className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
                 📍 {userCity}
               </span>
-              <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-                🏢 G+28 Luxury Sky Towers
+              <span className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+                🏢 G+28 Sky Towers &amp; Villas
               </span>
-              <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+              <span className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
                 🌿 82% Open Green Space
               </span>
-              <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 backdrop-blur-sm border border-emerald-500/40 font-bold">
-                ⚡ Only 14 Units Remaining
+              <span className="px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+                ⭐ 4.9/5 Verified Buyer Rating
               </span>
             </div>
 
-            {/* High-Conversion CTA Buttons */}
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-3 sm:pt-5">
+            {/* Primary High-Conversion Actions */}
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-3.5 pt-2">
               <button
                 type="button"
-                onClick={() => handleWhatsAppChat('Hero_VIP_Cab_Booking')}
-                className="px-6 sm:px-8 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-[#F8CD71] to-yellow-500 text-[#0B0F19] font-black text-sm sm:text-base hover:brightness-110 transition-all shadow-xl hover:shadow-yellow-500/30 transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2.5"
+                onClick={() => setIsSiteVisitModalOpen(true)}
+                className="px-6 sm:px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-[#F8CD71] to-yellow-500 text-[#0B0F19] font-black text-sm sm:text-base hover:brightness-110 transition-all shadow-xl hover:shadow-yellow-500/30 transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2 min-h-[48px]"
               >
-                <MessageCircle className="w-5 h-5 fill-current" />
+                <Car className="w-5 h-5" />
                 <span>Book Free VIP Cab Site Visit</span>
               </button>
 
               <button
                 type="button"
-                onClick={() => setIsBrochureModalOpen(true)}
-                className="px-6 sm:px-8 py-3.5 rounded-xl bg-[#1C2434]/95 hover:bg-[#253045] text-white border border-gray-600 font-bold text-sm sm:text-base transition-all shadow-xl transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
+                onClick={() => handleWhatsAppChat('Hero_Price_Sheet', `Hello ${projectName}, please share your exclusive pre-launch price sheet, live unit availability & floor plans.`)}
+                className="px-5 sm:px-6 py-3.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-slate-950 font-black text-sm sm:text-base transition-all shadow-xl transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2 min-h-[48px]"
               >
-                <Download className="w-5 h-5 text-[#F8CD71]" />
-                <span>Download 4K Brochure &amp; Price Sheet</span>
+                <MessageCircle className="w-5 h-5 fill-current" />
+                <span>Get VIP Price Sheet on WhatsApp</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsBrochureModalOpen(true)}
+                className="px-5 py-3.5 rounded-xl bg-[#1C2434]/95 hover:bg-[#253045] text-white border border-gray-600 font-bold text-sm transition-all shadow-xl transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2 min-h-[48px]"
+              >
+                <Download className="w-4 h-4 text-[#F8CD71]" />
+                <span>4K Brochure PDF</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleVcfDownload}
-                className="px-4 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-sm transition-all cursor-pointer flex items-center gap-1.5"
-                title="Save Developer Contact (.vcf)"
+                className="px-4 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-sm transition-all cursor-pointer flex items-center gap-1.5 min-h-[48px]"
+                title="Save Developer Direct Contact (.vcf)"
               >
                 <Download className="w-4 h-4 text-[#F8CD71]" />
-                <span className="hidden sm:inline">Save Contact</span>
+                <span className="hidden md:inline">Save Contact</span>
               </button>
             </div>
 
@@ -1151,29 +1425,29 @@ export default function RealEstateMiniWebsiteView({
       </section>
 
       {/* ============================================================== */}
-      {/* 3. SIGNATURE VIDEO & HIGHLIGHTS SECTION (`#video`)              */}
+      {/* 3. SIGNATURE ARCHITECTURAL FILM & RERA CONSTRUCTION TRACKER    */}
       {/* ============================================================== */}
       <section id="video" className="py-12 sm:py-16 bg-[#0B0F19] text-white border-t border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            {/* Left Column: Numbered Highlight Badges (#F8CD71) */}
+            {/* Left Column: Numbered Architectural Highlights */}
             <div className="lg:col-span-5 min-w-0">
               <span className="text-xs font-black uppercase tracking-widest text-[#F8CD71]">
                 Signature Architectural Highlights
               </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-white mt-1 mb-2 tracking-tight">
-                {projectName}
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white mt-1.5 mb-2 tracking-tight text-balance">
+                Designed to Appreciate Every Single Year
               </h2>
-              <p className="text-sm sm:text-base text-gray-400 mb-6">
-                {projectTagline}
+              <p className="text-sm text-gray-400 mb-6 text-pretty">
+                Step inside model sky suites, rooftop leisure clubs, and verified on-site engineering quality before locking your unit.
               </p>
 
               {/* Numbered Feature Rows */}
-              <div className="space-y-4 sm:space-y-5">
+              <div className="space-y-4">
                 {videoFeatureList.map((f) => (
                   <div key={f.num} className="flex items-start gap-3.5 sm:gap-4">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#F8CD71] text-[#0B0F19] font-black text-sm sm:text-base flex items-center justify-center shrink-0 shadow-md">
+                    <div className="w-9 h-9 rounded-full bg-[#F8CD71] text-[#0B0F19] font-black text-sm flex items-center justify-center shrink-0 shadow-md">
                       {f.num}
                     </div>
                     <div className="min-w-0">
@@ -1188,30 +1462,68 @@ export default function RealEstateMiniWebsiteView({
                 ))}
               </div>
 
-              {/* WhatsApp Action Button */}
-              <div className="mt-8 pt-4 border-t border-gray-800/80">
+              {/* Action Buttons */}
+              <div className="mt-7 pt-4 border-t border-gray-800/80 flex flex-wrap gap-3">
+                <a
+                  href="#plans"
+                  className="px-5 py-3 rounded-xl bg-[#F8CD71] text-[#0B0F19] font-black text-sm hover:bg-yellow-500 transition shadow-lg inline-flex items-center gap-2 min-h-[44px]"
+                >
+                  <span>Explore Floor Plans &amp; Prices</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
                 <button
                   type="button"
                   onClick={() => handleWhatsAppChat('Video_Section_Chat')}
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#F8CD71] text-[#0B0F19] font-black text-sm hover:bg-yellow-500 transition shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                  className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/15 font-bold text-sm transition flex items-center gap-2 cursor-pointer min-h-[44px]"
                 >
-                  <MessageCircle className="w-4 h-4 fill-current" />
-                  <span>Chat on WhatsApp for Project Details</span>
+                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                  <span>Ask Architect Team</span>
                 </button>
               </div>
             </div>
 
-            {/* Right Column: Project Video Player */}
+            {/* Right Column: Clean Luxury Video Showcase Facade + Inline Player */}
             <div className="lg:col-span-7">
               <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-gray-900 border border-gray-800 shadow-2xl aspect-video group">
                 {isYouTubeVideo ? (
-                  <iframe
-                    src={youTubeEmbedUrl}
-                    title={`${projectName} Video Tour`}
-                    className="w-full h-full border-0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+                  hasStartedShowcaseVideo ? (
+                    <iframe
+                      src={youTubeEmbedUrl}
+                      title={`${projectName} 4K Walkthrough Film`}
+                      className="w-full h-full border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setHasStartedShowcaseVideo(true)}
+                      aria-label="Watch 4K Architectural Film Walkthrough"
+                      className="relative w-full h-full text-left cursor-pointer group/poster focus-visible:outline-2 focus-visible:outline-[#F8CD71]"
+                    >
+                      <img
+                        src={galleryImages[1] || galleryImages[0]}
+                        alt={`${projectName} 4K Walkthrough Film`}
+                        className="w-full h-full object-cover group-hover/poster:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/20" />
+                      <div className="absolute top-3 left-3 sm:top-4 sm:left-4 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-[#F8CD71]/40 text-[#F8CD71] text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5">
+                        <Film className="w-3.5 h-3.5" />
+                        <span>4K Architectural Film • 02:45</span>
+                      </div>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#F8CD71] text-[#0B0F19] flex items-center justify-center shadow-[0_0_40px_rgba(248,205,113,0.5)] transform group-hover/poster:scale-110 transition-transform">
+                          <Play className="w-8 h-8 sm:w-9 sm:h-9 ml-1 fill-current" />
+                        </div>
+                        <span className="mt-3 text-sm sm:text-base font-extrabold text-white drop-shadow">
+                          Play Sky Tower &amp; Club Walkthrough
+                        </span>
+                        <span className="text-xs text-gray-300 mt-0.5">
+                          Plays inline with zero redirect
+                        </span>
+                      </div>
+                    </button>
+                  )
                 ) : (
                   <>
                     <video
@@ -1231,7 +1543,6 @@ export default function RealEstateMiniWebsiteView({
                       Your browser does not support video playback.
                     </video>
 
-                    {/* Big Custom Play Button Overlay */}
                     {!isVideoPlaying && (
                       <button
                         type="button"
@@ -1248,27 +1559,67 @@ export default function RealEstateMiniWebsiteView({
                 )}
               </div>
 
-              {/* Video Caption & Walkthrough Badge */}
+              {/* Video Caption & Theater Fullscreen */}
               <div className="mt-3 flex items-center justify-between text-xs text-gray-400 px-1">
                 <span className="flex items-center gap-1.5">
                   <Film className="w-3.5 h-3.5 text-[#F8CD71]" />
-                  <span>4K Aerial Drone &amp; Architectural Video Tour</span>
+                  <span>4K Architectural Film &amp; Clubhouse Tour</span>
                 </span>
                 <button
                   type="button"
                   onClick={() => setPreviewMedia({
-                    url: 'https://assets.mixkit.co/videos/preview/mixkit-modern-apartment-architecture-walkthrough-40995-large.mp4',
+                    url: showcaseVideoSrc,
                     type: 'video',
-                    title: `${projectName} - 4K Architectural Walkthrough`
+                    title: `${projectName} — 4K Architectural Walkthrough`
                   })}
-                  className="text-[#F8CD71] hover:underline font-bold flex items-center gap-1"
+                  className="text-[#F8CD71] hover:underline font-bold flex items-center gap-1 cursor-pointer min-h-[32px]"
                 >
-                  <span>Full Screen</span>
-                  <Maximize2 className="w-3 h-3" />
+                  <span>Theater View</span>
+                  <Maximize2 className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
 
+          </div>
+
+          {/* Live RERA Construction Milestone & Handover Progress Strip */}
+          <div className="mt-10 sm:mt-12 p-5 sm:p-6 rounded-2xl bg-[#111827] border border-gray-800 shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-gray-800">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
+                <h3 className="text-sm sm:text-base font-black text-white">
+                  Verified On-Site Construction Progress • Zero Delay Track Record
+                </h3>
+              </div>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 text-xs font-bold border border-emerald-500/30 w-fit">
+                Overall Readiness: 78% Complete • Handover Dec 2026
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-4">
+              {[
+                { stage: '1. Land & RERA Sanction', status: '100% Complete', pct: '100%', done: true },
+                { stage: '2. Triple Basement Podium', status: '100% Complete', pct: '100%', done: true },
+                { stage: '3. Superstructure (22/28 Flr)', status: 'Active Pouring', pct: '78%', done: false },
+                { stage: '4. Club & Handover Readiness', status: 'Target Dec 2026', pct: '35%', done: false },
+              ].map((m) => (
+                <div key={m.stage} className="p-3 rounded-xl bg-[#0B0F19] border border-gray-800/90 space-y-2">
+                  <div className="flex items-center justify-between text-xs font-bold">
+                    <span className="text-gray-200">{m.stage}</span>
+                  </div>
+                  <div className="w-full h-1.5 rounded-full bg-gray-800 overflow-hidden">
+                    <div
+                      className={`h-full rounded-full ${m.done ? 'bg-emerald-400' : 'bg-[#F8CD71]'}`}
+                      style={{ width: m.pct }}
+                    />
+                  </div>
+                  <div className={`text-[11px] font-bold flex items-center gap-1 ${m.done ? 'text-emerald-400' : 'text-amber-300'}`}>
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>{m.status}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -1386,32 +1737,32 @@ export default function RealEstateMiniWebsiteView({
 
       {/* ============================================================== */}
       {/* 4. ADVANCED LAYOUT PLANS SECTION (`#plans`)                    */}
-      {/* FlagUp UI Upgraded with BHK Filtering, 2D/3D & Specs           */}
+      {/* High-Converting Inventory, 2D/3D Views, & Cost Sheet Estimator */}
       {/* ============================================================== */}
       <section id="plans" className="bg-[#F4F7FE] py-10 sm:py-16 border-b border-gray-200">
         
-        {/* FlagUp Signature Forest Green Header Banner */}
-        <div className="mx-auto mb-6 sm:mb-10 w-full max-w-full bg-[#1f3b2f] px-3 py-4 text-center sm:px-5 sm:py-5 shadow-sm">
+        {/* Signature Forest Green Header Banner */}
+        <div className="mx-auto mb-6 sm:mb-10 w-full max-w-full bg-[#1f3b2f] px-3 py-4 text-center sm:px-5 sm:py-6 shadow-sm">
           <div className="flex flex-col items-center justify-center">
             <span className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-[#F8CD71] mb-1">
-              Architectural CAD Blueprints &amp; 3D Furnished Layouts
+              RERA Carpet Breakdown • 2D CAD &amp; 3D Furnished Views
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
-              LayOut Plans
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide text-balance">
+              Floor Plans &amp; Portfolio Inventory
             </h2>
           </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Advanced Unit Configuration Filter Tabs */}
-          <div className="flex items-center justify-center gap-1.5 sm:gap-2.5 overflow-x-auto pb-4 pt-1 mb-8 scrollbar-none">
+          {/* Unit Configuration Filter Tabs */}
+          <div className="flex items-center justify-center gap-2 overflow-x-auto pb-4 pt-1 mb-8 scrollbar-none">
             {planCategories.map((cat) => (
               <button
                 key={cat}
                 type="button"
                 onClick={() => setActivePlanTab(cat)}
-                className={`px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all shrink-0 cursor-pointer ${
+                className={`px-4 sm:px-5 py-2.5 min-h-[44px] rounded-xl text-xs sm:text-sm font-black transition-all shrink-0 cursor-pointer ${
                   activePlanTab === cat
                     ? 'bg-[#F8CD71] text-[#0B0F19] shadow-md shadow-yellow-500/20 scale-105 ring-2 ring-[#0B0F19]'
                     : 'bg-white text-gray-700 hover:text-black border border-gray-200/90 hover:border-gray-300 shadow-2xs'
@@ -1424,7 +1775,7 @@ export default function RealEstateMiniWebsiteView({
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch">
             {filteredPlans.map((plan) => {
               const currentMode = cardViewModes[plan.id] || '2d';
               const activeImage = currentMode === '3d' && plan.view3dUrl ? plan.view3dUrl : plan.imageUrl;
@@ -1435,15 +1786,15 @@ export default function RealEstateMiniWebsiteView({
                   className="floor-image-card group bg-white rounded-2xl border border-gray-200/90 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
                 >
                   <div>
-                    {/* Top Card Bar: Tags & 2D/3D Switcher */}
-                    <div className="p-3 bg-gray-50 border-b border-gray-100 flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-1.5">
+                    {/* Top Card Bar: Category, Availability & 2D/3D Switcher */}
+                    <div className="p-3 bg-gray-50 border-b border-gray-100 flex items-center justify-between gap-2 flex-wrap">
+                      <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider bg-[#1f3b2f] text-white">
                           {plan.category}
                         </span>
-                        {plan.tag && (
-                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#F8CD71]/25 text-[#bd8a2d] border border-[#F8CD71]/40">
-                            {plan.tag}
+                        {(plan.availabilityTag || plan.tag) && (
+                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300/60">
+                            {plan.availabilityTag || plan.tag}
                           </span>
                         )}
                       </div>
@@ -1457,13 +1808,13 @@ export default function RealEstateMiniWebsiteView({
                               e.stopPropagation();
                               setCardViewModes(prev => ({ ...prev, [plan.id]: '2d' }));
                             }}
-                            className={`px-2 py-0.5 rounded text-[10px] font-extrabold transition cursor-pointer ${
+                            className={`px-2.5 py-1 rounded text-[10px] font-extrabold transition cursor-pointer ${
                               currentMode === '2d'
                                 ? 'bg-[#1f3b2f] text-white'
-                                : 'text-gray-500 hover:text-gray-900'
+                                : 'text-gray-600 hover:text-gray-900'
                             }`}
                           >
-                            2D
+                            Exterior
                           </button>
                           <button
                             type="button"
@@ -1471,88 +1822,91 @@ export default function RealEstateMiniWebsiteView({
                               e.stopPropagation();
                               setCardViewModes(prev => ({ ...prev, [plan.id]: '3d' }));
                             }}
-                            className={`px-2 py-0.5 rounded text-[10px] font-extrabold transition cursor-pointer ${
+                            className={`px-2.5 py-1 rounded text-[10px] font-extrabold transition cursor-pointer ${
                               currentMode === '3d'
                                 ? 'bg-[#F8CD71] text-[#0B0F19]'
-                                : 'text-gray-500 hover:text-gray-900'
+                                : 'text-gray-600 hover:text-gray-900'
                             }`}
                           >
-                            3D
+                            3D Interior
                           </button>
                         </div>
                       )}
                     </div>
 
                     {/* Image Container with Zoom Lightbox Trigger */}
-                    <div
+                    <button
+                      type="button"
                       onClick={() => setPreviewMedia({
                         url: activeImage,
                         type: 'image',
                         title: plan.title,
-                        subtitle: `${plan.bhk} • Carpet Area: ${plan.carpetArea} • ${plan.facing}`
+                        subtitle: `${plan.bhk} • ${plan.carpetArea} • ${plan.facing}`
                       })}
-                      className="relative aspect-[4/3] bg-gray-100 overflow-hidden p-3 flex items-center justify-center cursor-pointer group-hover:bg-gray-50 transition-colors"
+                      aria-label={`Enlarge ${plan.title}`}
+                      className="relative w-full aspect-[16/10] bg-gray-100 overflow-hidden block cursor-pointer"
                     >
                       <img
                         src={activeImage}
                         alt={plan.title}
                         loading="lazy"
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute bottom-2 right-2 bg-black/75 text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-md">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/15" />
+                      <div className="absolute bottom-2.5 right-2.5 bg-black/80 text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-md">
                         <Maximize2 className="w-2.5 h-2.5 text-[#F8CD71]" />
                         <span>Zoom</span>
                       </div>
-                      <div className="absolute top-2 left-2 bg-black/60 text-white text-[9px] font-bold px-2 py-0.5 rounded">
-                        {currentMode === '3d' ? '3D Furnished Model' : 'Architectural CAD Blueprint'}
+                      <div className="absolute top-2.5 left-2.5 bg-black/70 text-white text-[9px] font-bold px-2 py-0.5 rounded">
+                        {currentMode === '3d' ? 'Interior Model Preview' : 'Architectural Elevation'}
                       </div>
-                    </div>
+                    </button>
 
                     {/* Unit Details & Specs */}
-                    <div className="p-4 space-y-3">
+                    <div className="p-4 sm:p-5 space-y-3">
                       <div>
-                        <h3 className="font-extrabold text-sm sm:text-base text-[#111827] group-hover:text-[#bd8a2d] transition-colors line-clamp-1">
+                        <h3 className="font-extrabold text-base text-[#111827] group-hover:text-[#bd8a2d] transition-colors line-clamp-2 text-balance">
                           {plan.title}
                         </h3>
-                        <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">
+                        <p className="text-xs text-gray-500 mt-1 line-clamp-2 text-pretty">
                           {plan.bhk}
                         </p>
                       </div>
 
                       {/* Area Specs Table Box */}
-                      <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-100 text-xs space-y-1.5">
-                        <div className="flex items-center justify-between text-gray-600">
-                          <span>Super Built-up:</span>
-                          <strong className="text-gray-900 font-bold">{plan.superArea}</strong>
+                      <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 text-xs space-y-1.5">
+                        <div className="flex items-center justify-between text-gray-600 gap-2">
+                          <span>Extent / Size:</span>
+                          <strong className="text-gray-900 font-bold text-right">{plan.superArea}</strong>
                         </div>
-                        <div className="flex items-center justify-between text-gray-600">
-                          <span>RERA Carpet Area:</span>
-                          <strong className="text-gray-900 font-bold">{plan.carpetArea}</strong>
+                        <div className="flex items-center justify-between text-gray-600 gap-2">
+                          <span>{plan.areaMetricLabel || 'RERA Carpet Area'}:</span>
+                          <strong className="text-gray-900 font-bold text-right">{plan.carpetArea}</strong>
                         </div>
                         {plan.efficiency && (
-                          <div className="flex items-center justify-between text-[11px] text-emerald-700 font-bold">
-                            <span>Usable Efficiency:</span>
-                            <span>{plan.efficiency}</span>
+                          <div className="flex items-center justify-between text-[11px] text-emerald-700 font-bold gap-2">
+                            <span>Usability &amp; Title:</span>
+                            <span className="text-right">{plan.efficiency}</span>
                           </div>
                         )}
-                        <div className="pt-1 border-t border-gray-200/80 flex items-center justify-between text-[11px] text-gray-500">
-                          <span>Orientation:</span>
-                          <span className="font-semibold text-gray-800 truncate max-w-[150px]">{plan.facing}</span>
+                        <div className="pt-1.5 border-t border-gray-200/80 flex items-center justify-between text-[11px] text-gray-500 gap-2">
+                          <span>Facing:</span>
+                          <span className="font-semibold text-gray-800 text-right">{plan.facing}</span>
                         </div>
                       </div>
 
                       {/* Price & Estimated EMI */}
                       <div className="flex items-baseline justify-between pt-1">
                         <div>
-                          <span className="text-[10px] text-gray-400 font-semibold block uppercase">Starting Price</span>
-                          <span className="text-sm sm:text-base font-black text-[#111827]">
+                          <span className="text-[10px] text-gray-400 font-bold block uppercase tracking-wider">Launch Price</span>
+                          <span className="text-lg font-black text-[#111827]">
                             {plan.price}
                           </span>
                         </div>
                         {plan.estEmi && (
                           <div className="text-right">
-                            <span className="text-[10px] text-gray-400 font-semibold block uppercase">Est. Monthly EMI</span>
-                            <span className="text-xs font-bold text-emerald-700 font-mono">
+                            <span className="text-[10px] text-gray-400 font-bold block uppercase tracking-wider">Est. Bank EMI</span>
+                            <span className="text-xs sm:text-sm font-black text-emerald-700 font-mono">
                               {plan.estEmi}
                             </span>
                           </div>
@@ -1562,14 +1916,14 @@ export default function RealEstateMiniWebsiteView({
                   </div>
 
                   {/* Dual Action Buttons */}
-                  <div className="p-4 pt-0 space-y-2">
+                  <div className="p-4 sm:p-5 pt-0 space-y-2">
                     <button
                       type="button"
                       onClick={() => setSelectedPlanDetails(plan)}
-                      className="w-full py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold transition flex items-center justify-center gap-1.5 border border-gray-200 cursor-pointer"
+                      className="w-full py-2.5 min-h-[42px] rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-900 text-xs font-extrabold transition flex items-center justify-center gap-1.5 border border-gray-200 cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5 text-[#1f3b2f]" />
-                      <span>View Room Dimensions &amp; Specs</span>
+                      <span>Cost Sheet &amp; Room Dimensions</span>
                     </button>
 
                     <button
@@ -1577,13 +1931,13 @@ export default function RealEstateMiniWebsiteView({
                       onClick={() => {
                         handleWhatsAppChat(
                           'FloorPlan_Inquiry',
-                          `Hello, I am interested in ${plan.title} (${plan.bhk}) with Carpet Area ${plan.carpetArea}. Please share the complete price sheet, payment schedule, and available floor units.`
+                          `Hello, I am interested in ${plan.title} (${plan.bhk}) priced at ${plan.price}. Please share the complete floor-rise cost sheet, RERA carpet plan, and available units.`
                         );
                       }}
-                      className="w-full py-2.5 rounded-xl bg-[#F8CD71] hover:bg-yellow-500 text-[#0B0F19] text-xs font-black transition flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
+                      className="w-full py-2.5 min-h-[44px] rounded-xl bg-[#F8CD71] hover:bg-yellow-500 text-[#0B0F19] text-xs font-black transition flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
                     >
                       <MessageCircle className="w-3.5 h-3.5 fill-current" />
-                      <span>Inquire Unit on WhatsApp</span>
+                      <span>Lock Pre-Launch Price on WhatsApp</span>
                     </button>
                   </div>
                 </div>
@@ -1596,19 +1950,19 @@ export default function RealEstateMiniWebsiteView({
             <button
               type="button"
               onClick={() => setIsBrochureModalOpen(true)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 rounded-xl bg-[#1f3b2f] text-white hover:bg-[#162a22] font-black text-xs sm:text-sm shadow-md transition cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 min-h-[48px] rounded-xl bg-[#1f3b2f] text-white hover:bg-[#162a22] font-black text-xs sm:text-sm shadow-md transition cursor-pointer"
             >
               <Download className="w-4 h-4 text-[#F8CD71]" />
-              <span>Download Master Layout Blueprint (PDF)</span>
+              <span>Download Master Blueprint &amp; Cost Sheet (PDF)</span>
             </button>
 
             <button
               type="button"
-              onClick={() => setIsEmiModalOpen(true)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 rounded-xl bg-white hover:bg-gray-50 text-[#0B0F19] border border-gray-300 font-black text-xs sm:text-sm shadow-xs transition cursor-pointer"
+              onClick={() => setIsSiteVisitModalOpen(true)}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 min-h-[48px] rounded-xl bg-white hover:bg-gray-50 text-[#0B0F19] border border-gray-300 font-black text-xs sm:text-sm shadow-xs transition cursor-pointer"
             >
-              <Calculator className="w-4 h-4 text-emerald-600" />
-              <span>Calculate Home Loan EMI for Units</span>
+              <Car className="w-4 h-4 text-amber-600" />
+              <span>Book Free VIP Cab Sample Flat Tour</span>
             </button>
           </div>
 
@@ -1617,25 +1971,47 @@ export default function RealEstateMiniWebsiteView({
 
       {/* ============================================================== */}
       {/* 4.2 IN-PAGE INTERACTIVE SMART EMI & WEALTH CALCULATOR           */}
-      {/* Instant Affordability Hook & Direct Bank Pre-Approval           */}
       {/* ============================================================== */}
       <section id="calculator" className="py-12 sm:py-16 bg-[#0B0F19] text-white border-b border-gray-800 relative overflow-hidden">
-        {/* Glow ambient background */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-[#F8CD71] text-xs font-bold uppercase tracking-wider mb-2.5">
               <Calculator className="w-3.5 h-3.5 text-[#F8CD71]" />
               <span>TRANSPARENT FINANCIAL PLANNING</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
-              Smart EMI &amp; <span className="text-[#F8CD71]">Wealth ROI Calculator</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight text-balance">
+              Smart EMI &amp; <span className="text-[#F8CD71]">5-Year Wealth ROI Calculator</span>
             </h2>
-            <p className="mt-2 text-xs sm:text-sm text-gray-400">
-              Why pay ₹55,000/month rent when you can build a generational luxury asset for ₹48,990/month? See your numbers in real time.
+            <p className="mt-2 text-xs sm:text-sm text-gray-400 text-pretty">
+              Select a configuration or slide your budget to see exact bank EMI and projected appreciation in {userCity}.
             </p>
+
+            {/* Quick Unit Preset Pills matching actual inventory */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-5">
+              {[
+                { label: 'Plots • ₹36.5L', value: 3650000 },
+                { label: 'Commercial • ₹95L', value: 9500000 },
+                { label: 'Imperia 3 BHK • ₹1.85 Cr', value: 18500000 },
+                { label: 'Triplex Villa • ₹2.75 Cr', value: 27500000 },
+                { label: 'Waterfront 4 BHK • ₹3.25 Cr', value: 32500000 },
+              ].map((preset) => (
+                <button
+                  key={preset.label}
+                  type="button"
+                  onClick={() => setEmiPropertyCost(preset.value)}
+                  className={`px-3 py-1.5 min-h-[36px] rounded-full text-xs font-bold transition cursor-pointer ${
+                    emiPropertyCost === preset.value
+                      ? 'bg-[#F8CD71] text-[#0B0F19] shadow-md'
+                      : 'bg-white/10 text-gray-300 hover:bg-white/20 border border-white/10'
+                  }`}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#111827] rounded-3xl p-6 sm:p-10 border border-gray-800 shadow-2xl">
@@ -1648,22 +2024,23 @@ export default function RealEstateMiniWebsiteView({
                 <div className="flex justify-between items-center text-xs font-bold text-gray-300 mb-2">
                   <span>Selected Property Cost:</span>
                   <span className="text-lg sm:text-xl font-black text-[#F8CD71]">
-                    ₹ {(emiPropertyCost / 100000).toFixed(1)} Lakhs
+                    {formatINRCompact(emiPropertyCost)}
                   </span>
                 </div>
                 <input
                   type="range"
-                  min={5000000}
-                  max={30000000}
-                  step={500000}
+                  aria-label="Property Cost"
+                  min={2500000}
+                  max={35000000}
+                  step={250000}
                   value={emiPropertyCost}
                   onChange={(e) => setEmiPropertyCost(Number(e.target.value))}
                   className="w-full accent-[#F8CD71] cursor-pointer h-2 bg-gray-800 rounded-lg"
                 />
                 <div className="flex justify-between text-[10px] text-gray-500 mt-1 font-semibold">
-                  <span>₹50 Lakhs (2 BHK)</span>
-                  <span>₹1.50 Cr (3 BHK)</span>
-                  <span>₹3.0 Cr (Penthouse)</span>
+                  <span>₹25 Lakhs</span>
+                  <span>₹1.85 Cr</span>
+                  <span>₹3.50 Cr</span>
                 </div>
               </div>
 
@@ -1672,11 +2049,12 @@ export default function RealEstateMiniWebsiteView({
                 <div className="flex justify-between items-center text-xs font-bold text-gray-300 mb-2">
                   <span>Down Payment ({emiDownPaymentPct}%):</span>
                   <span className="text-sm sm:text-base font-bold text-white">
-                    ₹ {((emiPropertyCost * emiDownPaymentPct / 100) / 100000).toFixed(1)} Lakhs
+                    {formatINRCompact(Math.round((emiPropertyCost * emiDownPaymentPct) / 100))}
                   </span>
                 </div>
                 <input
                   type="range"
+                  aria-label="Down Payment Percentage"
                   min={10}
                   max={50}
                   step={5}
@@ -1685,21 +2063,22 @@ export default function RealEstateMiniWebsiteView({
                   className="w-full accent-[#F8CD71] cursor-pointer h-2 bg-gray-800 rounded-lg"
                 />
                 <div className="flex justify-between text-[10px] text-gray-500 mt-1 font-semibold">
-                  <span>10% (Minimum)</span>
-                  <span>20% (Standard)</span>
+                  <span>10% Booking Booking Slot</span>
+                  <span>20% Standard</span>
                   <span>50%</span>
                 </div>
               </div>
 
-              {/* Slider 3: Loan Tenure */}
-              <div className="grid grid-cols-2 gap-4">
+              {/* Slider 3: Loan Tenure & Rate */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <div className="flex justify-between text-xs font-bold text-gray-300 mb-1.5">
-                    <span>Tenure:</span>
+                    <span>Loan Tenure:</span>
                     <span className="text-[#F8CD71] font-bold">{emiTenureYears} Years</span>
                   </div>
                   <input
                     type="range"
+                    aria-label="Loan Tenure in Years"
                     min={5}
                     max={30}
                     step={1}
@@ -1710,12 +2089,24 @@ export default function RealEstateMiniWebsiteView({
                 </div>
                 <div>
                   <div className="flex justify-between text-xs font-bold text-gray-300 mb-1.5">
-                    <span>Interest Rate:</span>
+                    <span>Bank APF Rate:</span>
                     <span className="text-emerald-400 font-bold">{emiInterestRate}% P.A.*</span>
                   </div>
-                  <div className="px-3 py-1.5 bg-[#0B0F19] rounded-lg border border-gray-700 text-xs font-bold text-gray-300 flex items-center justify-between">
-                    <span>Special Subvention</span>
-                    <span className="text-emerald-400">8.4% - 8.6%</span>
+                  <div className="flex items-center gap-1.5">
+                    {[8.4, 8.5, 8.65].map(rate => (
+                      <button
+                        key={rate}
+                        type="button"
+                        onClick={() => setEmiInterestRate(rate)}
+                        className={`flex-1 py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer ${
+                          emiInterestRate === rate
+                            ? 'bg-emerald-500/20 border-emerald-400 text-emerald-300'
+                            : 'bg-[#0B0F19] border-gray-700 text-gray-400 hover:text-white'
+                        }`}
+                      >
+                        {rate}%
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -1723,7 +2114,7 @@ export default function RealEstateMiniWebsiteView({
               {/* Pre-Approved Bank Badges */}
               <div className="pt-2">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-2">
-                  Pre-Approved Home Loans Available From:
+                  Instant Sanction Desk Available With:
                 </span>
                 <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
                   {['SBI Home Loans', 'HDFC Bank', 'ICICI Bank', 'Axis Bank', 'Bank of Baroda'].map((bank) => (
@@ -1737,47 +2128,71 @@ export default function RealEstateMiniWebsiteView({
             </div>
 
             {/* Right 5 Cols: Output Breakdown & Direct Booking CTA */}
-            <div className="lg:col-span-5 bg-[#0B0F19] rounded-2xl p-6 border border-gray-800 flex flex-col justify-between space-y-6">
+            <div className="lg:col-span-5 bg-[#0B0F19] rounded-2xl p-6 border border-gray-800 flex flex-col justify-between space-y-5">
               <div>
                 <span className="text-[11px] font-black uppercase tracking-wider text-gray-400">
-                  Estimated Monthly Commitment
+                  Estimated Monthly EMI Commitment
                 </span>
                 <div className="text-3xl sm:text-4xl font-black text-[#F8CD71] mt-1">
                   ₹ {emiCalculation.monthlyEmi.toLocaleString('en-IN')}
                   <span className="text-xs font-normal text-gray-400"> / month*</span>
                 </div>
                 <p className="text-[11px] text-gray-400 mt-1">
-                  *Based on 8.5% p.a. standard home loan subvention.
+                  *Calculated at {emiInterestRate}% p.a. over {emiTenureYears} yrs • 0 Pre-EMI till Dec 2026
                 </p>
+              </div>
+
+              {/* Visual Principal vs Interest Bar */}
+              <div>
+                <div className="flex justify-between text-[10px] font-bold mb-1">
+                  <span className="text-amber-300">Principal ({Math.round((emiCalculation.loanAmount / Math.max(1, emiCalculation.totalPayment)) * 100)}%)</span>
+                  <span className="text-blue-300">Interest ({Math.round((emiCalculation.totalInterest / Math.max(1, emiCalculation.totalPayment)) * 100)}%)</span>
+                </div>
+                <div className="w-full h-2.5 rounded-full bg-gray-800 overflow-hidden flex">
+                  <div
+                    className="h-full bg-[#F8CD71]"
+                    style={{ width: `${Math.round((emiCalculation.loanAmount / Math.max(1, emiCalculation.totalPayment)) * 100)}%` }}
+                  />
+                  <div
+                    className="h-full bg-blue-500"
+                    style={{ width: `${Math.round((emiCalculation.totalInterest / Math.max(1, emiCalculation.totalPayment)) * 100)}%` }}
+                  />
+                </div>
               </div>
 
               {/* Breakdown Grid */}
               <div className="space-y-2 text-xs border-t border-b border-gray-800 py-3">
                 <div className="flex items-center justify-between text-gray-400">
                   <span>Loan Principal Amount:</span>
-                  <span className="text-white font-bold">₹ {(emiCalculation.loanAmount / 100000).toFixed(1)} Lakhs</span>
+                  <span className="text-white font-bold">{formatINRCompact(emiCalculation.loanAmount)}</span>
                 </div>
                 <div className="flex items-center justify-between text-gray-400">
                   <span>Total Interest Payable:</span>
-                  <span className="text-white font-bold">₹ {(emiCalculation.totalInterest / 100000).toFixed(1)} Lakhs</span>
+                  <span className="text-white font-bold">{formatINRCompact(emiCalculation.totalInterest)}</span>
                 </div>
                 <div className="flex items-center justify-between text-gray-400">
-                  <span>Total Payment (Principal + Int):</span>
-                  <span className="text-white font-bold">₹ {(emiCalculation.totalPayment / 100000).toFixed(1)} Lakhs</span>
+                  <span>Est. 5-Yr Value (+42% Corridor Growth):</span>
+                  <span className="text-emerald-400 font-black">{formatINRCompact(Math.round(emiPropertyCost * 1.42))}</span>
                 </div>
               </div>
 
-              {/* Wealth Rent vs Buy Callout */}
-              <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-300">
-                <span className="font-bold block text-white mb-0.5">💡 The Wealth Builder Formula:</span>
-                Paying ₹55k/mo rent for 10 years loses ₹66 Lakhs. Owning this apartment builds a ₹1.25 Cr appreciating luxury asset.
+              {/* Dynamic Wealth Builder Callout */}
+              <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-xs text-emerald-200 leading-relaxed">
+                <span className="font-bold text-white flex items-center gap-1.5 mb-0.5">
+                  <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+                  5-Year Projected Wealth Upside:
+                </span>
+                At Financial District&apos;s historical ~7.3% CAGR, a <strong className="text-white">{formatINRCompact(emiPropertyCost)}</strong> asset is projected to grow by <strong className="text-emerald-300">+{formatINRCompact(Math.round(emiPropertyCost * 0.42))}</strong> by year 5.
               </div>
 
               {/* Direct WhatsApp Pre-Approval Button */}
               <button
                 type="button"
-                onClick={() => handleWhatsAppChat(`EMI_Inquiry_₹${(emiPropertyCost/100000).toFixed(1)}Lakhs_EMI_₹${emiCalculation.monthlyEmi}`)}
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-[#F8CD71] text-[#0B0F19] font-black text-sm hover:brightness-110 transition shadow-xl flex items-center justify-center gap-2 cursor-pointer"
+                onClick={() => handleWhatsAppChat(
+                  `EMI_PreApproval`,
+                  `Hello ${projectName}, I checked the Smart EMI calculator for a ${formatINRCompact(emiPropertyCost)} unit (${emiDownPaymentPct}% down, Est. EMI ₹${emiCalculation.monthlyEmi.toLocaleString('en-IN')}/mo). Please share bank pre-approval options & cost sheet.`
+                )}
+                className="w-full py-3.5 min-h-[48px] rounded-xl bg-gradient-to-r from-amber-400 to-[#F8CD71] text-[#0B0F19] font-black text-sm hover:brightness-110 transition shadow-xl flex items-center justify-center gap-2 cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />
                 <span>Get Bank Pre-Approval on WhatsApp</span>
@@ -1885,13 +2300,13 @@ export default function RealEstateMiniWebsiteView({
                             <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
                           </div>
                           <div>
-                            <div className="text-[9px] font-black text-white">SAHIBOLE REAL ESTATE</div>
-                            <div className="text-[7px] text-amber-400">Official Walkthrough Video</div>
+                            <div className="text-[9px] font-black text-white">SKYLINE TOWERS</div>
+                            <div className="text-[7px] text-amber-400">4K Architectural Tour</div>
                           </div>
                         </div>
                         <div className="text-right border-l border-white/10 pl-2">
-                          <div className="text-[8px] font-bold text-slate-200">Kaustubh</div>
-                          <div className="text-[7px] text-slate-400">9930279990</div>
+                          <div className="text-[8px] font-bold text-slate-200">RERA Verified</div>
+                          <div className="text-[7px] text-emerald-400 font-bold">0% Brokerage</div>
                         </div>
                       </div>
 
@@ -1931,13 +2346,13 @@ export default function RealEstateMiniWebsiteView({
               </div>
 
               {/* Action Button */}
-              <a
+              <Link
                 href="/v/re-builders#plans"
                 className="mt-5 inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
               >
                 <span>VISIT NOW</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
             </div>
 
             {/* 2. VILLA CARD */}
@@ -2055,13 +2470,13 @@ export default function RealEstateMiniWebsiteView({
               </div>
 
               {/* Action Button */}
-              <a
+              <Link
                 href="/v/re-villas"
                 className="mt-5 inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
               >
                 <span>VISIT NOW</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
             </div>
 
             {/* 3. PLOTTING CARD */}
@@ -2129,8 +2544,8 @@ export default function RealEstateMiniWebsiteView({
                       {/* Master Layout Plan Visual */}
                       <div className="mx-2.5 my-2 p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30">
                         <div className="flex items-center justify-between mb-1.5 text-[7px]">
-                          <span className="text-emerald-400 font-bold uppercase tracking-wider">HK FARMS LAYOUT</span>
-                          <span className="text-amber-300 font-bold">11K FARES / 299</span>
+                          <span className="text-emerald-400 font-bold uppercase tracking-wider">AEROPOLIS PLOTS</span>
+                          <span className="text-amber-300 font-bold">RERA • PHASE 2</span>
                         </div>
 
                         {/* Numbered Plot Map Grid */}
@@ -2197,13 +2612,13 @@ export default function RealEstateMiniWebsiteView({
               </div>
 
               {/* Action Button */}
-              <a
+              <Link
                 href="/v/re-plots"
                 className="mt-5 inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
               >
                 <span>VISIT NOW</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
             </div>
 
             {/* 4. BUILDING CARD */}
@@ -2330,13 +2745,13 @@ export default function RealEstateMiniWebsiteView({
               </div>
 
               {/* Action Button */}
-              <a
+              <Link
                 href="/v/re-consultants"
                 className="mt-5 inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#0B0F19] text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-black hover:scale-105 active:scale-95 transition-all shadow-md group"
               >
                 <span>VISIT NOW</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
             </div>
 
           </div>
@@ -2637,11 +3052,11 @@ export default function RealEstateMiniWebsiteView({
                 </div>
 
                 {/* Title Below Media */}
-                <div className="px-2 py-3 sm:px-4 sm:py-4 text-center flex-1 flex flex-col justify-center">
-                  <h3 className="w-full text-xs sm:text-sm lg:text-base font-extrabold leading-snug text-[#111827] group-hover:text-[#bd8a2d] transition-colors truncate">
+                <div className="px-3 py-3 sm:px-4 sm:py-4 text-center flex-1 flex flex-col justify-center">
+                  <h3 className="w-full text-xs sm:text-sm lg:text-base font-extrabold leading-snug text-[#111827] group-hover:text-[#bd8a2d] transition-colors line-clamp-2 text-balance">
                     {amenity.title}
                   </h3>
-                  <p className="hidden sm:block text-[11px] text-gray-500 mt-1 line-clamp-1">
+                  <p className="hidden sm:block text-[11px] text-gray-500 mt-1 line-clamp-2 text-pretty">
                     {amenity.description}
                   </p>
                 </div>
@@ -2652,18 +3067,24 @@ export default function RealEstateMiniWebsiteView({
       </section>
 
       {/* ============================================================== */}
-      {/* 6. INTERIOR WALKTHROUGH SECTION (`#interior`)                   */}
+      {/* 6. INTERIOR WALKTHROUGH SECTION (`#interior`) - Dark Luxury     */}
       {/* ============================================================== */}
-      <section id="interior" className="py-10 sm:py-16 bg-[#F4F7FE] border-b border-gray-200">
+      <section id="interior" className="py-12 sm:py-16 bg-[#0B0F19] text-white border-b border-gray-800">
         
-        {/* FlagUp Forest Green Header Banner */}
-        <div className="mx-auto mb-8 sm:mb-12 w-full max-w-full bg-[#1f3b2f] px-3 py-4 text-center sm:px-5 sm:py-5 shadow-sm">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
-            Interior
-          </h2>
-        </div>
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-[#F8CD71] text-xs font-bold uppercase tracking-wider mb-2">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Sample Flat Craftsmanship</span>
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight text-balance">
+              Show Flat &amp; Model Residence Interiors
+            </h2>
+            <p className="mt-2 text-xs sm:text-sm text-gray-400">
+              Bookmarked with Italian marble foyers, European kitchens &amp; Kohler spa fittings.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {interiorRooms.map((room) => (
               <div
@@ -2674,28 +3095,29 @@ export default function RealEstateMiniWebsiteView({
                   title: room.name,
                   subtitle: room.subtitle
                 })}
-                className="bg-white rounded-2xl shadow-sm border border-gray-200/90 overflow-hidden hover:shadow-xl transition-shadow cursor-pointer group"
+                className="bg-[#111827] rounded-2xl shadow-lg border border-gray-800 overflow-hidden hover:border-amber-400/50 hover:shadow-amber-500/10 transition-all cursor-pointer group"
               >
                 {/* 5/3 Aspect Media Container */}
-                <div className="relative w-full aspect-[5/3] bg-gray-100 overflow-hidden">
+                <div className="relative w-full aspect-[5/3] bg-gray-900 overflow-hidden">
                   <img
                     src={room.mediaUrl}
                     alt={room.name}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <div className="absolute top-2.5 right-2.5 bg-black/75 backdrop-blur-sm text-white text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                     <Maximize2 className="w-3 h-3 text-[#F8CD71]" />
-                    <span>View Room</span>
+                    <span>Inspect Room</span>
                   </div>
                 </div>
 
                 {/* Description */}
                 <div className="p-4 sm:p-5">
-                  <h3 className="font-bold text-base sm:text-lg text-[#111827] group-hover:text-[#bd8a2d] transition-colors truncate">
+                  <h3 className="font-bold text-base sm:text-lg text-white group-hover:text-[#F8CD71] transition-colors line-clamp-2 text-balance">
                     {room.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-500 mt-1 line-clamp-2 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-400 mt-1.5 line-clamp-2 leading-relaxed text-pretty">
                     {room.subtitle}
                   </p>
                 </div>
@@ -2855,16 +3277,37 @@ export default function RealEstateMiniWebsiteView({
             ))}
           </div>
 
-          {/* Interactive EMI Calculator Button */}
-          <div className="mt-12 text-center">
-            <button
-              type="button"
-              onClick={() => setIsEmiModalOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-900 text-white hover:bg-black font-bold text-sm shadow-md transition cursor-pointer"
-            >
-              <Calculator className="w-4 h-4 text-[#F8CD71]" />
-              <span>Calculate Home Loan EMI</span>
-            </button>
+          {/* Direct Cost Sheet & Priority Inventory CTA */}
+          <div className="mt-10 sm:mt-12 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-[#0B0F19] via-[#111827] to-[#1f3b2f] text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+            <div className="text-center sm:text-left">
+              <span className="text-[11px] font-black uppercase tracking-wider text-[#F8CD71] block">
+                Phase 1 Inventory Alert
+              </span>
+              <h3 className="text-lg sm:text-xl font-black text-white mt-0.5">
+                Get Today&apos;s Exact Tower &amp; Floor Availability Sheet
+              </h3>
+              <p className="text-xs text-gray-300 mt-1">
+                See facing orientation, floor rise charges &amp; inaugural zero-EMI payment schedule.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 shrink-0 w-full sm:w-auto justify-center">
+              <button
+                type="button"
+                onClick={() => setIsBrochureModalOpen(true)}
+                className="px-5 py-3 min-h-[44px] rounded-xl bg-[#F8CD71] text-[#0B0F19] hover:bg-yellow-500 font-black text-xs sm:text-sm shadow-md transition flex items-center gap-2 cursor-pointer"
+              >
+                <Download className="w-4 h-4" />
+                <span>Get Cost Sheet</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsSiteVisitModalOpen(true)}
+                className="px-5 py-3 min-h-[44px] rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer"
+              >
+                <Car className="w-4 h-4 text-[#F8CD71]" />
+                <span>Free Site Cab</span>
+              </button>
+            </div>
           </div>
 
         </div>
@@ -2872,103 +3315,67 @@ export default function RealEstateMiniWebsiteView({
 
       {/* ============================================================== */}
       {/* 9.5 VERIFIED HOMEOWNER TESTIMONIALS & BANK TRUST SHIELD        */}
-      {/* Social Proof & Absolute Safety Triggers to Drive Purchase      */}
       {/* ============================================================== */}
       <section className="py-14 sm:py-20 bg-[#F4F7FE] border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Section 1: Verified Buyer Testimonials */}
           <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-bold uppercase tracking-wider mb-2.5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold uppercase tracking-wider mb-2.5">
               <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
               <span>CONFIRMED HOMEOWNER STORIES</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0B0F19] tracking-tight">
-              Loved by Top Executives &amp; Families
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0B0F19] tracking-tight text-balance">
+              Trusted by Executives, NRIs &amp; Families
             </h2>
             <p className="mt-2 text-xs sm:text-sm text-gray-500">
-              Join 140+ verified tech executives, doctors, and business leaders who have booked their dream home at {projectName}.
+              Join 1,400+ verified homeowners and investors across {projectName} developments.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            
-            {/* Review 1 */}
-            <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-1 text-amber-400 mb-3">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-4 h-4 fill-amber-400" />
-                  ))}
-                  <span className="text-xs font-bold text-gray-700 ml-1.5">5.0 / 5.0</span>
-                </div>
-                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed italic">
-                  &ldquo;We visited 8 high-rise developments across the Financial District, but the floor plan layout, 82% open space, and the private sky deck here made it an instant decision for our family.&rdquo;
-                </p>
-              </div>
-              <div className="mt-5 pt-4 border-t border-gray-100 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-400 text-white font-black flex items-center justify-center text-sm shadow-sm">
-                  RK
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+            {verifiedTestimonials.map((rev) => (
+              <div key={rev.id} className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow flex flex-col justify-between">
                 <div>
-                  <h4 className="text-xs sm:text-sm font-bold text-gray-900">Rajesh &amp; Sunita K.</h4>
-                  <p className="text-[11px] text-gray-500">Director, Deloitte • 3 BHK Sky Residence</p>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <div className="flex items-center gap-1 text-amber-400">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <Star key={s} className="w-4 h-4 fill-amber-400" />
+                      ))}
+                      <span className="text-xs font-bold text-gray-700 ml-1.5">5.0</span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">
+                      ✓ Verified Buyer
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-gray-700 leading-relaxed italic text-pretty">
+                    &ldquo;{rev.content}&rdquo;
+                  </p>
+                </div>
+                <div className="mt-5 pt-4 border-t border-gray-100 flex items-center gap-3">
+                  {rev.clientAvatar ? (
+                    <img
+                      src={rev.clientAvatar}
+                      alt={rev.clientName}
+                      loading="lazy"
+                      className="w-10 h-10 rounded-full object-cover border border-amber-200 shrink-0"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-400 text-white font-black flex items-center justify-center text-sm shadow-sm shrink-0">
+                      {rev.clientName.slice(0, 2).toUpperCase()}
+                    </div>
+                  )}
+                  <div className="min-w-0">
+                    <h4 className="text-xs sm:text-sm font-bold text-gray-900">{rev.clientName}</h4>
+                    <p className="text-[11px] text-gray-500 truncate">{rev.clientRole}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Review 2 */}
-            <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-1 text-amber-400 mb-3">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-4 h-4 fill-amber-400" />
-                  ))}
-                  <span className="text-xs font-bold text-gray-700 ml-1.5">5.0 / 5.0</span>
-                </div>
-                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed italic">
-                  &ldquo;The transparent RERA milestone tracking, zero pre-EMI offer, and penalty-backed handover agreement gave me 100% peace of mind. Excellent value for investment.&rdquo;
-                </p>
-              </div>
-              <div className="mt-5 pt-4 border-t border-gray-100 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-500 text-white font-black flex items-center justify-center text-sm shadow-sm">
-                  AV
-                </div>
-                <div>
-                  <h4 className="text-xs sm:text-sm font-bold text-gray-900">Anand Verma</h4>
-                  <p className="text-[11px] text-gray-500">VP of Engineering, Amazon • 4 BHK Penthouse</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Review 3 */}
-            <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-1 text-amber-400 mb-3">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-4 h-4 fill-amber-400" />
-                  ))}
-                  <span className="text-xs font-bold text-gray-700 ml-1.5">5.0 / 5.0</span>
-                </div>
-                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed italic">
-                  &ldquo;Being 5 minutes from top international schools and Continental Hospital makes daily life so seamless. The 50,000 sq.ft clubhouse feels like living inside a luxury resort.&rdquo;
-                </p>
-              </div>
-              <div className="mt-5 pt-4 border-t border-gray-100 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 text-white font-black flex items-center justify-center text-sm shadow-sm">
-                  MS
-                </div>
-                <div>
-                  <h4 className="text-xs sm:text-sm font-bold text-gray-900">Dr. Meenakshi &amp; Sridhar</h4>
-                  <p className="text-[11px] text-gray-500">Senior Consultants • 3 BHK Luxury Suite</p>
-                </div>
-              </div>
-            </div>
-
+            ))}
           </div>
 
           {/* Section 2: 100% Bank Approvals & Legal Trust Shield */}
-          <div className="p-6 sm:p-10 rounded-3xl bg-[#0B0F19] text-white border border-gray-800 shadow-xl">
+          <div className="p-6 sm:p-10 rounded-3xl bg-[#0B0F19] text-white border border-gray-800 shadow-xl mb-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
               <div className="lg:col-span-5 space-y-3 text-center lg:text-left">
@@ -2976,11 +3383,11 @@ export default function RealEstateMiniWebsiteView({
                   <ShieldCheck className="w-4 h-4" />
                   <span>100% Legal &amp; Bank Approved</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-white">
+                <h3 className="text-xl sm:text-2xl font-black text-white text-balance">
                   Pre-Approved by India&apos;s Leading Financial Institutions
                 </h3>
-                <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
-                  Fast-track your home loan with exclusive pre-approved rates (8.4% P.A.) and zero processing fees. 100% clear legal title verified by Senior Advocates.
+                <p className="text-xs sm:text-sm text-gray-400 leading-relaxed text-pretty">
+                  Fast-track your home loan with exclusive pre-approved rates (8.40% P.A.) and zero processing fees. 100% clear legal title verified by Senior Advocates.
                 </p>
               </div>
 
@@ -2997,10 +3404,124 @@ export default function RealEstateMiniWebsiteView({
                     <span className="text-xs font-black text-white block">{item.name}</span>
                     <span className="text-[10px] text-gray-400 block mt-0.5">{item.code}</span>
                     <span className="mt-2 inline-block px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-black">
-                      Rate: {item.rate}
+                      {item.rate}
                     </span>
                   </div>
                 ))}
+              </div>
+
+            </div>
+          </div>
+
+          {/* Section 3: Direct-From-Developer VIP Concierge & Instant 15-Min Callback Card */}
+          <div className="p-6 sm:p-10 rounded-3xl bg-white border border-gray-200 shadow-lg">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              {/* Left 6 Cols: Leadership Trust Profile */}
+              <div className="lg:col-span-6 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-extrabold uppercase tracking-wider">
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Direct Developer Desk • 0% Brokerage</span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  {profile.avatarUrl && (
+                    <img
+                      src={profile.avatarUrl}
+                      alt={profile.name}
+                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 border-[#F8CD71] shadow-md shrink-0"
+                    />
+                  )}
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-black text-gray-900">
+                      {profile.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm font-bold text-[#1f3b2f]">
+                      {profile.designation || 'Managing Director'} • {projectName}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Direct developer allotment with spot legal title inspection &amp; RERA price-protection guarantee.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 pt-2 text-center">
+                  <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span className="text-sm sm:text-base font-black text-[#0B0F19] block">2.5M+</span>
+                    <span className="text-[10px] font-semibold text-gray-500">Sq.Ft Delivered</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span className="text-sm sm:text-base font-black text-emerald-700 block">100%</span>
+                    <span className="text-[10px] font-semibold text-gray-500">Clear RERA Title</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span className="text-sm sm:text-base font-black text-amber-600 block">0%</span>
+                    <span className="text-[10px] font-semibold text-gray-500">Broker Commission</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right 6 Cols: Instant 15-Min VIP Priority Callback Form */}
+              <div className="lg:col-span-6 bg-[#F4F7FE] rounded-2xl p-5 sm:p-6 border border-gray-200">
+                <h4 className="text-base sm:text-lg font-black text-gray-900 mb-1 flex items-center gap-2">
+                  <PhoneCall className="w-4 h-4 text-emerald-600" />
+                  <span>Request Instant 15-Min Callback &amp; Floor Availability</span>
+                </h4>
+                <p className="text-xs text-gray-500 mb-4">
+                  Get unpublished corner unit availability &amp; pre-launch floor-rise waiver directly on WhatsApp.
+                </p>
+
+                {callbackSubmitted ? (
+                  <div className="py-6 text-center space-y-2 bg-white rounded-xl border border-emerald-200 p-4">
+                    <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
+                    <p className="text-sm font-black text-gray-900">Priority Request Sent!</p>
+                    <p className="text-xs text-gray-500">Our Senior Director Desk is connecting with you on WhatsApp shortly.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleCallbackSubmit} className="space-y-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <input
+                        type="text"
+                        required
+                        aria-label="Full Name"
+                        value={callbackForm.name}
+                        onChange={(e) => setCallbackForm(prev => ({ ...prev, name: e.target.value }))}
+                        placeholder="Your Full Name"
+                        className="w-full px-3.5 py-2.5 min-h-[44px] rounded-xl bg-white border border-gray-300 text-sm focus:outline-none focus:border-[#1f3b2f]"
+                      />
+                      <input
+                        type="tel"
+                        required
+                        aria-label="WhatsApp Phone Number"
+                        value={callbackForm.phone}
+                        onChange={(e) => setCallbackForm(prev => ({ ...prev, phone: e.target.value }))}
+                        placeholder="WhatsApp / Mobile Number"
+                        className="w-full px-3.5 py-2.5 min-h-[44px] rounded-xl bg-white border border-gray-300 text-sm focus:outline-none focus:border-[#1f3b2f]"
+                      />
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-2.5">
+                      <select
+                        aria-label="Preferred Property Type"
+                        value={callbackForm.unitInterest}
+                        onChange={(e) => setCallbackForm(prev => ({ ...prev, unitInterest: e.target.value }))}
+                        className="flex-1 px-3.5 py-2.5 min-h-[44px] rounded-xl bg-white border border-gray-300 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:border-[#1f3b2f]"
+                      >
+                        <option>3 &amp; 4 BHK Sky Residences (Imperia)</option>
+                        <option>4 &amp; 5 BHK Triplex Villas (Grandeur)</option>
+                        <option>Grade-A Commercial Office Suites</option>
+                        <option>HMDA / TS-RERA Open Villa Plots</option>
+                        <option>Lakeview 4 BHK Penthouse</option>
+                      </select>
+                      <button
+                        type="submit"
+                        className="px-6 py-2.5 min-h-[44px] rounded-xl bg-[#0B0F19] hover:bg-black text-[#F8CD71] font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+                      >
+                        <Lock className="w-3.5 h-3.5" />
+                        <span>Unlock Best Quote</span>
+                      </button>
+                    </div>
+                  </form>
+                )}
               </div>
 
             </div>
@@ -3011,9 +3532,9 @@ export default function RealEstateMiniWebsiteView({
 
       {/* ============================================================== */}
       {/* 10. SIGNATURE DARK FOOTER (`#contact`)                          */}
-      {/* FlagUp Exact Footer Structure with Original OneClickBizz credit*/}
+      {/* Safe bottom clearance so footer stays 100% clear of sticky dock */}
       {/* ============================================================== */}
-      <footer id="contact" className="bg-[#0B0F19] text-gray-400 pt-16 pb-8 border-t border-gray-800">
+      <footer id="contact" className="bg-[#0B0F19] text-gray-400 pt-16 pb-28 sm:pb-24 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-12 border-b border-gray-800">
@@ -3058,17 +3579,18 @@ export default function RealEstateMiniWebsiteView({
                 Quick Links
               </h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#plans" className="hover:text-white transition-colors">LayOut Plans</a></li>
+                <li><a href="#plans" className="hover:text-white transition-colors">Floor Plans &amp; Prices</a></li>
+                <li><a href="#calculator" className="hover:text-white transition-colors">EMI &amp; ROI Calculator</a></li>
                 <li><a href="#amenities" className="hover:text-white transition-colors">Project Amenities</a></li>
-                <li><a href="#interior" className="hover:text-white transition-colors">Interior Walkthrough</a></li>
+                <li><a href="#interior" className="hover:text-white transition-colors">Show Flat Interiors</a></li>
                 <li><a href="#location" className="hover:text-white transition-colors">Google Location Map</a></li>
                 <li>
                   <button
                     type="button"
                     onClick={() => setIsBrochureModalOpen(true)}
-                    className="text-[#F8CD71] hover:underline font-bold"
+                    className="text-[#F8CD71] hover:underline font-bold cursor-pointer"
                   >
-                    Download Brochure
+                    Download Brochure PDF
                   </button>
                 </li>
               </ul>
@@ -3173,10 +3695,10 @@ export default function RealEstateMiniWebsiteView({
       </footer>
 
       {/* ============================================================== */}
-      {/* 11. FLOATING CONTACT STACK (Exact FlagUp Pinned Bottom-Right)  */}
+      {/* 11. FLOATING CONTACT STACK & AMBIENT AUDIO CONTROLS            */}
+      {/* Positioned cleanly so nothing collides on desktop or mobile   */}
       {/* ============================================================== */}
-      {/* FlagUp Signature Ambient Background Audio Control */}
-      <div className="fixed top-1/2 -translate-y-1/2 right-4 sm:right-6 z-40">
+      <div className="fixed top-20 right-3 sm:top-24 sm:right-6 z-30">
         <audio
           ref={audioRef}
           loop
@@ -3196,89 +3718,89 @@ export default function RealEstateMiniWebsiteView({
           }}
           aria-label={isAudioPlaying ? "Mute Background Music" : "Play Ambient Background Music"}
           title={isAudioPlaying ? "Mute Ambient Music" : "Play Ambient Music"}
-          className={`relative w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 transform hover:scale-110 cursor-pointer ${
+          className={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center shadow-xl border backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer ${
             isAudioPlaying 
-              ? 'bg-[#0B0F19] text-[#F8CD71] ring-2 ring-[#F8CD71]/70' 
-              : 'bg-[#111827]/90 text-gray-300 hover:text-white'
+              ? 'bg-[#0B0F19]/90 text-[#F8CD71] border-[#F8CD71]/60' 
+              : 'bg-[#111827]/75 text-gray-300 hover:text-white border-white/15'
           }`}
         >
           {isAudioPlaying ? (
             <>
-              <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F8CD71]/30"></span>
+              <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F8CD71]/25"></span>
             </>
           ) : (
-            <VolumeX className="w-5 h-5 sm:w-6 sm:h-6" />
+            <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" />
           )}
         </button>
       </div>
 
       <div 
-        className="fixed bottom-22 right-4 sm:right-6 z-40 flex flex-col gap-3 select-none"
+        className="fixed bottom-20 sm:bottom-22 right-3 sm:right-6 z-40 flex flex-col gap-2.5 select-none"
         style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
       >
-        {/* Call Button (Blue #007bff) */}
+        {/* Call Button */}
         <a
           href={`tel:${cleanCallNumber}`}
-          aria-label="Call Us"
-          className="group relative w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#007bff] hover:bg-blue-600 text-white flex items-center justify-center shadow-2xl transition-all duration-200 transform hover:-translate-y-1 hover:scale-105"
+          aria-label="Call Sales Team"
+          className="group relative w-11 h-11 rounded-full bg-[#007bff] hover:bg-blue-600 text-white flex items-center justify-center shadow-2xl transition-all duration-200 hover:-translate-y-0.5 hover:scale-105"
         >
-          <Phone className="w-5 h-5 fill-current" />
-          <span className="hidden md:group-hover:block absolute right-16 bg-[#212529] text-white text-xs font-semibold px-3 py-1.5 rounded-md whitespace-nowrap shadow-lg">
-            Call Us
+          <Phone className="w-4 h-4 fill-current" />
+          <span className="hidden md:group-hover:block absolute right-14 bg-[#212529] text-white text-xs font-semibold px-3 py-1.5 rounded-md whitespace-nowrap shadow-lg">
+            Call Sales
           </span>
         </a>
 
-        {/* Email Button (Gray #6c757d) */}
+        {/* Email Button */}
         <a
           href={`mailto:${displayEmail}`}
-          aria-label="Email Us"
-          className="group relative w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#6c757d] hover:bg-gray-600 text-white flex items-center justify-center shadow-2xl transition-all duration-200 transform hover:-translate-y-1 hover:scale-105"
+          aria-label="Email Sales Team"
+          className="group relative w-11 h-11 rounded-full bg-[#475569] hover:bg-slate-600 text-white flex items-center justify-center shadow-2xl transition-all duration-200 hover:-translate-y-0.5 hover:scale-105"
         >
-          <Mail className="w-5 h-5" />
-          <span className="hidden md:group-hover:block absolute right-16 bg-[#212529] text-white text-xs font-semibold px-3 py-1.5 rounded-md whitespace-nowrap shadow-lg">
+          <Mail className="w-4 h-4" />
+          <span className="hidden md:group-hover:block absolute right-14 bg-[#212529] text-white text-xs font-semibold px-3 py-1.5 rounded-md whitespace-nowrap shadow-lg">
             Email Us
           </span>
         </a>
 
-        {/* WhatsApp Button (Green #25d366 with pulse) */}
+        {/* WhatsApp Button */}
         <button
           type="button"
           onClick={() => handleWhatsAppChat('Floating_WhatsApp')}
           aria-label="Chat on WhatsApp"
-          className="group relative w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#25d366] hover:bg-green-600 text-white flex items-center justify-center shadow-2xl transition-all duration-200 transform hover:-translate-y-1 hover:scale-105 cursor-pointer"
+          className="group relative w-11 h-11 rounded-full bg-[#25d366] hover:bg-green-600 text-white flex items-center justify-center shadow-2xl transition-all duration-200 hover:-translate-y-0.5 hover:scale-105 cursor-pointer"
         >
-          <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 fill-current" />
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-30"></span>
-          <span className="hidden md:group-hover:block absolute right-16 bg-[#212529] text-white text-xs font-semibold px-3 py-1.5 rounded-md whitespace-nowrap shadow-lg">
-            WhatsApp
+          <MessageCircle className="w-5 h-5 fill-current" />
+          <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-30"></span>
+          <span className="hidden md:group-hover:block absolute right-14 bg-[#212529] text-white text-xs font-semibold px-3 py-1.5 rounded-md whitespace-nowrap shadow-lg">
+            WhatsApp Concierge
           </span>
         </button>
       </div>
 
       {/* ============================================================== */}
       {/* 11.5 STICKY LUXURY VIP CONVERSION BAR (BOTTOM DOCK)            */}
-      {/* The #1 Lead Generation Conversion Hook for Property Buyers      */}
+      {/* Clear of Share bar (left) and FABs (above); safe-area padded   */}
       {/* ============================================================== */}
-      <div className="fixed bottom-0 inset-x-0 z-40 bg-[#0B0F19]/95 backdrop-blur-md border-t border-gray-800/90 py-2.5 px-3 sm:px-6 shadow-[0_-10px_30px_rgba(0,0,0,0.6)]">
+      <div className="fixed bottom-0 inset-x-0 z-40 bg-[#0B0F19]/95 backdrop-blur-md border-t border-gray-800/90 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom,0px))] px-3 sm:px-6 shadow-[0_-10px_30px_rgba(0,0,0,0.6)]">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
           
-          {/* Left: Project & Pricing Info */}
+          {/* Left: Consistent Project & Pricing Info */}
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-xs sm:text-sm font-black text-white truncate">
                 {projectName}
               </span>
-              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">
+              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-bold shrink-0">
                 <ShieldCheck className="w-3 h-3" />
                 RERA Approved
               </span>
             </div>
             <div className="flex items-center gap-2 text-[11px] sm:text-xs">
-              <span className="text-[#F8CD71] font-black">From ₹1.25 Cr*</span>
-              <span className="text-gray-400 hidden xs:inline">•</span>
-              <span className="text-gray-300 hidden xs:inline">EMI: ₹48,990/Mo*</span>
-              <span className="text-emerald-400 font-bold hidden md:inline">• 0% Brokerage</span>
+              <span className="text-[#F8CD71] font-black whitespace-nowrap">From {startingPortfolioStats.startingPriceLabel}</span>
+              <span className="text-gray-400 hidden sm:inline">•</span>
+              <span className="text-gray-300 hidden sm:inline whitespace-nowrap">EMI: {startingPortfolioStats.startingEmi}</span>
+              <span className="text-emerald-400 font-bold hidden md:inline whitespace-nowrap">• Zero Pre-EMI Till Dec 2026</span>
             </div>
           </div>
 
@@ -3286,7 +3808,7 @@ export default function RealEstateMiniWebsiteView({
           <div className="flex items-center gap-2 shrink-0">
             <a
               href={`tel:${cleanCallNumber}`}
-              className="px-3 sm:px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-md transition"
+              className="px-3 sm:px-4 py-2 min-h-[40px] rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-md transition"
             >
               <Phone className="w-3.5 h-3.5 fill-current" />
               <span className="hidden sm:inline">Call Sales</span>
@@ -3294,10 +3816,10 @@ export default function RealEstateMiniWebsiteView({
 
             <button
               type="button"
-              onClick={() => handleWhatsAppChat('Sticky_VIP_Cab_Visit')}
-              className="px-4 sm:px-6 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-[#F8CD71] to-yellow-500 text-[#0B0F19] font-black text-xs sm:text-sm hover:brightness-110 shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5 cursor-pointer"
+              onClick={() => setIsSiteVisitModalOpen(true)}
+              className="px-3.5 sm:px-5 py-2 min-h-[40px] rounded-xl bg-gradient-to-r from-amber-400 via-[#F8CD71] to-yellow-500 text-[#0B0F19] font-black text-xs sm:text-sm hover:brightness-110 shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5 cursor-pointer"
             >
-              <MessageCircle className="w-4 h-4 fill-current text-green-800" />
+              <Car className="w-4 h-4" />
               <span>Book Free VIP Cab Visit</span>
             </button>
           </div>
@@ -3306,25 +3828,23 @@ export default function RealEstateMiniWebsiteView({
       </div>
 
       {/* ============================================================== */}
-      {/* 12. FULL-SCREEN LIGHTBOX MEDIA PREVIEW MODAL                    */}
+      {/* 12. FULL-SCREEN LIGHTBOX MEDIA PREVIEW MODAL (Native Dialog)   */}
       {/* ============================================================== */}
-      {previewMedia && (
-        <div 
-          onClick={() => setPreviewMedia(null)}
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
-        >
-          <div 
-            onClick={(e) => e.stopPropagation()}
-            className="relative max-w-5xl w-full bg-[#0B0F19] rounded-2xl sm:rounded-3xl border border-gray-800 overflow-hidden shadow-2xl text-white flex flex-col max-h-[90vh]"
-          >
-            {/* Top Bar with Title and Close Button */}
-            <div className="p-4 sm:p-5 flex items-center justify-between border-b border-gray-800 bg-[#0B0F19]">
-              <div>
-                <h3 className="text-base sm:text-lg font-extrabold text-white truncate max-w-lg">
+      <NativeModalDialog
+        isOpen={Boolean(previewMedia)}
+        onClose={() => setPreviewMedia(null)}
+        labelledBy="preview-media-title"
+        maxWidthClass="max-w-5xl"
+      >
+        {previewMedia && (
+          <div className="w-full bg-[#0B0F19] rounded-2xl sm:rounded-3xl border border-gray-800 overflow-hidden shadow-2xl text-white flex flex-col max-h-[88dvh]">
+            <div className="p-4 sm:p-5 flex items-center justify-between border-b border-gray-800 bg-[#0B0F19] gap-3">
+              <div className="min-w-0">
+                <h1 id="preview-media-title" className="text-base sm:text-lg font-extrabold text-white truncate">
                   {previewMedia.title}
-                </h3>
+                </h1>
                 {previewMedia.subtitle && (
-                  <p className="text-xs text-gray-400 mt-0.5">
+                  <p className="text-xs text-gray-400 mt-0.5 truncate">
                     {previewMedia.subtitle}
                   </p>
                 )}
@@ -3332,14 +3852,13 @@ export default function RealEstateMiniWebsiteView({
               <button
                 type="button"
                 onClick={() => setPreviewMedia(null)}
-                className="w-9 h-9 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 flex items-center justify-center transition"
+                className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 flex items-center justify-center transition cursor-pointer shrink-0"
                 aria-label="Close Preview"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Media Body */}
             <div className="flex-1 bg-black flex items-center justify-center overflow-hidden p-2 sm:p-4">
               {previewMedia.type === 'video' ? (
                 previewMedia.url.includes('youtube.com') || previewMedia.url.includes('youtu.be') ? (
@@ -3348,14 +3867,14 @@ export default function RealEstateMiniWebsiteView({
                     title={previewMedia.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
-                    className="w-full aspect-video max-h-[70vh] rounded-xl border-0"
+                    className="w-full aspect-video max-h-[68dvh] rounded-xl border-0"
                   />
                 ) : previewMedia.url.includes('instagram.com') ? (
                   <iframe
                     src={getInstagramEmbedUrl(previewMedia.url)}
                     title={previewMedia.title}
                     allowFullScreen
-                    className="w-full max-w-sm aspect-[9/15] max-h-[70vh] rounded-xl border-0 bg-black"
+                    className="w-full max-w-sm aspect-[9/15] max-h-[68dvh] rounded-xl border-0 bg-black"
                   />
                 ) : (
                   <video
@@ -3363,591 +3882,628 @@ export default function RealEstateMiniWebsiteView({
                     controls
                     autoPlay
                     playsInline
-                    className="max-h-[65vh] w-auto max-w-full rounded-lg object-contain"
+                    className="max-h-[65dvh] w-auto max-w-full rounded-lg object-contain"
                   />
                 )
               ) : (
                 <img
                   src={previewMedia.url}
                   alt={previewMedia.title}
-                  className="max-h-[65vh] w-auto max-w-full rounded-lg object-contain"
+                  className="max-h-[65dvh] w-auto max-w-full rounded-lg object-contain"
                 />
               )}
             </div>
 
-            {/* Footer with WhatsApp Inquire CTA */}
-            <div className="p-3 sm:p-4 bg-[#0B0F19] border-t border-gray-800 flex items-center justify-between">
-              <span className="text-xs text-gray-400">
+            <div className="p-3 sm:p-4 bg-[#0B0F19] border-t border-gray-800 flex items-center justify-between gap-3">
+              <span className="text-xs text-gray-400 truncate">
                 {projectName} Digital Showcase
               </span>
               <button
                 type="button"
                 onClick={() => handleWhatsAppChat('Lightbox_Inquiry', `Hello, I am interested in: ${previewMedia.title}`)}
-                className="px-4 py-2 rounded-xl bg-[#F8CD71] text-[#0B0F19] font-black text-xs flex items-center gap-1.5 shadow-md hover:bg-yellow-500 transition cursor-pointer"
+                className="px-4 py-2 min-h-[40px] rounded-xl bg-[#F8CD71] text-[#0B0F19] font-black text-xs flex items-center gap-1.5 shadow-md hover:bg-yellow-500 transition cursor-pointer shrink-0"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />
                 <span>Inquire on WhatsApp</span>
               </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </NativeModalDialog>
 
       {/* ============================================================== */}
-      {/* 12B. ADVANCED UNIT SPECIFICATIONS & DIMENSIONS MODAL           */}
+      {/* 12B. INTERACTIVE COST SHEET & UNIT SPECIFICATIONS DIALOG       */}
       {/* ============================================================== */}
-      {selectedPlanDetails && (
-        <div 
-          onClick={() => setSelectedPlanDetails(null)}
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-200"
-        >
-          <div 
-            onClick={(e) => e.stopPropagation()}
-            className="relative max-w-4xl w-full bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-2xl text-[#111827] flex flex-col max-h-[90vh]"
-          >
-            {/* Modal Header */}
-            <div className="p-4 sm:p-6 bg-[#0B0F19] text-white flex items-center justify-between border-b border-gray-800">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#F8CD71] text-[#0B0F19] flex items-center justify-center font-black text-sm shrink-0">
-                  {selectedPlanDetails.category.slice(0, 3)}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-base sm:text-xl font-extrabold text-white truncate">
-                      {selectedPlanDetails.title}
-                    </h3>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#1f3b2f] text-[#F8CD71] border border-[#bd8a2d]/40">
-                      100% Vastu
-                    </span>
+      <NativeModalDialog
+        isOpen={Boolean(selectedPlanDetails)}
+        onClose={() => setSelectedPlanDetails(null)}
+        labelledBy="unit-specs-modal-title"
+        maxWidthClass="max-w-4xl"
+      >
+        {selectedPlanDetails && (() => {
+          const basePrice = selectedPlanDetails.priceNum || 12500000;
+          const tierPremium = selectedFloorTier === 'podium' ? 0 : selectedFloorTier === 'sky' ? Math.round(basePrice * 0.03) : Math.round(basePrice * 0.06);
+          const clubInfraCharge = selectedPlanDetails.category === 'Plots & Estates' ? 150000 : 450000;
+          const outrightDiscount = selectedPaymentPlan === 'outright' ? Math.round(basePrice * 0.05) : 0;
+          const allInPrice = basePrice + tierPremium + clubInfraCharge - outrightDiscount;
+          const bookingToken = Math.round(allInPrice * 0.1);
+
+          return (
+            <div className="w-full bg-white rounded-2xl sm:rounded-3xl border border-gray-200 overflow-hidden shadow-2xl text-[#111827] flex flex-col max-h-[88dvh]">
+              {/* Modal Header */}
+              <div className="p-4 sm:p-6 bg-[#0B0F19] text-white flex items-center justify-between border-b border-gray-800 gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#F8CD71] text-[#0B0F19] flex items-center justify-center font-black text-xs shrink-0">
+                    {selectedPlanDetails.category.slice(0, 4).toUpperCase()}
                   </div>
-                  <p className="text-xs text-gray-400 mt-0.5">
-                    {selectedPlanDetails.bhk} • {selectedPlanDetails.superArea} Super Area ({selectedPlanDetails.carpetArea} RERA Carpet)
-                  </p>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h1 id="unit-specs-modal-title" className="text-base sm:text-xl font-extrabold text-white text-balance">
+                        {selectedPlanDetails.title}
+                      </h1>
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#1f3b2f] text-[#F8CD71] border border-[#bd8a2d]/40">
+                        100% Vastu
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-400 mt-0.5 truncate">
+                      {selectedPlanDetails.bhk} • {selectedPlanDetails.superArea} ({selectedPlanDetails.carpetArea})
+                    </p>
+                  </div>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedPlanDetails(null)}
+                  className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 flex items-center justify-center transition cursor-pointer shrink-0"
+                  aria-label="Close specifications"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setSelectedPlanDetails(null)}
-                className="w-9 h-9 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 flex items-center justify-center transition cursor-pointer"
-                aria-label="Close"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+              {/* Modal Body */}
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                  
+                  {/* Left: Visual Preview + Room Dimensions */}
+                  <div className="lg:col-span-6 space-y-4">
+                    <div className="flex items-center justify-between bg-gray-100 p-1.5 rounded-xl">
+                      <span className="text-xs font-bold text-gray-600 px-2">
+                        {cardViewModes[selectedPlanDetails.id] === '3d' ? 'Interior Preview' : 'Architectural View'}
+                      </span>
+                      {selectedPlanDetails.view3dUrl && (
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={() => setCardViewModes(prev => ({ ...prev, [selectedPlanDetails.id]: '2d' }))}
+                            className={`px-3 py-1 rounded-lg text-xs font-extrabold transition cursor-pointer ${
+                              (cardViewModes[selectedPlanDetails.id] || '2d') === '2d'
+                                ? 'bg-[#1f3b2f] text-white shadow-xs'
+                                : 'bg-white text-gray-600 hover:text-black'
+                            }`}
+                          >
+                            Elevation
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setCardViewModes(prev => ({ ...prev, [selectedPlanDetails.id]: '3d' }))}
+                            className={`px-3 py-1 rounded-lg text-xs font-extrabold transition cursor-pointer ${
+                              cardViewModes[selectedPlanDetails.id] === '3d'
+                                ? 'bg-[#F8CD71] text-[#0B0F19] shadow-xs'
+                                : 'bg-white text-gray-600 hover:text-black'
+                            }`}
+                          >
+                            3D Interior
+                          </button>
+                        </div>
+                      )}
+                    </div>
 
-            {/* Modal Body: Two Columns (Image Preview & Specs Breakdown) */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                
-                {/* Left: Interactive Layout Visual with 2D/3D Switcher */}
-                <div className="lg:col-span-7 space-y-3">
-                  <div className="flex items-center justify-between bg-gray-100 p-1.5 rounded-xl">
-                    <span className="text-xs font-bold text-gray-600 px-2">
-                      Viewing: {cardViewModes[selectedPlanDetails.id] === '3d' ? '3D Furnished Model' : '2D Technical CAD Blueprint'}
-                    </span>
-                    {selectedPlanDetails.view3dUrl && (
-                      <div className="flex items-center gap-1">
-                        <button
-                          type="button"
-                          onClick={() => setCardViewModes(prev => ({ ...prev, [selectedPlanDetails.id]: '2d' }))}
-                          className={`px-3 py-1 rounded-lg text-xs font-extrabold transition cursor-pointer ${
-                            (cardViewModes[selectedPlanDetails.id] || '2d') === '2d'
-                              ? 'bg-[#1f3b2f] text-white shadow-xs'
-                              : 'bg-white text-gray-600 hover:text-black'
-                          }`}
-                        >
-                          📐 2D CAD
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setCardViewModes(prev => ({ ...prev, [selectedPlanDetails.id]: '3d' }))}
-                          className={`px-3 py-1 rounded-lg text-xs font-extrabold transition cursor-pointer ${
-                            cardViewModes[selectedPlanDetails.id] === '3d'
-                              ? 'bg-[#F8CD71] text-[#0B0F19] shadow-xs'
-                              : 'bg-white text-gray-600 hover:text-black'
-                          }`}
-                        >
-                          🏠 3D Model
-                        </button>
+                    <div className="relative aspect-[16/10] bg-gray-100 rounded-2xl border border-gray-200 overflow-hidden">
+                      <img
+                        src={cardViewModes[selectedPlanDetails.id] === '3d' && selectedPlanDetails.view3dUrl ? selectedPlanDetails.view3dUrl : selectedPlanDetails.imageUrl}
+                        alt={selectedPlanDetails.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {selectedPlanDetails.roomSpecs && selectedPlanDetails.roomSpecs.length > 0 && (
+                      <div>
+                        <h4 className="text-xs font-black uppercase tracking-wider text-gray-500 mb-2">
+                          Dimensions &amp; Infrastructure
+                        </h4>
+                        <div className="rounded-xl border border-gray-200 overflow-hidden divide-y divide-gray-100 text-xs">
+                          {selectedPlanDetails.roomSpecs.map((room, rIdx) => (
+                            <div key={rIdx} className="px-3.5 py-2 flex items-center justify-between bg-white">
+                              <span className="font-medium text-gray-700">{room.name}</span>
+                              <span className="font-mono font-bold text-gray-900">{room.size}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>
 
-                  {/* Visual Container */}
-                  <div 
-                    onClick={() => setPreviewMedia({
-                      url: cardViewModes[selectedPlanDetails.id] === '3d' && selectedPlanDetails.view3dUrl ? selectedPlanDetails.view3dUrl : selectedPlanDetails.imageUrl,
-                      type: 'image',
-                      title: selectedPlanDetails.title,
-                      subtitle: `${selectedPlanDetails.bhk} • Carpet: ${selectedPlanDetails.carpetArea} • ${selectedPlanDetails.facing}`
-                    })}
-                    className="relative aspect-[4/3] bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden flex items-center justify-center p-3 cursor-zoom-in group"
-                  >
-                    <img
-                      src={cardViewModes[selectedPlanDetails.id] === '3d' && selectedPlanDetails.view3dUrl ? selectedPlanDetails.view3dUrl : selectedPlanDetails.imageUrl}
-                      alt={selectedPlanDetails.title}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform"
-                    />
-                    <div className="absolute bottom-3 right-3 bg-black/75 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
-                      <Maximize2 className="w-3.5 h-3.5 text-[#F8CD71]" />
-                      <span>Tap to Enlarge</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right: Technical Room Dimensions & Specs Table */}
-                <div className="lg:col-span-5 space-y-4">
-                  <div>
-                    <h4 className="text-xs font-black uppercase tracking-wider text-gray-500 mb-2">
-                      Key Area Breakdown
-                    </h4>
-                    <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200/90 space-y-2 text-xs">
-                      <div className="flex items-center justify-between">
-                        <span className="text-gray-600">Super Built-up Area:</span>
-                        <strong className="text-gray-900 font-bold">{selectedPlanDetails.superArea}</strong>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-gray-600">RERA Carpet Area:</span>
-                        <strong className="text-gray-900 font-bold">{selectedPlanDetails.carpetArea}</strong>
-                      </div>
-                      {selectedPlanDetails.efficiency && (
-                        <div className="flex items-center justify-between text-emerald-700 font-bold">
-                          <span>Efficiency Ratio:</span>
-                          <span>{selectedPlanDetails.efficiency}</span>
-                        </div>
-                      )}
-                      {selectedPlanDetails.balconyArea && (
-                        <div className="flex items-center justify-between text-gray-600">
-                          <span>Balcony / Sit-out:</span>
-                          <span className="font-semibold text-gray-800">{selectedPlanDetails.balconyArea}</span>
-                        </div>
-                      )}
-                      <div className="flex items-center justify-between text-gray-600">
-                        <span>Vastu Orientation:</span>
-                        <span className="font-semibold text-emerald-800">{selectedPlanDetails.facing}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Room Dimension Table */}
-                  {selectedPlanDetails.roomSpecs && selectedPlanDetails.roomSpecs.length > 0 && (
+                  {/* Right: Live All-Inclusive Cost Sheet Configurator */}
+                  <div className="lg:col-span-6 space-y-4">
                     <div>
                       <h4 className="text-xs font-black uppercase tracking-wider text-gray-500 mb-2">
-                        Architectural Room Dimensions
+                        1. Select Preference / Floor Tier
                       </h4>
-                      <div className="rounded-xl border border-gray-200 overflow-hidden divide-y divide-gray-100 text-xs">
-                        {selectedPlanDetails.roomSpecs.map((room, rIdx) => (
-                          <div key={rIdx} className="px-3.5 py-2 flex items-center justify-between bg-white hover:bg-gray-50">
-                            <span className="font-medium text-gray-700">{room.name}</span>
-                            <span className="font-mono font-bold text-gray-900">{room.size}</span>
-                          </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        {[
+                          { id: 'podium', label: 'Garden / Base', sub: 'Standard' },
+                          { id: 'sky', label: 'Mid Sky View', sub: '+3% Rise' },
+                          { id: 'penthouse', label: 'Top Panoramic', sub: '+6% Rise' },
+                        ].map((t) => (
+                          <button
+                            key={t.id}
+                            type="button"
+                            onClick={() => setSelectedFloorTier(t.id as any)}
+                            className={`p-2 rounded-xl border text-left transition cursor-pointer ${
+                              selectedFloorTier === t.id
+                                ? 'bg-[#0B0F19] text-white border-[#0B0F19]'
+                                : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100'
+                            }`}
+                          >
+                            <span className="text-xs font-black block">{t.label}</span>
+                            <span className={`text-[10px] font-bold ${selectedFloorTier === t.id ? 'text-[#F8CD71]' : 'text-gray-500'}`}>
+                              {t.sub}
+                            </span>
+                          </button>
                         ))}
                       </div>
                     </div>
-                  )}
 
-                  {/* Price Box */}
-                  <div className="p-3.5 rounded-2xl bg-[#0B0F19] text-white flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] text-gray-400 uppercase font-semibold block">Starting Price</span>
-                      <span className="text-lg font-black text-[#F8CD71]">
-                        {selectedPlanDetails.price}
-                      </span>
+                      <h4 className="text-xs font-black uppercase tracking-wider text-gray-500 mb-2">
+                        2. Choose Payment Advantage
+                      </h4>
+                      <div className="grid grid-cols-3 gap-2">
+                        {[
+                          { id: 'subvention', label: 'Zero Pre-EMI', sub: 'Pay 10% Now' },
+                          { id: 'clp', label: 'Stage Linked', sub: 'As Built' },
+                          { id: 'outright', label: 'Down Pay', sub: 'Save 5%' },
+                        ].map((pPlan) => (
+                          <button
+                            key={pPlan.id}
+                            type="button"
+                            onClick={() => setSelectedPaymentPlan(pPlan.id as any)}
+                            className={`p-2 rounded-xl border text-left transition cursor-pointer ${
+                              selectedPaymentPlan === pPlan.id
+                                ? 'bg-[#1f3b2f] text-white border-[#1f3b2f]'
+                                : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100'
+                            }`}
+                          >
+                            <span className="text-xs font-black block">{pPlan.label}</span>
+                            <span className={`text-[10px] font-bold ${selectedPaymentPlan === pPlan.id ? 'text-[#F8CD71]' : 'text-emerald-700'}`}>
+                              {pPlan.sub}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                    {selectedPlanDetails.estEmi && (
-                      <div className="text-right">
-                        <span className="text-[10px] text-gray-400 uppercase font-semibold block">Estimated EMI</span>
-                        <span className="text-xs font-bold text-emerald-400 font-mono">
-                          {selectedPlanDetails.estEmi}
+
+                    {/* Transparent All-Inclusive Breakdown */}
+                    <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200 text-xs space-y-2">
+                      <div className="flex justify-between text-gray-600">
+                        <span>Basic Unit Consideration:</span>
+                        <strong className="text-gray-900">₹ {basePrice.toLocaleString('en-IN')}</strong>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>Preferred View / Floor Rise:</span>
+                        <strong className="text-gray-900">+ ₹ {tierPremium.toLocaleString('en-IN')}</strong>
+                      </div>
+                      <div className="flex justify-between text-gray-600">
+                        <span>Clubhouse, EV &amp; Corpus Amenities:</span>
+                        <strong className="text-gray-900">+ ₹ {clubInfraCharge.toLocaleString('en-IN')}</strong>
+                      </div>
+                      {outrightDiscount > 0 && (
+                        <div className="flex justify-between text-emerald-700 font-bold">
+                          <span>5% Early Bird Outright Savings:</span>
+                          <span>- ₹ {outrightDiscount.toLocaleString('en-IN')}</span>
+                        </div>
+                      )}
+                      <div className="flex justify-between text-emerald-700 font-bold">
+                        <span>Brokerage Commission:</span>
+                        <span>₹ 0 (Direct Developer)</span>
+                      </div>
+                      <div className="pt-2 border-t border-gray-300 flex items-center justify-between">
+                        <span className="font-black text-sm text-[#0B0F19]">All-Inclusive Quote*:</span>
+                        <span className="font-black text-base text-[#0B0F19]">₹ {allInPrice.toLocaleString('en-IN')}</span>
+                      </div>
+                    </div>
+
+                    <div className="p-3.5 rounded-2xl bg-[#0B0F19] text-white flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] text-gray-400 uppercase font-semibold block">10% Token Allotment</span>
+                        <span className="text-base font-black text-[#F8CD71]">
+                          {formatINRCompact(bookingToken)}
                         </span>
                       </div>
-                    )}
+                      <div className="text-right">
+                        <span className="text-[10px] text-gray-400 uppercase font-semibold block">Est. Bank EMI</span>
+                        <span className="text-xs font-bold text-emerald-400 font-mono">
+                          ₹ {calculateMonthlyEmi(allInPrice * 0.8, 8.4, 20).toLocaleString('en-IN')}/mo*
+                        </span>
+                      </div>
+                    </div>
                   </div>
+
                 </div>
-
               </div>
-            </div>
 
-            {/* Modal Footer CTAs */}
-            <div className="p-4 sm:p-5 bg-gray-50 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  if (selectedPlanDetails.priceNum) {
-                    setEmiPropertyCost(selectedPlanDetails.priceNum);
-                  }
-                  setSelectedPlanDetails(null);
-                  setIsEmiModalOpen(true);
-                }}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white hover:bg-gray-100 text-[#0B0F19] border border-gray-300 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
-              >
-                <Calculator className="w-4 h-4 text-emerald-600" />
-                <span>Calculate EMI for this Unit</span>
-              </button>
-
-              <div className="flex items-center gap-2 w-full sm:w-auto">
+              {/* Modal Footer CTAs */}
+              <div className="p-4 sm:p-5 bg-gray-50 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <button
                   type="button"
                   onClick={() => {
+                    setEmiPropertyCost(allInPrice);
                     setSelectedPlanDetails(null);
-                    setIsBrochureModalOpen(true);
+                    setIsEmiModalOpen(true);
                   }}
-                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+                  className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] rounded-xl bg-white hover:bg-gray-100 text-[#0B0F19] border border-gray-300 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Download Blueprint</span>
+                  <Calculator className="w-4 h-4 text-emerald-600" />
+                  <span>Open Full EMI Simulator</span>
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleWhatsAppChat(
-                      'Unit_Modal_Inquiry',
-                      `Hello, I reviewed the detailed room specifications for ${selectedPlanDetails.title} (${selectedPlanDetails.bhk}). Please send me the complete payment milestone sheet and book a site visit.`
-                    );
-                  }}
-                  className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-[#F8CD71] hover:bg-yellow-500 text-[#0B0F19] font-black text-xs flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer"
-                >
-                  <MessageCircle className="w-4 h-4 fill-current" />
-                  <span>Lock Price on WhatsApp</span>
-                </button>
-              </div>
-            </div>
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPlanDetails(null);
+                      setIsBrochureModalOpen(true);
+                    }}
+                    className="flex-1 sm:flex-none px-4 py-2.5 min-h-[44px] rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>PDF Cost Sheet</span>
+                  </button>
 
-          </div>
-        </div>
-      )}
-
-      {/* ============================================================== */}
-      {/* 13. SITE VISIT BOOKING MODAL                                   */}
-      {/* ============================================================== */}
-      {isSiteVisitModalOpen && (
-        <div 
-          onClick={() => setIsSiteVisitModalOpen(false)}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in"
-        >
-          <div 
-            onClick={(e) => e.stopPropagation()}
-            className="max-w-lg w-full bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden text-[#111827]"
-          >
-            {/* Header */}
-            <div className="p-6 bg-[#0B0F19] text-white flex items-center justify-between">
-              <div>
-                <span className="text-xs font-bold text-[#F8CD71] uppercase tracking-wider">
-                  Complimentary Chauffeur
-                </span>
-                <h3 className="text-xl font-extrabold text-white">
-                  Schedule Site Inspection
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsSiteVisitModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-gray-800 text-gray-300 hover:text-white flex items-center justify-center"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Body */}
-            <form onSubmit={handleSiteVisitSubmit} className="p-6 space-y-4">
-              {siteVisitSuccess ? (
-                <div className="py-8 text-center space-y-3">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900">Site Visit Registered!</h4>
-                  <p className="text-xs text-gray-500">Redirecting to WhatsApp for instant relationship manager confirmation...</p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleWhatsAppChat(
+                        'Unit_CostSheet_Lock',
+                        `Hello, I configured a Custom Cost Sheet for ${selectedPlanDetails.title} (Preference: ${selectedFloorTier}, Plan: ${selectedPaymentPlan}). All-Inclusive Estimate: ₹${allInPrice.toLocaleString('en-IN')}. Please lock pre-launch availability and schedule a site visit.`
+                      );
+                    }}
+                    className="flex-1 sm:flex-none px-5 py-2.5 min-h-[44px] rounded-xl bg-[#F8CD71] hover:bg-yellow-500 text-[#0B0F19] font-black text-xs flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer"
+                  >
+                    <MessageCircle className="w-4 h-4 fill-current" />
+                    <span>Lock Cost Sheet on WhatsApp</span>
+                  </button>
                 </div>
-              ) : (
-                <>
+              </div>
+            </div>
+          );
+        })()}
+      </NativeModalDialog>
+
+      {/* ============================================================== */}
+      {/* 13. SITE VISIT BOOKING MODAL (Native Accessible Dialog)        */}
+      {/* ============================================================== */}
+      <NativeModalDialog
+        isOpen={isSiteVisitModalOpen}
+        onClose={() => setIsSiteVisitModalOpen(false)}
+        labelledBy="site-visit-modal-title"
+        maxWidthClass="max-w-lg"
+      >
+        <div className="w-full bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden text-[#111827] max-h-[88dvh] flex flex-col">
+          <div className="p-6 bg-[#0B0F19] text-white flex items-center justify-between gap-3">
+            <div>
+              <span className="text-xs font-bold text-[#F8CD71] uppercase tracking-wider">
+                Complimentary AC Chauffeur Pickup
+              </span>
+              <h1 id="site-visit-modal-title" className="text-xl font-extrabold text-white">
+                Schedule VIP Site Inspection
+              </h1>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsSiteVisitModalOpen(false)}
+              className="w-10 h-10 rounded-full bg-gray-800 text-gray-300 hover:text-white flex items-center justify-center cursor-pointer shrink-0"
+              aria-label="Close Site Visit Form"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <form onSubmit={handleSiteVisitSubmit} className="p-6 space-y-4 overflow-y-auto">
+            {siteVisitSuccess ? (
+              <div className="py-8 text-center space-y-3">
+                <div className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+                <h4 className="text-lg font-bold text-gray-900">VIP Cab Site Visit Confirmed!</h4>
+                <p className="text-xs text-gray-500">Connecting with your Senior Relationship Manager on WhatsApp...</p>
+              </div>
+            ) : (
+              <>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    autoFocus
+                    value={siteVisitForm.name}
+                    onChange={(e) => setSiteVisitForm(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="e.g. Ramesh Kumar"
+                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0B0F19]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">WhatsApp / Mobile Number</label>
+                  <input
+                    type="tel"
+                    required
+                    value={siteVisitForm.phone}
+                    onChange={(e) => setSiteVisitForm(prev => ({ ...prev, phone: e.target.value }))}
+                    placeholder="e.g. 9876543210"
+                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0B0F19]"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Full Name</label>
+                    <label className="block text-xs font-bold text-gray-700 mb-1">Preferred Date</label>
                     <input
-                      type="text"
+                      type="date"
                       required
-                      value={siteVisitForm.name}
-                      onChange={(e) => setSiteVisitForm(prev => ({ ...prev, name: e.target.value }))}
-                      placeholder="e.g. Ramesh Kumar"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#F8CD71]"
+                      value={siteVisitForm.date}
+                      onChange={(e) => setSiteVisitForm(prev => ({ ...prev, date: e.target.value }))}
+                      className="w-full px-3.5 py-2 min-h-[44px] rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#0B0F19]"
                     />
                   </div>
-
                   <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">WhatsApp / Mobile Number</label>
-                    <input
-                      type="tel"
-                      required
-                      value={siteVisitForm.phone}
-                      onChange={(e) => setSiteVisitForm(prev => ({ ...prev, phone: e.target.value }))}
-                      placeholder="e.g. 9876543210"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#F8CD71]"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-bold text-gray-700 mb-1">Preferred Date</label>
-                      <input
-                        type="date"
-                        required
-                        value={siteVisitForm.date}
-                        onChange={(e) => setSiteVisitForm(prev => ({ ...prev, date: e.target.value }))}
-                        className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#F8CD71]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-gray-700 mb-1">Time Window</label>
-                      <select
-                        value={siteVisitForm.timeSlot}
-                        onChange={(e) => setSiteVisitForm(prev => ({ ...prev, timeSlot: e.target.value }))}
-                        className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#F8CD71]"
-                      >
-                        <option>10:00 AM - 12:00 PM</option>
-                        <option>12:00 PM - 02:00 PM</option>
-                        <option>02:00 PM - 04:00 PM</option>
-                        <option>04:00 PM - 06:00 PM</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Unit Configuration</label>
+                    <label className="block text-xs font-bold text-gray-700 mb-1">Time Window</label>
                     <select
-                      value={siteVisitForm.bhkPreference}
-                      onChange={(e) => setSiteVisitForm(prev => ({ ...prev, bhkPreference: e.target.value }))}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#F8CD71]"
+                      value={siteVisitForm.timeSlot}
+                      onChange={(e) => setSiteVisitForm(prev => ({ ...prev, timeSlot: e.target.value }))}
+                      className="w-full px-3.5 py-2 min-h-[44px] rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#0B0F19]"
                     >
-                      <option>1 BHK Compact Luxury</option>
-                      <option>2 BHK Executive Suite</option>
-                      <option>3 BHK Sky Villa</option>
-                      <option>Gated Villa Plot</option>
+                      <option>10:00 AM - 12:00 PM</option>
+                      <option>12:00 PM - 02:00 PM</option>
+                      <option>02:00 PM - 04:00 PM</option>
+                      <option>04:00 PM - 06:00 PM</option>
                     </select>
                   </div>
+                </div>
 
-                  <div className="flex items-center gap-2 pt-1">
-                    <input
-                      type="checkbox"
-                      id="pickupCheck"
-                      checked={siteVisitForm.pickupRequired}
-                      onChange={(e) => setSiteVisitForm(prev => ({ ...prev, pickupRequired: e.target.checked }))}
-                      className="rounded text-[#0B0F19] focus:ring-[#F8CD71]"
-                    />
-                    <label htmlFor="pickupCheck" className="text-xs font-semibold text-gray-700">
-                      Request complimentary chauffeured car pickup &amp; drop
-                    </label>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full mt-4 py-3 rounded-xl bg-[#0B0F19] text-[#F8CD71] font-black text-sm hover:bg-black transition shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">Preferred Property Configuration</label>
+                  <select
+                    value={siteVisitForm.bhkPreference}
+                    onChange={(e) => setSiteVisitForm(prev => ({ ...prev, bhkPreference: e.target.value }))}
+                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#0B0F19]"
                   >
-                    <Calendar className="w-4 h-4" />
-                    <span>Confirm &amp; Notify via WhatsApp</span>
-                  </button>
-                </>
-              )}
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* ============================================================== */}
-      {/* 14. BROCHURE DOWNLOAD MODAL                                    */}
-      {/* ============================================================== */}
-      {isBrochureModalOpen && (
-        <div 
-          onClick={() => setIsBrochureModalOpen(false)}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in"
-        >
-          <div 
-            onClick={(e) => e.stopPropagation()}
-            className="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden text-[#111827]"
-          >
-            <div className="p-6 bg-[#1f3b2f] text-white flex items-center justify-between">
-              <div>
-                <span className="text-xs font-bold text-[#F8CD71] uppercase tracking-wider">
-                  Instant PDF Access
-                </span>
-                <h3 className="text-xl font-extrabold text-white">
-                  Download Project Brochure
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsBrochureModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-black/40 text-gray-300 hover:text-white flex items-center justify-center"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleBrochureSubmit} className="p-6 space-y-4">
-              {brochureSuccess ? (
-                <div className="py-8 text-center space-y-3">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900">Brochure Sent to WhatsApp!</h4>
-                  <p className="text-xs text-gray-500">Opening WhatsApp with direct PDF brochure download link...</p>
+                    <option>3 &amp; 4 BHK Sky Residences (Imperia)</option>
+                    <option>4 &amp; 5 BHK Triplex Villas (Grandeur)</option>
+                    <option>Grade-A Commercial Suites</option>
+                    <option>HMDA / TS-RERA Open Plots</option>
+                    <option>Waterfront 4 BHK Penthouse</option>
+                  </select>
                 </div>
-              ) : (
-                <>
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Your Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={brochureForm.name}
-                      onChange={(e) => setBrochureForm(prev => ({ ...prev, name: e.target.value }))}
-                      placeholder="e.g. Anand Sharma"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#F8CD71]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">WhatsApp Number</label>
-                    <input
-                      type="tel"
-                      required
-                      value={brochureForm.phone}
-                      onChange={(e) => setBrochureForm(prev => ({ ...prev, phone: e.target.value }))}
-                      placeholder="e.g. 9876543210"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#F8CD71]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Email Address</label>
-                    <input
-                      type="email"
-                      value={brochureForm.email}
-                      onChange={(e) => setBrochureForm(prev => ({ ...prev, email: e.target.value }))}
-                      placeholder="e.g. anand@gmail.com"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#F8CD71]"
-                    />
-                  </div>
 
-                  <button
-                    type="submit"
-                    className="w-full mt-4 py-3 rounded-xl bg-[#1f3b2f] text-white font-black text-sm hover:bg-[#162a22] transition shadow-lg flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <Download className="w-4 h-4 text-[#F8CD71]" />
-                    <span>Send Brochure on WhatsApp</span>
-                  </button>
-                </>
-              )}
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* ============================================================== */}
-      {/* 15. EMI CALCULATOR MODAL                                       */}
-      {/* ============================================================== */}
-      {isEmiModalOpen && (
-        <div 
-          onClick={() => setIsEmiModalOpen(false)}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in"
-        >
-          <div 
-            onClick={(e) => e.stopPropagation()}
-            className="max-w-xl w-full bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden text-[#111827]"
-          >
-            <div className="p-6 bg-[#0B0F19] text-white flex items-center justify-between">
-              <div>
-                <span className="text-xs font-bold text-[#F8CD71] uppercase tracking-wider">
-                  Financial Planning
-                </span>
-                <h3 className="text-xl font-extrabold text-white">
-                  Home Loan EMI Calculator
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsEmiModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-gray-800 text-gray-300 hover:text-white flex items-center justify-center"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="p-6 space-y-5">
-              {/* Sliders */}
-              <div>
-                <div className="flex justify-between text-xs font-bold text-gray-700 mb-1">
-                  <span>Property Cost:</span>
-                  <span className="text-[#0B0F19] font-black">₹ {(emiPropertyCost / 100000).toFixed(1)} Lakhs</span>
-                </div>
-                <input
-                  type="range"
-                  min={2500000}
-                  max={30000000}
-                  step={500000}
-                  value={emiPropertyCost}
-                  onChange={(e) => setEmiPropertyCost(Number(e.target.value))}
-                  className="w-full accent-[#0B0F19]"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between text-xs font-bold text-gray-700 mb-1">
-                  <span>Down Payment ({emiDownPaymentPct}%):</span>
-                  <span className="text-[#0B0F19] font-black">₹ {((emiPropertyCost * emiDownPaymentPct / 100) / 100000).toFixed(1)} Lakhs</span>
-                </div>
-                <input
-                  type="range"
-                  min={10}
-                  max={50}
-                  step={5}
-                  value={emiDownPaymentPct}
-                  onChange={(e) => setEmiDownPaymentPct(Number(e.target.value))}
-                  className="w-full accent-[#0B0F19]"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">Interest Rate (%)</label>
+                <label className="flex items-center gap-2.5 pt-1 min-h-[44px] cursor-pointer">
                   <input
-                    type="number"
-                    step="0.1"
-                    value={emiInterestRate}
-                    onChange={(e) => setEmiInterestRate(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-xl border border-gray-300 text-sm font-bold"
+                    type="checkbox"
+                    checked={siteVisitForm.pickupRequired}
+                    onChange={(e) => setSiteVisitForm(prev => ({ ...prev, pickupRequired: e.target.checked }))}
+                    className="w-4 h-4 rounded text-[#0B0F19] focus:ring-[#F8CD71]"
                   />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">Tenure (Years)</label>
-                  <input
-                    type="number"
-                    value={emiTenureYears}
-                    onChange={(e) => setEmiTenureYears(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-xl border border-gray-300 text-sm font-bold"
-                  />
-                </div>
-              </div>
+                  <span className="text-xs font-semibold text-gray-700">
+                    Include complimentary chauffeured AC car pickup &amp; drop
+                  </span>
+                </label>
 
-              {/* Calculated EMI Display Box */}
-              <div className="p-4 rounded-2xl bg-[#0B0F19] text-white flex items-center justify-between">
-                <div>
-                  <span className="text-xs text-gray-400">Estimated Monthly EMI</span>
-                  <h4 className="text-2xl font-black text-[#F8CD71]">
-                    ₹ {emiCalculation.monthlyEmi.toLocaleString('en-IN')}
-                    <span className="text-xs font-normal text-gray-300"> / month</span>
-                  </h4>
-                </div>
                 <button
-                  type="button"
-                  onClick={() => handleWhatsAppChat('Bank_Loan_Assistance', `Hello, I calculated an EMI of ₹${emiCalculation.monthlyEmi.toLocaleString('en-IN')}/month for property cost ₹${(emiPropertyCost/100000).toFixed(1)} Lakhs. Please assist with bank loan approvals.`)}
-                  className="px-4 py-2 rounded-xl bg-[#F8CD71] text-[#0B0F19] font-black text-xs hover:bg-yellow-500 transition shadow-md"
+                  type="submit"
+                  className="w-full mt-2 py-3 min-h-[48px] rounded-xl bg-[#0B0F19] text-[#F8CD71] font-black text-sm hover:bg-black transition shadow-lg flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Apply Bank Loan
+                  <Calendar className="w-4 h-4" />
+                  <span>Confirm VIP Visit via WhatsApp</span>
                 </button>
+              </>
+            )}
+          </form>
+        </div>
+      </NativeModalDialog>
+
+      {/* ============================================================== */}
+      {/* 14. BROCHURE DOWNLOAD MODAL (Native Accessible Dialog)         */}
+      {/* ============================================================== */}
+      <NativeModalDialog
+        isOpen={isBrochureModalOpen}
+        onClose={() => setIsBrochureModalOpen(false)}
+        labelledBy="brochure-modal-title"
+        maxWidthClass="max-w-md"
+      >
+        <div className="w-full bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden text-[#111827] max-h-[88dvh] flex flex-col">
+          <div className="p-6 bg-[#1f3b2f] text-white flex items-center justify-between gap-3">
+            <div>
+              <span className="text-xs font-bold text-[#F8CD71] uppercase tracking-wider">
+                Instant 4K PDF + Floor Price Sheet
+              </span>
+              <h1 id="brochure-modal-title" className="text-xl font-extrabold text-white">
+                Download Project Brochure
+              </h1>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsBrochureModalOpen(false)}
+              className="w-10 h-10 rounded-full bg-black/40 text-gray-300 hover:text-white flex items-center justify-center cursor-pointer shrink-0"
+              aria-label="Close Brochure Form"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <form onSubmit={handleBrochureSubmit} className="p-6 space-y-4 overflow-y-auto">
+            {brochureSuccess ? (
+              <div className="py-8 text-center space-y-3">
+                <div className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+                <h4 className="text-lg font-bold text-gray-900">Brochure Request Dispatched!</h4>
+                <p className="text-xs text-gray-500">Opening WhatsApp with direct 4K Brochure &amp; Floor Cost Sheet...</p>
               </div>
+            ) : (
+              <>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    autoFocus
+                    value={brochureForm.name}
+                    onChange={(e) => setBrochureForm(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="e.g. Anand Sharma"
+                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#1f3b2f]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">WhatsApp Number</label>
+                  <input
+                    type="tel"
+                    required
+                    value={brochureForm.phone}
+                    onChange={(e) => setBrochureForm(prev => ({ ...prev, phone: e.target.value }))}
+                    placeholder="e.g. 9876543210"
+                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#1f3b2f]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">Email Address (Optional)</label>
+                  <input
+                    type="email"
+                    value={brochureForm.email}
+                    onChange={(e) => setBrochureForm(prev => ({ ...prev, email: e.target.value }))}
+                    placeholder="e.g. anand@gmail.com"
+                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-xl border border-gray-300 text-sm focus:outline-none focus:border-[#1f3b2f]"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full mt-2 py-3 min-h-[48px] rounded-xl bg-[#1f3b2f] text-white font-black text-sm hover:bg-[#162a22] transition shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Download className="w-4 h-4 text-[#F8CD71]" />
+                  <span>Send 4K Brochure on WhatsApp</span>
+                </button>
+              </>
+            )}
+          </form>
+        </div>
+      </NativeModalDialog>
+
+      {/* ============================================================== */}
+      {/* 15. EMI CALCULATOR MODAL (Native Accessible Dialog)            */}
+      {/* ============================================================== */}
+      <NativeModalDialog
+        isOpen={isEmiModalOpen}
+        onClose={() => setIsEmiModalOpen(false)}
+        labelledBy="emi-modal-title"
+        maxWidthClass="max-w-xl"
+      >
+        <div className="w-full bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden text-[#111827] max-h-[88dvh] flex flex-col">
+          <div className="p-6 bg-[#0B0F19] text-white flex items-center justify-between gap-3">
+            <div>
+              <span className="text-xs font-bold text-[#F8CD71] uppercase tracking-wider">
+                Financial Planning
+              </span>
+              <h1 id="emi-modal-title" className="text-xl font-extrabold text-white">
+                Home Loan EMI Calculator
+              </h1>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsEmiModalOpen(false)}
+              className="w-10 h-10 rounded-full bg-gray-800 text-gray-300 hover:text-white flex items-center justify-center cursor-pointer shrink-0"
+              aria-label="Close EMI Calculator"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="p-6 space-y-5 overflow-y-auto">
+            <div>
+              <div className="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                <span>Property Cost:</span>
+                <span className="text-[#0B0F19] font-black">{formatINRCompact(emiPropertyCost)}</span>
+              </div>
+              <input
+                type="range"
+                aria-label="Property Cost Slider"
+                min={2500000}
+                max={35000000}
+                step={250000}
+                value={emiPropertyCost}
+                onChange={(e) => setEmiPropertyCost(Number(e.target.value))}
+                className="w-full accent-[#0B0F19] cursor-pointer"
+              />
+            </div>
+
+            <div>
+              <div className="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                <span>Down Payment ({emiDownPaymentPct}%):</span>
+                <span className="text-[#0B0F19] font-black">{formatINRCompact(Math.round((emiPropertyCost * emiDownPaymentPct) / 100))}</span>
+              </div>
+              <input
+                type="range"
+                aria-label="Down Payment Percentage Slider"
+                min={10}
+                max={50}
+                step={5}
+                value={emiDownPaymentPct}
+                onChange={(e) => setEmiDownPaymentPct(Number(e.target.value))}
+                className="w-full accent-[#0B0F19] cursor-pointer"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Interest Rate (%)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={emiInterestRate}
+                  onChange={(e) => setEmiInterestRate(Number(e.target.value))}
+                  className="w-full px-3 py-2 min-h-[44px] rounded-xl border border-gray-300 text-sm font-bold"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Tenure (Years)</label>
+                <input
+                  type="number"
+                  value={emiTenureYears}
+                  onChange={(e) => setEmiTenureYears(Number(e.target.value))}
+                  className="w-full px-3 py-2 min-h-[44px] rounded-xl border border-gray-300 text-sm font-bold"
+                />
+              </div>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-[#0B0F19] text-white flex items-center justify-between gap-3">
+              <div>
+                <span className="text-xs text-gray-400">Estimated Monthly EMI</span>
+                <h4 className="text-2xl font-black text-[#F8CD71]">
+                  ₹ {emiCalculation.monthlyEmi.toLocaleString('en-IN')}
+                  <span className="text-xs font-normal text-gray-300"> / month</span>
+                </h4>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleWhatsAppChat('Bank_Loan_Assistance', `Hello, I calculated an EMI of ₹${emiCalculation.monthlyEmi.toLocaleString('en-IN')}/month for property cost ${formatINRCompact(emiPropertyCost)}. Please assist with bank loan pre-approval.`)}
+                className="px-4 py-2.5 min-h-[44px] rounded-xl bg-[#F8CD71] text-[#0B0F19] font-black text-xs hover:bg-yellow-500 transition shadow-md cursor-pointer shrink-0"
+              >
+                Apply Bank Loan
+              </button>
             </div>
           </div>
         </div>
-      )}
+      </NativeModalDialog>
 
       {/* ============================================================== */}
       {/* 16. SHARE PROFILE MODAL                                        */}

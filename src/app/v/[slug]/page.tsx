@@ -306,8 +306,17 @@ export default async function PublicProfilePage({
     }
   } : profile;
 
+  const isRealEstateSlug = Boolean(
+    displayProfile.category === 'Real Estate' ||
+    displayProfile.slug?.startsWith('re-') ||
+    displayProfile.templateId?.startsWith('re-') ||
+    ['builders', 'villas', 'plots', 'skyline', 'venu'].includes((displayProfile.slug || '').toLowerCase())
+  );
+
   return (
-    <main className="min-h-screen bg-[#F8F9FA] text-[#111111] font-sans relative w-full overflow-x-hidden pb-28 sm:pb-20">
+    <main className={`min-h-screen text-[#111111] font-sans relative w-full overflow-x-clip ${
+      isRealEstateSlug ? 'bg-[#0B0F19]' : 'bg-[#F8F9FA] pb-28 sm:pb-20'
+    }`}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}

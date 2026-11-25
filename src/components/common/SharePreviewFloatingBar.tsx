@@ -23,14 +23,21 @@ interface SharePreviewFloatingBarProps {
     company?: string;
     designation?: string;
     templateId?: string;
+    category?: string;
   };
 }
 
 export default function SharePreviewFloatingBar({ profile }: SharePreviewFloatingBarProps) {
+  const isRealEstateView = Boolean(
+    profile.category === 'Real Estate' ||
+    profile.slug?.startsWith('re-') ||
+    profile.templateId?.startsWith('re-') ||
+    ['builders', 'villas', 'plots', 'skyline', 'venu'].includes((profile.slug || '').toLowerCase())
+  );
   const [copied, setCopied] = useState(false);
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState('');
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(isRealEstateView);
   const [currentUrl, setCurrentUrl] = useState(`https://oneclickbiz.in/v/${profile.slug}`);
 
   useEffect(() => {
@@ -96,25 +103,33 @@ export default function SharePreviewFloatingBar({ profile }: SharePreviewFloatin
 
   return (
     <>
-      {/* Floating Action Bar at Bottom of Viewport */}
+      {/* Floating Action Bar at Bottom of Viewport (docked left on Real Estate so VIP Booking Bar & WhatsApp FAB stay 100% clear) */}
       <aside 
         aria-label="Share and template actions"
-        className="fixed bottom-16 sm:bottom-16 inset-x-2 sm:inset-x-auto sm:right-6 sm:left-auto z-40 flex flex-col items-center sm:items-end pointer-events-none"
+        className={`fixed z-40 flex flex-col pointer-events-none ${
+          isRealEstateView
+            ? 'bottom-20 sm:bottom-20 left-3 sm:left-5 right-auto items-start'
+            : 'bottom-16 sm:bottom-16 inset-x-2 sm:inset-x-auto sm:right-6 sm:left-auto items-center sm:items-end'
+        }`}
       >
         <div className="pointer-events-auto max-w-full">
           {isMinimized ? (
             <button
+              type="button"
               onClick={() => setIsMinimized(false)}
-              className="flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-slate-900/95 hover:bg-slate-900 text-white text-xs font-bold shadow-2xl border border-indigo-500/40 backdrop-blur-xl hover:scale-105 active:scale-95 transition-all group"
-              title="Expand Share Bar"
+              className="flex items-center gap-2 px-3 py-2 min-h-[40px] rounded-full bg-slate-900/90 hover:bg-slate-900 text-white text-xs font-bold shadow-2xl border border-amber-400/35 backdrop-blur-xl hover:scale-105 active:scale-95 transition-all group cursor-pointer"
+              title="Expand Share & Template Tools"
             >
-              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <Share2 className="w-3.5 h-3.5 text-indigo-400 group-hover:rotate-12 transition-transform" />
-              <span>Share Mini-Website</span>
+              <div className="w-2 h-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+              <Share2 className="w-3.5 h-3.5 text-amber-300 group-hover:rotate-12 transition-transform" />
+              <span className="hidden xs:inline">Share / Clone</span>
+              <span className="xs:hidden">Share</span>
               <ChevronUp className="w-3 h-3 text-slate-400" />
             </button>
           ) : (
-            <div className="bg-slate-900/95 border border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-full py-1.5 px-2 sm:py-2 sm:px-3 text-white backdrop-blur-xl flex items-center gap-1 sm:gap-2 max-w-[calc(100vw-16px)] sm:max-w-none overflow-x-auto scrollbar-none animate-in fade-in slide-in-from-bottom-3 duration-200">
+            <div className={`bg-slate-900/95 border border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-full py-1.5 px-2 sm:py-2 sm:px-3 text-white backdrop-blur-xl flex items-center gap-1 sm:gap-2 overflow-x-auto scrollbar-none animate-in fade-in slide-in-from-bottom-3 duration-200 ${
+              isRealEstateView ? 'max-w-[calc(100vw-76px)] sm:max-w-none' : 'max-w-[calc(100vw-16px)] sm:max-w-none'
+            }`}>
               
               {/* Badge info */}
               <div className="hidden lg:flex items-center gap-2 pr-2 border-r border-slate-800">

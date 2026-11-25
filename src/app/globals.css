@@ -274,6 +274,25 @@ body {
   animation-play-state: paused;
 }
 
+/* ── Modal top-layer scroll containment (per modern-web-guidance) ── */
+dialog:modal {
+  overscroll-behavior: contain;
+  margin: auto;
+  max-width: calc(100dvw - 1.5rem);
+  max-height: calc(100dvh - 1.5rem);
+  background: transparent;
+  padding: 0;
+  border: 0;
+  color: inherit;
+}
+
+dialog::backdrop {
+  background: rgba(5, 8, 15, 0.84);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
 /* ── Legacy glass classes kept as no-ops for any non-homepage usage ── */
 .glass-card { background: #fff; border: 1px solid #e2e8f0; }
 .glass-card-hover { transition: all 0.2s ease; }
